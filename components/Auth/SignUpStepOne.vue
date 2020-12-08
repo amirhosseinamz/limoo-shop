@@ -34,6 +34,7 @@
                 /><button
                   @click="[(wrongInput = false), (phone = '')]"
                   type="button"
+                  :style="phone ? 'visibility: visible' : 'visibility: hidden'"
                   :class="[wrongInput ? 'clear-input-wrong' : 'clear-input']"
                   aria-label="Close"
                 >

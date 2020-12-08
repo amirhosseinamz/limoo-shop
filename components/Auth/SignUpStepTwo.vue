@@ -5,6 +5,14 @@
         <button @click="nextPage" class="app-signin-next-btn">
           <img src="../../static/next.svg" />
         </button>
+        <div class="success-message">
+          <img class="success-icon" src="../../static/success.svg" />
+          <p class="success-txt">!کد جدید ارسال شد</p>
+        </div>
+        <div class="alert-message">
+          <img class="alert-icon" src="../../static/alarm.svg" />
+          <p class="alert-txt">!کد منقضی شد، لطفا کد جدید درخواست کنید</p>
+        </div>
       </div>
 
       <div class="card-body">
@@ -27,6 +35,7 @@
           </div>
           <div class="timer-holder">
             <p class="timer"><span>02:45</span> ارسال مجدد کد</p>
+            <p class="code-request">درخواست ارسال مجدد کد</p>
           </div>
           <div class="btn-control">
             <button
@@ -77,6 +86,26 @@ export default {
 </script>
 
 <style scoped>
+.success-message {
+  display: flex;
+  flex-direction: row-reverse;
+  width: 463px;
+  height: 58px;
+  background-color: #1fdc6b;
+  margin: 44px 90px 0px 40px;
+  border-radius: 10px;
+  display: none;
+}
+.alert-message {
+  display: flex;
+  flex-direction: row-reverse;
+  width: 463px;
+  height: 58px;
+  background-color: #ed0b26;
+  margin: 44px 90px 0px 40px;
+  border-radius: 10px;
+  display: none;
+}
 .signup-container {
   height: 100vh;
   display: flex;
@@ -96,13 +125,44 @@ export default {
   box-shadow: 0px 8px 16px rgba(17, 17, 17, 0.03);
   border-radius: 15px;
 }
-
+.success-icon {
+  width: 24px;
+  height: 24px;
+  margin-right: 18px;
+  margin-top: 17px;
+}
+.alert-icon {
+  width: 24px;
+  height: 24px;
+  margin-right: 18px;
+  margin-top: 17px;
+}
 .signin-next-btn {
   display: flex;
-  justify-content: flex-start;
+  flex-direction: row;
+}
+.app-signin-next-btn {
+  margin-top: 44px;
   width: 30px;
   height: 30px;
-  margin-top: 24px;
+}
+.success-txt {
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 140.62%;
+  margin-right: 8px;
+  text-align: right;
+  margin-top: 17px;
+  color: #ffffff;
+}
+.alert-txt {
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 140.62%;
+  margin-right: 8px;
+  text-align: right;
+  margin-top: 17px;
+  color: #ffffff;
 }
 .form-control {
   direction: rtl;
@@ -117,6 +177,15 @@ export default {
   line-height: 140.62%;
   color: #828282;
   margin-right: 90px;
+}
+.code-request {
+  font-weight: 500;
+  font-size: 13px;
+  line-height: 140.62%;
+  text-align: right;
+  color: #47a7ff;
+  margin-right: 90px;
+  display: none;
 }
 .btn-control {
   display: flex;
@@ -160,6 +229,28 @@ export default {
 }
 
 @media screen and (max-width: 540px) {
+  .app-signin-next-btn {
+    display: none;
+  }
+  .success-message {
+    width: 328px;
+    height: 56px;
+
+    margin: 16px 16px 0px 16px;
+  }
+  .alert-message {
+    width: 328px;
+    height: 72px;
+    margin: 16px 16px 0px 16px;
+  }
+  .alert-txt {
+    font-size: 14px;
+    padding-left: 50px;
+  }
+  .success-txt {
+    font-size: 14px;
+    margin-top: 20px;
+  }
   .card {
     width: auto;
     height: 100vh;
@@ -202,6 +293,12 @@ export default {
   }
 }
 @media screen and (max-width: 350px) {
+  .success-message {
+    width: 280px;
+  }
+  .alert-message {
+    width: 280px;
+  }
   .signup-input {
     margin-right: 10px;
     margin-left: 10px;
@@ -229,6 +326,17 @@ export default {
   }
 }
 @media screen and (max-width: 280px) {
+  .success-message {
+    width: 270px;
+  }
+  .alert-message {
+    width: 270px;
+    height: 60px;
+    margin-right: 5px;
+  }
+  .alert-txt {
+    padding-left: 30px;
+  }
   .signup-input {
     margin-right: 5px;
     margin-left: 5px;
