@@ -1,0 +1,25 @@
+{
+  "name": "limoo",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "nuxt",
+    "build": "nuxt build",
+    "start": "nuxt start",
+    "generate": "nuxt generate"
+  },
+  "dependencies": {
+    "@material/rtl": "^8.0.0",
+    "axios": "^0.21.0",
+    "bootstrap": "^4.5.3",
+    "core-js": "^3.6.5",
+    "firebase": "^8.1.2",
+    "nuxt": "^2.14.6",
+    "vue-form-wizard": "^0.8.4"
+  },
+  "devDependencies": {},
+  "description": "## Build Setup",
+  "main": "nuxt.config.js",
+  "author": "",
+  "license": "ISC"
+}

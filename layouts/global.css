@@ -1,0 +1,143 @@
+@font-face {
+  font-family: "IRANYekanWeb";
+  src: local("IRANYekanWeb"),
+    url(~assets/Fonts/IRANYekanWeb.ttf) format("truetype");
+}
+* {
+  margin: 0;
+}
+html {
+  font-family: "IRANYekanWeb";
+}
+.signup-limoo-logo {
+  margin-top: 0;
+  height: 56.25px;
+}
+.app-signup-close-btn {
+  outline: none;
+  border: none;
+  cursor: pointer;
+  background: transparent;
+  margin-left: 24px;
+}
+.app-signin-next-btn {
+  outline: none;
+  border: none;
+  cursor: pointer;
+  background: transparent;
+  margin-left: 24px;
+}
+.signup-btn {
+  font-family: "IRANYekanWeb";
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 25.31px;
+  text-align: center;
+  color: #ffffff;
+  background: #ffcc40;
+  height: 58px;
+  width: 463px;
+  border: none;
+  border-radius: 10px;
+  outline: none;
+
+  cursor: pointer;
+}
+.google-signup-btn {
+  font-family: "IRANYekanWeb";
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 19.69px;
+  text-align: center;
+  color: #828282;
+  background: #f2f2f2;
+  height: 44px;
+  width: 189px;
+  border: none;
+  border-radius: 10px;
+  outline: none;
+  margin-bottom: 31px;
+  cursor: pointer;
+}
+.signup-input {
+  border: none;
+  outline: none;
+  background: transparent;
+  font-size: 16px;
+  font-weight: 400;
+  padding-right: 24px;
+  flex-grow: 2;
+}
+
+.signup-input-wrong {
+  border: none;
+  outline: none;
+  background: transparent;
+  font-size: 16px;
+  font-weight: 400;
+  padding-right: 24px;
+  flex-grow: 2;
+  color: rgb(255, 0, 0);
+}
+.input-section {
+  display: flex;
+  justify-content: center;
+}
+.input-holder {
+  background: #fcfcfc;
+  margin-bottom: 8px;
+  height: 54px;
+  line-height: 28px;
+
+  border: 1px solid #515151;
+  box-sizing: border-box;
+  border-radius: 10px;
+  /* This bit sets up the horizontal layout */
+  display: flex;
+  flex-direction: row-reverse;
+  width: 463px;
+  /* This bit draws the box around it */
+
+  /* I've used padding so you can see the edges of the elements. */
+  /* padding: 2px; */
+}
+.input-holder-wrong {
+  color: rgb(255, 0, 0);
+  background: #fff4f5;
+  margin-bottom: 8px;
+  height: 54px;
+  line-height: 28px;
+  border: 1px solid #ed0b26;
+  box-sizing: border-box;
+  border-radius: 10px;
+  /* This bit sets up the horizontal layout */
+  display: flex;
+  flex-direction: row-reverse;
+  width: 463px;
+  /* This bit draws the box around it */
+  outline: none;
+  /* I've used padding so you can see the edges of the elements. */
+  /* padding: 2px; */
+}
+::placeholder {
+  color: #bdbdbd;
+}
+
+.clear-input {
+  color: #828282;
+  background: transparent;
+  outline: none;
+  border: none;
+  font-size: 30px;
+
+  cursor: pointer;
+}
+.clear-input-wrong {
+  color: rgb(255, 0, 0);
+  background: transparent;
+  outline: none;
+  border: none;
+  font-size: 30px;
+
+  cursor: pointer;
+}
