@@ -140,11 +140,12 @@ export default {
 .signin-next-btn {
   display: flex;
   flex-direction: row;
+  align-items: center;
 }
 .app-signin-next-btn {
-  margin-top: 44px;
-  width: 30px;
-  height: 30px;
+  margin: 24px 11.5px 0 24px;
+  width: 13.5px;
+  height: 24px;
 }
 .success-txt {
   font-weight: 500;
