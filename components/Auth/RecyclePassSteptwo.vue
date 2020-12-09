@@ -7,22 +7,16 @@
         </button>
         <div class="success-message">
           <img class="success-icon" src="../../static/success.svg" />
-          <p dir="rtl" class="success-txt">کد جدید ارسال شد!</p>
-        </div>
-        <div class="alert-message">
-          <img class="alert-icon" src="../../static/alarm.svg" />
-          <p dir="rtl" class="alert-txt">
-            کد منقضی شد، لطفا کد جدید درخواست کنید!
-          </p>
+          <p dir="rtl" class="success-txt">رمز با موفقیت تغییر کرد!</p>
         </div>
       </div>
 
       <div class="card-body">
         <form @submit.prevent="pressed">
           <div class="form-group">
-            <p class="txt-header">تایید شماره همراه</p>
+            <p class="txt-header">بازیابی رمز عبور</p>
             <p dir="rtl" class="txt-content">
-              کد ارسال شده به شماره <span>09120121023</span> را وارد کنید.
+              لطفا کد تایید را وارد کنید!
             </p>
             <div class="input-section">
               <div class="input-holder">
@@ -41,7 +35,10 @@
           </div>
           <div class="btn-control">
             <button class="signup-btn" type="submit">
-              تایید
+              ادامه
+            </button>
+            <button class="google-signup-btn" type="submit">
+              ورود با حساب گوگل
             </button>
           </div>
         </form>
@@ -73,6 +70,7 @@ export default {
 
     pressed() {
       // talk to server
+      this.$store.commit("walkInSignIncomponents", { value: "PassChange" });
     },
     changeRTL() {
       this.$vuetify.rtl = true;
@@ -100,20 +98,6 @@ export default {
   /* add .message-animation when we want to show them */
 }
 
-.alert-message {
-  display: flex;
-  flex-direction: row-reverse;
-  width: 463px;
-  height: 58px;
-  background-color: #ed0b26;
-  margin: 44px 90px 0px 89px;
-  border-radius: 10px;
-  position: absolute;
-  opacity: 0;
-  /* z-index: 1; */
-  /* display: none; */
-  /* add .message-animation when we want to show them */
-}
 /* add this animation to messages when we want to show them */
 .message-animation {
   animation: cssAnimation 5s forwards;
@@ -272,13 +256,24 @@ export default {
   margin-right: 90px;
 }
 .signup-input {
+  padding: 0;
   text-align: center;
 }
 .signup-btn {
   margin-top: 32px;
   margin-bottom: 144px;
 }
-
+.google-signup-btn {
+  display: none;
+}
+@media screen and (max-width: 600px) {
+  .app-signin-next-btn {
+    display: none;
+  }
+  .google-signup-btn {
+    display: block;
+  }
+}
 @media screen and (max-width: 540px) {
   /* .app-signin-next-btn {
     display: none;
@@ -287,11 +282,6 @@ export default {
     width: 328px;
     height: 56px;
 
-    margin: 16px 16px 0px 16px;
-  }
-  .alert-message {
-    width: 328px;
-    height: 72px;
     margin: 16px 16px 0px 16px;
   }
   .alert-txt {
@@ -326,16 +316,18 @@ export default {
   .signup-btn {
     width: 328px;
     margin-top: 32px;
+    margin-bottom: 107px;
   }
   .txt-header {
     font-size: 20px;
     line-height: 140.62%;
     width: 328px;
-    margin-right: 16px;
-    margin-left: 16px;
+    margin: 183px 16px 24px 16px;
   }
   .txt-content {
     width: 328px;
+    font-size: 14px;
+    margin-bottom: 17px;
     margin-right: 16px;
     margin-left: 16px;
   }
@@ -345,9 +337,6 @@ export default {
 }
 @media screen and (max-width: 350px) {
   .success-message {
-    width: 280px;
-  }
-  .alert-message {
     width: 280px;
   }
   .signup-input {
@@ -377,13 +366,11 @@ export default {
   }
 }
 @media screen and (max-width: 280px) {
+  .card {
+    padding-right: 0;
+  }
   .success-message {
     width: 270px;
-  }
-  .alert-message {
-    width: 270px;
-    height: 60px;
-    margin-right: 5px;
   }
   .alert-txt {
     padding-left: 30px;

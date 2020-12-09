@@ -2,19 +2,15 @@
   <div class="signup-container">
     <div class="card">
       <div class="signup-close-btn">
-        <button @click="closePage" class="app-signup-close-btn">
-          <img src="../../static/Vector.svg" />
+        <button @click="nextPage" class="app-signup-close-btn">
+          <img src="../../static/next.svg" />
         </button>
-      </div>
-
-      <div class="signup-limoo-logo">
-        <img src="../../static/limoo-logo1.png" alt="لوگوی وبسایت لیمو" />
       </div>
 
       <div class="card-body">
         <form @submit.prevent="pressed">
           <div class="form-group">
-            <p class="txt-header">ورود و عضویت</p>
+            <p class="txt-header">بازیابی رمز عبور</p>
             <p class="txt-content">
               .لطفا شماره موبایل خود را وارد کنید
             </p>
@@ -52,21 +48,11 @@
 
           <div class="btn-control">
             <button
-              @click="goToNextStepofSignUp"
-              class="signup-btn desk-display"
+              @click="goToNextStepofRecyclePass"
+              class="signup-btn"
               type="submit"
             >
-              ورود به لیمو
-            </button>
-            <button
-              @click="goToNextStepofSignUp"
-              class="signup-btn min-display"
-              type="submit"
-            >
-              ورود
-            </button>
-            <button class="google-signup-btn" type="submit">
-              ورود با حساب گوگل
+              ادامه
             </button>
           </div>
         </form>
@@ -93,7 +79,7 @@ export default {
     changeRTL() {
       this.$vuetify.rtl = true;
     },
-    goToNextStepofSignUp() {
+    goToNextStepofRecyclePass() {
       const condition = this.phone.match(/\d/g);
 
       if (
@@ -109,19 +95,43 @@ export default {
         if (this.phone == this.storePhone) {
           this.$store.commit("walkInSignUpcomponents", { value: "stepTwo" });
         } else {
-          this.$store.commit("walkInSignUpcomponents", { value: "stepTwo" });
+          this.$store.commit("walkInSignIncomponents", {
+            value: "recyclePassStepTwo"
+          });
         }
       }
 
       // pattern="[0-9]{4}[0-9]{3}[0-9]{4}"
     },
 
-    pressed() {},
+    pressed() {
+      const condition = this.phone.match(/\d/g);
+
+      if (
+        this.phone == "" ||
+        this.phone == String ||
+        condition.length < 11 ||
+        condition.length > 11
+      ) {
+        this.wrongInput = true;
+      } else if (condition.length === 11) {
+        this.wrongInput = false;
+        this.$store.commit("PhoneNumber", { value: this.phone });
+        if (this.phone == this.storePhone) {
+          this.$store.commit("walkInSignUpcomponents", { value: "stepTwo" });
+        } else {
+          this.$store.commit("walkInSignIncomponents", {
+            value: "recyclePassStepTwo"
+          });
+        }
+      }
+    },
     changeRTL() {
       this.$vuetify.rtl = true;
     },
-    closePage() {
-      this.$router.push("/");
+    nextPage() {
+      this.$store.commit("walkInSignIncomponents", { value: "stepOne" });
+      //   this.$router.push("/signin");
     }
   }
 };
@@ -160,7 +170,7 @@ export default {
   font-family: IRANYekanWeb;
 }
 .signup-btn {
-  margin-bottom: 40px;
+  margin-bottom: 126px;
 }
 .err-text {
   font-family: IRANYekanWeb;
@@ -186,7 +196,7 @@ export default {
   line-height: 33.75px;
   font-weight: 400;
   text-align: right;
-  margin: 37px 90px 33px 0;
+  margin: 77px 90px 33px 0;
 }
 .txt-content {
   font-size: 16px;
@@ -200,14 +210,7 @@ export default {
   .app-signup-close-btn {
     visibility: hidden;
   }
-  .min-display {
-    display: block;
-  }
-  .desk-display {
-    display: none;
-  }
 }
-
 @media screen and (max-width: 540px) {
   .card {
     width: auto;
@@ -247,6 +250,7 @@ export default {
     margin-bottom: 8px;
   }
   .signup-btn {
+    margin-top: 15px;
     width: 328px;
   }
   .txt-header {
@@ -263,9 +267,6 @@ export default {
   }
   .err-text {
     margin-right: 16px;
-  }
-  .signup-limoo-logo {
-    margin-top: 0.5rem;
   }
 }
 @media screen and (max-width: 350px) {
@@ -310,9 +311,6 @@ export default {
     width: 280px;
     margin-right: 10px;
   }
-  .signup-limoo-logo {
-    margin-top: 0;
-  }
 }
 @media screen and (max-width: 280px) {
   .signup-input,
@@ -349,9 +347,6 @@ export default {
   .txt-content {
     width: 270px;
     margin-right: 5px;
-  }
-  .signup-limoo-logo {
-    margin-top: 0.2rem;
   }
 }
 </style>

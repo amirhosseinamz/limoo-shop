@@ -83,7 +83,8 @@ html {
   display: flex;
   justify-content: center;
 }
-.input-holder {
+.input-holder,
+.input-holder-verify {
   background: #fcfcfc;
   margin-bottom: 8px;
   height: 54px;

@@ -5,6 +5,9 @@
       <button @click="goToSignUp" class="nav-btn">
         <nuxt-link class="nav-items" to="/signup">ثبت نام</nuxt-link>
       </button>
+      <button @click="goToSignIn" class="nav-btn">
+        <nuxt-link class="nav-items" to="/signin">ورود</nuxt-link>
+      </button>
 
       <!-- <nuxt-link class="nav-items" to="/signin">ورود کاربر</nuxt-link> -->
     </div>
@@ -16,6 +19,9 @@ export default {
   methods: {
     goToSignUp() {
       this.$store.commit("walkInSignUpcomponents", { value: "stepOne" });
+    },
+    goToSignIn() {
+      this.$store.commit("walkInSignIncomponents", { value: "stepOne" });
     }
   }
 };

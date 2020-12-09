@@ -10,15 +10,23 @@ const createStore = () => {
   that returns and you store as this does then every new user recives his owen store*/
   return new Vuex.Store({
     state: {
-      signUp: "StepOne",
-      phone: "09140121023"
+      signUp: "",
+      signIn: "",
+      phone: "09140121023",
+      password: ""
     },
     mutations: {
       walkInSignUpcomponents(state, payload) {
         state.signUp = payload.value;
       },
+      walkInSignIncomponents(state, payload) {
+        state.signIn = payload.value;
+      },
       PhoneNumber(state, inputPhone) {
         state.phone = inputPhone.value;
+      },
+      passHolder(state) {
+        return state.password;
       }
     },
     actions: {
@@ -28,9 +36,15 @@ const createStore = () => {
       signUpPicker(state) {
         return state.signUp;
       },
+      signInPicker(state) {
+        return state.signIn;
+      },
       PhoneNumberPicker(state) {
         return state.phone;
       }
+      // passPicker(state) {
+      //   return state.password;
+      // }
     }
   });
 };

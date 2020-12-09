@@ -5,13 +5,13 @@
 </template>
 
 <script>
-import StepOne from "@/components/Auth/SignUpStepOne";
-import StepTwo from "@/components/Auth/SignUpStepTwo";
+import stepOne from "@/components/Auth/SignUpStepOne";
+import stepTwo from "@/components/Auth/SignUpStepTwo";
 
 export default {
   components: {
-    StepOne,
-    StepTwo
+    stepOne,
+    stepTwo
   },
   computed: {
     signUpLoader() {

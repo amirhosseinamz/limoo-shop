@@ -10,28 +10,51 @@
       <div class="card-body">
         <form @submit.prevent="pressed">
           <div class="form-group">
-            <p class="txt-header">کلمه عبور</p>
+            <p class="txt-header">تغییر رمز عبور</p>
             <p dir="rtl" class="txt-content">
-              شما عضو هستید لطفا برای ورود کلمه عبور خود را وارد کنید.
+              رمز عبور جدید
             </p>
             <div class="input-section">
               <div class="input-holder">
                 <input
                   class="signup-input form-control"
-                  @click="[(password = '')]"
                   type="password"
                   placeholder="کلمه عبور..."
                   v-model="password"
                   required
                 />
-                <!-- <button
-                  @click="[(wrongInput = false), (password = '')]"
+                <button
+                  @click="[(wrongInput = false)]"
                   type="button"
                   :class="[wrongInput ? 'clear-input-wrong' : 'clear-input']"
                   aria-label="Close"
                 >
-                  <span aria-hidden="true">&times;</span>
-                </button> -->
+                  <img src="../../static/closeEye.svg" />
+                  <img src="../../static/openEye.svg" />
+                </button>
+              </div>
+            </div>
+            <p dir="rtl" class="txt-content">
+              تکرار رمز عبور جدید
+            </p>
+            <div class="input-section">
+              <div class="input-holder-verify">
+                <input
+                  class="signup-input form-control"
+                  type="password"
+                  placeholder="کلمه عبور..."
+                  v-model="passwordVerify"
+                  required
+                />
+                <button
+                  @click="[(wrongInput = false)]"
+                  type="button"
+                  :class="[wrongInput ? 'clear-input-wrong' : 'clear-input']"
+                  aria-label="Close"
+                >
+                  <img src="../../static/closeEye.svg" />
+                  <img src="../../static/openEye.svg" />
+                </button>
               </div>
             </div>
           </div>
@@ -40,17 +63,6 @@
             <button class="signup-btn" type="submit">
               ادامه
             </button>
-          </div>
-          <div class="forget-pass-section">
-            <p @click="forgetPass" class="forget-pass">
-              فراموشی رمز عبور
-              <img class="arrow" src="../../static/arrow.svg" />
-            </p>
-
-            <p @click="disposablePass" class="disposable-pass">
-              ورود با رمز عبور یکبار مصرف
-              <img class="arrow" src="../../static/arrow.svg" />
-            </p>
           </div>
         </form>
       </div>
@@ -62,22 +74,14 @@
 export default {
   data() {
     return {
-      password: ""
+      password: "",
+      passwordVerify: ""
     };
   },
   methods: {
     pressed() {
       this.$store.commit("passHolder", { value: this.password });
       console.log(this.password);
-    },
-    forgetPass() {
-      // send request to disposablePass
-      this.$store.commit("walkInSignIncomponents", { value: "recyclePass" });
-      console.log("ji");
-    },
-    disposablePass() {
-      // send request to disposablePass
-      this.$store.commit("walkInSignIncomponents", { value: "stepTwo" });
     },
     nextPage() {
       // go to ...
@@ -115,19 +119,15 @@ export default {
   height: 30px;
   margin-top: 24px;
 }
+.input-holder {
+  margin-bottom: 38px;
+}
+.input-holder-verify {
+  margin-bottom: 42px;
+}
 .form-control {
   direction: rtl;
   font-family: IRANYekanWeb;
-}
-.err-text {
-  font-family: IRANYekanWeb;
-  font-size: 13px;
-  text-align: right;
-  color: #ed0b26;
-  line-height: 140.62%;
-  margin-right: 90px;
-  margin-bottom: 29px;
-  /* visibility: hidden; */
 }
 .btn-control {
   display: flex;
@@ -141,30 +141,18 @@ export default {
   line-height: 33.75px;
   font-weight: 400;
   text-align: right;
-  margin: 37px 90px 33px 15px;
+  margin: 8px 90px 38px 15px;
 }
 .txt-content {
   font-size: 16px;
   line-height: 22.5px;
   font-weight: 318;
   text-align: right;
-  margin-bottom: 25px;
+  margin-bottom: 24px;
   margin-right: 90px;
 }
 .signup-btn {
-  margin-top: 32px;
-}
-.forget-pass-section {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-}
-.forget-pass {
-  color: #47a7ff;
-  font-weight: 500;
-  font-size: 14px;
-  line-height: 140.62%;
-  margin: 24px 90px 16px 0;
+  margin-bottom: 56px;
 }
 .arrow {
   margin-left: 8px;
@@ -218,10 +206,6 @@ export default {
     margin-bottom: 15px;
     margin-right: 16px;
     margin-left: 16px;
-  }
-  .forget-pass {
-    font-size: 13px;
-    margin: 16px 32px 16px 0;
   }
   .disposable-pass {
     font-size: 13px;
