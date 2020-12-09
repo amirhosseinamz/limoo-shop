@@ -18,19 +18,33 @@
               <div class="input-holder">
                 <input
                   class="signup-input form-control"
-                  type="password"
+                  :type="passwordFieldType"
                   placeholder="کلمه عبور..."
                   v-model="password"
                   required
                 />
                 <button
-                  @click="[(wrongInput = false)]"
+                  @click="switchVisibility"
                   type="button"
                   :class="[wrongInput ? 'clear-input-wrong' : 'clear-input']"
                   aria-label="Close"
                 >
-                  <img src="../../static/closeEye.svg" />
-                  <img src="../../static/openEye.svg" />
+                  <img
+                    :style="
+                      passwordFieldType === 'password'
+                        ? 'display: block'
+                        : 'display: none'
+                    "
+                    src="../../static/closeEye.svg"
+                  />
+                  <img
+                    :style="
+                      passwordFieldType === 'text'
+                        ? 'display: block'
+                        : 'display: none'
+                    "
+                    src="../../static/openEye.svg"
+                  />
                 </button>
               </div>
             </div>
@@ -41,19 +55,33 @@
               <div class="input-holder-verify">
                 <input
                   class="signup-input form-control"
-                  type="password"
+                  :type="passwordFieldTypeVerify"
                   placeholder="کلمه عبور..."
                   v-model="passwordVerify"
                   required
                 />
                 <button
-                  @click="[(wrongInput = false)]"
+                  @click="switchVisibilityVerify"
                   type="button"
                   :class="[wrongInput ? 'clear-input-wrong' : 'clear-input']"
                   aria-label="Close"
                 >
-                  <img src="../../static/closeEye.svg" />
-                  <img src="../../static/openEye.svg" />
+                  <img
+                    :style="
+                      passwordFieldTypeVerify === 'password'
+                        ? 'display: block'
+                        : 'display: none'
+                    "
+                    src="../../static/closeEye.svg"
+                  />
+                  <img
+                    :style="
+                      passwordFieldTypeVerify === 'text'
+                        ? 'display: block'
+                        : 'display: none'
+                    "
+                    src="../../static/openEye.svg"
+                  />
                 </button>
               </div>
             </div>
@@ -74,6 +102,8 @@
 export default {
   data() {
     return {
+      passwordFieldType: "password",
+      passwordFieldTypeVerify: "password",
       password: "",
       passwordVerify: ""
     };
@@ -82,6 +112,14 @@ export default {
     pressed() {
       this.$store.commit("passHolder", { value: this.password });
       console.log(this.password);
+    },
+    switchVisibility() {
+      this.passwordFieldType =
+        this.passwordFieldType === "password" ? "text" : "password";
+    },
+    switchVisibilityVerify() {
+      this.passwordFieldTypeVerify =
+        this.passwordFieldTypeVerify === "password" ? "text" : "password";
     },
     nextPage() {
       // go to ...
@@ -164,7 +202,11 @@ export default {
   line-height: 140.62%;
   margin: 0 90px 86px 0;
 }
-
+@media screen and (max-width: 600px) {
+  .app-signin-next-btn {
+    visibility: hidden;
+  }
+}
 @media screen and (max-width: 540px) {
   .card {
     width: auto;
@@ -188,7 +230,13 @@ export default {
     height: 60px;
     margin-bottom: 8px;
   }
-
+  .input-holder-verify {
+    margin-right: 16px;
+    margin-left: 16px;
+    padding: 0;
+    width: 328px;
+    height: 60px;
+  }
   .signup-btn {
     width: 328px;
     margin-top: 30px;
@@ -236,6 +284,9 @@ export default {
     height: 60px;
     margin-bottom: 8px;
   }
+  .input-holder-verify {
+    width: 280px;
+  }
   .signup-btn {
     width: 280px;
   }
@@ -254,6 +305,9 @@ export default {
   }
 }
 @media screen and (max-width: 280px) {
+  .card {
+    margin-right: 0px;
+  }
   .signup-input {
     margin-right: 5px;
     margin-left: 5px;
@@ -267,6 +321,11 @@ export default {
     width: 270px;
     height: 60px;
     margin-bottom: 8px;
+  }
+  .input-holder-verify {
+    margin-right: 16px;
+    margin-left: 16px;
+    width: 270px;
   }
   .signup-btn {
     width: 270px;
