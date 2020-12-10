@@ -1,7 +1,9 @@
 import Vuex from "vuex";
 // import { createStore } from "./../.nuxt/store";
 // import { createStore } from "vuex";
-
+import rootMutations from "./mutations.js";
+import rootActions from "./actions.js";
+import rootGetters from "./getters.js";
 //it should be callable by nuxt which will be executed on the server to setup the store
 const createStore = () => {
   /* if we returned an object instead of the function then all users of our app would actually 
@@ -9,43 +11,17 @@ const createStore = () => {
   stored well then we always get that object for every connected user. if we have a function 
   that returns and you store as this does then every new user recives his owen store*/
   return new Vuex.Store({
+    namespaced: true, // tell vuex now the entire module shuld be kind of deatached from the rest of the store
     state: {
       signUp: "",
       signIn: "",
       phone: "09140121023",
       password: ""
     },
-    mutations: {
-      walkInSignUpcomponents(state, payload) {
-        state.signUp = payload.value;
-      },
-      walkInSignIncomponents(state, payload) {
-        state.signIn = payload.value;
-      },
-      PhoneNumber(state, inputPhone) {
-        state.phone = inputPhone.value;
-      },
-      passHolder(state) {
-        return state.password;
-      }
-    },
-    actions: {
-      // in actions we commit with mutations
-    },
-    getters: {
-      signUpPicker(state) {
-        return state.signUp;
-      },
-      signInPicker(state) {
-        return state.signIn;
-      },
-      PhoneNumberPicker(state) {
-        return state.phone;
-      }
-      // passPicker(state) {
-      //   return state.password;
-      // }
-    }
+
+    mutations: rootMutations,
+    actions: rootActions,
+    getters: rootGetters
   });
 };
 export default createStore;

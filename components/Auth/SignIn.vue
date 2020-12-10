@@ -165,9 +165,11 @@ export default {
   font-size: 14px;
   line-height: 140.62%;
   margin: 24px 90px 16px 0;
+  cursor: pointer;
 }
 .arrow {
   margin-left: 8px;
+  cursor: pointer;
 }
 .disposable-pass {
   color: #47a7ff;
@@ -175,6 +177,7 @@ export default {
   font-size: 14px;
   line-height: 140.62%;
   margin: 0 90px 86px 0;
+  cursor: pointer;
 }
 
 @media screen and (max-width: 540px) {
