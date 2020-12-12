@@ -6,7 +6,7 @@
 
 <script>
 import stepOne from "@/components/Auth/SignIn";
-import stepTwo from "@/components/Auth/SignUpStepTwo";
+import stepTwo from "@/components/Auth/SignInStepTwo";
 import recyclePass from "@/components/Auth/RecyclePass";
 import recyclePassStepTwo from "@/components/Auth/RecyclePassStepTwo";
 import PassChange from "@/components/Auth/PassChange";

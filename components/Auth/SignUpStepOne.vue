@@ -12,7 +12,7 @@
       </div>
 
       <div class="card-body">
-        <form @submit.prevent="pressed">
+        <form @submit.prevent="goToNextStepofSignUp">
           <div class="form-group">
             <p class="txt-header">ورود و عضویت</p>
             <p class="txt-content">
@@ -51,18 +51,10 @@
           </div>
 
           <div class="btn-control">
-            <button
-              @click="goToNextStepofSignUp"
-              class="signup-btn desk-display"
-              type="submit"
-            >
+            <button class="signup-btn desk-display" type="submit">
               ورود به لیمو
             </button>
-            <button
-              @click="goToNextStepofSignUp"
-              class="signup-btn min-display"
-              type="submit"
-            >
+            <button class="signup-btn min-display" type="submit">
               ورود
             </button>
             <button class="google-signup-btn" type="submit">
@@ -109,14 +101,13 @@ export default {
         if (this.phone == this.storePhone) {
           this.$store.commit("walkInSignUpcomponents", { value: "stepTwo" });
         } else {
-          this.$store.commit("walkInSignUpcomponents", { value: "stepTwo" });
+          this.$router.push("/signin");
         }
       }
 
       // pattern="[0-9]{4}[0-9]{3}[0-9]{4}"
     },
 
-    pressed() {},
     changeRTL() {
       this.$vuetify.rtl = true;
     },

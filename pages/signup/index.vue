@@ -7,11 +7,13 @@
 <script>
 import stepOne from "@/components/Auth/SignUpStepOne";
 import stepTwo from "@/components/Auth/SignUpStepTwo";
+import wellcome from "@/components/Auth/WelcomeSignUp";
 
 export default {
   components: {
     stepOne,
-    stepTwo
+    stepTwo,
+    wellcome
   },
   computed: {
     signUpLoader() {

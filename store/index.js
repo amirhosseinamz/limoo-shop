@@ -11,11 +11,11 @@ const createStore = () => {
   stored well then we always get that object for every connected user. if we have a function 
   that returns and you store as this does then every new user recives his owen store*/
   return new Vuex.Store({
-    namespaced: true, // tell vuex now the entire module shuld be kind of deatached from the rest of the store
+    // namespaced: true, // tell vuex now the entire module shuld be kind of deatached from the rest of the store
     state: {
-      signUp: "",
-      signIn: "",
-      phone: "09140121023",
+      signUp: "stepOne",
+      signIn: "stepOne",
+      phone: "",
       password: ""
     },
 

@@ -81,7 +81,6 @@ export default {
     },
     nextPage() {
       // go to ...
-      // this.$store.commit("walkInSignUpcomponents", { value: "stepTwo" });
     }
   }
 };
