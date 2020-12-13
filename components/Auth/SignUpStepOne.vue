@@ -15,8 +15,8 @@
         <form @submit.prevent="goToNextStepofSignUp">
           <div class="form-group">
             <p class="txt-header">ورود و عضویت</p>
-            <p class="txt-content">
-              .لطفا شماره موبایل خود را وارد کنید
+            <p class="txt-content" dir="rtl">
+              لطفا شماره موبایل خود را وارد کنید.
             </p>
             <div class="input-section">
               <div
