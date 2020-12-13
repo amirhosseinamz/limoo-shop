@@ -38,6 +38,7 @@
                                     ]"
                                     @click="[(wrongInput = false)]"
                                     type="tel"
+                                    maxlength="11"
                                     placeholder="شماره موبایل..."
                                     v-model.trim="phone"
                                 /><button
@@ -126,7 +127,10 @@ export default {
                         value: "stepTwo"
                     });
                 } else {
-                    this.$router.push("/signin");
+                    // this.$router.push("/signin");
+                    this.$store.commit("walkInSignUpcomponents", {
+                        value: "stepTwo"
+                    });
                 }
             }
 
