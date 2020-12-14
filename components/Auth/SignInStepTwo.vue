@@ -1,7 +1,7 @@
 <template>
     <div class="signup-container">
         <div class="card">
-            <div class="signin-next-btn">
+            <div>
                 <button @click="nextPage" class="app-signin-next-btn">
                     <img src="../../static/next.svg" />
                 </button>
@@ -75,7 +75,7 @@ export default {
         },
         nextPage() {
             // go to ...
-
+            console.log("hi");
             this.$store.commit("walkInSignIncomponents", { value: "stepOne" });
         }
     }
@@ -187,15 +187,13 @@ export default {
     margin-right: 18px;
     margin-top: 17px;
 }
-.signin-next-btn {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-}
+
 .app-signin-next-btn {
+    display: flex;
     margin: 24px 11.5px 0 24px;
     width: 13.5px;
     height: 24px;
+    cursor: pointer;
 }
 .success-txt {
     font-weight: 500;
@@ -271,9 +269,6 @@ export default {
 }
 
 @media screen and (max-width: 540px) {
-    /* .app-signin-next-btn {
-    display: none;
-  } */
     .success-message {
         width: 328px;
         height: 56px;

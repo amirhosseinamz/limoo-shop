@@ -1,7 +1,7 @@
 <template>
     <div class="signup-container">
         <div class="card">
-            <div class="signin-next-btn">
+            <div>
                 <button @click="nextPage" class="app-signin-next-btn">
                     <img src="../../static/next.svg" />
                 </button>
@@ -119,39 +119,39 @@ export default {
 @keyframes cssAnimation {
     0% {
         opacity: 0;
-        transform: translate(0%, -140%);
+        transform: translate(0%, -170%);
     }
     20% {
         opacity: 0.4;
-        transform: translate(0%, -50%);
+        transform: translate(0%, -140%);
     }
     30% {
         opacity: 0.5;
-        transform: translate(0%, -10%);
+        transform: translate(0%, -120%);
     }
     40% {
         opacity: 1;
-        transform: translate(0%, 0%);
+        transform: translate(0%, -120%);
     }
     50% {
         opacity: 1;
-        transform: translate(0%, 0%);
+        transform: translate(0%, -120%);
     }
     60% {
         opacity: 1;
-        transform: translate(0%, 0%);
+        transform: translate(0%, -120%);
     }
     70% {
         opacity: 0.5;
-        transform: translate(0%, -10%);
+        transform: translate(0%, -120%);
     }
     80% {
         opacity: 0.4;
-        transform: translate(0%, -50%);
+        transform: translate(0%, -140%);
     }
     100% {
         opacity: 0;
-        transform: translate(0%, -140%);
+        transform: translate(0%, -170%);
     }
 }
 
@@ -186,15 +186,12 @@ export default {
     margin-right: 18px;
     margin-top: 17px;
 }
-.signin-next-btn {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-}
 .app-signin-next-btn {
+    display: flex;
     margin: 24px 11.5px 0 24px;
     width: 13.5px;
     height: 24px;
+    cursor: pointer;
 }
 .success-txt {
     font-weight: 500;
@@ -271,8 +268,7 @@ export default {
 
 @media screen and (max-width: 540px) {
     /* .app-signin-next-btn {
-    display: none;
-  } */
+    } */
     .success-message {
         width: 328px;
         height: 56px;
