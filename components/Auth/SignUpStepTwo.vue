@@ -88,7 +88,7 @@ export default {
     width: 463px;
     height: 58px;
     background-color: #1fdc6b;
-    margin: 44px 90px 0px 89px;
+    margin: 8px 90px 0px 89px;
     border-radius: 10px;
     position: absolute;
     opacity: 0;
@@ -127,23 +127,23 @@ export default {
     }
     30% {
         opacity: 0.5;
-        transform: translate(0%, -120%);
+        transform: translate(0%, -110%);
     }
     40% {
         opacity: 1;
-        transform: translate(0%, -120%);
+        transform: translate(0%, -90%);
     }
     50% {
         opacity: 1;
-        transform: translate(0%, -120%);
+        transform: translate(0%, -90%);
     }
     60% {
         opacity: 1;
-        transform: translate(0%, -120%);
+        transform: translate(0%, -90%);
     }
     70% {
         opacity: 0.5;
-        transform: translate(0%, -120%);
+        transform: translate(0%, -110%);
     }
     80% {
         opacity: 0.4;
@@ -259,7 +259,10 @@ export default {
     margin-right: 90px;
 }
 .signup-input {
+    color: #515151;
     text-align: center;
+    font-size: 20px;
+    letter-spacing: 0.7em;
 }
 .signup-btn {
     margin-top: 32px;
@@ -311,17 +314,20 @@ export default {
 
     .signup-btn {
         width: 328px;
-        margin-top: 32px;
+        margin-top: 38px;
+        margin-bottom: 184px;
     }
     .txt-header {
         font-size: 20px;
         line-height: 140.62%;
         width: 328px;
+        margin: 128px 16px 24px 16px;
         margin-right: 16px;
         margin-left: 16px;
     }
     .txt-content {
         width: 328px;
+        font-size: 14px;
         margin-right: 16px;
         margin-left: 16px;
     }
@@ -382,6 +388,7 @@ export default {
     }
     .input-holder {
         width: 270px;
+        margin-right: 10px;
     }
     .signup-btn {
         width: 270px;

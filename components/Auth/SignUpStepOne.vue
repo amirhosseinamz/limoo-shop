@@ -175,6 +175,9 @@ export default {
     height: 30px;
     margin-top: 24px;
 }
+.signup-input {
+    padding-right: 24px;
+}
 .form-control {
     direction: rtl;
     font-family: IRANYekanWeb;
@@ -217,8 +220,8 @@ export default {
     margin-right: 90px;
 }
 @media screen and (max-width: 600px) {
-    .app-signup-close-btn {
-        visibility: hidden;
+    .signup-close-btn {
+        display: none;
     }
     .min-display {
         display: block;

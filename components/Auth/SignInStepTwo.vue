@@ -7,14 +7,14 @@
                 </button>
                 <div
                     class="success-message"
-                    :class="[newCodeSent ? 'message-animation' : '']"
+                    :class="{ 'message-animation': newCodeSent }"
                 >
                     <img class="success-icon" src="../../static/success.svg" />
                     <p dir="rtl" class="success-txt">کد جدید ارسال شد!</p>
                 </div>
                 <div
                     class="alert-message "
-                    :class="[timerPassed ? 'message-animation' : '']"
+                    :class="{ 'message-animation': timerPassed }"
                 >
                     <img class="alert-icon " src="../../static/alarm.svg" />
                     <p dir="rtl" class="alert-txt">
@@ -46,7 +46,11 @@
                         <p class="code-request">درخواست ارسال مجدد کد</p>
                     </div>
                     <div class="btn-control">
-                        <button class="signup-btn" type="submit">
+                        <button
+                            @click="animate"
+                            class="signup-btn"
+                            type="submit"
+                        >
                             تایید
                         </button>
                     </div>
@@ -68,14 +72,18 @@ export default {
     methods: {
         pressed() {
             // talk to server
-            return (this.newCodeSent = !this.newCodeSent);
+        },
+        animate() {
+            this.newCodeSent = true;
+            setTimeout(() => {
+                this.newCodeSent = false;
+            }, 5000);
         },
         changeRTL() {
             this.$vuetify.rtl = true;
         },
         nextPage() {
             // go to ...
-            console.log("hi");
             this.$store.commit("walkInSignIncomponents", { value: "stepOne" });
         }
     }
@@ -114,45 +122,45 @@ export default {
 /* add this animation to messages when we want to show them */
 /* animation-timing-function: linear; */
 .message-animation {
-    animation: cssAnimation 5s forwards;
+    animation: cssAnimation 3s forwards;
     animation-timing-function: linear;
 }
 @keyframes cssAnimation {
     0% {
         opacity: 0;
-        transform: translate(0%, -140%);
+        transform: translate(0%, -170%);
     }
     20% {
-        opacity: 0.4;
-        transform: translate(0%, -50%);
+        opacity: 1;
+        transform: translate(0%, -130%);
     }
     30% {
-        opacity: 0.5;
-        transform: translate(0%, -10%);
+        opacity: 1;
+        transform: translate(0%, -120%);
     }
     40% {
         opacity: 1;
-        transform: translate(0%, 0%);
+        transform: translate(0%, -110%);
     }
     50% {
         opacity: 1;
-        transform: translate(0%, 0%);
+        transform: translate(0%, -110%);
     }
     60% {
         opacity: 1;
-        transform: translate(0%, 0%);
+        transform: translate(0%, -110%);
     }
     70% {
-        opacity: 0.5;
-        transform: translate(0%, -10%);
+        opacity: 1;
+        transform: translate(0%, -130%);
     }
     80% {
-        opacity: 0.4;
-        transform: translate(0%, -50%);
+        opacity: 1;
+        transform: translate(0%, -150%);
     }
     100% {
         opacity: 0;
-        transform: translate(0%, -140%);
+        transform: translate(0%, -170%);
     }
 }
 

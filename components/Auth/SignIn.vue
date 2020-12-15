@@ -97,7 +97,6 @@ export default {
             this.$store.commit("walkInSignIncomponents", {
                 value: "recyclePass"
             });
-            console.log("ji");
         },
         disposablePass() {
             // send request to disposablePass
@@ -177,6 +176,9 @@ export default {
 }
 .signup-btn {
     margin-top: 32px;
+}
+.signup-input {
+    padding-right: 24px;
 }
 .forget-pass-section {
     display: flex;

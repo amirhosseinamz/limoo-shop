@@ -7,7 +7,7 @@
                 </button>
                 <div
                     class="success-message"
-                    :class="[passChenged ? 'message-animation' : '']"
+                    :class="{ 'message-animation': passChenged }"
                 >
                     <img class="success-icon" src="../../static/success.svg" />
                     <p dir="rtl" class="success-txt">
@@ -98,7 +98,17 @@
                     </div>
 
                     <div class="btn-control">
-                        <button class="signup-btn" type="submit">
+                        <button
+                            class="signup-btn desk-display"
+                            :class="{ 'success-pss-btn': passChenged }"
+                            type="submit"
+                            dir="rtl"
+                        >
+                            {{
+                                passChenged ? "با موفقیت تغییر کرد..." : "ادامه"
+                            }}
+                        </button>
+                        <button class="signup-btn min-display" type="submit">
                             ادامه
                         </button>
                     </div>
@@ -123,7 +133,12 @@ export default {
         pressed() {
             this.$store.commit("passHolder", { value: this.password });
             console.log(this.password);
-            this.passChenged = !this.passChenged;
+            //* move to another method later
+            this.passChenged = true;
+            setTimeout(() => {
+                this.passChenged = false;
+            }, 3000);
+            //*==========================
         },
         switchVisibility() {
             this.passwordFieldType =
@@ -146,71 +161,6 @@ export default {
 </script>
 
 <style scoped>
-.success-message {
-    display: flex;
-    flex-direction: row-reverse;
-    width: 463px;
-    height: 58px;
-    background-color: #1fdc6b;
-    margin: 44px 90px 0px 89px;
-    border-radius: 10px;
-    position: absolute;
-    opacity: 0;
-    /* display: none; */
-    /* add .message-animation when we want to show them */
-}
-
-/* add this animation to messages when we want to show them */
-.message-animation {
-    animation: cssAnimation 5s forwards;
-    animation-timing-function: linear;
-}
-@keyframes cssAnimation {
-    0% {
-        opacity: 0;
-        transform: translate(0%, -160%);
-    }
-    10% {
-        opacity: 0;
-        transform: translate(0%, -100%);
-    }
-    20% {
-        opacity: 0.25;
-        transform: translate(0%, -90%);
-    }
-    30% {
-        opacity: 0.5;
-        transform: translate(0%, -80%);
-    }
-    40% {
-        opacity: 1;
-        transform: translate(0%, -70%);
-    }
-    50% {
-        opacity: 1;
-        transform: translate(0%, -70%);
-    }
-    60% {
-        opacity: 1;
-        transform: translate(0%, -70%);
-    }
-    70% {
-        opacity: 0.5;
-        transform: translate(0%, -70%);
-    }
-    80% {
-        opacity: 0.4;
-        transform: translate(0%, -90%);
-    }
-    90% {
-        opacity: 0.25;
-        transform: translate(0%, -100%);
-    }
-    100% {
-        opacity: 0;
-        transform: translate(0%, -160%);
-    }
-}
 .signup-container {
     height: 100vh;
     display: flex;
@@ -287,6 +237,12 @@ export default {
 .signup-btn {
     margin-bottom: 56px;
 }
+.success-pss-btn {
+    background: #1fdc6b;
+}
+.signup-input {
+    padding-right: 24px;
+}
 .arrow {
     margin-left: 8px;
 }
@@ -297,12 +253,86 @@ export default {
     line-height: 140.62%;
     margin: 0 90px 86px 0;
 }
+.min-display {
+    display: none;
+}
+.desk-display {
+    display: block;
+}
 @media screen and (max-width: 600px) {
     .app-signin-next-btn {
         visibility: hidden;
     }
+    .min-display {
+        display: block;
+    }
+    .desk-display {
+        display: none;
+    }
 }
 @media screen and (max-width: 540px) {
+    .success-message {
+        display: flex;
+        flex-direction: row-reverse;
+        width: 463px;
+        height: 58px;
+        background-color: #1fdc6b;
+        margin: 44px 90px 0px 89px;
+        border-radius: 10px;
+        position: absolute;
+        opacity: 0;
+        /* display: none; */
+        /* add .message-animation when we want to show them */
+    }
+
+    /* add this animation to messages when we want to show them */
+    .message-animation {
+        animation: cssAnimation 3s forwards;
+        animation-timing-function: linear;
+    }
+    @keyframes cssAnimation {
+        0% {
+            opacity: 0;
+            transform: translate(0%, -160%);
+        }
+        10% {
+            opacity: 1;
+            transform: translate(0%, -100%);
+        }
+        20% {
+            opacity: 1;
+            transform: translate(0%, -70%);
+        }
+        30% {
+            opacity: 1;
+            transform: translate(0%, -70%);
+        }
+        40% {
+            opacity: 1;
+            transform: translate(0%, -70%);
+        }
+        50% {
+            opacity: 1;
+            transform: translate(0%, -70%);
+        }
+        60% {
+            opacity: 1;
+            transform: translate(0%, -70%);
+        }
+        70% {
+            opacity: 1;
+            transform: translate(0%, -70%);
+        }
+
+        90% {
+            opacity: 1;
+            transform: translate(0%, -100%);
+        }
+        100% {
+            opacity: 0;
+            transform: translate(0%, -160%);
+        }
+    }
     .card {
         width: auto;
         height: 100vh;

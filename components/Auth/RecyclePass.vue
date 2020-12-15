@@ -197,6 +197,9 @@ export default {
 .signup-btn {
     margin-bottom: 126px;
 }
+.signup-input {
+    padding-right: 24px;
+}
 .err-text {
     font-family: IRANYekanWeb;
     font-size: 13px;
