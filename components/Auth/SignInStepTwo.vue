@@ -136,23 +136,23 @@ export default {
     }
     30% {
         opacity: 1;
-        transform: translate(0%, -120%);
+        transform: translate(0%, -110%);
     }
     40% {
         opacity: 1;
-        transform: translate(0%, -110%);
+        transform: translate(0%, -90%);
     }
     50% {
         opacity: 1;
-        transform: translate(0%, -110%);
+        transform: translate(0%, -90%);
     }
     60% {
         opacity: 1;
-        transform: translate(0%, -110%);
+        transform: translate(0%, -90%);
     }
     70% {
         opacity: 1;
-        transform: translate(0%, -130%);
+        transform: translate(0%, -110%);
     }
     80% {
         opacity: 1;
@@ -176,7 +176,7 @@ export default {
 .card {
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: space-around;
     width: 642px;
     height: 524px;
     background-color: #ffffff;
@@ -270,6 +270,8 @@ export default {
 }
 .signup-input {
     text-align: center;
+    letter-spacing: 0.7rem;
+    font-size: 20px;
 }
 .signup-btn {
     margin-top: 32px;
@@ -319,16 +321,16 @@ export default {
 
     .signup-btn {
         width: 328px;
-        margin-top: 32px;
+        margin: 32px 16px 184px 16px;
     }
     .txt-header {
         font-size: 20px;
         line-height: 140.62%;
         width: 328px;
-        margin-right: 16px;
-        margin-left: 16px;
+        margin: 128px 16px 33px 16px;
     }
     .txt-content {
+        font-size: 14px;
         width: 328px;
         margin-right: 16px;
         margin-left: 16px;
@@ -384,7 +386,7 @@ export default {
     }
     .signup-input {
         margin-right: 5px;
-        margin-left: 5px;
+        margin-left: 15px;
         width: 270px;
         margin-bottom: 42px;
     }
@@ -398,11 +400,11 @@ export default {
         font-size: 20px;
         line-height: 140.62%;
         width: 270px;
-        margin-right: 5px;
+        margin-right: 15px;
     }
     .txt-content {
         width: 270px;
-        margin-right: 5px;
+        margin-right: 15px;
     }
     .signup-limoo-logo {
         margin-top: 0.2rem;

@@ -113,45 +113,45 @@ export default {
 /* add this animation to messages when we want to show them */
 /* animation-timing-function: linear; */
 .message-animation {
-    animation: cssAnimation 5s forwards;
+    animation: cssAnimation 3s forwards;
     animation-timing-function: linear;
 }
 @keyframes cssAnimation {
     0% {
         opacity: 0;
-        transform: translate(0%, -170%);
+        transform: translate(0%, -160%);
     }
     20% {
-        opacity: 0.4;
-        transform: translate(0%, -140%);
+        opacity: 0.3;
+        transform: translate(0%, -130%);
     }
     30% {
-        opacity: 0.5;
-        transform: translate(0%, -110%);
+        opacity: 0.4;
+        transform: translate(0%, -100%);
     }
     40% {
         opacity: 1;
-        transform: translate(0%, -90%);
+        transform: translate(0%, -60%);
     }
     50% {
         opacity: 1;
-        transform: translate(0%, -90%);
+        transform: translate(0%, -60%);
     }
     60% {
         opacity: 1;
-        transform: translate(0%, -90%);
+        transform: translate(0%, -60%);
     }
     70% {
         opacity: 0.5;
-        transform: translate(0%, -110%);
+        transform: translate(0%, -100%);
     }
     80% {
         opacity: 0.4;
-        transform: translate(0%, -140%);
+        transform: translate(0%, -130%);
     }
     100% {
         opacity: 0;
-        transform: translate(0%, -170%);
+        transform: translate(0%, -160%);
     }
 }
 
@@ -167,7 +167,7 @@ export default {
 .card {
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: space-around;
     width: 642px;
     height: 524px;
     background-color: #ffffff;
@@ -248,7 +248,7 @@ export default {
     line-height: 33.75px;
     font-weight: 400;
     text-align: right;
-    margin: 37px 90px 33px 0;
+    margin: 77px 90px 33px 0;
 }
 .txt-content {
     font-size: 16px;
@@ -265,13 +265,51 @@ export default {
     letter-spacing: 0.7em;
 }
 .signup-btn {
-    margin-top: 32px;
-    margin-bottom: 144px;
+    margin-top: 14px;
+    margin-bottom: 126px;
 }
 
 @media screen and (max-width: 540px) {
     /* .app-signin-next-btn {
     } */
+    @keyframes cssAnimation {
+        0% {
+            opacity: 0;
+            transform: translate(0%, -170%);
+        }
+        20% {
+            opacity: 0.4;
+            transform: translate(0%, -140%);
+        }
+        30% {
+            opacity: 0.5;
+            transform: translate(0%, -110%);
+        }
+        40% {
+            opacity: 1;
+            transform: translate(0%, -90%);
+        }
+        50% {
+            opacity: 1;
+            transform: translate(0%, -90%);
+        }
+        60% {
+            opacity: 1;
+            transform: translate(0%, -90%);
+        }
+        70% {
+            opacity: 0.5;
+            transform: translate(0%, -110%);
+        }
+        80% {
+            opacity: 0.4;
+            transform: translate(0%, -140%);
+        }
+        100% {
+            opacity: 0;
+            transform: translate(0%, -170%);
+        }
+    }
     .success-message {
         width: 328px;
         height: 56px;
@@ -322,8 +360,6 @@ export default {
         line-height: 140.62%;
         width: 328px;
         margin: 128px 16px 24px 16px;
-        margin-right: 16px;
-        margin-left: 16px;
     }
     .txt-content {
         width: 328px;

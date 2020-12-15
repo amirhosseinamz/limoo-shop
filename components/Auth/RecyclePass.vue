@@ -171,11 +171,14 @@ export default {
     align-items: center;
     text-align: center;
 }
-
+.signup-input-wrong,
+.signup-input {
+    margin-right: 24px;
+}
 .card {
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: space-around;
     width: 642px;
     height: 524px;
     background-color: #ffffff;
@@ -196,9 +199,6 @@ export default {
 }
 .signup-btn {
     margin-bottom: 126px;
-}
-.signup-input {
-    padding-right: 24px;
 }
 .err-text {
     font-family: IRANYekanWeb;
@@ -234,20 +234,16 @@ export default {
     margin-bottom: 25px;
     margin-right: 90px;
 }
-@media screen and (max-width: 600px) {
-    .app-signup-close-btn {
-        visibility: hidden;
-    }
-}
 @media screen and (max-width: 540px) {
     .card {
         width: auto;
         height: 100vh;
         border-radius: 0;
     }
+
     .signup-input {
+        margin-right: 16px;
         margin-left: 16px;
-        padding-right: 17px;
         width: 328px;
         height: 60px;
         margin-bottom: 8px;
@@ -256,8 +252,6 @@ export default {
     .signup-input-wrong {
         margin-right: 16px;
         margin-left: 16px;
-        padding-right: 16px;
-        padding: 0;
         width: 328px;
         height: 60px;
         margin-bottom: 8px;
@@ -280,13 +274,13 @@ export default {
     .signup-btn {
         margin-top: 15px;
         width: 328px;
+        margin-bottom: 184px;
     }
     .txt-header {
         font-size: 20px;
         line-height: 140.62%;
         width: 328px;
-        margin-right: 16px;
-        margin-left: 16px;
+        margin: 120px 16px 33px 16px;
     }
     .txt-content {
         width: 328px;
@@ -370,11 +364,11 @@ export default {
         font-size: 20px;
         line-height: 140.62%;
         width: 270px;
-        margin-right: 5px;
+        margin-right: 15px;
     }
     .txt-content {
         width: 270px;
-        margin-right: 5px;
+        margin-right: 15px;
     }
 }
 </style>

@@ -123,7 +123,7 @@ export default {
 .card {
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: space-around;
     width: 642px;
     height: 524px;
     background-color: #ffffff;
@@ -136,7 +136,7 @@ export default {
     justify-content: flex-start;
     width: 30px;
     height: 30px;
-    margin-top: 24px;
+    margin-top: 32px;
 }
 .form-control {
     direction: rtl;
@@ -238,8 +238,7 @@ export default {
         font-size: 20px;
         line-height: 140.62%;
         width: 328px;
-        margin-right: 16px;
-        margin-left: 16px;
+        margin: 100px 16px 33px 16px;
     }
     .txt-content {
         width: 328px;
@@ -254,7 +253,7 @@ export default {
     }
     .disposable-pass {
         font-size: 13px;
-        margin: 0 32px 86px 0;
+        margin: 0 32px 143px 0;
     }
     .arrow {
         display: none;
@@ -306,8 +305,8 @@ export default {
         margin-bottom: 42px;
     }
     .input-holder {
-        margin-right: 16px;
-        margin-left: 16px;
+        margin-right: 10px;
+        margin-left: 10px;
         padding: 0;
         width: 270px;
         height: 60px;
@@ -320,11 +319,11 @@ export default {
         font-size: 20px;
         line-height: 140.62%;
         width: 270px;
-        margin-right: 5px;
+        margin-right: 10px;
     }
     .txt-content {
         width: 270px;
-        margin-right: 5px;
+        margin-right: 10px;
     }
     .signup-limoo-logo {
         margin-top: 0.2rem;

@@ -293,51 +293,51 @@ export default {
     @keyframes cssAnimation {
         0% {
             opacity: 0;
-            transform: translate(0%, -160%);
+            transform: translate(0%, -190%);
         }
         10% {
             opacity: 1;
-            transform: translate(0%, -100%);
+            transform: translate(0%, -160%);
         }
         20% {
             opacity: 1;
-            transform: translate(0%, -70%);
+            transform: translate(0%, -150%);
         }
         30% {
             opacity: 1;
-            transform: translate(0%, -70%);
+            transform: translate(0%, -150%);
         }
         40% {
             opacity: 1;
-            transform: translate(0%, -70%);
+            transform: translate(0%, -150%);
         }
         50% {
             opacity: 1;
-            transform: translate(0%, -70%);
+            transform: translate(0%, -150%);
         }
         60% {
             opacity: 1;
-            transform: translate(0%, -70%);
+            transform: translate(0%, -150%);
         }
         70% {
             opacity: 1;
-            transform: translate(0%, -70%);
+            transform: translate(0%, -150%);
         }
 
         90% {
             opacity: 1;
-            transform: translate(0%, -100%);
+            transform: translate(0%, -160%);
         }
         100% {
             opacity: 0;
-            transform: translate(0%, -160%);
+            transform: translate(0%, -190%);
         }
     }
     .card {
         width: auto;
         height: 100vh;
         border-radius: 0;
-        padding-right: 5px;
+        padding-right: 1px;
     }
     .success-message {
         width: 328px;
@@ -444,6 +444,7 @@ export default {
 @media screen and (max-width: 280px) {
     .card {
         margin-right: 0px;
+        padding-right: 0px;
     }
     .success-message {
         width: 270px;

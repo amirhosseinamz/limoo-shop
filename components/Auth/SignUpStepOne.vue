@@ -178,6 +178,9 @@ export default {
 .signup-input {
     padding-right: 24px;
 }
+.signup-input-wrong {
+    padding-right: 24px;
+}
 .form-control {
     direction: rtl;
     font-family: IRANYekanWeb;
@@ -238,17 +241,15 @@ export default {
         border-radius: 0;
     }
     .signup-input {
-        margin-left: 16px;
-        padding-right: 17px;
+        margin-right: 18px;
+        padding: 0;
         width: 328px;
         height: 60px;
         margin-bottom: 8px;
     }
 
     .signup-input-wrong {
-        margin-right: 16px;
-        margin-left: 16px;
-        padding-right: 16px;
+        margin-right: 18px;
         padding: 0;
         width: 328px;
         height: 60px;
@@ -315,7 +316,6 @@ export default {
     .input-holder-wrong {
         margin-right: 10px;
         margin-left: 10px;
-
         width: 280px;
         height: 60px;
         margin-bottom: 8px;
@@ -344,7 +344,7 @@ export default {
         margin-left: 5px;
         width: 270px;
         margin-bottom: 42px;
-        padding-right: 16px;
+        padding-right: 0px;
     }
     .input-holder {
         margin-right: 5px;
@@ -367,11 +367,11 @@ export default {
         font-size: 20px;
         line-height: 140.62%;
         width: 270px;
-        margin-right: 5px;
+        margin-right: 15px;
     }
     .txt-content {
         width: 270px;
-        margin-right: 5px;
+        margin-right: 15px;
     }
     .signup-limoo-logo {
         margin-top: 0.2rem;
