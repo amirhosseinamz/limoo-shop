@@ -380,6 +380,13 @@ export default {
         margin-right: 16px;
     }
 }
+@media screen and (max-width: 321px) and (min-width: 299px) {
+    .card {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+}
 @media screen and (max-width: 350px) {
     .success-message {
         width: 280px;

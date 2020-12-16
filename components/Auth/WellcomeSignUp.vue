@@ -109,6 +109,11 @@ body {
 }
 
 @media screen and (max-width: 540px) {
+    .btn-control {
+
+    flex-direction: row-reverse;
+
+}
     .signup-container {
         height: 85vh;
         display: flex;
@@ -177,10 +182,13 @@ body {
         line-height: 140.62%;
         width: 270px;
         margin-right: 5px;
+        text-align: center;
     }
     .txt-content {
-        width: 260px;
+        width: 265px;
+        text-align: center;
         margin-right: 5px;
+        padding-left: 5px;
     }
 }
 </style>

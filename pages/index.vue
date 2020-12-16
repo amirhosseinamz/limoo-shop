@@ -28,6 +28,9 @@ export default {
 </script>
 
 <style>
+body {
+    overflow: hidden;
+}
 .container {
     margin: 0 auto;
     width: 200px;
