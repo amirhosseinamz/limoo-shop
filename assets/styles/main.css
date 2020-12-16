@@ -89,8 +89,8 @@ html {
     margin-bottom: 8px;
     height: 54px;
     line-height: 28px;
-
-    border: 1px solid #515151;
+    /* #515151 */
+    border: 1px solid #bdbdbd;
     box-sizing: border-box;
     border-radius: 10px;
     /* This bit sets up the horizontal layout */
@@ -108,7 +108,7 @@ html {
     margin-bottom: 8px;
     height: 54px;
     line-height: 28px;
-    border: 1px solid #ed0b26;
+    border: 1px solid #ed0b26 !important;
     box-sizing: border-box;
     border-radius: 10px;
     /* This bit sets up the horizontal layout */

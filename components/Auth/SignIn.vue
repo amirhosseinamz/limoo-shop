@@ -16,7 +16,14 @@
                             کنید.
                         </p>
                         <div class="input-section">
-                            <div class="input-holder">
+                            <div
+                                class="input-holder"
+                                :style="
+                                    password
+                                        ? 'border:1px solid #515151'
+                                        : 'border:1px solid #bdbdbd'
+                                "
+                            >
                                 <input
                                     class="signup-input form-control"
                                     :type="passwordFieldType"
@@ -249,11 +256,11 @@ export default {
     }
     .forget-pass {
         font-size: 13px;
-        margin: 16px 32px 16px 0;
+        margin: 16px 16px 16px 0;
     }
     .disposable-pass {
         font-size: 13px;
-        margin: 0 32px 143px 0;
+        margin: 0 16px 143px 0;
     }
     .arrow {
         display: none;

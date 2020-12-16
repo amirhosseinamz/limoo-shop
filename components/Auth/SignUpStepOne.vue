@@ -23,6 +23,11 @@
                         </p>
                         <div class="input-section">
                             <div
+                                :style="
+                                    phone
+                                        ? 'border:1px solid #515151'
+                                        : 'border:1px solid #bdbdbd'
+                                "
                                 :class="[
                                     wrongInput
                                         ? 'input-holder-wrong'

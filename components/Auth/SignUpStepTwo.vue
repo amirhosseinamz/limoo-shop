@@ -31,7 +31,14 @@
                             وارد کنید.
                         </p>
                         <div class="input-section">
-                            <div class="input-holder">
+                            <div
+                                class="input-holder"
+                                :style="
+                                    verifyCode
+                                        ? 'border:1px solid #515151'
+                                        : 'border:1px solid #bdbdbd'
+                                "
+                            >
                                 <input
                                     class="signup-input form-control"
                                     type="text"

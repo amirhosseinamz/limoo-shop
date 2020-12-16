@@ -24,7 +24,14 @@
                             رمز عبور جدید
                         </p>
                         <div class="input-section">
-                            <div class="input-holder">
+                            <div
+                                class="input-holder"
+                                :style="
+                                    password
+                                        ? 'border:1px solid #515151'
+                                        : 'border:1px solid #bdbdbd'
+                                "
+                            >
                                 <input
                                     class="signup-input form-control"
                                     :type="passwordFieldType"
@@ -61,7 +68,14 @@
                             تکرار رمز عبور جدید
                         </p>
                         <div class="input-section">
-                            <div class="input-holder-verify">
+                            <div
+                                class="input-holder-verify"
+                                :style="
+                                    passwordVerify
+                                        ? 'border:1px solid #515151'
+                                        : 'border:1px solid #bdbdbd'
+                                "
+                            >
                                 <input
                                     class="signup-input form-control"
                                     :type="passwordFieldTypeVerify"
@@ -287,50 +301,45 @@ export default {
 
     /* add this animation to messages when we want to show them */
     .message-animation {
-        animation: cssAnimation 3s forwards;
+        animation: cssAnimation 2s forwards;
         animation-timing-function: linear;
     }
     @keyframes cssAnimation {
         0% {
             opacity: 0;
-            transform: translate(0%, -190%);
-        }
-        10% {
-            opacity: 1;
-            transform: translate(0%, -160%);
+            transform: translate(0%, -170%);
         }
         20% {
             opacity: 1;
-            transform: translate(0%, -150%);
+            transform: translate(0%, -130%);
         }
         30% {
             opacity: 1;
-            transform: translate(0%, -150%);
+            transform: translate(0%, -110%);
         }
         40% {
             opacity: 1;
-            transform: translate(0%, -150%);
+            transform: translate(0%, -90%);
         }
         50% {
             opacity: 1;
-            transform: translate(0%, -150%);
+            transform: translate(0%, -90%);
         }
         60% {
             opacity: 1;
-            transform: translate(0%, -150%);
+            transform: translate(0%, -90%);
         }
         70% {
             opacity: 1;
-            transform: translate(0%, -150%);
+            transform: translate(0%, -110%);
         }
-
-        90% {
+        80% {
             opacity: 1;
-            transform: translate(0%, -160%);
+            transform: translate(0%, -150%);
         }
         100% {
             opacity: 0;
-            transform: translate(0%, -190%);
+            transform: translate(0%, -170%);
         }
     }
     .card {
@@ -362,7 +371,7 @@ export default {
         padding: 0;
         width: 328px;
         height: 60px;
-        margin-bottom: 8px;
+        margin-bottom: 24px;
     }
     .input-holder-verify {
         margin-right: 16px;
@@ -373,12 +382,14 @@ export default {
     }
     .signup-btn {
         width: 328px;
-        margin-top: 30px;
+        margin-top: 6px;
+        margin-bottom: 132px;
     }
     .txt-header {
         font-size: 20px;
         line-height: 140.62%;
         width: 328px;
+        margin-top: 129px;
         margin-right: 16px;
         margin-left: 16px;
     }
@@ -414,8 +425,8 @@ export default {
         margin-bottom: 42px;
     }
     .input-holder {
-        margin-right: 16px;
-        margin-left: 16px;
+        margin-right: 15px;
+        margin-left: 15px;
         padding: 0;
         width: 280px;
         height: 60px;
@@ -456,16 +467,17 @@ export default {
         margin-bottom: 42px;
     }
     .input-holder {
-        margin-right: 16px;
-        margin-left: 16px;
-        padding: 0;
+        margin-right: 5px;
+        margin-left: 5px;
+        padding: 0 10px 0 0;
         width: 270px;
         height: 60px;
         margin-bottom: 8px;
     }
     .input-holder-verify {
-        margin-right: 16px;
-        margin-left: 16px;
+        margin-right: 15px;
+        padding: 0 10px 0 0;
+        margin-left: 15px;
         width: 270px;
     }
     .signup-btn {
@@ -475,11 +487,11 @@ export default {
         font-size: 20px;
         line-height: 140.62%;
         width: 270px;
-        margin-right: 5px;
+        margin-right: 10px;
     }
     .txt-content {
         width: 270px;
-        margin-right: 5px;
+        margin-right: 10px;
     }
     .signup-limoo-logo {
         margin-top: 0.2rem;

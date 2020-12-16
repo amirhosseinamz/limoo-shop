@@ -16,6 +16,11 @@
                         </p>
                         <div class="input-section">
                             <div
+                                :style="
+                                    phone
+                                        ? 'border:1px solid #515151'
+                                        : 'border:1px solid #bdbdbd'
+                                "
                                 :class="[
                                     wrongInput
                                         ? 'input-holder-wrong'
@@ -23,11 +28,11 @@
                                 ]"
                             >
                                 <input
+                                    class="form-control"
                                     :class="[
                                         wrongInput
                                             ? 'signup-input-wrong'
-                                            : 'signup-input',
-                                        'form-control'
+                                            : 'signup-input'
                                     ]"
                                     @click="[(wrongInput = false)]"
                                     type="tel"
