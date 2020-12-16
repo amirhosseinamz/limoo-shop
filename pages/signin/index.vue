@@ -1,29 +1,29 @@
 <template>
-  <keep-alive>
-    <component :is="signInLoader"></component>
-  </keep-alive>
+    <keep-alive>
+        <component :is="signInLoader"></component>
+    </keep-alive>
 </template>
 
 <script>
-import stepOne from "@/components/Auth/SignIn";
-import stepTwo from "@/components/Auth/SignInStepTwo";
-import recyclePass from "@/components/Auth/RecyclePass";
-import recyclePassStepTwo from "@/components/Auth/RecyclePassStepTwo";
-import PassChange from "@/components/Auth/PassChange";
+import stepOne from "~/components/Auth/SignIn";
+import stepTwo from "~/components/Auth/SignInStepTwo";
+import recyclePass from "~/components/Auth/RecyclePass";
+import recyclePassStepTwo from "~/components/Auth/RecyclePassStepTwo";
+import PassChange from "~/components/Auth/PassChange";
 
 export default {
-  components: {
-    stepOne,
-    stepTwo,
-    recyclePass,
-    recyclePassStepTwo,
-    PassChange
-  },
-  computed: {
-    signInLoader() {
-      return this.$store.getters.signInPicker;
+    components: {
+        stepOne,
+        stepTwo,
+        recyclePass,
+        recyclePassStepTwo,
+        PassChange
+    },
+    computed: {
+        signInLoader() {
+            return this.$store.getters.signInPicker;
+        }
     }
-  }
 };
 </script>
 
