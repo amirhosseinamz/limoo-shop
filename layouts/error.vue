@@ -8,6 +8,9 @@
 </template>
 
 <style scoped>
+body {
+    overflow: hidden;
+}
 .container {
     margin: 0 auto;
     width: 400px;

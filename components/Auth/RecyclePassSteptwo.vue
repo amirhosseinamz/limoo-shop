@@ -264,6 +264,13 @@ export default {
         margin-top: 0;
     }
 }
+@media screen and (max-width: 321px) and (min-width: 299px) {
+    .card {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+}
 @media screen and (max-width: 280px) {
     .card {
         padding-right: 0;

@@ -143,23 +143,23 @@ export default {
     }
     30% {
         opacity: 1;
-        transform: translate(0%, -110%);
+        transform: translate(0%, -120%);
     }
     40% {
         opacity: 1;
-        transform: translate(0%, -90%);
+        transform: translate(0%, -120%);
     }
     50% {
         opacity: 1;
-        transform: translate(0%, -90%);
+        transform: translate(0%, -120%);
     }
     60% {
         opacity: 1;
-        transform: translate(0%, -90%);
+        transform: translate(0%, -120%);
     }
     70% {
         opacity: 1;
-        transform: translate(0%, -110%);
+        transform: translate(0%, -120%);
     }
     80% {
         opacity: 1;
@@ -286,6 +286,44 @@ export default {
 }
 
 @media screen and (max-width: 540px) {
+    @keyframes cssAnimation {
+        0% {
+            opacity: 0;
+            transform: translate(0%, -170%);
+        }
+        20% {
+            opacity: 1;
+            transform: translate(0%, -140%);
+        }
+        30% {
+            opacity: 1;
+            transform: translate(0%, -120%);
+        }
+        40% {
+            opacity: 1;
+            transform: translate(0%, -100%);
+        }
+        50% {
+            opacity: 1;
+            transform: translate(0%, -100%);
+        }
+        60% {
+            opacity: 1;
+            transform: translate(0%, -100%);
+        }
+        70% {
+            opacity: 1;
+            transform: translate(0%, -120%);
+        }
+        80% {
+            opacity: 1;
+            transform: translate(0%, -140%);
+        }
+        100% {
+            opacity: 0;
+            transform: translate(0%, -170%);
+        }
+    }
     .success-message {
         width: 328px;
         height: 56px;
@@ -377,6 +415,13 @@ export default {
     }
     .signup-limoo-logo {
         margin-top: 0;
+    }
+}
+@media screen and (max-width: 321px) and (min-width: 299px) {
+    .card {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
     }
 }
 @media screen and (max-width: 280px) {

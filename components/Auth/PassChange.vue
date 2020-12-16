@@ -187,7 +187,7 @@ export default {
 .card {
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: space-around;
     width: 642px;
     height: 524px;
     background-color: #ffffff;
@@ -307,39 +307,43 @@ export default {
     @keyframes cssAnimation {
         0% {
             opacity: 0;
-            transform: translate(0%, -170%);
+            transform: translate(0%, -150%);
         }
         20% {
             opacity: 1;
-            transform: translate(0%, -130%);
+            transform: translate(0%, -100%);
         }
         30% {
             opacity: 1;
-            transform: translate(0%, -110%);
+            transform: translate(0%, -50%);
         }
         40% {
             opacity: 1;
-            transform: translate(0%, -90%);
+            transform: translate(0%, -20%);
         }
         50% {
             opacity: 1;
-            transform: translate(0%, -90%);
+            transform: translate(0%, -20%);
         }
         60% {
             opacity: 1;
-            transform: translate(0%, -90%);
+            transform: translate(0%, -20%);
         }
         70% {
             opacity: 1;
-            transform: translate(0%, -110%);
+            transform: translate(0%, -20%);
         }
         80% {
             opacity: 1;
-            transform: translate(0%, -150%);
+            transform: translate(0%, -50%);
+        }
+        90% {
+            opacity: 1;
+            transform: translate(0%, -100%);
         }
         100% {
             opacity: 0;
-            transform: translate(0%, -170%);
+            transform: translate(0%, -150%);
         }
     }
     .card {
@@ -389,7 +393,7 @@ export default {
         font-size: 20px;
         line-height: 140.62%;
         width: 328px;
-        margin-top: 129px;
+        margin-top: 100px;
         margin-right: 16px;
         margin-left: 16px;
     }
@@ -453,10 +457,10 @@ export default {
     }
 }
 @media screen and (max-width: 280px) {
-    .card {
+    /* .card {
         margin-right: 0px;
         padding-right: 0px;
-    }
+    } */
     .success-message {
         width: 270px;
     }
