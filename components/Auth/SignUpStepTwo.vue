@@ -120,7 +120,7 @@ export default {
 /* add this animation to messages when we want to show them */
 /* animation-timing-function: linear; */
 .message-animation {
-    animation: cssAnimation 2.5s forwards;
+    animation: cssAnimation 3s forwards;
     animation-timing-function: linear;
 }
 @keyframes cssAnimation {
@@ -277,22 +277,20 @@ export default {
 }
 
 @media screen and (max-width: 540px) {
+    /* .app-signin-next-btn {
+    } */
     @keyframes cssAnimation {
         0% {
             opacity: 0;
             transform: translate(0%, -170%);
         }
-        /* 10% {
-            opacity: 0.3;
-            transform: translate(0%, -140%);
-        }
         20% {
             opacity: 0.4;
             transform: translate(0%, -140%);
-        } */
+        }
         30% {
-            opacity: 1;
-            transform: translate(0%, -90%);
+            opacity: 0.5;
+            transform: translate(0%, -110%);
         }
         40% {
             opacity: 1;
@@ -307,12 +305,12 @@ export default {
             transform: translate(0%, -90%);
         }
         70% {
-            opacity: 1;
-            transform: translate(0%, -100%);
+            opacity: 0.5;
+            transform: translate(0%, -110%);
         }
         80% {
-            opacity: 1;
-            transform: translate(0%, -130%);
+            opacity: 0.4;
+            transform: translate(0%, -140%);
         }
         100% {
             opacity: 0;
@@ -378,13 +376,6 @@ export default {
     }
     .timer {
         margin-right: 16px;
-    }
-}
-@media screen and (max-width: 321px) and (min-width: 299px) {
-    .card {
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
     }
 }
 @media screen and (max-width: 350px) {
