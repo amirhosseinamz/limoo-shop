@@ -18,12 +18,13 @@
                             <div
                                 class="input-holder"
                                 :style="
-                                    verifyCode
+                                    verifyCode || isActive
                                         ? 'border:1px solid #515151'
                                         : 'border:1px solid #bdbdbd'
                                 "
                             >
                                 <input
+                                    @click="[(isActive = true)]"
                                     class="signup-input form-control"
                                     type="text"
                                     v-model="verifyCode"
@@ -55,7 +56,8 @@ export default {
     data() {
         return {
             verifyCode: "",
-            wrongInput: false
+            wrongInput: false,
+            isActive: false
         };
     },
     methods: {

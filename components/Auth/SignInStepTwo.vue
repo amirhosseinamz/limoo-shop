@@ -34,12 +34,13 @@
                             <div
                                 class="input-holder"
                                 :style="
-                                    verifyCode
+                                    verifyCode || isActive
                                         ? 'border:1px solid #515151'
                                         : 'border:1px solid #bdbdbd'
                                 "
                             >
                                 <input
+                                    @click="[(isActive = true)]"
                                     class="signup-input form-control"
                                     type="text"
                                     v-model="verifyCode"
@@ -73,7 +74,8 @@ export default {
         return {
             verifyCode: "",
             timerPassed: false,
-            newCodeSent: false
+            newCodeSent: false,
+            isActive: false
         };
     },
     methods: {
@@ -129,7 +131,7 @@ export default {
 /* add this animation to messages when we want to show them */
 /* animation-timing-function: linear; */
 .message-animation {
-    animation: cssAnimation 3s forwards;
+    animation: cssAnimation 2.4s forwards;
     animation-timing-function: linear;
 }
 @keyframes cssAnimation {

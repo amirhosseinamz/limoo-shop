@@ -27,12 +27,13 @@
                             <div
                                 class="input-holder"
                                 :style="
-                                    password
+                                    password || passIsActive
                                         ? 'border:1px solid #515151'
                                         : 'border:1px solid #bdbdbd'
                                 "
                             >
                                 <input
+                                    @click="[(passIsActive = true)]"
                                     class="signup-input form-control"
                                     :type="passwordFieldType"
                                     placeholder="کلمه عبور..."
@@ -71,12 +72,13 @@
                             <div
                                 class="input-holder-verify"
                                 :style="
-                                    passwordVerify
+                                    passwordVerify || verifyPassIsActive
                                         ? 'border:1px solid #515151'
                                         : 'border:1px solid #bdbdbd'
                                 "
                             >
                                 <input
+                                    @click="[(verifyPassIsActive = true)]"
                                     class="signup-input form-control"
                                     :type="passwordFieldTypeVerify"
                                     placeholder="کلمه عبور..."
@@ -140,7 +142,9 @@ export default {
             passwordFieldTypeVerify: "password",
             password: "",
             passwordVerify: "",
-            passChenged: false
+            passChenged: false,
+            passIsActive: false,
+            verifyPassIsActive: false
         };
     },
     methods: {
@@ -301,7 +305,7 @@ export default {
 
     /* add this animation to messages when we want to show them */
     .message-animation {
-        animation: cssAnimation 2s forwards;
+        animation: cssAnimation 2.5s forwards;
         animation-timing-function: linear;
     }
     @keyframes cssAnimation {

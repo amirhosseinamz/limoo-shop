@@ -34,12 +34,13 @@
                             <div
                                 class="input-holder"
                                 :style="
-                                    verifyCode
+                                    verifyCode || isActive
                                         ? 'border:1px solid #515151'
                                         : 'border:1px solid #bdbdbd'
                                 "
                             >
                                 <input
+                                    @click="[(isActive = true)]"
                                     class="signup-input form-control"
                                     type="text"
                                     v-model="verifyCode"
@@ -69,12 +70,14 @@ export default {
         return {
             verifyCode: "",
             timerPassed: false,
-            newCodeSent: false
+            newCodeSent: false,
+            isActive: false
         };
     },
     methods: {
         pressed() {
             // talk to server
+            console.log(this.verifyCode);
             return (this.newCodeSent = !this.newCodeSent);
         },
         changeRTL() {
@@ -277,8 +280,6 @@ export default {
 }
 
 @media screen and (max-width: 540px) {
-    /* .app-signin-next-btn {
-    } */
     @keyframes cssAnimation {
         0% {
             opacity: 0;
@@ -376,6 +377,13 @@ export default {
     }
     .timer {
         margin-right: 16px;
+    }
+}
+@media screen and (max-width: 321px) and (min-width: 299px) {
+    .card {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
     }
 }
 @media screen and (max-width: 350px) {

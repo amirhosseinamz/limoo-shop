@@ -19,12 +19,13 @@
                             <div
                                 class="input-holder"
                                 :style="
-                                    password
+                                    password || isActive
                                         ? 'border:1px solid #515151'
                                         : 'border:1px solid #bdbdbd'
                                 "
                             >
                                 <input
+                                    @click="[(isActive = true)]"
                                     class="signup-input form-control"
                                     :type="passwordFieldType"
                                     placeholder="کلمه عبور..."
@@ -87,7 +88,8 @@ export default {
     data() {
         return {
             passwordFieldType: "password",
-            password: ""
+            password: "",
+            isActive: false
         };
     },
     methods: {

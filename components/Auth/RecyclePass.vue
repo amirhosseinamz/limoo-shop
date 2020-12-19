@@ -17,7 +17,7 @@
                         <div class="input-section">
                             <div
                                 :style="
-                                    phone
+                                    phone || isActive
                                         ? 'border:1px solid #515151'
                                         : 'border:1px solid #bdbdbd'
                                 "
@@ -34,14 +34,23 @@
                                             ? 'signup-input-wrong'
                                             : 'signup-input'
                                     ]"
-                                    @click="[(wrongInput = false)]"
+                                    @click="
+                                        [
+                                            (wrongInput = false),
+                                            (isActive = true)
+                                        ]
+                                    "
                                     type="tel"
                                     maxlength="11"
                                     placeholder="شماره موبایل..."
                                     v-model.trim="phone"
                                 /><button
                                     @click="
-                                        [(wrongInput = false), (phone = '')]
+                                        [
+                                            (wrongInput = false),
+                                            (phone = ''),
+                                            (isActive = false)
+                                        ]
                                     "
                                     type="button"
                                     :style="
@@ -93,7 +102,8 @@ export default {
         return {
             phone: "",
             storePhone: "",
-            wrongInput: false
+            wrongInput: false,
+            isActive: false
         };
     },
     computed: {
