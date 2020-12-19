@@ -11,10 +11,10 @@
                         </p>
                     </div>
                     <div class="btn-control">
-                        <button class="complete-btn" type="submit">
+                        <button class="badge-btn complete-btn" type="submit">
                             تکمیل مشخصات
                         </button>
-                        <button class="complete-btn later-btn" type="submit">
+                        <button class="badge-btn later-btn" type="submit">
                             فعلا نه
                         </button>
                     </div>
@@ -86,34 +86,33 @@ body {
     margin-right: 25px;
     padding-left: 50px;
 }
-.complete-btn {
+.badge-btn {
     font-family: "IRANYekanWeb";
     text-align: center;
-    color: #ffffff;
-    background: #ffcc40;
     border: none;
     border-radius: 10px;
     outline: none;
     cursor: pointer;
-    margin-bottom: 28px;
     width: 200px;
     height: 52px;
-    margin-left: 24px;
-    margin-right: 20px;
     font-weight: 500;
     font-size: 14px;
+}
+.complete-btn {
+    color: #ffffff;
+    background: #ffcc40;
+    margin: 0px 10px 28px 24px;
 }
 .later-btn {
     background: #f2f2f2;
     color: #515151;
+    margin: 0px 24px 28px 10px;
 }
 
 @media screen and (max-width: 540px) {
     .btn-control {
-
-    flex-direction: row-reverse;
-
-}
+        flex-direction: row-reverse;
+    }
     .signup-container {
         height: 85vh;
         display: flex;
@@ -131,9 +130,15 @@ body {
         padding-right: 5px;
     }
 
-    .complete-btn {
+    .badge-btn {
         width: 140px;
         height: 45px;
+    }
+    .complete-btn {
+        margin: 0px 16px 20px 8px;
+    }
+    .later-btn {
+        margin: 0px 8px 20px 16px;
     }
     .txt-header {
         font-size: 20px;
@@ -172,8 +177,7 @@ body {
         margin-right: 0px;
         width: 270px;
     }
-
-    .complete-btn {
+    .badge-btn {
         width: 130px;
         height: 45px;
     }
@@ -182,11 +186,9 @@ body {
         line-height: 140.62%;
         width: 270px;
         margin-right: 5px;
-        text-align: center;
     }
     .txt-content {
         width: 265px;
-        text-align: center;
         margin-right: 5px;
         padding-left: 5px;
     }
