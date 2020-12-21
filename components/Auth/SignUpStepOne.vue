@@ -142,10 +142,10 @@ export default {
                     //     value: "stepTwo"
                     // });
                 } else {
-                    this.$router.push("/signin");
-                    // this.$store.commit("walkInSignUpcomponents", {
-                    //     value: "stepTwo"
-                    // });
+                    // this.$router.push("/signin");
+                    this.$store.commit("walkInSignUpcomponents", {
+                        value: "stepTwo"
+                    });
                 }
             }
 

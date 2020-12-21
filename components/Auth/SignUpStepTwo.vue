@@ -51,7 +51,9 @@
                     </div>
                     <div class="timer-holder">
                         <p class="timer"><span>02:45</span> ارسال مجدد کد</p>
-                        <p class="code-request">درخواست ارسال مجدد کد</p>
+                        <p @click="animate" class="code-request">
+                            درخواست ارسال مجدد کد
+                        </p>
                     </div>
                     <div class="btn-control">
                         <button class="signup-btn" type="submit">
@@ -75,14 +77,17 @@ export default {
         };
     },
     methods: {
+        animate() {
+            console.log(this.verifyCode);
+            this.newCodeSent = true;
+            setTimeout(() => {
+                this.newCodeSent = false;
+            }, 5000);
+        },
         pressed() {
             // talk to server
-            console.log(this.verifyCode);
-            return (this.newCodeSent = !this.newCodeSent);
         },
-        changeRTL() {
-            this.$vuetify.rtl = true;
-        },
+
         nextPage() {
             // go to ...
             this.$store.commit("walkInSignUpcomponents", { value: "stepOne" });
@@ -123,45 +128,28 @@ export default {
 /* add this animation to messages when we want to show them */
 /* animation-timing-function: linear; */
 .message-animation {
-    animation: cssAnimation 3s forwards;
-    animation-timing-function: linear;
+    animation: cssAnimation 600ms 2 alternate;
 }
 @keyframes cssAnimation {
     0% {
         opacity: 0;
-        transform: translate(0%, -160%);
-    }
-    20% {
-        opacity: 0.3;
-        transform: translate(0%, -130%);
-    }
-    30% {
-        opacity: 0.4;
-        transform: translate(0%, -100%);
-    }
-    40% {
-        opacity: 1;
-        transform: translate(0%, -60%);
-    }
-    50% {
-        opacity: 1;
-        transform: translate(0%, -60%);
-    }
-    60% {
-        opacity: 1;
-        transform: translate(0%, -60%);
+        transform: translate(0%, -170%);
     }
     70% {
-        opacity: 0.5;
-        transform: translate(0%, -100%);
+        opacity: 1;
+        transform: translate(0%, -60%);
     }
     80% {
-        opacity: 0.4;
-        transform: translate(0%, -130%);
+        opacity: 1;
+        transform: translate(0%, -60%);
+    }
+    90% {
+        opacity: 1;
+        transform: translate(0%, -60%);
     }
     100% {
-        opacity: 0;
-        transform: translate(0%, -160%);
+        opacity: 1;
+        transform: translate(0%, -60%);
     }
 }
 
@@ -234,6 +222,7 @@ export default {
     line-height: 140.62%;
     color: #828282;
     margin-right: 90px;
+    display: none;
 }
 .code-request {
     font-weight: 500;
@@ -242,7 +231,6 @@ export default {
     text-align: right;
     color: #47a7ff;
     margin-right: 90px;
-    display: none;
 }
 .btn-control {
     display: flex;
@@ -285,37 +273,21 @@ export default {
             opacity: 0;
             transform: translate(0%, -170%);
         }
-        20% {
-            opacity: 0.4;
-            transform: translate(0%, -140%);
-        }
-        30% {
-            opacity: 0.5;
-            transform: translate(0%, -110%);
-        }
-        40% {
-            opacity: 1;
-            transform: translate(0%, -90%);
-        }
-        50% {
-            opacity: 1;
-            transform: translate(0%, -90%);
-        }
-        60% {
-            opacity: 1;
-            transform: translate(0%, -90%);
-        }
         70% {
-            opacity: 0.5;
-            transform: translate(0%, -110%);
+            opacity: 1;
+            transform: translate(0%, -80%);
         }
         80% {
-            opacity: 0.4;
-            transform: translate(0%, -140%);
+            opacity: 1;
+            transform: translate(0%, -80%);
+        }
+        90% {
+            opacity: 1;
+            transform: translate(0%, -80%);
         }
         100% {
-            opacity: 0;
-            transform: translate(0%, -170%);
+            opacity: 1;
+            transform: translate(0%, -80%);
         }
     }
     .success-message {
@@ -376,6 +348,9 @@ export default {
         margin-left: 16px;
     }
     .timer {
+        margin-right: 16px;
+    }
+    .code-request {
         margin-right: 16px;
     }
 }
