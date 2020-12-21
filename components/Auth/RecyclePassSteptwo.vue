@@ -1,10 +1,26 @@
 <template>
     <div class="signup-container">
         <div class="card">
-            <div class="signin-next-btn">
+            <div>
                 <button @click="nextPage" class="app-signin-next-btn">
                     <img src="../../static/next.svg" />
                 </button>
+                <div
+                    class="success-message"
+                    :class="{ 'message-animation': newCodeSent }"
+                >
+                    <img class="success-icon" src="../../static/success.svg" />
+                    <p dir="rtl" class="success-txt">کد جدید ارسال شد!</p>
+                </div>
+                <div
+                    class="alert-message "
+                    :class="{ 'message-animation': timerPassed }"
+                >
+                    <img class="alert-icon " src="../../static/alarm.svg" />
+                    <p dir="rtl" class="alert-txt">
+                        کد منقضی شد، لطفا کد جدید درخواست کنید!
+                    </p>
+                </div>
             </div>
 
             <div class="card-body">
@@ -35,7 +51,9 @@
                     </div>
                     <div class="timer-holder">
                         <p class="timer"><span>02:45</span> ارسال مجدد کد</p>
-                        <p class="code-request">درخواست ارسال مجدد کد</p>
+                        <p @click="animate" class="code-request">
+                            درخواست ارسال مجدد کد
+                        </p>
                     </div>
                     <div class="btn-control">
                         <button class="signup-btn" type="submit">
@@ -57,6 +75,8 @@ export default {
         return {
             verifyCode: "",
             wrongInput: false,
+            timerPassed: false,
+            newCodeSent: false,
             isActive: false
         };
     },
@@ -67,11 +87,18 @@ export default {
                 value: "PassChange"
             });
         },
+        animate() {
+            this.newCodeSent = true;
+            setTimeout(() => {
+                this.newCodeSent = false;
+            }, 5000);
+        },
         changeRTL() {
             this.$vuetify.rtl = true;
         },
         nextPage() {
             // go to ...
+            console.log("hi");
             this.$store.commit("walkInSignIncomponents", {
                 value: "recyclePass"
             });
@@ -81,6 +108,63 @@ export default {
 </script>
 
 <style scoped>
+.success-message {
+    display: flex;
+    flex-direction: row-reverse;
+    width: 463px;
+    height: 58px;
+    background-color: #1fdc6b;
+    margin: 44px 90px 0px 89px;
+    border-radius: 10px;
+    position: absolute;
+    opacity: 0;
+    /* display: none; */
+    /* add .message-animation when we want to show it */
+}
+
+.alert-message {
+    display: flex;
+    flex-direction: row-reverse;
+    width: 463px;
+    height: 58px;
+    background-color: #ed0b26;
+    margin: 44px 90px 0px 89px;
+    border-radius: 10px;
+    position: absolute;
+    opacity: 0;
+    /* z-index: 1; */
+    /* display: none; */
+    /* add .message-animation when we want to show it */
+}
+/* add this animation to messages when we want to show them */
+/* animation-timing-function: linear; */
+.message-animation {
+    animation: cssAnimation 600ms 2 alternate;
+    /* animation-timing-function: linear; */
+}
+@keyframes cssAnimation {
+    0% {
+        opacity: 0;
+        transform: translate(0%, -170%);
+    }
+    70% {
+        opacity: 1;
+        transform: translate(0%, -120%);
+    }
+    80% {
+        opacity: 1;
+        transform: translate(0%, -120%);
+    }
+    90% {
+        opacity: 1;
+        transform: translate(0%, -120%);
+    }
+    100% {
+        opacity: 1;
+        transform: translate(0%, -120%);
+    }
+}
+
 .signup-container {
     height: 100vh;
     display: flex;
@@ -100,24 +184,35 @@ export default {
     box-shadow: 0px 8px 16px rgba(17, 17, 17, 0.03);
     border-radius: 15px;
 }
-
+.success-icon {
+    width: 24px;
+    height: 24px;
+    margin-right: 18px;
+    margin-top: 17px;
+}
 .alert-icon {
     width: 24px;
     height: 24px;
     margin-right: 18px;
     margin-top: 17px;
 }
-.signin-next-btn {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-}
+
 .app-signin-next-btn {
+    display: flex;
     margin: 24px 11.5px 0 24px;
     width: 13.5px;
     height: 24px;
+    cursor: pointer;
 }
-
+.success-txt {
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 140.62%;
+    margin-right: 8px;
+    text-align: right;
+    margin-top: 17px;
+    color: #ffffff;
+}
 .alert-txt {
     font-weight: 500;
     font-size: 16px;
@@ -140,6 +235,7 @@ export default {
     line-height: 140.62%;
     color: #828282;
     margin-right: 90px;
+    display: none;
 }
 .code-request {
     font-weight: 500;
@@ -148,7 +244,7 @@ export default {
     text-align: right;
     color: #47a7ff;
     margin-right: 90px;
-    display: none;
+    cursor: pointer;
 }
 .btn-control {
     display: flex;
@@ -192,9 +288,46 @@ export default {
     }
 }
 @media screen and (max-width: 540px) {
+    @keyframes cssAnimation {
+        0% {
+            opacity: 0;
+            transform: translate(0%, -170%);
+        }
+        70% {
+            opacity: 1;
+            transform: translate(0%, -90%);
+        }
+        80% {
+            opacity: 1;
+            transform: translate(0%, -90%);
+        }
+        90% {
+            opacity: 1;
+            transform: translate(0%, -90%);
+        }
+        100% {
+            opacity: 1;
+            transform: translate(0%, -90%);
+        }
+    }
+    .success-message {
+        width: 328px;
+        height: 56px;
+
+        margin: 16px 16px 0px 16px;
+    }
+    .alert-message {
+        width: 328px;
+        height: 72px;
+        margin: 16px 16px 0px 16px;
+    }
     .alert-txt {
         font-size: 14px;
         padding-left: 50px;
+    }
+    .success-txt {
+        font-size: 14px;
+        margin-top: 20px;
     }
     .card {
         width: auto;
@@ -238,8 +371,17 @@ export default {
     .timer {
         margin-right: 16px;
     }
+    .code-request {
+        margin-right: 16px;
+    }
 }
 @media screen and (max-width: 350px) {
+    .success-message {
+        width: 280px;
+    }
+    .alert-message {
+        width: 280px;
+    }
     .signup-input {
         margin-right: 10px;
         margin-left: 10px;
@@ -274,6 +416,14 @@ export default {
     }
 }
 @media screen and (max-width: 280px) {
+    .success-message {
+        width: 270px;
+    }
+    .alert-message {
+        width: 270px;
+        height: 60px;
+        margin-right: 5px;
+    }
     .card {
         padding-right: 0;
     }

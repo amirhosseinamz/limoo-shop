@@ -170,6 +170,7 @@ export default {
             this.$vuetify.rtl = true;
         },
         nextPage() {
+            console.log("biiiiiii");
             this.$store.commit("walkInSignIncomponents", { value: "stepOne" });
             //   this.$router.push("/signin");
         }

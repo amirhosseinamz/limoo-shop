@@ -2,7 +2,7 @@
     <div class="signup-container">
         <div class="card">
             <div class="signin-next-btn">
-                <button @click="nextPage" class="app-signin-next-btn">
+                <button @click="previousPage" class="app-signin-next-btn">
                     <img src="../../static/next.svg" />
                 </button>
             </div>
@@ -111,9 +111,9 @@ export default {
             // send request to disposablePass
             this.$store.commit("walkInSignIncomponents", { value: "stepTwo" });
         },
-        nextPage() {
+        previousPage() {
             // go to ...
-            this.$router.push("/");
+            this.$router.push("/signup");
         }
     }
 };

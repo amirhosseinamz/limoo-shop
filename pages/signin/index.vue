@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import stepOne from "~/components/Auth/SignIn";
+import stepOne from "~/components/Auth/SignInStepOne";
 import stepTwo from "~/components/Auth/SignInStepTwo";
 import recyclePass from "~/components/Auth/RecyclePass";
 import recyclePassStepTwo from "~/components/Auth/RecyclePassStepTwo";

@@ -51,14 +51,12 @@
                     </div>
                     <div class="timer-holder">
                         <p class="timer"><span>02:45</span> ارسال مجدد کد</p>
-                        <p class="code-request">درخواست ارسال مجدد کد</p>
+                        <p @click="animate" class="code-request">
+                            درخواست ارسال مجدد کد
+                        </p>
                     </div>
                     <div class="btn-control">
-                        <button
-                            @click="animate"
-                            class="signup-btn"
-                            type="submit"
-                        >
+                        <button class="signup-btn" type="submit">
                             تایید
                         </button>
                     </div>
@@ -83,9 +81,9 @@ export default {
             // talk to server
         },
         animate() {
-            this.newCodeSent = true;
+            this.timerPassed = true;
             setTimeout(() => {
-                this.newCodeSent = false;
+                this.timerPassed = false;
             }, 5000);
         },
         changeRTL() {
@@ -131,11 +129,31 @@ export default {
 /* add this animation to messages when we want to show them */
 /* animation-timing-function: linear; */
 .message-animation {
-    animation: cssAnimation 2.4s forwards;
-    animation-timing-function: linear;
+    animation: cssAnimation 600ms 2 alternate;
+    /* animation-timing-function: linear; */
 }
 @keyframes cssAnimation {
     0% {
+        opacity: 0;
+        transform: translate(0%, -170%);
+    }
+    70% {
+        opacity: 1;
+        transform: translate(0%, -120%);
+    }
+    80% {
+        opacity: 1;
+        transform: translate(0%, -120%);
+    }
+    90% {
+        opacity: 1;
+        transform: translate(0%, -120%);
+    }
+    100% {
+        opacity: 1;
+        transform: translate(0%, -120%);
+    }
+    /* 0% {
         opacity: 0;
         transform: translate(0%, -170%);
     }
@@ -170,7 +188,7 @@ export default {
     100% {
         opacity: 0;
         transform: translate(0%, -170%);
-    }
+    } */
 }
 
 .signup-container {
@@ -243,6 +261,7 @@ export default {
     line-height: 140.62%;
     color: #828282;
     margin-right: 90px;
+    display: none;
 }
 .code-request {
     font-weight: 500;
@@ -251,7 +270,8 @@ export default {
     text-align: right;
     color: #47a7ff;
     margin-right: 90px;
-    display: none;
+    cursor: pointer;
+    display: block;
 }
 .btn-control {
     display: flex;
@@ -287,9 +307,29 @@ export default {
     margin-bottom: 144px;
 }
 
-@media screen and (max-width: 540px) {
+@media (max-width: 540px) {
     @keyframes cssAnimation {
         0% {
+            opacity: 0;
+            transform: translate(0%, -170%);
+        }
+        70% {
+            opacity: 1;
+            transform: translate(0%, -70%);
+        }
+        80% {
+            opacity: 1;
+            transform: translate(0%, -70%);
+        }
+        90% {
+            opacity: 1;
+            transform: translate(0%, -70%);
+        }
+        100% {
+            opacity: 1;
+            transform: translate(0%, -70%);
+        }
+        /* 0% {
             opacity: 0;
             transform: translate(0%, -170%);
         }
@@ -324,7 +364,7 @@ export default {
         100% {
             opacity: 0;
             transform: translate(0%, -170%);
-        }
+        } */
     }
     .success-message {
         width: 328px;
@@ -383,6 +423,9 @@ export default {
         margin-left: 16px;
     }
     .timer {
+        margin-right: 16px;
+    }
+    .code-request {
         margin-right: 16px;
     }
 }

@@ -138,14 +138,14 @@ export default {
                 this.wrongInput = false;
                 this.$store.commit("PhoneNumber", { value: this.phone });
                 if (this.phone == this.storePhone) {
-                    this.$store.commit("walkInSignUpcomponents", {
-                        value: "stepTwo"
-                    });
+                    // this.$store.commit("walkInSignUpcomponents", {
+                    //     value: "stepTwo"
+                    // });
                 } else {
-                    // this.$router.push("/signin");
-                    this.$store.commit("walkInSignUpcomponents", {
-                        value: "stepTwo"
-                    });
+                    this.$router.push("/signin");
+                    // this.$store.commit("walkInSignUpcomponents", {
+                    //     value: "stepTwo"
+                    // });
                 }
             }
 

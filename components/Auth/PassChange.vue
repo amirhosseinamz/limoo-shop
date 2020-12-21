@@ -305,33 +305,13 @@ export default {
 
     /* add this animation to messages when we want to show them */
     .message-animation {
-        animation: cssAnimation 2.5s forwards;
-        animation-timing-function: linear;
+        animation: cssAnimation 600ms 2 alternate;
+        /* animation-timing-function: linear; */
     }
     @keyframes cssAnimation {
         0% {
             opacity: 0;
-            transform: translate(0%, -150%);
-        }
-        20% {
-            opacity: 1;
             transform: translate(0%, -100%);
-        }
-        30% {
-            opacity: 1;
-            transform: translate(0%, -50%);
-        }
-        40% {
-            opacity: 1;
-            transform: translate(0%, -20%);
-        }
-        50% {
-            opacity: 1;
-            transform: translate(0%, -20%);
-        }
-        60% {
-            opacity: 1;
-            transform: translate(0%, -20%);
         }
         70% {
             opacity: 1;
@@ -339,15 +319,15 @@ export default {
         }
         80% {
             opacity: 1;
-            transform: translate(0%, -50%);
+            transform: translate(0%, -20%);
         }
         90% {
             opacity: 1;
-            transform: translate(0%, -100%);
+            transform: translate(0%, -20%);
         }
         100% {
-            opacity: 0;
-            transform: translate(0%, -150%);
+            opacity: 1;
+            transform: translate(0%, -20%);
         }
     }
     .card {
