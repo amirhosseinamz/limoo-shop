@@ -1,22 +1,22 @@
 <template>
-    <div class="signup-container">
+    <div class="recycle-container">
         <div class="card">
             <div>
                 <button @click="nextPage" class="app-signin-next-btn">
-                    <img src="../../static/next.svg" />
+                    <img src="/next.svg" />
                 </button>
                 <div
                     class="success-message"
-                    :class="{ 'message-animation': newCodeSent }"
+                    :class="{ 'success-message-animation': newCodeSent }"
                 >
-                    <img class="success-icon" src="../../static/success.svg" />
+                    <img class="success-icon" src="/success.svg" />
                     <p dir="rtl" class="success-txt">کد جدید ارسال شد!</p>
                 </div>
                 <div
                     class="alert-message "
-                    :class="{ 'message-animation': timerPassed }"
+                    :class="{ 'alert-message-animation': timerPassed }"
                 >
-                    <img class="alert-icon " src="../../static/alarm.svg" />
+                    <img class="alert-icon " src="/alarm.svg" />
                     <p dir="rtl" class="alert-txt">
                         کد منقضی شد، لطفا کد جدید درخواست کنید!
                     </p>
@@ -28,7 +28,7 @@
                     <div class="form-group">
                         <p class="txt-header">بازیابی رمز عبور</p>
                         <p dir="rtl" class="txt-content">
-                            لطفا کد تایید را وارد کنید!
+                            لطفا کد تایید را وارد کنید.
                         </p>
                         <div class="input-section">
                             <div
@@ -88,9 +88,9 @@ export default {
             });
         },
         animate() {
-            this.newCodeSent = true;
+            this.timerPassed = true;
             setTimeout(() => {
-                this.newCodeSent = false;
+                this.timerPassed = false;
             }, 5000);
         },
         changeRTL() {
@@ -118,7 +118,6 @@ export default {
     border-radius: 10px;
     position: absolute;
     opacity: 0;
-    /* display: none; */
     /* add .message-animation when we want to show it */
 }
 
@@ -132,15 +131,14 @@ export default {
     border-radius: 10px;
     position: absolute;
     opacity: 0;
-    /* z-index: 1; */
-    /* display: none; */
     /* add .message-animation when we want to show it */
 }
 /* add this animation to messages when we want to show them */
-/* animation-timing-function: linear; */
-.message-animation {
-    animation: cssAnimation 600ms 2 alternate;
-    /* animation-timing-function: linear; */
+.success-message-animation {
+    animation: cssAnimation 1000ms 2 alternate;
+}
+.alert-message-animation {
+    animation: cssAnimation 2000ms 2 alternate;
 }
 @keyframes cssAnimation {
     0% {
@@ -165,7 +163,7 @@ export default {
     }
 }
 
-.signup-container {
+.recycle-container {
     height: 100vh;
     display: flex;
     flex-direction: column;

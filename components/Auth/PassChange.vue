@@ -1,15 +1,15 @@
 <template>
-    <div class="signup-container">
+    <div class="pass-container">
         <div class="card">
             <div class="signin-next-btn">
                 <button @click="nextPage" class="app-signin-next-btn">
-                    <img src="../../static/next.svg" />
+                    <img src="/next.svg" />
                 </button>
                 <div
                     class="success-message"
                     :class="{ 'message-animation': passChenged }"
                 >
-                    <img class="success-icon" src="../../static/success.svg" />
+                    <img class="success-icon" src="/success.svg" />
                     <p dir="rtl" class="success-txt">
                         رمز با موفقیت تغییر کرد!
                     </p>
@@ -52,7 +52,7 @@
                                                 ? 'display: block'
                                                 : 'display: none'
                                         "
-                                        src="../../static/closeEye.svg"
+                                        src="/closeEye.svg"
                                     />
                                     <img
                                         :style="
@@ -60,7 +60,7 @@
                                                 ? 'display: block'
                                                 : 'display: none'
                                         "
-                                        src="../../static/openEye.svg"
+                                        src="/openEye.svg"
                                     />
                                 </button>
                             </div>
@@ -98,7 +98,7 @@
                                                 ? 'display: block'
                                                 : 'display: none'
                                         "
-                                        src="../../static/closeEye.svg"
+                                        src="/closeEye.svg"
                                     />
                                     <img
                                         :style="
@@ -106,7 +106,7 @@
                                                 ? 'display: block'
                                                 : 'display: none'
                                         "
-                                        src="../../static/openEye.svg"
+                                        src="/openEye.svg"
                                     />
                                 </button>
                             </div>
@@ -155,7 +155,7 @@ export default {
             this.passChenged = true;
             setTimeout(() => {
                 this.passChenged = false;
-            }, 3000);
+            }, 2000);
             //*==========================
         },
         switchVisibility() {
@@ -179,7 +179,7 @@ export default {
 </script>
 
 <style scoped>
-.signup-container {
+.pass-container {
     height: 100vh;
     display: flex;
     flex-direction: column;
@@ -299,14 +299,12 @@ export default {
         border-radius: 10px;
         position: absolute;
         opacity: 0;
-        /* display: none; */
         /* add .message-animation when we want to show them */
     }
 
     /* add this animation to messages when we want to show them */
     .message-animation {
-        animation: cssAnimation 600ms 2 alternate;
-        /* animation-timing-function: linear; */
+        animation: cssAnimation 1000ms 2 alternate;
     }
     @keyframes cssAnimation {
         0% {
@@ -441,10 +439,6 @@ export default {
     }
 }
 @media screen and (max-width: 280px) {
-    /* .card {
-        margin-right: 0px;
-        padding-right: 0px;
-    } */
     .success-message {
         width: 270px;
     }

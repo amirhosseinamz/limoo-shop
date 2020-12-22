@@ -3,13 +3,13 @@
         <div class="card">
             <div class="signup-close-btn">
                 <button @click="closePage" class="app-signup-close-btn">
-                    <img src="../../static/Vector.svg" />
+                    <img src="/Vector.svg" />
                 </button>
             </div>
 
             <div class="signup-limoo-logo">
                 <img
-                    src="../../static/limoo-logo1.png"
+                    src="/limoo-logo1.png"
                     alt="لوگوی وبسایت لیمو"
                 />
             </div>
@@ -211,7 +211,6 @@ export default {
     line-height: 140.62%;
     margin-right: 90px;
     margin-bottom: 18px;
-    /* visibility: hidden; */
 }
 .btn-control {
     display: flex;

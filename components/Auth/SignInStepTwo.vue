@@ -1,22 +1,22 @@
 <template>
-    <div class="signup-container">
+    <div class="signin-container">
         <div class="card">
             <div>
                 <button @click="nextPage" class="app-signin-next-btn">
-                    <img src="../../static/next.svg" />
+                    <img src="/next.svg" />
                 </button>
                 <div
                     class="success-message"
-                    :class="{ 'message-animation': newCodeSent }"
+                    :class="{ 'success-message-animation': newCodeSent }"
                 >
-                    <img class="success-icon" src="../../static/success.svg" />
+                    <img class="success-icon" src="/success.svg" />
                     <p dir="rtl" class="success-txt">کد جدید ارسال شد!</p>
                 </div>
                 <div
                     class="alert-message "
-                    :class="{ 'message-animation': timerPassed }"
+                    :class="{ 'alert-message-animation': timerPassed }"
                 >
-                    <img class="alert-icon " src="../../static/alarm.svg" />
+                    <img class="alert-icon " src="/alarm.svg" />
                     <p dir="rtl" class="alert-txt">
                         کد منقضی شد، لطفا کد جدید درخواست کنید!
                     </p>
@@ -108,7 +108,6 @@ export default {
     border-radius: 10px;
     position: absolute;
     opacity: 0;
-    /* display: none; */
     /* add .message-animation when we want to show it */
 }
 
@@ -122,15 +121,14 @@ export default {
     border-radius: 10px;
     position: absolute;
     opacity: 0;
-    /* z-index: 1; */
-    /* display: none; */
     /* add .message-animation when we want to show it */
 }
 /* add this animation to messages when we want to show them */
-/* animation-timing-function: linear; */
-.message-animation {
-    animation: cssAnimation 600ms 2 alternate;
-    /* animation-timing-function: linear; */
+.success-message-animation {
+    animation: cssAnimation 1000ms 2 alternate;
+}
+.alert-message-animation {
+    animation: cssAnimation 2000ms 2 alternate;
 }
 @keyframes cssAnimation {
     0% {
@@ -153,45 +151,9 @@ export default {
         opacity: 1;
         transform: translate(0%, -120%);
     }
-    /* 0% {
-        opacity: 0;
-        transform: translate(0%, -170%);
-    }
-    20% {
-        opacity: 1;
-        transform: translate(0%, -130%);
-    }
-    30% {
-        opacity: 1;
-        transform: translate(0%, -120%);
-    }
-    40% {
-        opacity: 1;
-        transform: translate(0%, -120%);
-    }
-    50% {
-        opacity: 1;
-        transform: translate(0%, -120%);
-    }
-    60% {
-        opacity: 1;
-        transform: translate(0%, -120%);
-    }
-    70% {
-        opacity: 1;
-        transform: translate(0%, -120%);
-    }
-    80% {
-        opacity: 1;
-        transform: translate(0%, -150%);
-    }
-    100% {
-        opacity: 0;
-        transform: translate(0%, -170%);
-    } */
 }
 
-.signup-container {
+.signin-container {
     height: 100vh;
     display: flex;
     flex-direction: column;
@@ -329,42 +291,6 @@ export default {
             opacity: 1;
             transform: translate(0%, -70%);
         }
-        /* 0% {
-            opacity: 0;
-            transform: translate(0%, -170%);
-        }
-        20% {
-            opacity: 1;
-            transform: translate(0%, -140%);
-        }
-        30% {
-            opacity: 1;
-            transform: translate(0%, -120%);
-        }
-        40% {
-            opacity: 1;
-            transform: translate(0%, -100%);
-        }
-        50% {
-            opacity: 1;
-            transform: translate(0%, -100%);
-        }
-        60% {
-            opacity: 1;
-            transform: translate(0%, -100%);
-        }
-        70% {
-            opacity: 1;
-            transform: translate(0%, -120%);
-        }
-        80% {
-            opacity: 1;
-            transform: translate(0%, -140%);
-        }
-        100% {
-            opacity: 0;
-            transform: translate(0%, -170%);
-        } */
     }
     .success-message {
         width: 328px;

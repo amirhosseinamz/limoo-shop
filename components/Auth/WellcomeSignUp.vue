@@ -1,5 +1,5 @@
 <template>
-    <div class="signup-container">
+    <div class="wellcome-container">
         <div class="card">
             <div class="card-body">
                 <form @submit.prevent="pressed">
@@ -37,7 +37,7 @@ export default {
 body {
     background-color: #ffffff;
 }
-.signup-container {
+.wellcome-container {
     height: 100vh;
     display: flex;
     flex-direction: column;

@@ -1,9 +1,9 @@
 <template>
-    <div class="signup-container">
+    <div class="recycle-container">
         <div class="card">
             <div class="signup-close-btn">
                 <button @click="nextPage" class="app-signup-close-btn">
-                    <img src="../../static/next.svg" />
+                    <img src="/next.svg" />
                 </button>
             </div>
 
@@ -170,7 +170,6 @@ export default {
             this.$vuetify.rtl = true;
         },
         nextPage() {
-            console.log("biiiiiii");
             this.$store.commit("walkInSignIncomponents", { value: "stepOne" });
             //   this.$router.push("/signin");
         }
@@ -179,7 +178,7 @@ export default {
 </script>
 
 <style scoped>
-.signup-container {
+.recycle-container {
     height: 100vh;
     display: flex;
     flex-direction: column;
@@ -224,7 +223,6 @@ export default {
     line-height: 140.62%;
     margin-right: 90px;
     margin-bottom: 18px;
-    /* visibility: hidden; */
 }
 .btn-control {
     display: flex;
@@ -245,7 +243,7 @@ export default {
 .txt-content {
     font-size: 16px;
     line-height: 22.5px;
-    font-weight: 318;
+    font-weight: 400;
     text-align: right;
     margin-bottom: 25px;
     margin-right: 90px;
@@ -299,6 +297,7 @@ export default {
         margin: 120px 16px 33px 16px;
     }
     .txt-content {
+        font-size: 14px;
         width: 328px;
         margin-right: 16px;
         margin-left: 16px;

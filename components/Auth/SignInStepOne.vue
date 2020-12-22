@@ -1,9 +1,9 @@
 <template>
-    <div class="signup-container">
+    <div class="signin-container">
         <div class="card">
             <div class="signin-next-btn">
                 <button @click="previousPage" class="app-signin-next-btn">
-                    <img src="../../static/next.svg" />
+                    <img src="/next.svg" />
                 </button>
             </div>
 
@@ -26,7 +26,7 @@
                             >
                                 <input
                                     @click="[(isActive = true)]"
-                                    class="signup-input form-control"
+                                    class="signin-input form-control"
                                     :type="passwordFieldType"
                                     placeholder="کلمه عبور..."
                                     v-model="password"
@@ -46,7 +46,7 @@
                                                 ? 'display: block'
                                                 : 'display: none'
                                         "
-                                        src="../../static/closeEye.svg"
+                                        src="/closeEye.svg"
                                     />
                                     <img
                                         :style="
@@ -54,7 +54,7 @@
                                                 ? 'display: block'
                                                 : 'display: none'
                                         "
-                                        src="../../static/openEye.svg"
+                                        src="/openEye.svg"
                                     />
                                 </button>
                             </div>
@@ -62,19 +62,19 @@
                     </div>
 
                     <div class="btn-control">
-                        <button class="signup-btn" type="submit">
+                        <button class="signin-btn" type="submit">
                             ادامه
                         </button>
                     </div>
                     <div class="forget-pass-section">
                         <p @click="forgetPass" class="forget-pass">
                             فراموشی رمز عبور
-                            <img class="arrow" src="../../static/arrow.svg" />
+                            <img class="arrow" src="/arrow.svg" />
                         </p>
 
                         <p @click="disposablePass" class="disposable-pass">
                             ورود با رمز عبور یکبار مصرف
-                            <img class="arrow" src="../../static/arrow.svg" />
+                            <img class="arrow" src="/arrow.svg" />
                         </p>
                     </div>
                 </form>
@@ -120,7 +120,7 @@ export default {
 </script>
 
 <style scoped>
-.signup-container {
+.signin-container {
     height: 100vh;
     display: flex;
     flex-direction: column;
@@ -159,7 +159,6 @@ export default {
     line-height: 140.62%;
     margin-right: 90px;
     margin-bottom: 29px;
-    /* visibility: hidden; */
 }
 .btn-control {
     display: flex;
@@ -183,10 +182,10 @@ export default {
     margin-bottom: 25px;
     margin-right: 90px;
 }
-.signup-btn {
+.signin-btn {
     margin-top: 32px;
 }
-.signup-input {
+.signin-input {
     padding-right: 24px;
 }
 .forget-pass-section {
@@ -222,7 +221,7 @@ export default {
         border-radius: 0;
         padding-right: 5px;
     }
-    .signup-input {
+    .signin-input {
         margin-right: 16px;
         margin-left: 16px;
         padding-right: 0px;
@@ -239,7 +238,7 @@ export default {
         margin-bottom: 8px;
     }
 
-    .signup-btn {
+    .signin-btn {
         width: 328px;
         margin-top: 30px;
     }
@@ -275,7 +274,7 @@ export default {
     .card {
         padding-right: 0px;
     }
-    .signup-input {
+    .signin-input {
         margin-right: 10px;
         margin-left: 10px;
         width: 280px;
@@ -289,7 +288,7 @@ export default {
         height: 60px;
         margin-bottom: 8px;
     }
-    .signup-btn {
+    .signin-btn {
         width: 280px;
     }
     .txt-header {
@@ -307,7 +306,7 @@ export default {
     }
 }
 @media screen and (max-width: 280px) {
-    .signup-input {
+    .signin-input {
         margin-right: 5px;
         margin-left: 5px;
         width: 270px;
@@ -321,7 +320,7 @@ export default {
         height: 60px;
         margin-bottom: 8px;
     }
-    .signup-btn {
+    .signin-btn {
         width: 270px;
     }
     .txt-header {
