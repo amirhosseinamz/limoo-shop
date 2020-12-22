@@ -99,11 +99,11 @@ export default {
 
 <style lang="scss" scoped>
 .success-message {
-    display: flex;
+    @include display-flex();
     flex-direction: row-reverse;
     width: 463px;
     height: 58px;
-    background-color: #1fdc6b;
+    background-color: $alert-massage__green;
     margin: 44px 90px 0px 89px;
     border-radius: 10px;
     position: absolute;
@@ -112,11 +112,11 @@ export default {
 }
 
 .alert-message {
-    display: flex;
+    @include display-flex();
     flex-direction: row-reverse;
     width: 463px;
     height: 58px;
-    background-color: #ed0b26;
+    background-color: $alert-red;
     margin: 44px 90px 0px 89px;
     border-radius: 10px;
     position: absolute;
@@ -155,7 +155,7 @@ export default {
 
 .signin-container {
     height: 100vh;
-    display: flex;
+    @include display-flex();
     flex-direction: column;
     justify-content: center;
     align-items: center;
@@ -163,13 +163,13 @@ export default {
 }
 
 .card {
-    display: flex;
+    @include display-flex();
     flex-direction: column;
     justify-content: space-around;
     width: 642px;
     height: 524px;
-    background-color: #ffffff;
-    box-shadow: 0px 8px 16px rgba(17, 17, 17, 0.03);
+    background-color: $white;
+    box-shadow: 0px 8px 16px $auth-box__shadow;
     border-radius: 15px;
 }
 .success-icon {
@@ -186,7 +186,7 @@ export default {
 }
 
 .app-signin-next-btn {
-    display: flex;
+    @include display-flex();
     margin: 24px 11.5px 0 24px;
     width: 13.5px;
     height: 24px;
@@ -199,7 +199,7 @@ export default {
     margin-right: 8px;
     text-align: right;
     margin-top: 17px;
-    color: #ffffff;
+    color: $white;
 }
 .alert-txt {
     font-weight: 500;
@@ -208,20 +208,20 @@ export default {
     margin-right: 8px;
     text-align: right;
     margin-top: 17px;
-    color: #ffffff;
+    color: $white;
 }
 .form-control {
     direction: rtl;
     font-family: inherit;
 }
 .timer-holder {
-    display: flex;
+    @include display-flex();
     justify-content: flex-end;
 }
 .timer {
     font-size: 14px;
     line-height: 140.62%;
-    color: #828282;
+    color: $gray;
     margin-right: 90px;
     display: none;
 }
@@ -230,13 +230,13 @@ export default {
     font-size: 13px;
     line-height: 140.62%;
     text-align: right;
-    color: #47a7ff;
+    color: $code-request;
     margin-right: 90px;
     cursor: pointer;
     display: block;
 }
 .btn-control {
-    display: flex;
+    @include display-flex();
     flex-direction: column;
     justify-content: center;
     align-items: center;
@@ -295,7 +295,6 @@ export default {
     .success-message {
         width: 328px;
         height: 56px;
-
         margin: 16px 16px 0px 16px;
     }
     .alert-message {
@@ -390,7 +389,7 @@ export default {
 }
 @media screen and (max-width: 321px) and (min-width: 299px) {
     .card {
-        display: flex;
+        @include display-flex();
         flex-direction: column;
         justify-content: space-between;
     }

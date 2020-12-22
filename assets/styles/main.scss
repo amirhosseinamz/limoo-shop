@@ -1,28 +1,4 @@
-//================ app colors ==================
-$white: #ffffff;
-$red: #ff0000;
-$yellow: #ffcc40;
-$gray: #828282;
-$alert-red: #ed0b26;
-$alert-red__bg: #fff4f5;
-$alert-massage__green: #1fdc6b;
-$input-border: #bdbdbd;
-$input-bg: #fcfcfc;
-$auth-box__shadow: rgba(17, 17, 17, 0.03);
-$google-btn__bg: #f2f2f2;
-// ================ app font ===================
-@font-face {
-    font-family: "IRANYekan";
-    src: url(~assets/fonts/IRANYEKAN_0.ttf) format("truetype"),
-        url(~assets/fonts/IRANYEKAN-BLACK_0.ttf) format("truetype"),
-        url(~assets/fonts/IRANYEKAN-BOLD_0.ttf) format("truetype"),
-        url(~assets/fonts/IRANYEKAN-EXTRABLACK_0.ttf) format("truetype"),
-        url(~assets/fonts/IRANYEKAN-EXTRABOLD_0.ttf) format("truetype"),
-        url(~assets/fonts/IRANYEKAN-LIGHT_0.ttf) format("truetype"),
-        url(~assets/fonts/IRANYEKAN-MEDIUM_0.ttf) format("truetype"),
-        url(~assets/fonts/IRANYEKAN-THIN_0.ttf) format("truetype");
-}
-// =============================================
+@import "_variables.scss";
 * {
     margin: 0;
     padding: 0;
@@ -31,22 +7,32 @@ $google-btn__bg: #f2f2f2;
 html {
     font-family: "IRANYekan";
 }
+// ==============Inheritance classes==================
+.sass-input__default {
+    outline: none;
+    border: none;
+    background: transparent;
+}
+// ===================Mixins==========================
+@mixin display-flex(){
+    display: -webkit-flex;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+}
+// ===================================================
 .signup-limoo-logo {
     margin-top: 0;
     height: 56.25px;
 }
 .app-signup-close-btn {
-    outline: none;
-    border: none;
+    @extend .sass-input__default;
     cursor: pointer;
-    background: transparent;
     margin-left: 24px;
 }
 .app-signin-next-btn {
-    outline: none;
-    border: none;
+    @extend .sass-input__default;
     cursor: pointer;
-    background: transparent;
     margin-left: 24px;
 }
 .signin-btn,
@@ -85,29 +71,26 @@ html {
 }
 .signin-input,
 .signup-input {
-    border: none;
-    outline: none;
-    background: transparent;
+    // font-family: "IRANYekan";
+    @extend .sass-input__default;
     font-size: 16px;
     font-weight: 400;
     flex-grow: 2;
+    &-wrong {
+        @extend .sass-input__default;
+        font-size: 16px;
+        font-weight: 400;
+        flex-grow: 2;
+        color: $red;
+    }
 }
 
-.signup-input-wrong {
-    border: none;
-    outline: none;
-    background: transparent;
-    font-size: 16px;
-    font-weight: 400;
-    flex-grow: 2;
-    color: $red;
-}
 .input-section {
     display: flex;
     justify-content: center;
 }
-.input-holder,
-.input-holder-verify {
+.input-holder-verify,
+.input-holder {
     background: $input-bg;
     margin-bottom: 8px;
     height: 54px;
@@ -118,40 +101,35 @@ html {
     display: flex;
     flex-direction: row-reverse;
     width: 463px;
-}
-.input-holder-wrong {
-    color: $red;
-    background: $alert-red__bg;
-    margin-bottom: 8px;
-    height: 54px;
-    line-height: 28px;
-    border: 1px solid $alert-red !important;
-    box-sizing: border-box;
-    border-radius: 10px;
-    display: flex;
-    flex-direction: row-reverse;
-    width: 463px;
-    outline: none;
+    &-wrong {
+        color: $red;
+        background: $alert-red__bg;
+        margin-bottom: 8px;
+        height: 54px;
+        line-height: 28px;
+        border: 1px solid $alert-red !important;
+        box-sizing: border-box;
+        border-radius: 10px;
+        display: flex;
+        flex-direction: row-reverse;
+        width: 463px;
+        outline: none;
+    }
 }
 ::placeholder {
     color: $input-border;
 }
-
 .clear-input {
+    @extend .sass-input__default;
     color: $gray;
-    background: transparent;
-    outline: none;
-    border: none;
     font-size: 30px;
     cursor: pointer;
     padding-left: 16px;
-}
-.clear-input-wrong {
-    color: $red;
-    background: transparent;
-    outline: none;
-    border: none;
-    font-size: 30px;
-    cursor: pointer;
-    padding-left: 16px;
+    &-wrong {
+        @extend .sass-input__default;
+        color: $red;
+        font-size: 30px;
+        cursor: pointer;
+        padding-left: 16px;
+    }
 }

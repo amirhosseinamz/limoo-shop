@@ -52,7 +52,7 @@ export default {
 }
 .nav-items {
     text-decoration: none;
-    color: black;
+    color: $black;
 }
 .nav-btn {
     border: 0;
@@ -62,6 +62,6 @@ export default {
 }
 .nav-items:hover {
     text-decoration: none;
-    color: #ffffff;
+    color: $white;
 }
 </style>

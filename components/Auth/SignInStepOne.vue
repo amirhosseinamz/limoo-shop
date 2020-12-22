@@ -122,7 +122,7 @@ export default {
 <style lang="scss" scoped>
 .signin-container {
     height: 100vh;
-    display: flex;
+    @include display-flex();
     flex-direction: column;
     justify-content: center;
     align-items: center;
@@ -130,18 +130,18 @@ export default {
 }
 
 .card {
-    display: flex;
+    @include display-flex();
     flex-direction: column;
     justify-content: space-around;
     width: 642px;
     height: 524px;
-    background-color: #ffffff;
-    box-shadow: 0px 8px 16px rgba(17, 17, 17, 0.03);
+    background-color: $white;
+    box-shadow: 0px 8px 16px $auth-box__shadow;
     border-radius: 15px;
 }
 
 .signin-next-btn {
-    display: flex;
+    @include display-flex();
     justify-content: flex-start;
     width: 30px;
     height: 30px;
@@ -155,13 +155,13 @@ export default {
     font-family: inherit;
     font-size: 13px;
     text-align: right;
-    color: #ed0b26;
+    color: $alert-red;
     line-height: 140.62%;
     margin-right: 90px;
     margin-bottom: 29px;
 }
 .btn-control {
-    display: flex;
+    @include display-flex();
     flex-direction: column;
     justify-content: center;
     align-items: center;
@@ -189,12 +189,12 @@ export default {
     padding-right: 24px;
 }
 .forget-pass-section {
-    display: flex;
+    @include display-flex();
     flex-direction: column;
     align-items: flex-end;
 }
 .forget-pass {
-    color: #47a7ff;
+    color: $code-request;
     font-weight: 500;
     font-size: 14px;
     line-height: 140.62%;
@@ -206,7 +206,7 @@ export default {
     cursor: pointer;
 }
 .disposable-pass {
-    color: #47a7ff;
+    color:$code-request;
     font-weight: 500;
     font-size: 14px;
     line-height: 140.62%;

@@ -181,7 +181,7 @@ export default {
 <style lang="scss" scoped>
 .pass-container {
     height: 100vh;
-    display: flex;
+    @include display-flex();
     flex-direction: column;
     justify-content: center;
     align-items: center;
@@ -189,7 +189,7 @@ export default {
 }
 
 .card {
-    display: flex;
+    @include display-flex();
     flex-direction: column;
     justify-content: space-around;
     width: 642px;
@@ -214,7 +214,7 @@ export default {
     color: $white;
 }
 .signin-next-btn {
-    display: flex;
+    @include display-flex();
     justify-content: flex-start;
     width: 30px;
     height: 30px;
@@ -231,7 +231,7 @@ export default {
     font-family: inherit;
 }
 .btn-control {
-    display: flex;
+    @include display-flex();
     flex-direction: column;
     justify-content: center;
     align-items: center;
@@ -281,7 +281,7 @@ export default {
 }
 @media screen and (max-width: 540px) {
     .success-message {
-        display: flex;
+        @include display-flex();
         flex-direction: row-reverse;
         width: 463px;
         height: 58px;

@@ -35,11 +35,11 @@ export default {
 
 <style lang="scss" scoped>
 body {
-    background-color: #ffffff;
+    background-color:$white;
 }
 .wellcome-container {
     height: 100vh;
-    display: flex;
+    @include display-flex();
     flex-direction: column;
     justify-content: flex-start;
     align-items: flex-end;
@@ -48,15 +48,15 @@ body {
 }
 
 .card {
-    display: flex;
+    @include display-flex();
     flex-direction: column;
     justify-content: center;
     width: 469px;
     height: 224px;
-    background-color: #ffffff;
+    background-color: $white;
     border: 1px solid #e0e0e0;
     box-sizing: border-box;
-    box-shadow: 0px 8px 16px rgba(17, 17, 17, 0.03);
+    box-shadow: 0px 8px 16px $auth-box__shadow;
     border-radius: 10px;
 }
 
@@ -65,7 +65,7 @@ body {
     font-family: inherit;
 }
 .btn-control {
-    display: flex;
+    @include display-flex();
     flex-direction: row;
     justify-content: space-between;
 }
@@ -99,13 +99,13 @@ body {
     font-size: 14px;
 }
 .complete-btn {
-    color: #ffffff;
-    background: #ffcc40;
+    color: $white;
+    background: $yellow;
     margin: 0px 10px 28px 24px;
 }
 .later-btn {
-    background: #f2f2f2;
-    color: #515151;
+    background: $google-btn__bg;
+    color: $code;
     margin: 0px 24px 28px 10px;
 }
 
@@ -115,7 +115,7 @@ body {
     }
     .signup-container {
         height: 85vh;
-        display: flex;
+        @include display-flex();
         flex-direction: column;
         justify-content: flex-end;
         align-items: center;

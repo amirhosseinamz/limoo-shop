@@ -180,7 +180,7 @@ export default {
 <style lang="scss" scoped>
 .recycle-container {
     height: 100vh;
-    display: flex;
+    @include display-flex();
     flex-direction: column;
     justify-content: center;
     align-items: center;
@@ -191,18 +191,18 @@ export default {
     margin-right: 24px;
 }
 .card {
-    display: flex;
+    @include display-flex();
     flex-direction: column;
     justify-content: space-around;
     width: 642px;
     height: 524px;
-    background-color: #ffffff;
-    box-shadow: 0px 8px 16px rgba(17, 17, 17, 0.03);
+    background-color: $white;
+    box-shadow: 0px 8px 16px $auth-box__shadow;
     border-radius: 15px;
 }
 
 .signup-close-btn {
-    display: flex;
+    @include display-flex();
     justify-content: flex-start;
     width: 30px;
     height: 30px;
@@ -225,7 +225,7 @@ export default {
     margin-bottom: 18px;
 }
 .btn-control {
-    display: flex;
+    @include display-flex();
     flex-direction: column;
     justify-content: center;
     align-items: center;
@@ -261,15 +261,15 @@ export default {
         width: 328px;
         height: 60px;
         margin-bottom: 8px;
+        &-wrong {
+            margin-right: 16px;
+            margin-left: 16px;
+            width: 328px;
+            height: 60px;
+            margin-bottom: 8px;
+        }
     }
 
-    .signup-input-wrong {
-        margin-right: 16px;
-        margin-left: 16px;
-        width: 328px;
-        height: 60px;
-        margin-bottom: 8px;
-    }
     .input-holder {
         margin-right: 16px;
         margin-left: 16px;
@@ -277,14 +277,15 @@ export default {
         width: 328px;
         height: 60px;
         margin-bottom: 8px;
+        &-wrong {
+            margin-right: 16px;
+            margin-left: 16px;
+            width: 328px;
+            height: 60px;
+            margin-bottom: 8px;
+        }
     }
-    .input-holder-wrong {
-        margin-right: 16px;
-        margin-left: 16px;
-        width: 328px;
-        height: 60px;
-        margin-bottom: 8px;
-    }
+
     .signup-btn {
         margin-top: 15px;
         width: 328px;
@@ -312,13 +313,14 @@ export default {
         margin-left: 10px;
         width: 280px;
         margin-bottom: 42px;
+        &-wrong {
+            margin-right: 10px;
+            margin-left: 10px;
+            width: 280px;
+            margin-bottom: 42px;
+        }
     }
-    .signup-input-wrong {
-        margin-right: 10px;
-        margin-left: 10px;
-        width: 280px;
-        margin-bottom: 42px;
-    }
+
     .input-holder {
         margin-right: 10px;
         margin-left: 10px;
@@ -326,15 +328,15 @@ export default {
         width: 280px;
         height: 60px;
         margin-bottom: 8px;
+        &-wrong {
+            margin-right: 10px;
+            margin-left: 10px;
+            width: 280px;
+            height: 60px;
+            margin-bottom: 8px;
+        }
     }
-    .input-holder-wrong {
-        margin-right: 10px;
-        margin-left: 10px;
 
-        width: 280px;
-        height: 60px;
-        margin-bottom: 8px;
-    }
     .signup-btn {
         width: 280px;
     }
@@ -351,7 +353,7 @@ export default {
 }
 @media screen and (max-width: 321px) and (min-width: 299px) {
     .card {
-        display: flex;
+        @include display-flex();
         flex-direction: column;
         justify-content: space-between;
     }
@@ -365,13 +367,7 @@ export default {
         margin-bottom: 42px;
         padding-right: 16px;
     }
-    .input-holder {
-        margin-right: 5px;
-        margin-left: 5px;
-        width: 270px;
-        margin-bottom: 8px;
-        padding-right: 0;
-    }
+    .input-holder,
     .input-holder-wrong {
         margin-right: 5px;
         margin-left: 5px;
