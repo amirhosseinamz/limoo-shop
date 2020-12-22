@@ -210,16 +210,16 @@ export default {
 }
 .form-control {
     direction: rtl;
-    font-family: IRANYekanWeb;
+    font-family: inherit;
 }
 .signup-btn {
     margin-bottom: 126px;
 }
 .err-text {
-    font-family: IRANYekanWeb;
+    font-family: inherit;
     font-size: 13px;
     text-align: right;
-    color: #ed0b26;
+    color: $alert-red;
     line-height: 140.62%;
     margin-right: 90px;
     margin-bottom: 18px;

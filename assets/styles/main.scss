@@ -1,20 +1,35 @@
 //================ app colors ==================
-
+$white: #ffffff;
+$red: #ff0000;
 $yellow: #ffcc40;
+$gray: #828282;
+$alert-red: #ed0b26;
+$alert-red__bg: #fff4f5;
+$alert-massage__green: #1fdc6b;
+$input-border: #bdbdbd;
+$input-bg: #fcfcfc;
+$auth-box__shadow: rgba(17, 17, 17, 0.03);
+$google-btn__bg: #f2f2f2;
 // ================ app font ===================
 @font-face {
-    font-family: "IRANYekanWeb";
-    src: local("IRANYekanWeb"),
-        url(~assets/Fonts/IRANYekanWeb.ttf) format("truetype");
+    font-family: "IRANYekan";
+    src: url(~assets/fonts/IRANYEKAN_0.ttf) format("truetype"),
+        url(~assets/fonts/IRANYEKAN-BLACK_0.ttf) format("truetype"),
+        url(~assets/fonts/IRANYEKAN-BOLD_0.ttf) format("truetype"),
+        url(~assets/fonts/IRANYEKAN-EXTRABLACK_0.ttf) format("truetype"),
+        url(~assets/fonts/IRANYEKAN-EXTRABOLD_0.ttf) format("truetype"),
+        url(~assets/fonts/IRANYEKAN-LIGHT_0.ttf) format("truetype"),
+        url(~assets/fonts/IRANYEKAN-MEDIUM_0.ttf) format("truetype"),
+        url(~assets/fonts/IRANYEKAN-THIN_0.ttf) format("truetype");
 }
-// ============================================
+// =============================================
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 html {
-    font-family: "IRANYekanWeb";
+    font-family: "IRANYekan";
 }
 .signup-limoo-logo {
     margin-top: 0;
@@ -36,12 +51,12 @@ html {
 }
 .signin-btn,
 .signup-btn {
-    font-family: "IRANYekanWeb";
+    font-family: inherit;
     font-size: 18px;
     font-weight: 400;
     line-height: 25.31px;
     text-align: center;
-    color: #ffffff;
+    color: $white;
     background: $yellow;
     height: 58px;
     width: 463px;
@@ -52,13 +67,13 @@ html {
     cursor: pointer;
 }
 .google-signup-btn {
-    font-family: "IRANYekanWeb";
+    font-family: inherit;
     font-size: 14px;
     font-weight: 500;
     line-height: 19.69px;
     text-align: center;
-    color: #828282;
-    background: #f2f2f2;
+    color: $gray;
+    background: $google-btn__bg;
     height: 44px;
     width: 189px;
     border: none;
@@ -85,7 +100,7 @@ html {
     font-size: 16px;
     font-weight: 400;
     flex-grow: 2;
-    color: rgb(255, 0, 0);
+    color: $red;
 }
 .input-section {
     display: flex;
@@ -93,11 +108,11 @@ html {
 }
 .input-holder,
 .input-holder-verify {
-    background: #fcfcfc;
+    background: $input-bg;
     margin-bottom: 8px;
     height: 54px;
     line-height: 28px;
-    border: 1px solid #bdbdbd;
+    border: 1px solid $input-border;
     box-sizing: border-box;
     border-radius: 10px;
     display: flex;
@@ -105,12 +120,12 @@ html {
     width: 463px;
 }
 .input-holder-wrong {
-    color: rgb(255, 0, 0);
-    background: #fff4f5;
+    color: $red;
+    background: $alert-red__bg;
     margin-bottom: 8px;
     height: 54px;
     line-height: 28px;
-    border: 1px solid #ed0b26 !important;
+    border: 1px solid $alert-red !important;
     box-sizing: border-box;
     border-radius: 10px;
     display: flex;
@@ -119,11 +134,11 @@ html {
     outline: none;
 }
 ::placeholder {
-    color: #bdbdbd;
+    color: $input-border;
 }
 
 .clear-input {
-    color: #828282;
+    color: $gray;
     background: transparent;
     outline: none;
     border: none;
@@ -132,7 +147,7 @@ html {
     padding-left: 16px;
 }
 .clear-input-wrong {
-    color: rgb(255, 0, 0);
+    color: $red;
     background: transparent;
     outline: none;
     border: none;

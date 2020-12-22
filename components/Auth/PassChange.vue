@@ -194,8 +194,8 @@ export default {
     justify-content: space-around;
     width: 642px;
     height: 524px;
-    background-color: #ffffff;
-    box-shadow: 0px 8px 16px rgba(17, 17, 17, 0.03);
+    background-color: $white;
+    box-shadow: 0px 8px 16px $auth-box__shadow;
     border-radius: 15px;
 }
 .success-icon {
@@ -211,7 +211,7 @@ export default {
     margin-right: 8px;
     text-align: right;
     margin-top: 17px;
-    color: #ffffff;
+    color: $white;
 }
 .signin-next-btn {
     display: flex;
@@ -228,7 +228,7 @@ export default {
 }
 .form-control {
     direction: rtl;
-    font-family: IRANYekanWeb;
+    font-family: inherit;
 }
 .btn-control {
     display: flex;
@@ -256,21 +256,12 @@ export default {
     margin-bottom: 56px;
 }
 .success-pss-btn {
-    background: #1fdc6b;
+    background: $alert-massage__green;
 }
 .signup-input {
     padding-right: 24px;
 }
-.arrow {
-    margin-left: 8px;
-}
-.disposable-pass {
-    color: #47a7ff;
-    font-weight: 500;
-    font-size: 14px;
-    line-height: 140.62%;
-    margin: 0 90px 86px 0;
-}
+
 .min-display {
     display: none;
 }
@@ -294,7 +285,7 @@ export default {
         flex-direction: row-reverse;
         width: 463px;
         height: 58px;
-        background-color: #1fdc6b;
+        background-color: $alert-massage__green;
         margin: 44px 90px 0px 89px;
         border-radius: 10px;
         position: absolute;
@@ -385,13 +376,6 @@ export default {
         margin-bottom: 15px;
         margin-right: 16px;
         margin-left: 16px;
-    }
-    .disposable-pass {
-        font-size: 13px;
-        margin: 0 32px 86px 0;
-    }
-    .arrow {
-        display: none;
     }
     .signup-limoo-logo {
         margin-top: 0.5rem;

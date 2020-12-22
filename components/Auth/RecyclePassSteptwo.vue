@@ -222,7 +222,7 @@ export default {
 }
 .form-control {
     direction: rtl;
-    font-family: IRANYekanWeb;
+    font-family: inherit;
 }
 .timer-holder {
     display: flex;

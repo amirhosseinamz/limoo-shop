@@ -62,7 +62,7 @@ body {
 
 .form-control {
     direction: rtl;
-    font-family: IRANYekanWeb;
+    font-family: inherit;
 }
 .btn-control {
     display: flex;
@@ -87,7 +87,7 @@ body {
     padding-left: 50px;
 }
 .badge-btn {
-    font-family: "IRANYekanWeb";
+    font-family: inherit;
     text-align: center;
     border: none;
     border-radius: 10px;

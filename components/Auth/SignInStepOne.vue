@@ -149,10 +149,10 @@ export default {
 }
 .form-control {
     direction: rtl;
-    font-family: IRANYekanWeb;
+    font-family: inherit;
 }
 .err-text {
-    font-family: IRANYekanWeb;
+    font-family: inherit;
     font-size: 13px;
     text-align: right;
     color: #ed0b26;
