@@ -1,8 +1,13 @@
+//================ app colors ==================
+
+$yellow: #ffcc40;
+// ================ app font ===================
 @font-face {
     font-family: "IRANYekanWeb";
     src: local("IRANYekanWeb"),
         url(~assets/Fonts/IRANYekanWeb.ttf) format("truetype");
 }
+// ============================================
 * {
     margin: 0;
     padding: 0;
@@ -37,7 +42,7 @@ html {
     line-height: 25.31px;
     text-align: center;
     color: #ffffff;
-    background: #ffcc40;
+    background: $yellow;
     height: 58px;
     width: 463px;
     border: none;

@@ -177,7 +177,7 @@ export default {
 };
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .recycle-container {
     height: 100vh;
     display: flex;

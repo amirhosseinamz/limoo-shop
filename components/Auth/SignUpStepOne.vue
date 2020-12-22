@@ -8,10 +8,7 @@
             </div>
 
             <div class="signup-limoo-logo">
-                <img
-                    src="/limoo-logo1.png"
-                    alt="لوگوی وبسایت لیمو"
-                />
+                <img src="/limoo-logo1.png" alt="لوگوی وبسایت لیمو" />
             </div>
 
             <div class="card-body">
@@ -162,7 +159,7 @@ export default {
 };
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .signup-container {
     height: 100vh;
     display: flex;

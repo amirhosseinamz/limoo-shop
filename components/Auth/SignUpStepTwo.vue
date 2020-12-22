@@ -96,7 +96,7 @@ export default {
 };
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .success-message {
     display: flex;
     flex-direction: row-reverse;

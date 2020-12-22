@@ -178,7 +178,7 @@ export default {
 };
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .pass-container {
     height: 100vh;
     display: flex;

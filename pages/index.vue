@@ -27,7 +27,7 @@ export default {
 };
 </script>
 
-<style>
+<style lang="scss">
 /* body {
     overflow: hidden;
 } */
@@ -62,7 +62,7 @@ export default {
 }
 .nav-items:hover {
     text-decoration: none;
-    color: rgb(255, 255, 255);
+    color: #ffffff;
 }
 .title {
     font-family: "Quicksand", "Source Sans Pro", -apple-system,

@@ -119,7 +119,7 @@ export default {
 };
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .signin-container {
     height: 100vh;
     display: flex;
