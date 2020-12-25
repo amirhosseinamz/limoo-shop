@@ -3,7 +3,7 @@
         <div class="card">
             <div class="signin-next-btn">
                 <button @click="previousPage" class="app-signin-next-btn">
-                    <img src="/next.svg" />
+                    <img src="/icons/next.svg" />
                 </button>
             </div>
 
@@ -46,7 +46,7 @@
                                                 ? 'display: block'
                                                 : 'display: none'
                                         "
-                                        src="/closeEye.svg"
+                                        src="/icons/closeEye.svg"
                                     />
                                     <img
                                         :style="
@@ -54,7 +54,7 @@
                                                 ? 'display: block'
                                                 : 'display: none'
                                         "
-                                        src="/openEye.svg"
+                                        src="/icons/openEye.svg"
                                     />
                                 </button>
                             </div>
@@ -69,12 +69,12 @@
                     <div class="forget-pass-section">
                         <p @click="forgetPass" class="forget-pass">
                             فراموشی رمز عبور
-                            <img class="arrow" src="/arrow.svg" />
+                            <img class="arrow" src="/icons/arrow.svg" />
                         </p>
 
                         <p @click="disposablePass" class="disposable-pass">
                             ورود با رمز عبور یکبار مصرف
-                            <img class="arrow" src="/arrow.svg" />
+                            <img class="arrow" src="/icons/arrow.svg" />
                         </p>
                     </div>
                 </form>

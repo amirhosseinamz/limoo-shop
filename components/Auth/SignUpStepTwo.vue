@@ -3,20 +3,20 @@
         <div class="card">
             <div>
                 <button @click="nextPage" class="app-signin-next-btn">
-                    <img src="/next.svg" />
+                    <img src="/icons/next.svg" />
                 </button>
                 <div
                     class="success-message"
                     :class="{ 'success-message-animation': newCodeSent }"
                 >
-                    <img class="success-icon" src="/success.svg" />
+                    <img class="success-icon" src="/icons/success.svg" />
                     <p dir="rtl" class="success-txt">کد جدید ارسال شد!</p>
                 </div>
                 <div
                     class="alert-message "
                     :class="{ 'alert-message-animation': timerPassed }"
                 >
-                    <img class="alert-icon " src="/alarm.svg" />
+                    <img class="alert-icon " src="/icons/alarm.svg" />
                     <p dir="rtl" class="alert-txt">
                         کد منقضی شد، لطفا کد جدید درخواست کنید!
                     </p>

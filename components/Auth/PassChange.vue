@@ -3,13 +3,13 @@
         <div class="card">
             <div class="signin-next-btn">
                 <button @click="nextPage" class="app-signin-next-btn">
-                    <img src="/next.svg" />
+                    <img src="/icons/next.svg" />
                 </button>
                 <div
                     class="success-message"
                     :class="{ 'message-animation': passChenged }"
                 >
-                    <img class="success-icon" src="/success.svg" />
+                    <img class="success-icon" src="/icons/success.svg" />
                     <p dir="rtl" class="success-txt">
                         رمز با موفقیت تغییر کرد!
                     </p>
@@ -52,7 +52,7 @@
                                                 ? 'display: block'
                                                 : 'display: none'
                                         "
-                                        src="/closeEye.svg"
+                                        src="/icons/closeEye.svg"
                                     />
                                     <img
                                         :style="
@@ -60,7 +60,7 @@
                                                 ? 'display: block'
                                                 : 'display: none'
                                         "
-                                        src="/openEye.svg"
+                                        src="/icons/openEye.svg"
                                     />
                                 </button>
                             </div>
@@ -98,7 +98,7 @@
                                                 ? 'display: block'
                                                 : 'display: none'
                                         "
-                                        src="/closeEye.svg"
+                                        src="/icons/closeEye.svg"
                                     />
                                     <img
                                         :style="
@@ -106,7 +106,7 @@
                                                 ? 'display: block'
                                                 : 'display: none'
                                         "
-                                        src="/openEye.svg"
+                                        src="/icons/openEye.svg"
                                     />
                                 </button>
                             </div>

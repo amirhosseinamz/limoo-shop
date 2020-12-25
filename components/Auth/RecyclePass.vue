@@ -3,7 +3,7 @@
         <div class="card">
             <div class="signup-close-btn">
                 <button @click="nextPage" class="app-signup-close-btn">
-                    <img src="/next.svg" />
+                    <img src="/icons/next.svg" />
                 </button>
             </div>
 

@@ -3,12 +3,12 @@
         <div class="card">
             <div class="signup-close-btn">
                 <button @click="closePage" class="app-signup-close-btn">
-                    <img src="/Vector.svg" />
+                    <img src="/icons/Vector.svg" />
                 </button>
             </div>
 
             <div class="signup-limoo-logo">
-                <img src="/limoo-logo1.png" alt="لوگوی وبسایت لیمو" />
+                <img src="/logos/limoo-logo1.png" alt="لوگوی وبسایت لیمو" />
             </div>
 
             <div class="card-body">

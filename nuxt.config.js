@@ -10,7 +10,9 @@ export default {
             },
             { hid: "description", name: "description", content: "لیمو" }
         ],
-        link: [{ rel: "icon", type: "image/x-icon", href: "/limoo-logo.png" }]
+        link: [
+            { rel: "icon", type: "image/x-icon", href: "/logos/limoo-logo.png" }
+        ]
     },
 
     // Global CSS (https://go.nuxtjs.dev/config-css)
