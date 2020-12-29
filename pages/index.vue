@@ -1,20 +1,21 @@
 <template>
     <div class="container">
-        <!-- <img src="/logos/limoo-logo1.png" alt="" />
-         <img src="/logos/limoo-logo1.png" alt="" />
-        <img src="/logos/limoo-logo1.png" alt="" />
-        <img src="/logos/limoo-logo1.png" alt="" />
-        <img src="/logos/limoo-logo1.png" alt="" />
-        <img src="/logos/limoo-logo1.png" alt="" />
-        <img src="/logos/limoo-logo1.png" alt="" />
-        <img src="/logos/limoo-logo1.png" alt="" />
-        <img src="/logos/limoo-logo1.png" alt="" />
-        <img src="/logos/limoo-logo1.png" alt="" />
-        <img src="/logos/limoo-logo1.png" alt="" />
-        <img src="/logos/limoo-logo1.png" alt="" />
-        <img src="/logos/limoo-logo1.png" alt="" />
-        <img src="/logos/limoo-logo1.png" alt="" /> -->
         <div class="container-nav">
+            <!-- <img src="/logos/limoo-logo1.png" alt="" />
+            <img src="/logos/limoo-logo1.png" alt="" />
+            <img src="/logos/limoo-logo1.png" alt="" />
+            <img src="/logos/limoo-logo1.png" alt="" />
+            <img src="/logos/limoo-logo1.png" alt="" />
+            <img src="/logos/limoo-logo1.png" alt="" />
+            <img src="/logos/limoo-logo1.png" alt="" />
+            <img src="/logos/limoo-logo1.png" alt="" />
+            <img src="/logos/limoo-logo1.png" alt="" />
+            <img src="/logos/limoo-logo1.png" alt="" />
+            <img src="/logos/limoo-logo1.png" alt="" />
+            <img src="/logos/limoo-logo1.png" alt="" />
+            <img src="/logos/limoo-logo1.png" alt="" /> -->
+            <img src="/logos/limoo-logo1.png" alt="" />
+
             <button @click="goToSignUp" class="nav-btn">
                 <nuxt-link class="nav-items" to="/signup">ثبت نام</nuxt-link>
             </button>
@@ -55,10 +56,11 @@ export default {
     text-align: center;
 }
 .container-nav {
-    margin: 0 auto;
+    margin-top: 135px;
     width: 200px;
     min-height: 100px;
     display: flex;
+    flex-direction: column;
     justify-content: space-around;
     align-items: center;
     text-align: center;
