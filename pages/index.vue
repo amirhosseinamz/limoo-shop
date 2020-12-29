@@ -1,6 +1,19 @@
 <template>
     <div class="container">
+        <!-- <img src="/logos/limoo-logo1.png" alt="" />
+         <img src="/logos/limoo-logo1.png" alt="" />
         <img src="/logos/limoo-logo1.png" alt="" />
+        <img src="/logos/limoo-logo1.png" alt="" />
+        <img src="/logos/limoo-logo1.png" alt="" />
+        <img src="/logos/limoo-logo1.png" alt="" />
+        <img src="/logos/limoo-logo1.png" alt="" />
+        <img src="/logos/limoo-logo1.png" alt="" />
+        <img src="/logos/limoo-logo1.png" alt="" />
+        <img src="/logos/limoo-logo1.png" alt="" />
+        <img src="/logos/limoo-logo1.png" alt="" />
+        <img src="/logos/limoo-logo1.png" alt="" />
+        <img src="/logos/limoo-logo1.png" alt="" />
+        <img src="/logos/limoo-logo1.png" alt="" /> -->
         <div class="container-nav">
             <button @click="goToSignUp" class="nav-btn">
                 <nuxt-link class="nav-items" to="/signup">ثبت نام</nuxt-link>

@@ -1,94 +1,264 @@
 <template>
-<div class="header-container">
-  <header class="the-header">
-    <TheSideNavToggle @toggle="$emit('sidenavToggle')" />
-    <div class="logo">
-      <nuxt-link to="/">لیمو</nuxt-link>
+    <div class="header-container">
+        <header class="the-header">
+            <div class="the-header__items">
+                <div class="logo">
+                    <nuxt-link to="/">
+                        <img
+                            class="logo-img"
+                            src="/logos/header-limoo.svg"
+                            alt=""
+                        />
+                    </nuxt-link>
+                </div>
+                <div class="city-label">
+                    <img
+                        class="city-label__arrow"
+                        src="/icons/arrow-down.svg"
+                    />
+                    <div class="city-label__btn-holder">
+                        <button class="city-label__btn">
+                            تهران
+                        </button>
+                        <img
+                            class="city-label__location"
+                            src="/icons/location.svg"
+                        />
+                    </div>
+                </div>
+                <!-- search-section -->
+                <div class="search-section">
+                    <div class="search-section__items">
+                        <input
+                            class="search-section__input"
+                            type="text"
+                            dir="rtl"
+                            placeholder="جستجوی محصول..."
+                        />
+                        <button class="search-section__btn">
+                            <img class="" src="/icons/search.svg" />
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <!-- <div class="spacer"></div> -->
+            <div class="navigation-items">
+                <div class="navigation-item navigation-item__cart">
+                    <button class="navigation-item__cart-btn">
+                        سبد خرید
+                    </button>
+                    <img
+                        class="navigation-item__cart-basket"
+                        src="/icons/basket.svg"
+                    />
+                </div>
+                <div class="navigation-item navigation-item__profile">
+                    <img
+                        class="navigation-item__profile-person"
+                        src="/icons/person.svg"
+                    />
+
+                    <button class="navigation-item__profile-btn">
+                        ورود <span style="color: #e0e0e0">|</span> عضویت
+                    </button>
+                </div>
+                <div class="navigation-item navigation-item__call">
+                    <img
+                        class="navigation-item__call-person"
+                        src="/icons/call.svg"
+                    />
+
+                    <button class="navigation-item__call-btn">
+                        پشتیبانی
+                    </button>
+                </div>
+                <div class="navigation-item navigation-item__sell">
+                    <img
+                        class="navigation-item__sell-person"
+                        src="/icons/plus.svg"
+                    />
+
+                    <button class="navigation-item__sell-btn">
+                        شروع فروش کالا
+                    </button>
+                </div>
+            </div>
+        </header>
     </div>
-    <div class="spacer"></div>
-    <div class="navigation-items">
-      <ul class="nav-list">
-        <li class="nav-item"><nuxt-link to="/cart">سبد خرید</nuxt-link></li>
-        <li class="nav-item"><nuxt-link to="/profile">حساب کاربری</nuxt-link></li>
-      </ul>
-    </div>
-  </header>
-</div>
 </template>
 
 <script>
-import TheSideNavToggle from "~/components/Navigation/TheSideNavToggle";
-
 export default {
-  name: "TheHeader",
-  components: {
-    TheSideNavToggle
-  }
+    name: "TheHeader",
+    components: {}
 };
 </script>
 
-
-<style scoped>
+<style lang="scss" scoped>
 .header-container {
-  height: 60px;
+    height: 135px;
 }
 
 .the-header {
-  width: 100%;
-  position: fixed;
-  height: 60px;
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  background-color: black;
-  z-index: 100;
-  box-sizing: border-box;
-  padding: 0 20px;
+    position: fixed;
+    @include display-flex();
+    flex-direction: row-reverse;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    height: 81px;
+    background-color: $white;
+    border-bottom: 1px solid #cd0808;
+    &__items {
+        @include display-flex();
+        flex-direction: row-reverse;
+        align-items: center;
+    }
 }
 
 .logo {
-  margin: 0 10px;
-  font-size: 1.3rem;
+    margin: 16px;
+    &-img {
+        width: 102px;
+        height: 49px;
+    }
 }
-
+.search-section__items {
+    height: 49px;
+    line-height: 28px;
+    border: 1px solid $input-border;
+    border-radius: 10px;
+    display: flex;
+    justify-content: flex-end;
+    flex-direction: row;
+    width: 200px;
+}
+.search-section__input {
+    @extend .sass-input__default;
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 300;
+    flex-grow: 2;
+}
+.search-section__btn {
+    @extend .sass-input__default;
+    margin: 14px 16px 15px 4px;
+}
 .logo a {
-  text-decoration: none;
-  color: white;
+    text-decoration: none;
+    color: rgb(248, 14, 14);
 }
-
-.spacer {
-  flex: 1;
+.city-label {
+    @include display-flex();
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    width: 129px;
+    height: 49px;
+    outline: none;
+    border: 1px solid $gray-border;
+    border-radius: 10px;
+    margin: 16px 8px;
+    &__btn-holder {
+        @include display-flex();
+        flex-direction: row;
+        align-items: center;
+    }
+    &__btn {
+        font-size: 14px;
+        font-family: inherit;
+        border: none;
+        outline: none;
+        background: transparent;
+    }
+    &__arrow {
+        margin-left: 8px;
+    }
+    &__location {
+        margin-right: 8px;
+        margin-left: 4px;
+    }
 }
-
 .navigation-items {
-  display: none;
+    @include display-flex();
+    flex-direction: row;
 }
-
-@media (min-width: 768px) {
-  .navigation-items {
-    display: block;
-  }
+.navigation-item {
+    @include display-flex();
+    flex-direction: row-reverse;
+    align-items: center;
+    justify-content: center;
+    height: 49px;
+    border: 1px solid $gray-border;
+    border-radius: 10px;
+    &__cart {
+        width: 115px;
+        margin-left: 16px;
+        &-btn {
+            font-size: 14px;
+            font-family: inherit;
+            border: none;
+            outline: none;
+            background: transparent;
+            margin-left: 8px;
+        }
+    }
+    &__profile {
+        width: 134px;
+        margin-left: 8px;
+        &-btn {
+            font-size: 14px;
+            font-family: inherit;
+            border: none;
+            outline: none;
+            background: transparent;
+            margin-right: 8px;
+        }
+    }
+    &__call {
+        width: 109px;
+        margin-left: 8px;
+        &-btn {
+            font-size: 14px;
+            font-family: inherit;
+            border: none;
+            outline: none;
+            background: transparent;
+            margin-right: 8px;
+        }
+    }
+    &__sell {
+        width: 151px;
+        margin-left: 8px;
+        background: #fff9ea;
+        &-btn {
+            font-size: 14px;
+            font-family: inherit;
+            border: none;
+            outline: none;
+            background: transparent;
+            margin-right: 8px;
+        }
+    }
 }
+/* .spacer {
+    flex: 1;
+} */
 
-.nav-list {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  display: flex;
+@media (min-width: 1310px) {
+    /* .navigation-items {
+        display: block;
+    } */
+    .search-section__items {
+        width: 492px;
+    }
 }
-
-.nav-item {
-  margin: 0 10px;
-}
-
-.nav-item a {
-  text-decoration: none;
-  color: white;
-}
-
-.nav-item a:hover,
-.nav-item a:active,
-.nav-item a.nuxt-link-active {
-  color: red;
+@media (min-width: 1100px) {
+    /* .navigation-items {
+        display: block;
+    } */
+    .search-section__items {
+        width: 292px;
+    }
 }
 </style>
