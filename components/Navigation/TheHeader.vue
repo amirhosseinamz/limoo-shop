@@ -84,31 +84,17 @@
                 </div>
             </div>
         </header>
-        <nav class="mega-menu">
-            <div class="mega-menu__item">کالای دیجیتال</div>
-            <div class="mega-menu__item">خانه و آشپزخانه</div>
-            <div class="mega-menu__item">مد و لباس</div>
-            <div class="mega-menu__item">
-                کالای سوپر مارکتی
-
-                <div class="mega-menu__section">
-                    <div class="mega-menu__section-wrapper">
-                        موبایل
-                    </div>
-                </div>
-            </div>
-            <div class="mega-menu__item">زیبایی و سلامت</div>
-            <div class="mega-menu__item">موبایل و تبلت</div>
-            <div class="mega-menu__item">موبایل و تبلت</div>
-            <div class="mega-menu__item">موبایل و تبلت</div>
-        </nav>
+        <the-mega-menu />
     </div>
 </template>
 
 <script>
+import TheMegaMenu from "~/components/Navigation/TheMegaMenu.vue";
 export default {
     name: "TheHeader",
-    components: {}
+    components: {
+        TheMegaMenu
+    }
 };
 </script>
 
@@ -119,14 +105,16 @@ export default {
     flex-direction: column;
     width: 100%;
     height: 135px;
+    background-color: $white;
 }
-
 .the-header {
     @include display-flex();
     flex-direction: row-reverse;
     justify-content: space-between;
+    align-self: center;
     align-items: center;
     width: 100%;
+    max-width: 1920px;
     height: 81px;
     background-color: $white;
     border-bottom: 1px solid $gray-border;
@@ -134,57 +122,6 @@ export default {
         @include display-flex();
         flex-direction: row-reverse;
         align-items: center;
-    }
-}
-.mega-menu {
-    @include display-flex();
-    flex-direction: row-reverse;
-    justify-content: space-around;
-    align-items: center;
-    width: 100%;
-    height: 54px;
-    background-color: $white;
-    box-shadow: 0px 8px 16px rgba(17, 17, 17, 0.03);
-    &__item {
-        padding: 14px 0 13px 0;
-        cursor: pointer;
-        color: $code;
-    }
-    &__item:hover {
-        border-bottom: 3px solid $yellow;
-        border-top: 3px solid transparent;
-        color: #212121;
-    }
-    &__section {
-        /* top: 136px;
-        right: 0;
-        height: 337px;
-        width: 100%;
-        opacity: 0;
-        display: flex;
-        flex-direction: row;
-        padding: 1rem 0;
-        flex-wrap: wrap;
-        box-shadow: 0px 8px 16px rgba(17, 17, 17, 0.03);
-        border-radius: 10px;
-        position: absolute;
-        visibility: hidden;
-        background: #fff;
-        justify-content: flex-end; */
-        visibility: hidden;
-        opacity: 0;
-        position: absolute;
-        transition: all 0.5s ease;
-        margin-top: 1rem;
-        left: 0;
-        display: none;
-    }
-    &__section:hover {
-        /* opacity: 1;
-        visibility: visible; */
-        visibility: visible;
-        opacity: 1;
-        display: block;
     }
 }
 
@@ -195,26 +132,29 @@ export default {
         height: 49px;
     }
 }
-.search-section__items {
-    height: 49px;
-    line-height: 28px;
-    border: 1px solid $input-border;
-    border-radius: 10px;
-    display: flex;
-    justify-content: flex-end;
-    flex-direction: row;
-    width: 492px;
-}
-.search-section__input {
-    @extend .sass-input__default;
-    font-family: inherit;
-    font-size: 14px;
-    font-weight: 300;
-    flex-grow: 2;
-}
-.search-section__btn {
-    @extend .sass-input__default;
-    margin: 14px 16px 15px 4px;
+
+.search-section {
+    &__items {
+        height: 49px;
+        line-height: 28px;
+        border: 1px solid $input-border;
+        border-radius: 10px;
+        display: flex;
+        justify-content: flex-end;
+        flex-direction: row;
+        width: 492px;
+    }
+    &__input {
+        @extend .sass-input__default;
+        font-family: inherit;
+        font-size: 14px;
+        font-weight: 300;
+        flex-grow: 2;
+    }
+    &__btn {
+        @extend .sass-input__default;
+        margin: 14px 16px 15px 4px;
+    }
 }
 
 .city-label {
@@ -287,6 +227,10 @@ export default {
     &__call {
         width: 109px;
         margin-left: 8px;
+        &-person {
+            width: 14px;
+            height: 14px;
+        }
         &-btn {
             font-size: 14px;
             font-family: inherit;
@@ -314,17 +258,93 @@ export default {
     flex: 1;
 } */
 
-@media (max-width: 1100px) {
+@media (max-width: 1300px) {
     /* .navigation-items {
         display: block;
     } */
     .search-section__items {
-        width: 350px;
+        width: 250px;
     }
 }
-@media (max-width: 800px) {
+@media (max-width: 960px) {
+    .header-container,
+    .the-header {
+        height: 47px;
+    }
+
+    .logo {
+        margin: 12px 16px 6px 9px;
+        &-img {
+            width: 70px;
+            height: 31px;
+        }
+    }
+    .city-label {
+        display: none;
+    }
+    .search-section {
+        &__items {
+            height: 19px;
+            line-height: 18px;
+            border: none;
+            border-radius: 0;
+            border-right: 1px solid $gray-border;
+            width: 137px;
+        }
+        &__input {
+            @extend .sass-input__default;
+            font-family: inherit;
+            font-size: 13px;
+            font-weight: 300;
+            flex-grow: 2;
+        }
+        &__btn {
+            @extend .sass-input__default;
+            margin: 0px 8px 13px 4px;
+        }
+    }
+    .navigation-item {
+        &__cart,
+        &__profile,
+        &__sell {
+            display: none;
+        }
+
+        &__call {
+            width: 28px;
+            height: 21px;
+            margin: 14px 8px 13px 16px;
+            border: none;
+            border-radius: 0;
+            border-right: 1px solid $gray-border;
+            &-person {
+                width: 20px;
+                height: 20px;
+            }
+            &-btn {
+                display: none;
+            }
+        }
+    }
+}
+
+@media (max-width: 720px) {
     .search-section__items {
         width: 200px;
+    }
+}
+
+@media (max-width: 350px) {
+    .logo {
+        margin: 12px 10px 6px 4px;
+    }
+    .search-section {
+        &__items {
+            width: 110px;
+        }
+        &__btn {
+            margin: 0px 2px 13px 4px;
+        }
     }
 }
 </style>
