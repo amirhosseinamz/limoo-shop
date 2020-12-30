@@ -1,143 +1,137 @@
 <template>
-    <div>
-        <div class="nav-holder">
-            <nav class="mega-menu">
-                <div class="mega-menu__item">
-                    <a href="">
-                        کالای دیجیتال
-                    </a>
-                    <div class="mega-menu__section">
-                        <div class="mega-menu__section-header">
-                            <a href="" class="section-header">
-                                <span>موبایل و تبلت</span>
-                            </a>
+    <div class="nav-holder">
+        <nav class="mega-menu">
+            <div class="mega-menu__item">
+                <a href="">
+                    کالای دیجیتال
+                </a>
+                <div class="mega-menu__section">
+                    <div class="mega-menu__section-header">
+                        <a href="" class="section-header">
+                            <span>موبایل و تبلت</span>
+                        </a>
 
-                            <a href="" class="section-header">
-                                <span>لوازم جانبی</span>
-                            </a>
+                        <a href="" class="section-header">
+                            <span>لوازم جانبی</span>
+                        </a>
 
-                            <a href="" class="section-header">
-                                <span>دوربین</span>
-                            </a>
+                        <a href="" class="section-header">
+                            <span>دوربین</span>
+                        </a>
 
-                            <a href="" class="section-header">
-                                <span>هدست و هندزفری</span>
+                        <a href="" class="section-header">
+                            <span>هدست و هندزفری</span>
+                        </a>
+                    </div>
+                    <span class="mega-menu__seperator"></span>
+                    <div class="mega-menu__section-items">
+                        <div class="section-item-holder">
+                            <a href="" class="section-item">
+                                گوشی
+                            </a>
+                            <a href="" class="section-item">
+                                موبایل
+                            </a>
+                            <a href="" class="section-item">
+                                دوربین
+                            </a>
+                            <a href="" class="section-item">
+                                هدست و هندزفری
                             </a>
                         </div>
-                        <span class="mega-menu__seperator"></span>
-                        <div class="mega-menu__section-items">
-                            <div class="section-item-holder">
-                                <a href="" class="section-item">
-                                    گوشی
-                                </a>
-                                <a href="" class="section-item">
-                                    موبایل
-                                </a>
-                                <a href="" class="section-item">
-                                    دوربین
-                                </a>
-                                <a href="" class="section-item">
-                                    هدست و هندزفری
-                                </a>
-                            </div>
-                            <div class="section-item-holder">
-                                <a href="" class="section-link">
-                                    دکوراتیوی
-                                </a>
-                                <a href="" class="section-link">
-                                    صوتی و تصویری
-                                </a>
-                                <a href="" class="section-link">
-                                    لوازم خانگی
-                                </a>
-                            </div>
-                            <div class="section-item-holder">
-                                <a href="" class="section-link">
-                                    پوشاک مردانه
-                                </a>
-                                <a href="" class="section-link">
-                                    پوشاک زنانه
-                                </a>
-                                <a href="" class="section-link">
-                                    پوشاک بچگانه
-                                </a>
-                            </div>
-                            <div class="section-item-holder">
-                                <a href="" class="section-link">
-                                    شوینده
-                                </a>
-                                <a href="" class="section-link">
-                                    لبنیات
-                                </a>
-                                <a href="" class="section-link">
-                                    میوه و سبزیجات
-                                </a>
-                            </div>
+                        <div class="section-item-holder">
+                            <a href="" class="section-link">
+                                دکوراتیوی
+                            </a>
+                            <a href="" class="section-link">
+                                صوتی و تصویری
+                            </a>
+                            <a href="" class="section-link">
+                                لوازم خانگی
+                            </a>
+                        </div>
+                        <div class="section-item-holder">
+                            <a href="" class="section-link">
+                                پوشاک مردانه
+                            </a>
+                            <a href="" class="section-link">
+                                پوشاک زنانه
+                            </a>
+                            <a href="" class="section-link">
+                                پوشاک بچگانه
+                            </a>
+                        </div>
+                        <div class="section-item-holder">
+                            <a href="" class="section-link">
+                                شوینده
+                            </a>
+                            <a href="" class="section-link">
+                                لبنیات
+                            </a>
+                            <a href="" class="section-link">
+                                میوه و سبزیجات
+                            </a>
                         </div>
                     </div>
                 </div>
-                <div class="mega-menu__item">
-                    <a href="">
-                        خانه و آشپزخانه
-                    </a>
-                </div>
-                <div class="mega-menu__item">
-                    <a href="">
-                        مد و لباس
-                    </a>
-                </div>
-                <div class="mega-menu__item">
-                    <a href="">
-                        کالای سوپر مارکتی
-                    </a>
-                </div>
-                <div class="mega-menu__item">
-                    <a href="">
-                        زیبایی و سلامت
-                    </a>
-                </div>
-                <div class="mega-menu__item">
-                    <a href="">
-                        زیبایی و سلامت
-                    </a>
-                </div>
-                <div class="mega-menu__item">
-                    <a href="">
-                        موبایل و تبلت
-                    </a>
-                </div>
-                <div class="mega-menu__item">
-                    <a href="">
-                        موبایل و تبلت
-                    </a>
-                </div>
-                <div class="mega-menu__item">
-                    <a href="">
-                        موبایل و تبلت
-                    </a>
-                </div>
-                <div class="mega-menu__item">
-                    <a href="">
-                        موبایل و تبلت
-                    </a>
-                </div>
-            </nav>
-        </div>
-        <the-mobile-mega-menu />
+            </div>
+            <div class="mega-menu__item">
+                <a href="">
+                    خانه و آشپزخانه
+                </a>
+            </div>
+            <div class="mega-menu__item">
+                <a href="">
+                    مد و لباس
+                </a>
+            </div>
+            <div class="mega-menu__item">
+                <a href="">
+                    کالای سوپر مارکتی
+                </a>
+            </div>
+            <div class="mega-menu__item">
+                <a href="">
+                    زیبایی و سلامت
+                </a>
+            </div>
+            <div class="mega-menu__item">
+                <a href="">
+                    زیبایی و سلامت
+                </a>
+            </div>
+            <div class="mega-menu__item">
+                <a href="">
+                    موبایل و تبلت
+                </a>
+            </div>
+            <div class="mega-menu__item">
+                <a href="">
+                    موبایل و تبلت
+                </a>
+            </div>
+            <div class="mega-menu__item">
+                <a href="">
+                    موبایل و تبلت
+                </a>
+            </div>
+            <div class="mega-menu__item">
+                <a href="">
+                    موبایل و تبلت
+                </a>
+            </div>
+        </nav>
     </div>
 </template>
 
 <script>
-import TheMobileMegaMenu from "~/components/Navigation/TheMobileMegaMenu.vue";
 export default {
     name: "TheHeader",
-    components: {
-        TheMobileMegaMenu
-    }
+    components: {}
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .nav-holder {
     @include display-flex();
     flex-direction: row-reverse;
@@ -161,9 +155,11 @@ export default {
     margin-left: 100px;
 
     &__item {
-        padding: 14px 0 13px 0;
+        padding: 16px 0 14px 0;
         /* cursor: pointer; */
         font-size: 14px;
+    }
+    &__item a {
         color: $code;
     }
     &__item:hover {

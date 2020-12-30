@@ -1,6 +1,7 @@
 <template>
     <div class="container">
-        <div class="container-nav">
+        <div class="main-page">
+            <img src="/icons/home.svg" alt="" />
             <!-- <img src="/logos/limoo-logo1.png" alt="" />
             <img src="/logos/limoo-logo1.png" alt="" />
             <img src="/logos/limoo-logo1.png" alt="" />
@@ -14,7 +15,6 @@
             <img src="/logos/limoo-logo1.png" alt="" />
             <img src="/logos/limoo-logo1.png" alt="" />
             <img src="/logos/limoo-logo1.png" alt="" /> -->
-            <img src="/logos/limoo-logo1.png" alt="" />
 
             <button @click="goToSignUp" class="nav-btn">
                 <nuxt-link class="nav-items" to="/signup">ثبت نام</nuxt-link>
@@ -55,7 +55,7 @@ export default {
     align-items: center;
     text-align: center;
 }
-.container-nav {
+.main-page {
     margin-top: 135px;
     width: 200px;
     min-height: 100px;
@@ -78,5 +78,11 @@ export default {
 .nav-items:hover {
     text-decoration: none;
     color: $white;
+}
+@media (max-width: 960px) {
+    .main-page {
+        margin-top: 47px;
+        margin-bottom: 60px;
+    }
 }
 </style>

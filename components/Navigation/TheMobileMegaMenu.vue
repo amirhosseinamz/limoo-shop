@@ -1,6 +1,5 @@
 <template>
-    <div>
-        <!-- <div class="mobie-nav-holder">
+    <!-- <div class="mobie-nav-holder">
             <nav class="mega-menu">
                 <div class="mega-menu__item">
                     <a href="">
@@ -123,15 +122,33 @@
                 </div>
             </nav>
         </div> -->
+    <div>
+        Made with 🎸 from
     </div>
 </template>
-<style lang="scss">
-.mobie-nav-holder {
+<style lang="scss" scoped>
+div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    background: black;
+    color: white;
+    text-align: center;
+    margin-top: 10px;
+    width: 100%;
+    height: 50px;
+    position: fixed;
+    bottom: 0;
+    /* we have issue --> the main page content stay behind nav */
+}
+
+div {
     display: none;
 }
 
 @media (max-width: 960px) {
-    .mobie-nav-holder {
+    div {
         display: block;
     }
 }
