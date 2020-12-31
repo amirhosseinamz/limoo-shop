@@ -1,8 +1,7 @@
 <template>
     <div class="container">
         <div class="main-page">
-            <img src="/icons/home.svg" alt="" />
-            <!-- <img src="/logos/limoo-logo1.png" alt="" />
+            <img class="home-icon" src="/icons/home.svg" alt="" />
             <img src="/logos/limoo-logo1.png" alt="" />
             <img src="/logos/limoo-logo1.png" alt="" />
             <img src="/logos/limoo-logo1.png" alt="" />
@@ -14,7 +13,8 @@
             <img src="/logos/limoo-logo1.png" alt="" />
             <img src="/logos/limoo-logo1.png" alt="" />
             <img src="/logos/limoo-logo1.png" alt="" />
-            <img src="/logos/limoo-logo1.png" alt="" /> -->
+            <img src="/logos/limoo-logo1.png" alt="" />
+            <img src="/logos/limoo-logo1.png" alt="" />
 
             <button @click="goToSignUp" class="nav-btn">
                 <nuxt-link class="nav-items" to="/signup">ثبت نام</nuxt-link>
@@ -42,12 +42,16 @@ export default {
 </script>
 
 <style lang="scss">
-/* body {
-    overflow: hidden;
-} */
+body {
+    overflow-x: hidden;
+}
+.home-icon {
+    width: 70px;
+    color: yellow;
+}
 .container {
     margin: 0 auto;
-    width: 200px;
+    width: 100vw;
     min-height: 100vh;
     display: flex;
     flex-direction: column;

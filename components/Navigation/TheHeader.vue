@@ -55,7 +55,7 @@
                 <div class="navigation-item navigation-item__profile">
                     <img
                         class="navigation-item__profile-person"
-                        src="/icons/person.svg"
+                        src="/icons/profile.svg"
                     />
 
                     <button class="navigation-item__profile-btn">
@@ -309,7 +309,6 @@ export default {
         &__sell {
             display: none;
         }
-
         &__call {
             width: 28px;
             height: 21px;

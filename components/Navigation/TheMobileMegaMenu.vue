@@ -122,34 +122,113 @@
                 </div>
             </nav>
         </div> -->
-    <div>
-        Made with 🎸 from
+    <div class="mobile-mega-menu">
+        <div class="mobile-mega-menu__items mobile-mega-menu__profile">
+            <img
+                class="mobile-mega-menu__profile-person"
+                src="/icons/profile-mobile.svg"
+            />
+
+            <button class="mobile-mega-menu__profile-btn">
+                پروفایل من
+            </button>
+        </div>
+        <div class="mobile-mega-menu__items mobile-mega-menu__cart">
+            <img
+                class="mobile-mega-menu__cart-basket"
+                src="/icons/basket-mobile.svg"
+            />
+
+            <button class="mobile-mega-menu__cart-btn">
+                سبد خرید
+            </button>
+        </div>
+        <div class="mobile-mega-menu__items mobile-mega-menu__category">
+            <img
+                class="mobile-mega-menu__category-icon"
+                src="/icons/category.svg"
+            />
+
+            <button class="mobile-mega-menu__category-btn">
+                دسته بندی
+            </button>
+        </div>
+        <div class="mobile-mega-menu__items mobile-mega-menu__home">
+            <img class="mobile-mega-menu__home-icon" src="/icons/home.svg" />
+
+            <button class="mobile-mega-menu__home-btn">
+                صفحه اصلی
+            </button>
+        </div>
     </div>
 </template>
 <style lang="scss" scoped>
-div {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 10px;
-    background: black;
-    color: white;
-    text-align: center;
-    margin-top: 10px;
-    width: 100%;
-    height: 50px;
-    position: fixed;
-    bottom: 0;
-    /* we have issue --> the main page content stay behind nav */
-}
-
-div {
+.mobile-mega-menu {
     display: none;
 }
-
 @media (max-width: 960px) {
-    div {
-        display: block;
+    .mobile-mega-menu {
+        @include display-flex();
+        flex-direction: row;
+        justify-content: space-between;
+        padding: 0 10px;
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(5px);
+        opacity: 0.99;
+        box-shadow: -2px -6px 16px -3px rgba(0, 0, 0, 0.06);
+        color: $gray;
+        /* text-align: center; */
+        width: 100%;
+        height: 58px;
+        position: fixed;
+        bottom: 0;
+        /* we have issue --> the main page content stay behind nav */
+        &__items {
+            /* border: 1px solid red; */
+            width: 73px;
+            @include display-flex();
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        &__profile-person,
+        &__cart-basket,
+        &__category-icon,
+        &__home-icon {
+            width: 22px;
+            height: 22px;
+            margin-bottom: 4px;
+        }
+        &__profile-btn,
+        &__cart-btn,
+        &__category-btn,
+        &__home-btn {
+            outline: none;
+            border: none;
+            background: transparent;
+            font-family: inherit;
+            font-size: 13px;
+            color: $gray;
+        }
+    }
+}
+@media (max-width: 280px) {
+    .mobile-mega-menu {
+        padding: 0 5px;
+
+        &__profile-person,
+        &__cart-basket,
+        &__category-icon,
+        &__home-icon {
+            width: 20px;
+            height: 20px;
+        }
+        &__profile-btn,
+        &__cart-btn,
+        &__category-btn,
+        &__home-btn {
+            font-size: 12px;
+        }
     }
 }
 </style>

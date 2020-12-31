@@ -202,11 +202,11 @@ export default {
     }
 }
 .mega-menu__section {
-    display: flex;
+    @include display-flex();
     flex-direction: column;
     align-items: flex-end;
     &-header {
-        display: flex;
+        @include display-flex();
         flex-direction: row-reverse;
         align-items: flex-end;
         padding-right: 25px;
@@ -219,7 +219,7 @@ export default {
         margin-left: 45px;
     }
     &-items {
-        display: flex;
+        @include display-flex();
         flex-direction: row-reverse;
         margin-top: 16px;
         padding-right: 25px;
@@ -234,7 +234,7 @@ export default {
 }
 .section-item-holder {
     /* border: 1px solid black; */
-    display: flex;
+    @include display-flex();
     flex-direction: column;
     align-items: flex-end;
     margin-left: 45px;
