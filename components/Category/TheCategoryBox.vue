@@ -1,23 +1,45 @@
 <template>
     <div class="category-items">
         <div class="category-item">
-            <span class="category-item__title"> مد و پوشاک</span>
+            <a href="" class="category-item__title"> مد و پوشاک</a>
             <button class="category-item__btn"></button>
         </div>
         <div class="category-item">
-            <span class="category-item__title"> کالای سوپرمارکتی</span>
+            <a href="" class="category-item__title"> کالای سوپرمارکتی</a>
             <button class="category-item__btn"></button>
         </div>
         <div class="category-item">
-            <span class="category-item__title"> خانه و آشپزخانه</span>
+            <a href="" class="category-item__title"> خانه و آشپزخانه</a>
             <button class="category-item__btn"></button>
         </div>
         <div class="category-item">
-            <span class="category-item__title"> کالای دیجیتال</span>
+            <a href="" class="category-item__title"> کالای دیجیتال</a>
             <button class="category-item__btn"></button>
+            <!-- start section -->
+            <div class="category-item__section">
+                <div class="section-header">
+                    <a href="" class="section-header__title">
+                        <span>موبایل و تبلت</span>
+                    </a>
+                    <button class="section-header__title-btn"></button>
+                </div>
+                <div class="section-items">
+                    <div class="section-item">
+                        <a href="" class="section-item__title">
+                            <span>اندرویدی</span>
+                        </a>
+                    </div>
+                    <div class="section-item">
+                        <a href="" class="section-item__title">
+                            <span>ios</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <!-- end section -->
         </div>
         <div class="category-item">
-            <span class="category-item__title"> خانه و آشپزخانه</span>
+            <a href="" class="category-item__title"> خانه و آشپزخانه</a>
             <button class="category-item__btn"></button>
         </div>
     </div>
@@ -58,6 +80,12 @@
             background: transparent url("/icons/arrow-down.svg") center;
             /* transform: rotate(180deg); */
         }
+    }
+    .category-item a {
+        text-decoration: none;
+    }
+    .category-item__section {
+        display: none;
     }
 }
 </style>
