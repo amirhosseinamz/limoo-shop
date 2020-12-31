@@ -168,7 +168,7 @@ export default {
         border-top: 3px solid transparent;
     }
     &__item:hover a {
-        color: #212121;
+        color: $black-topic;
     }
     .section-header {
         width: 130px;
@@ -187,7 +187,7 @@ export default {
         border-bottom-right-radius: 10px;
         position: absolute;
         visibility: hidden;
-        background: #fff;
+        background: $white;
         z-index: -1;
         opacity: 0;
         left: 0;

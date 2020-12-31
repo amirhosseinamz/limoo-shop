@@ -1,5 +1,7 @@
 <template>
-    <!-- <div class="mobie-nav-holder">
+    <div>
+        <The-mobile-category v-if="MobileCategoryIsActive" />
+        <!-- <div class="mobie-nav-holder">
             <nav class="mega-menu">
                 <div class="mega-menu__item">
                     <a href="">
@@ -122,46 +124,139 @@
                 </div>
             </nav>
         </div> -->
-    <div class="mobile-mega-menu">
-        <div class="mobile-mega-menu__items mobile-mega-menu__profile">
-            <img
-                class="mobile-mega-menu__profile-person"
-                src="/icons/profile-mobile.svg"
-            />
+        <div class="mobile-mega-menu">
+            <div
+                @click="goToProfile"
+                class="mobile-mega-menu__items mobile-mega-menu__profile"
+            >
+                <img
+                    class="mobile-mega-menu__profile-person"
+                    src="/icons/profile-mobile.svg"
+                />
 
-            <button class="mobile-mega-menu__profile-btn">
-                پروفایل من
-            </button>
-        </div>
-        <div class="mobile-mega-menu__items mobile-mega-menu__cart">
-            <img
-                class="mobile-mega-menu__cart-basket"
-                src="/icons/basket-mobile.svg"
-            />
+                <button
+                    class="mobile-mega-menu__profile-btn"
+                    :style="profileIsActive ? 'color:#ffcc40' : 'color:#828282'"
+                >
+                    پروفایل من
+                </button>
+            </div>
+            <div
+                @click="goToBasket"
+                class="mobile-mega-menu__items mobile-mega-menu__cart"
+            >
+                <img
+                    class="mobile-mega-menu__cart-basket"
+                    src="/icons/basket-mobile.svg"
+                />
 
-            <button class="mobile-mega-menu__cart-btn">
-                سبد خرید
-            </button>
-        </div>
-        <div class="mobile-mega-menu__items mobile-mega-menu__category">
-            <img
-                class="mobile-mega-menu__category-icon"
-                src="/icons/category.svg"
-            />
+                <button
+                    class="mobile-mega-menu__cart-btn"
+                    :style="basketIsActive ? 'color:#ffcc40' : 'color:#828282'"
+                >
+                    سبد خرید
+                </button>
+            </div>
+            <div
+                @click="showCategory"
+                class="mobile-mega-menu__items mobile-mega-menu__category"
+            >
+                <img
+                    class="mobile-mega-menu__category-icon"
+                    src="/icons/category.svg"
+                />
 
-            <button class="mobile-mega-menu__category-btn">
-                دسته بندی
-            </button>
-        </div>
-        <div class="mobile-mega-menu__items mobile-mega-menu__home">
-            <img class="mobile-mega-menu__home-icon" src="/icons/home.svg" />
+                <button
+                    class="mobile-mega-menu__category-btn"
+                    :style="
+                        MobileCategoryIsActive
+                            ? 'color:#ffcc40'
+                            : 'color:#828282'
+                    "
+                >
+                    دسته بندی
+                </button>
+            </div>
+            <div
+                @click="goToHome"
+                class="mobile-mega-menu__items mobile-mega-menu__home"
+            >
+                <img
+                    class="mobile-mega-menu__home-icon"
+                    :style="
+                        homeIsActive
+                            ? 'background-color:#ffcc40'
+                            : 'color:#828282'
+                    "
+                    src="/icons/home.svg"
+                />
 
-            <button class="mobile-mega-menu__home-btn">
-                صفحه اصلی
-            </button>
+                <button
+                    class="mobile-mega-menu__home-btn"
+                    :style="homeIsActive ? 'color:#ffcc40' : 'color:#828282'"
+                >
+                    صفحه اصلی
+                </button>
+            </div>
         </div>
     </div>
 </template>
+<script>
+import TheMobileCategory from "~/components/Category/TheMobileCategory.vue";
+export default {
+    data() {
+        return {
+            MobileCategoryIsActive: false,
+            profileIsActive: false,
+            basketIsActive: false,
+            homeIsActive: false
+        };
+    },
+    components: {
+        TheMobileCategory
+    },
+    created() {
+        let curentRoute = this.$route.path;
+        console.log(curentRoute);
+        if (curentRoute == "/") {
+            this.homeIsActive = true;
+        } else if (curentRoute == "/cart") {
+            this.basketIsActive = true;
+        } else if (curentRoute == "/profile") {
+            this.profileIsActive = true;
+        }
+    },
+    methods: {
+        showCategory() {
+            this.homeIsActive = false;
+            this.basketIsActive = false;
+            this.profileIsActive = false;
+            this.MobileCategoryIsActive = true;
+        },
+        goToBasket() {
+            this.MobileCategoryIsActive = false;
+            this.homeIsActive = false;
+            this.profileIsActive = false;
+            this.basketIsActive = true;
+            this.$router.push("/cart");
+        },
+        goToProfile() {
+            this.MobileCategoryIsActive = false;
+            this.homeIsActive = false;
+            this.basketIsActive = false;
+            this.profileIsActive = true;
+            this.$router.push("/profile");
+        },
+        goToHome() {
+            this.MobileCategoryIsActive = false;
+            this.profileIsActive = false;
+            this.basketIsActive = false;
+            this.homeIsActive = true;
+            this.$router.push("/");
+        }
+    }
+};
+</script>
 <style lang="scss" scoped>
 .mobile-mega-menu {
     display: none;
@@ -209,6 +304,16 @@
             font-family: inherit;
             font-size: 13px;
             color: $gray;
+        }
+        &__cart-btn:active,
+        &__cart-btn:focus,
+        &__category-btn:active,
+        &__category-btn:focus,
+        &__home-btn:active,
+        &__home-btn:focus,
+        &__profile-btn:active,
+        &__profile-btn:focus {
+            color: $yellow;
         }
     }
 }
