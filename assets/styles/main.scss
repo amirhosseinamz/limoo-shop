@@ -14,6 +14,13 @@ html {
     border: none;
     background: transparent;
 }
+// ==================utile classes ===================
+.menu-item__activated {
+    filter: invert(20%) sepia(60%) saturate(619%) hue-rotate(335deg)
+        brightness(175%) contrast(105%);
+    color: $yellow;
+}
+
 // ===================Mixins==========================
 @mixin display-flex() {
     display: -webkit-box;

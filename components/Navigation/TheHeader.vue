@@ -267,6 +267,10 @@ export default {
     }
 }
 @media (max-width: 960px) {
+    .header-container {
+        /* make header scrolable with main page in mobile screen */
+        position: absolute;
+    }
     .header-container,
     .the-header {
         height: 47px;

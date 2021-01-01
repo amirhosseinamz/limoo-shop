@@ -131,12 +131,13 @@
             >
                 <img
                     class="mobile-mega-menu__profile-person"
+                    :class="{ 'menu-item__activated': profileIsActive }"
                     src="/icons/profile-mobile.svg"
                 />
 
                 <button
                     class="mobile-mega-menu__profile-btn"
-                    :style="profileIsActive ? 'color:#ffcc40' : 'color:#828282'"
+                    :class="{ 'menu-item__activated': profileIsActive }"
                 >
                     پروفایل من
                 </button>
@@ -147,12 +148,13 @@
             >
                 <img
                     class="mobile-mega-menu__cart-basket"
+                    :class="{ 'menu-item__activated': basketIsActive }"
                     src="/icons/basket-mobile.svg"
                 />
 
                 <button
                     class="mobile-mega-menu__cart-btn"
-                    :style="basketIsActive ? 'color:#ffcc40' : 'color:#828282'"
+                    :class="{ 'menu-item__activated': basketIsActive }"
                 >
                     سبد خرید
                 </button>
@@ -163,16 +165,13 @@
             >
                 <img
                     class="mobile-mega-menu__category-icon"
+                    :class="{ 'menu-item__activated': MobileCategoryIsActive }"
                     src="/icons/category.svg"
                 />
 
                 <button
                     class="mobile-mega-menu__category-btn"
-                    :style="
-                        MobileCategoryIsActive
-                            ? 'color:#ffcc40'
-                            : 'color:#828282'
-                    "
+                    :class="{ 'menu-item__activated': MobileCategoryIsActive }"
                 >
                     دسته بندی
                 </button>
@@ -183,17 +182,13 @@
             >
                 <img
                     class="mobile-mega-menu__home-icon"
-                    :style="
-                        homeIsActive
-                            ? 'background-color:#ffcc40'
-                            : 'color:#828282'
-                    "
+                    :class="{ 'menu-item__activated': homeIsActive }"
                     src="/icons/home.svg"
                 />
 
                 <button
                     class="mobile-mega-menu__home-btn"
-                    :style="homeIsActive ? 'color:#ffcc40' : 'color:#828282'"
+                    :class="{ 'menu-item__activated': homeIsActive }"
                 >
                     صفحه اصلی
                 </button>
@@ -305,7 +300,7 @@ export default {
             font-size: 13px;
             color: $gray;
         }
-        &__cart-btn:active,
+        /* &__cart-btn:active,
         &__cart-btn:focus,
         &__category-btn:active,
         &__category-btn:focus,
@@ -314,7 +309,7 @@ export default {
         &__profile-btn:active,
         &__profile-btn:focus {
             color: $yellow;
-        }
+        } */
     }
 }
 @media (max-width: 280px) {

@@ -10,6 +10,7 @@ import stepTwo from "~/components/Auth/SignUpStepTwo";
 import wellcome from "~/components/Auth/WellcomeSignUp";
 
 export default {
+    layout: "signinup",
     components: {
         stepOne,
         stepTwo,

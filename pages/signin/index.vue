@@ -12,6 +12,7 @@ import recyclePassStepTwo from "~/components/Auth/RecyclePassStepTwo";
 import PassChange from "~/components/Auth/PassChange";
 
 export default {
+    layout: "signinup",
     components: {
         stepOne,
         stepTwo,

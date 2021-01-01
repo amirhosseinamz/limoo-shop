@@ -206,7 +206,7 @@ export default {
     cursor: pointer;
 }
 .disposable-pass {
-    color:$code-request;
+    color: $code-request;
     font-weight: 500;
     font-size: 14px;
     line-height: 140.62%;
