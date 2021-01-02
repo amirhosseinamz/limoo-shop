@@ -109,7 +109,7 @@ export default {
 
 <style lang="scss" scoped>
 .success-message {
-   @include display-flex();
+    @include display-flex();
     flex-direction: row-reverse;
     width: 463px;
     height: 58px;
@@ -122,7 +122,7 @@ export default {
 }
 
 .alert-message {
-   @include display-flex();
+    @include display-flex();
     flex-direction: row-reverse;
     width: 463px;
     height: 58px;
@@ -165,7 +165,7 @@ export default {
 
 .recycle-container {
     height: 100vh;
-   @include display-flex();
+    @include display-flex();
     flex-direction: column;
     justify-content: center;
     align-items: center;
@@ -173,7 +173,7 @@ export default {
 }
 
 .card {
-   @include display-flex();
+    @include display-flex();
     flex-direction: column;
     justify-content: space-around;
     width: 642px;
@@ -196,7 +196,7 @@ export default {
 }
 
 .app-signin-next-btn {
-   @include display-flex();
+    @include display-flex();
     margin: 24px 11.5px 0 24px;
     width: 13.5px;
     height: 24px;
@@ -225,7 +225,7 @@ export default {
     font-family: inherit;
 }
 .timer-holder {
-   @include display-flex();
+    @include display-flex();
     justify-content: flex-end;
 }
 .timer {
@@ -245,7 +245,7 @@ export default {
     cursor: pointer;
 }
 .btn-control {
-   @include display-flex();
+    @include display-flex();
     flex-direction: column;
     justify-content: center;
     align-items: center;
@@ -293,19 +293,19 @@ export default {
         }
         70% {
             opacity: 1;
-            transform: translate(0%, -90%);
+            transform: translate(0%, -80%);
         }
         80% {
             opacity: 1;
-            transform: translate(0%, -90%);
+            transform: translate(0%, -80%);
         }
         90% {
             opacity: 1;
-            transform: translate(0%, -90%);
+            transform: translate(0%, -80%);
         }
         100% {
             opacity: 1;
-            transform: translate(0%, -90%);
+            transform: translate(0%, -80%);
         }
     }
     .success-message {
@@ -408,7 +408,7 @@ export default {
 }
 @media screen and (max-width: 321px) and (min-width: 299px) {
     .card {
-       @include display-flex();
+        @include display-flex();
         flex-direction: column;
         justify-content: space-between;
     }

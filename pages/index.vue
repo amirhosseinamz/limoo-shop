@@ -15,6 +15,42 @@
             <img src="/logos/limoo-logo1.png" alt="" />
             <img src="/logos/limoo-logo1.png" alt="" />
             <img src="/logos/limoo-logo1.png" alt="" />
+            <img src="/logos/limoo-logo1.png" alt="" />
+            <img src="/logos/limoo-logo1.png" alt="" />
+            <img src="/logos/limoo-logo1.png" alt="" />
+            <img src="/logos/limoo-logo1.png" alt="" />
+            <img src="/logos/limoo-logo1.png" alt="" />
+            <img src="/logos/limoo-logo1.png" alt="" />
+            <img src="/logos/limoo-logo1.png" alt="" />
+            <img src="/logos/limoo-logo1.png" alt="" />
+            <img src="/logos/limoo-logo1.png" alt="" />
+            <img src="/logos/limoo-logo1.png" alt="" />
+            <img src="/logos/limoo-logo1.png" alt="" />
+            <img src="/logos/limoo-logo1.png" alt="" />
+            <img src="/logos/limoo-logo1.png" alt="" />
+            <img src="/logos/limoo-logo1.png" alt="" />
+            <img src="/logos/limoo-logo1.png" alt="" />
+            <img src="/logos/limoo-logo1.png" alt="" />
+            <img src="/logos/limoo-logo1.png" alt="" />
+            <img src="/logos/limoo-logo1.png" alt="" />
+            <img src="/logos/limoo-logo1.png" alt="" />
+            <img src="/logos/limoo-logo1.png" alt="" />
+            <img src="/logos/limoo-logo1.png" alt="" />
+            <img src="/logos/limoo-logo1.png" alt="" />
+            <img src="/logos/limoo-logo1.png" alt="" />
+            <img src="/logos/limoo-logo1.png" alt="" />
+            <img src="/logos/limoo-logo1.png" alt="" />
+            <img src="/logos/limoo-logo1.png" alt="" />
+            <img src="/logos/limoo-logo1.png" alt="" />
+            <img src="/logos/limoo-logo1.png" alt="" />
+            <img src="/logos/limoo-logo1.png" alt="" />
+            <img src="/logos/limoo-logo1.png" alt="" />
+
+            <img src="/logos/limoo-logo1.png" alt="" />
+            <img src="/logos/limoo-logo1.png" alt="" />
+            <img src="/logos/limoo-logo1.png" alt="" />
+            <img src="/logos/limoo-logo1.png" alt="" />
+            <img src="/logos/limoo-logo1.png" alt="" />
 
             <button @click="goToSignUp" class="nav-btn">
                 <nuxt-link class="nav-items" to="/signup">ثبت نام</nuxt-link>

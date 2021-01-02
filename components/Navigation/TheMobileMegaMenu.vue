@@ -1,5 +1,6 @@
 <template>
     <div>
+        <div id="overlay" v-if="MobileCategoryIsActive"></div>
         <The-mobile-category v-if="MobileCategoryIsActive" />
         <!-- <div class="mobie-nav-holder">
             <nav class="mega-menu">
@@ -212,7 +213,7 @@ export default {
     },
     created() {
         let curentRoute = this.$route.path;
-        console.log(curentRoute);
+        // console.log(curentRoute);
         if (curentRoute == "/") {
             this.homeIsActive = true;
         } else if (curentRoute == "/cart") {
@@ -257,6 +258,18 @@ export default {
     display: none;
 }
 @media (max-width: 960px) {
+    #overlay {
+        position: fixed; /* Sit on top of the page content */
+        display: block; /* Hidden by default */
+        width: 100%; /* Full width (cover the whole page) */
+        height: 100%; /* Full height (cover the whole page) */
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: $main-bg; /* Black background with opacity */
+        cursor: pointer; /* Add a pointer on hover */
+    }
     .mobile-mega-menu {
         @include display-flex();
         flex-direction: row;

@@ -1,6 +1,6 @@
 <template>
     <div class="header-container">
-        <header class="the-header">
+        <header class="the-header" :class="{ 'navbar--hidden': !showNavbar }">
             <div class="the-header__items">
                 <div class="logo">
                     <nuxt-link to="/">
@@ -62,7 +62,10 @@
                         ورود <span style="color: #e0e0e0">|</span> عضویت
                     </button>
                 </div>
-                <div class="navigation-item navigation-item__call">
+                <div
+                    @click="show"
+                    class="navigation-item navigation-item__call"
+                >
                     <img
                         class="navigation-item__call-person"
                         src="/icons/call.svg"
@@ -94,6 +97,41 @@ export default {
     name: "TheHeader",
     components: {
         TheMegaMenu
+    },
+    data() {
+        return {
+            showNavbar: true,
+            lastScrollPosition: 0
+        };
+    },
+    mounted() {
+        window.addEventListener("scroll", this.onScroll);
+    },
+    beforeDestroy() {
+        window.removeEventListener("scroll", this.onScroll);
+    },
+
+    methods: {
+        show() {
+            console.log("hi");
+        },
+        onScroll() {
+            const currentScrollPosition =
+                window.pageYOffset || document.documentElement.scrollTop;
+            if (currentScrollPosition < 0) {
+                return;
+            }
+            /* Stop executing this function if the difference between
+             current scroll position and last scroll position is less than some offset
+             if we don't like offset so simply remove the if below*/
+            if (
+                Math.abs(currentScrollPosition - this.lastScrollPosition) < 60
+            ) {
+                return;
+            }
+            this.showNavbar = currentScrollPosition < this.lastScrollPosition;
+            this.lastScrollPosition = currentScrollPosition;
+        }
     }
 };
 </script>
@@ -182,6 +220,7 @@ export default {
     }
     &__arrow {
         margin-left: 8px;
+        cursor: pointer;
     }
     &__location {
         margin-right: 8px;
@@ -200,6 +239,7 @@ export default {
     height: 49px;
     border: 1px solid $gray-border;
     border-radius: 10px;
+    cursor: pointer;
     &__cart {
         width: 115px;
         margin-left: 16px;
@@ -210,6 +250,7 @@ export default {
             outline: none;
             background: transparent;
             margin-left: 8px;
+            cursor: pointer;
         }
     }
     &__profile {
@@ -222,6 +263,7 @@ export default {
             outline: none;
             background: transparent;
             margin-right: 8px;
+            cursor: pointer;
         }
     }
     &__call {
@@ -238,6 +280,7 @@ export default {
             outline: none;
             background: transparent;
             margin-right: 8px;
+            cursor: pointer;
         }
     }
     &__sell {
@@ -251,6 +294,7 @@ export default {
             outline: none;
             background: transparent;
             margin-right: 8px;
+            cursor: pointer;
         }
     }
 }
@@ -267,10 +311,23 @@ export default {
     }
 }
 @media (max-width: 960px) {
+    /* make header scrolable with main page in mobile screen */
     .header-container {
-        /* make header scrolable with main page in mobile screen */
-        position: absolute;
+        background-color: transparent;
+        z-index: 1;
     }
+    .the-header {
+        background-color: $white;
+        z-index: 1;
+
+        position: fixed;
+        transform: translate3d(0, 0, 0);
+        transition: 0.1s all ease-out;
+    }
+    .the-header.navbar--hidden {
+        transform: translate3d(0, -100%, 0);
+    }
+    /**/
     .header-container,
     .the-header {
         height: 47px;
