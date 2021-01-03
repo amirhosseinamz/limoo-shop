@@ -22,6 +22,6 @@ export default {
 }
 body {
     font-family: "IRANYekan";
-    background-color: $main-bg;
+    background: $overlay;
 }
 </style>

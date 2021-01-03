@@ -45,7 +45,6 @@
             <img src="/logos/limoo-logo1.png" alt="" />
             <img src="/logos/limoo-logo1.png" alt="" />
             <img src="/logos/limoo-logo1.png" alt="" />
-
             <img src="/logos/limoo-logo1.png" alt="" />
             <img src="/logos/limoo-logo1.png" alt="" />
             <img src="/logos/limoo-logo1.png" alt="" />
@@ -83,7 +82,7 @@ body {
 }
 .home-icon {
     width: 70px;
-    color: yellow;
+    /* color: yellow; */
 }
 .container {
     margin: 0 auto;
@@ -117,7 +116,7 @@ body {
 }
 .nav-items:hover {
     text-decoration: none;
-    color: $white;
+    color: red;
 }
 @media (max-width: 960px) {
     .main-page {

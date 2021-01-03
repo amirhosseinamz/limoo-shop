@@ -1,16 +1,16 @@
 <template>
-    <div>
+    <div class="container">
         <Nuxt />
     </div>
 </template>
 
-<style lang="scss">
+<style lang="scss" scoped>
 * {
     box-sizing: border-box;
 }
-body {
+.container {
     font-family: "IRANYekan";
-    background-color: $main-bg;
+    background: $main-bg;
     overflow-x: hidden;
 }
 </style>

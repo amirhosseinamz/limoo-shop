@@ -195,7 +195,7 @@ export default {
     width: 642px;
     height: 524px;
     background-color: $white;
-    box-shadow: 0px 8px 16px $auth-box__shadow;
+    box-shadow: 0px 8px 16px $box__shadow;
     border-radius: 15px;
 }
 .success-icon {

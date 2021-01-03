@@ -56,7 +56,7 @@ body {
     background-color: $white;
     border: 1px solid #e0e0e0;
     box-sizing: border-box;
-    box-shadow: 0px 8px 16px $auth-box__shadow;
+    box-shadow: 0px 8px 16px $box__shadow;
     border-radius: 10px;
 }
 
