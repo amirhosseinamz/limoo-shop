@@ -132,17 +132,6 @@
     border-top: 1px solid $gray-border;
 }
 @media (max-width: 960px) {
-    /* .user-info {
-        height: 164px;
-        border-radius: 0;
-        margin-bottom: 16px;
-        &__profile {
-            @include display-flex();
-            flex-direction: row-reverse;
-            justify-content: space-between;
-            height: 90px;
-        }
-    } */
     .user-info {
         width: 100%;
         height: 164px;
