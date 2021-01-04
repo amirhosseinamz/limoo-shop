@@ -36,7 +36,15 @@
         </div>
     </div>
 </template>
-
+<script>
+export default {
+    methods: {
+        goToProfile() {
+            this.$router.push("/profile");
+        }
+    }
+};
+</script>
 <style lang="scss" scoped>
 .user-info {
     width: 100%;

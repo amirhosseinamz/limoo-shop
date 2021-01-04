@@ -243,12 +243,14 @@ export default {
     },
     created() {
         let curentRoute = this.$route.path;
-        // console.log(curentRoute);
         if (curentRoute == "/") {
             this.homeIsActive = true;
         } else if (curentRoute == "/cart") {
             this.basketIsActive = true;
-        } else if (curentRoute == "/profile") {
+        } else if (
+            curentRoute == "/profile" ||
+            curentRoute == "/profile/personal-info"
+        ) {
             this.profileIsActive = true;
         }
     },

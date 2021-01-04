@@ -2,16 +2,23 @@
     <div class="container">
         <the-user-info />
         <div class="profile-sidebar">
+            <!-- =section1= -->
             <div class="profile-sidebar__flex profile-sidebar__user">
                 <div class="profile-sidebar__flex-part">
                     <img
                         class="profile-sidebar__user-icon"
+                        :class="{ 'profile-item__activated': profileIsActive }"
                         src="/icons/profile-dark.svg"
                     />
-                    <NuxtLink to=""> پروفایل کاربری</NuxtLink>
+                    <NuxtLink
+                        :class="{ 'link-item__activated': profileIsActive }"
+                        to="/profile"
+                    >
+                        پروفایل کاربری</NuxtLink
+                    >
                 </div>
             </div>
-            <!-- == -->
+            <!-- =section2= -->
             <div class="profile-sidebar__flex profile-sidebar__order">
                 <div class="profile-sidebar__flex-part">
                     <img
@@ -41,8 +48,9 @@
                     src="/icons/arrow-left.svg"
                 />
             </div>
-            <!-- == -->
-            <div class=" profile-sidebar__flex profile-sidebar__notification">
+            <!-- =section3= -->
+            <!--/// notification section is ignored in version alpha ///-->
+            <!-- <div class=" profile-sidebar__flex profile-sidebar__notification">
                 <div class="profile-sidebar__flex-part">
                     <img
                         class="profile-sidebar__notification-icon"
@@ -59,17 +67,28 @@
                         src="/icons/arrow-left.svg"
                     />
                 </div>
-            </div>
+            </div> -->
+            <!--/// ===================================================== ///-->
             <hr class="splicer" />
             <div class=" profile-sidebar__flex profile-sidebar__personal-info">
                 <div class="profile-sidebar__flex-part">
                     <img
                         class="profile-sidebar__personal-info-icon"
+                        :class="{
+                            'profile-item__activated': personalInfoIsActive
+                        }"
                         src="/icons/setting.svg"
                     />
-                    <NuxtLink to="">ویرایش اطلاعات شخصی</NuxtLink>
+                    <NuxtLink
+                        :class="{
+                            'link-item__activated': personalInfoIsActive
+                        }"
+                        to="/profile/personal-info"
+                        >ویرایش اطلاعات شخصی</NuxtLink
+                    >
                 </div>
                 <img
+                    @click="goToPersonalInfo"
                     class="profile-sidebar__arrow-left"
                     src="/icons/arrow-left.svg"
                 />
@@ -90,7 +109,7 @@
                     src="/icons/arrow-left.svg"
                 />
             </div>
-            <!-- == -->
+            <!-- =section4= -->
             <div class=" profile-sidebar__flex profile-sidebar__comment">
                 <div class="profile-sidebar__flex-part">
                     <img
@@ -134,8 +153,9 @@
                     src="/icons/arrow-left.svg"
                 />
             </div>
-            <!-- == -->
-            <div class=" profile-sidebar__flex profile-sidebar__creditcard">
+            <!-- =section5= -->
+            <!--/// ceditCard and giftCard section are ignored in version alpha ///-->
+            <!-- <div class=" profile-sidebar__flex profile-sidebar__creditcard">
                 <div class="profile-sidebar__flex-part">
                     <img
                         class="profile-sidebar__creditcard-icon"
@@ -163,8 +183,9 @@
                     class="profile-sidebar__arrow-left"
                     src="/icons/arrow-left.svg"
                 />
-            </div>
-            <!-- == -->
+            </div> -->
+            <!--/// ===================================================== ///-->
+            <!-- =section6= -->
             <!-- for mobile screen only -->
             <div
                 class="mobile-screen profile-sidebar__flex profile-sidebar__privacy"
@@ -197,7 +218,7 @@
                     src="/icons/arrow-left.svg"
                 />
             </div>
-            <!--  -->
+            <!-- =section7= -->
             <hr class="splicer__logout" />
             <div class=" profile-sidebar__flex-part profile-sidebar__logout">
                 <img
@@ -214,6 +235,32 @@ import TheUserInfo from "~/components/Profile/TheUserInfo.vue";
 export default {
     components: {
         TheUserInfo
+    },
+    data() {
+        return {
+            profileIsActive: false,
+            personalInfoIsActive: false
+        };
+    },
+    created() {
+        let curentRoute = this.$route.path;
+        console.log(curentRoute);
+        if (curentRoute == "/profile") {
+            this.profileIsActive = true;
+        } else if (curentRoute == "/profile/personal-info") {
+            this.personalInfoIsActive = true;
+        }
+
+        // else if (curentRoute == "/cart") {
+        //     this.basketIsActive = true;
+        // } else if (curentRoute == "/profile") {
+        //     this.profileIsActive = true;
+        // }
+    },
+    methods: {
+        goToPersonalInfo() {
+            this.$router.push("/profile/personal-info");
+        }
     }
 };
 </script>
@@ -231,6 +278,9 @@ export default {
     /* align-items: flex-end; */
     /* text-align: center; */
     /* border: 3px solid red; */
+}
+.link-item__activated {
+    color: $yellow !important;
 }
 .message-holder {
     display: none;
@@ -270,21 +320,23 @@ export default {
         font-size: 14px;
         line-height: 140.62%;
     }
-    &__flex:hover a {
+    &__flex-part:hover a {
         color: $yellow;
     }
-    &__flex:hover &__user-icon,
-    &__flex:hover &__logout-icon,
-    &__flex:hover &__gifttcard-icon,
-    &__flex:hover &__creditcard-icon,
-    &__flex:hover &__history-icon,
-    &__flex:hover &__support-icon,
-    &__flex:hover &__comment-icon,
-    &__flex:hover &__address-icon,
-    &__flex:hover &__personal-info-icon,
-    &__flex:hover &__notification-icon,
-    &__flex:hover &__favorite-icon,
-    &__flex:hover &__order-icon {
+    &__flex-part:hover &__user-icon,
+    &__flex-part:hover &__logout-icon,
+    &__flex-part:hover &__gifttcard-icon,
+    &__flex-part:hover &__creditcard-icon,
+    &__flex-part:hover &__history-icon,
+    &__flex-part:hover &__support-icon,
+    &__flex-part:hover &__comment-icon,
+    &__flex-part:hover &__address-icon,
+    &__flex-part:hover &__personal-info-icon,
+    &__flex-part:hover &__notification-icon,
+    &__flex-part:hover &__favorite-icon,
+    &__flex-part:hover &__order-icon,
+    &__flex-part:hover &__privacy-icon,
+    &__flex-part:hover &__rules-icon {
         filter: invert(20%) sepia(60%) saturate(519%) hue-rotate(335deg)
             brightness(150%) contrast(105%);
     }
@@ -328,6 +380,10 @@ export default {
         color: $yellow;
     }
 }
+.profile-item__activated {
+    filter: invert(20%) sepia(60%) saturate(519%) hue-rotate(335deg)
+        brightness(150%) contrast(105%);
+}
 .splicer__logout {
     border: none;
     border-top: 1px solid $gray-border;
@@ -364,8 +420,8 @@ export default {
         margin-left: 10px;
         border-radius: 50%;
         background: rgba(255, 211, 90, 0.23);
-        border: 1px solid $yellow;
-        box-shadow: 0px 4px 4px rgba(255, 204, 64, 0.49);
+        /* border: 1px solid $yellow; */
+        /* box-shadow: 0px 4px 4px rgba(255, 204, 64, 0.49); */
     }
     .message-counter {
         color: $yellow;
