@@ -189,12 +189,12 @@ export default {
         font-weight: 300;
         flex-grow: 2;
     }
+
     &__btn {
         @extend .sass-input__default;
         margin: 14px 16px 15px 4px;
     }
 }
-
 .city-label {
     @include display-flex();
     flex-direction: row;

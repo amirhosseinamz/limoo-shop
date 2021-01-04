@@ -244,7 +244,7 @@ export default {
     },
     created() {
         let curentRoute = this.$route.path;
-        console.log(curentRoute);
+        // console.log(curentRoute);
         if (curentRoute == "/profile") {
             this.profileIsActive = true;
         } else if (curentRoute == "/profile/personal-info") {
