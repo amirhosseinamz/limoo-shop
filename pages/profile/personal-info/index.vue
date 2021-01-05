@@ -2,9 +2,10 @@
     <div class="profile-container">
         <the-profile-side-bar class="desktop-screen" />
         <div class="mobile-screen">
-            <div @click="goToProfile" class="mobile-screen__holder">
+            <div class="mobile-screen__holder">
                 <span class="mobile-screen__holder-txt">اطلاعات حساب شخصی</span>
                 <img
+                    @click="goToProfile"
                     class="mobile-screen__holder-arrow"
                     src="/icons/arrow-left.svg"
                 />
@@ -15,27 +16,87 @@
                 <span class="user-profile__topic">اطلاعات حساب شخصی</span>
                 <div class="user-profile__userpic">جای عکس کاربر</div>
                 <hr class="splicer-line" />
-                <div class="user-profile__container">
-                    <div class="user-profile__info" dir="rtl">
-                        <div class="user-profile__info-name">نام</div>
-                        <div class="user-profile__info-email">ایمیل</div>
-                        <div class="user-profile__info-phone">همراه</div>
-                        <div class="user-profile__info-birthday">تولد</div>
-                        <div class="user-profile__info-nationalcode">
-                            <label for="nationalcode">کد ملی:</label>
-                            <input
-                                type="tel"
-                                id="nationalcode"
-                                maxlength="10"
-                                placeholder="0047574959"
-                            />
+                <!-- =============== -->
+                <form>
+                    <div class="user-profile__container">
+                        <div class="user-profile__info" dir="rtl">
+                            <div class="user-profile__info-name">
+                                <section>
+                                    <label for="name">نام:</label>
+                                    <input
+                                        type="text"
+                                        id="name"
+                                        placeholder="کیمیا خانوم"
+                                    />
+                                </section>
+                                <section>
+                                    <label for="family">نام خانوادگی:</label>
+                                    <input
+                                        type="text"
+                                        id="family"
+                                        placeholder="طلایی مطلق"
+                                    />
+                                </section>
+                            </div>
+                            <div class="user-profile__info-email">ایمیل</div>
+                            <div class="user-profile__info-phone">همراه</div>
+                            <div class="user-profile__info-birthday">تولد</div>
+                            <div class="user-profile__info-nationalcode">
+                                <label for="nationalcode">کد ملی:</label>
+                                <input
+                                    type="text"
+                                    id="nationalcode"
+                                    maxlength="10"
+                                    placeholder="0047574959"
+                                />
+                                <span class="user-profile__alert"
+                                    >کد ملی وارد شده صحیح نیست!</span
+                                >
+                            </div>
+                            <div class="user-profile__info-pass">
+                                <label for="pass"
+                                    >رمز عبور:<span>*</span></label
+                                >
+                                <div class="pass-holder">
+                                    <input
+                                        @click="passChange"
+                                        :type="passwordFieldType"
+                                        :value="userPassIs"
+                                        id="pass"
+                                    />
+                                    <button
+                                        @click="switchVisibility"
+                                        type="button"
+                                        class="clear-input"
+                                        aria-label="Close"
+                                    >
+                                        <img
+                                            :style="
+                                                passwordFieldType === 'password'
+                                                    ? 'display: block'
+                                                    : 'display: none'
+                                            "
+                                            src="/icons/eye-profile-close.svg"
+                                        />
+                                        <img
+                                            :style="
+                                                passwordFieldType === 'text'
+                                                    ? 'display: block'
+                                                    : 'display: none'
+                                            "
+                                            src="/icons/eye-profile.svg"
+                                        />
+                                    </button>
+                                </div>
+                            </div>
                         </div>
-                        <div class="user-profile__info-pass">رمز</div>
+                        <div class="user-profile__btn-holder">
+                            <button class="user-profile__btn" type="submit">
+                                ثبت تغییرات
+                            </button>
+                        </div>
                     </div>
-                    <div class="user-profile__btn-holder">
-                        <button class="user-profile__btn">ثبت تغییرات</button>
-                    </div>
-                </div>
+                </form>
             </div>
         </div>
     </div>
@@ -46,9 +107,25 @@ export default {
     components: {
         TheProfileSideBar
     },
+    data() {
+        return {
+            passwordFieldType: "password",
+            passFocusIsActive: false,
+            userPassIs: "1584@$899"
+            // later we get it from store (in talk with back-end)
+        };
+    },
     methods: {
         goToProfile() {
             this.$router.push("/profile");
+        },
+        passFocus() {
+            this.passFocusIsActive = !this.passFocusIsActive;
+        },
+        passChange() {},
+        switchVisibility() {
+            this.passwordFieldType =
+                this.passwordFieldType === "password" ? "text" : "password";
         }
     }
 };
@@ -128,21 +205,37 @@ export default {
         &-nationalcode,
         &-pass {
             width: 390px;
-            height: 88px;
+            height: 100px;
             background: aquamarine;
             /* border: 0.1px solid red; */
         }
+        &-name {
+            background: $white;
+            @include display-flex();
+            flex-direction: row;
+            justify-content: space-between;
+        }
+        &-pass,
+        &-name > section,
         &-nationalcode {
             background: $white;
             @include display-flex();
             flex-direction: column;
         }
-        &-nationalcode > label {
+        &-name > section > label,
+        &-nationalcode > label,
+        &-pass > label {
             font-size: 16px;
             line-height: 140.62%;
             text-align: right;
             margin-bottom: 14px;
         }
+        &-pass > label > span {
+            color: $alert-red;
+            margin-right: 3px;
+        }
+        #name,
+        #family,
         &-nationalcode > input {
             font-family: inherit;
             font-size: 16px;
@@ -154,14 +247,56 @@ export default {
             outline: none;
             padding: 16px;
         }
+        &-pass > .pass-holder {
+            @include display-flex();
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+            border: 1px solid $input-border;
+            box-shadow: 0px 4px 4px $gray-border;
+            border-radius: 15px;
+            height: 52px;
+        }
+        &-pass > .pass-holder > input {
+            flex-grow: 1;
+            font-family: inherit;
+            font-size: 16px;
+            height: 52px;
+            border: none;
+            background: transparent;
+            border-radius: 15px;
+            color: $gray;
+            outline: none;
+            padding: 16px;
+        }
+        .pass-holder__active {
+            border-color: $black;
+        }
+        #name:focus,
+        #family:focus,
         &-nationalcode > input:focus {
             border-color: $black;
+            /* border-color: $alert-red;
+            background: $alert-red__bg; */
+        }
+        #name {
+            width: 157px;
+        }
+        #family {
+            width: 208px;
         }
         /* &-email,
         &-birthday,
         &-pass {
 
         } */
+    }
+    &__alert {
+        margin-top: 4px;
+        color: $alert-red;
+        text-align: right;
+        font-size: 14px;
+        line-height: 140.62%;
     }
     &__btn {
         margin: 0 auto 48px auto;
@@ -196,6 +331,12 @@ export default {
         }
         &__container {
             padding: 0 50px;
+        }
+        #name {
+            width: 137px;
+        }
+        #family {
+            width: 178px;
         }
     }
 }
@@ -270,7 +411,7 @@ export default {
             &-nationalcode,
             &-pass {
                 width: 100%;
-                height: 80px;
+                height: 90px;
                 margin: 0 24px 24px 24px;
             }
             &-phone {
@@ -288,10 +429,15 @@ export default {
             &-pass {
                 order: 5;
             }
-            &-nationalcode > label {
+            &-name > section > label,
+            &-nationalcode > label,
+            &-pass > label {
                 font-size: 14px;
             }
-            &-nationalcode > input {
+            #name,
+            #family,
+            &-nationalcode > input,
+            &-pass > .pass-holder > input {
                 font-size: 13px;
                 height: 46px;
                 padding: 14px 16px;
@@ -310,12 +456,46 @@ export default {
                 padding: 0 11px;
             }
         }
+        &__alert {
+            font-size: 13px;
+        }
+        #name {
+            width: 120px;
+        }
+        #family {
+            width: 142px;
+        }
     }
+
     .splicer-line {
         display: block;
         width: 100%;
         border: none;
         border-top: 1px solid $gray-border;
+    }
+}
+@media (max-width: 350px) {
+    .user-profile {
+        #name {
+            width: 110px;
+            padding: 13px;
+        }
+        #family {
+            width: 135px;
+            padding: 13px;
+        }
+    }
+}
+@media (max-width: 280px) {
+    .user-profile {
+        #name {
+            width: 105px;
+            padding: 10px;
+        }
+        #family {
+            width: 110px;
+            padding: 10px;
+        }
     }
 }
 </style>
