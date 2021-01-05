@@ -47,11 +47,17 @@
                                     type="text"
                                     id="nationalcode"
                                     maxlength="10"
-                                    placeholder="0047574959"
+                                    placeholder="0475749590"
+                                    v-model="nationalcode"
+                                    required
                                 />
-                                <span class="user-profile__alert"
-                                    >کد ملی وارد شده صحیح نیست!</span
+                                <span
+                                    class="user-profile__alert"
+                                    v-if="msg.nationalcode"
+                                    >{{ msg.nationalcode }}</span
                                 >
+
+                                <!-- کد ملی وارد شده صحیح نیست! -->
                             </div>
                             <div class="user-profile__info-pass">
                                 <label for="pass"
@@ -111,9 +117,17 @@ export default {
         return {
             passwordFieldType: "password",
             passFocusIsActive: false,
-            userPassIs: "1584@$899"
+            userPassIs: "1584@$899",
+            msg: [],
+            nationalcode: ""
             // later we get it from store (in talk with back-end)
         };
+    },
+    watch: {
+        nationalcode(value) {
+            this.nationalcode = value;
+            this.validateNationalcode(value);
+        }
     },
     methods: {
         goToProfile() {
@@ -126,6 +140,21 @@ export default {
         switchVisibility() {
             this.passwordFieldType =
                 this.passwordFieldType === "password" ? "text" : "password";
+        },
+        validateNationalcode(value) {
+            let difference = 10 - value.length;
+            if (/\D/.test(value)) {
+                this.msg["nationalcode"] = "کد ملی نمی تواند شامل حروف باشد!";
+            } else if (value.length == 0) {
+                this.msg["nationalcode"] = "";
+            } else if (value.length < 10) {
+                this.msg["nationalcode"] =
+                    "کد ملی باید 10 رقم باشد! " +
+                    difference +
+                    " رقم باقی مانده.";
+            } else {
+                this.msg["nationalcode"] = "";
+            }
         }
     }
 };
