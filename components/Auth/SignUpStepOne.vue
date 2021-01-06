@@ -3,7 +3,7 @@
         <div class="card">
             <div class="signup-close-btn">
                 <button @click="closePage" class="app-signup-close-btn">
-                    <img src="/icons/Vector.svg" />
+                    <img src="/icons/close.svg" />
                 </button>
             </div>
 
@@ -183,8 +183,11 @@ export default {
 .signup-close-btn {
     @include display-flex();
     justify-content: flex-start;
-    width: 30px;
-    height: 30px;
+    img {
+        width: 30px;
+        height: 30px;
+    }
+
     margin-top: 24px;
 }
 .signup-input {

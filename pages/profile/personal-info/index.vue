@@ -1,5 +1,8 @@
 <template>
     <div class="profile-container">
+        <div id="overlay" v-if="passChangeIsActive">
+            <The-profile-pass-modal />
+        </div>
         <the-profile-side-bar class="desktop-screen" />
         <div class="mobile-screen">
             <div class="mobile-screen__holder">
@@ -38,12 +41,15 @@
                                     />
                                 </section>
                             </div>
-                            <div class="user-profile__info-email">ایمیل</div>
+                            <!--/// email section is ignored in version alpha ///-->
+                            <!-- <div class="user-profile__info-email">ایمیل</div> -->
+                            <!-- ================================================ -->
                             <div class="user-profile__info-phone">همراه</div>
                             <div class="user-profile__info-birthday">تولد</div>
                             <div class="user-profile__info-nationalcode">
                                 <label for="nationalcode">کد ملی:</label>
                                 <input
+                                    :class="{ err__input: msg.nationalcode }"
                                     type="text"
                                     id="nationalcode"
                                     maxlength="10"
@@ -63,14 +69,14 @@
                                 <label for="pass"
                                     >رمز عبور:<span>*</span></label
                                 >
-                                <div class="pass-holder">
-                                    <input
-                                        @click="passChange"
-                                        :type="passwordFieldType"
-                                        :value="userPassIs"
-                                        id="pass"
-                                    />
-                                    <button
+                                <!-- <div class="pass-holder"> -->
+                                <input
+                                    @click="passChange"
+                                    :type="passwordFieldType"
+                                    value="********"
+                                    id="pass"
+                                />
+                                <!-- <button
                                         @click="switchVisibility"
                                         type="button"
                                         class="clear-input"
@@ -92,8 +98,8 @@
                                             "
                                             src="/icons/eye-profile.svg"
                                         />
-                                    </button>
-                                </div>
+                                    </button> -->
+                                <!-- </div> -->
                             </div>
                         </div>
                         <div class="user-profile__btn-holder">
@@ -109,15 +115,17 @@
 </template>
 <script>
 import TheProfileSideBar from "~/components/Profile/TheProfileSideBar.vue";
+import TheProfilePassModal from "~/components/Profile/TheProfilePassModal.vue";
 export default {
     components: {
-        TheProfileSideBar
+        TheProfileSideBar,
+        TheProfilePassModal
     },
     data() {
         return {
             passwordFieldType: "password",
-            passFocusIsActive: false,
-            userPassIs: "1584@$899",
+            // passFocusIsActive: false,
+            passChangeIsActive: false,
             msg: [],
             nationalcode: ""
             // later we get it from store (in talk with back-end)
@@ -133,10 +141,12 @@ export default {
         goToProfile() {
             this.$router.push("/profile");
         },
-        passFocus() {
-            this.passFocusIsActive = !this.passFocusIsActive;
+        // passFocus() {
+        //     this.passFocusIsActive = !this.passFocusIsActive;
+        // },
+        passChange() {
+            this.passChangeIsActive = !this.passChangeIsActive;
         },
-        passChange() {},
         switchVisibility() {
             this.passwordFieldType =
                 this.passwordFieldType === "password" ? "text" : "password";
@@ -147,11 +157,11 @@ export default {
                 this.msg["nationalcode"] = "کد ملی نمی تواند شامل حروف باشد!";
             } else if (value.length == 0) {
                 this.msg["nationalcode"] = "";
-            } else if (value.length < 10) {
-                this.msg["nationalcode"] =
-                    "کد ملی باید 10 رقم باشد! " +
-                    difference +
-                    " رقم باقی مانده.";
+                // } else if (value.length < 10) {
+                //     this.msg["nationalcode"] =
+                //         "کد ملی باید 10 رقم باشد! " +
+                //         difference +
+                //         " رقم باقی مانده.";
             } else {
                 this.msg["nationalcode"] = "";
             }
@@ -161,6 +171,20 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+#overlay {
+    position: fixed; /* Sit on top of the page content */
+    @include display-flex();
+    justify-content: center;
+    align-items: center;
+    width: 100%; /* Full width (cover the whole page) */
+    height: 100%; /* Full height (cover the whole page) */
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1;
+    background: $overlay__profile;
+}
 .mobile-screen {
     display: none;
 }
@@ -276,7 +300,7 @@ export default {
             outline: none;
             padding: 16px;
         }
-        &-pass > .pass-holder {
+        /* &-pass > .pass-holder {
             @include display-flex();
             flex-direction: row;
             justify-content: space-between;
@@ -285,28 +309,38 @@ export default {
             box-shadow: 0px 4px 4px $gray-border;
             border-radius: 15px;
             height: 52px;
-        }
-        &-pass > .pass-holder > input {
-            flex-grow: 1;
+        } */
+        &-pass > input {
+            /* flex-grow: 1; */
+            border: 1px solid $input-border;
+            box-shadow: 0px 4px 4px $gray-border;
+            border-radius: 15px;
+            height: 52px;
             font-family: inherit;
             font-size: 16px;
             height: 52px;
-            border: none;
-            background: transparent;
+            /* border: none; */
+            /* background: transparent; */
             border-radius: 15px;
             color: $gray;
             outline: none;
             padding: 16px;
         }
-        .pass-holder__active {
+        /* .pass-holder__active {
             border-color: $black;
-        }
+        } */
         #name:focus,
         #family:focus,
+        &-pass > input:focus,
         &-nationalcode > input:focus {
             border-color: $black;
-            /* border-color: $alert-red;
-            background: $alert-red__bg; */
+        }
+        .err__input {
+            /* we use this class when user input is wrong 
+            so in this situation_ !important _is not so mauch bad */
+            border-color: $alert-red !important;
+            /* background: $alert-red__bg;
+            color: $alert-red; */
         }
         #name {
             width: 157px;
@@ -387,6 +421,9 @@ export default {
     }
 }
 @media (max-width: 960px) {
+    #overlay {
+        background: $overlay__profile-mobile;
+    }
     .desktop-screen {
         display: none;
     }
@@ -466,7 +503,7 @@ export default {
             #name,
             #family,
             &-nationalcode > input,
-            &-pass > .pass-holder > input {
+            &-pass > input {
                 font-size: 13px;
                 height: 46px;
                 padding: 14px 16px;
