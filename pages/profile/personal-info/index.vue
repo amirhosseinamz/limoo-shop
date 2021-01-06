@@ -178,10 +178,11 @@ export default {
     align-items: center;
     width: 100%; /* Full width (cover the whole page) */
     height: 100%; /* Full height (cover the whole page) */
-    top: 0;
+    /* transition: opacity 200ms ease-out; */
+    /* top: 0;
     left: 0;
     right: 0;
-    bottom: 0;
+    bottom: 0; */
     z-index: 1;
     background: $overlay__profile;
 }

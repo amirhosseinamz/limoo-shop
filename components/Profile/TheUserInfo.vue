@@ -60,7 +60,7 @@ export default {
         justify-content: space-between;
         align-items: center;
         height: 110px;
-        cursor: pointer;
+
         /* border: 1px solid; */
         &__holder {
             @include display-flex();
@@ -76,6 +76,7 @@ export default {
             @include display-flex();
             justify-content: center;
             align-items: center;
+            cursor: pointer;
             &-default {
                 width: 42px;
                 height: 42px;
@@ -83,11 +84,13 @@ export default {
         }
         &__nameholder {
             margin-right: 21px;
+            cursor: pointer;
         }
         &-icon {
             width: 32px;
             height: 32px;
             margin-left: 24px;
+            cursor: pointer;
         }
     }
     &__name {
