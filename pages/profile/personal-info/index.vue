@@ -1,6 +1,6 @@
 <template>
     <div class="profile-container">
-        <transition>
+        <transition moda="in-out">
             <div id="overlay" v-if="passChangeIsActive">
                 <The-profile-pass-modal />
             </div>
@@ -359,10 +359,10 @@ export default {
         }
         .err__input {
             /* we use this class when user input is wrong 
-            so in this situation_ !important _is not so mauch bad */
+            so in this situation_ !important _is not so much bad */
             border-color: $alert-red !important;
-            /* background: $alert-red__bg;
-            color: $alert-red; */
+            /*background: $alert-red__bg;
+            color: $alert-red;  */
         }
         #name {
             width: 157px;

@@ -18,11 +18,17 @@
         <hr class="splicer-line" />
         <form @submit.prevent="">
             <div class="pass__holder">
-                <label for="pass">رمز عبور قدیم:<span>*</span></label>
+                <label for="oldPassValidation"
+                    >رمز عبور قدیم:<span>*</span></label
+                >
                 <div class="pass__old">
-                    <input :type="oldPassType" value="159746446" id="pass" />
+                    <input
+                        :type="oldPassType"
+                        id="oldPassValidation"
+                        v-model="oldPassValidation"
+                    />
                     <button
-                        @click="switchVisibilityOldpass"
+                        @click="switchVisibility('Oldpass')"
                         type="button"
                         class="clear-input"
                         aria-label="Close"
@@ -45,13 +51,22 @@
                         />
                     </button>
                 </div>
+                <span class="pass__alert" v-if="msg.oldPassValidation">{{
+                    msg.oldPassValidation
+                }}</span>
             </div>
             <div class="pass__holder">
-                <label for="newpass">رمز عبور جدید:<span>*</span></label>
+                <label for="newPassVlidation"
+                    >رمز عبور جدید:<span>*</span></label
+                >
                 <div class="pass__new">
-                    <input :type="newPassType" id="newpass" />
+                    <input
+                        :type="newPassType"
+                        id="newPassVlidation"
+                        v-model="newPassVlidation"
+                    />
                     <button
-                        @click="switchVisibilityNewPass"
+                        @click="switchVisibility('NewPass')"
                         type="button"
                         class="clear-input"
                         aria-label="Close"
@@ -74,13 +89,22 @@
                         />
                     </button>
                 </div>
+                <span class="pass__alert" v-if="msg.newPassVlidation">{{
+                    msg.newPassVlidation
+                }}</span>
             </div>
             <div class="pass__holder pass__repeat">
-                <label for="newpass">تکرار رمز عبور جدید:<span>*</span></label>
+                <label for="repeatNewPassVlidation"
+                    >تکرار رمز عبور جدید:<span>*</span></label
+                >
                 <div class="pass__new-repeat">
-                    <input :type="newPassType" id="newpass" />
+                    <input
+                        :type="newPassRepeatType"
+                        id="repeatNewPassVlidation"
+                        v-model="repeatNewPassVlidation"
+                    />
                     <button
-                        @click="switchVisibilityNewPassRepeat"
+                        @click="switchVisibility('NewPassRepeat')"
                         type="button"
                         class="clear-input"
                         aria-label="Close"
@@ -103,8 +127,11 @@
                         />
                     </button>
                 </div>
+                <span class="pass__alert" v-if="msg.repeatNewPassVlidation">{{
+                    msg.repeatNewPassVlidation
+                }}</span>
             </div>
-            <button @click="closeModalMobile" class="pass__submitbtn">
+            <button @click="submitChangePass" class="pass__submitbtn">
                 ثبت تغییرات
             </button>
         </form>
@@ -117,8 +144,26 @@ export default {
             modalClose: false,
             oldPassType: "password",
             newPassType: "password",
-            newPassRepeatType: "password"
+            newPassRepeatType: "password",
+            msg: [],
+            oldPassValidation: "",
+            newPassVlidation: "",
+            repeatNewPassVlidation: ""
         };
+    },
+    watch: {
+        oldPassValidation(value) {
+            this.oldPassValidation = value;
+            this.validateOldpass(value);
+        },
+        newPassVlidation(value) {
+            this.newPassVlidation = value;
+            this.validateNewPass(value);
+        },
+        repeatNewPassVlidation(value) {
+            this.repeatNewPassVlidation = value;
+            this.validateRepeatNewPass(value);
+        }
     },
     methods: {
         closeModalMobile() {
@@ -130,17 +175,83 @@ export default {
         closeModalDesktop() {
             this.$parent.passChange();
         },
-        switchVisibilityOldpass() {
-            this.oldPassType =
-                this.oldPassType === "password" ? "text" : "password";
+        switchVisibility(type) {
+            if (type == "Oldpass") {
+                this.oldPassType =
+                    this.oldPassType === "password" ? "text" : "password";
+            } else if (type == "NewPass") {
+                this.newPassType =
+                    this.newPassType === "password" ? "text" : "password";
+            } else if (type == "NewPassRepeat") {
+                this.newPassRepeatType =
+                    this.newPassRepeatType === "password" ? "text" : "password";
+            }
         },
-        switchVisibilityNewPass() {
-            this.newPassType =
-                this.newPassType === "password" ? "text" : "password";
+        // "^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$"
+        validateOldpass(value) {
+            // for oldPass we must get response from back-end
+            // if (value.length == 0) {
+            //     this.msg["oldPassValidation"] = "";
+            // } else if (value.length > 32) {
+            //     this.msg["oldPassValidation"] =
+            //         "رمز عبور نمی تواند بیش از 32 کاراکتر باشد!";
+            // } else if (!/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/.test(value)) {
+            //     this.msg["oldPassValidation"] =
+            //         "رمز عبور باید شامل حداقل 8 (رقم و کاراکتر) باشد!";
+            // } else {
+            //     this.msg["oldPassValidation"] = "";
+            // }
         },
-        switchVisibilityNewPassRepeat() {
-            this.newPassRepeatType =
-                this.newPassRepeatType === "password" ? "text" : "password";
+        validateNewPass(value) {
+            if (value.length == 0) {
+                this.msg["newPassVlidation"] = "";
+            } else if (value.length > 32) {
+                this.msg["newPassVlidation"] =
+                    "رمز عبور نمی تواند بیش از 32 کاراکتر باشد!";
+            } else if (!/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/.test(value)) {
+                this.msg["newPassVlidation"] =
+                    "رمز عبور باید شامل حداقل 8 (رقم و کاراکتر) باشد!";
+            } else {
+                this.msg["newPassVlidation"] = "";
+            }
+        },
+        validateRepeatNewPass(value) {
+            let userNewPass = this.newPassVlidation;
+            // console.log("userPass", userPass);
+            // console.log("repeat", value);
+            if (value.length == 0) {
+                this.msg["repeatNewPassVlidation"] = "";
+            } else if (value.length > 32) {
+                this.msg["repeatNewPassVlidation"] =
+                    "رمز عبور نمی تواند بیش از 32 کاراکتر باشد!";
+            } else if (!/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/.test(value)) {
+                this.msg["repeatNewPassVlidation"] =
+                    "رمز عبور باید شامل حداقل 8 (رقم و کاراکتر) باشد!";
+            } else if (!(userNewPass === value)) {
+                this.msg["repeatNewPassVlidation"] =
+                    "لطفا رمز جدید را بصورت صحیح وارد کنید.";
+            } else {
+                this.msg["repeatNewPassVlidation"] = "";
+            }
+        },
+        submitChangePass() {
+            let userPass = this.newPassVlidation;
+            let repeatUserPass = this.repeatNewPassVlidation;
+            if (
+                userPass === repeatUserPass &&
+                userPass != "" &&
+                repeatUserPass != ""
+            ) {
+                // later we talk to back end
+                if (screen.width < 950) {
+                    this.modalClose = true;
+                    setTimeout(() => {
+                        this.$parent.passChange();
+                    }, 280);
+                } else {
+                    this.$parent.passChange();
+                }
+            }
         }
     }
 };
@@ -240,6 +351,13 @@ export default {
         outline: none;
         border: none;
     }
+    .pass__alert {
+        margin-top: 4px;
+        color: $alert-red;
+        text-align: right;
+        font-size: 14px;
+        line-height: 140.62%;
+    }
 }
 .splicer-line {
     display: none;
@@ -322,6 +440,9 @@ export default {
             width: 91vw;
             margin-bottom: 47px;
         }
+        .pass__alert {
+            font-size: 13px;
+        }
     }
     .clear-input > img {
         width: 17px;
@@ -371,6 +492,9 @@ export default {
             height: 70px;
             width: 84vw;
             margin-bottom: 25px;
+            label {
+                font-size: 13px;
+            }
         }
         .pass__old,
         .pass__new,
@@ -387,10 +511,11 @@ export default {
         .pass__submitbtn {
             width: 91vw;
             margin-bottom: 37px;
+            margin-top: 15px;
         }
     }
     .splicer-line {
-        margin-bottom: 25px;
+        margin-bottom: 17px;
     }
 }
 </style>
