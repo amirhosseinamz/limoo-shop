@@ -1,8 +1,10 @@
 <template>
     <div class="profile-container">
-        <div id="overlay" v-if="passChangeIsActive">
-            <The-profile-pass-modal />
-        </div>
+        <transition>
+            <div id="overlay" v-if="passChangeIsActive">
+                <The-profile-pass-modal />
+            </div>
+        </transition>
         <the-profile-side-bar class="desktop-screen" />
         <div class="mobile-screen">
             <div class="mobile-screen__holder">
@@ -186,6 +188,25 @@ export default {
     z-index: 1;
     background: $overlay__profile;
 }
+/* .v-enter-from {
+    opacity: 0;
+}
+.v-enter-active {
+    transition: all 200ms ease-out;
+}
+.v-enter-to {
+    opacity: 0.5;
+} */
+.v-leave-from {
+    opacity: 0.5;
+}
+.v-leave-active {
+    transition: all 300ms ease-in;
+}
+.v-leave-to {
+    opacity: 0;
+}
+
 .mobile-screen {
     display: none;
 }
@@ -260,7 +281,7 @@ export default {
         &-pass {
             width: 390px;
             height: 100px;
-            background: aquamarine;
+            background: rgb(220, 232, 228);
             /* border: 0.1px solid red; */
         }
         &-name {

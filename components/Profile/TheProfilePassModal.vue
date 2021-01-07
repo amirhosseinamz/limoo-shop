@@ -125,7 +125,7 @@ export default {
             this.modalClose = true;
             setTimeout(() => {
                 this.$parent.passChange();
-            }, 700);
+            }, 280);
         },
         closeModalDesktop() {
             this.$parent.passChange();
@@ -246,7 +246,7 @@ export default {
 }
 @media (max-width: 960px) {
     .modal-animation__open {
-        animation: modalOpen 700ms ease-in;
+        animation: modalOpen 600ms linear;
     }
     @keyframes modalOpen {
         0% {
@@ -257,7 +257,7 @@ export default {
         }
     }
     .modal-animation__close {
-        animation: modalClose 700ms ease-out;
+        animation: modalClose 600ms linear;
     }
     @keyframes modalClose {
         0% {
@@ -271,7 +271,7 @@ export default {
         align-self: flex-end;
         position: absolute;
         width: 100%;
-        height: 579px;
+        height: 570px;
         background: $white;
         box-shadow: 0px 20px 24px $overlay__profile-mobile;
         border-top-left-radius: 30px;
@@ -294,9 +294,9 @@ export default {
             margin-top: 24px;
             text-align: center;
         }
-        form {
+        /* form {
             margin-top: 5px;
-        }
+        } */
         .pass__holder {
             height: 80px;
             width: 84vw;
@@ -334,6 +334,63 @@ export default {
         margin: 16px 5px;
         border-top: 1px solid $gray-border;
         margin-bottom: 35px;
+    }
+}
+@media screen and (max-width: 320px) {
+    .modal-animation__open {
+        animation: modalOpen 600ms linear;
+    }
+    @keyframes modalOpen {
+        0% {
+            transform: translate(0, 470px);
+        }
+        100% {
+            transform: translate(0, 0);
+        }
+    }
+    .modal-animation__close {
+        animation: modalClose 600ms linear;
+    }
+    @keyframes modalClose {
+        0% {
+            transform: translate(0, 0);
+        }
+        100% {
+            transform: translate(0, 470px);
+        }
+    }
+    .modal {
+        height: 470px;
+        &__close-line {
+            margin-top: 20px;
+        }
+        &__title {
+            margin-top: 20px;
+        }
+        .pass__holder {
+            height: 70px;
+            width: 84vw;
+            margin-bottom: 25px;
+        }
+        .pass__old,
+        .pass__new,
+        .pass__new-repeat {
+            @include display-flex();
+            height: 40px;
+        }
+        .pass__old > input,
+        .pass__new > input,
+        .pass__new-repeat > input {
+            height: 40px;
+            width: 200px;
+        }
+        .pass__submitbtn {
+            width: 91vw;
+            margin-bottom: 37px;
+        }
+    }
+    .splicer-line {
+        margin-bottom: 25px;
     }
 }
 </style>
