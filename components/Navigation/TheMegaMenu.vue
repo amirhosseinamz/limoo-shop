@@ -2,123 +2,123 @@
     <div class="nav-holder">
         <nav class="mega-menu">
             <div class="mega-menu__item">
-                <a href="">
+                <NuxtLink to="">
                     کالای دیجیتال
-                </a>
+                </NuxtLink>
                 <div class="mega-menu__section">
                     <div class="mega-menu__section-header">
-                        <a href="" class="section-header">
+                        <NuxtLink to="" class="section-header">
                             <span>موبایل و تبلت</span>
-                        </a>
+                        </NuxtLink>
 
-                        <a href="" class="section-header">
+                        <NuxtLink to="" class="section-header">
                             <span>لوازم جانبی</span>
-                        </a>
+                        </NuxtLink>
 
-                        <a href="" class="section-header">
+                        <NuxtLink to="" class="section-header">
                             <span>دوربین</span>
-                        </a>
+                        </NuxtLink>
 
-                        <a href="" class="section-header">
+                        <NuxtLink to="" class="section-header">
                             <span>هدست و هندزفری</span>
-                        </a>
+                        </NuxtLink>
                     </div>
                     <span class="mega-menu__seperator"></span>
                     <div class="mega-menu__section-items">
                         <div class="section-item-holder">
-                            <a href="" class="section-item">
+                            <NuxtLink to="" class="section-item">
                                 گوشی
-                            </a>
-                            <a href="" class="section-item">
+                            </NuxtLink>
+                            <NuxtLink to="" class="section-item">
                                 موبایل
-                            </a>
-                            <a href="" class="section-item">
+                            </NuxtLink>
+                            <NuxtLink to="" class="section-item">
                                 دوربین
-                            </a>
-                            <a href="" class="section-item">
+                            </NuxtLink>
+                            <NuxtLink to="" class="section-item">
                                 هدست و هندزفری
-                            </a>
+                            </NuxtLink>
                         </div>
                         <div class="section-item-holder">
-                            <a href="" class="section-link">
+                            <NuxtLink to="" class="section-link">
                                 دکوراتیوی
-                            </a>
-                            <a href="" class="section-link">
+                            </NuxtLink>
+                            <NuxtLink to="" class="section-link">
                                 صوتی و تصویری
-                            </a>
-                            <a href="" class="section-link">
+                            </NuxtLink>
+                            <NuxtLink to="" class="section-link">
                                 لوازم خانگی
-                            </a>
+                            </NuxtLink>
                         </div>
                         <div class="section-item-holder">
-                            <a href="" class="section-link">
+                            <NuxtLink to="" class="section-link">
                                 پوشاک مردانه
-                            </a>
-                            <a href="" class="section-link">
+                            </NuxtLink>
+                            <NuxtLink to="" class="section-link">
                                 پوشاک زنانه
-                            </a>
-                            <a href="" class="section-link">
+                            </NuxtLink>
+                            <NuxtLink to="" class="section-link">
                                 پوشاک بچگانه
-                            </a>
+                            </NuxtLink>
                         </div>
                         <div class="section-item-holder">
-                            <a href="" class="section-link">
+                            <NuxtLink to="" class="section-link">
                                 شوینده
-                            </a>
-                            <a href="" class="section-link">
+                            </NuxtLink>
+                            <NuxtLink to="" class="section-link">
                                 لبنیات
-                            </a>
-                            <a href="" class="section-link">
+                            </NuxtLink>
+                            <NuxtLink to="" class="section-link">
                                 میوه و سبزیجات
-                            </a>
+                            </NuxtLink>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="mega-menu__item">
-                <a href="">
+                <NuxtLink to="">
                     خانه و آشپزخانه
-                </a>
+                </NuxtLink>
             </div>
             <div class="mega-menu__item">
-                <a href="">
+                <NuxtLink to="">
                     مد و لباس
-                </a>
+                </NuxtLink>
             </div>
             <div class="mega-menu__item">
-                <a href="">
+                <NuxtLink to="">
                     کالای سوپر مارکتی
-                </a>
+                </NuxtLink>
             </div>
             <div class="mega-menu__item">
-                <a href="">
+                <NuxtLink to="">
                     زیبایی و سلامت
-                </a>
+                </NuxtLink>
             </div>
             <div class="mega-menu__item">
-                <a href="">
+                <NuxtLink to="">
                     زیبایی و سلامت
-                </a>
+                </NuxtLink>
             </div>
             <div class="mega-menu__item">
-                <a href="">
+                <NuxtLink to="">
                     موبایل و تبلت
-                </a>
+                </NuxtLink>
             </div>
             <div class="mega-menu__item">
-                <a href="">
+                <NuxtLink to="">
                     موبایل و تبلت
-                </a>
+                </NuxtLink>
             </div>
             <div class="mega-menu__item">
-                <a href="">
+                <NuxtLink to="">
                     موبایل و تبلت
-                </a>
+                </NuxtLink>
             </div>
             <div class="mega-menu__item">
-                <a href="">
+                <NuxtLink to="">
                     موبایل و تبلت
-                </a>
+                </NuxtLink>
             </div>
         </nav>
     </div>

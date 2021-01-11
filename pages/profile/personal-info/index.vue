@@ -46,7 +46,19 @@
                             <!--/// email section is ignored in version alpha ///-->
                             <!-- <div class="user-profile__info-email">ایمیل</div> -->
                             <!-- ================================================ -->
-                            <div class="user-profile__info-phone">همراه</div>
+                            <div class="user-profile__info-phone">
+                                <label for="phoneNumber"
+                                    >شماره همراه:<span>*</span></label
+                                >
+                                <input
+                                    type="text"
+                                    id="phoneNumber"
+                                    maxlength="11"
+                                    v-model="phoneNumber"
+                                    required
+                                    disabled
+                                />
+                            </div>
                             <div class="user-profile__info-birthday">تولد</div>
                             <div class="user-profile__info-nationalcode">
                                 <label for="nationalcode">کد ملی:</label>
@@ -129,8 +141,9 @@ export default {
             // passFocusIsActive: false,
             passChangeIsActive: false,
             msg: [],
-            nationalcode: ""
+            nationalcode: "",
             // later we get it from store (in talk with back-end)
+            phoneNumber: "09120121023"
         };
     },
     watch: {
@@ -290,6 +303,7 @@ export default {
             flex-direction: row;
             justify-content: space-between;
         }
+        &-phone,
         &-pass,
         &-name > section,
         &-nationalcode {
@@ -299,18 +313,21 @@ export default {
         }
         &-name > section > label,
         &-nationalcode > label,
-        &-pass > label {
+        &-pass > label,
+        &-phone > label {
             font-size: 16px;
             line-height: 140.62%;
             text-align: right;
             margin-bottom: 14px;
         }
+        &-phone > label > span,
         &-pass > label > span {
             color: $alert-red;
             margin-right: 3px;
         }
         #name,
         #family,
+        &-phone > input,
         &-nationalcode > input {
             font-family: inherit;
             font-size: 16px;
@@ -519,13 +536,15 @@ export default {
             }
             &-name > section > label,
             &-nationalcode > label,
-            &-pass > label {
+            &-pass > label,
+            &-phone > label {
                 font-size: 14px;
             }
             #name,
             #family,
             &-nationalcode > input,
-            &-pass > input {
+            &-pass > input,
+            &-phone > input {
                 font-size: 13px;
                 height: 46px;
                 padding: 14px 16px;

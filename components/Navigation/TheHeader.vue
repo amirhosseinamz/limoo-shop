@@ -3,13 +3,13 @@
         <header class="the-header" :class="{ 'navbar--hidden': !showNavbar }">
             <div class="the-header__items">
                 <div class="logo">
-                    <nuxt-link to="/">
+                    <NuxtLink to="/">
                         <img
                             class="logo-img"
                             src="/logos/header-limoo.svg"
                             alt=""
                         />
-                    </nuxt-link>
+                    </NuxtLink>
                 </div>
                 <div class="city-label">
                     <img
