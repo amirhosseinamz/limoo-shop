@@ -59,7 +59,9 @@
                                     disabled
                                 />
                             </div>
-                            <div class="user-profile__info-birthday">تولد</div>
+                            <div class="user-profile__info-birthday">
+                                <the-birthday />
+                            </div>
                             <div class="user-profile__info-nationalcode">
                                 <label for="nationalcode">کد ملی:</label>
                                 <input
@@ -130,10 +132,12 @@
 <script>
 import TheProfileSideBar from "~/components/Profile/TheProfileSideBar.vue";
 import TheProfilePassModal from "~/components/Profile/TheProfilePassModal.vue";
+import TheBirthday from "~/components/Profile/TheBirthday.vue";
 export default {
     components: {
         TheProfileSideBar,
-        TheProfilePassModal
+        TheProfilePassModal,
+        TheBirthday
     },
     data() {
         return {
@@ -294,7 +298,7 @@ export default {
         &-pass {
             width: 390px;
             height: 100px;
-            background: rgb(220, 232, 228);
+            /* background: rgb(220, 232, 228); */
             /* border: 0.1px solid red; */
         }
         &-name {
@@ -318,7 +322,7 @@ export default {
             font-size: 16px;
             line-height: 140.62%;
             text-align: right;
-            margin-bottom: 14px;
+            margin-bottom: 16px;
         }
         &-phone > label > span,
         &-pass > label > span {
