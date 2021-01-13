@@ -60,7 +60,13 @@
                                 />
                             </div>
                             <div class="user-profile__info-birthday">
-                                <the-birthday />
+                                <date-dropdown
+                                    default="1373.11.17"
+                                    min="1300"
+                                    max="1387"
+                                    v-model="selectedDate"
+                                />
+                                <!-- <the-birthday /> -->
                             </div>
                             <div class="user-profile__info-nationalcode">
                                 <label for="nationalcode">کد ملی:</label>
@@ -129,15 +135,18 @@
         </div>
     </div>
 </template>
+
 <script>
 import TheProfileSideBar from "~/components/Profile/TheProfileSideBar.vue";
 import TheProfilePassModal from "~/components/Profile/TheProfilePassModal.vue";
 import TheBirthday from "~/components/Profile/TheBirthday.vue";
+import DateDropdown from "~/components/Profile/DateDropdown.vue";
 export default {
     components: {
         TheProfileSideBar,
         TheProfilePassModal,
-        TheBirthday
+        TheBirthday,
+        DateDropdown
     },
     data() {
         return {
@@ -147,13 +156,17 @@ export default {
             msg: [],
             nationalcode: "",
             // later we get it from store (in talk with back-end)
-            phoneNumber: "09120121023"
+            phoneNumber: "09120121023",
+            selectedDate: ""
         };
     },
     watch: {
         nationalcode(value) {
             this.nationalcode = value;
             this.validateNationalcode(value);
+        },
+        selectedDate() {
+            console.log(this.selectedDate);
         }
     },
     methods: {
