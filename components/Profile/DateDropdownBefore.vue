@@ -1,233 +1,219 @@
 <template>
-  <div class="birthday">
-    <span class="birthday-title">تاریخ تولد:</span>
-    <div class="birthday-container align-items-start d-flex">
-      <!-- Day -->
-
-      <!-- <div class="flex-wrap d-flex birthday-item-main align-items-start" :class="{ 'birthday-active': birthdayShow }">
-          <div class="d-flex flex-wrap birthday-item-content">
-                <div
-                :key="lastItemSelectedBirthDayOption"
-
-                class="birthday-item__days flex-wrap check-dropdown-close"
-                >
-                  <div
-                    @click="eventBirthDayShow"
-                    class="birthday-item-selected justify-content-center align-items-center w-100 flex-wrap h-100 check-dropdown-close"
-                    >
-                    <span class=" day-item check-dropdown-close">{{
-                      lastItemSelectedBirthDayOption
-                    }}</span>
-
-                    <div class="birthday-item-icons check-dropdown-close">
-                        <span class="arrow__spliter"></span>
-                        <img
-                        src="/icons/arrow-down.svg"
-                        class="nested-arrow birthday-item-selected-arrow check-dropdown-close"
-                        />
-                    </div>
-                  </div>
-              </div>
-
-            <div
-              class="p-birthday-select-box w-100 flex-wrap d-none check-dropdown-close"
-              >
-                <div
-                    class="p-birthday-select-box-items flex-wrap align-items-start w-100 check-dropdown-close"
-                    >
-                    <div class="w-100 check-dropdown-close">
-                      <input
-                      v-model="searchBirthdaySelectBox"
-                      type="text"
-                      class="p-birthday-select-box-search check-dropdown-close"
-                      name=""
-                      value=""
-                      />
-                    </div>
-                    <div
-                    ref="parentBirthday"
-                    class="w-100 p-birthday-select-box-overflow check-dropdown-close"
-                    >
-                    <span
-                    ref="p-birthday-select-box-option"
-                    v-show="!day.show"
-                    :class="{ 'p-birthday-select-option': day.selected }"
-                    @click="selectBirthdayOption(day)"
-                    v-for="day in days"
-                    :key="day.day"
-                    class="w-100 check-dropdown-close p-birthday-select-box-item align-items-center justify-content-center"
-                    >{{ day.day }}</span
-                    >
-                  </div>
-                </div>
-            </div>
-
-          </div>
-          <img class="curve-line" src="/icons/curve-line.svg" />
-      </div> -->
-
-      <!-- <div class="flex-wrap d-flex birthday-item-main align-items-start" :class="{ 'birthday-active': birthdayShow }">
-          <div class="d-flex flex-wrap birthday-item-content">
-                <div
-                :key="lastItemSelectedBirthDayOption"
-
-                class="birthday-item__days flex-wrap check-dropdown-close"
-                >
-                  <div
-                    @click="eventBirthDayShow"
-                    class="birthday-item-selected justify-content-center align-items-center w-100 flex-wrap h-100 check-dropdown-close"
-                    >
-                    <span class=" day-item check-dropdown-close">{{
-                      lastItemSelectedBirthDayOption
-                    }}</span>
-
-                    <div class="birthday-item-icons check-dropdown-close">
-                        <span class="arrow__spliter"></span>
-                        <img
-                        src="/icons/arrow-down.svg"
-                        class="nested-arrow birthday-item-selected-arrow check-dropdown-close"
-                        />
-                    </div>
-                  </div>
-              </div>
-
-            <div
-              class="p-birthday-select-box w-100 flex-wrap d-none check-dropdown-close"
-              >
-                <div
-                    class="p-birthday-select-box-items flex-wrap align-items-start w-100 check-dropdown-close"
-                    >
-                    <div class="w-100 check-dropdown-close">
-                      <input
-                      v-model="searchBirthdaySelectBox"
-                      type="text"
-                      class="p-birthday-select-box-search check-dropdown-close"
-                      name=""
-                      value=""
-                      />
-                    </div>
-                    <div
-                    ref="parentBirthday"
-                    class="w-100 p-birthday-select-box-overflow check-dropdown-close"
-                    >
-                    <span
-                    ref="p-birthday-select-box-option"
-                    v-show="!day.show"
-                    :class="{ 'p-birthday-select-option': day.selected }"
-                    @click="selectBirthdayOption(day)"
-                    v-for="day in days"
-                    :key="day.day"
-                    class="w-100 check-dropdown-close p-birthday-select-box-item align-items-center justify-content-center"
-                    >{{ day.day }}</span
-                    >
-                  </div>
-                </div>
-            </div>
-
-          </div>
-          <img class="curve-line" src="/icons/curve-line.svg" />
-      </div> -->
-
-      <DateDropdownBefore
-        className="first"
-        @last-update-birth="LastUpdateDays"
-        first-selected-date="20"
-        :days-data="days"
-        :default-months-data="defaultMonths"
-        :default-years-data="years"
-        default-check-data-state="days"
-        :min="null"
-        :max="null"
-      ></DateDropdownBefore>
-      <img class="curve-line" src="/icons/curve-line.svg" />
-
-      <DateDropdownBefore
-        className="two"
-        @last-update-birth="LastUpdateMonth"
-        first-selected-date="10"
-        :days-data="days"
-        :default-months-data="defaultMonths"
-        :default-years-data="years"
-        default-check-data-state="months"
-        :min="null"
-        :max="null"
-      ></DateDropdownBefore>
-      <img class="curve-line" src="/icons/curve-line.svg" />
-
-      <DateDropdownBefore
-        className="tree"
-        @last-update-birth="LastUpdateYears"
-        first-selected-date="1376"
-        :days-data="days"
-        :default-months-data="defaultMonths"
-        :default-years-data="years"
-        default-check-data-state="years"
-        :min="min"
-        :max="max"
-      ></DateDropdownBefore>
-
-      <!-- <div class="birthday-item__months">
-          <div class="d-flex w-100">
-                <select
-                v-model="selectedMonth"
-                @change="updateDays()"
-                class="birthday-item__months-select"
-                >
-                <option
-                v-for="(month, index) in months"
-                :value="index"
-                :key="month.month"
-                >
-                {{ month.month }}
-              </option>
-            </select>
-            <span class="arrow__spliter"></span>
-            <img class="nested-arrow" src="/icons/arrow-down.svg" />
-          </div>
-          <img class="curve-line" src="/icons/curve-line.svg" />
-      </div> -->
-
-      <!-- Year -->
-      <!-- <div class="birthday-item__years">
-        <select
-          v-model="selectedYear"
-          @change="updateDays()"
-          class="birthday-item__years-select"
+  <div :class="className" class=" d-flex flex-wrap birthday-item-wrapper">
+    <div
+      v-if="defaultCheckDataState == 'days'"
+      class="flex-wrap d-flex birthday-item-main align-items-start"
+      :class="{ 'birthday-active': birthdayShow }"
+    >
+      <div class="d-flex flex-wrap birthday-item-content">
+        <div
+          :key="lastItemSelectedBirthDayOption"
+          class="birthday-item__days flex-wrap check-dropdown-close"
         >
-          <option v-for="year in years" :key="year.year" :value="year.year">
-            {{ year.year }}
-          </option>
-        </select>
-        <span class="arrow__spliter"></span>
-        <img class="nested-arrow" src="/icons/arrow-down.svg" />
-      </div> -->
+          <div
+            @click="eventBirthDayShow"
+            class="birthday-item-selected justify-content-center align-items-center w-100 flex-wrap h-100 check-dropdown-close"
+          >
+            <span class=" day-item check-dropdown-close">{{
+              lastItemSelectedBirthDayOption
+            }}</span>
+
+            <div class="birthday-item-icons check-dropdown-close">
+              <span class="arrow__spliter"></span>
+              <img
+                src="/icons/arrow-down.svg"
+                class="nested-arrow birthday-item-selected-arrow check-dropdown-close"
+              />
+            </div>
+          </div>
+        </div>
+
+        <div
+          class="p-birthday-select-box w-100 flex-wrap d-none check-dropdown-close"
+        >
+          <div
+            class="p-birthday-select-box-items flex-wrap align-items-start w-100 check-dropdown-close"
+          >
+            <div class="w-100 check-dropdown-close">
+              <input
+                v-model="searchBirthdaySelectBox"
+                type="text"
+                class="p-birthday-select-box-search check-dropdown-close"
+                name=""
+                value=""
+              />
+            </div>
+            <div
+              ref="parentBirthday"
+              class="w-100 p-birthday-select-box-overflow check-dropdown-close"
+            >
+              <span
+                ref="p-birthday-select-box-option"
+                v-show="!day.show"
+                :class="{ 'p-birthday-select-option': day.selected }"
+                @click="selectBirthdayOption(day)"
+                v-for="day in days"
+                :key="day.day"
+                class="w-100 check-dropdown-close p-birthday-select-box-item align-items-center justify-content-center"
+                >{{ day.day }}</span
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- <img class="curve-line" src="/icons/curve-line.svg" /> -->
+    </div>
+
+    <div
+      v-if="defaultCheckDataState == 'months'"
+      class="flex-wrap d-flex birthday-item-main align-items-start"
+      :class="{ 'birthday-active': birthdayShow }"
+    >
+      <div class="d-flex flex-wrap birthday-item-content">
+        <div
+          :key="lastItemSelectedBirthDayOption"
+          class="birthday-item__days flex-wrap check-dropdown-close"
+        >
+          <div
+            @click="eventBirthDayShow"
+            class="birthday-item-selected justify-content-center align-items-center w-100 flex-wrap h-100 check-dropdown-close"
+          >
+            <span class=" day-item check-dropdown-close">{{
+              lastItemSelectedBirthDayOption
+            }}</span>
+
+            <div class="birthday-item-icons check-dropdown-close">
+              <span class="arrow__spliter"></span>
+              <img
+                src="/icons/arrow-down.svg"
+                class="nested-arrow birthday-item-selected-arrow check-dropdown-close"
+              />
+            </div>
+          </div>
+        </div>
+
+        <div
+          class="p-birthday-select-box w-100 flex-wrap d-none check-dropdown-close"
+        >
+          <div
+            class="p-birthday-select-box-items flex-wrap align-items-start w-100 check-dropdown-close"
+          >
+            <div class="w-100 check-dropdown-close">
+              <input
+                v-model="searchBirthdaySelectBox"
+                type="text"
+                class="p-birthday-select-box-search check-dropdown-close"
+                name=""
+                value=""
+              />
+            </div>
+
+            <div
+              ref="parentBirthday"
+              class="w-100 p-birthday-select-box-overflow check-dropdown-close"
+            >
+              <span
+                ref="p-birthday-select-box-option"
+                v-show="!month.show"
+                :class="{ 'p-birthday-select-option': month.selected }"
+                @click="selectBirthdayOption(month)"
+                v-for="month in months"
+                :key="month.month"
+                class="w-100 check-dropdown-close p-birthday-select-box-item align-items-center justify-content-center"
+                >{{ month.month }}</span
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- <img class="curve-line" src="/icons/curve-line.svg" /> -->
+    </div>
+
+    <div
+      v-if="defaultCheckDataState == 'years'"
+      class="flex-wrap d-flex birthday-item-main align-items-start"
+      :class="{ 'birthday-active': birthdayShow }"
+    >
+      <div class="d-flex flex-wrap birthday-item-content">
+        <div
+          :key="lastItemSelectedBirthDayOption"
+          class="birthday-item__days flex-wrap check-dropdown-close"
+        >
+          <div
+            @click="eventBirthDayShow"
+            class="birthday-item-selected justify-content-center align-items-center w-100 flex-wrap h-100 check-dropdown-close"
+          >
+            <span class=" day-item check-dropdown-close">{{
+              lastItemSelectedBirthDayOption
+            }}</span>
+
+            <div class="birthday-item-icons check-dropdown-close">
+              <span class="arrow__spliter"></span>
+              <img
+                src="/icons/arrow-down.svg"
+                class="nested-arrow birthday-item-selected-arrow check-dropdown-close"
+              />
+            </div>
+          </div>
+        </div>
+
+        <div
+          class="p-birthday-select-box w-100 flex-wrap d-none check-dropdown-close"
+        >
+          <div
+            class="p-birthday-select-box-items flex-wrap align-items-start w-100 check-dropdown-close"
+          >
+            <div class="w-100 check-dropdown-close">
+              <input
+                v-model="searchBirthdaySelectBox"
+                type="text"
+                class="p-birthday-select-box-search check-dropdown-close"
+                name=""
+                value=""
+              />
+            </div>
+
+            <div
+              ref="parentBirthday"
+              class="w-100 p-birthday-select-box-overflow check-dropdown-close"
+            >
+              <span
+                ref="p-birthday-select-box-option"
+                v-for="year in years"
+                v-show="!year.show"
+                :class="{ 'p-birthday-select-option': year.selected }"
+                @click="selectBirthdayOption(year)"
+                :key="year.day"
+                class="w-100 check-dropdown-close p-birthday-select-box-item align-items-center justify-content-center"
+                >{{ year.day }}</span
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- <img class="curve-line" src="/icons/curve-line.svg" /> -->
     </div>
   </div>
 </template>
 
 <script>
-import DateDropdownBefore from "./DateDropdownBefore";
-
-const defaultMonths = {
-  0: "1",
-  1: "2",
-  2: "3",
-  3: "4",
-  4: "5",
-  5: "6",
-  6: "7",
-  7: "8",
-  8: "9",
-  9: "10",
-  10: "11",
-  11: "12"
-};
+// const defaultMonths = {
+//   0: "1",
+//   1: "2",
+//   2: "3",
+//   3: "4",
+//   4: "5",
+//   5: "6",
+//   6: "7",
+//   7: "8",
+//   8: "9",
+//   9: "10",
+//   10: "11",
+//   11: "12"
+// };
 
 export default {
-  name: "DateDropdown",
-  components: {
-    DateDropdownBefore
-  },
+  name: "DateDropdownBefore",
   props: {
     default: {
       type: String,
@@ -240,12 +226,39 @@ export default {
     max: {
       type: String,
       required: false
+    },
+    max: {
+      type: String,
+      required: false
+    },
+    daysData: {
+      type: [Array, Object],
+      required: []
+    },
+    defaultMonthsData: {
+      type: [Object],
+      required: {}
+    },
+    defaultCheckDataState: {
+      type: String,
+      required: ""
+    },
+    defaultYearsData: {
+      type: [Object, Array],
+      required: {}
+    },
+    firstSelectedDate: {
+      type: [String],
+      required: {}
+    },
+    className: {
+      type: [String],
+      required: {}
     }
   },
 
   data() {
     return {
-      days: [],
       selectedDay: "",
       selectedMonth: "",
       selectedYear: "",
@@ -253,8 +266,7 @@ export default {
       birthdayShow: false,
       searchBirthdaySelectBox: "",
       lastItemSelectedBirthDayOption: 10,
-      updateScrollClick: 0,
-      defaultMonths: defaultMonths
+      updateScrollClick: 0
       //   ***************************
     };
   },
@@ -301,11 +313,11 @@ export default {
       let months = [];
 
       for (let i = 0; i < 12; i++) {
-        months.push(defaultMonths[i]);
+        months.push(this.defaultMonthsData[i]);
       }
 
       return months.map((month, index) => {
-        return { month, selected: index === this.selectedMonth };
+        return { month, selected: index === this.selectedMonth, day: month };
       });
     },
 
@@ -331,18 +343,31 @@ export default {
         years.push(i);
 
       return years.map(year => {
-        return { year, selected: year === this.selectedYear };
+        return { year, selected: year === this.selectedYear, day: year };
       });
     }
   },
   //   ***************************⇓
   watch: {
+    lastItemSelectedBirthDayOption(value) {
+      this.$emit("last-update-birth", value);
+    },
+
     searchBirthdaySelectBox(value) {
       this.searchFilter(value);
     },
 
     updateScrollClick() {
       let indexShowSelectOption = -1;
+      // let nameArrayState        = '';
+      //
+      // if (this.defaultCheckDataState == 'days') {
+      //   nameArrayState = this.days;
+      // }
+      //
+      // if (this.defaultCheckDataState == 'months') {
+      //   nameArrayState = this.months;
+      // }
 
       if (this.birthdayShow) {
         if (this.lastItemSelectedBirthDayOption != "") {
@@ -367,18 +392,6 @@ export default {
   //   ***************************⇑
   methods: {
     //   ***************************⇓
-    LastUpdateDays(data) {
-      console.log(data, "LastUpdateDays");
-    },
-
-    LastUpdateMonth(data) {
-      console.log(data, "LastUpdateMonth");
-    },
-
-    LastUpdateYears(data) {
-      console.log(data, "LastUpdateYears");
-    },
-
     onClick(e) {
       function findAncestor(el, cls) {
         while ((el = el.parentElement) && !el.classList.contains(cls));
@@ -415,14 +428,21 @@ export default {
     },
     //   ***************************⇑
     getDays() {
-      let days = [];
-      let daysNumberOfMonth = new Date(
-        this.selectedYear,
-        this.selectedMonth + 1,
-        0
-      ).getDate();
+      // let daysNumberOfMonth = new Date(
+      //   this.selectedYear,
+      //   this.selectedMonth + 1,
+      //   0
+      // ).getDate();
+      //
+      // for (let i = 1; i < daysNumberOfMonth + 1; i++) days.push(i);
 
-      for (let i = 1; i < daysNumberOfMonth + 1; i++) days.push(i);
+      // let days = [];
+      // days     = this.data;
+
+      let days = [];
+      this.daysData.map(t => {
+        days.push(t.day);
+      });
 
       return days.map(day => {
         return { day, selected: days === this.selectedDay };
@@ -507,6 +527,7 @@ export default {
     this.setDate();
     document.addEventListener("click", this.onClick);
   },
+
   destroyed() {
     document.removeEventListener("click", this.documentClick);
   },
@@ -514,6 +535,17 @@ export default {
   updated() {
     // Send the data on change
     this.sendDate();
+  },
+
+  mounted() {
+    this.lastItemSelectedBirthDayOption = this.firstSelectedDate;
+
+    if (this.defaultCheckDataState == "months") {
+      this.days = this.months;
+    }
+    if (this.defaultCheckDataState == "years") {
+      this.days = this.years;
+    }
   }
 };
 </script>
@@ -816,6 +848,20 @@ export default {
 }
 .birthday-item-content {
   width: 91px;
+}
+
+.birthday-item-wrapper:last-of-type .curve-line {
+  display: none;
+}
+
+.tree {
+  width: 190px;
+}
+.tree .birthday-item-content {
+  width: 160px;
+}
+.tree .birthday-item__days {
+  width: 100%;
 }
 
 /* ***************************⇑ */
