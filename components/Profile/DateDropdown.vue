@@ -4,7 +4,16 @@
         <div class="birthday-container">
             <!-- Day -->
             <div class="birthday-item__days">
-                <select
+                <div class="birthday-select-box">
+                    <span
+                        class="birthday-title"
+                        v-for="day in days"
+                        :key="day.day"
+                    >
+                        {{ day.day }}
+                    </span>
+                </div>
+                <!-- <select
                     v-model="selectedDay"
                     class="birthday-item__days-select"
                 >
@@ -13,7 +22,7 @@
                     </option>
                 </select>
                 <span class="arrow__spliter"></span>
-                <img class="nested-arrow" src="/icons/arrow-down.svg" />
+                <img class="nested-arrow" src="/icons/arrow-down.svg" /> -->
                 <!--  -->
                 <!--  -->
             </div>
@@ -251,6 +260,16 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.birthday-select-box {
+    @include display-flex();
+    flex-direction: column;
+    width: 100%;
+}
+.birthday-title {
+    @include display-flex();
+    margin: 10px;
+    width: 100%;
+}
 .nested-arrow {
     margin-left: 8px;
     margin-right: 4px;
@@ -316,7 +335,7 @@ export default {
             /* */
             &-select {
                 appearance: none;
-
+                background: transparent;
                 font-family: inherit;
                 font-size: 16px;
                 outline: none;
