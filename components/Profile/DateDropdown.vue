@@ -1,212 +1,51 @@
 <template>
   <div class="birthday">
     <span class="birthday-title">تاریخ تولد:</span>
-    <div class="birthday-container align-items-start d-flex">
+    <div class="birthday-container">
       <!-- Day -->
-
-      <!-- <div class="flex-wrap d-flex birthday-item-main align-items-start" :class="{ 'birthday-active': birthdayShow }">
-          <div class="d-flex flex-wrap birthday-item-content">
-                <div
-                :key="lastItemSelectedBirthDayOption"
-
-                class="birthday-item__days flex-wrap check-dropdown-close"
-                >
-                  <div
-                    @click="eventBirthDayShow"
-                    class="birthday-item-selected justify-content-center align-items-center w-100 flex-wrap h-100 check-dropdown-close"
-                    >
-                    <span class=" day-item check-dropdown-close">{{
-                      lastItemSelectedBirthDayOption
-                    }}</span>
-
-                    <div class="birthday-item-icons check-dropdown-close">
-                        <span class="arrow__spliter"></span>
-                        <img
-                        src="/icons/arrow-down.svg"
-                        class="nested-arrow birthday-item-selected-arrow check-dropdown-close"
-                        />
-                    </div>
-                  </div>
-              </div>
-
-            <div
-              class="p-birthday-select-box w-100 flex-wrap d-none check-dropdown-close"
-              >
-                <div
-                    class="p-birthday-select-box-items flex-wrap align-items-start w-100 check-dropdown-close"
-                    >
-                    <div class="w-100 check-dropdown-close">
-                      <input
-                      v-model="searchBirthdaySelectBox"
-                      type="text"
-                      class="p-birthday-select-box-search check-dropdown-close"
-                      name=""
-                      value=""
-                      />
-                    </div>
-                    <div
-                    ref="parentBirthday"
-                    class="w-100 p-birthday-select-box-overflow check-dropdown-close"
-                    >
-                    <span
-                    ref="p-birthday-select-box-option"
-                    v-show="!day.show"
-                    :class="{ 'p-birthday-select-option': day.selected }"
-                    @click="selectBirthdayOption(day)"
-                    v-for="day in days"
-                    :key="day.day"
-                    class="w-100 check-dropdown-close p-birthday-select-box-item align-items-center justify-content-center"
-                    >{{ day.day }}</span
-                    >
-                  </div>
-                </div>
-            </div>
-
-          </div>
-          <img class="curve-line" src="/icons/curve-line.svg" />
-      </div> -->
-
-      <!-- <div class="flex-wrap d-flex birthday-item-main align-items-start" :class="{ 'birthday-active': birthdayShow }">
-          <div class="d-flex flex-wrap birthday-item-content">
-                <div
-                :key="lastItemSelectedBirthDayOption"
-
-                class="birthday-item__days flex-wrap check-dropdown-close"
-                >
-                  <div
-                    @click="eventBirthDayShow"
-                    class="birthday-item-selected justify-content-center align-items-center w-100 flex-wrap h-100 check-dropdown-close"
-                    >
-                    <span class=" day-item check-dropdown-close">{{
-                      lastItemSelectedBirthDayOption
-                    }}</span>
-
-                    <div class="birthday-item-icons check-dropdown-close">
-                        <span class="arrow__spliter"></span>
-                        <img
-                        src="/icons/arrow-down.svg"
-                        class="nested-arrow birthday-item-selected-arrow check-dropdown-close"
-                        />
-                    </div>
-                  </div>
-              </div>
-
-            <div
-              class="p-birthday-select-box w-100 flex-wrap d-none check-dropdown-close"
-              >
-                <div
-                    class="p-birthday-select-box-items flex-wrap align-items-start w-100 check-dropdown-close"
-                    >
-                    <div class="w-100 check-dropdown-close">
-                      <input
-                      v-model="searchBirthdaySelectBox"
-                      type="text"
-                      class="p-birthday-select-box-search check-dropdown-close"
-                      name=""
-                      value=""
-                      />
-                    </div>
-                    <div
-                    ref="parentBirthday"
-                    class="w-100 p-birthday-select-box-overflow check-dropdown-close"
-                    >
-                    <span
-                    ref="p-birthday-select-box-option"
-                    v-show="!day.show"
-                    :class="{ 'p-birthday-select-option': day.selected }"
-                    @click="selectBirthdayOption(day)"
-                    v-for="day in days"
-                    :key="day.day"
-                    class="w-100 check-dropdown-close p-birthday-select-box-item align-items-center justify-content-center"
-                    >{{ day.day }}</span
-                    >
-                  </div>
-                </div>
-            </div>
-
-          </div>
-          <img class="curve-line" src="/icons/curve-line.svg" />
-      </div> -->
-
-      <DateDropdownBefore
-        className="first"
+      <DateDropdownItems
+        className="item-day"
         @last-update-birth="LastUpdateDays"
-        first-selected-date="20"
+        first-selected-date="روز"
         :days-data="days"
         :default-months-data="defaultMonths"
         :default-years-data="years"
         default-check-data-state="days"
         :min="null"
         :max="null"
-      ></DateDropdownBefore>
+      ></DateDropdownItems>
       <img class="curve-line" src="/icons/curve-line.svg" />
-
-      <DateDropdownBefore
-        className="two"
+      <!-- Month -->
+      <DateDropdownItems
+        className="item-month"
         @last-update-birth="LastUpdateMonth"
-        first-selected-date="10"
+        first-selected-date="ماه"
         :days-data="days"
         :default-months-data="defaultMonths"
         :default-years-data="years"
         default-check-data-state="months"
         :min="null"
         :max="null"
-      ></DateDropdownBefore>
+      ></DateDropdownItems>
       <img class="curve-line" src="/icons/curve-line.svg" />
-
-      <DateDropdownBefore
-        className="tree"
+      <!-- Year -->
+      <DateDropdownItems
+        className="item-year"
         @last-update-birth="LastUpdateYears"
-        first-selected-date="1376"
+        first-selected-date="سال"
         :days-data="days"
         :default-months-data="defaultMonths"
         :default-years-data="years"
         default-check-data-state="years"
         :min="min"
         :max="max"
-      ></DateDropdownBefore>
-
-      <!-- <div class="birthday-item__months">
-          <div class="d-flex w-100">
-                <select
-                v-model="selectedMonth"
-                @change="updateDays()"
-                class="birthday-item__months-select"
-                >
-                <option
-                v-for="(month, index) in months"
-                :value="index"
-                :key="month.month"
-                >
-                {{ month.month }}
-              </option>
-            </select>
-            <span class="arrow__spliter"></span>
-            <img class="nested-arrow" src="/icons/arrow-down.svg" />
-          </div>
-          <img class="curve-line" src="/icons/curve-line.svg" />
-      </div> -->
-
-      <!-- Year -->
-      <!-- <div class="birthday-item__years">
-        <select
-          v-model="selectedYear"
-          @change="updateDays()"
-          class="birthday-item__years-select"
-        >
-          <option v-for="year in years" :key="year.year" :value="year.year">
-            {{ year.year }}
-          </option>
-        </select>
-        <span class="arrow__spliter"></span>
-        <img class="nested-arrow" src="/icons/arrow-down.svg" />
-      </div> -->
+      ></DateDropdownItems>
     </div>
   </div>
 </template>
 
 <script>
-import DateDropdownBefore from "./DateDropdownBefore";
+import DateDropdownItems from "./DateDropdownItems";
 
 const defaultMonths = {
   0: "1",
@@ -226,7 +65,7 @@ const defaultMonths = {
 export default {
   name: "DateDropdown",
   components: {
-    DateDropdownBefore
+    DateDropdownItems
   },
   props: {
     default: {
@@ -249,13 +88,7 @@ export default {
       selectedDay: "",
       selectedMonth: "",
       selectedYear: "",
-      //   ***************************
-      birthdayShow: false,
-      searchBirthdaySelectBox: "",
-      lastItemSelectedBirthDayOption: 10,
-      updateScrollClick: 0,
       defaultMonths: defaultMonths
-      //   ***************************
     };
   },
 
@@ -335,36 +168,6 @@ export default {
       });
     }
   },
-  //   ***************************⇓
-  watch: {
-    searchBirthdaySelectBox(value) {
-      this.searchFilter(value);
-    },
-
-    updateScrollClick() {
-      let indexShowSelectOption = -1;
-
-      if (this.birthdayShow) {
-        if (this.lastItemSelectedBirthDayOption != "") {
-          this.days.map((content, index) => {
-            if (content.day == this.lastItemSelectedBirthDayOption) {
-              indexShowSelectOption = index;
-              content.selected = true;
-            }
-          });
-
-          setTimeout(() => {
-            const findCurrentElem = this.$refs["parentBirthday"];
-            let elem = this.$refs["p-birthday-select-box-option"][
-              indexShowSelectOption
-            ];
-            // elem.scrollIntoView(false);
-          });
-        }
-      }
-    }
-  },
-  //   ***************************⇑
   methods: {
     //   ***************************⇓
     LastUpdateDays(data) {
@@ -377,21 +180,6 @@ export default {
 
     LastUpdateYears(data) {
       console.log(data, "LastUpdateYears");
-    },
-
-    onClick(e) {
-      function findAncestor(el, cls) {
-        while ((el = el.parentElement) && !el.classList.contains(cls));
-        return el;
-      }
-
-      if (findAncestor(e.target, "check-dropdown-close") == null) {
-        this.birthdayShow = false;
-        this.searchBirthdaySelectBox = "";
-        this.days.map(t => {
-          t.show = false;
-        });
-      }
     },
 
     searchFilter(data) {
@@ -466,85 +254,26 @@ export default {
       this.selectedYear = date.getFullYear();
 
       this.sendDate();
-    },
-    //   ***************************⇓
-    eventBirthDayShow() {
-      let indexShowSelectOption = -1;
-
-      if (this.birthdayShow) {
-        this.birthdayShow = false;
-      } else {
-        this.birthdayShow = true;
-      }
-
-      // if (this.lastItemSelectedBirthDayOption != '') {
-      // }
-
-      this.$nextTick(() => {
-        this.updateScrollClick++;
-      });
-    },
-
-    selectBirthdayOption(data) {
-      this.birthdayShow = false;
-      this.searchBirthdaySelectBox = "";
-
-      this.days.map(t => {
-        if (t.day == data.day) {
-          t.selected = true;
-          this.lastItemSelectedBirthDayOption = t.day;
-        } else {
-          t.selected = false;
-        }
-        t.show = false;
-      });
     }
-    //   ***************************⇑
   },
 
   created() {
     // Set the date when the component was created
     this.setDate();
     document.addEventListener("click", this.onClick);
-  },
-  destroyed() {
-    document.removeEventListener("click", this.documentClick);
-  },
-
-  updated() {
-    // Send the data on change
-    this.sendDate();
   }
+  // Send the data on change
+  // updated() {
+  //   this.sendDate();
+  // }
 };
 </script>
 
 <style lang="scss" scoped>
-.nested-arrow {
-  margin-left: 8px;
-  margin-right: 4px;
+.curve-line {
+  height: 24px;
+  margin-top: 15px;
 }
-/* width */
-::-webkit-scrollbar {
-  width: 6px;
-  position: absolute;
-  scrollbar-width: thin;
-}
-
-/* Track */
-::-webkit-scrollbar-track {
-  box-shadow: inset 0 0 2px grey;
-  border-radius: 10px;
-  position: absolute;
-  scrollbar-width: thin;
-}
-
-/* Handle */
-::-webkit-scrollbar-thumb {
-  background: $scrollbar-gray;
-  border-radius: 6px;
-  position: absolute;
-}
-
 .birthday {
   @include display-flex();
   flex-direction: column;
@@ -562,119 +291,18 @@ export default {
   }
   &-container {
     @include display-flex();
-    // flex-direction: row;
-    // justify-content: space-between;
-  }
-  &-item {
-    &__days,
-    &__months,
-    &__years {
-      @include display-flex();
-      flex-direction: row;
-      justify-content: space-between;
-      font-family: inherit;
-      border: 1px solid $input-border;
-      box-shadow: 0px 4px 4px $gray-border;
-      height: 52px;
-      width: 91px;
-
-      border-radius: 15px;
-      color: $gray;
-      outline: none;
-      /* */
-      &-select {
-        appearance: none;
-        font-family: inherit;
-        font-size: 16px;
-        outline: none;
-        border: none;
-        box-shadow: none;
-        overflow: scroll;
-        height: 100%;
-        width: 80%;
-        border-radius: 15px;
-        padding: 11px;
-        padding-right: 30%;
-        /* background: greenyellow; */
-        color: $gray;
-        cursor: pointer;
-      }
-
-      &-select > option {
-        color: $gray;
-        appearance: none;
-        border-radius: 15px;
-        /* font-weight: normal;
-                display: block;
-                white-space: pre;
-                min-height: 1.2em;
-                padding: 0px 2px 1px; */
-      }
-      /* &-select > option:hover {
-                color: violet;
-            } */
-      /* &-select:focus {
-                -webkit-box-flex: 1;
-                flex-grow: 1;
-            } */
-      /* &-select + .nested-arrow {
-                transform: rotate(0deg);
-            } */
-      &-select:focus ~ .nested-arrow {
-        transform: rotate(-180deg);
-      }
-    }
-    &__years {
-      width: 150px;
-    }
-  }
-}
-.arrow__spliter {
-  background-color: $light-gray;
-  width: 1px;
-  height: 24px;
-  border: none;
-  align-self: center;
-}
-@media (max-width: 1220px) {
-  .birthday {
-    &-item {
-      &__days,
-      &__months,
-      &__years {
-        width: 74px;
-      }
-      &__years {
-        width: 120px;
-      }
-    }
+    flex-direction: row;
+    justify-content: space-between;
+    /* border: 1px blue solid; */
   }
 }
 @media (max-width: 960px) {
+  .curve-line {
+    height: 15px;
+  }
   .birthday {
     &-title {
       font-size: 14px;
-    }
-    &-item {
-      &__days,
-      &__months,
-      &__years {
-        font-size: 13px;
-        height: 46px;
-        width: 74px;
-        &-select {
-          font-size: 13px;
-
-          padding: 5px;
-          padding-right: 20%;
-        }
-      }
-      &__years {
-        width: 120px;
-      }
-      &__spliter {
-        height: 15px;
-      }
     }
   }
 }
@@ -683,140 +311,5 @@ export default {
     height: 15px;
     margin: auto 0;
   }
-  .birthday {
-    &-item {
-      &__days,
-      &__months,
-      &__years {
-        width: 64px;
-        &-select {
-          height: 100%;
-          width: 80%;
-          border-radius: 15px;
-          padding: 5px;
-          padding-right: 20%;
-          /* background: greenyellow; */
-          color: $gray;
-          cursor: pointer;
-        }
-      }
-      &__years {
-        width: 105px;
-      }
-    }
-  }
 }
-@media (max-width: 280px) {
-  .birthday {
-    &-item {
-      &__days,
-      &__months,
-      &__years {
-        width: 60px;
-      }
-      &__years {
-        width: 80px;
-      }
-    }
-  }
-}
-/* ***************************⇓ */
-.day-item {
-  margin-right: -25%;
-}
-.p-birthday-select-box {
-  @include display-flex();
-  position: relative;
-  z-index: 0;
-  width: 100%;
-  box-sizing: border-box;
-  box-shadow: 0px 4px 4px #f2f2f2;
-  border: 1px solid $input-border;
-  background: $white;
-  height: 200px;
-  overflow: auto;
-  border-top: none;
-  border-bottom-left-radius: 15px;
-  border-bottom-right-radius: 15px;
-}
-.birthday-item-selected {
-  @include display-flex();
-  position: relative;
-}
-.birthday-active .p-birthday-select-box {
-  display: flex !important;
-}
-.birthday-active {
-  border-bottom-left-radius: 0;
-  border-bottom-right-radius: 0;
-}
-.birthday-select-box-item-selected {
-  background: #f2f2f2;
-  color: #6f6f6f;
-}
-.p-birthday-select-box-item {
-  height: 40px;
-  @include display-flex();
-  cursor: pointer;
-  &:hover {
-    background: #f1f1f1;
-    color: #6f6f6f;
-  }
-}
-.p-birthday-select-option {
-  background: #f1f1f1;
-  color: #6f6f6f;
-}
-.p-birthday-select-box-search {
-  border-radius: 4px;
-  background: #fff;
-  border: 1px solid #f2f2f2;
-  color: #717171;
-  /* font-size: 14px; */
-  font-family: inherit;
-  font-size: 1rem;
-  line-height: 1.571;
-  padding: 11px 12px;
-  outline: none;
-  margin: 5px;
-  margin-top: 0;
-  max-width: calc(100% - 10px);
-  max-height: 40px;
-}
-.p-birthday-select-box-overflow {
-  overflow: auto;
-  height: 145px;
-}
-/* .birthday-item-selected-arrow {
-} */
-.birthday-active .birthday-item-selected-arrow {
-  transform: rotate(178deg);
-}
-.birthday-item-icons {
-  position: absolute;
-  top: 0;
-  left: -5px;
-  height: 100%;
-  align-items: center;
-  display: flex;
-}
-.birthday-item-main {
-  // width: 91px;
-  @include display-flex();
-}
-.birthday-active .birthday-item__days {
-  border-bottom-right-radius: 0;
-  border-bottom-left-radius: 0;
-  border-bottom: none;
-}
-.curve-line {
-  margin-top: 15px;
-  margin-right: 21px;
-  margin-left: 10px;
-}
-.birthday-item-content {
-  width: 91px;
-}
-
-/* ***************************⇑ */
 </style>

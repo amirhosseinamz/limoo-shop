@@ -1,210 +1,207 @@
 @import "_variables.scss";
 @import "_colors.scss";
-@import "_modal.scss";
-
 
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 html {
-    font-family: "IRANYekan";
+  font-family: "IRANYekan";
 }
 // ==============Inheritance classes==================
 .sass-input__default {
-    outline: none;
-    border: none;
-    background: transparent;
+  outline: none;
+  border: none;
+  background: transparent;
 }
 // ==================utile classes ===================
 .menu-item__activated {
-    filter: invert(20%) sepia(60%) saturate(619%) hue-rotate(335deg)
-        brightness(175%) contrast(105%);
-    // color: $yellow;
-    // fill: $yellow;
+  filter: invert(20%) sepia(60%) saturate(619%) hue-rotate(335deg)
+    brightness(175%) contrast(105%);
+  // color: $yellow;
+  // fill: $yellow;
 }
 
 // ===================Mixins==========================
 @mixin display-flex() {
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: -webkit-flex;
-    display: flex;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
 }
 // ===================================================
 .signup-limoo-logo {
-    margin-top: 0;
-    height: 56.25px;
+  margin-top: 0;
+  height: 56.25px;
 }
 .app-signup-close-btn {
-    @extend .sass-input__default;
-    cursor: pointer;
-    margin-left: 24px;
+  @extend .sass-input__default;
+  cursor: pointer;
+  margin-left: 24px;
 }
 .app-signin-next-btn {
-    @extend .sass-input__default;
-    cursor: pointer;
-    margin-left: 24px;
+  @extend .sass-input__default;
+  cursor: pointer;
+  margin-left: 24px;
 }
 .signin-btn,
 .signup-btn {
-    font-family: inherit;
-    font-size: 18px;
-    font-weight: 400;
-    line-height: 25.31px;
-    text-align: center;
-    color: $white;
-    background: $yellow;
-    height: 58px;
-    width: 463px;
-    border: none;
-    border-radius: 10px;
-    outline: none;
+  font-family: inherit;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 25.31px;
+  text-align: center;
+  color: $white;
+  background: $yellow;
+  height: 58px;
+  width: 463px;
+  border: none;
+  border-radius: 10px;
+  outline: none;
 
-    cursor: pointer;
+  cursor: pointer;
 }
 .google-signup-btn {
-    font-family: inherit;
-    font-size: 14px;
-    font-weight: 500;
-    line-height: 19.69px;
-    text-align: center;
-    color: $gray;
-    background: $google-btn__bg;
-    height: 44px;
-    width: 189px;
-    border: none;
-    border-radius: 10px;
-    outline: none;
-    margin-bottom: 31px;
-    cursor: pointer;
-    visibility: hidden;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 19.69px;
+  text-align: center;
+  color: $gray;
+  background: $google-btn__bg;
+  height: 44px;
+  width: 189px;
+  border: none;
+  border-radius: 10px;
+  outline: none;
+  margin-bottom: 31px;
+  cursor: pointer;
+  visibility: hidden;
 }
 .signin-input,
 .signup-input {
-    // font-family: "IRANYekan";
+  // font-family: "IRANYekan";
+  @extend .sass-input__default;
+  font-size: 16px;
+  font-weight: 400;
+  flex-grow: 2;
+  &-wrong {
     @extend .sass-input__default;
     font-size: 16px;
     font-weight: 400;
     flex-grow: 2;
-    &-wrong {
-        @extend .sass-input__default;
-        font-size: 16px;
-        font-weight: 400;
-        flex-grow: 2;
-        color: $red;
-    }
+    color: $red;
+  }
 }
 
 .input-section,
 .search-section {
-    display: flex;
-    justify-content: center;
+  display: flex;
+  justify-content: center;
 }
 .input-holder-verify,
 .input-holder {
-    background: $input-bg;
+  background: $input-bg;
+  margin-bottom: 8px;
+  height: 54px;
+  line-height: 28px;
+  border: 1px solid $input-border;
+  box-sizing: border-box;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: row-reverse;
+  width: 463px;
+  &-wrong {
+    color: $red;
+    background: $alert-red__bg;
     margin-bottom: 8px;
     height: 54px;
     line-height: 28px;
-    border: 1px solid $input-border;
+    border: 1px solid $alert-red !important;
     box-sizing: border-box;
     border-radius: 10px;
     display: flex;
     flex-direction: row-reverse;
     width: 463px;
-    &-wrong {
-        color: $red;
-        background: $alert-red__bg;
-        margin-bottom: 8px;
-        height: 54px;
-        line-height: 28px;
-        border: 1px solid $alert-red !important;
-        box-sizing: border-box;
-        border-radius: 10px;
-        display: flex;
-        flex-direction: row-reverse;
-        width: 463px;
-        outline: none;
-    }
+    outline: none;
+  }
 }
 ::-webkit-input-placeholder,
 ::-moz-placeholder,
 :-ms-input-placeholder,
 :-moz-placeholder,
 ::placeholder {
-    color: $input-border;
+  color: $input-border;
 }
 .clear-input {
+  @extend .sass-input__default;
+  color: $gray;
+  font-size: 30px;
+  cursor: pointer;
+  padding-left: 16px;
+  &-wrong {
     @extend .sass-input__default;
-    color: $gray;
+    color: $red;
     font-size: 30px;
     cursor: pointer;
     padding-left: 16px;
-    &-wrong {
-        @extend .sass-input__default;
-        color: $red;
-        font-size: 30px;
-        cursor: pointer;
-        padding-left: 16px;
-    }
+  }
 }
 
-.w-100{
+.w-100 {
   width: 100%;
 }
-.align-items-start{
+.align-items-start {
   align-items: flex-start;
 }
-.align-items-center{
+.align-items-center {
   align-items: center;
 }
-.flex-column{
+.flex-column {
   flex-flow: column;
 }
-.text-right{
+.text-right {
   text-align: right;
 }
-.cursor-pointer{
+.cursor-pointer {
   cursor: pointer;
 }
-button{
+button {
   outline: none;
 }
-.flex-wrap{
+.flex-wrap {
   flex-wrap: wrap;
 }
-.justify-content-center{
+.justify-content-center {
   justify-content: center;
 }
-.p-product-btn{
+.p-product-btn {
   width: 150px;
   height: 47px;
-  background: #FFFFFF;
+  background: #ffffff;
   box-shadow: 0px 8px 16px rgba(17, 17, 17, 0.03);
   border-radius: 10px;
-  border: 2px solid #FFCC40;
+  border: 2px solid #ffcc40;
   font-family: inherit;
   color: $yellow;
   font-size: 14px;
   transition: all 120ms ease-in;
-  &:hover{
+  &:hover {
     transition: all 120ms ease-in;
     background: $yellow;
     color: #fff;
   }
-
 }
-.d-rtl{
+.d-rtl {
   direction: rtl;
 }
-.h-100{
+.h-100 {
   height: 100%;
 }
-.d-none{
+.d-none {
   display: none !important;
 }
-.d-fleX{
+.d-fleX {
   display: flex;
 }

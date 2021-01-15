@@ -2,7 +2,7 @@
   <div :class="className" class=" d-flex flex-wrap birthday-item-wrapper">
     <div
       v-if="defaultCheckDataState == 'days'"
-      class="flex-wrap d-flex birthday-item-main align-items-start"
+      class="flex-wrap d-flex birthday-item-main align-items-start cursor-pointer"
       :class="{ 'birthday-active': birthdayShow }"
     >
       <div class="d-flex flex-wrap birthday-item-content">
@@ -29,7 +29,7 @@
         </div>
 
         <div
-          class="p-birthday-select-box w-100 flex-wrap d-none check-dropdown-close"
+          class="p-birthday-select-box w-100 flex-wrap d-none check-dropdown-close "
         >
           <div
             class="p-birthday-select-box-items flex-wrap align-items-start w-100 check-dropdown-close"
@@ -61,12 +61,11 @@
           </div>
         </div>
       </div>
-      <!-- <img class="curve-line" src="/icons/curve-line.svg" /> -->
     </div>
 
     <div
       v-if="defaultCheckDataState == 'months'"
-      class="flex-wrap d-flex birthday-item-main align-items-start"
+      class="flex-wrap d-flex birthday-item-main align-items-start cursor-pointer"
       :class="{ 'birthday-active': birthdayShow }"
     >
       <div class="d-flex flex-wrap birthday-item-content">
@@ -126,12 +125,11 @@
           </div>
         </div>
       </div>
-      <!-- <img class="curve-line" src="/icons/curve-line.svg" /> -->
     </div>
 
     <div
       v-if="defaultCheckDataState == 'years'"
-      class="flex-wrap d-flex birthday-item-main align-items-start"
+      class="flex-wrap d-flex birthday-item-main align-items-start cursor-pointer"
       :class="{ 'birthday-active': birthdayShow }"
     >
       <div class="d-flex flex-wrap birthday-item-content">
@@ -191,27 +189,11 @@
           </div>
         </div>
       </div>
-      <!-- <img class="curve-line" src="/icons/curve-line.svg" /> -->
     </div>
   </div>
 </template>
 
 <script>
-// const defaultMonths = {
-//   0: "1",
-//   1: "2",
-//   2: "3",
-//   3: "4",
-//   4: "5",
-//   5: "6",
-//   6: "7",
-//   7: "8",
-//   8: "9",
-//   9: "10",
-//   10: "11",
-//   11: "12"
-// };
-
 export default {
   name: "DateDropdownBefore",
   props: {
@@ -359,16 +341,6 @@ export default {
 
     updateScrollClick() {
       let indexShowSelectOption = -1;
-      // let nameArrayState        = '';
-      //
-      // if (this.defaultCheckDataState == 'days') {
-      //   nameArrayState = this.days;
-      // }
-      //
-      // if (this.defaultCheckDataState == 'months') {
-      //   nameArrayState = this.months;
-      // }
-
       if (this.birthdayShow) {
         if (this.lastItemSelectedBirthDayOption != "") {
           this.days.map((content, index) => {
@@ -428,17 +400,6 @@ export default {
     },
     //   ***************************⇑
     getDays() {
-      // let daysNumberOfMonth = new Date(
-      //   this.selectedYear,
-      //   this.selectedMonth + 1,
-      //   0
-      // ).getDate();
-      //
-      // for (let i = 1; i < daysNumberOfMonth + 1; i++) days.push(i);
-
-      // let days = [];
-      // days     = this.data;
-
       let days = [];
       this.daysData.map(t => {
         days.push(t.day);
@@ -496,10 +457,6 @@ export default {
       } else {
         this.birthdayShow = true;
       }
-
-      // if (this.lastItemSelectedBirthDayOption != '') {
-      // }
-
       this.$nextTick(() => {
         this.updateScrollClick++;
       });
@@ -532,11 +489,6 @@ export default {
     document.removeEventListener("click", this.documentClick);
   },
 
-  updated() {
-    // Send the data on change
-    this.sendDate();
-  },
-
   mounted() {
     this.lastItemSelectedBirthDayOption = this.firstSelectedDate;
 
@@ -564,7 +516,6 @@ export default {
 
 /* Track */
 ::-webkit-scrollbar-track {
-  box-shadow: inset 0 0 2px grey;
   border-radius: 10px;
   position: absolute;
   scrollbar-width: thin;
@@ -614,47 +565,6 @@ export default {
       color: $gray;
       outline: none;
       /* */
-      &-select {
-        appearance: none;
-        font-family: inherit;
-        font-size: 16px;
-        outline: none;
-        border: none;
-        box-shadow: none;
-        overflow: scroll;
-        height: 100%;
-        width: 80%;
-        border-radius: 15px;
-        padding: 11px;
-        padding-right: 30%;
-        /* background: greenyellow; */
-        color: $gray;
-        cursor: pointer;
-      }
-
-      &-select > option {
-        color: $gray;
-        appearance: none;
-        border-radius: 15px;
-        /* font-weight: normal;
-                display: block;
-                white-space: pre;
-                min-height: 1.2em;
-                padding: 0px 2px 1px; */
-      }
-      /* &-select > option:hover {
-                color: violet;
-            } */
-      /* &-select:focus {
-                -webkit-box-flex: 1;
-                flex-grow: 1;
-            } */
-      /* &-select + .nested-arrow {
-                transform: rotate(0deg);
-            } */
-      &-select:focus ~ .nested-arrow {
-        transform: rotate(-180deg);
-      }
     }
     &__years {
       width: 150px;
@@ -668,90 +578,6 @@ export default {
   border: none;
   align-self: center;
 }
-@media (max-width: 1220px) {
-  .birthday {
-    &-item {
-      &__days,
-      &__months,
-      &__years {
-        width: 74px;
-      }
-      &__years {
-        width: 120px;
-      }
-    }
-  }
-}
-@media (max-width: 960px) {
-  .birthday {
-    &-title {
-      font-size: 14px;
-    }
-    &-item {
-      &__days,
-      &__months,
-      &__years {
-        font-size: 13px;
-        height: 46px;
-        width: 74px;
-        &-select {
-          font-size: 13px;
-
-          padding: 5px;
-          padding-right: 20%;
-        }
-      }
-      &__years {
-        width: 120px;
-      }
-      &__spliter {
-        height: 15px;
-      }
-    }
-  }
-}
-@media (max-width: 350px) {
-  .curve-line {
-    height: 15px;
-    margin: auto 0;
-  }
-  .birthday {
-    &-item {
-      &__days,
-      &__months,
-      &__years {
-        width: 64px;
-        &-select {
-          height: 100%;
-          width: 80%;
-          border-radius: 15px;
-          padding: 5px;
-          padding-right: 20%;
-          /* background: greenyellow; */
-          color: $gray;
-          cursor: pointer;
-        }
-      }
-      &__years {
-        width: 105px;
-      }
-    }
-  }
-}
-@media (max-width: 280px) {
-  .birthday {
-    &-item {
-      &__days,
-      &__months,
-      &__years {
-        width: 60px;
-      }
-      &__years {
-        width: 80px;
-      }
-    }
-  }
-}
 /* ***************************⇓ */
 .day-item {
   margin-right: -25%;
@@ -761,6 +587,7 @@ export default {
   position: relative;
   z-index: 0;
   width: 100%;
+  color: $gray;
   box-sizing: border-box;
   box-shadow: 0px 4px 4px #f2f2f2;
   border: 1px solid $input-border;
@@ -841,28 +668,140 @@ export default {
   border-bottom-left-radius: 0;
   border-bottom: none;
 }
-.curve-line {
-  margin-top: 15px;
-  margin-right: 21px;
-  margin-left: 10px;
-}
+
 .birthday-item-content {
   width: 91px;
 }
 
-.birthday-item-wrapper:last-of-type .curve-line {
-  display: none;
-}
-
-.tree {
+/* .item-year {
   width: 190px;
+} */
+
+.item-year .birthday-item-content {
+  width: 150px;
 }
-.tree .birthday-item-content {
-  width: 160px;
-}
-.tree .birthday-item__days {
+.item-year .birthday-item__days {
   width: 100%;
 }
-
+@media (max-width: 1220px) {
+  .birthday-item-content,
+  .item-day .birthday-item__days,
+  .p-birthday-select-box {
+    width: 74px;
+  }
+  .item-year .birthday-item-content,
+  .item-year .p-birthday-select-box {
+    width: 140px;
+  }
+  /*  */
+  .birthday {
+    &-item {
+      &__days,
+      &__months,
+      &__years {
+        width: 74px;
+      }
+      &__years {
+        width: 120px;
+      }
+    }
+  }
+}
+@media (max-width: 960px) {
+  .p-birthday-select-box-search {
+    font-size: 13px;
+  }
+  .birthday-item-content,
+  .item-day .birthday-item__days,
+  .p-birthday-select-box {
+    width: 74px;
+    font-size: 13px;
+  }
+  .item-year .birthday-item-content,
+  .item-year .p-birthday-select-box {
+    width: 120px;
+    font-size: 13px;
+  }
+  .birthday {
+    &-title {
+      font-size: 14px;
+    }
+    &-item {
+      &__days,
+      &__months,
+      &__years {
+        font-size: 13px;
+        height: 46px;
+        width: 74px;
+        &-select {
+          font-size: 13px;
+          padding: 5px;
+          padding-right: 20%;
+        }
+      }
+      &__years {
+        width: 120px;
+      }
+      &__spliter {
+        height: 15px;
+      }
+    }
+  }
+}
+@media (max-width: 350px) {
+  .birthday-item-content,
+  .item-day .birthday-item__days,
+  .p-birthday-select-box {
+    width: 64px;
+  }
+  .item-year .birthday-item-content,
+  .item-year .p-birthday-select-box {
+    width: 110px;
+  }
+  .birthday {
+    &-item {
+      &__days,
+      &__months,
+      &__years {
+        width: 64px;
+        &-select {
+          height: 100%;
+          width: 80%;
+          border-radius: 15px;
+          padding: 5px;
+          padding-right: 20%;
+          color: $gray;
+          cursor: pointer;
+        }
+      }
+      &__years {
+        width: 105px;
+      }
+    }
+  }
+}
+@media (max-width: 280px) {
+  .birthday-item-content,
+  .item-day .birthday-item__days,
+  .p-birthday-select-box {
+    width: 60px;
+  }
+  .item-year .birthday-item-content,
+  .item-year .p-birthday-select-box {
+    width: 80px;
+  }
+  .birthday {
+    &-item {
+      &__days,
+      &__months,
+      &__years {
+        width: 60px;
+      }
+      &__years {
+        width: 80px;
+      }
+    }
+  }
+}
 /* ***************************⇑ */
 </style>
