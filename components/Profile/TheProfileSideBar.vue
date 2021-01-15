@@ -153,12 +153,22 @@
             >
                 <div class="profile-sidebar__flex-part">
                     <img
+                        :class="{
+                            'profile-item__activated': userHistoryIsActive
+                        }"
                         class="profile-sidebar__history-icon"
                         src="/icons/eye-profile.svg"
                     />
-                    <NuxtLink to="">آخرین محصولات دیده شده</NuxtLink>
+                    <NuxtLink
+                        :class="{
+                            'link-item__activated': userHistoryIsActive
+                        }"
+                        to="/profile/user-history"
+                        >آخرین محصولات دیده شده</NuxtLink
+                    >
                 </div>
                 <img
+                    @click="goToUserHistory"
                     class="profile-sidebar__arrow-left"
                     src="/icons/arrow-left.svg"
                 />
@@ -252,7 +262,8 @@ export default {
             profileIsActive: false,
             personalInfoIsActive: false,
             favoriteActive: false,
-            adressActive: false
+            adressActive: false,
+            userHistoryIsActive: false
         };
     },
     created() {
@@ -266,6 +277,8 @@ export default {
             this.favoriteActive = true;
         } else if (curentRoute == "/profile/adresses") {
             this.adressActive = true;
+        } else if (curentRoute == "/profile/user-history") {
+            this.userHistoryIsActive = true;
         }
 
         // else if (curentRoute == "/cart") {
@@ -277,6 +290,9 @@ export default {
     methods: {
         goToPersonalInfo() {
             this.$router.push("/profile/personal-info");
+        },
+        goToUserHistory() {
+            this.$router.push("/profile/user-history");
         }
     }
 };

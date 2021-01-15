@@ -1,6 +1,6 @@
 <template>
     <div class="profile-container">
-        <transition moda="in-out">
+        <transition mode="in-out">
             <div id="overlay" v-if="passChangeIsActive">
                 <The-profile-pass-modal />
             </div>

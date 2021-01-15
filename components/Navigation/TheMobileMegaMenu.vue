@@ -249,7 +249,8 @@ export default {
             this.basketIsActive = true;
         } else if (
             curentRoute == "/profile" ||
-            curentRoute == "/profile/personal-info"
+            curentRoute == "/profile/personal-info" ||
+            curentRoute == "/profile/user-history"
         ) {
             this.profileIsActive = true;
         }
