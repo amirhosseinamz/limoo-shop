@@ -38,6 +38,7 @@
 </template>
 <script>
 export default {
+    name: "TheUserInfo",
     methods: {
         goToProfile() {
             this.$router.push("/profile");

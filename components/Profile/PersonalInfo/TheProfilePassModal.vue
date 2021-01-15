@@ -139,6 +139,7 @@
 </template>
 <script>
 export default {
+    name: "TheProfilePassModal",
     data() {
         return {
             modalClose: false,

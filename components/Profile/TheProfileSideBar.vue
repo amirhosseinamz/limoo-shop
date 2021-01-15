@@ -42,9 +42,10 @@
                         src="/icons/heart.svg"
                     />
                     <NuxtLink
-                     to="/profile/favorites"
-                     :class="{ 'link-item__activated': favoriteActive }"
-                    >کالا های مورد علاقه</NuxtLink>
+                        to="/profile/favorites"
+                        :class="{ 'link-item__activated': favoriteActive }"
+                        >کالا های مورد علاقه</NuxtLink
+                    >
                 </div>
                 <img
                     class="profile-sidebar__arrow-left"
@@ -106,10 +107,12 @@
                         src="/icons/location-profile.svg"
                     />
                     <NuxtLink
-                    :class="{
-                        'link-item__activated': adressActive
-                    }"
-                    to="/profile/adresses">آدرس های من</NuxtLink>
+                        :class="{
+                            'link-item__activated': adressActive
+                        }"
+                        to="/profile/adresses"
+                        >آدرس های من</NuxtLink
+                    >
                 </div>
                 <img
                     class="profile-sidebar__arrow-left"
@@ -240,16 +243,16 @@
 <script>
 import TheUserInfo from "~/components/Profile/TheUserInfo.vue";
 export default {
+    name: "TheProfilesideBar",
     components: {
         TheUserInfo
     },
     data() {
         return {
-            profileIsActive       : false,
-            personalInfoIsActive  : false,
-            favoriteActive        : false,
-            adressActive          : false,
-
+            profileIsActive: false,
+            personalInfoIsActive: false,
+            favoriteActive: false,
+            adressActive: false
         };
     },
     created() {
@@ -257,15 +260,12 @@ export default {
         // console.log(curentRoute);
         if (curentRoute == "/profile") {
             this.profileIsActive = true;
-        }
-        else if (curentRoute == "/profile/personal-info") {
+        } else if (curentRoute == "/profile/personal-info") {
             this.personalInfoIsActive = true;
-        }
-        else if (curentRoute == "/profile/favorites") {
-          this.favoriteActive = true;
-        }
-        else if (curentRoute == "/profile/adresses") {
-          this.adressActive = true;
+        } else if (curentRoute == "/profile/favorites") {
+            this.favoriteActive = true;
+        } else if (curentRoute == "/profile/adresses") {
+            this.adressActive = true;
         }
 
         // else if (curentRoute == "/cart") {
