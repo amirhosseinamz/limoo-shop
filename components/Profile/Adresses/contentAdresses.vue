@@ -1,6 +1,6 @@
 <template>
   <div class="p-adresses-content-main w-100 flex-column flex-wrap  d-rtl">
-      <div class="w-100 flex-wrap p-adresses-content-btn-add-main">
+      <div class="w-100 flex-wrap p-adresses-content-btn-add-main p-adresses-content-item-desktop">
           <button type="submit" class=" btn-change p-adresses-content-btn-data">
               افزودن آدرس جدید
           </button>
@@ -14,7 +14,7 @@
                       <div class="d-flex align-items-start w-100">
                               <div class="w-100 flex-wrap  p-adresses-content-header align-items-center">
 
-                                    <div class=" p-adresses-content-header-item align-items-center p-adresses-content-header-item-desktop">
+                                    <div class=" p-adresses-content-header-item align-items-center p-adresses-content-item-mobile">
                                       <img class="p-adresses-content-header-icon" src="/icons/location_adress_yellow.svg" alt="">
                                       <h3 class="p-adresses-content-header-item-title">{{data.title}}</h3>
                                     </div>
@@ -43,24 +43,26 @@
                               </div>
 
                               <div class="w-100 flex-column p-adresses-content-data-main">
-                                    <div class="p-adresses-content-text-desktop w-100 p-adresses-content-data flex-wrap align-items-start">
-                                        <div class="w-100 p-adresses-content-text-main text-right">
-                                          <h3 class="p-adresses-content-text-data w-100">{{data.title}}</h3>
-                                        </div>
-                                    </div>
-                                    <div class="p-adresses-content-data-btns w-100 justify-content-end">
-                                        <div class="p-favorite-product-btn-main">
-                                            <button type="button" class="p-product-btn cursor-pointer p-adresses-content-btn-edit" name="button">
-                                              <NuxtLink :to="'/product/' + data.id" class="p-favorite-product-btn-link p-adresses-content-edit-desktop">ویرایش</NuxtLink>
-                                              <NuxtLink :to="'/product/' + data.id" class="p-favorite-product-btn-link p-adresses-content-edit-mobile ">
-                                                <img class="p-adresses-content-edit-icon" src="/icons/icon-edit.svg" alt="">
-                                              </NuxtLink>
-                                            </button>
-                                            <button @click="showModalDeleteProduct(data)" class="p-favorite-product-btn-delete cursor-pointer  p-adresses-content-btn-delete" name="button">
-                                              <img class="p-favorite-product-item-icon-delete" src="/icons/delete.svg" alt="">
-                                            </button>
-                                        </div>
-                                    </div>
+                                  <div class="w-100 flex-wrap  p-adresses-content-data-wrapper">
+                                          <div class="p-adresses-content-item-desktop w-100 p-adresses-content-data flex-wrap align-items-start">
+                                                <div class="w-100 p-adresses-content-text-main text-right">
+                                                  <h3 class="p-adresses-content-text-data w-100">{{data.title}}</h3>
+                                                </div>
+                                              </div>
+                                            <div class="p-adresses-content-data-btns w-100 justify-content-end">
+                                                  <div class="p-favorite-product-btn-main">
+                                                      <button type="button" class="p-product-btn cursor-pointer p-adresses-content-btn-edit" name="button">
+                                                        <NuxtLink :to="'/product/' + data.id" class="p-favorite-product-btn-link p-adresses-content-item-desktop">ویرایش</NuxtLink>
+                                                        <NuxtLink :to="'/product/' + data.id" class="p-favorite-product-btn-link p-adresses-content-item-mobile ">
+                                                          <img class="p-adresses-content-edit-icon" src="/icons/icon-edit.svg" alt="">
+                                                        </NuxtLink>
+                                                      </button>
+                                                      <button @click="showModalDeleteProduct(data)" class="p-favorite-product-btn-delete cursor-pointer  p-adresses-content-btn-delete" name="button">
+                                                        <img class="p-favorite-product-item-icon-delete" src="/icons/delete.svg" alt="">
+                                                      </button>
+                                                </div>
+                                          </div>
+                                  </div>
                               </div>
 
 
@@ -71,6 +73,13 @@
             </div>
 
 
+
+      </div>
+
+      <div class="w-100 flex-wrap p-adresses-content-btn-add-mobile p-adresses-content-item-mobile">
+        <button type="submit" class=" btn-change p-adresses-content-btn-data">
+          افزودن آدرس جدید
+        </button>
       </div>
 
   </div>
@@ -110,7 +119,7 @@ export default {
   }
   .p-adresses-content-btn-data{
     margin-top: 45px;
-    margin-bottom: 35px;
+    margin-bottom: 38px;
     font-size: 16px;
   }
   .p-adresses-content-item{
@@ -166,6 +175,8 @@ export default {
   .p-adresses-content-data-btns {
     @include display-flex();
     padding-left: 16px;
+    height: 83px;
+    align-items: flex-end;
   }
   .p-adresses-content-btn-edit{
     width: 130px;
@@ -176,17 +187,32 @@ export default {
   .p-adresses-content-data-main{
     @include display-flex();
   }
-  .p-adresses-content-edit-mobile{
-    display: none;
-  }
   .p-adresses-content-edit-icon{
     width: 16px;
     height: 16px;
   }
   .p-adresses-content-header-item-desktop{
-    display: none;
     align-items: flex-start;
   }
+  .p-adresses-content-item-mobile{
+    display: none;
+  }
+  .p-adresses-content-btn-add-mobile .p-adresses-content-btn-data{
+    margin-top: 0;
+    width: 100%;
+    font-size: 16px;
+    margin-bottom: 24px;
+    margin-top: 24px;
+  }
+  .p-adresses-content-data-wrapper{
+    height: 167px;
+    @include display-flex();
+    align-content: flex-start;
+  }
+  .p-favorite-product-btn-main{
+    margin-bottom: 37px;
+  }
+
 
   @media (max-width: 1220px) {
     .p-adresses-content-header-item{
@@ -218,6 +244,7 @@ export default {
     .p-adresses-content-item{
       background: $white;
       height: auto;
+      margin-bottom: 8px;
     }
     .p-adresses-content-header-item{
       margin-left: 0;
@@ -231,11 +258,9 @@ export default {
       font-size: 14px;
     }
     .p-adresses-content-data-btns {
-      margin-bottom: 19px;
-      margin-top: 16px;
-    }
-    .p-adresses-content-text-desktop{
-      display: none;
+      margin-bottom: 16px;
+      margin-top: 26px;
+      height: auto;
     }
     .p-favorite-product-btn-delete{
       width: 37px;
@@ -247,12 +272,6 @@ export default {
       height: 36px;
       width: 36px;
     }
-    .p-adresses-content-edit-desktop{
-      display: none;
-    }
-    .p-adresses-content-edit-mobile{
-      display: flex;
-    }
     .p-adresses-content-btn-delete{
       margin-right: 16px;
     }
@@ -260,9 +279,27 @@ export default {
       width: 18px;
       height: 18px;
     }
-    .p-adresses-content-header-item-desktop{
+    .p-adresses-content-item-desktop{
+      display: none;
+    }
+    .p-adresses-content-item-mobile{
       display: flex;
     }
+    .p-adresses-content-text-main{
+      margin-bottom: 0;
+    }
+    .p-adresses-content-data-wrapper{
+      height: auto;
+    }
+    .p-favorite-product-btn-main{
+      margin-bottom: 0;
+    }
+    .p-adresses-content-item:last-of-type{
+      margin-bottom: 0;
+    }
+
+
+
   }
 
 
