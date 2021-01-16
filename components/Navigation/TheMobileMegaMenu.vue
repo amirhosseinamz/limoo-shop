@@ -250,7 +250,8 @@ export default {
         } else if (
             curentRoute == "/profile" ||
             curentRoute == "/profile/personal-info" ||
-            curentRoute == "/profile/favorites" 
+            curentRoute == "/profile/favorites" ||
+            curentRoute == "/profile/adresses" 
         ) {
             this.profileIsActive = true;
         }

@@ -119,18 +119,6 @@ export default {
     color: $red-logout;
   }
 
-  .p-favorite-product-btn-main{
-    @include display-flex();
-  }
-  .p-favorite-product-btn-delete{
-    background: $google-btn__bg;
-    border: 2px solid $google-btn__bg;
-    box-sizing: border-box;
-    border-radius: 10px;
-    width: 47px;
-    height: 47px;
-    margin-right: 25px;
-  }
   .p-favorite-product-line{
     @include display-flex();
     background: #F2F2F2;
@@ -143,18 +131,6 @@ export default {
   }
   .p-favorite-product-item-icon-delete{
     width: 19px;
-  }
-  .p-favorite-product-btn-link{
-    border: none;
-    color: inherit;
-    border-bottom: none;
-    unicode-bidi: normal;
-    text-decoration: none;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
   }
 
 

@@ -5,7 +5,7 @@
 
         <div class="mobile-screen">
             <div class="mobile-screen__holder">
-                <span class="mobile-screen__holder-txt">لیست علاقه مندی  شما</span>
+                <span class="mobile-screen__holder-txt">آدرس های شما</span>
                 <img
                     @click="goToProfile"
                     class="mobile-screen__holder-arrow"
@@ -15,32 +15,56 @@
         </div>
 
         <div class="user-profile__holder">
-            <div class="user-profile">
-                <span class="user-profile__topic">لیست علاقه مندی شما</span>
-                <hr class="splicer-line" />
-                
-
+            <div class="user-profile w-100">
+                      <span class="user-profile__topic">آدرس های شما</span>
+                      <hr class="splicer-line" />
+                      <div class="w-100 user-profile-adresses-main flex-column">
+                        <contentAdresses :adress-data="adressesData" @show-modal-delete-product="showModalDeleteProduct"></contentAdresses>
+                     </div>
             </div>
         </div>
 
+        <modalDeleteAdress
+        :active.sync="statusShowModalDeleteProduct"
+        :current-product="currentProduct"
+        @btn-delete-modal="btnDeleteProduct"
+        />
 
 
     </div>
 </template>
 <script>
 import TheProfileSideBar from "~/components/Profile/TheProfileSideBar.vue";
-// import modalDeleteFav from "~/components/Favorites/modalDeleteFav.vue";
+import contentAdresses from "~/components/Profile/Adresses/contentAdresses.vue";
+import modalDeleteAdress from "~/components/Profile/Adresses/modalDeleteAdress.vue";
 
 
 
 export default {
     components: {
         TheProfileSideBar,
+        contentAdresses,
+        modalDeleteAdress,
     },
 
     data() {
         return {
-
+          adressesData : [
+            {
+              id     :   1,
+              title  : 'تهران ، خیابان ولیعصر ، تقاطع کوچه حسینی راد 1',
+            },
+            {
+              id     :   2,
+              title  : 'تهران ، خیابان ولیعصر ، تقاطع کوچه حسینی راد 2',
+            },
+            {
+              id     :   3,
+              title  : 'تهران ، خیابان ولیعصر ، تقاطع کوچه حسینی راد 3',
+            },
+          ],
+          currentProduct               : {},
+          statusShowModalDeleteProduct : false,
 
         };
     },
@@ -55,6 +79,30 @@ export default {
     methods: {
         goToProfile() {
             this.$router.push("/profile");
+        },
+
+        btnDeleteProduct(data){
+          const removeFavorite = () => {
+              let indexDelete = -1;
+
+              this.adressesData.map((content,index)=>{
+                if (content.id == data.id) {
+                  indexDelete = index;
+                }
+              })
+
+              this.adressesData.splice(indexDelete,1);
+          };
+
+          removeFavorite();
+          this.statusShowModalDeleteProduct = false;
+
+          // request //
+        },
+
+        showModalDeleteProduct(data){
+          this.currentProduct         = data;
+          this.statusShowModalDeleteProduct = true;
         },
 
 
@@ -124,12 +172,22 @@ export default {
 .splicer-line {
     display: none;
 }
+.user-profile__topic{
+  text-align: right;
+}
+
+
+
+
+
 @media (max-width: 1450px) {
 
 }
-@media (max-width: 1220px) {
 
+@media (max-width: 1220px) {
+  
 }
+
 @media (max-width: 960px) {
     .desktop-screen {
         display: none;
