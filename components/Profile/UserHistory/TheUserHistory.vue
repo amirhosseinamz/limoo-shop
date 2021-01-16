@@ -1,43 +1,48 @@
 <template>
-    <div class="p-favorite-product-items w-100 flex-column flex-wrap">
+    <div class="p-history-product-items w-100 flex-column flex-wrap">
+        <div class="user-history__empty-container" v-show="userHistory == 0">
+            <span class="user-history__empty"
+                >لیست بازدید های اخیر شما خالی است.</span
+            >
+        </div>
         <div
-            v-for="data in favoriteData"
+            v-for="data in historyData"
             :key="data.id"
-            class="w-100 p-favorite-product-item flex-column flex-wrap"
+            class="w-100 p-history-product-item flex-column flex-wrap"
         >
             <div
-                class="p-favorite-product-item-main align-items-start flex-wrap"
+                class="p-history-product-item-main align-items-start flex-wrap"
             >
                 <div
-                    class="p-favorite-product-right align-items-start flex-wrap"
+                    class="p-history-product-right align-items-start flex-wrap"
                 >
                     <div
-                        class="p-favorite-product-img-main p-favorite-product-content-right"
+                        class="p-history-product-img-main p-history-product-content-right"
                     >
                         <img
                             :src="data.img"
-                            class="p-favorite-product-img"
+                            class="p-history-product-img"
                             alt=""
                         />
                     </div>
 
                     <div
-                        class="p-favorite-product-content-left flex-column w-100 align-items-start"
+                        class="p-history-product-content-left flex-column w-100 align-items-start"
                     >
                         <h3
-                            class="p-favorite-product-content-title w-100 text-right"
+                            class="p-history-product-content-title w-100 text-right"
                         >
                             اپل واچ سری 6 آلومینیوم آبی اپل واچ سری 6 آلومینیوم
                             آبی
                         </h3>
                         <div
-                            class="p-favorite-product-content-price align-items-start"
+                            class="p-history-product-content-price align-items-start"
                         >
-                            <h3 class="p-favorite-product-content-price-title">
+                            <h3 class="p-history-product-content-price-title">
                                 123,000,000
                             </h3>
                             <h3
-                                class="p-favorite-product-content-price-title p-favorite-product-content-price-unit"
+                                class="p-history-product-content-price-title p-history-product-content-price-unit"
                             >
                                 تومان
                             </h3>
@@ -45,8 +50,8 @@
                     </div>
                 </div>
 
-                <div class="p-favorite-product-left align-items-start">
-                    <div class="p-favorite-product-btn-main">
+                <div class="p-history-product-left align-items-start">
+                    <div class="p-history-product-btn-main">
                         <button
                             type="button"
                             class="p-product-btn cursor-pointer"
@@ -54,7 +59,7 @@
                         >
                             <NuxtLink
                                 :to="'/product/' + data.id"
-                                class="p-favorite-product-btn-link"
+                                class="p-history-product-btn-link"
                             >
                                 <span class="btn-text-desktop"
                                     >مشاهده محصول</span
@@ -65,11 +70,11 @@
                         <button
                             @click="deleteFav(data)"
                             type="button"
-                            class="p-favorite-product-btn-delete cursor-pointer"
+                            class="p-history-product-btn-delete cursor-pointer"
                             name="button"
                         >
                             <img
-                                class="p-favorite-product-item-icon-delete"
+                                class="p-history-product-item-icon-delete"
                                 src="/icons/delete.svg"
                                 alt=""
                             />
@@ -79,7 +84,7 @@
             </div>
 
             <span
-                class="p-favorite-product-line w-100 p-favorite-product-desktop"
+                class="p-history-product-line w-100 p-history-product-desktop"
             ></span>
         </div>
     </div>
@@ -87,82 +92,112 @@
 
 <script>
 export default {
+    data() {
+        return {
+            userHistory: -1
+        };
+    },
     props: {
-        favoriteData: { type: [Object, Array], default: {} }
+        historyData: { type: [Object, Array], default: {} }
     },
     components: {},
-
+    created() {
+        this.userHistory = Object.values(this.historyData).length;
+    },
+    watch: {
+        userHistory() {
+            this.userHistory = Object.values(this.historyData).length;
+            console.log(this.userHistory);
+        }
+    },
     computed: {},
-
     methods: {
         deleteFav(data) {
-            this.$emit("event-show-modal-delete-favorite", data);
+            this.$emit("event-show-modal-delete-history", data);
+            setTimeout(() => {
+                this.userHistory = Object.values(this.historyData).length;
+            }, 1000);
         }
     }
 };
 </script>
 
 <style lang="scss" scoped>
-.p-favorite-product-item {
+.user-history__empty-container {
+    @include display-flex();
+    flex-direction: row;
+    justify-content: center;
+    height: 778px;
+    background: $white;
+    /* border: 1px solid red; */
+}
+.user-history__empty {
+    font-size: 16px;
+    font-family: inherit;
+    margin-top: 60px;
+    height: 20px;
+    /* border: 1px solid blue; */
+}
+.p-history-product-item {
     @include display-flex();
 }
-.p-favorite-product-items {
+.p-history-product-items {
     @include display-flex();
     direction: rtl;
     padding-right: 25px;
     padding-left: 25px;
-    padding-top: 65px;
+    padding-top: 38px;
 }
-.p-favorite-product-right {
+.p-history-product-right {
     @include display-flex();
     width: 70%;
 }
-.p-favorite-product-left {
+.p-history-product-left {
     @include display-flex();
     width: 30%;
     justify-content: flex-end;
     padding-top: 19px;
 }
-.p-favorite-product-img {
+.p-history-product-img {
     width: 120px;
     height: 120px;
 }
-.p-favorite-product-img-main {
+.p-history-product-img-main {
     @include display-flex();
 }
-.p-favorite-product-content {
+.p-history-product-content {
     @include display-flex();
 }
-.p-favorite-product-content-left {
+.p-history-product-content-left {
     @include display-flex();
     padding-top: 19px;
     width: 72%;
 }
-.p-favorite-product-content-title {
+.p-history-product-content-title {
     font-size: 16px;
     font-weight: 400;
     width: 70%;
 }
-.p-favorite-product-content-right {
+.p-history-product-content-right {
     width: 140px;
 }
-.p-favorite-product-content-price {
+.p-history-product-content-price {
     @include display-flex();
     padding-top: 15px;
 }
-.p-favorite-product-content-price-title {
+.p-history-product-content-price-title {
     font-size: 15px;
     color: $gray;
 }
-.p-favorite-product-content-price-unit {
+.p-history-product-content-price-unit {
     margin-right: 6px;
     color: $gray;
 }
 
-.p-favorite-product-btn-main {
+.p-history-product-btn-main {
     @include display-flex();
 }
-.p-favorite-product-btn-delete {
+.p-history-product-btn-delete {
     background: $google-btn__bg;
     border: 1px solid $google-btn__bg;
     box-sizing: border-box;
@@ -171,20 +206,20 @@ export default {
     height: 47px;
     margin-right: 25px;
 }
-.p-favorite-product-line {
+.p-history-product-line {
     @include display-flex();
     background: #f2f2f2;
     margin-top: 35px;
     margin-bottom: 35px;
     height: 1px;
 }
-.p-favorite-product-item-main {
+.p-history-product-item-main {
     @include display-flex();
 }
-.p-favorite-product-item-icon-delete {
+.p-history-product-item-icon-delete {
     width: 15px;
 }
-.p-favorite-product-btn-link {
+.p-history-product-btn-link {
     border: none;
     color: inherit;
     border-bottom: none;
@@ -206,20 +241,20 @@ export default {
     .btn-text-mobile {
         display: block;
     }
-    .p-favorite-product-btn {
+    .p-history-product-btn {
         width: 123px;
         font-size: 13px;
         height: 45px;
     }
-    .p-favorite-product-content-left {
+    .p-history-product-content-left {
         width: 70%;
     }
-    .p-favorite-product-btn-delete {
+    .p-history-product-btn-delete {
         width: 36px;
         height: 36px;
         margin-right: 16px;
     }
-    .p-favorite-product-btn-main .p-product-btn {
+    .p-history-product-btn-main .p-product-btn {
         width: 116px;
         background: $yellow;
         color: $white;
@@ -228,42 +263,42 @@ export default {
 }
 
 @media (max-width: 600px) {
-    .p-favorite-product-content-right {
+    .p-history-product-content-right {
         width: 91px;
     }
-    .p-favorite-product-img {
+    .p-history-product-img {
         width: 80px;
         height: 75px;
     }
-    .p-favorite-product-content-title {
+    .p-history-product-content-title {
         font-size: 14px;
         color: $black-topic;
     }
-    .p-favorite-product-content-price-title {
+    .p-history-product-content-price-title {
         font-size: 12px;
     }
-    .p-favorite-product-item-main {
+    .p-history-product-item-main {
         flex-flow: column;
         width: 100%;
     }
-    .p-favorite-product-left {
+    .p-history-product-left {
         width: 100%;
         padding-left: 13px;
     }
-    .p-favorite-product-right {
+    .p-history-product-right {
         width: 100%;
         border-bottom: solid 1px $gray-border;
         padding-bottom: 22px;
     }
-    .p-favorite-product-desktop {
+    .p-history-product-desktop {
         display: none;
     }
-    .p-favorite-product-items {
+    .p-history-product-items {
         padding-top: 0px;
         padding-right: 3px;
         padding-left: 3px;
     }
-    .p-favorite-product-item {
+    .p-history-product-item {
         background: $white;
         border-radius: 10px;
         margin-bottom: 10px;
@@ -271,31 +306,45 @@ export default {
         padding-top: 29px;
         padding-bottom: 10px;
     }
-    .p-favorite-product-btn-delete {
+    .p-history-product-btn-delete {
         width: 36px;
         height: 36px;
     }
-    .p-favorite-product-btn {
+    .p-history-product-btn {
         background: $yellow;
         color: $white;
         height: 40px;
         width: 40px;
     }
-    .p-favorite-product-content-left {
+    .p-history-product-content-left {
         padding-top: 3px;
     }
 }
 
 @media (max-width: 485px) {
-    .p-favorite-product-content-left {
+    .p-history-product-content-left {
         width: 73%;
     }
-    .p-favorite-product-btn-delete {
+    .p-history-product-btn-delete {
         width: 36px;
         height: 36px;
     }
-    .p-favorite-product-btn-link {
+    .p-history-product-btn-link {
         font-size: 13px;
+    }
+}
+@media (max-width: 320px) {
+    .p-history-product-content-left {
+        width: 69%;
+    }
+}
+
+@media (max-width: 280px) {
+    .p-history-product-content-left {
+        width: 60%;
+    }
+    .p-history-product-content-title {
+        width: 100%;
     }
 }
 </style>

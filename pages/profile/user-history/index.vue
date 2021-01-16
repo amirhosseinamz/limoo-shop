@@ -22,38 +22,38 @@
                 >
                 <hr class="splicer-line" />
 
-                <favorite-product
-                    @event-show-modal-delete-favorite="
-                        eventShowModalDeleteFavorite
+                <the-user-history
+                    @event-show-modal-delete-history="
+                        eventShowModalDeleteHistory
                     "
-                    :favorite-data="favoriteData"
-                ></favorite-product>
+                    :history-data="historyData"
+                ></the-user-history>
             </div>
         </div>
 
-        <modalDeleteFav
-            :active.sync="showModalDeleteFavorite"
-            :current-favorite="currentFavorite"
-            @btn-delete-favorite="btnDeleteFavorite"
+        <TheModalDeleteUserHistory
+            :active.sync="showModalDeleteHistory"
+            :current-history="currentHistory"
+            @btn-delete-history="btnDeleteHistory"
         />
     </div>
 </template>
 <script>
 import TheProfileSideBar from "~/components/Profile/TheProfileSideBar.vue";
-import favoriteProduct from "~/components/Profile/UserHistory/favoriteProduct.vue";
-import modalDeleteFav from "~/components/Profile/UserHistory/modalDeleteFav.vue";
+import TheUserHistory from "~/components/Profile/UserHistory/TheUserHistory.vue";
+import TheModalDeleteUserHistory from "~/components/Profile/UserHistory/TheModalDeleteUserHistory.vue";
 
 export default {
     components: {
         TheProfileSideBar,
-        favoriteProduct,
-        modalDeleteFav
+        TheUserHistory,
+        TheModalDeleteUserHistory
     },
 
     data() {
         return {
-            showModalDeleteFavorite: false,
-            favoriteData: [
+            showModalDeleteHistory: false,
+            historyData: [
                 {
                     id: 1,
                     title: "Fake",
@@ -80,7 +80,7 @@ export default {
                     img: "/img/apple-watch-5.png"
                 }
             ],
-            currentFavorite: {}
+            currentHistory: {}
         };
     },
 
@@ -93,26 +93,26 @@ export default {
             this.$router.push("/profile");
         },
 
-        eventShowModalDeleteFavorite(data) {
-            this.showModalDeleteFavorite = true;
-            this.currentFavorite = data;
+        eventShowModalDeleteHistory(data) {
+            this.showModalDeleteHistory = true;
+            this.currentHistory = data;
         },
 
-        btnDeleteFavorite(data) {
-            const removeFavorite = () => {
-                let indexDeleteFavoriteData = -1;
+        btnDeleteHistory(data) {
+            const removeHistory = () => {
+                let indexDeleteHistoryData = -1;
 
-                this.favoriteData.map((content, index) => {
+                this.historyData.map((content, index) => {
                     if (content.id == data.id) {
-                        indexDeleteFavoriteData = index;
+                        indexDeleteHistoryData = index;
                     }
                 });
 
-                this.favoriteData.splice(indexDeleteFavoriteData, 1);
+                this.historyData.splice(indexDeleteHistoryData, 1);
             };
 
-            removeFavorite();
-            this.showModalDeleteFavorite = false;
+            removeHistory();
+            this.showModalDeleteHistory = false;
 
             // request //
         }

@@ -47,9 +47,7 @@
                             <!-- <div class="user-profile__info-email">ایمیل</div> -->
                             <!-- ================================================ -->
                             <div class="user-profile__info-phone">
-                                <label for="phoneNumber"
-                                    >شماره همراه:<span>*</span></label
-                                >
+                                <label for="phoneNumber">شماره همراه:</label>
                                 <input
                                     type="text"
                                     id="phoneNumber"
@@ -336,7 +334,6 @@ export default {
             text-align: right;
             margin-bottom: 16px;
         }
-        &-phone > label > span,
         &-pass > label > span {
             color: $alert-red;
             margin-right: 3px;

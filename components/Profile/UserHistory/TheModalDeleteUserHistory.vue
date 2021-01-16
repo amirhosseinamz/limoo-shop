@@ -1,24 +1,18 @@
 <template>
-    <modal
-        id="p-profile-favorite-modal"
-        class="p-profile-favorite-modal d-rtl"
-        size="800px"
-        :show.sync="show"
-        :footer="false"
-    >
+    <modal class="d-rtl" size="800px" :show.sync="show" :footer="false">
         <div
-            class="w-100 p-profile-favorite-wrapper flex-wrap align-items-start flex-column "
+            class="w-100 p-profile-history-wrapper flex-wrap align-items-start flex-column "
         >
-            <h3 class="p-profile-favorite-title w-100 justify-content-center">
+            <h3 class="p-profile-history-title w-100 justify-content-center">
                 این محصول از لسیت حذف شود؟
             </h3>
 
-            <div class="p-profile-favorite-btns w-100 justify-content-center">
+            <div class="p-profile-history-btns w-100 justify-content-center">
                 <button
-                    @click="DeleteFavorite"
+                    @click="DeleteHistory"
                     type="button"
                     name="button"
-                    class="p-product-btn  p-favorite-product-btn-modal-delete cursor-pointer  "
+                    class="p-product-btn  p-history-product-btn-modal-delete cursor-pointer  "
                 >
                     حذف
                 </button>
@@ -26,7 +20,7 @@
                     @click="modalClose"
                     type="button"
                     name="button"
-                    class="p-product-btn  cursor-pointer p-favorite-product-btn-modal-cancel  "
+                    class="p-product-btn  cursor-pointer p-history-product-btn-modal-cancel  "
                 >
                     انصراف
                 </button>
@@ -39,7 +33,7 @@
 export default {
     props: {
         active: { type: [Boolean, Number], default: false },
-        currentFavorite: { type: Object, default: {} }
+        currentHistory: { type: Object, default: {} }
     },
 
     components: {},
@@ -56,8 +50,8 @@ export default {
     },
 
     methods: {
-        DeleteFavorite() {
-            this.$emit("btn-delete-favorite", this.currentFavorite);
+        DeleteHistory() {
+            this.$emit("btn-delete-history", this.currentHistory);
         },
 
         modalClose() {
@@ -68,41 +62,39 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.p-profile-favorite-wrapper {
+.p-profile-history-wrapper {
     @include display-flex();
 }
-.p-profile-favorite-btns {
+.p-profile-history-btns {
     @include display-flex();
     margin-top: 55px;
     margin-bottom: 5px;
 }
-.p-profile-favorite-title {
+.p-profile-history-title {
     @include display-flex();
     margin-top: 11px;
-    font-size: 21px;
-    font-weight: 400 !important;
+    font-size: 20px;
+    font-weight: 400;
 }
-.p-favorite-product-btn-modal-delete {
+.p-history-product-btn-modal-delete {
     background: $yellow;
     margin-left: 16px;
     color: $white;
 }
-.p-favorite-product-btn-modal-cancel {
+.p-history-product-btn-modal-cancel {
     background: $light_gray;
     margin-left: 0;
     border-color: $light_gray;
     color: $gray;
 }
-.p-favorite-product-btn-modal-cancel:hover {
-    background: #e0e0e0;
-    color: #828282;
-}
-.p-favorite-product-btn {
-    width: 130px;
+.p-history-product-btn-modal-cancel:hover {
+    background: $light-gray;
+    color: $gray;
+    /* border: 1px solid red; */
 }
 
 @media (max-width: 768px) {
-    .p-profile-favorite-title {
+    .p-profile-history-title {
         font-size: 16px;
     }
     .p-product-btn {
