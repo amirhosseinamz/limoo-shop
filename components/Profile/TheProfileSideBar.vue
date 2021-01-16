@@ -39,6 +39,7 @@
                 <div class="profile-sidebar__flex-part">
                     <img
                         class="profile-sidebar__favorite-icon"
+                        :class="{ 'profile-item__activated': favoriteActive }"
                         src="/icons/heart.svg"
                     />
                     <NuxtLink
@@ -102,6 +103,9 @@
             >
                 <div class="profile-sidebar__flex-part">
                     <img
+                    :class="{
+                        'profile-item__activated': adressActive
+                    }"
                         class="profile-sidebar__address-icon"
                         src="/icons/location-profile.svg"
                     />

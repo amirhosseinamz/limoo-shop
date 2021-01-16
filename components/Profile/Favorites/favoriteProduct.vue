@@ -22,7 +22,8 @@
                       <div class="p-favorite-product-left align-items-start">
                           <div class="p-favorite-product-btn-main">
                               <button type="button" class="p-product-btn cursor-pointer" name="button">
-                                <NuxtLink :to="'/product/' + data.id" class="p-favorite-product-btn-link">مشاهده محصول</NuxtLink>
+                                <NuxtLink :to="'/product/' + data.id" class="p-favorite-product-btn-link p-favorite-product-btn-link-desktop">مشاهده محصول</NuxtLink>
+                                <NuxtLink :to="'/product/' + data.id" class="p-favorite-product-btn-link p-favorite-product-btn-link-mobile">مشاهده</NuxtLink>
                               </button>
                               <button @click="deleteFav(data)" type="button" class="p-favorite-product-btn-delete cursor-pointer" name="button">
                                 <img class="p-favorite-product-item-icon-delete" src="/icons/delete.svg" alt="">
@@ -132,6 +133,9 @@ export default {
   .p-favorite-product-item-icon-delete{
     width: 19px;
   }
+  .p-favorite-product-btn-link-mobile{
+    display: none;
+  }
 
 
   @media (max-width: 1024px) {
@@ -212,8 +216,9 @@ export default {
       padding-bottom: 10px;
     }
     .p-favorite-product-btn-delete{
-      width: 47px;
-      height: 43px;
+      width: 36px;
+      height: 36px;
+      margin-right: 16px;
     }
     .p-favorite-product-btn{
       background: $yellow;
@@ -224,15 +229,29 @@ export default {
     .p-favorite-product-content-left{
       padding-top: 3px;
     }
+    .p-favorite-product-btn-link{
+      width: 104px;
+    }
+    .p-favorite-product-btn-link-mobile{
+      display: flex;
+    }
+    .p-favorite-product-btn-link-desktop{
+      display: none;
+    }
+    .p-favorite-product-btn-main .p-product-btn{
+      width: 104px;
+      height: 36px;
+    }
+    .p-favorite-product-item-icon-delete{
+      width: 16px;
+    }
   }
 
   @media (max-width: 485px) {
     .p-favorite-product-content-left{
       width: 73%;
     }
-    .p-favorite-product-btn-delete{
-      height: 43px;
-    }
+
     .p-favorite-product-btn-link{
       font-size: 13px;
     }
