@@ -208,7 +208,7 @@ export default {
 }
 .p-history-product-line {
     @include display-flex();
-    background: #f2f2f2;
+    background: $gray-border;
     margin-top: 35px;
     margin-bottom: 35px;
     height: 1px;
@@ -302,7 +302,7 @@ export default {
         background: $white;
         border-radius: 10px;
         margin-bottom: 10px;
-        box-shadow: 0px 8px 16px rgba(17, 17, 17, 0.03);
+        box-shadow: 0px 8px 16px $box__shadow;
         padding-top: 29px;
         padding-bottom: 10px;
     }

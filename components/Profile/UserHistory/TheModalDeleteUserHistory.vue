@@ -4,7 +4,7 @@
             class="w-100 p-profile-history-wrapper flex-wrap align-items-start flex-column "
         >
             <h3 class="p-profile-history-title w-100 justify-content-center">
-                این محصول از لسیت حذف شود؟
+                این محصول از لیست حذف شود؟
             </h3>
 
             <div class="p-profile-history-btns w-100 justify-content-center">

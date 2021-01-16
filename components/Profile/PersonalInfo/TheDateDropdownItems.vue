@@ -367,6 +367,7 @@ export default {
                         ) {
                             indexShowSelectOption = index;
                             content.selected = true;
+                            document.getElementById("");
                         }
                     });
 
@@ -611,6 +612,7 @@ export default {
     box-sizing: border-box;
     box-shadow: 0px 4px 4px #f2f2f2;
     border: 1px solid $input-border;
+    padding: 0 5px;
     background: $white;
     height: 200px;
     overflow: auto;
@@ -657,9 +659,9 @@ export default {
     line-height: 1.571;
     padding: 11px 12px;
     outline: none;
-    margin: 5px;
-    margin-top: 0;
-    max-width: calc(100% - 10px);
+    /* margin: 5px; */
+    margin-bottom: 5px;
+    max-width: 100%;
     max-height: 40px;
 }
 .p-birthday-select-box-overflow {
