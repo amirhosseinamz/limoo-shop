@@ -158,6 +158,20 @@ export default {
   }
 
 
+  @media (max-width: 1024px) {
+    .p-favorite-product-content-left{
+      width: 52%;
+    }
+    .p-favorite-product-content-title{
+      width: 92%;
+    }
+    .p-favorite-product-content-right{
+      width: 128px;
+    }
+  }
+
+
+
   @media (max-width: 768px) {
     .p-favorite-product-btn{
       width: 123px;
@@ -247,6 +261,23 @@ export default {
       font-size: 13px;
     }
   }
+
+  @media (max-width: 320px) {
+    .p-favorite-product-content-left{
+      width: 69%;
+    }
+  }
+
+  @media (max-width: 280px) {
+    .p-favorite-product-content-left{
+      width: 60%;
+    }
+    .p-favorite-product-content-title{
+      width: 100%;
+    }
+  }
+
+
 
 
 

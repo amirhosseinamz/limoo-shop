@@ -1,5 +1,7 @@
 export default {
     // Global page headers (https://go.nuxtjs.dev/config-head)
+    ssr:false,
+
     head: {
         titleTemplate: "limoo | لیمو",
         meta: [
@@ -42,6 +44,6 @@ export default {
         extend(config, ctx) {}
     },
     server: {
-        host: "0.0.0.0"
+        // host: "0.0.0.0"
     }
 };

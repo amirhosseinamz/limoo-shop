@@ -235,7 +235,7 @@ export default {
             MobileCategoryIsActive: false,
             profileIsActive: false,
             basketIsActive: false,
-            homeIsActive: false
+            homeIsActive: false,
         };
     },
     components: {
@@ -249,10 +249,13 @@ export default {
             this.basketIsActive = true;
         } else if (
             curentRoute == "/profile" ||
-            curentRoute == "/profile/personal-info"
+            curentRoute == "/profile/personal-info" ||
+            curentRoute == "/profile/favorites" 
         ) {
             this.profileIsActive = true;
         }
+
+
     },
     methods: {
         showCategory() {

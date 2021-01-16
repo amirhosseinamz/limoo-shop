@@ -39,8 +39,8 @@
 </template>
 <script>
 import TheProfileSideBar from "~/components/Profile/TheProfileSideBar.vue";
-import favoriteProduct from "~/components/Favorites/favoriteProduct.vue";
-import modalDeleteFav from "~/components/Favorites/modalDeleteFav.vue";
+import favoriteProduct from "~/components/Profile/Favorites/favoriteProduct.vue";
+import modalDeleteFav from "~/components/Profile/Favorites/modalDeleteFav.vue";
 
 
 
