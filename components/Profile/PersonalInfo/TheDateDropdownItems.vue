@@ -610,7 +610,7 @@ export default {
     width: 100%;
     color: $gray;
     box-sizing: border-box;
-    box-shadow: 0px 4px 4px #f2f2f2;
+    box-shadow: 0px 4px 4px $gray-border;
     border: 1px solid $input-border;
     padding: 0 5px;
     background: $white;
@@ -632,27 +632,27 @@ export default {
     border-bottom-right-radius: 0;
 }
 .birthday-select-box-item-selected {
-    background: #f2f2f2;
-    color: #6f6f6f;
+    background: $gray-border;
+    color: $mid_gray;
 }
 .p-birthday-select-box-item {
     height: 40px;
     @include display-flex();
     cursor: pointer;
     &:hover {
-        background: #f1f1f1;
-        color: #6f6f6f;
+        background: $mid_white;
+        color: $mid_gray;
     }
 }
 .p-birthday-select-option {
-    background: #f1f1f1;
-    color: #6f6f6f;
+    background: $mid_white;
+    color: $mid_gray;
 }
 .p-birthday-select-box-search {
     border-radius: 4px;
-    background: #fff;
-    border: 1px solid #f2f2f2;
-    color: #717171;
+    background: $white;
+    border: 1px solid $gray-border;
+    color: $mid-dark_gray;
     /* font-size: 14px; */
     font-family: inherit;
     font-size: 1rem;
