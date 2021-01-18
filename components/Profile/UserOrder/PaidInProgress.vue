@@ -32,6 +32,25 @@
             </div>
         </div>
         <div class="paid-detail">
+            <div class="order-detail order-code">
+                <span class="order-code__title">کد سفارش:</span>
+                <span class="order-code__value">6861457L</span>
+            </div>
+            <div class=" order-detail order-price">
+                <span class="order-price__title">قیمت:</span>
+                <div class="order-price__value-holder">
+                    <span class="order-price__value"> 850,000</span>
+                    <span class="order-price__toman"> تومان</span>
+                </div>
+            </div>
+            <div class="order-detail order-date">
+                <span class="order-date__title">تاریخ ثبت:</span>
+                <span class="order-date__jalali">1399/04/05</span>
+            </div>
+            <div class="order-detail order-situation">
+                <span class="order-situation__title">وضعیت:</span>
+                <span class="order-situation__value">تحویل داده شده</span>
+            </div>
             <div class="p-order-product-btn-main">
                 <button
                     type="button"
@@ -126,10 +145,71 @@ export default {
     border-radius: 10px;
     margin-top: 38px;
     margin-left: 38px;
+    padding-top: 23px;
 }
+.order-detail {
+    @include display-flex();
+    flex-direction: row;
+    justify-content: space-between;
+    /* border: 1px solid blue; */
+    margin: 18px 0;
+    padding: 0 38px;
+}
+/* .order-code__title:before {
+    content: "\e81a";
+} */
+.order-code {
+    &__value,
+    &__title {
+        @include display-flex();
+        flex-direction: row;
+        width: 40%;
+        /* border: 1px solid red; */
+        justify-self: flex-start;
+        font-size: 14px;
+        line-height: 140.62%;
+        color: $black-topic;
+    }
+}
+.order-price__value-holder,
+.order-price__title {
+    @include display-flex();
+    flex-direction: row;
+    justify-self: flex-start;
+    /* border: 1px solid red; */
+    width: 40%;
+}
+.order-price {
+    &__value,
+    &__toman,
+    &__title {
+        font-size: 14px;
+        line-height: 140.62%;
+        color: $black-topic;
+    }
+}
+.order-price__toman {
+    margin-right: 4px;
+}
+.order-date__title,
+.order-date__jalali,
+.order-situation__title,
+.order-situation__value {
+    @include display-flex();
+    flex-direction: row;
+    justify-self: flex-start;
+    /* border: 1px solid red; */
+    width: 40%;
+    font-size: 14px;
+    line-height: 140.62%;
+    color: $black-topic;
+}
+
 .paid-order-btn {
     width: 270px;
     height: 57px;
+    margin-top: 41px;
+    margin-bottom: 19px;
     background-color: $btn__green;
     border-radius: 10px;
     outline: none;
