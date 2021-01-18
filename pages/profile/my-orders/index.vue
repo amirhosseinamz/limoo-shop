@@ -18,7 +18,7 @@
                 <span class="user-profile__topic">لیست سفارشات شما</span>
                 <div class="order-nav d-rtl">
                     <div
-                        @click="goToPaidInProgress"
+                        @click="goToOrder('paidInProgress')"
                         :class="{ 'item-active': paidInProgress }"
                         class="order-nav__items"
                     >
@@ -26,7 +26,7 @@
                         <span class="bottomLine"></span>
                     </div>
                     <div
-                        @click="goToDelivered"
+                        @click="goToOrder('delivered')"
                         :class="{ 'item-active': delivered }"
                         class="order-nav__items "
                     >
@@ -34,7 +34,7 @@
                         <span class="bottomLine"></span>
                     </div>
                     <div
-                        @click="goToReturned"
+                        @click="goToOrder('returned')"
                         :class="{ 'item-active': returned }"
                         class="order-nav__items "
                     >
@@ -42,7 +42,7 @@
                         <span class="bottomLine"></span>
                     </div>
                     <div
-                        @click="goToCanceled"
+                        @click="goToOrder('canceled')"
                         :class="{ 'item-active': canceled }"
                         class="order-nav__items "
                     >
@@ -50,11 +50,14 @@
                         <span class="bottomLine"></span>
                     </div>
                 </div>
-                <div class="order-holder" v-if="paidInProgress">
-                    <paid-in-progress></paid-in-progress>
-                    <delivered></delivered>
-                    <returned></returned>
-                    <canceled></canceled>
+                <div class="order-holder">
+                    <paid-in-progress
+                        v-show="paidInProgress"
+                        :in-progress-order-data="inProgressOrderData"
+                    ></paid-in-progress>
+                    <delivered v-show="delivered"></delivered>
+                    <returned v-show="returned"></returned>
+                    <canceled v-show="canceled"></canceled>
                 </div>
                 <!-- call paid in progress component -->
                 <!-- <the-user-history
@@ -75,7 +78,6 @@
 </template>
 <script>
 import TheProfileSideBar from "~/components/Profile/TheProfileSideBar.vue";
-import TheUserHistory from "~/components/Profile/UserHistory/TheUserHistory.vue";
 import PaidInProgress from "~/components/Profile/UserOrder/PaidInProgress.vue";
 import Delivered from "~/components/Profile/UserOrder/Delivered.vue";
 import Returned from "~/components/Profile/UserOrder/Returned.vue";
@@ -84,7 +86,6 @@ import Canceled from "~/components/Profile/UserOrder/Canceled.vue";
 export default {
     components: {
         TheProfileSideBar,
-        TheUserHistory,
         PaidInProgress,
         Delivered,
         Returned,
@@ -94,34 +95,36 @@ export default {
     data() {
         return {
             paidInProgress: false,
-            historyData: [
+            delivered: false,
+            returned: false,
+            canceled: false,
+            inProgressOrderData: [
                 {
                     id: 1,
-                    title: "Fake",
+                    title:
+                        " اپل واچ سری 1 آلومینیوم آبی اپل واچ سری 1 آلومینیوم",
                     img: "/img/apple-watch-1.png"
                 },
                 {
                     id: 2,
-                    title: "Fake",
+                    title:
+                        " اپل واچ سری 2 آلومینیوم آبی اپل واچ سری 2 آلومینیوم",
                     img: "/img/apple-watch-2.png"
                 },
                 {
                     id: 3,
-                    title: "Fake",
+                    title:
+                        " اپل واچ سری 3 آلومینیوم آبی اپل واچ سری 3 آلومینیوم",
                     img: "/img/apple-watch-3.png"
                 },
                 {
                     id: 4,
-                    title: "Fake",
+                    title:
+                        " اپل واچ سری 4 آلومینیوم آبی اپل واچ سری 4 آلومینیوم",
                     img: "/img/apple-watch-4.png"
-                },
-                {
-                    id: 5,
-                    title: "Fake",
-                    img: "/img/apple-watch-5.png"
                 }
             ],
-            currentHistory: {}
+            currentOrder: {}
         };
     },
 
@@ -129,11 +132,8 @@ export default {
 
     mounted() {
         const curentRoute = this.$route.path;
-        const activeTab = this.$route.query.activeTab;
-        if (
-            activeTab == "paid-in-progress" ||
-            curentRoute == "/profile/my-orders"
-        ) {
+        // const activeTab = this.$route.query.activeTab;
+        if (curentRoute == "/profile/my-orders") {
             this.paidInProgress = true;
         }
     },
@@ -142,9 +142,34 @@ export default {
         goToProfile() {
             this.$router.push("/");
         },
-        goToPaidInProgress() {
-            this.$router.push("/profile/my-orders/?activeTab=paid-in-progress");
-            this.paidInProgress = true;
+        goToOrder(page) {
+            if (page == "paidInProgress") {
+                // this.$router.push(
+                //     "/profile/my-orders/?activeTab=paid-in-progress"
+                // );
+                this.paidInProgress = true;
+                this.delivered = false;
+                this.returned = false;
+                this.canceled = false;
+            } else if (page == "delivered") {
+                // this.$router.push("/profile/my-orders/?activeTab=delivered");
+                this.delivered = true;
+                this.paidInProgress = false;
+                this.returned = false;
+                this.canceled = false;
+            } else if (page == "returned") {
+                // this.$router.push("/profile/my-orders/?activeTab=returned");
+                this.returned = true;
+                this.paidInProgress = false;
+                this.delivered = false;
+                this.canceled = false;
+            } else if (page == "canceled") {
+                // this.$router.push("/profile/my-orders/?activeTab=canceled");
+                this.canceled = true;
+                this.paidInProgress = false;
+                this.returned = false;
+                this.delivered = false;
+            }
         }
         // request //
     }

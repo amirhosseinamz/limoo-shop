@@ -9,7 +9,7 @@ div {
     width: 100%;
     margin-top: 24px;
     background: $white;
-    height: 400px;
+    height: 200px;
     border-radius: 10px;
 }
 </style>
