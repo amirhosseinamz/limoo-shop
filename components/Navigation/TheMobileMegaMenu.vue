@@ -119,7 +119,7 @@ export default {
         TheMobileCategory
     },
     created() {
-        let curentRoute = this.$route.path;
+        const curentRoute = this.$route.path;
         if (curentRoute == "/") {
             this.homeIsActive = true;
         } else if (curentRoute == "/cart") {
@@ -127,7 +127,8 @@ export default {
         } else if (
             curentRoute == "/profile" ||
             curentRoute == "/profile/personal-info" ||
-            curentRoute == "/profile/user-history"
+            curentRoute == "/profile/user-history" ||
+            curentRoute == "/profile/my-orders"
         ) {
             this.profileIsActive = true;
         }

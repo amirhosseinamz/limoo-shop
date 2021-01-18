@@ -22,12 +22,19 @@
             <div class="profile-sidebar__flex profile-sidebar__order">
                 <div class="profile-sidebar__flex-part">
                     <img
+                        :class="{ 'profile-item__activated': muOrdersIsActive }"
                         class="profile-sidebar__order-icon"
                         src="/icons/order.svg"
                     />
-                    <NuxtLink to=""> سفارش های من</NuxtLink>
+                    <NuxtLink
+                        :class="{ 'link-item__activated': muOrdersIsActive }"
+                        to="/profile/my-orders"
+                    >
+                        سفارش های من</NuxtLink
+                    >
                 </div>
                 <img
+                    @click="goToMyOrders"
                     class="profile-sidebar__arrow-left"
                     src="/icons/arrow-left.svg"
                 />
@@ -263,7 +270,8 @@ export default {
             personalInfoIsActive: false,
             favoriteActive: false,
             adressActive: false,
-            userHistoryIsActive: false
+            userHistoryIsActive: false,
+            muOrdersIsActive: false
         };
     },
     created() {
@@ -279,6 +287,8 @@ export default {
             this.adressActive = true;
         } else if (curentRoute == "/profile/user-history") {
             this.userHistoryIsActive = true;
+        } else if (curentRoute == "/profile/my-orders") {
+            this.muOrdersIsActive = true;
         }
 
         // else if (curentRoute == "/cart") {
@@ -293,6 +303,9 @@ export default {
         },
         goToUserHistory() {
             this.$router.push("/profile/user-history");
+        },
+        goToMyOrders() {
+            this.$router.push("/profile/my-orders");
         }
     }
 };
