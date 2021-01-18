@@ -1,7 +1,13 @@
 <template>
   <div class="p-adresses-content-main w-100 flex-column flex-wrap  d-rtl">
+    <transition moda="in-out">
+        <div id="overlay" v-if="passChangeIsActive">
+            <add-address-modal />
+        </div>
+    </transition>
+    
       <div class="w-100 flex-wrap p-adresses-content-btn-add-main p-adresses-content-item-desktop">
-          <button type="submit" class=" btn-change p-adresses-content-btn-data">
+          <button @click="addAddress" type="submit" class=" btn-change p-adresses-content-btn-data">
               افزودن آدرس جدید
           </button>
       </div>
@@ -82,14 +88,25 @@
         </button>
       </div>
 
+
+
   </div>
 </template>
 
 <script>
+import addAddressModal from "./addAddressModal.vue";
 
 export default {
+    components: {
+       addAddressModal,
+    },
     props: {
       adressData: { type: [Object,Array], default: {} },
+    },
+    data() {
+      return {
+        passChangeIsActive: false,
+      }
     },
 
     components: {
@@ -103,13 +120,35 @@ export default {
     methods: {
       showModalDeleteProduct(data){
         this.$emit('show-modal-delete-product',data)
-      }
+      },
+
+      addAddress(){
+        this.passChangeIsActive = !this.passChangeIsActive;
+      },
+
     },
 
 };
 </script>
 
 <style lang="scss" scoped>
+#overlay {
+    position: fixed; /* Sit on top of the page content */
+    @include display-flex();
+    justify-content: center;
+    align-items: center;
+    width: 100%; /* Full width (cover the whole page) */
+    height: 100%; /* Full height (cover the whole page) */
+    /* transition: opacity 200ms ease-out; */
+    /* top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0; */
+    z-index: 1;
+    background: $overlay__profile;
+    top: 0;
+    right: 0;
+}
   .p-adresses-content-main{
     padding-right: 21px;
     padding-left: 21px;
