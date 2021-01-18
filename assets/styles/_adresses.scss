@@ -1,0 +1,13 @@
+.p-modal-province_city{
+  @include display-flex();
+}
+.p-modal-select-box-province_city .birthday-item-content{
+  width:100%;
+  height: 52px;
+}
+.p-modal-select-box-province_city .birthday-item__days{
+  width: 100%;
+}
+.p-modal-wrapper-item{
+  width: 40%;
+}

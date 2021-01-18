@@ -5,7 +5,7 @@
             <add-address-modal />
         </div>
     </transition>
-    
+
       <div class="w-100 flex-wrap p-adresses-content-btn-add-main p-adresses-content-item-desktop">
           <button @click="addAddress" type="submit" class=" btn-change p-adresses-content-btn-data">
               افزودن آدرس جدید
@@ -95,6 +95,7 @@
 
 <script>
 import addAddressModal from "./addAddressModal.vue";
+
 
 export default {
     components: {

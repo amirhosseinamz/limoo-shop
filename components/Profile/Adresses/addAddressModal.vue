@@ -4,38 +4,108 @@
         :class="{ 'modal-animation__close': modalClose }"
         dir="rtl"
     >
-        <img
-            @click="closeModalDesktop"
-            class="modal__close-cross"
-            src="/icons/close.svg"
-        />
-        <img
-            @click="closeModalMobile"
-            class="modal__close-line"
-            src="/icons/line.svg"
-        />
-        <span class="modal__title">افزودن آدرس جدید</span>
-        <hr class="splicer-line" />
-        <form @submit.prevent="" class="w-100">
-          <h3>dsd</h3>
+      <div class="w-100 p-modal-header">
+          <div class="w-100 p-modal-header-mobile">
+              <img
+              @click="closeModalDesktop"
+              class="modal__close-cross"
+              src="/icons/close.svg"
+              />
+              <img
+              @click="closeModalMobile"
+              class="modal__close-line"
+              src="/icons/line.svg"
+              />
+              <span class="modal__title">افزودن آدرس جدید</span>
+              <hr class="splicer-line" />
+          </div>
 
-            <button @click="submitChangePass" class="pass__submitbtn">
-                ثبت تغییرات
-            </button>
+          <div class="p-modal-header-desktop w-100 flex-column">
+              <div class="w-100 p-modal-header-top-main">
+                  <div class="p-modal-header-top align-items-center">
+                    <img
+                    class="p-modal-header-icon-location"
+                    src="/icons/location_adress.svg"
+                    />
+                    <h3 class="p-modal-header-top-title">افزودن آدرس جدید</h3>
+                  </div>
+                  <div class="p-modal-header-close ">
+                    <img
+                    class="modal__close-cross p-modal-header-close-icon"
+                    src="/icons/close_modal_address.svg"
+                    />
+                  </div>
+              </div>
+              <span class="splicer-line p-modal-header-line" ></span>
+          </div>
+
+      </div>
+
+
+        <form @submit.prevent="" class="w-100 p-modal_wrapper align-items-start">
+
+            <div class="p-modal-content w-100 align-items-start flex-wrap">
+                <div class="w-100 p-modal-address">
+                  <h3 class="p-modal-wrapper-province_city-title">نشانی پستی دقیق :</h3>
+                  <input type="text" class="p-modal-address-input p-input-style__default ">
+                </div>
+
+                <div class="w-100 p-modal-content-items flex-wrap">
+                      <div class="p-modal-wrapper-item flex-wrap ">
+                        <h3 class="p-modal-wrapper-province_city-title">انتخاب استان:</h3>
+                        <customeDropDown :options="province" initial-value="10" label="title" className="p-modal-select-box-province_city"></customeDropDown>
+                      </div>
+                      <div class="p-modal-wrapper-item">
+                        <h3 class="p-modal-wrapper-province_city-title">انتخاب شهر :</h3>
+                        <customeDropDown :options="province" initial-value="10" label="title" className="p-modal-select-box-province_city"></customeDropDown>
+                      </div>
+                      <div class="p-modal-wrapper-item p-margin-left-0">
+                        <h3 class="p-modal-wrapper-province_city-title">کد پستی (اختیاری) :</h3>
+                        <input type="text" class="p-modal-item-input p-input-style__default">
+                      </div>
+                      <div class="p-modal-wrapper-item ">
+                        <h3 class="p-modal-wrapper-province_city-title">نام گیرنده:</h3>
+                        <input type="text" class="p-modal-item-input p-input-style__default">
+                      </div>
+                      <div class="p-modal-wrapper-item">
+                        <h3 class="p-modal-wrapper-province_city-title">شماره گیرنده :</h3>
+                        <input type="text" class="p-modal-item-input  p-input-style__default">
+                      </div>
+                  </div>
+
+              </div>
+
+
+            <div class="p-profile-favorite-btns w-100 justify-content-center p-modal-btns">
+              <button  type="button" name="button" class="p-product-btn  p-favorite-product-btn-modal-delete cursor-pointer  ">
+                ثبت
+              </button>
+              <button   type="button" name="button" class="p-product-btn  cursor-pointer p-favorite-product-btn-modal-cancel  ">
+                بازگشت
+              </button>
+            </div>
+
         </form>
     </div>
 </template>
 <script>
-// import customeDropDown from '../../../modules/customeDropDown';
+import customeDropDown from "../../../modules/customeDropDown.vue";
+import '../../../assets/styles/_adresses.scss'
 
 export default {
   components: {
-    // customeDropDown,
+    customeDropDown,
   },
     data() {
         return {
-            modalClose: false,
-            msg: [],
+            modalClose : false,
+            msg        : [],
+            province   : [
+              {
+                id    : 1,
+                title : '1',
+              }
+            ],
         };
     },
     watch: {
@@ -64,8 +134,8 @@ export default {
     @include display-flex();
     flex-direction: column;
     align-items: center;
-    width: 642px;
-    height: 524px;
+    width: 982px;
+    height: 623px;
     background: $white;
     box-shadow: 0px 8px 16px $box__shadow;
     border-radius: 15px;
@@ -168,6 +238,101 @@ export default {
 .p-modal-city_provence{
   @include display-flex();
 }
+.p-modal-header-close-icon{
+  margin-left: 0;
+}
+.p-modal_wrapper{
+  padding-right: 191px;
+  padding-left: 191px;
+  @include display-flex();
+  padding-top: 51px;
+}
+.p-modal-wrapper-item{
+  width: 175px;
+  margin-left: 37px;
+  margin-bottom: 38px;
+}
+.p-modal-wrapper-item:last-of-type{
+  margin-left: 0;
+}
+.p-modal-wrapper-province_city-title{
+  font-family: inherit;
+  font-size: 16px;
+  font-weight: 500;
+  margin-bottom: 16px;
+  color: $black;
+  text-align: right;
+}
+.p-margin-left-0{
+  margin-left: 0;
+}
+.p-modal-header-desktop{
+  @include display-flex();
+}
+.p-modal-header-mobile{
+  display: none;
+}
+.p-modal-header-top{
+  flex-grow: 1;
+  @include display-flex();
+}
+.p-modal-header-icon-location{
+  width: 24px;
+}
+.p-modal-header-top-title{
+  color: $black;
+  font-size: 18px;
+  font-weight: 500;
+  margin-right: 11.5px;
+}
+.p-modal-header{
+  padding-right: 41px;
+  padding-left: 41px;
+}
+.p-modal-content{
+  @include display-flex();
+}
+.p-modal-content-items{
+  @include display-flex();
+}
+.p-modal-address-input{
+  width: 100%;
+}
+.p-modal-address{
+  margin-bottom: 38px;
+}
+.p-modal-header-line{
+  width: 95%;
+  margin-right: auto;
+  margin-left: auto;
+  height: 1px;
+  background: $gray-border;
+  @include display-flex();
+  margin-top: 2px;
+}
+.p-modal-header-top-main{
+  @include display-flex();
+}
+.p-modal-header-top{
+  padding-top: 11px;
+}
+.p-modal-btns{
+  padding-top: 41px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 @media (max-width: 960px) {

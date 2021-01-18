@@ -76,21 +76,7 @@ export default {
     font-size: 21px;
     font-weight: 400 !important;
   }
-  .p-favorite-product-btn-modal-delete {
-    background: $yellow;
-    margin-left: 16px;
-    color: $white;
-  }
-  .p-favorite-product-btn-modal-cancel {
-    background: $light_gray;
-    margin-left: 0;
-    border-color: $light_gray;
-    color: $gray;
-  }
-  .p-favorite-product-btn-modal-cancel:hover{
-    background: #E0E0E0;
-    color: #828282;
-  }
+
   .p-favorite-product-btn{
     width: 130px;
   }

@@ -2,10 +2,11 @@
     <div  class=" d-flex flex-wrap birthday-item-wrapper" :class="{ 'dropdown-active': showDropDown }">
         <div
             class="flex-wrap d-flex birthday-item-main align-items-start cursor-pointer"
+            :class="className"
         >
             <div class="d-flex flex-wrap birthday-item-content">
                 <div
-                    class="birthday-item__days flex-wrap check-dropdown-close"
+                    class="birthday-item__days flex-wrap check-dropdown-close p-input-style__default"
                 >
                     <div
                         @click="showOptionsDropDown"
@@ -81,6 +82,11 @@ export default {
           type: String,
           required: {}
       },
+      className: {
+          type: String,
+          required: {}
+      },
+
     },
 
     data() {
@@ -291,21 +297,21 @@ export default {
     &-item {
         &__days,
         &__months,
-        &__years {
-            @include display-flex();
-            flex-direction: row;
-            justify-content: space-between;
-            font-family: inherit;
-            border: 1px solid $input-border;
-            box-shadow: 0px 4px 4px $gray-border;
-            height: 52px;
-            width: 91px;
-
-            border-radius: 15px;
-            color: $gray;
-            outline: none;
-            /* */
-        }
+        // &__years {
+        //     @include display-flex();
+        //     flex-direction: row;
+        //     justify-content: space-between;
+        //     font-family: inherit;
+        //     border: 1px solid $input-border;
+        //     box-shadow: 0px 4px 4px $gray-border;
+        //     height: 52px;
+        //     width: 91px;
+        //
+        //     border-radius: 15px;
+        //     color: $gray;
+        //     outline: none;
+        //     /* */
+        // }
         &__years {
             width: 150px;
         }
@@ -324,7 +330,7 @@ export default {
 }
 .p-birthday-select-box {
     @include display-flex();
-    position: relative;
+    // position: relative;
     z-index: 0;
     width: 100%;
     color: $gray;
@@ -338,6 +344,7 @@ export default {
     border-top: none;
     border-bottom-left-radius: 15px;
     border-bottom-right-radius: 15px;
+    position: absolute;
 }
 .birthday-item-selected {
     @include display-flex();
@@ -412,6 +419,7 @@ export default {
 
 .birthday-item-content {
     width: 91px;
+    position: relative;
 }
 
 /* .item-year {
