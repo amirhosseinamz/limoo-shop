@@ -50,3 +50,6 @@
 .icon-up:before { content: '\e830'; } /* '' */
 .icon-verify:before { content: '\e831'; } /* '' */
 .icon-share:before { content: '\e832'; } /* '' */
+.icon-factor-reg:before { content: '\e896'; } /* '' */
+.icon-coin-reg:before { content: '\e897'; } /* '' */
+.icon-state:before { content: '\e898'; } /* '' */

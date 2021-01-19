@@ -167,7 +167,7 @@ export default {
     padding: 0 38px;
 }
 .order-code__title::before {
-    content: "\e812";
+    content: "\e896";
     @include font-icon__limoo();
     color: $gray;
     margin-left: 8px;
@@ -201,7 +201,7 @@ export default {
     width: 40%;
 }
 .order-price__title::before {
-    content: "\e804";
+    content: "\e897";
     @include font-icon__limoo();
     color: $gray;
     margin-left: 8px;
@@ -215,7 +215,7 @@ export default {
     line-height: 1em;
 }
 .order-situation__title::before {
-    content: "\e804";
+    content: "\e898";
     @include font-icon__limoo();
     color: $gray;
     margin-left: 8px;
