@@ -14,12 +14,23 @@
             </div>
         </div>
 
-        <div class="user-profile__holder">
+        <div class="user-profile__holder" >
             <div class="user-profile w-100">
                       <span class="user-profile__topic">آدرس های شما</span>
                       <hr class="splicer-line" />
                       <div class="w-100 user-profile-adresses-main flex-column">
-                        <contentAdresses :adress-data="adressesData" @show-modal-delete-product="showModalDeleteProduct"></contentAdresses>
+                        <contentAdresses
+                          :adress-data="adressesData"
+                          :all-province="allProvince"
+                          :all-citys="allCitys"
+                          :form-data="formData"
+
+                          @show-modal-delete-product="showModalDeleteProduct"
+                          @selected-province="selectedProvince"
+                          @selected-city="selectedCity"
+                          @submit-address-add="submitAddressAdd"
+
+                          ></contentAdresses>
                      </div>
             </div>
         </div>
@@ -51,20 +62,74 @@ export default {
         return {
           adressesData : [
             {
-              id     :   1,
-              title  : 'تهران ، خیابان ولیعصر ، تقاطع کوچه حسینی راد 1',
+              id             :   1,
+              title          : 'تهران ، خیابان ولیعصر ، تقاطع کوچه حسینی راد 1',
+              province       : 'تهران',
+              city           : 'جنت آباد',
+              codePoste      : '90',
+              nameReceiver   : 'test',
+              numberReceiver : '10',
+              address        : 'dasdsa',
             },
             {
-              id     :   2,
-              title  : 'تهران ، خیابان ولیعصر ، تقاطع کوچه حسینی راد 2',
+              id             :   2,
+              title          : 'تهران ، خیابان ولیعصر ، تقاطع کوچه حسینی راد 2',
+              province       : 'قم',
+              city           : 'قم',
+              codePoste      : '2',
+              nameReceiver   : 'test',
+              numberReceiver : '10',
+              address        : 'dasdsa',
             },
             {
-              id     :   3,
-              title  : 'تهران ، خیابان ولیعصر ، تقاطع کوچه حسینی راد 3',
+              id             :   3,
+              title          : 'تهران ، خیابان ولیعصر ، تقاطع کوچه حسینی راد 3',
+              province       : 'قم',
+              city           : 'قم',
+              codePoste      : '3',
+              nameReceiver   : 'test',
+              numberReceiver : '10',
+              address        : 'dasdsa',
             },
           ],
           currentProduct               : {},
           statusShowModalDeleteProduct : false,
+          allProvince                  : [
+            {
+              id           : 1,
+              title        : 'تهران',
+              selected     : false,
+            },
+            {
+              id           : 2,
+              title        : 'قم',
+              selected     : false,
+            },
+          ],
+          allCitys                     : [
+            {
+              id           :  1,
+              parent_id    : 2,
+              title        : 'قم',
+              selected     : false,
+            },
+            {
+              id            : 2,
+              parent_id     : 1,
+              title         : 'جنت آباد',
+              selected     : false,
+            },
+          ],
+          formData                                :  {
+            // province       : {},
+            // city           : {},
+            // codePoste      : '',
+            // nameReceiver   : '',
+            // numberReceiver : '',
+            // address        : '',
+          },
+          updateAddress : 0,
+
 
         };
     },
@@ -103,6 +168,40 @@ export default {
         showModalDeleteProduct(data){
           this.currentProduct         = data;
           this.statusShowModalDeleteProduct = true;
+        },
+
+        selectedProvince(data){
+          // console.log(data,'selectedProvince');
+        },
+
+        selectedCity(data){
+          // console.log(data,'selectedCitys');
+        },
+
+        submitAddressAdd(data,state){
+          this.updateAddress++;
+          let findIndex = 0;
+
+          const faceUpdatePage = () => {
+            this.adressesData.map((content,i)=>{
+              if (content.id == data.id) {
+                this.adressesData[i] = data;
+              }
+            })
+
+          }
+
+          // بعد از اتصال به بک این قسمت حذف شود //
+          if (state == 'edit') {
+            faceUpdatePage();
+          }
+          else {
+            data.id = 20+this.updateAddress;
+            this.adressesData.push(data);
+          }
+
+
+          // send data server //
         },
 
 
@@ -185,7 +284,7 @@ export default {
 }
 
 @media (max-width: 1220px) {
-  
+
 }
 
 @media (max-width: 960px) {

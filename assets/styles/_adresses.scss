@@ -1,5 +1,5 @@
 .p-modal-province_city{
-  @include display-flex();
+  display: flex; // other time fixed scope //
 }
 .p-modal-select-box-province_city .birthday-item-content{
   width:100%;

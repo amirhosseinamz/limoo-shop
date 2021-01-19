@@ -97,7 +97,6 @@ export default {
             lastUpdateValue    : 10,
             findSelectedOption : 0,
             valueOptions       : [],
-            selectedOption     : {},
             //   ***************************
         };
     },
@@ -108,11 +107,7 @@ export default {
     //   ***************************⇓
     watch: {
         lastUpdateValue(value) {
-          // this.$emit("last-update", data);
-        },
-
-        selectedOption(data){
-          this.$emit("last-update", data.title,data);
+            this.$emit("last-update", value);
         },
 
         searchValue(value) {
@@ -127,14 +122,11 @@ export default {
             if (this.showDropDown) {
                 if (this.lastUpdateValue != "") {
                     this.valueOptions.map((content, index) => {
-                      content.selected      = false;
-
                         if (
                             content[this.label] == this.lastUpdateValue
                         ) {
                             indexShowSelectOption = index;
-                            content.selected      = true;
-                            this.selectedOption   = content;
+                            content.selected = true;
                         }
                     });
 
@@ -223,7 +215,6 @@ export default {
                 if (t[this.label] == data[this.label]) {
                     t.selected = true;
                     this.lastUpdateValue = t[this.label];
-                    this.selectedOption  = t;
                 } else {
                     t.selected = false;
                 }

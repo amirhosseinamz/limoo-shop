@@ -31,6 +31,7 @@
                   </div>
                   <div class="p-modal-header-close ">
                     <img
+                    @click="closeModalMobile"
                     class="modal__close-cross p-modal-header-close-icon"
                     src="/icons/close_modal_address.svg"
                     />
@@ -42,45 +43,67 @@
       </div>
 
 
-        <form @submit.prevent="" class="w-100 p-modal_wrapper align-items-start">
+        <form @submit.prevent="" class="w-100 p-modal_wrapper align-items-start" >
 
             <div class="p-modal-content w-100 align-items-start flex-wrap">
                 <div class="w-100 p-modal-address">
                   <h3 class="p-modal-wrapper-province_city-title">نشانی پستی دقیق :</h3>
-                  <input type="text" class="p-modal-address-input p-input-style__default ">
+                  <input @keyup="updateAddress" v-model="formData.address" type="text" class="p-modal-address-input p-input-style__default ">
+                  <!-- <span v-if="formData.validationForm.address.status" class="pass__alert">لطفا شهر خود را انتخاب کنید</span> -->
                 </div>
 
                 <div class="w-100 p-modal-content-items flex-wrap">
-                      <div class="p-modal-wrapper-item flex-wrap ">
+
+                      <div class="p-modal-wrapper-item flex-wrap " :key="initialValueProvince">
                         <h3 class="p-modal-wrapper-province_city-title">انتخاب استان:</h3>
-                        <customeDropDown :options="province" initial-value="10" label="title" className="p-modal-select-box-province_city"></customeDropDown>
+                            <customeDropDown
+                               :options="allProvince"
+                                :initial-value="initialValueProvince"
+                                label="title"
+                                className="p-modal-select-box-province_city"
+                                @last-update="selectedProvince"
+                             ></customeDropDown>
+                             <!-- <span v-if="formData.validationForm.province.status" class="pass__alert">لطفا شهر خود را انتخاب کنید</span> -->
                       </div>
                       <div class="p-modal-wrapper-item">
                         <h3 class="p-modal-wrapper-province_city-title">انتخاب شهر :</h3>
-                        <customeDropDown :options="province" initial-value="10" label="title" className="p-modal-select-box-province_city"></customeDropDown>
+                            <customeDropDown
+                              :options="allCitys"
+                               :initial-value="initialValueCity"
+                               label="title"
+                                className="p-modal-select-box-province_city"
+                                @last-update="selectedCity"
+                            ></customeDropDown>
+                            <!-- <span v-if="formData.validationForm.city.status" class="pass__alert">استان خود را انتخاب کنید</span> -->
                       </div>
                       <div class="p-modal-wrapper-item p-margin-left-0">
                         <h3 class="p-modal-wrapper-province_city-title">کد پستی (اختیاری) :</h3>
-                        <input type="text" class="p-modal-item-input p-input-style__default">
+                        <input @keyup="updateCodePoste" v-model="formData.codePoste" type="number" class="p-modal-item-input p-input-style__default">
+                        <!-- <span v-if="formData.validationForm.codePoste.status" class="pass__alert">صحیح نمی باشد</span> -->
                       </div>
                       <div class="p-modal-wrapper-item ">
                         <h3 class="p-modal-wrapper-province_city-title">نام گیرنده:</h3>
-                        <input type="text" class="p-modal-item-input p-input-style__default">
+                        <input @keyup="updateNameReceiver"  v-model="formData.nameReceiver" type="text" class="p-modal-item-input p-input-style__default">
+                        <!-- <span v-if="formData.validationForm.nameReceiver.status" class="pass__alert">نمی تواند خالی باشد</span> -->
                       </div>
+
                       <div class="p-modal-wrapper-item">
                         <h3 class="p-modal-wrapper-province_city-title">شماره گیرنده :</h3>
-                        <input type="text" class="p-modal-item-input  p-input-style__default">
+                        <input @keyup="UpdateNumberReceiver" v-model="formData.numberReceiver" type="text" class="p-modal-item-input  p-input-style__default">
+                        <!-- <span v-if="formData.validationForm.numberReceiver.status" class="pass__alert">نمی تواند خالی باشد</span> -->
                       </div>
                   </div>
+
+
 
               </div>
 
 
             <div class="p-profile-favorite-btns w-100 justify-content-center p-modal-btns">
-              <button  type="button" name="button" class="p-product-btn  p-favorite-product-btn-modal-delete cursor-pointer  ">
+              <button @click="submitAddressAdd"  type="button" name="button" class="p-product-btn  p-favorite-product-btn-modal-delete cursor-pointer  ">
                 ثبت
               </button>
-              <button   type="button" name="button" class="p-product-btn  cursor-pointer p-favorite-product-btn-modal-cancel  ">
+              <button @click="eventCloseModal"  type="button" name="button" class="p-product-btn  cursor-pointer p-favorite-product-btn-modal-cancel  ">
                 بازگشت
               </button>
             </div>
@@ -93,38 +116,103 @@ import customeDropDown from "../../../modules/customeDropDown.vue";
 import '../../../assets/styles/_adresses.scss'
 
 export default {
+  props: {
+    allProvince         : { type: [Object,Array], default: [] },
+    allCitys            : { type: [Object,Array], default: [] },
+    formDataOriginal    : { type: [Object,Array], default: {} },
+    dataEditAddress     : { type: Object, default: {} },
+  },
   components: {
     customeDropDown,
   },
     data() {
         return {
-            modalClose : false,
-            msg        : [],
-            province   : [
-              {
-                id    : 1,
-                title : '1',
-              }
-            ],
+            modalClose                              : false,
+            msg                                     : [],
+            valueProvince                           : {},
+            valueCitys                              : {},
+            formData                                :  {
+
+            },
+            initialValueProvince                    : '',
+            initialValueCity                        : '',
+
         };
     },
+
     watch: {
+      dataEditAddress(data){
+      },
 
     },
-    methods: {
-        closeModalMobile() {
-            this.modalClose = true;
-            setTimeout(() => {
-                this.$parent.passChange();
-            }, 280);
-        },
-        closeModalDesktop() {
-            this.$parent.passChange();
-        },
 
-        submitChangePass() {
-
+    created() {
+      // پس از کلیک روی ویرایش آدرس کاندیشن زیر اجرا می شود //
+      if (typeof(this.dataEditAddress.id) != 'undefined') {
+        for (let key in this.dataEditAddress) {
+          this.formData[key]       = this.dataEditAddress[key];
         }
+        this.initialValueProvince  = this.formData.province;
+        this.initialValueCity      = this.formData.city;
+      }
+      else {
+        const formData = this.formDataOriginal;
+      }
+    },
+
+    mounted() {
+    },
+
+    methods: {
+      updateCodePoste(e){
+      },
+
+      updateNameReceiver(e){
+
+      },
+
+      UpdateNumberReceiver(e){
+
+      },
+
+      updateAddress(e){
+
+      },
+
+      closeModalMobile() {
+          this.$emit('close-modal');
+            // setTimeout(() => {
+            //     this.$parent.passChange();
+            // }, 280);
+      },
+
+      closeModalDesktop() {
+          this.$emit('close-modal');
+      },
+
+      checkValidFormData(){
+      },
+
+
+      submitAddressAdd() {
+        this.$emit('submit-address-add',this.formData)
+      },
+
+      selectedProvince(value,allData){
+        this.formData.province     = value;
+        // this.initialValueProvince  = value;
+        this.$emit('selected-province',allData)
+      },
+
+      selectedCity(value,allData){
+        this.formData.city         = value;
+        // this.initialValueCity      = value;
+        this.$emit('selected-city',allData)
+      },
+
+      eventCloseModal(){
+        this.$emit('close-modal');
+      },
 
     }
 };
@@ -230,6 +318,9 @@ export default {
         text-align: right;
         font-size: 14px;
         line-height: 140.62%;
+        @include display-flex();
+        width: 100%;
+        text-align: right;
     }
 }
 .splicer-line {
@@ -293,6 +384,7 @@ export default {
   @include display-flex();
 }
 .p-modal-content-items{
+  height: 256px;
   @include display-flex();
 }
 .p-modal-address-input{

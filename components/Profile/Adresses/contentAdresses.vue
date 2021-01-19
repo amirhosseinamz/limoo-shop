@@ -2,7 +2,17 @@
   <div class="p-adresses-content-main w-100 flex-column flex-wrap  d-rtl">
     <transition moda="in-out">
         <div id="overlay" v-if="passChangeIsActive">
-            <add-address-modal />
+            <add-address-modal
+                :all-province="allProvince"
+                :all-citys="allCitys"
+                :form-data-original="formData"
+                :data-edit-address="dataEditAddress"
+
+                @selected-province="selectedProvince"
+                @selected-city="selectedCity"
+                @submit-address-add="submitAddressAdd"
+                @close-modal="closeModal"
+                 />
         </div>
     </transition>
 
@@ -32,7 +42,7 @@
 
                                     <div class=" p-adresses-content-header-item align-items-center">
                                       <img class="p-adresses-content-header-icon" src="/icons/location_adress.svg" alt="">
-                                      <h3 class="p-adresses-content-header-item-title">تهران</h3>
+                                      <h3 class="p-adresses-content-header-item-title">{{data.province}}</h3>
                                     </div>
 
                                     <div class=" p-adresses-content-header-item align-items-center">
@@ -42,7 +52,7 @@
 
                                     <div class=" p-adresses-content-header-item align-items-center">
                                       <img class="p-adresses-content-header-icon" src="/icons/message.svg" alt="">
-                                      <h3 class="p-adresses-content-header-item-title">424265287</h3>
+                                      <h3 class="p-adresses-content-header-item-title">{{data.codePoste}}</h3>
                                     </div>
 
 
@@ -58,13 +68,13 @@
                                             <div class="p-adresses-content-data-btns w-100 justify-content-end">
                                                   <div class="p-favorite-product-btn-main">
                                                       <button type="button" class="p-product-btn cursor-pointer p-adresses-content-btn-edit" name="button">
-                                                        <NuxtLink :to="'/product/' + data.id" class="p-favorite-product-btn-link p-adresses-content-item-desktop">ویرایش</NuxtLink>
-                                                        <NuxtLink :to="'/product/' + data.id" class="p-favorite-product-btn-link p-adresses-content-item-mobile ">
-                                                          <img class="p-adresses-content-edit-icon" src="/icons/icon-edit.svg" alt="">
-                                                        </NuxtLink>
+                                                          <span @click="editAddress(data)"  class="p-favorite-product-btn-link p-adresses-content-item-desktop">ویرایش</span>
+                                                          <NuxtLink :to="'/product/' + data.id" class="p-favorite-product-btn-link p-adresses-content-item-mobile ">
+                                                            <img class="p-adresses-content-edit-icon" src="/icons/icon-edit.svg" alt="">
+                                                          </NuxtLink>
                                                       </button>
                                                       <button @click="showModalDeleteProduct(data)" class="p-favorite-product-btn-delete cursor-pointer  p-adresses-content-btn-delete" name="button">
-                                                        <img class="p-favorite-product-item-icon-delete" src="/icons/delete.svg" alt="">
+                                                            <img class="p-favorite-product-item-icon-delete" src="/icons/delete.svg" alt="">
                                                       </button>
                                                 </div>
                                           </div>
@@ -98,15 +108,20 @@ import addAddressModal from "./addAddressModal.vue";
 
 
 export default {
+    props: {
+      allProvince : { type: [Object,Array], default: [] },
+      allCitys    : { type: [Object,Array], default: [] },
+      adressData  : { type: [Object,Array], default: {} },
+      formData    : { type: [Object,Array], default: {} },
+
+    },
     components: {
        addAddressModal,
-    },
-    props: {
-      adressData: { type: [Object,Array], default: {} },
     },
     data() {
       return {
         passChangeIsActive: false,
+        dataEditAddress   : {},
       }
     },
 
@@ -124,7 +139,38 @@ export default {
       },
 
       addAddress(){
+        this.dataEditAddress    = {};
         this.passChangeIsActive = !this.passChangeIsActive;
+      },
+
+      selectedProvince(data){
+        this.$emit('selected-province',data)
+      },
+
+      selectedCity(data){
+        this.$emit('selected-city',data)
+      },
+
+      submitAddressAdd(data){
+        let stateEditAdd = '';
+        if (typeof(this.dataEditAddress.id) == 'undefined') {
+          stateEditAdd = 'add';
+        }
+        else {
+          stateEditAdd = 'edit';
+        }
+
+        this.$emit('submit-address-add',data,stateEditAdd)
+      },
+
+      closeModal(){
+        this.dataEditAddress    = {};
+        this.passChangeIsActive = false;
+      },
+
+      editAddress(data){
+        this.dataEditAddress    = data;
+        this.passChangeIsActive = true
       },
 
     },
