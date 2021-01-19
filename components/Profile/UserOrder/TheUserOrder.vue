@@ -5,36 +5,41 @@
             v-for="data in userOrderData"
             :key="data.id"
         >
-            <div class="paid-container">
-                <div
-                    v-for="order in data.orders"
-                    :key="order.id"
-                    class="paid-order"
-                >
-                    <div>
-                        <img
-                            :src="order.img"
-                            class="paid-order-product-img"
-                            alt=""
-                        />
-                    </div>
+            <div class="mobile-paid-holder">
+                <div class="paid-container">
+                    <div
+                        v-for="order in data.orders"
+                        :key="order.id"
+                        class="paid-order"
+                    >
+                        <div>
+                            <img
+                                :src="order.img"
+                                class="paid-order-product-img"
+                                alt=""
+                            />
+                        </div>
 
-                    <div class="p-history-product-content-left">
-                        <span class="p-history-product-content-title">
-                            {{ order.title }}
-                        </span>
-                        <div class="p-history-product-content-price">
-                            <span class="p-history-product-content-price-title">
-                                123,000,000
+                        <div class="p-history-product-content-left">
+                            <span class="p-history-product-content-title">
+                                {{ order.title }}
                             </span>
-                            <span
-                                class="p-history-product-content-price-title price-unit"
-                            >
-                                تومان
-                            </span>
+                            <div class="p-history-product-content-price">
+                                <span
+                                    class="p-history-product-content-price-title"
+                                >
+                                    123,000,000
+                                </span>
+                                <span
+                                    class="p-history-product-content-price-title price-unit"
+                                >
+                                    تومان
+                                </span>
+                            </div>
                         </div>
                     </div>
                 </div>
+                <span class="btn-mobile__order-detail">مشاهده جزئیات </span>
             </div>
             <div class="paid-detail">
                 <div class="order-detail order-code">
@@ -71,7 +76,6 @@
                             class="p-history-product-btn-link"
                         >
                             <span class="btn-text-desktop">مشاهده سفارش</span>
-                            <span class="btn-text-mobile">مشاهده </span>
                         </NuxtLink>
                     </button>
                 </div>
@@ -144,7 +148,6 @@ export default {
 .p-history-product-content-price-title {
     font-size: 16px;
     line-height: 140.62%;
-    font-size: 16px;
     color: $gray;
 }
 .price-unit {
@@ -272,9 +275,44 @@ export default {
     line-height: 140.62%;
     font-family: "IRANYekan";
 }
-.btn-text-mobile,
+.btn-mobile__order-detail,
 .p-history-product-line {
     display: none;
+}
+@media (max-width: 1220px) {
+    .paid-detail {
+        width: 320px;
+        margin-left: 10px;
+        padding-top: 13px;
+    }
+    .paid-order {
+        margin: 5px 10px;
+    }
+    .order-situation__title,
+    .order-date__title,
+    .order-code__title,
+    .order-price__title {
+        font-size: 13px;
+    }
+    .order-detail {
+        justify-content: center;
+        margin: 18px 0;
+        padding: 0 20px;
+    }
+    .paid-order-product-img {
+        width: 60px;
+        height: 60px;
+    }
+    .p-history-product-content-title,
+    .p-history-product-content-price-title {
+        font-size: 14px;
+    }
+    .btn-text-desktop {
+        font-size: 15px;
+    }
+    .paid-order-btn {
+        width: 250px;
+    }
 }
 @media (max-width: 960px) {
     .paid-progress {
@@ -286,6 +324,12 @@ export default {
         /* background: $white;
         height: max-content;*/
         border-radius: 0px;
+        /* border: 1px solid blue; */
+    }
+    .mobile-paid-holder {
+        @include display-flex();
+        flex-direction: row;
+        justify-content: space-between;
         /* border: 1px solid blue; */
     }
     .paid-detail {
@@ -306,6 +350,24 @@ export default {
     .order-situation,
     .order-price {
         display: none;
+    }
+    .btn-mobile__order-detail {
+        align-self: flex-end;
+        display: block;
+        font-size: 13px;
+        line-height: 140.62%;
+        color: $gray;
+        margin-bottom: 14px;
+        margin-right: 4px;
+    }
+    .btn-mobile__order-detail::after {
+        content: "\e800";
+        @include font-icon__limoo();
+        line-height: 1em;
+        color: $yellow;
+        vertical-align: middle;
+        font-size: 18px;
+        margin-left: 13px;
     }
     .order-detail {
         justify-content: flex-start;
@@ -352,6 +414,7 @@ export default {
         @include display-flex();
         flex-direction: row;
         flex-wrap: wrap;
+        width: 55%;
         margin: 0;
         height: fit-content;
         /* border: 1px solid red; */
@@ -364,7 +427,7 @@ export default {
     .paid-order-product-img {
         width: 40px;
         height: 40px;
-        margin-left: 4px;
+        margin-left: 5px;
         border: 1px solid #f2f2f2;
         border-radius: 5px;
     }
@@ -374,6 +437,7 @@ export default {
         /* border: 1px solid red; */
         height: fit-content;
         margin: 0;
+        margin-top: 8px;
         align-items: center;
         padding: 0;
     }
@@ -382,6 +446,35 @@ export default {
         background: $gray-border;
 
         height: 1px;
+    }
+}
+@media (max-width: 350px) {
+    .paid-container {
+        width: fit-content;
+        padding-right: 5px;
+    }
+    .paid-order-product-img {
+        margin-left: 1px;
+    }
+    .btn-mobile__order-detail {
+        font-size: 12px;
+        margin-right: 1px;
+    }
+    .btn-mobile__order-detail::after {
+        font-size: 15px;
+        margin-left: 7px;
+    }
+}
+@media (max-width: 280px) {
+    .paid-container {
+        padding-right: 2px;
+    }
+
+    .btn-mobile__order-detail {
+        font-size: 11px;
+    }
+    .btn-mobile__order-detail::after {
+        margin-left: 2px;
     }
 }
 </style>
