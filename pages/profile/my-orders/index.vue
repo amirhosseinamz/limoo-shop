@@ -16,7 +16,7 @@
         <div class="user-profile__holder">
             <div class="user-profile">
                 <span class="user-profile__topic">لیست سفارشات شما</span>
-                <div class="order-nav d-rtl">
+                <div class="order-nav desktop-screen d-rtl">
                     <div
                         @click="goToOrder('paidInProgress')"
                         :class="{ 'item-active': paidInProgress }"
@@ -51,6 +51,12 @@
                     </div>
                 </div>
                 <div class="order-holder">
+                    <div class="mobile-nav__order-inprogress d-rtl">
+                        <span class="mobile-inprogress__count">2</span>
+                        <span class="mobile-inprogress__title"
+                            >در حال پردازش</span
+                        >
+                    </div>
                     <the-user-order
                         :user-order-data="userOrderData"
                     ></the-user-order>
@@ -283,6 +289,9 @@ export default {
     border-radius: 10px;
     /* border: 1px solid blue; */
 }
+.mobile-nav__order-inprogress {
+    display: none;
+}
 @media (max-width: 1450px) {
 }
 @media (max-width: 1220px) {
@@ -322,18 +331,44 @@ export default {
         padding: 0 5px;
     }
     .user-profile {
+        height: 62px;
+        border-bottom-left-radius: 0;
+        border-bottom-right-radius: 0;
         &__topic {
             display: none;
         }
     }
-}
 
-@media (max-width: 600px) {
-    .user-profile {
-        background: none;
-        border: none;
-        box-shadow: none;
+    .mobile-nav__order-inprogress {
+        @include display-flex();
+        flex-direction: row;
+        align-items: center;
+        height: 62px;
+        /* border-bottom: 1px solid $gray-border; */
+        /* border: 1px solid red; */
     }
+    .mobile-inprogress__title {
+        font-size: 16px;
+        line-height: 140.62%;
+        color: $black-topic;
+        margin-right: 8px;
+    }
+    .mobile-inprogress__count {
+        background-color: $notif__bg;
+        margin-right: 11px;
+        padding-top: 4px;
+        font-size: 16px;
+        line-height: 140.62%;
+        color: $yellow;
+        width: 30px;
+        height: 30px;
+        border: 1px solid $notif__bg;
+        box-sizing: border-box;
+        /* box-shadow: 0px 4px 4px rgba(255, 204, 64, 0.49); */
+        border-radius: 50%;
+    }
+}
+@media (max-width: 600px) {
 }
 
 @media (max-width: 350px) {

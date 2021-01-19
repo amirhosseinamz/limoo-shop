@@ -11,7 +11,7 @@
                     :key="order.id"
                     class="paid-order"
                 >
-                    <div class="p-history-product-img-main">
+                    <div>
                         <img
                             :src="order.img"
                             class="paid-order-product-img"
@@ -76,6 +76,9 @@
                     </button>
                 </div>
             </div>
+            <span
+                class="p-history-product-line w-100 p-history-product-desktop"
+            ></span>
         </div>
     </div>
 </template>
@@ -109,6 +112,7 @@ export default {
     background: $white;
     height: max-content;
     border-radius: 10px;
+    /* border: 1px solid red; */
 }
 .paid-order {
     @include display-flex();
@@ -121,6 +125,7 @@ export default {
     @include display-flex();
     flex-direction: column;
     margin: 26px 0;
+    /* border: 1px solid red; */
 }
 .paid-order-product-img {
     width: 90px;
@@ -157,6 +162,7 @@ export default {
     margin-bottom: 24px;
     margin-left: 38px;
     padding-top: 23px;
+    /* border: 1px solid blue; */
 }
 .order-detail {
     @include display-flex();
@@ -266,7 +272,116 @@ export default {
     line-height: 140.62%;
     font-family: "IRANYekan";
 }
-.btn-text-mobile {
+.btn-text-mobile,
+.p-history-product-line {
     display: none;
+}
+@media (max-width: 960px) {
+    .paid-progress {
+        /* @include display-flex(); */
+        flex-direction: column-reverse;
+        /* justify-content: space-between; */
+        margin-top: 0;
+        /* width: 100%; */
+        /* background: $white;
+        height: max-content;*/
+        border-radius: 0px;
+        /* border: 1px solid blue; */
+    }
+    .paid-detail {
+        @include display-flex();
+        flex-direction: column;
+        width: 100%;
+        height: fit-content;
+        background-color: transparent;
+        /* opacity init in color ⇑ */
+        /* border-radius: 10px; */
+        margin-top: 0px;
+        margin-bottom: 0px;
+        margin-left: 0px;
+        padding-top: 11px;
+        /* border: 1px solid blue; */
+    }
+    .p-order-product-btn-main,
+    .order-situation,
+    .order-price {
+        display: none;
+    }
+    .order-detail {
+        justify-content: flex-start;
+        /* border: 1px solid blue; */
+        margin: 5px 0;
+        padding: 0 5px;
+    }
+    .order-code {
+        order: 1;
+        &__value {
+            margin-right: 4px;
+        }
+        &__value,
+        &__title {
+            width: fit-content;
+            /* border: 1px solid red; */
+            justify-self: flex-start;
+            font-size: 13px;
+            color: $black-topic;
+        }
+        &__title::before {
+            content: "";
+        }
+    }
+    .order-date {
+        /* order: 1; */
+        &__title,
+        &__jalali {
+            justify-self: flex-start;
+            /* border: 1px solid red; */
+            width: fit-content;
+            font-size: 13px;
+
+            color: $black-topic;
+        }
+        &__jalali {
+            margin-right: 4px;
+        }
+        &__title::before {
+            content: "";
+        }
+    }
+    .paid-container {
+        @include display-flex();
+        flex-direction: row;
+        flex-wrap: wrap;
+        margin: 0;
+        height: fit-content;
+        /* border: 1px solid red; */
+        padding-right: 11px;
+    }
+    .p-history-product-content-title,
+    .p-history-product-content-price {
+        display: none;
+    }
+    .paid-order-product-img {
+        width: 40px;
+        height: 40px;
+        margin-left: 4px;
+        border: 1px solid #f2f2f2;
+        border-radius: 5px;
+    }
+    .paid-order {
+        @include display-flex();
+        flex-direction: row;
+        /* border: 1px solid red; */
+        height: fit-content;
+        margin: 0;
+        align-items: center;
+        padding: 0;
+    }
+    .p-history-product-line {
+        @include display-flex();
+        background: $gray-border;
+
+        height: 1px;
+    }
 }
 </style>
