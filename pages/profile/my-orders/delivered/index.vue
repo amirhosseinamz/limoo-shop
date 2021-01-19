@@ -51,6 +51,10 @@
                     </div>
                 </div>
                 <div class="order-holder">
+                    <!-- <paid-in-progress
+                        v-show="paidInProgress"
+                        :in-progress-order-data="inProgressOrderData"
+                    ></paid-in-progress> -->
                     <the-user-order
                         :user-order-data="userOrderData"
                     ></the-user-order>
@@ -81,7 +85,7 @@ export default {
                     orderCode: "6861457M",
                     orderPrice: "850,000",
                     orderData: "1399/04/05",
-                    orderSituation: "در حال پردازش",
+                    orderSituation: "تحویل داده شده",
                     orders: [
                         {
                             id: 1,
@@ -114,7 +118,7 @@ export default {
                     orderCode: "6861457L",
                     orderPrice: "450,000",
                     orderData: "1399/04/06",
-                    orderSituation: "در حال پردازش",
+                    orderSituation: "تحویل داده شده",
                     orders: [
                         {
                             id: 3,
@@ -166,8 +170,8 @@ export default {
     mounted() {
         const curentRoute = this.$route.path;
         // const activeTab = this.$route.query.activeTab;
-        if (curentRoute == "/profile/my-orders") {
-            this.paidInProgress = true;
+        if (curentRoute == "/profile/my-orders/delivered") {
+            this.delivered = true;
             // this.delivered = false;
             // this.returned = false;
             // this.canceled = false;

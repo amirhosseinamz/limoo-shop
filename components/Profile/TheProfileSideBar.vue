@@ -287,7 +287,7 @@ export default {
             this.adressActive = true;
         } else if (curentRoute == "/profile/user-history") {
             this.userHistoryIsActive = true;
-        } else if (curentRoute == "/profile/my-orders") {
+        } else if (curentRoute.search("/profile/my-orders") + 1 == 1) {
             this.muOrdersIsActive = true;
         }
 

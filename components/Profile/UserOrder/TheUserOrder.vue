@@ -2,7 +2,7 @@
     <div>
         <div
             class="paid-progress d-rtl"
-            v-for="data in inProgressOrderData"
+            v-for="data in userOrderData"
             :key="data.id"
         >
             <div class="paid-container">
@@ -81,17 +81,17 @@
 </template>
 <script>
 export default {
-    name: "PaidInProgress",
+    name: "TheUserOrder",
     data() {
         return {
             // paidOrderData:0
         };
     },
     props: {
-        inProgressOrderData: { type: [Object, Array], default: {} }
+        userOrderData: { type: [Object, Array], default: {} }
     },
     mounted() {
-        console.log(this.inProgressOrderData);
+        console.log(this.userOrderData);
     }
 };
 </script>
@@ -170,7 +170,7 @@ export default {
     content: "\e812";
     @include font-icon__limoo();
     color: $gray;
-    margin-left: 5px;
+    margin-left: 8px;
     line-height: 1em;
     /* transform: rotate(30deg); for test*/
 }
@@ -204,21 +204,21 @@ export default {
     content: "\e804";
     @include font-icon__limoo();
     color: $gray;
-    margin-left: 5px;
+    margin-left: 8px;
     line-height: 1em;
 }
 .order-date__title::before {
     content: "\e804";
     @include font-icon__limoo();
     color: $gray;
-    margin-left: 5px;
+    margin-left: 8px;
     line-height: 1em;
 }
 .order-situation__title::before {
     content: "\e804";
     @include font-icon__limoo();
     color: $gray;
-    margin-left: 5px;
+    margin-left: 8px;
     line-height: 1em;
 }
 .order-price {

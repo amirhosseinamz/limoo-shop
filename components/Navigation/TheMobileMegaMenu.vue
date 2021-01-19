@@ -124,12 +124,7 @@ export default {
             this.homeIsActive = true;
         } else if (curentRoute == "/cart") {
             this.basketIsActive = true;
-        } else if (
-            curentRoute == "/profile" ||
-            curentRoute == "/profile/personal-info" ||
-            curentRoute == "/profile/user-history" ||
-            curentRoute == "/profile/my-orders"
-        ) {
+        } else if (curentRoute.search("/profile") + 1 == 1) {
             this.profileIsActive = true;
         }
     },
