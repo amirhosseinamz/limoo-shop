@@ -1,70 +1,80 @@
 <template>
-    <div class="paid-progress d-rtl">
-        <div class="paid-container">
-            <div
-                v-for="data in inProgressOrderData"
-                :key="data.id"
-                class="paid-order"
-            >
-                <div class="p-history-product-img-main">
-                    <img
-                        :src="data.img"
-                        class="paid-order-product-img"
-                        alt=""
-                    />
-                </div>
+    <div>
+        <div
+            class="paid-progress d-rtl"
+            v-for="data in inProgressOrderData"
+            :key="data.id"
+        >
+            <div class="paid-container">
+                <div
+                    v-for="order in data.orders"
+                    :key="order.id"
+                    class="paid-order"
+                >
+                    <div class="p-history-product-img-main">
+                        <img
+                            :src="order.img"
+                            class="paid-order-product-img"
+                            alt=""
+                        />
+                    </div>
 
-                <div class="p-history-product-content-left">
-                    <span class="p-history-product-content-title">
-                        {{ data.title }}
-                    </span>
-                    <div class="p-history-product-content-price">
-                        <span class="p-history-product-content-price-title">
-                            123,000,000
+                    <div class="p-history-product-content-left">
+                        <span class="p-history-product-content-title">
+                            {{ order.title }}
                         </span>
-                        <span
-                            class="p-history-product-content-price-title price-unit"
-                        >
-                            تومان
-                        </span>
+                        <div class="p-history-product-content-price">
+                            <span class="p-history-product-content-price-title">
+                                123,000,000
+                            </span>
+                            <span
+                                class="p-history-product-content-price-title price-unit"
+                            >
+                                تومان
+                            </span>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="paid-detail">
-            <div class="order-detail order-code">
-                <span class="order-code__title">کد سفارش:</span>
-                <span class="order-code__value">6861457L</span>
-            </div>
-            <div class=" order-detail order-price">
-                <span class="order-price__title">قیمت:</span>
-                <div class="order-price__value-holder">
-                    <span class="order-price__value"> 850,000</span>
-                    <span class="order-price__toman"> تومان</span>
+            <div class="paid-detail">
+                <div class="order-detail order-code">
+                    <span class="order-code__title">کد سفارش:</span>
+                    <span class="order-code__value">{{ data.orderCode }}</span>
                 </div>
-            </div>
-            <div class="order-detail order-date">
-                <span class="order-date__title">تاریخ ثبت:</span>
-                <span class="order-date__jalali">1399/04/05</span>
-            </div>
-            <div class="order-detail order-situation">
-                <span class="order-situation__title">وضعیت:</span>
-                <span class="order-situation__value">تحویل داده شده</span>
-            </div>
-            <div class="p-order-product-btn-main">
-                <button
-                    type="button"
-                    class="paid-order-btn cursor-pointer"
-                    name="button"
-                >
-                    <NuxtLink
-                        to="/profile/my-orders/detail/"
-                        class="p-history-product-btn-link"
+                <div class=" order-detail order-price">
+                    <span class="order-price__title">قیمت:</span>
+                    <div class="order-price__value-holder">
+                        <span class="order-price__value">
+                            {{ data.orderPrice }}</span
+                        >
+                        <span class="order-price__toman"> تومان</span>
+                    </div>
+                </div>
+                <div class="order-detail order-date">
+                    <span class="order-date__title">تاریخ ثبت:</span>
+                    <span class="order-date__jalali">{{ data.orderData }}</span>
+                </div>
+                <div class="order-detail order-situation">
+                    <span class="order-situation__title">وضعیت:</span>
+                    <span class="order-situation__value">{{
+                        data.orderSituation
+                    }}</span>
+                </div>
+                <div class="p-order-product-btn-main">
+                    <button
+                        type="button"
+                        class="paid-order-btn cursor-pointer"
+                        name="button"
                     >
-                        <span class="btn-text-desktop">مشاهده سفارش</span>
-                        <span class="btn-text-mobile">مشاهده </span>
-                    </NuxtLink>
-                </button>
+                        <NuxtLink
+                            to="/profile/my-orders/detail/"
+                            class="p-history-product-btn-link"
+                        >
+                            <span class="btn-text-desktop">مشاهده سفارش</span>
+                            <span class="btn-text-mobile">مشاهده </span>
+                        </NuxtLink>
+                    </button>
+                </div>
             </div>
         </div>
     </div>
@@ -81,7 +91,7 @@ export default {
         inProgressOrderData: { type: [Object, Array], default: {} }
     },
     mounted() {
-        console.log(this.inProgressOrderData.order);
+        console.log(this.inProgressOrderData);
     }
 };
 </script>
@@ -144,6 +154,7 @@ export default {
     /* opacity init in color ⇑ */
     border-radius: 10px;
     margin-top: 38px;
+    margin-bottom: 24px;
     margin-left: 38px;
     padding-top: 23px;
 }
@@ -155,8 +166,18 @@ export default {
     margin: 18px 0;
     padding: 0 38px;
 }
-/* .order-code__title:before {
-    content: "\e81a";
+.order-code__title::before {
+    content: "\e812";
+    @include font-icon__limoo();
+    color: $gray;
+    margin-left: 5px;
+    line-height: 1em;
+    /* transform: rotate(30deg); for test*/
+}
+/* .order-code__title:hover::before {
+    color: $yellow;
+                                 for test 
+   
 } */
 .order-code {
     &__value,
@@ -178,6 +199,27 @@ export default {
     justify-self: flex-start;
     /* border: 1px solid red; */
     width: 40%;
+}
+.order-price__title::before {
+    content: "\e804";
+    @include font-icon__limoo();
+    color: $gray;
+    margin-left: 5px;
+    line-height: 1em;
+}
+.order-date__title::before {
+    content: "\e804";
+    @include font-icon__limoo();
+    color: $gray;
+    margin-left: 5px;
+    line-height: 1em;
+}
+.order-situation__title::before {
+    content: "\e804";
+    @include font-icon__limoo();
+    color: $gray;
+    margin-left: 5px;
+    line-height: 1em;
 }
 .order-price {
     &__value,

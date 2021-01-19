@@ -101,29 +101,85 @@ export default {
             inProgressOrderData: [
                 {
                     id: 1,
-                    title:
-                        " اپل واچ سری 1 آلومینیوم آبی اپل واچ سری 1 آلومینیوم",
-                    img: "/img/apple-watch-1.png"
+                    orderCode: "6861457M",
+                    orderPrice: "850,000",
+                    orderData: "1399/04/05",
+                    orderSituation: "تحویل داده شده",
+                    orders: [
+                        {
+                            id: 1,
+                            title:
+                                " اپل واچ سری 1 آلومینیوم آبی اپل واچ سری 1 آلومینیوم",
+                            img: "/img/apple-watch-1.png"
+                        },
+                        {
+                            id: 2,
+                            title:
+                                " اپل واچ سری 2 آلومینیوم آبی اپل واچ سری 2 آلومینیوم",
+                            img: "/img/apple-watch-2.png"
+                        },
+                        {
+                            id: 3,
+                            title:
+                                " اپل واچ سری 3 آلومینیوم آبی اپل واچ سری 3 آلومینیوم",
+                            img: "/img/apple-watch-3.png"
+                        },
+                        {
+                            id: 4,
+                            title:
+                                " اپل واچ سری 4 آلومینیوم آبی اپل واچ سری 4 آلومینیوم",
+                            img: "/img/apple-watch-4.png"
+                        }
+                    ]
                 },
                 {
                     id: 2,
-                    title:
-                        " اپل واچ سری 2 آلومینیوم آبی اپل واچ سری 2 آلومینیوم",
-                    img: "/img/apple-watch-2.png"
-                },
-                {
-                    id: 3,
-                    title:
-                        " اپل واچ سری 3 آلومینیوم آبی اپل واچ سری 3 آلومینیوم",
-                    img: "/img/apple-watch-3.png"
-                },
-                {
-                    id: 4,
-                    title:
-                        " اپل واچ سری 4 آلومینیوم آبی اپل واچ سری 4 آلومینیوم",
-                    img: "/img/apple-watch-4.png"
+                    orderCode: "6861457L",
+                    orderPrice: "450,000",
+                    orderData: "1399/04/06",
+                    orderSituation: "تحویل داده شده",
+                    orders: [
+                        {
+                            id: 3,
+                            title:
+                                " اپل واچ سری 3 آلومینیوم آبی اپل واچ سری 3 آلومینیوم",
+                            img: "/img/apple-watch-3.png"
+                        },
+                        {
+                            id: 4,
+                            title:
+                                " اپل واچ سری 4 آلومینیوم آبی اپل واچ سری 4 آلومینیوم",
+                            img: "/img/apple-watch-4.png"
+                        }
+                    ]
                 }
             ],
+            // inProgressOrderData: [
+            //     {
+            //         id: 1,
+            //         title:
+            //             " اپل واچ سری 1 آلومینیوم آبی اپل واچ سری 1 آلومینیوم",
+            //         img: "/img/apple-watch-1.png"
+            //     },
+            //     {
+            //         id: 2,
+            //         title:
+            //             " اپل واچ سری 2 آلومینیوم آبی اپل واچ سری 2 آلومینیوم",
+            //         img: "/img/apple-watch-2.png"
+            //     },
+            //     {
+            //         id: 3,
+            //         title:
+            //             " اپل واچ سری 3 آلومینیوم آبی اپل واچ سری 3 آلومینیوم",
+            //         img: "/img/apple-watch-3.png"
+            //     },
+            //     {
+            //         id: 4,
+            //         title:
+            //             " اپل واچ سری 4 آلومینیوم آبی اپل واچ سری 4 آلومینیوم",
+            //         img: "/img/apple-watch-4.png"
+            //     }
+            // ],
             currentOrder: {}
         };
     },
@@ -258,7 +314,7 @@ export default {
     height: max-content;
     padding-bottom: 70px;
     border-radius: 10px;
-    border: 1px solid blue;
+    /* border: 1px solid blue; */
 }
 @media (max-width: 1450px) {
 }
