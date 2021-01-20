@@ -66,7 +66,7 @@
                         @click="goToOrder('delivered')"
                         class="mobile-nav__order-delivered d-rtl"
                     >
-                        <span class="mobile-delivered__count">1</span>
+                        <span class="mobile-delivered__count">999</span>
                         <span class="mobile-delivered__title"
                             >تحویل داده شده</span
                         >
@@ -79,7 +79,7 @@
                         @click="goToOrder('returned')"
                         class="mobile-nav__order-returned d-rtl"
                     >
-                        <span class="mobile-returned__count">2</span>
+                        <span class="mobile-returned__count">1</span>
                         <span class="mobile-returned__title">مرجوع شده</span>
                         <span class="mobile-returned__arrow"></span>
                     </div>
