@@ -32,7 +32,10 @@ $overlay: #f8f8f8;
 $overlay__profile: rgba(196, 196, 196, 0.5);
 $overlay__profile-mobile: rgba(196, 196, 196, 0.7);
 $order__detail-bg: rgba(242, 242, 242, 0.7);
-$notif__bg: rgba(255, 211, 90, 0.23);
+$notif-inprogress__bg: rgba(255, 211, 90, 0.23);
+$notif-delivered__bg: rgba(71, 167, 255, 0.23);
+$notif-returned__bg: rgba(237, 11, 38, 0.23);
+$notif-canceled__bg: #e0e0e0;
 // $colors: (
 //     main: #c9df3c,
 //     secondary: #794469

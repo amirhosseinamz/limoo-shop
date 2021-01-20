@@ -16,7 +16,7 @@
         <div class="user-profile__holder">
             <div class="user-profile">
                 <span class="user-profile__topic">لیست سفارشات شما</span>
-                <div class="order-nav d-rtl">
+                <div class="order-nav desktop-screen d-rtl">
                     <div
                         @click="goToOrder('paidInProgress')"
                         :class="{ 'item-active': paidInProgress }"
@@ -51,13 +51,46 @@
                     </div>
                 </div>
                 <div class="order-holder">
-                    <!-- <paid-in-progress
-                        v-show="paidInProgress"
-                        :in-progress-order-data="inProgressOrderData"
-                    ></paid-in-progress>
-                    <delivered v-show="delivered"></delivered>
-                    <returned v-show="returned"></returned> -->
-                    <the-user-order></the-user-order>
+                    <div
+                        @click="goToOrder('paidInProgress')"
+                        class="mobile-nav__order-inprogress d-rtl"
+                    >
+                        <span class="mobile-inprogress__count">2</span>
+                        <span class="mobile-inprogress__title"
+                            >در حال پردازش</span
+                        >
+                        <span class="mobile-inprogress__arrow"></span>
+                    </div>
+
+                    <div
+                        @click="goToOrder('delivered')"
+                        class="mobile-nav__order-delivered d-rtl"
+                    >
+                        <span class="mobile-delivered__count">1</span>
+                        <span class="mobile-delivered__title"
+                            >تحویل داده شده</span
+                        >
+                        <span class="mobile-delivered__arrow"></span>
+                    </div>
+                    <div
+                        @click="goToOrder('returned')"
+                        class="mobile-nav__order-returned d-rtl"
+                    >
+                        <span class="mobile-returned__count">2</span>
+                        <span class="mobile-returned__title">مرجوع شده</span>
+                        <span class="mobile-returned__arrow"></span>
+                    </div>
+                    <div
+                        @click="goToOrder('canceled')"
+                        class="mobile-nav__order-canceled d-rtl"
+                    >
+                        <span class="mobile-canceled__count">2</span>
+                        <span class="mobile-canceled__title">لغو شده</span>
+                        <span class="mobile-canceled__arrow"></span>
+                    </div>
+                    <the-user-order
+                        :user-order-data="userOrderData"
+                    ></the-user-order>
                 </div>
             </div>
         </div>
@@ -287,6 +320,12 @@ export default {
     border-radius: 10px;
     /* border: 1px solid blue; */
 }
+.mobile-nav__order-inprogress,
+.mobile-nav__order-delivered,
+.mobile-nav__order-returned,
+.mobile-nav__order-canceled {
+    display: none;
+}
 @media (max-width: 1450px) {
 }
 @media (max-width: 1220px) {
@@ -326,18 +365,103 @@ export default {
         padding: 0 5px;
     }
     .user-profile {
+        height: 62px;
         &__topic {
             display: none;
         }
     }
-}
 
-@media (max-width: 600px) {
-    .user-profile {
-        background: none;
-        border: none;
-        box-shadow: none;
+    .mobile-nav__order-inprogress,
+    .mobile-nav__order-delivered,
+    .mobile-nav__order-returned,
+    .mobile-nav__order-canceled {
+        @include display-flex();
+        flex-direction: row;
+        align-items: center;
+        height: 62px;
+        /* border-bottom: 1px solid $gray-border; */
+        /* border: 1px solid red; */
     }
+    .mobile-nav__order-delivered,
+    .mobile-nav__order-returned,
+    .mobile-nav__order-canceled {
+        background: $white;
+        margin-top: 8px;
+        box-shadow: 0px 8px 16px $box__shadow;
+        border-radius: 10px;
+    }
+
+    .mobile-nav__order-canceled {
+        border-bottom-left-radius: 0;
+        border-bottom-right-radius: 0;
+    }
+    .mobile-inprogress__title,
+    .mobile-delivered__title,
+    .mobile-returned__title,
+    .mobile-canceled__title {
+        font-size: 16px;
+        line-height: 140.62%;
+        color: $black-topic;
+        margin-right: 8px;
+    }
+    .mobile-inprogress__arrow,
+    .mobile-delivered__arrow,
+    .mobile-returned__arrow,
+    .mobile-canceled__arrow {
+        @include display-flex();
+        /* border: 1px solid red; */
+        margin-right: auto;
+    }
+    .mobile-inprogress__arrow::after,
+    .mobile-delivered__arrow::after,
+    .mobile-returned__arrow::after,
+    .mobile-canceled__arrow::after {
+        content: "\e801";
+        @include font-icon__limoo();
+        font-size: 12px;
+        color: $input-border;
+        margin-left: 11px;
+        transform: rotate(90deg);
+    }
+    .mobile-delivered__arrow::after,
+    .mobile-returned__arrow::after,
+    .mobile-inprogress__arrow::after {
+        transform: rotate(-90deg);
+    }
+    .mobile-inprogress__count,
+    .mobile-delivered__count,
+    .mobile-returned__count,
+    .mobile-canceled__count {
+        background-color: $notif-inprogress__bg;
+        margin-right: 11px;
+        padding-top: 4px;
+        font-size: 16px;
+        line-height: 140.62%;
+        color: $yellow;
+        width: 30px;
+        height: 30px;
+        border: 1px solid transparent;
+        box-sizing: border-box;
+        /* box-shadow: 0px 4px 4px rgba(255, 204, 64, 0.49); */
+        border-radius: 50%;
+    }
+    .mobile-delivered__count {
+        background-color: $notif-delivered__bg;
+        color: $code-request;
+        border: 1px solid transparent;
+    }
+    .mobile-returned__count {
+        background-color: $notif-returned__bg;
+        color: $red-logout;
+        border: 1px solid transparent;
+    }
+    .mobile-canceled__count {
+        background-color: $notif-canceled__bg;
+        color: $gray;
+        border: 1px solid transparent;
+    }
+}
+@media (max-width: 600px) {
 }
 
 @media (max-width: 350px) {

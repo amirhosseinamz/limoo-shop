@@ -51,15 +51,45 @@
                     </div>
                 </div>
                 <div class="order-holder">
-                    <div class="mobile-nav__order-inprogress d-rtl">
+                    <div
+                        @click="goToOrder('paidInProgress')"
+                        class="mobile-nav__order-inprogress d-rtl"
+                    >
                         <span class="mobile-inprogress__count">2</span>
                         <span class="mobile-inprogress__title"
                             >در حال پردازش</span
                         >
+                        <span class="mobile-inprogress__arrow"></span>
                     </div>
                     <the-user-order
                         :user-order-data="userOrderData"
                     ></the-user-order>
+                    <div
+                        @click="goToOrder('delivered')"
+                        class="mobile-nav__order-delivered d-rtl"
+                    >
+                        <span class="mobile-delivered__count">1</span>
+                        <span class="mobile-delivered__title"
+                            >تحویل داده شده</span
+                        >
+                        <span class="mobile-delivered__arrow"></span>
+                    </div>
+                    <div
+                        @click="goToOrder('returned')"
+                        class="mobile-nav__order-returned d-rtl"
+                    >
+                        <span class="mobile-returned__count">2</span>
+                        <span class="mobile-returned__title">مرجوع شده</span>
+                        <span class="mobile-returned__arrow"></span>
+                    </div>
+                    <div
+                        @click="goToOrder('canceled')"
+                        class="mobile-nav__order-canceled d-rtl"
+                    >
+                        <span class="mobile-canceled__count">2</span>
+                        <span class="mobile-canceled__title">لغو شده</span>
+                        <span class="mobile-canceled__arrow"></span>
+                    </div>
                 </div>
             </div>
         </div>
@@ -289,7 +319,10 @@ export default {
     border-radius: 10px;
     /* border: 1px solid blue; */
 }
-.mobile-nav__order-inprogress {
+.mobile-nav__order-inprogress,
+.mobile-nav__order-delivered,
+.mobile-nav__order-returned,
+.mobile-nav__order-canceled {
     display: none;
 }
 @media (max-width: 1450px) {
@@ -339,7 +372,10 @@ export default {
         }
     }
 
-    .mobile-nav__order-inprogress {
+    .mobile-nav__order-inprogress,
+    .mobile-nav__order-delivered,
+    .mobile-nav__order-returned,
+    .mobile-nav__order-canceled {
         @include display-flex();
         flex-direction: row;
         align-items: center;
@@ -347,14 +383,52 @@ export default {
         /* border-bottom: 1px solid $gray-border; */
         /* border: 1px solid red; */
     }
-    .mobile-inprogress__title {
+    .mobile-nav__order-delivered,
+    .mobile-nav__order-returned,
+    .mobile-nav__order-canceled {
+        background: $white;
+        margin-top: 8px;
+        box-shadow: 0px 8px 16px $box__shadow;
+        border-radius: 10px;
+    }
+    .mobile-inprogress__title,
+    .mobile-delivered__title,
+    .mobile-returned__title,
+    .mobile-canceled__title {
         font-size: 16px;
         line-height: 140.62%;
         color: $black-topic;
         margin-right: 8px;
     }
-    .mobile-inprogress__count {
-        background-color: $notif__bg;
+    .mobile-inprogress__arrow,
+    .mobile-delivered__arrow,
+    .mobile-returned__arrow,
+    .mobile-canceled__arrow {
+        @include display-flex();
+        /* border: 1px solid red; */
+        margin-right: auto;
+    }
+    .mobile-inprogress__arrow::after,
+    .mobile-delivered__arrow::after,
+    .mobile-returned__arrow::after,
+    .mobile-canceled__arrow::after {
+        content: "\e801";
+        @include font-icon__limoo();
+        font-size: 12px;
+        color: $input-border;
+        margin-left: 11px;
+        transform: rotate(90deg);
+    }
+    .mobile-delivered__arrow::after,
+    .mobile-returned__arrow::after,
+    .mobile-canceled__arrow::after {
+        transform: rotate(-90deg);
+    }
+    .mobile-inprogress__count,
+    .mobile-delivered__count,
+    .mobile-returned__count,
+    .mobile-canceled__count {
+        background-color: $notif-inprogress__bg;
         margin-right: 11px;
         padding-top: 4px;
         font-size: 16px;
@@ -362,10 +436,25 @@ export default {
         color: $yellow;
         width: 30px;
         height: 30px;
-        border: 1px solid $notif__bg;
+        border: 1px solid transparent;
         box-sizing: border-box;
         /* box-shadow: 0px 4px 4px rgba(255, 204, 64, 0.49); */
         border-radius: 50%;
+    }
+    .mobile-delivered__count {
+        background-color: $notif-delivered__bg;
+        color: $code-request;
+        border: 1px solid transparent;
+    }
+    .mobile-returned__count {
+        background-color: $notif-returned__bg;
+        color: $red-logout;
+        border: 1px solid transparent;
+    }
+    .mobile-canceled__count {
+        background-color: $notif-canceled__bg;
+        color: $gray;
+        border: 1px solid transparent;
     }
 }
 @media (max-width: 600px) {
