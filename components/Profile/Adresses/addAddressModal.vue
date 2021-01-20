@@ -6,17 +6,29 @@
     >
       <div class="w-100 p-modal-header">
           <div class="w-100 p-modal-header-mobile">
-              <img
-              @click="closeModalDesktop"
-              class="modal__close-cross"
-              src="/icons/close.svg"
-              />
-              <img
-              @click="closeModalMobile"
-              class="modal__close-line"
-              src="/icons/line.svg"
-              />
-              <span class="modal__title">افزودن آدرس جدید</span>
+
+              <div class="w-100 d-flex justify-content-center p-modal-header-icon">
+                  <img
+                  @click="closeModalDesktop"
+                  class="modal__close-cross"
+                  src="/icons/close.svg"
+                  />
+                  <img
+                  @click="closeModalMobile"
+                  class="modal__close-line"
+                  src="/icons/line.svg"
+                  />
+              </div>
+
+              <div class="p-modal-header-top align-items-center">
+                <img
+                @click="closeModalMobile"
+                class="p-modal-header-icon-location"
+                src="/icons/location_adress.svg"
+                />
+                <span class="p-modal-header-top-title">افزودن آدرس جدید</span>
+              </div>
+
               <hr class="splicer-line" />
           </div>
 
@@ -49,7 +61,7 @@
                 <div class="w-100 p-modal-address">
                   <h3 class="p-modal-wrapper-province_city-title">نشانی پستی دقیق :</h3>
                   <input @keyup="updateAddress" v-model="formData.address" type="text" class="p-modal-address-input p-input-style__default ">
-                  <!-- <span v-if="formData.validationForm.address.status" class="pass__alert">لطفا شهر خود را انتخاب کنید</span> -->
+                  <span v-if="showErrorValidationAddress" class="pass__alert">نمی تواند خالی باشد</span>
                 </div>
 
                 <div class="w-100 p-modal-content-items flex-wrap">
@@ -63,7 +75,7 @@
                                 className="p-modal-select-box-province_city"
                                 @last-update="selectedProvince"
                              ></customeDropDown>
-                             <!-- <span v-if="formData.validationForm.province.status" class="pass__alert">لطفا شهر خود را انتخاب کنید</span> -->
+                             <span v-if="showErrorValidationProvince" class="pass__alert">استان خود را انتخاب کنید</span>
                       </div>
                       <div class="p-modal-wrapper-item">
                         <h3 class="p-modal-wrapper-province_city-title">انتخاب شهر :</h3>
@@ -74,23 +86,24 @@
                                 className="p-modal-select-box-province_city"
                                 @last-update="selectedCity"
                             ></customeDropDown>
-                            <!-- <span v-if="formData.validationForm.city.status" class="pass__alert">استان خود را انتخاب کنید</span> -->
+                            <span v-if="showErrorValidationCity" class="pass__alert">لطفا شهر خود را انتخاب کنید</span>
                       </div>
                       <div class="p-modal-wrapper-item p-margin-left-0">
-                        <h3 class="p-modal-wrapper-province_city-title">کد پستی (اختیاری) :</h3>
+                        <h3 class="p-modal-wrapper-province_city-title p-modal-header-mobile">کد پستی :</h3>
+                        <h3 class="p-modal-wrapper-province_city-title p-modal-header-desktop">کد پستی (اختیاری) :</h3>
                         <input @keyup="updateCodePoste" v-model="formData.codePoste" type="number" class="p-modal-item-input p-input-style__default">
-                        <!-- <span v-if="formData.validationForm.codePoste.status" class="pass__alert">صحیح نمی باشد</span> -->
+                        <span v-if="showErrorValidationCodePoste" class="pass__alert">صحیح نمی باشد</span>
                       </div>
                       <div class="p-modal-wrapper-item ">
                         <h3 class="p-modal-wrapper-province_city-title">نام گیرنده:</h3>
                         <input @keyup="updateNameReceiver"  v-model="formData.nameReceiver" type="text" class="p-modal-item-input p-input-style__default">
-                        <!-- <span v-if="formData.validationForm.nameReceiver.status" class="pass__alert">نمی تواند خالی باشد</span> -->
+                        <span v-if="showErrorValidationNameReceiver" class="pass__alert">نمی تواند خالی باشد</span>
                       </div>
 
                       <div class="p-modal-wrapper-item">
                         <h3 class="p-modal-wrapper-province_city-title">شماره گیرنده :</h3>
                         <input @keyup="UpdateNumberReceiver" v-model="formData.numberReceiver" type="text" class="p-modal-item-input  p-input-style__default">
-                        <!-- <span v-if="formData.validationForm.numberReceiver.status" class="pass__alert">نمی تواند خالی باشد</span> -->
+                        <span v-if="showErrorValidationNumberReceiver" class="pass__alert">نمی تواند خالی باشد</span>
                       </div>
                   </div>
 
@@ -136,6 +149,12 @@ export default {
             },
             initialValueProvince                    : '',
             initialValueCity                        : '',
+            showErrorValidationAddress              : false,
+            showErrorValidationNumberReceiver       : false,
+            showErrorValidationNameReceiver         : false,
+            showErrorValidationCodePoste            : false,
+            showErrorValidationCity                 : false,
+            showErrorValidationProvince             : false,
 
         };
     },
@@ -156,7 +175,10 @@ export default {
         this.initialValueCity      = this.formData.city;
       }
       else {
-        const formData = this.formDataOriginal;
+        const formDataOriginal = this.formDataOriginal;
+        for (let key in formDataOriginal) {
+          this.formData[key]  = formDataOriginal[key];
+        }
       }
     },
 
@@ -165,18 +187,43 @@ export default {
 
     methods: {
       updateCodePoste(e){
+        const value = e.target.value;
+        if (value.length != 10) {
+          this.showErrorValidationCodePoste= true;
+        }
+        else {
+          this.showErrorValidationCodePoste = false;
+        }
       },
 
       updateNameReceiver(e){
-
+        const value = e.target.value;
+        if (value == '') {
+          this.showErrorValidationNameReceiver= true;
+        }
+        else {
+          this.showErrorValidationNameReceiver = false;
+        }
       },
 
       UpdateNumberReceiver(e){
-
+        const value = e.target.value;
+        if (value == '') {
+          this.showErrorValidationNumberReceiver = true;
+        }
+        else {
+          this.showErrorValidationNumberReceiver = false;
+        }
       },
 
       updateAddress(e){
-
+        const value = e.target.value;
+        if (value == '') {
+          this.showErrorValidationAddress = true;
+        }
+        else {
+          this.showErrorValidationAddress = false;
+        }
       },
 
       closeModalMobile() {
@@ -193,20 +240,82 @@ export default {
       checkValidFormData(){
       },
 
+      checkShowErrorCityProvince(){
+        if (this.formData.province == '') {
+          this.showErrorValidationProvince      = true;
+        }
+        else {
+          this.showErrorValidationProvince      = false;
+        }
+
+        if (this.formData.city == '') {
+          this.showErrorValidationCity          = true;
+        }
+        else {
+          this.showErrorValidationCity          = false;
+        }
+      },
+
+      checkErrorForm(){
+        let checkVerifiSubmitForm = true;
+
+        if (this.formData.codePoste.length != 10) {
+          this.showErrorValidationCodePoste = true;
+        }
+
+        if (this.formData.address == '') {
+          this.showErrorValidationAddress  = true;
+        }
+
+        if (this.formData.nameReceiver == '') {
+          this.showErrorValidationNameReceiver  = true;
+        }
+
+        if (this.formData.numberReceiver == '') {
+          this.showErrorValidationNumberReceiver  = true;
+        }
+
+        this.checkShowErrorCityProvince();
+
+
+
+        // در صورت داشتن ارور اجرا می شود //
+        if (
+          this.showErrorValidationAddress ||
+          this.showErrorValidationNumberReceiver ||
+          this.showErrorValidationNameReceiver ||
+          this.showErrorValidationCodePoste    ||
+          this.showErrorValidationCity         ||
+          this.showErrorValidationProvince
+        )
+        {
+          checkVerifiSubmitForm = false;
+        }
+
+        return checkVerifiSubmitForm;
+      },
 
       submitAddressAdd() {
-        this.$emit('submit-address-add',this.formData)
+        const checkVerifiSubmitForm = this.checkErrorForm()
+
+        // در صورتی که اروی برای نمایش نباشد ارسال می شود //
+        if (checkVerifiSubmitForm) {
+          this.$emit('submit-address-add',this.formData)
+        }
+
       },
 
       selectedProvince(value,allData){
-        this.formData.province     = value;
-        // this.initialValueProvince  = value;
+        this.formData.province                     = value;
+        this.formData.selectedProvinceAllProperty  = allData;
+        this.showErrorValidationProvince           = false;
         this.$emit('selected-province',allData)
       },
 
       selectedCity(value,allData){
-        this.formData.city         = value;
-        // this.initialValueCity      = value;
+        this.formData.city                     = value;
+        this.formData.selectedCityAllProperty  = allData;
+        this.showErrorValidationCity           = false;
         this.$emit('selected-city',allData)
       },
 
@@ -218,6 +327,9 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
+.p-modal-header-icon{
+  @include display-flex();
+}
 .modal {
     @include display-flex();
     flex-direction: column;
@@ -342,6 +454,7 @@ export default {
   width: 175px;
   margin-left: 37px;
   margin-bottom: 38px;
+  height: 100px;
 }
 .p-modal-wrapper-item:last-of-type{
   margin-left: 0;
@@ -353,6 +466,7 @@ export default {
   margin-bottom: 16px;
   color: $black;
   text-align: right;
+  padding-right: 7px;
 }
 .p-margin-left-0{
   margin-left: 0;
@@ -366,6 +480,7 @@ export default {
 .p-modal-header-top{
   flex-grow: 1;
   @include display-flex();
+  padding-top: 32px;
 }
 .p-modal-header-icon-location{
   width: 24px;
@@ -411,7 +526,9 @@ export default {
 .p-modal-btns{
   padding-top: 41px;
 }
-
+.p-modal-address{
+  height: 109px;
+}
 
 
 
@@ -454,7 +571,7 @@ export default {
         align-self: flex-end;
         position: absolute;
         width: 100%;
-        height: 570px;
+        height: 723px;
         background: $white;
         box-shadow: 0px 20px 24px $overlay__profile-mobile;
         border-top-left-radius: 30px;
@@ -475,7 +592,7 @@ export default {
             line-height: 140.62%;
             color: $gray;
             margin-top: 24px;
-            text-align: center;
+            text-align: right;
         }
         /* form {
             margin-top: 5px;
@@ -507,6 +624,7 @@ export default {
         }
         .pass__alert {
             font-size: 13px;
+            padding-right: 7px;
         }
     }
     .clear-input > img {
@@ -521,7 +639,73 @@ export default {
         border-top: 1px solid $gray-border;
         margin-bottom: 35px;
     }
+    .p-modal-header-mobile{
+      display: flex;
+      flex-flow: column;
+    }
+    .p-modal-header-desktop{
+      display: none;
+    }
+    .p-modal-wrapper-province_city-title{
+      font-size: 14px;
+    }
+    .p-modal-wrapper-item{
+      width: 43%;
+      margin-left: 13%;
+      margin-bottom: 24px;
+    }
+    .p-modal-wrapper-item:nth-child(2n){
+      margin-left: 0;
+    }
+    .p-modal-wrapper-item:nth-child(3n){
+      margin-left: 13%;
+    }
+    .p-input-style__default{
+      width: 100%;
+    }
+    .p-modal_wrapper{
+      padding-right: 32px;
+      padding-left: 32px;
+      padding-top: 24px;
+    }
+    .splicer-line{
+      margin-bottom: 0;
+      margin-top: 20px;
+    }
+    .p-modal-header-icon-location{
+      width: 19px;
+    }
+    .p-modal-header-top-title{
+      font-size: 14px;
+      color: $gray;
+    }
+    .p-modal-header-top{
+      padding-top: 32px;
+    }
+    .p-modal-content-items{
+      height: 354px;
+    }
+    .p-modal-btns{
+      padding-top: 33px;
+    }
 }
+
+@media screen and (max-width: 485px) {
+  .p-product-btn{
+    width: 47%;
+    margin-left: 1%;
+  }
+  .p-favorite-product-btn-modal-cancel{
+    margin-left: 0;
+  }
+  .p-modal-btns{
+    padding-top: 22px;
+  }
+  // .modal{
+  //   height: auto;
+  // }
+}
+
 @media screen and (max-width: 320px) {
     .modal-animation__open {
         animation: modalOpen 600ms linear;
@@ -581,6 +765,9 @@ export default {
     }
     .splicer-line {
         margin-bottom: 17px;
+    }
+    .modal .pass__alert{
+      font-size: 11px;
     }
 }
 </style>

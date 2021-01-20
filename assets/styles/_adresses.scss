@@ -11,3 +11,24 @@
 .p-modal-wrapper-item{
   width: 40%;
 }
+.p-modal-select-box-province_city .p-birthday-select-box{
+  width: 100%;
+}
+.p-modal-select-box-province_city .p-birthday-select-box-search{
+  width: 100%;
+}
+.p-modal-select-box-province_city .day-item{
+  margin-right: 0;
+}
+
+@media screen and (max-width: 485px) {
+  .p-modal-select-box-province_city .day-item{
+    margin-right: -13px;
+  }
+}
+
+@media screen and (max-width: 330px) {
+  .p-modal-select-box-province_city .day-item{
+    margin-right: -25px;
+  }
+}

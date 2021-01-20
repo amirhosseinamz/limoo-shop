@@ -44,6 +44,6 @@ export default {
         extend(config, ctx) {}
     },
     server: {
-        // host: "0.0.0.0"
+        host: "0.0.0.0"
     }
 };

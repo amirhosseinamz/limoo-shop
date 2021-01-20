@@ -121,12 +121,12 @@ export default {
             },
           ],
           formData                                :  {
-            // province       : {},
-            // city           : {},
-            // codePoste      : '',
-            // nameReceiver   : '',
-            // numberReceiver : '',
-            // address        : '',
+            province       : '',
+            city           : '',
+            codePoste      : '',
+            nameReceiver   : '',
+            numberReceiver : '',
+            address        : '',
           },
           updateAddress : 0,
 

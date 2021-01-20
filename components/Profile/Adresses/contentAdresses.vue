@@ -69,9 +69,9 @@
                                                   <div class="p-favorite-product-btn-main">
                                                       <button type="button" class="p-product-btn cursor-pointer p-adresses-content-btn-edit" name="button">
                                                           <span @click="editAddress(data)"  class="p-favorite-product-btn-link p-adresses-content-item-desktop">ویرایش</span>
-                                                          <NuxtLink :to="'/product/' + data.id" class="p-favorite-product-btn-link p-adresses-content-item-mobile ">
+                                                          <span @click="editAddress(data)"  class="p-favorite-product-btn-link p-adresses-content-item-mobile ">
                                                             <img class="p-adresses-content-edit-icon" src="/icons/icon-edit.svg" alt="">
-                                                          </NuxtLink>
+                                                          </span>
                                                       </button>
                                                       <button @click="showModalDeleteProduct(data)" class="p-favorite-product-btn-delete cursor-pointer  p-adresses-content-btn-delete" name="button">
                                                             <img class="p-favorite-product-item-icon-delete" src="/icons/delete.svg" alt="">
@@ -160,6 +160,7 @@ export default {
           stateEditAdd = 'edit';
         }
 
+        this.passChangeIsActive = false;
         this.$emit('submit-address-add',data,stateEditAdd)
       },
 
@@ -196,6 +197,23 @@ export default {
     top: 0;
     right: 0;
 }
+// #overlay {
+//     position: absolute; /* Sit on top of the page content */
+//     @include display-flex();
+//     justify-content: center;
+//     align-items: center;
+//     width: 100%; /* Full width (cover the whole page) */
+//     height: 100%; /* Full height (cover the whole page) */
+//     /* transition: opacity 200ms ease-out; */
+//     /* top: 0;
+//     left: 0;
+//     right: 0;
+//     bottom: 0; */
+//     z-index: 1;
+//     background: $overlay__profile;
+//     top: 120px;
+//     right: 0;
+// }
   .p-adresses-content-main{
     padding-right: 21px;
     padding-left: 21px;
