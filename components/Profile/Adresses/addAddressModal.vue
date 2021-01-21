@@ -76,7 +76,8 @@
                                 className="p-modal-select-box-province_city"
                                 @last-update="selectedProvince"
                              ></customeDropDown>
-                             <span v-if="showErrorValidationProvince" class="pass__alert">استان خود را انتخاب کنید</span>
+                             <span class="pass__alert p-modal-validation-desktop">استان خود را انتخاب کنید</span>
+                             <span class="pass__alert  p-modal-validation-mobile">خالی است</span>
                       </div>
                       <div :class="{'p-modal-show_error':showErrorValidationCity}" class="p-modal-wrapper-item">
                         <h3 class="p-modal-wrapper-province_city-title">انتخاب شهر :</h3>
@@ -87,24 +88,28 @@
                                 className="p-modal-select-box-province_city"
                                 @last-update="selectedCity"
                             ></customeDropDown>
-                            <span class="pass__alert">لطفا شهر خود را انتخاب کنید</span>
+                            <span class="pass__alert p-modal-validation-desktop">لطفا شهر خود را انتخاب کنید</span>
+                            <span class="pass__alert p-modal-validation-mobile">خالی است</span>
                       </div>
                       <div :class="{'p-modal-show_error':showErrorValidationCodePoste}" class="p-modal-wrapper-item p-margin-left-0">
                         <h3 class="p-modal-wrapper-province_city-title p-modal-header-mobile">کد پستی :</h3>
                         <h3 class="p-modal-wrapper-province_city-title p-modal-header-desktop">کد پستی (اختیاری) :</h3>
                         <input @keyup="updateCodePoste" v-model="formData.codePoste" type="number" class="p-modal-item-input p-input-style__default">
-                        <span  class="pass__alert">صحیح نمی باشد</span>
+                        <span  class="pass__alert p-modal-validation-desktop">صحیح نمی باشد</span>
+                        <span  class="pass__alert p-modal-validation-mobile">خالی است</span>
                       </div>
                       <div :class="{'p-modal-show_error':showErrorValidationNameReceiver}"  class="p-modal-wrapper-item ">
                         <h3 class="p-modal-wrapper-province_city-title">نام گیرنده:</h3>
                         <input @keyup="updateNameReceiver"  v-model="formData.nameReceiver" type="text" class="p-modal-item-input p-input-style__default">
-                        <span class="pass__alert">نمی تواند خالی باشد</span>
+                        <span class="pass__alert p-modal-validation-desktop">نمی تواند خالی باشد</span>
+                        <span class="pass__alert  p-modal-validation-mobile">خالی است</span>
                       </div>
 
                       <div :class="{'p-modal-show_error':showErrorValidationNumberReceiver}" class="p-modal-wrapper-item">
                         <h3 class="p-modal-wrapper-province_city-title">شماره گیرنده :</h3>
                         <input @keyup="UpdateNumberReceiver" v-model="formData.numberReceiver" type="text" class="p-modal-item-input  p-input-style__default">
-                        <span class="pass__alert">نمی تواند خالی باشد</span>
+                        <span class="pass__alert p-modal-validation-desktop">نمی تواند خالی باشد</span>
+                        <span class="pass__alert  p-modal-validation-mobile">خالی است</span>
                       </div>
                   </div>
 
@@ -135,6 +140,8 @@ export default {
     allCitys            : { type: [Object,Array], default: [] },
     formDataOriginal    : { type: [Object,Array], default: {} },
     dataEditAddress     : { type: Object, default: {} },
+    profilePhoneNumber  : { type: [Number,String], default: '' },
+
   },
   components: {
     customeDropDown,
@@ -170,10 +177,11 @@ export default {
       // پس از کلیک روی ویرایش آدرس کاندیشن زیر اجرا می شود //
       if (typeof(this.dataEditAddress.id) != 'undefined') {
         for (let key in this.dataEditAddress) {
-          this.formData[key]       = this.dataEditAddress[key];
+          this.formData[key]         = this.dataEditAddress[key];
         }
-        this.initialValueProvince  = this.formData.province;
-        this.initialValueCity      = this.formData.city;
+
+        this.initialValueProvince    = this.formData.province;
+        this.initialValueCity        = this.formData.city;
       }
       else {
         const formDataOriginal = this.formDataOriginal;
@@ -181,6 +189,9 @@ export default {
           this.formData[key]  = formDataOriginal[key];
         }
       }
+
+      // پس از اتصال به بک اند بعد از گرفتن پروفایل قسمت مورد آپدیت شود //
+      this.formData.numberReceiver = this.profilePhoneNumber;
     },
 
     mounted() {
@@ -545,9 +556,12 @@ export default {
 .p-favorite-product-btn-modal-cancel{
   font-size: 16px;
 }
-.p-input-style__default{
-
+.p-modal-validation-mobile{
+  display: none !important;
 }
+
+
+
 
 @media (max-width: 960px) {
     .modal-animation__open {
@@ -746,6 +760,12 @@ export default {
   }
   .modal__close-line{
     margin-top: 21px;
+  }
+  .p-modal-validation-mobile{
+    display: flex !important;
+  }
+  .p-modal-validation-desktop{
+    display: none !important;
   }
 
 }

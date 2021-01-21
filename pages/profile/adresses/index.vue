@@ -24,7 +24,8 @@
                           :all-province="allProvince"
                           :all-citys="allCitys"
                           :form-data="formData"
-
+                          :profile-phone-number="profilePhoneNumber"
+                          
                           @show-modal-delete-product="showModalDeleteProduct"
                           @selected-province="selectedProvince"
                           @selected-city="selectedCity"
@@ -128,7 +129,8 @@ export default {
             numberReceiver : '',
             address        : '',
           },
-          updateAddress : 0,
+          updateAddress      : 0,
+          profilePhoneNumber : '09198814783',
 
 
         };

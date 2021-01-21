@@ -7,6 +7,7 @@
                 :all-citys="allCitys"
                 :form-data-original="formData"
                 :data-edit-address="dataEditAddress"
+                :profile-phone-number="profilePhoneNumber"
 
                 @selected-province="selectedProvince"
                 @selected-city="selectedCity"
@@ -109,10 +110,11 @@ import addAddressModal from "./addAddressModal.vue";
 
 export default {
     props: {
-      allProvince : { type: [Object,Array], default: [] },
-      allCitys    : { type: [Object,Array], default: [] },
-      adressData  : { type: [Object,Array], default: {} },
-      formData    : { type: [Object,Array], default: {} },
+      allProvince           : { type: [Object,Array], default: [] },
+      allCitys              : { type: [Object,Array], default: [] },
+      adressData            : { type: [Object,Array], default: {} },
+      formData              : { type: [Object,Array], default: {} },
+      profilePhoneNumber    : { type: [Number,String], default: '' },
 
     },
     components: {
@@ -152,6 +154,8 @@ export default {
       },
 
       submitAddressAdd(data){
+        // بر اساس آیدی تغیین می شود که حالت ویرایش است یا خیر //
+
         let stateEditAdd = '';
         if (typeof(this.dataEditAddress.id) == 'undefined') {
           stateEditAdd = 'add';
