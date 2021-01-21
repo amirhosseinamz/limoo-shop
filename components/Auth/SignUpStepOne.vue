@@ -142,7 +142,7 @@ export default {
                     // this.$router.push("/signin");
                     this.$store.dispatch({
                         type: "userIsAuth",
-                        value: "true"
+                        value: true
                     });
                     this.$store.commit("walkInSignUpcomponents", {
                         value: "stepTwo"

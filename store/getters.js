@@ -7,5 +7,8 @@ export default {
     },
     PhoneNumberPicker(state) {
         return state.phone;
+    },
+    CurentRoute(state) {
+        return state.CurentRoute;
     }
 };

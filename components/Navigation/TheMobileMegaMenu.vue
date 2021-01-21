@@ -118,6 +118,7 @@ export default {
     components: {
         TheMobileCategory
     },
+    watch: {},
     created() {
         const curentRoute = this.$route.path;
         if (curentRoute == "/") {

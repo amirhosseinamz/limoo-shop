@@ -318,11 +318,13 @@ export default {
                 console.log("hi");
                 this.$store.dispatch({
                     type: "userIsAuth",
-                    value: "false"
+                    value: false
                 });
                 // localStorage.setItem("token", "");
                 localStorage.removeItem("token");
+                window.location.assign("http://localhost:3000/");
                 this.$router.replace("/");
+                // location.reload();
             }
         }
     }
