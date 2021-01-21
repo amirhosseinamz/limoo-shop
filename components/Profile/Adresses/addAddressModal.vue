@@ -58,15 +58,16 @@
         <form @submit.prevent="" class="w-100 p-modal_wrapper align-items-start" >
 
             <div class="p-modal-content w-100 align-items-start flex-wrap">
-                <div class="w-100 p-modal-address">
-                  <h3 class="p-modal-wrapper-province_city-title">نشانی پستی دقیق :</h3>
-                  <input @keyup="updateAddress" v-model="formData.address" type="text" class="p-modal-address-input p-input-style__default ">
-                  <span v-if="showErrorValidationAddress" class="pass__alert">نمی تواند خالی باشد</span>
+
+                <div :class="{'p-modal-show_error':showErrorValidationAddress}" class="w-100 p-modal-address">
+                    <h3 class="p-modal-wrapper-province_city-title">نشانی پستی دقیق :</h3>
+                    <input @keyup="updateAddress" v-model="formData.address" type="text" class="p-modal-address-input p-input-style__default ">
+                    <span  class="pass__alert">نمی تواند خالی باشد</span>
                 </div>
 
                 <div class="w-100 p-modal-content-items flex-wrap">
 
-                      <div class="p-modal-wrapper-item flex-wrap " :key="initialValueProvince">
+                      <div :class="{'p-modal-show_error':showErrorValidationProvince}" class="p-modal-wrapper-item flex-wrap " :key="initialValueProvince">
                         <h3 class="p-modal-wrapper-province_city-title">انتخاب استان:</h3>
                             <customeDropDown
                                :options="allProvince"
@@ -77,7 +78,7 @@
                              ></customeDropDown>
                              <span v-if="showErrorValidationProvince" class="pass__alert">استان خود را انتخاب کنید</span>
                       </div>
-                      <div class="p-modal-wrapper-item">
+                      <div :class="{'p-modal-show_error':showErrorValidationCity}" class="p-modal-wrapper-item">
                         <h3 class="p-modal-wrapper-province_city-title">انتخاب شهر :</h3>
                             <customeDropDown
                               :options="allCitys"
@@ -86,24 +87,24 @@
                                 className="p-modal-select-box-province_city"
                                 @last-update="selectedCity"
                             ></customeDropDown>
-                            <span v-if="showErrorValidationCity" class="pass__alert">لطفا شهر خود را انتخاب کنید</span>
+                            <span class="pass__alert">لطفا شهر خود را انتخاب کنید</span>
                       </div>
-                      <div class="p-modal-wrapper-item p-margin-left-0">
+                      <div :class="{'p-modal-show_error':showErrorValidationCodePoste}" class="p-modal-wrapper-item p-margin-left-0">
                         <h3 class="p-modal-wrapper-province_city-title p-modal-header-mobile">کد پستی :</h3>
                         <h3 class="p-modal-wrapper-province_city-title p-modal-header-desktop">کد پستی (اختیاری) :</h3>
                         <input @keyup="updateCodePoste" v-model="formData.codePoste" type="number" class="p-modal-item-input p-input-style__default">
-                        <span v-if="showErrorValidationCodePoste" class="pass__alert">صحیح نمی باشد</span>
+                        <span  class="pass__alert">صحیح نمی باشد</span>
                       </div>
-                      <div class="p-modal-wrapper-item ">
+                      <div :class="{'p-modal-show_error':showErrorValidationNameReceiver}"  class="p-modal-wrapper-item ">
                         <h3 class="p-modal-wrapper-province_city-title">نام گیرنده:</h3>
                         <input @keyup="updateNameReceiver"  v-model="formData.nameReceiver" type="text" class="p-modal-item-input p-input-style__default">
-                        <span v-if="showErrorValidationNameReceiver" class="pass__alert">نمی تواند خالی باشد</span>
+                        <span class="pass__alert">نمی تواند خالی باشد</span>
                       </div>
 
-                      <div class="p-modal-wrapper-item">
+                      <div :class="{'p-modal-show_error':showErrorValidationNumberReceiver}" class="p-modal-wrapper-item">
                         <h3 class="p-modal-wrapper-province_city-title">شماره گیرنده :</h3>
                         <input @keyup="UpdateNumberReceiver" v-model="formData.numberReceiver" type="text" class="p-modal-item-input  p-input-style__default">
-                        <span v-if="showErrorValidationNumberReceiver" class="pass__alert">نمی تواند خالی باشد</span>
+                        <span class="pass__alert">نمی تواند خالی باشد</span>
                       </div>
                   </div>
 
@@ -188,12 +189,16 @@ export default {
     methods: {
       updateCodePoste(e){
         const value = e.target.value;
-        if (value.length != 10) {
-          this.showErrorValidationCodePoste= true;
+
+        if (value != ''){
+            if (value.length != 10) {
+              this.showErrorValidationCodePoste= true;
+            }
+            else {
+              this.showErrorValidationCodePoste = false;
+            }
         }
-        else {
-          this.showErrorValidationCodePoste = false;
-        }
+
       },
 
       updateNameReceiver(e){
@@ -433,6 +438,7 @@ export default {
         @include display-flex();
         width: 100%;
         text-align: right;
+        visibility: hidden;
     }
 }
 .splicer-line {
@@ -453,8 +459,7 @@ export default {
 .p-modal-wrapper-item{
   width: 175px;
   margin-left: 37px;
-  margin-bottom: 38px;
-  height: 100px;
+  margin-bottom: 11px;
 }
 .p-modal-wrapper-item:last-of-type{
   margin-left: 0;
@@ -499,14 +504,13 @@ export default {
   @include display-flex();
 }
 .p-modal-content-items{
-  height: 256px;
   @include display-flex();
 }
 .p-modal-address-input{
   width: 100%;
 }
 .p-modal-address{
-  margin-bottom: 38px;
+  margin-bottom: 19px;
 }
 .p-modal-header-line{
   width: 95%;
@@ -524,25 +528,26 @@ export default {
   padding-top: 11px;
 }
 .p-modal-btns{
-  padding-top: 41px;
+  padding-top: 49px;
 }
 .p-modal-address{
-  height: 109px;
+  // height: 109px;
 }
+.p-modal-show_error .pass__alert{
+  visibility: inherit;
+}
+.p-modal-show_error .p-modal-item-input{
+  border:solid 1px $red;
+}
+.p-favorite-product-btn-modal-delete{
+  font-size: 16px;
+}
+.p-favorite-product-btn-modal-cancel{
+  font-size: 16px;
+}
+.p-input-style__default{
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+}
 
 @media (max-width: 960px) {
     .modal-animation__open {
@@ -652,7 +657,7 @@ export default {
     .p-modal-wrapper-item{
       width: 43%;
       margin-left: 13%;
-      margin-bottom: 24px;
+      margin-bottom: 4px;
     }
     .p-modal-wrapper-item:nth-child(2n){
       margin-left: 0;
@@ -682,28 +687,67 @@ export default {
     .p-modal-header-top{
       padding-top: 32px;
     }
-    .p-modal-content-items{
-      height: 354px;
-    }
     .p-modal-btns{
-      padding-top: 33px;
+      padding-top: 55px;
     }
+}
+
+
+@media (max-width: 540px) {
+  .modal{
+    height: 688px;
+  }
+  .p-modal-btns{
+    padding-top: 25px;
+  }
 }
 
 @media screen and (max-width: 485px) {
   .p-product-btn{
     width: 47%;
-    margin-left: 1%;
+    margin-left: 0;
+  }
+  .p-favorite-product-btn-modal-delete{
+    margin-left: 4%;
   }
   .p-favorite-product-btn-modal-cancel{
     margin-left: 0;
   }
   .p-modal-btns{
-    padding-top: 22px;
+    padding-top: 9px;
   }
-  // .modal{
-  //   height: auto;
-  // }
+  .modal{
+    height: 617px;
+  }
+  .p-modal-address{
+    margin-bottom: 6px;
+  }
+  .p-modal_wrapper{
+    padding-right: 29px;
+    padding-left: 29px;
+  }
+  .p-modal-wrapper-item{
+    margin-bottom: 6px;
+  }
+  .modal .pass__alert{
+    height:20px;
+  }
+  .splicer-line{
+    margin-top: 16px;
+  }
+  .p-modal-header-top{
+    padding-top: 33px;
+  }
+  .p-input-style__default{
+    height: 46px;
+  }
+  .p-modal-wrapper-item{
+    margin-bottom: 0;
+  }
+  .modal__close-line{
+    margin-top: 21px;
+  }
+
 }
 
 @media screen and (max-width: 320px) {
@@ -769,5 +813,60 @@ export default {
     .modal .pass__alert{
       font-size: 11px;
     }
+
+    .splicer-line{
+      margin-bottom: 10px;
+      margin-top: 10px;
+    }
+    .modal{
+      height: 536px;
+    }
+    .p-modal_wrapper{
+      padding-top: 0;
+    }
+    .p-modal-header-top{
+      padding-top: 16px;
+    }
+    .p-modal-btns{
+      padding-top: 9px;
+    }
+    .p-modal-wrapper-province_city-title{
+      margin-bottom: 8px;
+    }
+    .p-modal-address{
+      margin-bottom: 0;
+    }
+    .p-modal-wrapper-item{
+      margin-bottom: 1px;
+    }
 }
+
+
+
+@media screen and (max-width: 280px) {
+  .modal{
+    height: 617px;
+  }
+  .p-modal-wrapper-province_city-title{
+    margin-bottom: 11px;
+  }
+  .p-favorite-product-btn-modal-delete{
+    margin-left: 3%;
+  }
+  .p-modal_wrapper{
+    padding-top: 24px;
+  }
+  .splicer-line {
+    margin-top: 17px;
+    margin-bottom: 0px;
+  }
+  .p-modal-wrapper-item{
+    margin-bottom: 6px;
+  }
+  .p-modal-wrapper-province_city-title{
+    margin-bottom: 16px;
+  }
+
+}
+
 </style>

@@ -47,7 +47,7 @@
 
                                     <div class=" p-adresses-content-header-item align-items-center">
                                       <img class="p-adresses-content-header-icon" src="/icons/call_adress.svg" alt="">
-                                      <h3 class="p-adresses-content-header-item-title">09198814783</h3>
+                                      <h3 class="p-adresses-content-header-item-title">{{data.numberReceiver}}</h3>
                                     </div>
 
                                     <div class=" p-adresses-content-header-item align-items-center">
@@ -93,7 +93,7 @@
       </div>
 
       <div class="w-100 flex-wrap p-adresses-content-btn-add-mobile p-adresses-content-item-mobile">
-        <button type="submit" class=" btn-change p-adresses-content-btn-data">
+        <button @click="addAddress" type="submit" class=" btn-change p-adresses-content-btn-data">
           افزودن آدرس جدید
         </button>
       </div>
