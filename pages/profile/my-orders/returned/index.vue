@@ -101,6 +101,7 @@ import TheProfileSideBar from "~/components/Profile/TheProfileSideBar.vue";
 import TheUserOrder from "~/components/Profile/UserOrder/TheUserOrder.vue";
 
 export default {
+    middleware: "authentication",
     components: {
         TheProfileSideBar,
         TheUserOrder

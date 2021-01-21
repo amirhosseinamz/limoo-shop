@@ -1,6 +1,6 @@
 export default {
     // Global page headers (https://go.nuxtjs.dev/config-head)
-    ssr:false,
+    // ssr:false,
 
     head: {
         titleTemplate: "limoo | لیمو",
@@ -25,8 +25,8 @@ export default {
 
     // Plugins to run before rendering page (https://go.nuxtjs.dev/config-plugins)
     plugins: [
-      '~plugins/modal/index.js'
-    ],
+        {src:"~plugins/modal/index.js"}, 
+        {src:"~/plugins/persistedState.js"}],
 
     // Auto import components (https://go.nuxtjs.dev/config-components)
     components: true,
@@ -34,7 +34,7 @@ export default {
     buildModules: [],
 
     // Modules (https://go.nuxtjs.dev/config-modules)
-    modules: ["@nuxtjs/style-resources"],
+    modules: ["@nuxtjs/style-resources", "@nuxtjs/axios", "@nuxtjs/auth-next"],
     // scss
     styleResources: {
         scss: ["./assets/styles/*.scss"]
@@ -46,4 +46,8 @@ export default {
     server: {
         // host: "0.0.0.0"
     }
+    // router: {
+    //     middleware: ["auth"]
+    // }
+    // url by default go to login page in global routGuard
 };

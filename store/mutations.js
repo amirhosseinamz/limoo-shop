@@ -11,4 +11,7 @@ export default {
     passHolder(state) {
         return state.password;
     },
+    userIsAuth(state, payload) {
+        state.userAuth = payload.value;
+    }
 };

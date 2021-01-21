@@ -58,12 +58,14 @@
                                 />
                             </div>
                             <div class="user-profile__info-birthday">
-                                <the-date-dropdown
-                                    default="1373.11.17"
-                                    min="1300"
-                                    max="1387"
-                                    v-model="selectedDate"
-                                />
+                                <client-only>
+                                    <the-date-dropdown
+                                        default="1373.11.17"
+                                        min="1300"
+                                        max="1387"
+                                        v-model="selectedDate"
+                                    />
+                                </client-only>
                                 <!-- <the-birthday /> -->
                             </div>
                             <div class="user-profile__info-nationalcode">
@@ -140,6 +142,7 @@ import TheProfilePassModal from "~/components/Profile/PersonalInfo/TheProfilePas
 
 import TheDateDropdown from "~/components/Profile/PersonalInfo/TheDateDropdown.vue";
 export default {
+    middleware: "authentication",
     components: {
         TheProfileSideBar,
         TheProfilePassModal,

@@ -44,6 +44,7 @@ import TheUserHistory from "~/components/Profile/UserHistory/TheUserHistory.vue"
 import TheModalDeleteUserHistory from "~/components/Profile/UserHistory/TheModalDeleteUserHistory.vue";
 
 export default {
+    middleware: "authentication",
     components: {
         TheProfileSideBar,
         TheUserHistory,

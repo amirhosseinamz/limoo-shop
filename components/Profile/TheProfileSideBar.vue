@@ -22,12 +22,12 @@
             <div class="profile-sidebar__flex profile-sidebar__order">
                 <div class="profile-sidebar__flex-part">
                     <img
-                        :class="{ 'profile-item__activated': muOrdersIsActive }"
+                        :class="{ 'profile-item__activated': OrdersIsActive }"
                         class="profile-sidebar__order-icon"
                         src="/icons/order.svg"
                     />
                     <NuxtLink
-                        :class="{ 'link-item__activated': muOrdersIsActive }"
+                        :class="{ 'link-item__activated': OrdersIsActive }"
                         to="/profile/my-orders"
                     >
                         سفارش های من</NuxtLink
@@ -252,7 +252,9 @@
                     class="profile-sidebar__logout-icon"
                     src="/icons/logout.svg"
                 />
-                <div class="profile-sidebar__logout-link">خروج از حساب</div>
+                <div @click="logOutUser" class="profile-sidebar__logout-link">
+                    خروج از حساب
+                </div>
             </div>
         </div>
     </div>
@@ -271,7 +273,7 @@ export default {
             favoriteActive: false,
             adressActive: false,
             userHistoryIsActive: false,
-            muOrdersIsActive: false
+            OrdersIsActive: false
         };
     },
     created() {
@@ -288,7 +290,7 @@ export default {
         } else if (curentRoute == "/profile/user-history") {
             this.userHistoryIsActive = true;
         } else if (curentRoute.search("/profile/my-orders") + 1 == 1) {
-            this.muOrdersIsActive = true;
+            this.OrdersIsActive = true;
         }
 
         // else if (curentRoute == "/cart") {
@@ -306,6 +308,22 @@ export default {
         },
         goToMyOrders() {
             this.$router.push("/profile/my-orders");
+        },
+        logOutUser() {
+            if (typeof Storage !== "undefined") {
+                // Store
+                // this.$store.commit("userIsAuth", {
+                //     value: false
+                // });
+                console.log("hi");
+                this.$store.dispatch({
+                    type: "userIsAuth",
+                    value: "false"
+                });
+                // localStorage.setItem("token", "");
+                localStorage.removeItem("token");
+                this.$router.replace("/");
+            }
         }
     }
 };

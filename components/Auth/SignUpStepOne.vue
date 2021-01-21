@@ -140,6 +140,10 @@ export default {
                     // });
                 } else {
                     // this.$router.push("/signin");
+                    this.$store.dispatch({
+                        type: "userIsAuth",
+                        value: "true"
+                    });
                     this.$store.commit("walkInSignUpcomponents", {
                         value: "stepTwo"
                     });

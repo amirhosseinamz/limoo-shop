@@ -16,7 +16,8 @@ const createStore = () => {
             signUp: "stepOne",
             signIn: "stepOne",
             phone: "",
-            password: ""
+            password: "",
+            userAuth: "false"
         },
 
         mutations: rootMutations,

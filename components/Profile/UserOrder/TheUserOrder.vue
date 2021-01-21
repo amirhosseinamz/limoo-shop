@@ -181,6 +181,7 @@ export default {
     color: $gray;
     margin-left: 8px;
     line-height: 1em;
+    align-self: center;
     /* transform: rotate(30deg); for test*/
 }
 /* .order-code__title:hover::before {
@@ -215,6 +216,7 @@ export default {
     color: $gray;
     margin-left: 8px;
     line-height: 1em;
+    align-self: center;
 }
 .order-date__title::before {
     content: "\e804";
@@ -222,6 +224,7 @@ export default {
     color: $gray;
     margin-left: 8px;
     line-height: 1em;
+    align-self: center;
 }
 .order-situation__title::before {
     content: "\e898";
@@ -229,6 +232,7 @@ export default {
     color: $gray;
     margin-left: 8px;
     line-height: 1em;
+    align-self: center;
 }
 .order-price {
     &__value,
