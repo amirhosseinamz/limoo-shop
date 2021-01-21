@@ -162,10 +162,10 @@ export default {
             showErrorValidationCodePoste            : false,
             showErrorValidationCity                 : false,
             showErrorValidationProvince             : false,
-            errorValidationNumberReceiverMsg        : '',
-            validationNameReceiverMsg               : '',
-            validationCodePosteMsg                  : '',
-            errorValidationNumberAddress            : '',
+            errorValidationNumberReceiverMsg        : 'خالی است',
+            validationNameReceiverMsg               : 'خالی است',
+            validationCodePosteMsg                  : 'خالی است',
+            errorValidationNumberAddress            : 'خالی است',
 
         };
     },
@@ -250,7 +250,9 @@ export default {
             }
         }
         else {
-          this.showErrorValidationCodePoste = false;
+          if (e != '') {
+            this.showErrorValidationCodePoste = false;
+          }
         }
 
       },
@@ -304,7 +306,9 @@ export default {
 
         }
         else {
-          this.showErrorValidationNameReceiver = false;
+          if (e != '') {
+            this.showErrorValidationNameReceiver = false;
+          }
         }
 
       },
@@ -342,7 +346,9 @@ export default {
               }
         }
         else {
-          this.showErrorValidationNumberReceiver = false;
+          if (e != '') {
+            this.showErrorValidationNumberReceiver = false;
+          }
         }
 
       },
@@ -369,7 +375,9 @@ export default {
 
         }
         else {
-          this.showErrorValidationAddress = false;
+          if (e != '') {
+            this.showErrorValidationAddress = false;
+          }
         }
 
       },
@@ -413,6 +421,11 @@ export default {
             this.errorValidationNumberAddress       = 'بیش از حد مجاز';
           }
 
+          // if (this.formData.nameReceiver.length != 11) {
+          //   this.validationNameReceiverMsg       = 'اشتباه است';
+          //   this.showErrorValidationNameReceiver = true;
+          // }
+
           if (this.formData.nameReceiver == '') {
             this.showErrorValidationNameReceiver  = true;
             this.validationNameReceiverMsg         = 'اشتباه است';
@@ -422,17 +435,26 @@ export default {
             this.showErrorValidationNumberReceiver  = true;
             this.errorValidationNumberReceiverMsg   = 'اشتباه است';
           }
+
+          if (this.formData.numberReceiver.length != 11) {
+            this.showErrorValidationNumberReceiver  = true;
+            this.errorValidationNumberReceiverMsg   = 'اشتباه است';
+          }
+
+          if (this.formData.codePoste != '') {
+              if (this.formData.codePoste.length != 10) {
+                this.showErrorValidationCodePoste    = true;
+                this.validationCodePosteMsg          = 'اشتباه است';
+              }
+          }
+
+          this.updateNameReceiver('',this.formData.nameReceiver);
         }
 
 
-        this.updateCodePoste('',this.formData.codePoste);
-        this.updateAddress('',this.formData.address);
-        this.updateNameReceiver('',this.formData.nameReceiver);
-        this.UpdateNumberReceiver('',this.formData.numberReceiver);
+
         this.checkShowErrorCityProvince();
-
         checkEmptyForm();
-
 
 
         // در صورت داشتن ارور اجرا می شود //
