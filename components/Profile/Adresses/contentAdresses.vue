@@ -33,7 +33,7 @@
 
                                     <div class=" p-adresses-content-header-item align-items-center p-adresses-content-item-mobile">
                                       <img class="p-adresses-content-header-icon" src="/icons/location_adress_yellow.svg" alt="">
-                                      <h3 class="p-adresses-content-header-item-title">{{data.title}}</h3>
+                                      <h3 class="p-adresses-content-header-item-title">{{data.address}}</h3>
                                     </div>
 
                                     <div class=" p-adresses-content-header-item align-items-center">
@@ -63,7 +63,7 @@
                                   <div class="w-100 flex-wrap  p-adresses-content-data-wrapper">
                                           <div class="p-adresses-content-item-desktop w-100 p-adresses-content-data flex-wrap align-items-start">
                                                 <div class="w-100 p-adresses-content-text-main text-right">
-                                                  <h3 class="p-adresses-content-text-data w-100">{{data.title}}</h3>
+                                                  <h3 class="p-adresses-content-text-data w-100">{{data.address}}</h3>
                                                 </div>
                                               </div>
                                             <div class="p-adresses-content-data-btns w-100 justify-content-end">

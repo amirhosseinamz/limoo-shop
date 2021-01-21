@@ -25,7 +25,7 @@
                           :all-citys="allCitys"
                           :form-data="formData"
                           :profile-phone-number="profilePhoneNumber"
-                          
+
                           @show-modal-delete-product="showModalDeleteProduct"
                           @selected-province="selectedProvince"
                           @selected-city="selectedCity"
@@ -64,33 +64,30 @@ export default {
           adressesData : [
             {
               id             :   1,
-              title          : 'تهران ، خیابان ولیعصر ، تقاطع کوچه حسینی راد 1',
+              address        : 'تهران ، خیابان ولیعصر ، تقاطع کوچه حسینی راد 1',
               province       : 'تهران',
               city           : 'جنت آباد',
               codePoste      : '90',
               nameReceiver   : 'test',
               numberReceiver : '10',
-              address        : 'dasdsa',
             },
             {
               id             :   2,
-              title          : 'تهران ، خیابان ولیعصر ، تقاطع کوچه حسینی راد 2',
+              address          : 'تهران ، خیابان ولیعصر ، تقاطع کوچه حسینی راد 2',
               province       : 'قم',
               city           : 'قم',
               codePoste      : '2',
               nameReceiver   : 'test',
               numberReceiver : '10',
-              address        : 'dasdsa',
             },
             {
               id             :   3,
-              title          : 'تهران ، خیابان ولیعصر ، تقاطع کوچه حسینی راد 3',
+              address        : 'تهران ، خیابان ولیعصر ، تقاطع کوچه حسینی راد 3',
               province       : 'قم',
               city           : 'قم',
               codePoste      : '3',
               nameReceiver   : 'test',
               numberReceiver : '10',
-              address        : 'dasdsa',
             },
           ],
           currentProduct               : {},
