@@ -94,19 +94,19 @@
                       <div :class="{'p-modal-show_error':showErrorValidationCodePoste}" class="p-modal-wrapper-item p-margin-left-0">
                         <h3 class="p-modal-wrapper-province_city-title p-modal-header-mobile">کد پستی :</h3>
                         <h3 class="p-modal-wrapper-province_city-title p-modal-header-desktop">کد پستی (اختیاری) :</h3>
-                        <input @keyup="updateCodePoste" v-model="formData.codePoste" maxlength="11" type="text" class="p-modal-item-input p-input-style__default">
+                        <input @keyup="updateCodePoste" v-model="formData.codePoste" maxlength="10" type="text" class="p-modal-item-input p-input-style__default">
                         <span  class="pass__alert ">{{validationCodePosteMsg}}</span>
                       </div>
                       <div :class="{'p-modal-show_error':showErrorValidationNameReceiver}"  class="p-modal-wrapper-item ">
                         <h3 class="p-modal-wrapper-province_city-title">نام گیرنده:</h3>
-                        <input @keyup="updateNameReceiver"  v-model="formData.nameReceiver" maxlength="11" type="text" class="p-modal-item-input p-input-style__default">
+                        <input @keyup="updateNameReceiver"  v-model="formData.nameReceiver" maxlength="34" type="text" class="p-modal-item-input p-input-style__default">
                         <span class="pass__alert ">{{validationNameReceiverMsg}}</span>
                         <!-- <span class="pass__alert  p-modal-validation-mobile">اشتباه است</span> -->
                       </div>
 
                       <div :class="{'p-modal-show_error':showErrorValidationNumberReceiver}" class="p-modal-wrapper-item">
                         <h3 class="p-modal-wrapper-province_city-title">شماره گیرنده :</h3>
-                        <input @keyup="UpdateNumberReceiver" v-model="formData.numberReceiver" maxlength="12" type="text" class="p-modal-item-input  p-input-style__default">
+                        <input @keyup="UpdateNumberReceiver" v-model="formData.numberReceiver" maxlength="11" type="text" class="p-modal-item-input  p-input-style__default">
                         <span class="pass__alert ">{{errorValidationNumberReceiverMsg}}</span>
                         <!-- <span class="pass__alert  p-modal-validation-mobile">اشتباه است</span> -->
                       </div>
@@ -284,7 +284,7 @@ export default {
           // فقط باید مقدار مورد نظر حروف باشد که اجرا شود //
             if (this.checkHasString(value)) {
               this.showErrorValidationNameReceiver = false;
-              if (value.length == 11) {
+              if (value.length == 35) {
                 this.validationNameReceiverMsg       = 'بیش از حد مجاز';
                 this.showErrorValidationNameReceiver = true;
               }
@@ -690,7 +690,7 @@ export default {
   visibility: inherit;
 }
 .p-modal-show_error .p-modal-item-input{
-  border:solid 1px $red;
+  border:solid 1px $red !important;
 }
 .p-favorite-product-btn-modal-delete{
   font-size: 16px;
@@ -700,6 +700,9 @@ export default {
 }
 .p-modal-validation-mobile{
   display: none !important;
+}
+.p-input-style__default:focus{
+  border: solid 1px $black;
 }
 
 
