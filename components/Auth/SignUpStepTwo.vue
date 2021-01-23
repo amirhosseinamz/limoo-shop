@@ -44,6 +44,7 @@
                                     class="signup-input form-control"
                                     type="text"
                                     v-model="verifyCode"
+                                    maxlength="4"
                                     required
                                 />
                             </div>

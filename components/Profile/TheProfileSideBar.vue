@@ -279,17 +279,32 @@ export default {
     created() {
         let curentRoute = this.$route.path;
         // console.log(curentRoute);
-        if (curentRoute == "/profile") {
+        if (curentRoute == "/profile" || curentRoute == "/profile/") {
             this.profileIsActive = true;
-        } else if (curentRoute == "/profile/personal-info") {
+        } else if (
+            curentRoute == "/profile/personal-info" ||
+            curentRoute == "/profile/personal-info/"
+        ) {
             this.personalInfoIsActive = true;
-        } else if (curentRoute == "/profile/favorites") {
+        } else if (
+            curentRoute == "/profile/favorites" ||
+            curentRoute == "/profile/favorites/"
+        ) {
             this.favoriteActive = true;
-        } else if (curentRoute == "/profile/adresses") {
+        } else if (
+            curentRoute == "/profile/adresses" ||
+            curentRoute == "/profile/adresses/"
+        ) {
             this.adressActive = true;
-        } else if (curentRoute == "/profile/user-history") {
+        } else if (
+            curentRoute == "/profile/user-history" ||
+            curentRoute == "/profile/user-history/"
+        ) {
             this.userHistoryIsActive = true;
-        } else if (curentRoute.search("/profile/my-orders") + 1 == 1) {
+        } else if (
+            curentRoute.search("/profile/my-orders") + 1 == 1 ||
+            curentRoute.search("/profile/my-orders/") + 1 == 1
+        ) {
             this.OrdersIsActive = true;
         }
 
@@ -323,7 +338,7 @@ export default {
                 // localStorage.setItem("token", "");
                 localStorage.removeItem("token");
                 window.location.assign("http://localhost:3000/");
-                this.$router.replace("/");
+                // this.$router.replace("/");
                 // location.reload();
             }
         }
