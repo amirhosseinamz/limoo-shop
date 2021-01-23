@@ -76,8 +76,8 @@
                                 className="p-modal-select-box-province_city"
                                 @last-update="selectedProvince"
                              ></customeDropDown>
-                             <span class="pass__alert p-modal-validation-desktop">استان خود را انتخاب کنید</span>
-                             <span class="pass__alert  p-modal-validation-mobile">خالی است</span>
+                             <!-- <span class="pass__alert p-modal-validation-desktop">استان خود را انتخاب کنید</span> -->
+                             <span class="pass__alert ">انتخاب استان</span>
                       </div>
                       <div :class="{'p-modal-show_error':showErrorValidationCity}" class="p-modal-wrapper-item">
                         <h3 class="p-modal-wrapper-province_city-title">انتخاب شهر :</h3>
@@ -88,14 +88,14 @@
                                 className="p-modal-select-box-province_city"
                                 @last-update="selectedCity"
                             ></customeDropDown>
-                            <span class="pass__alert p-modal-validation-desktop">لطفا شهر خود را انتخاب کنید</span>
-                            <span class="pass__alert p-modal-validation-mobile">خالی است</span>
+                            <!-- <span class="pass__alert p-modal-validation-desktop">لطفا شهر خود را انتخاب کنید</span> -->
+                            <span class="pass__alert">انتخاب شهر</span>
                       </div>
                       <div :class="{'p-modal-show_error':showErrorValidationCodePoste}" class="p-modal-wrapper-item p-margin-left-0">
                         <h3 class="p-modal-wrapper-province_city-title p-modal-header-mobile">کد پستی :</h3>
                         <h3 class="p-modal-wrapper-province_city-title p-modal-header-desktop">کد پستی (اختیاری) :</h3>
                         <input @keyup="updateCodePoste" v-model="formData.codePoste" maxlength="11" type="text" class="p-modal-item-input p-input-style__default">
-                        <span  class="pass__alert p-modal-validation-desktop">{{validationCodePosteMsg}}</span>
+                        <span  class="pass__alert ">{{validationCodePosteMsg}}</span>
                       </div>
                       <div :class="{'p-modal-show_error':showErrorValidationNameReceiver}"  class="p-modal-wrapper-item ">
                         <h3 class="p-modal-wrapper-province_city-title">نام گیرنده:</h3>
@@ -162,10 +162,10 @@ export default {
             showErrorValidationCodePoste            : false,
             showErrorValidationCity                 : false,
             showErrorValidationProvince             : false,
-            errorValidationNumberReceiverMsg        : 'خالی است',
-            validationNameReceiverMsg               : 'خالی است',
-            validationCodePosteMsg                  : 'خالی است',
-            errorValidationNumberAddress            : 'خالی است',
+            errorValidationNumberReceiverMsg        : 'عدد مجاز است',
+            validationNameReceiverMsg               : 'معتبر نیست',
+            validationCodePosteMsg                  : 'معتبر نیست',
+            errorValidationNumberAddress            : 'عدد مجاز است',
 
         };
     },
@@ -221,14 +221,7 @@ export default {
       },
 
       updateCodePoste(e,submitValue){
-        let value = '';
-
-        if (e == '') {
-           value = submitValue;
-        }
-        else {
-          value  = e.target.value;
-        }
+        const value = e.target.value;
 
 
         // در صورت خالی نبودن اجرا می شود //
@@ -240,19 +233,17 @@ export default {
                     this.validationCodePosteMsg          = 'بیش از حد مجاز';
                   }
                   else {
-                    this.validationCodePosteMsg       = 'اشتباه است';
+                    this.validationCodePosteMsg       = 'معتبر نیست';
                     this.showErrorValidationCodePoste = false;
                   }
             }
             else {
-                this.validationCodePosteMsg       = 'اشتباه است';
+                this.validationCodePosteMsg       = 'معتبر نیست';
                 this.showErrorValidationCodePoste = true;
             }
         }
         else {
-          if (e != '') {
             this.showErrorValidationCodePoste = false;
-          }
         }
 
       },
@@ -263,6 +254,8 @@ export default {
         let realDigits              = digits.map(Number);
         let checkStringNumberStatus = false;
         let counterCheckLenNumber   = -1;
+        let inValid                 = /\s/;
+
 
         realDigits.map((t,i)=>{
           if (isNaN(t)) {
@@ -274,19 +267,16 @@ export default {
           checkStringNumberStatus = true;
         }
 
+        // در صورتی که کاربر مقدار نوشته شده اش فاصله داشته باشد اجرا می شود //
+        if (inValid.test(value)) {
+          checkStringNumberStatus = true;
+        }
+
         return checkStringNumberStatus;
       },
 
       updateNameReceiver(e,submitValue){
-        let value = '';
-
-        if (e == '') {
-           value = submitValue;
-        }
-        else {
-          value  = e.target.value;
-        }
-
+        const value = e.target.value;
 
         // در صورت خالی نبودن اجرا می شود //
         if (this.isNotEmpty(value)) {
@@ -300,34 +290,25 @@ export default {
               }
             }
             else {
-              this.validationNameReceiverMsg       = 'اشتباه است';
+              this.validationNameReceiverMsg       = 'معتبر نیست';
               this.showErrorValidationNameReceiver = true;
             }
 
         }
         else {
-          if (e != '') {
             this.showErrorValidationNameReceiver = false;
-          }
         }
 
       },
 
       UpdateNumberReceiver(e,submitValue){
-        let value = '';
-
-        if (e == '') {
-           value = submitValue;
-        }
-        else {
-          value  = e.target.value;
-        }
+        const value = e.target.value;
 
         if (this.isNotEmpty(value)) {
               if (this.isNumber(value)) {
 
                   if (value.length == 12) {
-                    this.errorValidationNumberReceiverMsg   = 'اشتباه است';
+                    this.errorValidationNumberReceiverMsg   = 'بیش از حد مجاز';
                     this.showErrorValidationNumberReceiver  = true;
                   }
                   else {
@@ -341,27 +322,18 @@ export default {
 
               }
               else {
-                this.errorValidationNumberReceiverMsg   = 'اشتباه است';
+                this.errorValidationNumberReceiverMsg   = 'معتبر نیست';
                 this.showErrorValidationNumberReceiver  = true;
               }
         }
         else {
-          if (e != '') {
             this.showErrorValidationNumberReceiver = false;
-          }
         }
 
       },
 
       updateAddress(e,submitValue){
-        let value = '';
-
-        if (e == '') {
-           value = submitValue;
-        }
-        else {
-          value  = e.target.value;
-        }
+        const value = e.target.value;
 
         if (value != '') {
             if (this.isNotEmpty(value)) {
@@ -375,9 +347,7 @@ export default {
 
         }
         else {
-          if (e != '') {
             this.showErrorValidationAddress = false;
-          }
         }
 
       },
@@ -418,7 +388,7 @@ export default {
         const checkEmptyForm = () => {
           if (this.formData.address == '') {
             this.showErrorValidationAddress         = true;
-            this.errorValidationNumberAddress       = 'بیش از حد مجاز';
+            this.errorValidationNumberAddress       = 'معتبر نیست';
           }
 
           // if (this.formData.nameReceiver.length != 11) {
@@ -428,32 +398,42 @@ export default {
 
           if (this.formData.nameReceiver == '') {
             this.showErrorValidationNameReceiver  = true;
-            this.validationNameReceiverMsg         = 'اشتباه است';
+            this.validationNameReceiverMsg         = 'معتبر نیست';
           }
 
           if (this.formData.numberReceiver == '') {
             this.showErrorValidationNumberReceiver  = true;
-            this.errorValidationNumberReceiverMsg   = 'اشتباه است';
+            this.errorValidationNumberReceiverMsg   = 'معتبر نیست';
           }
 
           if (this.formData.numberReceiver.length != 11) {
             this.showErrorValidationNumberReceiver  = true;
-            this.errorValidationNumberReceiverMsg   = 'اشتباه است';
+            this.errorValidationNumberReceiverMsg   = 'معتبر نیست';
+          }
+
+          if (this.formData.numberReceiver.length > 11) {
+            this.showErrorValidationNumberReceiver  = true;
+            this.errorValidationNumberReceiverMsg   = 'بیش از حد مجاز';
           }
 
           if (this.formData.codePoste != '') {
               if (this.formData.codePoste.length != 10) {
                 this.showErrorValidationCodePoste    = true;
-                this.validationCodePosteMsg          = 'اشتباه است';
+                this.validationCodePosteMsg          = 'معتبر نیست';
               }
           }
 
-          this.updateNameReceiver('',this.formData.nameReceiver);
+          if (this.formData.codePoste.length == 11) {
+            this.showErrorValidationCodePoste    = true;
+            this.validationCodePosteMsg          = 'بیش از حد مجاز';
+          }
+
+          this.checkShowErrorCityProvince();
+          // this.updateNameReceiver('',this.formData.nameReceiver);
         }
 
 
 
-        this.checkShowErrorCityProvince();
         checkEmptyForm();
 
 
