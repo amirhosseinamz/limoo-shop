@@ -17,9 +17,9 @@ html {
 }
 // ==================utile classes ===================
 .menu-item__activated {
-    filter: invert(20%) sepia(60%) saturate(619%) hue-rotate(335deg)
-        brightness(175%) contrast(105%);
-    // color: $yellow;
+    // filter: invert(20%) sepia(60%) saturate(619%) hue-rotate(335deg)
+    //     brightness(175%) contrast(105%);
+    color: $yellow !important;
     // fill: $yellow;
 }
 

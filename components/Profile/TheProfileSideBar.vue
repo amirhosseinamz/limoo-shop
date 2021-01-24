@@ -5,11 +5,6 @@
             <!-- =section1= -->
             <div class="profile-sidebar__flex profile-sidebar__user">
                 <div class="profile-sidebar__flex-part d-rtl">
-                    <!-- <img
-                        class="profile-sidebar__user-icon"
-                        :class="{ 'profile-item__activated': profileIsActive }"
-                        src=""
-                    /> -->
                     <NuxtLink
                         class="profile-sidebar__user-icon"
                         :class="{ 'link-item__activated': profileIsActive }"
@@ -22,11 +17,6 @@
             <!-- =section2= -->
             <div class="profile-sidebar__flex profile-sidebar__order">
                 <div class="profile-sidebar__flex-part d-rtl">
-                    <!-- <img
-                        :class="{ 'profile-item__activated': OrdersIsActive }"
-                        class="profile-sidebar__order-icon"
-                        src="/icons/order.svg"
-                    /> -->
                     <NuxtLink
                         class="profile-sidebar__order-icon"
                         :class="{ 'link-item__activated': OrdersIsActive }"
@@ -46,10 +36,6 @@
                 class="splicer_down profile-sidebar__flex profile-sidebar__flex profile-sidebar__favorite"
             >
                 <div class="profile-sidebar__flex-part d-rtl">
-                    <!-- <img
-                        class="profile-sidebar__favorite-icon"
-                        src="/icons/heart.svg"
-                    /> -->
                     <NuxtLink
                         to="/profile/favorites"
                         class="profile-sidebar__favorite-icon"
@@ -86,13 +72,6 @@
             <hr class="splicer" />
             <div class=" profile-sidebar__flex profile-sidebar__personal-info">
                 <div class="profile-sidebar__flex-part d-rtl">
-                    <!-- <img
-                        class="profile-sidebar__personal-info-icon"
-                        :class="{
-                            'profile-item__activated': personalInfoIsActive
-                        }"
-                        src="/icons/setting.svg"
-                    /> -->
                     <NuxtLink
                         class="profile-sidebar__personal-info-icon"
                         :class="{
@@ -113,10 +92,6 @@
                 class="splicer_down profile-sidebar__flex profile-sidebar__address"
             >
                 <div class="profile-sidebar__flex-part d-rtl">
-                    <!-- <img
-                        class="profile-sidebar__address-icon"
-                        src="/icons/location-profile.svg"
-                    /> -->
                     <NuxtLink
                         class="profile-sidebar__address-icon"
                         :class="{
@@ -134,10 +109,6 @@
             <!-- =section4= -->
             <div class=" profile-sidebar__flex profile-sidebar__comment">
                 <div class="profile-sidebar__flex-part d-rtl">
-                    <!-- <img
-                        class="profile-sidebar__comment-icon"
-                        src="/icons/chat.svg"
-                    /> -->
                     <NuxtLink class="profile-sidebar__comment-icon" to=""
                         >نقد و نظرات من</NuxtLink
                     >
@@ -150,10 +121,6 @@
             <hr class="splicer" />
             <div class=" profile-sidebar__flex profile-sidebar__support">
                 <div class="profile-sidebar__flex-part d-rtl">
-                    <!-- <img
-                        class="profile-sidebar__support-icon"
-                        src="/icons/call-profile.svg"
-                    /> -->
                     <NuxtLink class="profile-sidebar__support-icon" to=""
                         >پشتیبانی</NuxtLink
                     >
@@ -168,13 +135,6 @@
                 class="splicer_down profile-sidebar__flex profile-sidebar__history"
             >
                 <div class="profile-sidebar__flex-part d-rtl">
-                    <!-- <img
-                        :class="{
-                            'profile-item__activated': userHistoryIsActive
-                        }"
-                        class="profile-sidebar__history-icon"
-                        src="/icons/eye-profile.svg"
-                    /> -->
                     <NuxtLink
                         :class="{
                             'link-item__activated': userHistoryIsActive
@@ -228,10 +188,6 @@
                 class="mobile-screen profile-sidebar__flex profile-sidebar__privacy"
             >
                 <div class="profile-sidebar__flex-part d-rtl">
-                    <!-- <img
-                        class="profile-sidebar__privacy-icon"
-                        src="/icons/privacy.svg"
-                    /> -->
                     <NuxtLink class="profile-sidebar__privacy-icon" to=""
                         >حریم شخصی</NuxtLink
                     >
@@ -246,10 +202,6 @@
                 class="mobile-screen profile-sidebar__flex profile-sidebar__rules"
             >
                 <div class="profile-sidebar__flex-part d-rtl">
-                    <!-- <img
-                        class="profile-sidebar__rules-icon"
-                        src="/icons/rules.svg"
-                    /> -->
                     <NuxtLink class="profile-sidebar__rules-icon" to=""
                         >قوانین و مقررات</NuxtLink
                     >
@@ -262,10 +214,6 @@
             <!-- =section7= -->
             <hr class="splicer__logout" />
             <div class=" profile-sidebar__flex-part profile-sidebar__logout ">
-                <!-- <img
-                    class="profile-sidebar__logout-icon"
-                    src="/icons/logout.svg"
-                /> -->
                 <div
                     @click="logOutUser"
                     class="profile-sidebar__logout-link profile-sidebar__logout-icon d-rtl"
@@ -451,14 +399,6 @@ export default {
         margin-left: 17px;
     }
     /* ======================= */
-    /* &__user-icon */
-    /* &__favorite-icon */
-    /* &__personal-info-icon  */
-    /* &__address-icon */
-    /* &__comment-icon */
-    /* &__support-icon */
-    /* &__history-icon */
-    /* &__logout-icon */
     &__user-icon::before,
     &__order-icon::before,
     &__favorite-icon::before,
@@ -525,12 +465,7 @@ export default {
         margin-right: 24px;
         margin-left: 19px;
     }
-    /* &__order-icon {
-        width: 19px;
-        height: 22px;
-        margin-right: 24px;
-        margin-left: 20px;
-    } */
+
     &__logout-link {
         color: $red-logout;
         font-size: 14px;
@@ -543,10 +478,6 @@ export default {
     &__logout:hover {
         color: $yellow;
     }
-}
-.profile-item__activated {
-    filter: invert(20%) sepia(60%) saturate(519%) hue-rotate(335deg)
-        brightness(150%) contrast(105%);
 }
 .splicer__logout {
     border: none;
