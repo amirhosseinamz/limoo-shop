@@ -2,6 +2,9 @@
   <div class="w-100 page__home-wrapper-main">
         <div class="page__home-introduction-main w-100">
             <introduction-items></introduction-items>
+            <banner-items></banner-items>
+            <banner-2-items></banner-2-items>
+            <banner-3-items></banner-3-items>
         </div>
 
         <div class="w-100 page__home-products-main">
@@ -12,6 +15,9 @@
 
 <script>
 import introductionItems from './introductionItems';
+import bannerItems from './bannerItems';
+import banner2Items from './banner2Items';
+import banner3Items from './banner3Items';
 
 
 export default {
@@ -21,6 +27,9 @@ export default {
 
     components: {
       introductionItems,
+      bannerItems,
+      banner2Items,
+      banner3Items,
     },
 
     data() {
@@ -48,7 +57,7 @@ export default {
     margin-top: 170px;
   }
 
-  
+
 
 
   @media (max-width: 1220px) {

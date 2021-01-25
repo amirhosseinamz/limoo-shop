@@ -4,19 +4,24 @@
               <div class="page__home__introduction-slider-main main-carousel w-100">
                       <div class="carousel-cell w-100">
                             <div class="page__home__introduction__slider w-100">
-                                <img class="page__home__introduction__slider-pic w-100" src="/img/apple-watch-series-4-hermes-double1.svg" alt="">
+                                <img class="page__home__introduction__slider-pic " src="/img/apple-watch-series-4-hermes-double1.svg" alt="">
                             </div>
                       </div>
                       <div class="carousel-cell w-100">
                             <div class="page__home__introduction__slider w-100">
-                                <img class="page__home__introduction__slider-pic w-100" src="/img/apple-watch-series-4-hermes-double1.svg" alt="">
+                                <img class="page__home__introduction__slider-pic " src="/img/apple-watch-series-4-hermes-double1.svg" alt="">
                             </div>
                       </div>
               </div>
         </div>
 
-        <div class="w-100 page__home__introduction-item-pic-main">
-
+        <div class="introduction__left">
+            <div class="introduction__leftitem w-100 ">
+                    <img class="introduction__leftimg h-100" src="/img/apple-watch-series-3-gps-cellurar1.svg" alt="">
+            </div>
+            <div class="introduction__leftitem2 w-100">
+                    <img class="introduction__leftimg h-100" src="/img/apple-watch-series-6-desktop-min1.svg" alt="">
+            </div>
         </div>
   </div>
 </template>
@@ -43,7 +48,9 @@ export default {
         accessibility   : true,
         adaptiveHeight  : false,
         autoPlay        : false,
-        cellAlign       : 'center',
+        // rightToLeft     : true,
+        cellAlign       : 'right',
+        prevNextButtons : false,
       });
     },
 
@@ -62,20 +69,77 @@ export default {
   .page__home-introduction-items{
     @include display-flex();
     align-items: flex-start;
-    flex-flow: column;
   }
   .page__home__introduction__slider{
     border-radius: 12px;
-    height: 462px;
+    width: 100%;
   }
   .page__home__introduction__slider-pic{
-    height: 100%;
+    height: 457px;
     border-radius: 12px;
   }
   .page__home__introduction-item-slider-content {
-    width: 846px;
+    width: 61.7%;
+    // height: 460px;
   }
-  
+  .introduction__left{
+    @include display-flex();
+    align-items: flex-start;
+    width: 514px;
+    flex-flow: column;
+    margin-right: 19px;
+  }
+  .introduction__leftitem2{
+    height: 294px;
+  }
+  .introduction__leftitem{
+    height: 150px;
+    margin-bottom: 16px;
+  }
+  .introduction__leftimg{
+    border-radius: 12px;
+    height: 100%;
+    width: 100%;
+  }
+  .carousel-cell {
+    width: 850px;
+  }
+
+
+
+  @media (max-width: 1328px) {
+
+  }
+
+  @media (max-width: 1220px) {
+    .introduction__leftitem2{
+      height: 267px;
+    }
+    .page__home__introduction__slider-pic{
+      height: 431px;
+    }
+  }
+
+  @media (max-width: 1024px) {
+    .page__home__introduction__slider-pic{
+      height: 413px;
+    }
+    .introduction__leftitem2{
+      height: 248px;
+    }
+  }
+
+  @media (max-width: 960px) {
+
+  }
+
+  @media (max-width: 600px) {
+
+  }
+
+
+
+
 
 
 </style>

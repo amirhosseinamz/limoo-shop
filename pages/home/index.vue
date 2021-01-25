@@ -53,8 +53,9 @@ export default {
 .page-home{
   @include display-flex();
   align-items: flex-start;
-  padding-right: 30px;
-  padding-left: 30px;
+  width: 72.6%;
+  margin-right: auto;
+  margin-left: auto;
 }
 
 
@@ -62,6 +63,11 @@ export default {
 
 
 @media (max-width: 1450px) {
+  .page-home{
+    padding-right: 26px;
+    padding-left: 26px;
+    width: 100%;
+  }
 
 }
 

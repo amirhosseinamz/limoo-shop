@@ -144,6 +144,7 @@ export default {
     width: 100%;
     height: 135px;
     background-color: $white;
+    z-index: 100;
 }
 .the-header {
     @include display-flex();

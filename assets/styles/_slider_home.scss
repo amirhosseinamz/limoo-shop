@@ -1,47 +1,36 @@
 @import "_colors.scss";
 
 .page__home__introduction-slider-main{
+
   .flickity-page-dots{
     bottom: 12px;
   }
   .flickity-page-dots .dot{
-    border: 1px solid #BDBDBD;
+    border: 1.5px solid $dot-bg;
     opacity: 1;
     position: relative;
     background: #fff;
-  }
-  .flickity-page-dots .dot.is-selected{
-
-  }
-
-  .flickity-page-dots .dot::after{
-    content: "";
-    width: 8px;
-    height: 8px;
-    background: #F2F2F2;
-    display: flex;
-    border-radius: 10000px;
-    position: absolute;
-    top: 0;
-    z-index: 1111;
-    right: 0;
+    width: 10px;
+    height: 10px;
   }
   .flickity-page-dots .dot::before{
     content: "";
     width: 6px;
     height: 6px;
-    background: #f2f2f2;
+    background: $white;
     border-radius: 10000px;
     position: absolute;
-    top: 1px;
+    top: 0;
     right: 0;
-    z-index: 11111111;
+    z-index: 1;
     left: 0;
     margin: auto;
   }
   .flickity-page-dots .dot.is-selected::before{
-    background: #828282;
+    background: $gray;
   }
-
+  .flickity-viewport{
+    border-radius: 16px;
+  }
 
 }
