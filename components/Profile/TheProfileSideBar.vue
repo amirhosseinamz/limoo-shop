@@ -25,11 +25,10 @@
                         سفارش های من</NuxtLink
                     >
                 </div>
-                <img
+                <span
                     @click="goToMyOrders"
                     class="profile-sidebar__arrow-left"
-                    src="/icons/arrow-left.svg"
-                />
+                ></span>
             </div>
             <hr class="splicer" />
             <div
@@ -43,10 +42,10 @@
                         >کالا های مورد علاقه</NuxtLink
                     >
                 </div>
-                <img
+                <span
+                    @click="goToFavoriteProduct"
                     class="profile-sidebar__arrow-left"
-                    src="/icons/arrow-left.svg"
-                />
+                ></span>
             </div>
             <!-- =section3= -->
             <!--/// notification section is ignored in version alpha ///-->
@@ -62,10 +61,8 @@
                     <div class="message-holder">
                         <span class="message-counter">2</span>
                     </div>
-                    <img
-                        class="profile-sidebar__arrow-left"
-                        src="/icons/arrow-left.svg"
-                    />
+                    
+                    <span class="profile-sidebar__arrow-left"></span>
                 </div>
             </div> -->
             <!--/// ===================================================== ///-->
@@ -81,11 +78,10 @@
                         >ویرایش اطلاعات شخصی</NuxtLink
                     >
                 </div>
-                <img
+                <span
                     @click="goToPersonalInfo"
                     class="profile-sidebar__arrow-left"
-                    src="/icons/arrow-left.svg"
-                />
+                ></span>
             </div>
             <hr class="splicer" />
             <div
@@ -101,10 +97,10 @@
                         >آدرس های من</NuxtLink
                     >
                 </div>
-                <img
+                <span
+                    @click="goToAdresses"
                     class="profile-sidebar__arrow-left"
-                    src="/icons/arrow-left.svg"
-                />
+                ></span>
             </div>
             <!-- =section4= -->
             <div class=" profile-sidebar__flex profile-sidebar__comment">
@@ -113,10 +109,7 @@
                         >نقد و نظرات من</NuxtLink
                     >
                 </div>
-                <img
-                    class="profile-sidebar__arrow-left"
-                    src="/icons/arrow-left.svg"
-                />
+                <span class="profile-sidebar__arrow-left"></span>
             </div>
             <hr class="splicer" />
             <div class=" profile-sidebar__flex profile-sidebar__support">
@@ -125,10 +118,7 @@
                         >پشتیبانی</NuxtLink
                     >
                 </div>
-                <img
-                    class="profile-sidebar__arrow-left"
-                    src="/icons/arrow-left.svg"
-                />
+                <span class="profile-sidebar__arrow-left"></span>
             </div>
             <hr class="splicer" />
             <div
@@ -144,11 +134,10 @@
                         >آخرین محصولات دیده شده</NuxtLink
                     >
                 </div>
-                <img
+                <span
                     @click="goToUserHistory"
                     class="profile-sidebar__arrow-left"
-                    src="/icons/arrow-left.svg"
-                />
+                ></span>
             </div>
             <!-- =section5= -->
             <!--/// ceditCard and giftCard section are ignored in version alpha ///-->
@@ -160,10 +149,7 @@
                     />
                     <NuxtLink to="">ثبت کارت بانکی</NuxtLink>
                 </div>
-                <img
-                    class="profile-sidebar__arrow-left"
-                    src="/icons/arrow-left.svg"
-                />
+               <span class="profile-sidebar__arrow-left"></span>
             </div>
             <hr class="splicer" />
             <div
@@ -176,10 +162,8 @@
                     />
                     <NuxtLink to="">کارت هدیه</NuxtLink>
                 </div>
-                <img
-                    class="profile-sidebar__arrow-left"
-                    src="/icons/arrow-left.svg"
-                />
+                
+                <span class="profile-sidebar__arrow-left"></span>
             </div> -->
             <!--/// ===================================================== ///-->
             <!-- =section6= -->
@@ -192,10 +176,7 @@
                         >حریم شخصی</NuxtLink
                     >
                 </div>
-                <img
-                    class="profile-sidebar__arrow-left"
-                    src="/icons/arrow-left.svg"
-                />
+                <span class="profile-sidebar__arrow-left"></span>
             </div>
             <hr class="splicer" />
             <div
@@ -206,10 +187,7 @@
                         >قوانین و مقررات</NuxtLink
                     >
                 </div>
-                <img
-                    class="profile-sidebar__arrow-left"
-                    src="/icons/arrow-left.svg"
-                />
+                <span class="profile-sidebar__arrow-left"></span>
             </div>
             <!-- =section7= -->
             <hr class="splicer__logout" />
@@ -286,21 +264,21 @@ export default {
         goToUserHistory() {
             this.$router.push("/profile/user-history");
         },
+        goToFavoriteProduct() {
+            this.$router.push("/profile/favorites");
+        },
+        goToAdresses() {
+            this.$router.push("/profile/adresses");
+        },
         goToMyOrders() {
             this.$router.push("/profile/my-orders");
         },
         logOutUser() {
             if (typeof Storage !== "undefined") {
-                // Store
-                // this.$store.commit("userIsAuth", {
-                //     value: false
-                // });
-                console.log("hi");
                 this.$store.dispatch({
                     type: "userIsAuth",
                     value: false
                 });
-                // localStorage.setItem("token", "");
                 localStorage.removeItem("token");
                 window.location.assign("http://localhost:3000/");
                 // this.$router.replace("/");
@@ -427,7 +405,10 @@ export default {
         content: "\e816";
     }
     &__personal-info-icon::before {
-        content: "\e805";
+        content: "\e86a";
+        font-size: 20px;
+        margin-left: 13px;
+        margin-right: 22px;
     }
     &__address-icon::before {
         content: "\e817";
@@ -528,9 +509,13 @@ export default {
         border-radius: 0;
         &__arrow-left {
             display: block;
-            width: 22px;
-            height: 22px;
             margin-left: 25px;
+        }
+        &__arrow-left::before {
+            content: "\e801";
+            @include font-icon__limoo();
+            font-size: 14px;
+            color: $input-border;
         }
         &__user {
             display: none;
@@ -550,14 +535,14 @@ export default {
             line-height: 1em;
             vertical-align: middle;
             font-size: 18px;
-            margin-left: 15px;
-            margin-right: 28px;
+            margin-left: 17px;
+            margin-right: 30px;
         }
         &__privacy-icon::before {
-            content: "\e806";
+            content: "\e867";
         }
         &__rules-icon::before {
-            content: "\e806";
+            content: "\e866";
         }
         &__privacy-icon:hover::before,
         &__rules-icon:hover::before {

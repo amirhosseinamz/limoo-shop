@@ -7,10 +7,10 @@
     :footer="false"
   >
     <div class="w-100 p-profile-favorite-wrapper flex-wrap align-items-start flex-column ">
-        <h3 class="p-profile-favorite-title w-100 justify-content-center">این محصول از لسیت حذف شود?</h3>
+        <h3 class="p-profile-favorite-title w-100 justify-content-center">این آدرس از لیست حذف شود؟</h3>
 
         <div class="p-profile-favorite-btns w-100 justify-content-center">
-          <button @click="DeleteFavorite" type="button" name="button" class="p-product-btn  p-favorite-product-btn-modal-delete cursor-pointer  ">
+          <button @click="deleteItem" type="button" name="button" class="p-product-btn  p-favorite-product-btn-modal-delete cursor-pointer  ">
             حذف
           </button>
           <button  @click="modalClose" type="button" name="button" class="p-product-btn  cursor-pointer p-favorite-product-btn-modal-cancel  ">
@@ -28,7 +28,7 @@
 export default {
     props: {
       active           : { type: [Boolean, Number], default: false },
-      currentFavorite  : { type: Object, default: {} },
+      currentProduct   : { type: Object, default: {} },
     },
 
     components: {
@@ -47,8 +47,8 @@ export default {
     },
 
     methods: {
-      DeleteFavorite(){
-        this.$emit('btn-delete-favorite',this.currentFavorite);
+      deleteItem(){
+        this.$emit('btn-delete-modal',this.currentProduct);
       },
 
       modalClose(){

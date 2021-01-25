@@ -2,9 +2,10 @@
     <div class="signin-container">
         <div class="card">
             <div class="signin-next-btn">
-                <button @click="previousPage" class="app-signin-next-btn">
-                    <img src="/icons/next.svg" />
-                </button>
+                <button
+                    @click="previousPage"
+                    class="app-signin-next-btn"
+                ></button>
             </div>
 
             <div class="card-body">
@@ -30,6 +31,7 @@
                                     :type="passwordFieldType"
                                     placeholder="کلمه عبور..."
                                     v-model="password"
+                                    maxlength="32"
                                     required
                                 />
                                 <button
@@ -40,22 +42,22 @@
                                     "
                                     aria-label="Close"
                                 >
-                                    <img
+                                    <span
                                         :style="
                                             passwordFieldType === 'password'
                                                 ? 'display: block'
                                                 : 'display: none'
                                         "
-                                        src="/icons/closeEye.svg"
-                                    />
-                                    <img
+                                        class="signin__close-eye"
+                                    ></span>
+                                    <span
                                         :style="
                                             passwordFieldType === 'text'
                                                 ? 'display: block'
                                                 : 'display: none'
                                         "
-                                        src="/icons/openEye.svg"
-                                    />
+                                        class="signin__open-eye"
+                                    ></span>
                                 </button>
                             </div>
                         </div>
@@ -69,12 +71,13 @@
                     <div class="forget-pass-section">
                         <p @click="forgetPass" class="forget-pass">
                             فراموشی رمز عبور
-                            <img class="arrow" src="/icons/arrow.svg" />
+
+                            <span class="arrow"></span>
                         </p>
 
                         <p @click="disposablePass" class="disposable-pass">
                             ورود با رمز عبور یکبار مصرف
-                            <img class="arrow" src="/icons/arrow.svg" />
+                            <span class="arrow"></span>
                         </p>
                     </div>
                 </form>
@@ -145,7 +148,32 @@ export default {
     justify-content: flex-start;
     width: 30px;
     height: 30px;
-    margin-top: 32px;
+    margin-top: 30px;
+    margin-bottom: 8px;
+}
+.app-signin-next-btn::before {
+    content: "\e801";
+    @include font-icon__limoo();
+    font-size: 24px;
+    color: $black-icon;
+}
+.signin__close-eye::before {
+    content: "\e810";
+    @include font-icon__limoo();
+    font-size: 20px;
+    color: $gray;
+    vertical-align: middle;
+}
+.signin__close-eye,
+.signin__open-eye {
+    margin-bottom: 4px;
+}
+.signin__open-eye::before {
+    content: "\e811";
+    @include font-icon__limoo();
+    font-size: 20px;
+    color: $gray;
+    vertical-align: middle;
 }
 .form-control {
     direction: rtl;
@@ -204,6 +232,13 @@ export default {
 .arrow {
     margin-left: 8px;
     cursor: pointer;
+}
+.arrow::before {
+    content: "\e83a";
+    @include font-icon__limoo();
+    font-size: 10px;
+    color: $gray;
+    vertical-align: middle;
 }
 .disposable-pass {
     color: $code-request;

@@ -2,9 +2,7 @@
     <div class="recycle-container">
         <div class="card">
             <div class="signup-close-btn">
-                <button @click="nextPage" class="app-signup-close-btn">
-                    <img src="/icons/next.svg" />
-                </button>
+                <button @click="nextPage" class="app-signup-close-btn"></button>
             </div>
 
             <div class="card-body">
@@ -207,6 +205,12 @@ export default {
     width: 30px;
     height: 30px;
     margin-top: 24px;
+}
+.app-signup-close-btn::before {
+    content: "\e801";
+    @include font-icon__limoo();
+    font-size: 24px;
+    color: $black-icon;
 }
 .form-control {
     direction: rtl;

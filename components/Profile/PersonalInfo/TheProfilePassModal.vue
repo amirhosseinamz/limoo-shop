@@ -4,16 +4,9 @@
         :class="{ 'modal-animation__close': modalClose }"
         dir="rtl"
     >
-        <img
-            @click="closeModalDesktop"
-            class="modal__close-cross"
-            src="/icons/close.svg"
-        />
-        <img
-            @click="closeModalMobile"
-            class="modal__close-line"
-            src="/icons/line.svg"
-        />
+        <span @click="closeModalDesktop" class="modal__close-cross"></span>
+        <span @click="closeModalMobile" class="modal__close-line"></span>
+
         <span class="modal__title">تغییر رمز عبور</span>
         <hr class="splicer-line" />
         <form @submit.prevent="">
@@ -21,7 +14,15 @@
                 <label for="oldPassValidation"
                     >رمز عبور قدیم:<span>*</span></label
                 >
-                <div class="pass__old">
+                <div
+                    :style="
+                        oldPassInput
+                            ? 'border:1px solid #515151'
+                            : 'border:1px solid #bdbdbd'
+                    "
+                    @click="oldPassInputActive"
+                    class="pass__old"
+                >
                     <input
                         :type="oldPassType"
                         id="oldPassValidation"
@@ -33,22 +34,22 @@
                         class="clear-input"
                         aria-label="Close"
                     >
-                        <img
+                        <span
                             :style="
                                 oldPassType === 'password'
                                     ? 'display: block'
                                     : 'display: none'
                             "
-                            src="/icons/eye-profile-close.svg"
-                        />
-                        <img
+                            class="signin__close-eye"
+                        ></span>
+                        <span
                             :style="
                                 oldPassType === 'text'
                                     ? 'display: block'
                                     : 'display: none'
                             "
-                            src="/icons/eye-profile.svg"
-                        />
+                            class="signin__open-eye"
+                        ></span>
                     </button>
                 </div>
                 <span class="pass__alert" v-if="msg.oldPassValidation">{{
@@ -59,7 +60,15 @@
                 <label for="newPassVlidation"
                     >رمز عبور جدید:<span>*</span></label
                 >
-                <div class="pass__new">
+                <div
+                    :style="
+                        newPassInput
+                            ? 'border:1px solid #515151'
+                            : 'border:1px solid #bdbdbd'
+                    "
+                    @click="newPassInputActive"
+                    class="pass__new"
+                >
                     <input
                         :type="newPassType"
                         id="newPassVlidation"
@@ -71,22 +80,22 @@
                         class="clear-input"
                         aria-label="Close"
                     >
-                        <img
+                        <span
                             :style="
                                 newPassType === 'password'
                                     ? 'display: block'
                                     : 'display: none'
                             "
-                            src="/icons/eye-profile-close.svg"
-                        />
-                        <img
+                            class="signin__close-eye"
+                        ></span>
+                        <span
                             :style="
                                 newPassType === 'text'
                                     ? 'display: block'
                                     : 'display: none'
                             "
-                            src="/icons/eye-profile.svg"
-                        />
+                            class="signin__open-eye"
+                        ></span>
                     </button>
                 </div>
                 <span class="pass__alert" v-if="msg.newPassVlidation">{{
@@ -97,7 +106,15 @@
                 <label for="repeatNewPassVlidation"
                     >تکرار رمز عبور جدید:<span>*</span></label
                 >
-                <div class="pass__new-repeat">
+                <div
+                    :style="
+                        repeatnewPassInput
+                            ? 'border:1px solid #515151'
+                            : 'border:1px solid #bdbdbd'
+                    "
+                    @click="repeatnewPassInputActive"
+                    class="pass__new-repeat"
+                >
                     <input
                         :type="newPassRepeatType"
                         id="repeatNewPassVlidation"
@@ -109,22 +126,22 @@
                         class="clear-input"
                         aria-label="Close"
                     >
-                        <img
+                        <span
                             :style="
                                 newPassRepeatType === 'password'
                                     ? 'display: block'
                                     : 'display: none'
                             "
-                            src="/icons/eye-profile-close.svg"
-                        />
-                        <img
+                            class="signin__close-eye"
+                        ></span>
+                        <span
                             :style="
                                 newPassRepeatType === 'text'
                                     ? 'display: block'
                                     : 'display: none'
                             "
-                            src="/icons/eye-profile.svg"
-                        />
+                            class="signin__open-eye"
+                        ></span>
                     </button>
                 </div>
                 <span class="pass__alert" v-if="msg.repeatNewPassVlidation">{{
@@ -149,7 +166,10 @@ export default {
             msg: [],
             oldPassValidation: "",
             newPassVlidation: "",
-            repeatNewPassVlidation: ""
+            repeatNewPassVlidation: "",
+            oldPassInput: false,
+            newPassInput: false,
+            repeatnewPassInput: false
         };
     },
     watch: {
@@ -167,6 +187,21 @@ export default {
         }
     },
     methods: {
+        oldPassInputActive() {
+            this.oldPassInput = true;
+            this.newPassInput = false;
+            this.repeatnewPassInput = false;
+        },
+        newPassInputActive() {
+            this.newPassInput = true;
+            this.oldPassInput = false;
+            this.repeatnewPassInput = false;
+        },
+        repeatnewPassInputActive() {
+            this.repeatnewPassInput = true;
+            this.newPassInput = false;
+            this.oldPassInput = false;
+        },
         closeModalMobile() {
             this.modalClose = true;
             setTimeout(() => {
@@ -236,6 +271,9 @@ export default {
             }
         },
         submitChangePass() {
+            this.oldPassInput = false;
+            this.newPassInput = false;
+            this.repeatnewPassInput = false;
             let userPass = this.newPassVlidation;
             let repeatUserPass = this.repeatNewPassVlidation;
             if (
@@ -275,10 +313,21 @@ export default {
         margin-left: 24px;
         cursor: pointer;
     }
+    &__close-cross::before {
+        content: "\e807";
+        @include font-icon__limoo();
+        font-size: 28px;
+        color: $gray;
+    }
     &__close-line {
         display: none;
         align-self: center;
-        margin-top: 24px;
+    }
+    &__close-line::before {
+        content: "\e81b";
+        @include font-icon__limoo();
+        font-size: 28px;
+        color: $gray;
     }
     &__title {
         display: none;
@@ -319,6 +368,26 @@ export default {
         box-shadow: 0px 4px 4px $gray-border;
         border-radius: 15px;
         margin-top: 15px;
+    }
+    /* ======================================= */
+
+    .signin__close-eye::before {
+        content: "\e810";
+        @include font-icon__limoo();
+        font-size: 17px;
+        color: $gray;
+        vertical-align: middle;
+    }
+    .signin__close-eye,
+    .signin__open-eye {
+        margin-bottom: 2px;
+    }
+    .signin__open-eye::before {
+        content: "\e811";
+        @include font-icon__limoo();
+        font-size: 17px;
+        color: $gray;
+        vertical-align: middle;
     }
     .pass__old > input,
     .pass__new > input,
@@ -403,14 +472,15 @@ export default {
         &__close-line {
             display: block;
             align-self: center;
-            margin-top: 24px;
+            margin-top: 20px;
+            line-height: 0px;
         }
         &__title {
             display: block;
             font-size: 14px;
             line-height: 140.62%;
             color: $gray;
-            margin-top: 24px;
+            margin-top: 20px;
             text-align: center;
         }
         /* form {

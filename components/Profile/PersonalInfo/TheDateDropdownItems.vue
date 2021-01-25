@@ -20,10 +20,9 @@
 
                         <div class="birthday-item-icons check-dropdown-close">
                             <span class="arrow__spliter"></span>
-                            <img
-                                src="/icons/arrow-down.svg"
+                            <span
                                 class="nested-arrow birthday-item-selected-arrow check-dropdown-close"
-                            />
+                            ></span>
                         </div>
                     </div>
                 </div>
@@ -85,10 +84,9 @@
 
                         <div class="birthday-item-icons check-dropdown-close">
                             <span class="arrow__spliter"></span>
-                            <img
-                                src="/icons/arrow-down.svg"
+                            <span
                                 class="nested-arrow birthday-item-selected-arrow check-dropdown-close"
-                            />
+                            ></span>
                         </div>
                     </div>
                 </div>
@@ -151,10 +149,9 @@
 
                         <div class="birthday-item-icons check-dropdown-close">
                             <span class="arrow__spliter"></span>
-                            <img
-                                src="/icons/arrow-down.svg"
+                            <span
                                 class="nested-arrow birthday-item-selected-arrow check-dropdown-close"
-                            />
+                            ></span>
                         </div>
                     </div>
                 </div>
@@ -670,8 +667,20 @@ export default {
 }
 /* .birthday-item-selected-arrow {
 } */
-.birthday-active .birthday-item-selected-arrow {
-    transform: rotate(178deg);
+/* ======================== */
+.birthday-item-selected-arrow::before {
+    @include display-flex();
+    content: "\e801";
+    @include font-icon__limoo();
+    font-size: 12px;
+    color: $input-border;
+    transform: rotate(-90deg);
+    margin-right: 4px;
+    margin-left: 8px;
+}
+
+.birthday-active .birthday-item-selected-arrow::before {
+    transform: rotate(90deg);
 }
 .birthday-item-icons {
     position: absolute;

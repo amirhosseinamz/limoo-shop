@@ -73,11 +73,9 @@
                             class="p-history-product-btn-delete cursor-pointer"
                             name="button"
                         >
-                            <img
+                            <span
                                 class="p-history-product-item-icon-delete"
-                                src="/icons/delete.svg"
-                                alt=""
-                            />
+                            ></span>
                         </button>
                     </div>
                 </div>
@@ -216,8 +214,12 @@ export default {
 .p-history-product-item-main {
     @include display-flex();
 }
-.p-history-product-item-icon-delete {
-    width: 15px;
+.p-history-product-item-icon-delete::before {
+    /* width: 15px; */
+    content: "\e826";
+    @include font-icon__limoo();
+    font-size: 17px;
+    color: $input-border;
 }
 .p-history-product-btn-link {
     border: none;

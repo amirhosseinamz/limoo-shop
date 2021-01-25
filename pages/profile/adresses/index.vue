@@ -1,11 +1,10 @@
 <template>
     <div class="profile-container">
-
         <the-profile-side-bar class="desktop-screen" />
 
         <div class="mobile-screen">
             <div class="mobile-screen__holder">
-                <span class="mobile-screen__holder-txt">لیست علاقه مندی  شما</span>
+                <span class="mobile-screen__holder-txt">آدرس های شما</span>
                 <img
                     @click="goToProfile"
                     class="mobile-screen__holder-arrow"
@@ -15,50 +14,179 @@
         </div>
 
         <div class="user-profile__holder">
-            <div class="user-profile">
-                <span class="user-profile__topic">لیست علاقه مندی شما</span>
+            <div class="user-profile w-100">
+                <span class="user-profile__topic">آدرس های شما</span>
                 <hr class="splicer-line" />
-                
-
+                <div class="w-100 user-profile-adresses-main flex-column">
+                    <contentAdresses
+                        :adress-data="adressesData"
+                        :all-province="allProvince"
+                        :all-citys="allCitys"
+                        :form-data="formData"
+                        :profile-phone-number="profilePhoneNumber"
+                        @show-modal-delete-product="showModalDeleteProduct"
+                        @selected-province="selectedProvince"
+                        @selected-city="selectedCity"
+                        @submit-address-add="submitAddressAdd"
+                    ></contentAdresses>
+                </div>
             </div>
         </div>
 
-
-
+        <modalDeleteAdress
+            :active.sync="statusShowModalDeleteProduct"
+            :current-product="currentProduct"
+            @btn-delete-modal="btnDeleteProduct"
+        />
     </div>
 </template>
 <script>
 import TheProfileSideBar from "~/components/Profile/TheProfileSideBar.vue";
-// import modalDeleteFav from "~/components/Favorites/modalDeleteFav.vue";
-
-
+import contentAdresses from "~/components/Profile/Adresses/contentAdresses.vue";
+import modalDeleteAdress from "~/components/Profile/Adresses/modalDeleteAdress.vue";
 
 export default {
-    middleware: "authentication",
     components: {
         TheProfileSideBar,
+        contentAdresses,
+        modalDeleteAdress
     },
 
     data() {
         return {
-
-
+            adressesData: [
+                {
+                    id: 1,
+                    address: "تهران ، خیابان ولیعصر ، تقاطع کوچه حسینی راد 1",
+                    province: "تهران",
+                    city: "جنت آباد",
+                    codePoste: "90",
+                    nameReceiver: "test",
+                    numberReceiver: "10"
+                },
+                {
+                    id: 2,
+                    address: "تهران ، خیابان ولیعصر ، تقاطع کوچه حسینی راد 2",
+                    province: "قم",
+                    city: "قم",
+                    codePoste: "2",
+                    nameReceiver: "test",
+                    numberReceiver: "10"
+                },
+                {
+                    id: 3,
+                    address: "تهران ، خیابان ولیعصر ، تقاطع کوچه حسینی راد 3",
+                    province: "قم",
+                    city: "قم",
+                    codePoste: "3",
+                    nameReceiver: "test",
+                    numberReceiver: "10"
+                }
+            ],
+            currentProduct: {},
+            statusShowModalDeleteProduct: false,
+            allProvince: [
+                {
+                    id: 1,
+                    title: "تهران",
+                    selected: false
+                },
+                {
+                    id: 2,
+                    title: "قم",
+                    selected: false
+                }
+            ],
+            allCitys: [
+                {
+                    id: 1,
+                    parent_id: 2,
+                    title: "قم",
+                    selected: false
+                },
+                {
+                    id: 2,
+                    parent_id: 1,
+                    title: "جنت آباد",
+                    selected: false
+                }
+            ],
+            formData: {
+                province: "",
+                city: "",
+                codePoste: "",
+                nameReceiver: "",
+                numberReceiver: "",
+                address: ""
+            },
+            updateAddress: 0,
+            profilePhoneNumber: "09198814783"
         };
     },
 
-    watch: {
+    watch: {},
 
-    },
-
-    mounted() {
-    },
+    mounted() {},
 
     methods: {
         goToProfile() {
             this.$router.push("/profile");
         },
 
+        btnDeleteProduct(data) {
+            const removeFavorite = () => {
+                let indexDelete = -1;
 
+                this.adressesData.map((content, index) => {
+                    if (content.id == data.id) {
+                        indexDelete = index;
+                    }
+                });
+
+                this.adressesData.splice(indexDelete, 1);
+            };
+
+            removeFavorite();
+            this.statusShowModalDeleteProduct = false;
+
+            // request //
+        },
+
+        showModalDeleteProduct(data) {
+            this.currentProduct = data;
+            this.statusShowModalDeleteProduct = true;
+        },
+
+        selectedProvince(data) {
+            // console.log(data,'selectedProvince');
+        },
+
+        selectedCity(data) {
+            // console.log(data,'selectedCitys');
+        },
+
+        submitAddressAdd(data, state) {
+            this.updateAddress++;
+            let findIndex = 0;
+
+            const faceUpdatePage = () => {
+                this.adressesData.map((content, i) => {
+                    if (content.id == data.id) {
+                        this.adressesData[i] = data;
+                    }
+                });
+            };
+
+            // بعد از اتصال به بک این قسمت حذف شود //
+            if (state == "edit") {
+                faceUpdatePage();
+            } else {
+                data.id = 20 + this.updateAddress;
+                this.adressesData.push(data);
+            }
+
+            // send data server //
+        }
     }
 };
 </script>
@@ -79,7 +207,6 @@ export default {
     z-index: 1;
     background: $overlay__profile;
 }
-
 
 .mobile-screen {
     display: none;
@@ -120,17 +247,20 @@ export default {
         margin-top: 23px;
         margin-right: 25px;
     }
-
 }
 .splicer-line {
     display: none;
 }
+.user-profile__topic {
+    text-align: right;
+}
+
 @media (max-width: 1450px) {
-
 }
+
 @media (max-width: 1220px) {
-
 }
+
 @media (max-width: 960px) {
     .desktop-screen {
         display: none;
@@ -170,24 +300,19 @@ export default {
             display: none;
         }
     }
-
 }
 
 @media (max-width: 600px) {
-  .user-profile{
-    background: none;
-    border:none;
-    box-shadow: none;
-  }
+    .user-profile {
+        background: none;
+        border: none;
+        box-shadow: none;
+    }
 }
 
-
 @media (max-width: 350px) {
-
 }
 
 @media (max-width: 320px) {
-
 }
-
 </style>

@@ -64,11 +64,9 @@
                             class="p-favorite-product-btn-delete cursor-pointer"
                             name="button"
                         >
-                            <img
+                            <span
                                 class="p-favorite-product-item-icon-delete"
-                                src="/icons/delete.svg"
-                                alt=""
-                            />
+                            ></span>
                         </button>
                     </div>
                 </div>
@@ -178,8 +176,11 @@ export default {
 .p-favorite-product-item-main {
     @include display-flex();
 }
-.p-favorite-product-item-icon-delete {
-    width: 19px;
+.p-favorite-product-item-icon-delete::before {
+    content: "\e826";
+    @include font-icon__limoo();
+    font-size: 17px;
+    color: $input-border;
 }
 .p-favorite-product-btn-link {
     border: none;

@@ -7,11 +7,10 @@
                 <span class="mobile-screen__holder-txt"
                     >آخرین محصولات دیده شده</span
                 >
-                <img
+                <span
                     @click="goToProfile"
                     class="mobile-screen__holder-arrow"
-                    src="/icons/arrow-left.svg"
-                />
+                ></span>
             </div>
         </div>
 
@@ -191,6 +190,14 @@ export default {
             }
             &-arrow {
                 margin-left: 16px;
+            }
+            &-arrow::before {
+                content: "\e801";
+                @include font-icon__limoo();
+                font-size: 14px;
+                color: $input-border;
+                margin-right: 4px;
+                margin-left: 8px;
             }
         }
     }
