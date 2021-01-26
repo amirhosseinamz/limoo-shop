@@ -15,13 +15,6 @@
                 />
             </div>
         </transition>
-
-        <!-- <div class="w-100 flex-wrap p-adresses-content-btn-add-main p-adresses-content-item-desktop">
-          <button @click="addAddress" type="submit" class=" btn-change p-adresses-content-btn-data">
-              افزودن آدرس جدید
-          </button>
-      </div> -->
-
         <div class="w-100 flex-wrap p-adresses-content-items">
             <div
                 v-for="data in adressData"
@@ -110,139 +103,61 @@
                                     >
                                 </div>
                             </div>
-
-                            <!-- <div
-                                class=" p-address-content-header-item align-items-center p-adresses-content-item-mobile"
-                            >
-                                <img
-                                    class="p-address-content-header-icon"
-                                    src="/icons/location_adress_yellow.svg"
-                                    alt=""
-                                />
-                                <h3
-                                    class="p-address-content-header-item-title"
-                                >
-                                    {{ data.address }}
-                                </h3>
-                            </div> -->
-
-                            <!-- <div
-                                class=" p-address-content-header-item align-items-center"
-                            >
-                                <img
-                                    class="p-address-content-header-icon"
-                                    src="/icons/profile_adress.svg"
-                                    alt=""
-                                />
-                                <h3
-                                    class="p-address-content-header-item-title"
-                                >
-                                    شروین پیکارجو
-                                </h3>
-                            </div> -->
-
-                            <!-- <div
-                                class=" p-address-content-header-item align-items-center"
-                            >
-                                <img
-                                    class="p-address-content-header-icon"
-                                    src="/icons/location_adress.svg"
-                                    alt=""
-                                />
-                                <h3
-                                    class="p-address-content-header-item-title"
-                                >
-                                    {{ data.province }}
-                                </h3>
-                            </div> -->
-
-                            <!-- <div
-                                class=" p-address-content-header-item align-items-center"
-                            >
-                                <img
-                                    class="p-address-content-header-icon"
-                                    src="/icons/call_adress.svg"
-                                    alt=""
-                                />
-                                <h3
-                                    class="p-address-content-header-item-title"
-                                >
-                                    {{ data.numberReceiver }}
-                                </h3>
-                            </div> -->
-
-                            <!-- <div
-                                class=" p-address-content-header-item align-items-center"
-                            >
-                                <img
-                                    class="p-address-content-header-icon"
-                                    src="/icons/message.svg"
-                                    alt=""
-                                />
-                                <h3
-                                    class="p-address-content-header-item-title"
-                                >
-                                    {{ data.codePoste }}
-                                </h3>
-                            </div> -->
                         </div>
                         <!-- ==================================================================================== -->
                         <div
-                            class="w-100 flex-column p-adresses-content-data-main"
+                            class="w-100 flex-column p-comment-content-data-main"
                         >
                             <div
-                                class="w-100 flex-wrap  p-adresses-content-data-wrapper"
+                                class="w-100 p-commentedproduct-main text-right"
                             >
-                                <div
-                                    class="p-adresses-content-item-desktop w-100 p-adresses-content-data flex-wrap align-items-start"
-                                >
-                                    <div
-                                        class="w-100 p-adresses-content-text-main text-right"
-                                    >
-                                        <h3
-                                            class="p-adresses-content-text-data w-100"
-                                        >
-                                            {{ data.address }}
-                                        </h3>
-                                    </div>
+                                <img
+                                    :src="data.img"
+                                    class="p-commented-product-img"
+                                    alt=""
+                                />
+                                <span class="p-product-content-text-data ">
+                                    {{ data.productTitle }}
+                                </span>
+                            </div>
+                            <div class="p-commentedproduct-description">
+                                {{ data.description }}
+                            </div>
+                            <div class="p-adresses-content-data-btns w-100">
+                                <div class="p-commentedproduct__time">
+                                    {{ data.commentTime }}
                                 </div>
-                                <div
-                                    class="p-adresses-content-data-btns w-100 justify-content-end"
-                                >
-                                    <div class="p-favorite-product-btn-main">
-                                        <button
-                                            type="button"
-                                            class="p-product-btn cursor-pointer p-adresses-content-btn-edit"
-                                            name="button"
+                                <div class="p-favorite-product-btn-main">
+                                    <button
+                                        type="button"
+                                        class="p-product-btn cursor-pointer p-adresses-content-btn-edit"
+                                        name="button"
+                                    >
+                                        <span
+                                            @click="editAddress(data)"
+                                            class="p-favorite-product-btn-link p-adresses-content-item-desktop"
+                                            >ویرایش</span
                                         >
-                                            <span
-                                                @click="editAddress(data)"
-                                                class="p-favorite-product-btn-link p-adresses-content-item-desktop"
-                                                >ویرایش</span
-                                            >
-                                            <span
-                                                @click="editAddress(data)"
-                                                class="p-favorite-product-btn-link p-adresses-content-item-mobile "
-                                            >
-                                                <img
-                                                    class="p-adresses-content-edit-icon"
-                                                    src="/icons/icon-edit.svg"
-                                                    alt=""
-                                                />
-                                            </span>
-                                        </button>
-                                        <button
-                                            @click="
-                                                showModalDeleteProduct(data)
-                                            "
-                                            class="p-favorite-product-btn-delete cursor-pointer  p-adresses-content-btn-delete"
-                                            name="button"
+                                        <span
+                                            @click="editAddress(data)"
+                                            class="p-favorite-product-btn-link p-adresses-content-item-mobile "
                                         >
-                                            <span
-                                                class="p-favorite-product-item-icon-delete"
-                                            ></span>
-                                        </button>
-                                    </div>
+                                            <img
+                                                class="p-adresses-content-edit-icon"
+                                                src="/icons/icon-edit.svg"
+                                                alt=""
+                                            />
+                                        </span>
+                                    </button>
+                                    <button
+                                        @click="showModalDeleteProduct(data)"
+                                        class="p-favorite-product-btn-delete cursor-pointer  p-adresses-content-btn-delete"
+                                        name="button"
+                                    >
+                                        <span
+                                            class="p-favorite-product-item-icon-delete"
+                                        ></span>
+                                    </button>
                                 </div>
                             </div>
                         </div>
@@ -341,23 +256,6 @@ export default {
     top: 0;
     right: 0;
 }
-// #overlay {
-//     position: absolute; /* Sit on top of the page content */
-//     @include display-flex();
-//     justify-content: center;
-//     align-items: center;
-//     width: 100%; /* Full width (cover the whole page) */
-//     height: 100%; /* Full height (cover the whole page) */
-//     /* transition: opacity 200ms ease-out; */
-//     /* top: 0;
-//     left: 0;
-//     right: 0;
-//     bottom: 0; */
-//     z-index: 1;
-//     background: $overlay__profile;
-//     top: 120px;
-//     right: 0;
-// }
 .p-comments-content-main {
     padding-right: 24px;
     padding-left: 24px;
@@ -370,12 +268,21 @@ export default {
     margin-bottom: 38px;
     font-size: 16px;
 }
+.p-adresses-content-items {
+    /* border: 1px solid red; */
+}
 .p-adresses-content-item {
     @include display-flex();
+    flex-direction: column;
     border: 1px solid $light-gray;
     border-radius: 10px;
-    height: 241px;
+    height: fit-content;
     margin-bottom: 24px;
+}
+.p-commented-product-img {
+    /* border: 1px solid red; */
+    width: 80px;
+    height: 80px;
 }
 /* ============================== */
 .p-comments-content-header {
@@ -463,7 +370,7 @@ export default {
     width: 18px;
     height: 18px;
     border-radius: 50%;
-    border: 3px solid #fff5d9;
+    border: 3px solid $border__yellow;
     background-color: $yellow;
     margin-left: 11px;
 }
@@ -502,22 +409,42 @@ export default {
     padding-right: 27px;
     padding-left: 27px;
 }
-.p-adresses-content-text-data {
+.p-product-content-text-data {
     font-family: inherit;
     font-size: 16px;
     color: $black-topic;
     font-weight: 400;
+    margin-top: 10px;
+    margin-right: 16px;
+    /* border: 1px solid blueviolet; */
 }
-.p-adresses-content-text-main {
+.p-commentedproduct-description {
+    color: $black-topic;
+    font-family: inherit;
+    text-align: right;
+    font-size: 16px;
+    line-height: 140.62%;
+    margin: 24px 24px 16px 96px;
+}
+.p-commentedproduct-main {
     @include display-flex();
-    margin-top: 25px;
-    margin-bottom: 36px;
+    margin-top: 20px;
+    margin-right: 24px;
+}
+.p-commentedproduct__time {
+    @include display-flex();
+    align-self: center;
+    margin-right: 24px;
+    font-size: 14px;
+    line-height: 140.62%;
+    color: $gray;
 }
 .p-adresses-content-data-btns {
     @include display-flex();
+    justify-content: space-between;
     padding-left: 16px;
-    height: 83px;
-    align-items: flex-end;
+    height: 77px;
+    align-items: flex-start;
 }
 .p-adresses-content-btn-edit {
     width: 130px;
@@ -525,7 +452,7 @@ export default {
 .p-adresses-content-wrapper {
     @include display-flex();
 }
-.p-adresses-content-data-main {
+.p-comment-content-data-main {
     @include display-flex();
 }
 .p-adresses-content-edit-icon {
@@ -539,13 +466,8 @@ export default {
     display: none;
 }
 
-.p-adresses-content-data-wrapper {
-    height: 167px;
-    @include display-flex();
-    align-content: flex-start;
-}
 .p-favorite-product-btn-main {
-    margin-bottom: 37px;
+    /* margin-bottom: 34px; */
 }
 
 @media (max-width: 1220px) {
@@ -569,6 +491,9 @@ export default {
     }
     .p-comments-content-main {
         padding: 0;
+    }
+    .p-commentedproduct-description {
+        font-size: 14px;
     }
 }
 
@@ -597,6 +522,12 @@ export default {
         height: auto;
         margin-bottom: 8px;
     }
+    .p-commentedproduct-description {
+        font-size: 13px;
+        margin: 24px 11px 16px 37px;
+        /* height: 62px;
+        overflow: hidden; */
+    }
     .p-comments-content-header-item {
         margin-left: 0;
         width: 100%;
@@ -605,10 +536,17 @@ export default {
     .p-comments-content-header-item-title {
         font-size: 14px;
     }
-    .p-adresses-content-text-data {
+    .p-product-content-text-data {
+        margin-top: 7px;
         font-size: 14px;
     }
+    .p-commentedproduct__time {
+        margin-right: 11px;
+        font-size: 13px;
+    }
     .p-adresses-content-data-btns {
+        border-top: 1px solid $light-gray;
+        padding-top: 16px;
         margin-bottom: 16px;
         margin-top: 26px;
         height: auto;
@@ -636,12 +574,12 @@ export default {
     .p-adresses-content-item-mobile {
         display: flex;
     }
-    .p-adresses-content-text-main {
-        margin-bottom: 0;
+    .p-commentedproduct-main {
+        margin-right: 6px;
+        margin-top: 16px;
+        padding-left: 19px;
     }
-    .p-adresses-content-data-wrapper {
-        height: auto;
-    }
+
     .p-favorite-product-btn-main {
         margin-bottom: 0;
     }
