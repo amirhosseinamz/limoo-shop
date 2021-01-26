@@ -105,7 +105,9 @@
             <!-- =section4= -->
             <div class=" profile-sidebar__flex profile-sidebar__comment">
                 <div class="profile-sidebar__flex-part d-rtl">
-                    <NuxtLink class="profile-sidebar__comment-icon" to=""
+                    <NuxtLink
+                        class="profile-sidebar__comment-icon"
+                        to="/profile/comments"
                         >نقد و نظرات من</NuxtLink
                     >
                 </div>
