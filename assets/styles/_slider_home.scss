@@ -1,7 +1,6 @@
 @import "_colors.scss";
 
 .page__home__introduction-slider-main{
-
   .flickity-page-dots{
     bottom: 12px;
   }
@@ -32,5 +31,8 @@
   .flickity-viewport{
     border-radius: 16px;
   }
+}
+
+.productContent__mainSlider{
 
 }

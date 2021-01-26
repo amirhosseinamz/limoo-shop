@@ -46,11 +46,12 @@ export default {
       let Flickity       = require("flickity")
       let sliderOptions  = new Flickity( '.page__home__introduction-slider-main', {
         accessibility   : true,
-        adaptiveHeight  : false,
+        adaptiveHeight  : true,
         autoPlay        : false,
         // rightToLeft     : true,
         cellAlign       : 'right',
         prevNextButtons : false,
+        imagesLoaded    : true,
       });
     },
 
@@ -69,6 +70,7 @@ export default {
   .page__home-introduction-items{
     @include display-flex();
     align-items: flex-start;
+    max-height: 457px;
   }
   .page__home__introduction__slider{
     border-radius: 12px;
@@ -130,12 +132,45 @@ export default {
   }
 
   @media (max-width: 960px) {
-
+    .introduction__left{
+      display: none;
+    }
+    .page__home__introduction-item-slider-content{
+      width: 100%;
+    }
+    .carousel-cell{
+      width: 100%;
+    }
+    .page__home__introduction__slider-pic{
+      height: 400px;
+      width: 100%;
+    }
   }
 
   @media (max-width: 600px) {
-
+    .page__home__introduction__slider-pic{
+      height: 220px;
+    }
   }
+
+  @media (max-width: 460px) {
+    .page__home__introduction__slider-pic{
+      height: 180px;
+    }
+  }
+
+  @media (max-width: 420px) {
+    .page__home__introduction__slider-pic{
+      max-height: 185px;
+    }
+  }
+
+  @media (max-width: 280px) {
+    .page__home__introduction__slider-pic{
+      height: 141px;
+    }
+  }
+
 
 
 

@@ -1,5 +1,14 @@
 <template>
-    <div class="page-home w-100 d-rtl">
+    <div class="page-home w-100 d-rtl flex-column">
+      <div class="mobile-screen w-100">
+          <div class="mobile-screen__holder">
+              <span class="mobile-screen__holder-txt">آدرس های شما</span>
+              <img
+                  class="mobile-screen__holder-arrow"
+                  src="/icons/arrow-left.svg"
+              />
+          </div>
+      </div>
       <content-home></content-home>
     </div>
 </template>
@@ -37,6 +46,7 @@ export default {
 <style lang="scss" scoped>
 .mobile-screen {
     display: none;
+    direction: ltr;
 }
 .profile-container {
     margin: 0 auto;
@@ -122,6 +132,12 @@ export default {
 
 }
 
+@media (max-width: 460px) {
+  .page-home{
+    padding-right: 10px;
+    padding-left: 10px;
+  }
+}
 
 @media (max-width: 350px) {
 

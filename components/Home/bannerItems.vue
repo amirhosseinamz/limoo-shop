@@ -74,6 +74,31 @@ export default {
     }
   }
 
+  @media (max-width: 460px) {
+    .bannerItems__item{
+      display: none;
+      width: 100%;
+      margin-left: 0;
+      max-height: 220px;
+    }
+    .bannerItems__item:first-child{
+      display: flex;
+    }
+  }
+
+  // @media (max-width: 420px) {
+  //   .bannerItems__item{
+  //     max-height: 180px;
+  //   }
+  // }
+  //
+  // @media (max-width: 360px) {
+  //   .bannerItems__item{
+  //     max-height: 184px;
+  //   }
+  // }
+
+
 
 
 </style>
