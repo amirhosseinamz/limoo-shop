@@ -2,7 +2,7 @@
   <div class="w-100 page__home-wrapper-main">
         <div class="page__home-introduction-main w-100">
             <introduction-items></introduction-items>
-            <product-content></product-content>
+            <product-content :products="products"></product-content>
             <banner-items></banner-items>
             <banner-2-items></banner-2-items>
             <banner-3-items></banner-3-items>
@@ -22,7 +22,7 @@ import productContent from './productContent';
 
 export default {
     props: {
-      // allProvince           : { type: [Object,Array], default: [] },
+      products   : { type: [Object,Array], default: [] },
     },
 
     components: {

@@ -9,7 +9,7 @@
               />
           </div>
       </div>
-      <content-home></content-home>
+      <content-home :products="products"></content-home>
     </div>
 </template>
 <script>
@@ -25,7 +25,32 @@ export default {
 
     data() {
         return {
-
+          products : [
+            {
+              id    : 1,
+              title : 'dasd'
+            },
+            {
+              id    : 2,
+              title : 2,
+            },
+            {
+              id    : 3,
+              title : 2,
+            },
+            {
+              id    : 4,
+              title : 2,
+            },
+            {
+              id    : 5,
+              title : 2,
+            },
+            {
+              id    : 6,
+              title : 2,
+            }
+          ]
         };
     },
 
