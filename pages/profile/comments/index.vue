@@ -65,12 +65,7 @@ export default {
                     img: "/img/apple-watch-1.png",
                     description:
                         "این کالا به شدت قوی و با کیفیت هست و پیشنهاد میکنم در این رنج قیمت، حتما این کالارو خریداری کنید! این کالا به شدت قوی و با کیفیت هست و پیشنهاد میکنم در این رنج قیمت حتما این کالا رو خریداری کنید.",
-                    commentTime: "1 ساعت پیش",
-                    province: "تهران",
-                    city: "جنت آباد",
-                    codePoste: "90",
-                    nameReceiver: "test",
-                    numberReceiver: "10"
+                    commentTime: "1 ساعت پیش"
                 },
                 {
                     id: 2,
@@ -84,12 +79,7 @@ export default {
                     description:
                         "این کالا به شدت قوی و با کیفیت هست و پیشنهاد میکنم در این رنج قیمت، حتما این کالارو خریداری کنید! این کالا به شدت قوی و با کیفیت هست و پیشنهاد میکنم در این رنج قیمت حتما این کالا رو خریداری کنید.",
 
-                    commentTime: "1 روز پیش",
-                    province: "قم",
-                    city: "قم",
-                    codePoste: "2",
-                    nameReceiver: "test",
-                    numberReceiver: "10"
+                    commentTime: "1 روز پیش"
                 },
                 {
                     id: 3,
@@ -102,12 +92,7 @@ export default {
                     description:
                         "این کالا به شدت قوی و با کیفیت هست و پیشنهاد میکنم در این رنج قیمت، حتما این کالارو خریداری کنید! این کالا به شدت قوی و با کیفیت هست و پیشنهاد میکنم در این رنج قیمت حتما این کالا رو خریداری کنید.",
 
-                    commentTime: "دقایقی قبل",
-                    province: "قم",
-                    city: "قم",
-                    codePoste: "3",
-                    nameReceiver: "test",
-                    numberReceiver: "10"
+                    commentTime: "دقایقی قبل"
                 }
             ],
             currentProduct: {},

@@ -107,6 +107,9 @@
                 <div class="profile-sidebar__flex-part d-rtl">
                     <NuxtLink
                         class="profile-sidebar__comment-icon"
+                        :class="{
+                            'link-item__activated': commentsIsActive
+                        }"
                         to="/profile/comments"
                         >نقد و نظرات من</NuxtLink
                     >
@@ -218,7 +221,8 @@ export default {
             favoriteActive: false,
             adressActive: false,
             userHistoryIsActive: false,
-            OrdersIsActive: false
+            OrdersIsActive: false,
+            commentsIsActive: false
         };
     },
     created() {
@@ -251,6 +255,11 @@ export default {
             curentRoute.search("/profile/my-orders/") + 1 == 1
         ) {
             this.OrdersIsActive = true;
+        } else if (
+            curentRoute == "/profile/comments" ||
+            curentRoute == "/profile/comments/"
+        ) {
+            this.commentsIsActive = true;
         }
 
         // else if (curentRoute == "/cart") {

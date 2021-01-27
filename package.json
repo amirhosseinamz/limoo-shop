@@ -22,6 +22,7 @@
         "nuxt": "^2.14.6",
         "vue-date-dropdown": "^1.0.5",
         "vue-form-wizard": "^0.8.4",
+        "vue-star-rating": "^2.1.0",
         "vuex-persistedstate": "^4.0.0-beta.3"
     },
     "devDependencies": {

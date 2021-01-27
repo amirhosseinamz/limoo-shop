@@ -29,9 +29,12 @@
                             class="w-100 flex-wrap  p-comments-content-header "
                         >
                             <div class="p-comments__header-holder">
-                                <span class="p-comments__title">
+                                <NuxtLink
+                                    class="p-comments__title"
+                                    :to="'/product/' + data.id"
+                                >
                                     {{ data.commentTitle }}
-                                </span>
+                                </NuxtLink>
                                 <div class="p-comments-idea__title">
                                     <span
                                         v-show="data.idea == 'good'"
@@ -116,9 +119,17 @@
                                     class="p-commented-product-img"
                                     alt=""
                                 />
-                                <span class="p-product-content-text-data ">
-                                    {{ data.productTitle }}
-                                </span>
+                                <div class="p-product-content-data">
+                                    <span class="p-product-content-text-data ">
+                                        {{ data.productTitle }}
+                                    </span>
+                                    <div class="p-product-content-rating-data">
+                                        <star-rating
+                                            :increment="0.01"
+                                            :fixed-points="2"
+                                        ></star-rating>
+                                    </div>
+                                </div>
                             </div>
                             <div class="p-commentedproduct-description">
                                 {{ data.description }}
@@ -170,7 +181,6 @@
 
 <script>
 import addAddressModal from "./addAddressModal.vue";
-
 export default {
     props: {
         allProvince: { type: [Object, Array], default: [] },
@@ -185,7 +195,12 @@ export default {
     data() {
         return {
             passChangeIsActive: false,
-            dataEditAddress: {}
+            dataEditAddress: {},
+            //
+            rating: "No Rating Selected",
+            currentRating: "No Rating",
+            currentSelectedRating: "No Current Rating",
+            boundRating: 3
         };
     },
 
@@ -194,6 +209,20 @@ export default {
     computed: {},
 
     methods: {
+        setRating: function(rating) {
+            this.rating = "You have Selected: " + rating + " stars";
+        },
+        showCurrentRating: function(rating) {
+            this.currentRating =
+                rating === 0
+                    ? this.currentSelectedRating
+                    : "Click to select " + rating + " stars";
+        },
+        setCurrentSelectedRating: function(rating) {
+            this.currentSelectedRating =
+                "You have Selected: " + rating + " stars";
+        },
+        //
         showModalDeleteProduct(data) {
             this.$emit("show-modal-delete-product", data);
         },
@@ -306,6 +335,7 @@ export default {
     line-height: 140.62%;
     color: $black-topic;
     margin-top: 16px;
+    text-decoration: none;
 }
 .p-comments-idea__title {
     /* border: 1px solid green; */
@@ -409,14 +439,23 @@ export default {
     padding-right: 27px;
     padding-left: 27px;
 }
+.p-product-content-data {
+    @include display-flex();
+    flex-direction: column;
+    margin-top: 10px;
+    margin-right: 16px;
+    /* border: 1px solid blueviolet; */
+}
 .p-product-content-text-data {
     font-family: inherit;
     font-size: 16px;
     color: $black-topic;
     font-weight: 400;
-    margin-top: 10px;
-    margin-right: 16px;
-    /* border: 1px solid blueviolet; */
+
+    /* */
+}
+.p-product-content-rating-data {
+    margin-top: 16px;
 }
 .p-commentedproduct-description {
     color: $black-topic;
@@ -518,6 +557,8 @@ export default {
         padding-left: 19px;
     }
     .p-adresses-content-item {
+        border: none;
+        box-shadow: 0px 8px 16px $box__shadow;
         background: $white;
         height: auto;
         margin-bottom: 8px;
@@ -536,9 +577,14 @@ export default {
     .p-comments-content-header-item-title {
         font-size: 14px;
     }
-    .p-product-content-text-data {
+    .p-product-content-data {
         margin-top: 7px;
+    }
+    .p-product-content-text-data {
         font-size: 14px;
+    }
+    .p-product-content-rating-data {
+        margin-top: 8px;
     }
     .p-commentedproduct__time {
         margin-right: 11px;
@@ -585,6 +631,36 @@ export default {
     }
     .p-adresses-content-item:last-of-type {
         margin-bottom: 0;
+    }
+}
+@media (max-width: 280px) {
+    .p-comments__title,
+    .ideas-title {
+        font-size: 12px;
+        text-align: right;
+    }
+    .p-product-content-data {
+        margin-top: 3px;
+        margin-right: 10px;
+    }
+    .p-product-content-text-data {
+        font-size: 13px;
+    }
+    .p-product-content-rating-data {
+        margin-top: 5px;
+    }
+    .p-comments-content-header {
+        padding-left: 11px;
+    }
+    .p-comments-idea__title {
+        margin-bottom: 10px;
+    }
+    .p-commentedproduct-description {
+        margin: 14px 11px 10px 27px;
+    }
+    .p-comments__state-accepted__icon,
+    .p-comments__state-acceptting__icon {
+        margin-left: 5px;
     }
 }
 </style>
