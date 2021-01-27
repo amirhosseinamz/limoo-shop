@@ -26,10 +26,10 @@
                                   </h3>
                                 </div>
                             </div>
-                            <div class="w-100 ">
+                            <div class="w-100 productContent__priceUnit">
                                 <h3 class="productContent__priceTitle">
                                   {{data.addCamaRealPrice}}
-                                  تومان
+                                  <span>تومان</span>
                                 </h3>
                             </div>
                         </div>
@@ -90,8 +90,8 @@ export default {
 
 <style lang="scss" scoped>
 .productContent__carousel{
-  // width: 246px;
-  width: 313px;
+  width: 246px;
+  // width: 313px;
   height: 319px;
   background: $white;
 }
@@ -176,6 +176,7 @@ export default {
   @include display-flex();
   flex-wrap: wrap;
   align-items: center;
+  height: 29px;
 }
 .productContent__priceTitle{
   font-size: 16px;
@@ -197,4 +198,10 @@ export default {
   opacity: 0;
   pointer-events: none;
 }
+.productContent__priceUnit{
+  align-items: flex-start;
+  display: flex;
+  flex-wrap: wrap;
+}
+
 </style>

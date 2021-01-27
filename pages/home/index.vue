@@ -37,7 +37,7 @@ export default {
             {
               id        : 2,
               title     : ' اب یبآ موینیمولآ دیدج یرس پاتپل    تیالده اب یبآ نوکیلیس ترپسا دنب',
-              discount  : '',
+              discount  : '10',
               realPrice : '10000',
               image     : '/img/phoneAndroid.svg',
 
@@ -45,7 +45,7 @@ export default {
             {
               id        : 3,
               title     : ' اب یبآ موینیمولآ دیدج یرس پاتپل    تیالده اب یبآ نوکیلیس ترپسا دنب',
-              discount  : '',
+              discount  : '10',
               realPrice : '625000',
               image     : '/img/phoneAndroid.svg',
 
@@ -53,7 +53,7 @@ export default {
             {
               id        : 4,
               title     : ' اب یبآ موینیمولآ دیدج یرس پاتپل    تیالده اب یبآ نوکیلیس ترپسا دنب',
-              discount  : '',
+              discount  : '1',
               realPrice : '120000',
               image     : '/img/phoneAndroid.svg',
 
@@ -68,7 +68,7 @@ export default {
             {
               id        : 6,
               title     : ' اب یبآ موینیمولآ دیدج یرس پاتپل    تیالده اب یبآ نوکیلیس ترپسا دنب',
-              discount  : '',
+              discount  : '5',
               realPrice : '120000',
               image     : '/img/phoneAndroid.svg',
             }
