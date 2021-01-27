@@ -16,6 +16,7 @@
 import contentHome from "~/components/Home/contentHome.vue";
 import '~/assets/styles/plugins/flickity.min.css';
 import '~/assets/styles/_slider_home.scss';
+import addCamaPrice from "~/modules/addCamaPrice.js";
 
 
 export default {
@@ -27,28 +28,49 @@ export default {
         return {
           products : [
             {
-              id    : 1,
-              title : 'dasd'
+              id        : 1,
+              title     : 'حافظه SSD وسترن دیجیتال مدل GREEN WDS480G2G0A ظرفیت 480 گیگابایت',
+              discount  : '10000',
+              realPrice : '50000',
+              image     : '/img/2126986.jpg',
             },
             {
-              id    : 2,
-              title : 2,
+              id        : 2,
+              title     : ' اب یبآ موینیمولآ دیدج یرس پاتپل    تیالده اب یبآ نوکیلیس ترپسا دنب',
+              discount  : '',
+              realPrice : '10000',
+              image     : '/img/phoneAndroid.svg',
+
             },
             {
-              id    : 3,
-              title : 2,
+              id        : 3,
+              title     : ' اب یبآ موینیمولآ دیدج یرس پاتپل    تیالده اب یبآ نوکیلیس ترپسا دنب',
+              discount  : '',
+              realPrice : '625000',
+              image     : '/img/phoneAndroid.svg',
+
             },
             {
-              id    : 4,
-              title : 2,
+              id        : 4,
+              title     : ' اب یبآ موینیمولآ دیدج یرس پاتپل    تیالده اب یبآ نوکیلیس ترپسا دنب',
+              discount  : '',
+              realPrice : '120000',
+              image     : '/img/phoneAndroid.svg',
+
             },
             {
-              id    : 5,
-              title : 2,
+              id        : 5,
+              title     : ' اب یبآ موینیمولآ دیدج یرس پاتپل    تیالده اب یبآ نوکیلیس ترپسا دنب',
+              discount  : '70000',
+              realPrice : '120000',
+              image     : '/img/phoneAndroid.svg',
             },
             {
-              id    : 6,
-              title : 2,
+              id        : 6,
+              title     : ' اب یبآ موینیمولآ دیدج یرس پاتپل    تیالده اب یبآ نوکیلیس ترپسا دنب',
+              discount  : '',
+              realPrice : '120000',
+              image     : '/img/phoneAndroid.svg',
             }
           ]
         };
@@ -58,11 +80,22 @@ export default {
 
     },
 
+    created() {
+      // پس از اتصال به سرور فانکشن مورد نظر بعد رسپانس ریکوئست صدا زده شود //
+      this.addCamaProduct();
+    },
+
     mounted() {
 
     },
 
     methods: {
+      addCamaProduct(){
+        this.products.map((content)=>{
+          content.addCamaRealPrice = addCamaPrice(content.realPrice);
+          content.addCamaDiscount  = addCamaPrice(content.discount);
+        })
+      }
 
     }
 };
