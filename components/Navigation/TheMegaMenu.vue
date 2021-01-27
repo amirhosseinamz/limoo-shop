@@ -138,7 +138,7 @@ export default {
     justify-content: center;
     width: 100%;
     background-color: $white;
-    box-shadow: 0px 8px 16px rgba(17, 17, 17, 0.03);
+    box-shadow: 0px 8px 16px $box__shadow;
 }
 
 .mega-menu {
@@ -182,7 +182,7 @@ export default {
         height: 337px;
         width: 100vw;
         opacity: 0;
-        box-shadow: 0px 8px 16px rgba(17, 17, 17, 0.03);
+        box-shadow: 0px 8px 16px $box__shadow;
         border-bottom-left-radius: 10px;
         border-bottom-right-radius: 10px;
         position: absolute;

@@ -124,15 +124,18 @@
                                         {{ data.productTitle }}
                                     </span>
                                     <div class="p-product-content-rating-data">
-                                        <star-rating
+                                        <!-- <star-rating
                                             :increment="0.01"
                                             :fixed-points="2"
-                                        ></star-rating>
+                                        ></star-rating> -->
                                     </div>
                                 </div>
                             </div>
                             <div class="p-commentedproduct-description">
-                                {{ data.description }}
+                                <span class="d-flex w-100">
+                                    {{ data.description }}
+                                </span>
+                                
                             </div>
                             <div class="p-adresses-content-data-btns w-100">
                                 <div class="p-commentedproduct__time">
@@ -566,8 +569,8 @@ export default {
     .p-commentedproduct-description {
         font-size: 13px;
         margin: 24px 11px 16px 37px;
-        /* height: 62px;
-        overflow: hidden; */
+        height: 37px;
+        overflow: hidden;
     }
     .p-comments-content-header-item {
         margin-left: 0;
