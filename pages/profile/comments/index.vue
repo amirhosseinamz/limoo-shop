@@ -17,22 +17,15 @@
                 <span class="user-profile__topic">نقد و نظرات من</span>
                 <hr class="splicer-line" />
                 <div class="w-100 user-profile-adresses-main flex-column">
-                    <contentAdresses
-                        :adress-data="adressesData"
-                        :all-province="allProvince"
-                        :all-citys="allCitys"
-                        :form-data="formData"
-                        :profile-phone-number="profilePhoneNumber"
+                    <contentComments
+                        :comments-data="commentsData"
                         @show-modal-delete-product="showModalDeleteProduct"
-                        @selected-province="selectedProvince"
-                        @selected-city="selectedCity"
-                        @submit-address-add="submitAddressAdd"
-                    ></contentAdresses>
+                    ></contentComments>
                 </div>
             </div>
         </div>
 
-        <modalDeleteAdress
+        <modalDeleteComment
             :active.sync="statusShowModalDeleteProduct"
             :current-product="currentProduct"
             @btn-delete-modal="btnDeleteProduct"
@@ -41,19 +34,19 @@
 </template>
 <script>
 import TheProfileSideBar from "~/components/Profile/TheProfileSideBar.vue";
-import contentAdresses from "~/components/Profile/Comments/contentAdresses.vue";
-import modalDeleteAdress from "~/components/Profile/Comments/modalDeleteAdress.vue";
+import contentComments from "~/components/Profile/Comments/contentComments.vue";
+import modalDeleteComment from "~/components/Profile/Comments/modalDeleteComment.vue";
 
 export default {
     components: {
         TheProfileSideBar,
-        contentAdresses,
-        modalDeleteAdress
+        contentComments,
+        modalDeleteComment
     },
 
     data() {
         return {
-            adressesData: [
+            commentsData: [
                 {
                     id: 1,
                     commentTitle:
@@ -65,7 +58,8 @@ export default {
                     img: "/img/apple-watch-1.png",
                     description:
                         "این کالا به شدت قوی و با کیفیت هست و پیشنهاد میکنم در این رنج قیمت، حتما این کالارو خریداری کنید! این کالا به شدت قوی و با کیفیت هست و پیشنهاد میکنم در این رنج قیمت حتما این کالا رو خریداری کنید.",
-                    commentTime: "1 ساعت پیش"
+                    commentTime: "1 ساعت پیش",
+                    rate: 4.5
                 },
                 {
                     id: 2,
@@ -79,7 +73,8 @@ export default {
                     description:
                         "این کالا به شدت قوی و با کیفیت هست و پیشنهاد میکنم در این رنج قیمت، حتما این کالارو خریداری کنید! این کالا به شدت قوی و با کیفیت هست و پیشنهاد میکنم در این رنج قیمت حتما این کالا رو خریداری کنید.",
 
-                    commentTime: "1 روز پیش"
+                    commentTime: "1 روز پیش",
+                    rate: 3.6
                 },
                 {
                     id: 3,
@@ -92,47 +87,12 @@ export default {
                     description:
                         "این کالا به شدت قوی و با کیفیت هست و پیشنهاد میکنم در این رنج قیمت، حتما این کالارو خریداری کنید! این کالا به شدت قوی و با کیفیت هست و پیشنهاد میکنم در این رنج قیمت حتما این کالا رو خریداری کنید.",
 
-                    commentTime: "دقایقی قبل"
+                    commentTime: "دقایقی قبل",
+                    rate: 2.3
                 }
             ],
             currentProduct: {},
-            statusShowModalDeleteProduct: false,
-            allProvince: [
-                {
-                    id: 1,
-                    title: "تهران",
-                    selected: false
-                },
-                {
-                    id: 2,
-                    title: "قم",
-                    selected: false
-                }
-            ],
-            allCitys: [
-                {
-                    id: 1,
-                    parent_id: 2,
-                    title: "قم",
-                    selected: false
-                },
-                {
-                    id: 2,
-                    parent_id: 1,
-                    title: "جنت آباد",
-                    selected: false
-                }
-            ],
-            formData: {
-                province: "",
-                city: "",
-                codePoste: "",
-                nameReceiver: "",
-                numberReceiver: "",
-                address: ""
-            },
-            updateAddress: 0,
-            profilePhoneNumber: "09198814783"
+            statusShowModalDeleteProduct: false
         };
     },
 
@@ -149,13 +109,13 @@ export default {
             const removeFavorite = () => {
                 let indexDelete = -1;
 
-                this.adressesData.map((content, index) => {
+                this.commentsData.map((content, index) => {
                     if (content.id == data.id) {
                         indexDelete = index;
                     }
                 });
 
-                this.adressesData.splice(indexDelete, 1);
+                this.commentsData.splice(indexDelete, 1);
             };
 
             removeFavorite();
@@ -167,37 +127,6 @@ export default {
         showModalDeleteProduct(data) {
             this.currentProduct = data;
             this.statusShowModalDeleteProduct = true;
-        },
-
-        selectedProvince(data) {
-            // console.log(data,'selectedProvince');
-        },
-
-        selectedCity(data) {
-            // console.log(data,'selectedCitys');
-        },
-
-        submitAddressAdd(data, state) {
-            this.updateAddress++;
-            let findIndex = 0;
-
-            const faceUpdatePage = () => {
-                this.adressesData.map((content, i) => {
-                    if (content.id == data.id) {
-                        this.adressesData[i] = data;
-                    }
-                });
-            };
-
-            // بعد از اتصال به بک این قسمت حذف شود //
-            if (state == "edit") {
-                faceUpdatePage();
-            } else {
-                data.id = 20 + this.updateAddress;
-                this.adressesData.push(data);
-            }
-
-            // send data server //
         }
     }
 };

@@ -2,9 +2,7 @@
     <div class="p-comments-content-main w-100 flex-column flex-wrap  d-rtl">
         <transition moda="in-out">
             <div id="overlay" v-if="passChangeIsActive">
-                <add-address-modal
-                    :all-province="allProvince"
-                    :all-citys="allCitys"
+                <!-- <add-address-modal
                     :form-data-original="formData"
                     :data-edit-address="dataEditAddress"
                     :profile-phone-number="profilePhoneNumber"
@@ -12,12 +10,12 @@
                     @selected-city="selectedCity"
                     @submit-address-add="submitAddressAdd"
                     @close-modal="closeModal"
-                />
+                /> -->
             </div>
         </transition>
         <div class="w-100 flex-wrap p-adresses-content-items">
             <div
-                v-for="data in adressData"
+                v-for="data in commentsData"
                 :key="data.id"
                 class="w-100 flex-wrap p-adresses-content-item"
             >
@@ -123,19 +121,29 @@
                                     <span class="p-product-content-text-data ">
                                         {{ data.productTitle }}
                                     </span>
-                                    <div class="p-product-content-rating-data">
-                                        <!-- <star-rating
-                                            :increment="0.01"
-                                            :fixed-points="2"
-                                        ></star-rating> -->
+                                    <div class="p-product-content-rating-data ">
+                                        <div class="stars-outer">
+                                            <div
+                                                class="stars-inner"
+                                                :style="{
+                                                    width:
+                                                        (data.rate * 100) / 5 +
+                                                        '%'
+                                                }"
+                                            ></div>
+                                        </div>
+                                        <span class="rate-counter">
+                                            {{ data.rate }}</span
+                                        >
+                                        <span class="rate-count">از 5</span>
                                     </div>
+                                    <!-- ====================== -->
                                 </div>
                             </div>
                             <div class="p-commentedproduct-description">
                                 <span class="d-flex w-100">
                                     {{ data.description }}
                                 </span>
-                                
                             </div>
                             <div class="p-adresses-content-data-btns w-100">
                                 <div class="p-commentedproduct__time">
@@ -148,19 +156,12 @@
                                         name="button"
                                     >
                                         <span
-                                            @click="editAddress(data)"
                                             class="p-favorite-product-btn-link p-adresses-content-item-desktop"
                                             >ویرایش</span
                                         >
                                         <span
-                                            @click="editAddress(data)"
                                             class="p-favorite-product-btn-link p-adresses-content-item-mobile "
                                         >
-                                            <img
-                                                class="p-adresses-content-edit-icon"
-                                                src="/icons/icon-edit.svg"
-                                                alt=""
-                                            />
                                         </span>
                                     </button>
                                     <button
@@ -183,49 +184,22 @@
 </template>
 
 <script>
-import addAddressModal from "./addAddressModal.vue";
 export default {
     props: {
-        allProvince: { type: [Object, Array], default: [] },
-        allCitys: { type: [Object, Array], default: [] },
-        adressData: { type: [Object, Array], default: {} },
-        formData: { type: [Object, Array], default: {} },
-        profilePhoneNumber: { type: [Number, String], default: "" }
+        commentsData: { type: [Object, Array], default: {} }
     },
-    components: {
-        addAddressModal
-    },
+    components: {},
     data() {
         return {
             passChangeIsActive: false,
-            dataEditAddress: {},
-            //
-            rating: "No Rating Selected",
-            currentRating: "No Rating",
-            currentSelectedRating: "No Current Rating",
-            boundRating: 3
+            dataEditAddress: {}
         };
     },
 
     components: {},
-
     computed: {},
 
     methods: {
-        setRating: function(rating) {
-            this.rating = "You have Selected: " + rating + " stars";
-        },
-        showCurrentRating: function(rating) {
-            this.currentRating =
-                rating === 0
-                    ? this.currentSelectedRating
-                    : "Click to select " + rating + " stars";
-        },
-        setCurrentSelectedRating: function(rating) {
-            this.currentSelectedRating =
-                "You have Selected: " + rating + " stars";
-        },
-        //
         showModalDeleteProduct(data) {
             this.$emit("show-modal-delete-product", data);
         },
@@ -260,12 +234,12 @@ export default {
         closeModal() {
             this.dataEditAddress = {};
             this.passChangeIsActive = false;
-        },
-
-        editAddress(data) {
-            this.dataEditAddress = data;
-            this.passChangeIsActive = true;
         }
+
+        // editAddress(data) {
+        //     this.dataEditAddress = data;
+        //     this.passChangeIsActive = true;
+        // }
     }
 };
 </script>
@@ -300,9 +274,7 @@ export default {
     margin-bottom: 38px;
     font-size: 16px;
 }
-.p-adresses-content-items {
-    /* border: 1px solid red; */
-}
+
 .p-adresses-content-item {
     @include display-flex();
     flex-direction: column;
@@ -317,6 +289,51 @@ export default {
     height: 80px;
 }
 /* ============================== */
+.stars-outer {
+    position: relative;
+    display: inline-block;
+}
+
+.stars-inner {
+    position: absolute;
+    /* top: 6px; */
+    bottom: 4.7px;
+    left: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    width: 0;
+    @include display-flex();
+    flex-direction: row-reverse;
+}
+
+.stars-outer::before {
+    content: "\e825 \e825 \e825 \e825 \e825";
+    @include font-icon__limoo();
+    font-weight: 400;
+    font-size: 16px;
+    color: $light-gray;
+    letter-spacing: 2px;
+}
+
+.stars-inner::before {
+    content: "\e825 \e825 \e825 \e825 \e825";
+    @include font-icon__limoo();
+    font-weight: 400;
+    font-size: 16px;
+    color: $yellow;
+    letter-spacing: 2px;
+}
+.rate-count,
+.rate-counter {
+    color: $gray;
+    font-size: 14px;
+    line-height: 140.62%;
+}
+.rate-counter {
+    margin-right: 8px;
+}
+/* ////////////////////////////// */
+
 .p-comments-content-header {
     @include display-flex();
     flex-direction: row;
@@ -508,10 +525,6 @@ export default {
     display: none;
 }
 
-.p-favorite-product-btn-main {
-    /* margin-bottom: 34px; */
-}
-
 @media (max-width: 1220px) {
     .p-comments-content-header-item {
         margin-left: 10%;
@@ -550,6 +563,15 @@ export default {
     .ideas-title,
     .p-comments__state-acceptting__title,
     .p-comments__state-accepted__title {
+        font-size: 13px;
+    }
+    .stars-outer::before,
+    .stars-inner::before {
+        font-size: 10px;
+    }
+
+    .rate-count,
+    .rate-counter {
         font-size: 13px;
     }
     .p-comments-content-header {
@@ -619,6 +641,11 @@ export default {
     }
     .p-adresses-content-item-desktop {
         display: none;
+    }
+    .p-adresses-content-item-mobile::before {
+        @include font-icon__limoo();
+        content: "\e80e";
+        color: $white;
     }
     .p-adresses-content-item-mobile {
         display: flex;

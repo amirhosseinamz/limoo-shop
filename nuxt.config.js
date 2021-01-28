@@ -26,11 +26,7 @@ export default {
     // Plugins to run before rendering page (https://go.nuxtjs.dev/config-plugins)
     plugins: [
         { src: "~plugins/modal/index.js" },
-        { src: "~/plugins/persistedState.js" },
-        {
-            src: "~/plugins/star-rating.js",
-            mode: "client"
-        }
+        { src: "~/plugins/persistedState.js" }
     ],
 
     // Auto import components (https://go.nuxtjs.dev/config-components)
