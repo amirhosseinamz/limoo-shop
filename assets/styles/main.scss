@@ -254,6 +254,9 @@ input::-webkit-inner-spin-button {
 .flex-column {
     flex-flow: column;
 }
+.flex-row {
+    flex-direction: row;
+}
 .text-right {
     text-align: right;
 }

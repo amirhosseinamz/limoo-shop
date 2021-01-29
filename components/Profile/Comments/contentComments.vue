@@ -140,10 +140,18 @@
                                     <!-- ====================== -->
                                 </div>
                             </div>
-                            <div class="p-commentedproduct-description">
-                                <span class="d-flex w-100">
+                            <div
+                                :class="{
+                                    'full-description__active': fullDescription
+                                }"
+                            >
+                                <div class="p-commentedproduct-description">
                                     {{ data.description }}
-                                </span>
+                                </div>
+                                <span
+                                    @click="showMoreDescription"
+                                    class="show-more-description"
+                                ></span>
                             </div>
                             <div class="p-adresses-content-data-btns w-100">
                                 <div class="p-commentedproduct__time">
@@ -192,6 +200,7 @@ export default {
     data() {
         return {
             passChangeIsActive: false,
+            fullDescription: false,
             dataEditAddress: {}
         };
     },
@@ -200,6 +209,9 @@ export default {
     computed: {},
 
     methods: {
+        showMoreDescription() {
+            this.fullDescription = !this.fullDescription;
+        },
         showModalDeleteProduct(data) {
             this.$emit("show-modal-delete-product", data);
         },
@@ -588,12 +600,44 @@ export default {
         height: auto;
         margin-bottom: 8px;
     }
+    /* 00000000000000000000000000 */
     .p-commentedproduct-description {
         font-size: 13px;
-        margin: 24px 11px 16px 37px;
-        height: 37px;
+        /* border: 1px solid red; */
+        margin: 24px 11px 0 37px;
+        height: 30px;
         overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        text-align: justify;
+        text-justify: inter-word;
     }
+    .full-description__active .p-commentedproduct-description {
+        white-space: normal;
+        overflow: visible;
+        height: fit-content;
+    }
+    .show-more-description {
+        @include display-flex();
+        /* align-self: flex-start; */
+        margin-right: 93%;
+        margin-bottom: 10px;
+    }
+    .show-more-description::before {
+        @include display-flex();
+        content: "\e801";
+        @include font-icon__limoo();
+        font-size: 12px;
+        color: $input-border;
+        /* position: absolute; */
+        transform: rotate(-90deg);
+        /* margin-right: 4px; */
+        /* border: 1px solid red; */
+    }
+    .full-description__active .show-more-description::before {
+        transform: rotate(90deg);
+    }
+    /* 00000000000000000000000000 */
     .p-comments-content-header-item {
         margin-left: 0;
         width: 100%;
@@ -619,7 +663,7 @@ export default {
         border-top: 1px solid $light-gray;
         padding-top: 16px;
         margin-bottom: 16px;
-        margin-top: 26px;
+        /* margin-top: 26px; */
         height: auto;
     }
     .p-favorite-product-btn-delete {

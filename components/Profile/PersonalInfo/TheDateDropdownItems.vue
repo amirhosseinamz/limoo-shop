@@ -469,12 +469,12 @@ export default {
         //   ***************************⇓
         eventBirthDayShow() {
             let indexShowSelectOption = -1;
-
-            if (this.birthdayShow) {
-                this.birthdayShow = false;
-            } else {
-                this.birthdayShow = true;
-            }
+            this.birthdayShow = !this.birthdayShow;
+            // if (this.birthdayShow) {
+            //     this.birthdayShow = false;
+            // } else {
+            //     this.birthdayShow = true;
+            // }
             this.$nextTick(() => {
                 this.updateScrollClick++;
             });
