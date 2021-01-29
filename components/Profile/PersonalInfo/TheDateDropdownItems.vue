@@ -468,6 +468,7 @@ export default {
         },
         //   ***************************⇓
         eventBirthDayShow() {
+            // console.log("hi");
             let indexShowSelectOption = -1;
             this.birthdayShow = !this.birthdayShow;
             // if (this.birthdayShow) {

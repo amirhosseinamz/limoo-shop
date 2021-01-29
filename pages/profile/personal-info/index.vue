@@ -18,7 +18,15 @@
         <div class="user-profile__holder">
             <div class="user-profile">
                 <span class="user-profile__topic">اطلاعات حساب شخصی</span>
-                <div class="user-profile__userpic">جای عکس کاربر</div>
+                <div class="user-profile__userpic">
+                    <img
+                        class="user-info__profile__imgholder-default"
+                        src="/icons/profile-holder.svg"
+                    />
+                    <span class="user-profile__changepic-btn"
+                        >تغییر عکس کاربری</span
+                    >
+                </div>
                 <hr class="splicer-line" />
                 <!-- =============== -->
                 <form>
@@ -254,6 +262,19 @@ export default {
     height: max-content;
     /* border: 5px solid #2f0404; */
 }
+
+.user-info__profile__imgholder-default {
+    width: 140px;
+    height: 140px;
+    /* border: 1px solid red; */
+    border-radius: 50%;
+    background-color: $gray-border;
+}
+.user-profile__changepic-btn {
+    color: $code-request;
+    font-size: 18px;
+    line-height: 140.62%;
+}
 .user-profile {
     width: 100%;
 
@@ -276,7 +297,10 @@ export default {
         margin-right: 25px;
     }
     &__userpic {
-        border: 1px solid gray;
+        /* border: 1px solid gray; */
+        @include display-flex();
+        flex-direction: column;
+        align-items: center;
         margin-top: 23px;
         height: 162px;
         width: 162px;
@@ -509,6 +533,13 @@ export default {
                 margin-left: 8px;
             }
         }
+    }
+    .user-info__profile__imgholder-default {
+        width: 100px;
+        height: 100px;
+    }
+    .user-profile__changepic-btn {
+        font-size: 14px;
     }
     .profile-container {
         @include display-flex();
