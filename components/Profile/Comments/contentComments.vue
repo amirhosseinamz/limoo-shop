@@ -14,16 +14,16 @@
             </div>
         </transition>
         <div
-            class="w-100 flex-wrap p-adresses-content-items"
+            class="w-100 flex-wrap p-comment-content-items"
             :key="updateSelected"
         >
             <div
                 v-for="data in commentsData"
                 :key="data.id"
-                class="w-100 flex-wrap p-adresses-content-item"
+                class="w-100 flex-wrap p-comment-content-item"
             >
                 <div
-                    class="flex-wrap w-100 p-adresses-content-wrapper align-items-start"
+                    class="flex-wrap w-100 p-comment-content-wrapper align-items-start"
                 >
                     <div class="d-flex align-items-start w-100">
                         <div
@@ -156,28 +156,28 @@
                                     class="show-more-description"
                                 ></span>
                             </div>
-                            <div class="p-adresses-content-data-btns w-100">
+                            <div class="p-comment-content-data-btns w-100">
                                 <div class="p-commentedproduct__time">
                                     {{ data.commentTime }}
                                 </div>
                                 <div class="p-favorite-product-btn-main">
                                     <button
                                         type="button"
-                                        class="p-product-btn cursor-pointer p-adresses-content-btn-edit"
+                                        class="p-product-btn cursor-pointer p-comment-content-btn-edit"
                                         name="button"
                                     >
                                         <span
-                                            class="p-favorite-product-btn-link p-adresses-content-item-desktop"
+                                            class="p-favorite-product-btn-link p-comment-content-item-desktop"
                                             >ویرایش</span
                                         >
                                         <span
-                                            class="p-favorite-product-btn-link p-adresses-content-item-mobile "
+                                            class="p-favorite-product-btn-link p-comment-content-item-mobile "
                                         >
                                         </span>
                                     </button>
                                     <button
                                         @click="showModalDeleteProduct(data)"
-                                        class="p-favorite-product-btn-delete cursor-pointer  p-adresses-content-btn-delete"
+                                        class="p-favorite-product-btn-delete cursor-pointer  p-comment-content-btn-delete"
                                         name="button"
                                     >
                                         <span
@@ -227,34 +227,6 @@ export default {
         showModalDeleteProduct(data) {
             this.$emit("show-modal-delete-product", data);
         },
-
-        addAddress() {
-            this.dataEditAddress = {};
-            this.passChangeIsActive = !this.passChangeIsActive;
-        },
-
-        selectedProvince(data) {
-            this.$emit("selected-province", data);
-        },
-
-        selectedCity(data) {
-            this.$emit("selected-city", data);
-        },
-
-        submitAddressAdd(data) {
-            // بر اساس آیدی تغیین می شود که حالت ویرایش است یا خیر //
-
-            let stateEditAdd = "";
-            if (typeof this.dataEditAddress.id == "undefined") {
-                stateEditAdd = "add";
-            } else {
-                stateEditAdd = "edit";
-            }
-
-            this.passChangeIsActive = false;
-            this.$emit("submit-address-add", data, stateEditAdd);
-        },
-
         closeModal() {
             this.dataEditAddress = {};
             this.passChangeIsActive = false;
@@ -290,16 +262,16 @@ export default {
     padding-right: 24px;
     padding-left: 24px;
 }
-.p-adresses-content-btn-add-main {
+.p-comment-content-btn-add-main {
     @include display-flex();
 }
-.p-adresses-content-btn-data {
+.p-comment-content-btn-data {
     margin-top: 45px;
     margin-bottom: 38px;
     font-size: 16px;
 }
 
-.p-adresses-content-item {
+.p-comment-content-item {
     @include display-flex();
     flex-direction: column;
     border: 1px solid $light-gray;
@@ -478,7 +450,7 @@ export default {
     font-weight: 400;
     text-align: right;
 }
-.p-adresses-content-data {
+.p-comment-content-data {
     @include display-flex();
     padding-right: 27px;
     padding-left: 27px;
@@ -522,30 +494,30 @@ export default {
     line-height: 140.62%;
     color: $gray;
 }
-.p-adresses-content-data-btns {
+.p-comment-content-data-btns {
     @include display-flex();
     justify-content: space-between;
     padding-left: 16px;
     height: 77px;
     align-items: flex-start;
 }
-.p-adresses-content-btn-edit {
+.p-comment-content-btn-edit {
     width: 130px;
 }
-.p-adresses-content-wrapper {
+.p-comment-content-wrapper {
     @include display-flex();
 }
 .p-comment-content-data-main {
     @include display-flex();
 }
-.p-adresses-content-edit-icon {
+.p-comment-content-edit-icon {
     width: 16px;
     height: 16px;
 }
 .p-comments-content-header-item-desktop {
     align-items: flex-start;
 }
-.p-adresses-content-item-mobile {
+.p-comment-content-item-mobile {
     display: none;
 }
 
@@ -605,7 +577,7 @@ export default {
         padding-right: 11px;
         padding-left: 19px;
     }
-    .p-adresses-content-item {
+    .p-comment-content-item {
         border: none;
         box-shadow: 0px 8px 16px $box__shadow;
         background: $white;
@@ -671,7 +643,7 @@ export default {
         margin-right: 11px;
         font-size: 13px;
     }
-    .p-adresses-content-data-btns {
+    .p-comment-content-data-btns {
         border-top: 1px solid $light-gray;
         padding-top: 16px;
         margin-bottom: 16px;
@@ -682,28 +654,28 @@ export default {
         width: 37px;
         height: 37px;
     }
-    .p-adresses-content-btn-edit {
+    .p-comment-content-btn-edit {
         background: $yellow;
         border-radius: 10px;
         height: 36px;
         width: 36px;
     }
-    .p-adresses-content-btn-delete {
+    .p-comment-content-btn-delete {
         margin-right: 16px;
     }
     .p-comments-content-header-icon {
         width: 18px;
         height: 18px;
     }
-    .p-adresses-content-item-desktop {
+    .p-comment-content-item-desktop {
         display: none;
     }
-    .p-adresses-content-item-mobile::before {
+    .p-comment-content-item-mobile::before {
         @include font-icon__limoo();
         content: "\e80e";
         color: $white;
     }
-    .p-adresses-content-item-mobile {
+    .p-comment-content-item-mobile {
         display: flex;
     }
     .p-commentedproduct-main {
@@ -715,7 +687,7 @@ export default {
     .p-favorite-product-btn-main {
         margin-bottom: 0;
     }
-    .p-adresses-content-item:last-of-type {
+    .p-comment-content-item:last-of-type {
         margin-bottom: 0;
     }
 }
