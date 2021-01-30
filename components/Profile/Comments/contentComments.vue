@@ -13,7 +13,10 @@
                 /> -->
             </div>
         </transition>
-        <div class="w-100 flex-wrap p-adresses-content-items">
+        <div
+            class="w-100 flex-wrap p-adresses-content-items"
+            :key="updateSelected"
+        >
             <div
                 v-for="data in commentsData"
                 :key="data.id"
@@ -142,14 +145,14 @@
                             </div>
                             <div
                                 :class="{
-                                    'full-description__active': fullDescription
+                                    'full-description__active': data.selected
                                 }"
                             >
                                 <div class="p-commentedproduct-description">
                                     {{ data.description }}
                                 </div>
                                 <span
-                                    @click="showMoreDescription"
+                                    @click="showMoreDescription(data)"
                                     class="show-more-description"
                                 ></span>
                             </div>
@@ -201,7 +204,8 @@ export default {
         return {
             passChangeIsActive: false,
             fullDescription: false,
-            dataEditAddress: {}
+            dataEditAddress: {},
+            updateSelected: 0
         };
     },
 
@@ -209,8 +213,16 @@ export default {
     computed: {},
 
     methods: {
-        showMoreDescription() {
-            this.fullDescription = !this.fullDescription;
+        showMoreDescription(data) {
+            this.commentsData.map(content => {
+                if (content.id == data.id) {
+                    content.selected = !content.selected;
+                    // if we want open one paragraph in time
+                    // } else {
+                    //     content.selected = false;
+                }
+            });
+            this.updateSelected++;
         },
         showModalDeleteProduct(data) {
             this.$emit("show-modal-delete-product", data);
