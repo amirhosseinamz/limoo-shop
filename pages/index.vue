@@ -2,11 +2,14 @@
     <div class="page-home w-100 d-rtl flex-column">
       <div class="mobile-screen w-100">
           <div class="mobile-screen__holder">
-              <span class="mobile-screen__holder-txt">آدرس های شما</span>
-              <img
+              <div class="w-100 screen__holder-data">
+                <span class="mobile-screen__holder-txt">آدرس های شما</span>
+                <span class="icon-location"></span>
+              </div>
+              <!-- <img
                   class="mobile-screen__holder-arrow"
                   src="/icons/arrow-left.svg"
-              />
+              /> -->
           </div>
       </div>
       <content-home :products="products"></content-home>
@@ -125,8 +128,21 @@ export default {
   margin-right: auto;
   margin-left: auto;
 }
-
-
+.icon-location::after {
+    content: '\e817';
+    @include font-icon__limoo();
+    font-size: 17px;
+    margin-top: 1px;
+    color: $color_festival;
+}
+.screen__holder-data{
+  @include display-flex();
+  justify-content: flex-end;
+  padding-right: 18.5px;
+  padding-left: 18.5px;
+  align-items: center;
+  height: 100%;
+}
 
 
 
@@ -154,13 +170,13 @@ export default {
             flex-direction: row-reverse;
             justify-content: space-between;
             align-items: center;
-            height: 56px;
+            height: 33px;
             background: $white;
             margin-top: 47px;
             &-txt {
-                font-size: 14px;
+                font-size: 13px;
                 line-height: 140.62%;
-                margin-right: 16px;
+                margin-right: 6.5px;
                 color: $black-topic;
             }
             &-arrow {
