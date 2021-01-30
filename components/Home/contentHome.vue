@@ -61,7 +61,7 @@ export default {
 
   @media (max-width: 960px) {
     .page__home-wrapper-main{
-      margin-top: 16px;
+      margin-top: 8px;
     }
   }
 

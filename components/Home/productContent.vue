@@ -130,7 +130,7 @@ export default {
 
 @media (max-width: 960px) {
   .productContent{
-    margin-top: 7.48px;
+    margin-top: 8px;
   }
   .productContent__sliderMore{
     display: flex;

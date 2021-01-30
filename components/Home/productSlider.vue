@@ -236,7 +236,7 @@ export default {
     margin-top: 8px;
     margin-left: auto;
     margin-right: inherit;
-    padding-right: 11px;
+    padding-right: 16px;
   }
   .productContent__carouselImgItem{
     height: 102px;
