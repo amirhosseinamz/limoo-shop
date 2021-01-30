@@ -99,9 +99,6 @@ export default {
   height: 319px;
   background: $white;
 }
-// .productContent__carousel:first-child .productContent__carouselLine{
-//   display: none;
-// }
 .productContent__mainSlider{
   position: relative;
 }
@@ -209,6 +206,7 @@ export default {
   align-items: flex-start;
   @include display-flex();
   flex-wrap: wrap;
+  padding-right: 4px;
 }
 .productContent__line{
   position: absolute;
@@ -225,5 +223,54 @@ export default {
   flex-wrap: wrap;
   position:relative;
 }
+
+@media (max-width: 960px) {
+  .productContent__carousel:first-child .productContent__carouselLine{
+    display: none;
+  }
+}
+
+@media (max-width: 485px) {
+  .productContent__carouselData{
+    width: 182px;
+    margin-top: 8px;
+    margin-left: auto;
+    margin-right: inherit;
+    padding-right: 11px;
+  }
+  .productContent__carouselImgItem{
+    height: 102px;
+  }
+  .productContent__carousel{
+    width: 223px;
+    height: 220px;
+  }
+  .productContent__priceTitle{
+    margin-top: 7px;
+    font-size: 13px;
+  }
+  .productContent__carouselLine{
+    width: 2px;
+  }
+  .productContent__discountTitle{
+    font-size: 13px;
+  }
+  .productContent__carouselDataTitle{
+    line-height: 22.69px;
+    height: 40px;
+    text-align: right;
+  }
+  .productContent__line{
+    height: 242px;
+    width: 44px;
+  }
+  .productContent__carouselPriceMain{
+    padding-right: 0;
+    padding-left: 0;
+  }
+
+
+}
+
 
 </style>

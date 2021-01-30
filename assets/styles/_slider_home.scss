@@ -59,4 +59,11 @@
     right: 24px;
     z-index: 1;
   }
+
+  @media (max-width: 960px) {
+    .flickity-button{
+      display: none;
+    }
+  }
+
 }

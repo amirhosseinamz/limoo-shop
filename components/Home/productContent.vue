@@ -3,7 +3,7 @@
 
       <div class="productContent__items w-100">
             <div class="productContent__right">
-              <counter-down></counter-down>
+                  <counter-down></counter-down>
             </div>
 
             <div class="productContent__left">
@@ -11,7 +11,7 @@
               <div class="w-100 productContent__sliderMore">
                   <nuxt-link class="productContent__moreItem" to="/">
                     لیست کامل محصولات
-                    <span class="icon-arrow productContent__moreIcon"></span>
+                    <span class=" productContent__moreIcon mobile-inprogress__arrow"></span>
                   </nuxt-link>
               </div>
             </div>
@@ -84,22 +84,38 @@ export default {
 }
 .productContent__sliderMore{
   align-items: flex-start;
-  @include display-flex();
+  display: none;
   flex-wrap: wrap;
   justify-content: flex-end;
-  padding-left: 23px;
+  padding-left: 13px;
 }
 .productContent__moreItem{
   font-size: 13px;
   color: $gray;
   border-bottom: none;
   text-decoration: none;
+  @include display-flex();
+  align-items: center;
 }
 .productContent__moreIcon{
   @include display-flex();
-  width: 10px;
-  height: 11px;
+  margin-right: 6px;
 }
+.mobile-inprogress__arrow::after {
+    content: "\e801";
+    @include font-icon__limoo();
+    font-size: 12px;
+    margin-top: 1px;
+}
+.productContent__desktop{
+  @include display-flex();
+}
+.productContent__mobile{
+  display: none;
+}
+
+
+
 
 
 
@@ -116,14 +132,43 @@ export default {
   .productContent{
     margin-top: 7.48px;
   }
+  .productContent__sliderMore{
+    display: flex;
+  }
+  .productContent__right{
+    width: 100%;
+    padding-right: 11px;
+    padding-left: 11px;
+  }
+  .productContent__left{
+    width: 100%;
+    margin-top: 24px;
+  }
+  .productContent__desktop{
+    display: none;
+  }
+  .productContent__mobile{
+    @include display-flex();
+  }
+  .productContent__items{
+    padding-top: 16px;
+    padding-bottom: 16px;
+  }
+  .productContent{
+    height: auto;
+  }
+  .productContent__sliderMore{
+    margin-top: 34px;
+  }
+
+
 }
 
 @media (max-width: 600px) {
 
 }
 
-@media (max-width: 460px) {
-
+@media (max-width: 485px) {
 }
 
 @media (max-width: 350px) {

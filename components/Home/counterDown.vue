@@ -9,48 +9,55 @@
       <div class="w-100 productContent-timeContent">
           <div class="w-100 productContent-timerMain">
 
-              <div class="productContent-timerData">
-                  <div class="w-100 d-flex">
-                      <div class="productContent-timeItem">
-                        <h3 class="productContent-timeText">{{counterDownHours[0]}}</h3>
+                <div class=" productContent-timerContent">
+                    <div class="productContent-timerData">
+                      <div class="w-100 d-flex">
+                        <div class="productContent-timeItem">
+                          <h3 class="productContent-timeText">{{counterDownHours[0]}}</h3>
+                        </div>
+                        <div class="productContent-timeItem">
+                          <h3 class="productContent-timeText">{{counterDownHours[1]}}</h3>
+                        </div>
+                        <span class="productContent-circle">:</span>
                       </div>
-                      <div class="productContent-timeItem">
-                        <h3 class="productContent-timeText">{{counterDownHours[1]}}</h3>
+                      <div class="w-100 d-flex">
+                        <h3 class="productContent-timeLabel">ساعت</h3>
                       </div>
-                  </div>
-                  <div class="w-100 d-flex">
-                    <h3 class="productContent-timeLabel">ساعت</h3>
-                  </div>
-              </div>
+                    </div>
 
-              <div class="productContent-timerData">
-                  <div class="w-100 d-flex">
-                      <div class="productContent-timeItem">
-                        <h3 class="productContent-timeText">{{counterDownMinutes[0]}}</h3>
+                    <div class="productContent-timerData">
+                      <div class="w-100 d-flex">
+                        <div class="productContent-timeItem">
+                          <h3 class="productContent-timeText">{{counterDownMinutes[0]}}</h3>
+                        </div>
+                        <div class="productContent-timeItem">
+                          <h3 class="productContent-timeText">{{counterDownMinutes[1]}}</h3>
+                        </div>
+                        <span class="productContent-circle">:</span>
                       </div>
-                      <div class="productContent-timeItem">
-                        <h3 class="productContent-timeText">{{counterDownMinutes[1]}}</h3>
+                      <div class="w-100 d-flex">
+                        <h3 class="productContent-timeLabel">دقیقه</h3>
                       </div>
-                  </div>
-                  <div class="w-100 d-flex">
-                    <h3 class="productContent-timeLabel">دقیقه</h3>
-                  </div>
-              </div>
+                    </div>
 
-              <div class="productContent-timerData">
-                  <div class="w-100 d-flex">
-                      <div class="productContent-timeItem">
-                        <h3 class="productContent-timeText">{{counterDownSecond[0]}}</h3>
+                    <div class="productContent-timerData">
+                      <div class="w-100 d-flex">
+                        <div class="productContent-timeItem">
+                          <h3 class="productContent-timeText">{{counterDownSecond[0]}}</h3>
+                        </div>
+                        <div class="productContent-timeItem">
+                          <h3 class="productContent-timeText">{{counterDownSecond[1]}}</h3>
+                        </div>
                       </div>
-                      <div class="productContent-timeItem">
-                        <h3 class="productContent-timeText">{{counterDownSecond[1]}}</h3>
+                      <div class="w-100 d-flex">
+                        <h3 class="productContent-timeLabel">ثانیه</h3>
                       </div>
-                  </div>
-                  <div class="w-100 d-flex">
-                    <h3 class="productContent-timeLabel">ثانیه</h3>
-                  </div>
-              </div>
+                    </div>
+                </div>
 
+                <div class=" productContent-timeMobile">
+                  <h3 class="productContent-timeMobileTitle">:زمان باقی مانده</h3>
+                </div>
 
           </div>
           <div class="w-100 productContent-timerBtn">
@@ -220,6 +227,72 @@ export default {
   height: 46px;
   margin-right: auto;
   margin-left: auto;
+}
+.productContent-circle{
+  margin-left: 1px;
+  display: none;
+}
+.productContent-timerContent{
+  @include display-flex();
+  align-items: flex-start;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.productContent-timeMobileTitle{
+  font-size: 13px;
+  color: $red-color;
+  font-weight: 400;
+}
+.productContent-timeMobile{
+  display: none;
+  margin-left: 9px;
+}
+
+
+@media (max-width: 960px) {
+    .productContent-timerBtn{
+      display: none;
+    }
+    .productContent-timeTitle{
+      display: none;
+    }
+    .productContent-timeLabel{
+      display: none;
+    }
+    .productContent-timeText{
+      flex-flow: wrap;
+      width: auto;
+      align-items: center;
+    }
+    .productContent-timeIcon{
+      width: 21px;
+      height: 21px;
+    }
+    .productContent-timeContent{
+      width: auto;
+      margin-top: 11px;
+    }
+    .productContent-festivalTitle{
+      font-size: 16px;
+      margin-top: 1px;
+      margin-bottom: 0;
+      margin-right: 6px;
+      color: $color_festival_mobile;
+    }
+    .productContent-timerData{
+      margin-left: 0;
+      color: $red-color;
+    }
+    .productContent-circle{
+      @include display-flex();
+    }
+    .productContent-timerMain{
+      align-items: center;
+    }
+    .productContent-timeMobile{
+      @include display-flex();
+    }
+
 }
 
 

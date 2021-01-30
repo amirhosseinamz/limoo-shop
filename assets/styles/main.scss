@@ -126,6 +126,9 @@ input::-webkit-inner-spin-button {
     display: -webkit-flex;
     display: flex;
 }
+@mixin font-icon__limoo() {
+    font-family: "limoo";
+}
 // ===================================================
 .signup-limoo-logo {
     margin-top: 0;
