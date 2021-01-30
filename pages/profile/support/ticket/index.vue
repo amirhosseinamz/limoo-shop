@@ -42,11 +42,41 @@
                                     >Limooport@limoo.com</span
                                 >
                             </div>
+                            <div class="support-contact__call">
+                                <h4 class="support-contact__call-title">
+                                    شماره پشتیبانی:
+                                </h4>
+                                <span class="support-contact__call-limoo">
+                                    0215862
+                                </span>
+                            </div>
                         </div>
                     </div>
                 </div>
+                <!-- ============================ -->
+                <div class="user-profile__support-mobile d-rtl">
+                    <h4 class="support-contact__mobile-title">
+                        راه های ارتباطی مستقیم با پشتیبانی لیمو
+                    </h4>
+                    <div class="support-contact__call">
+                        <h4 class="support-contact__call-title">
+                            شماره پشتیبانی:
+                        </h4>
+                        <span class="support-contact__call-limoo">
+                            0215862
+                        </span>
+                    </div>
+                    <div class="support-contact__mail">
+                        <h4 class="support-contact__mail-title">
+                            پست الکترونیکی:
+                        </h4>
+                        <span class="support-contact__mail-limoo"
+                            >Limooport@limoo.com</span
+                        >
+                    </div>
+                </div>
                 <div class="w-100 user-profile-adresses-main flex-column">
-                    <contentAdresses
+                    <contentTickets
                         :adress-data="adressesData"
                         :all-province="allProvince"
                         :all-citys="allCitys"
@@ -56,12 +86,12 @@
                         @selected-province="selectedProvince"
                         @selected-city="selectedCity"
                         @submit-address-add="submitAddressAdd"
-                    ></contentAdresses>
+                    ></contentTickets>
                 </div>
             </div>
         </div>
 
-        <modalDeleteAdress
+        <modalDeleteTicket
             :active.sync="statusShowModalDeleteProduct"
             :current-product="currentProduct"
             @btn-delete-modal="btnDeleteProduct"
@@ -70,14 +100,14 @@
 </template>
 <script>
 import TheProfileSideBar from "~/components/Profile/TheProfileSideBar.vue";
-import contentAdresses from "~/components/Profile/Adresses/contentAdresses.vue";
-import modalDeleteAdress from "~/components/Profile/Adresses/modalDeleteAdress.vue";
+import contentTickets from "~/components/Profile/Support/ticket/contentTickets.vue";
+import modalDeleteTicket from "~/components/Profile/Support/ticket/modalDeleteTicket.vue";
 
 export default {
     components: {
         TheProfileSideBar,
-        contentAdresses,
-        modalDeleteAdress
+        contentTickets,
+        modalDeleteTicket
     },
 
     data() {
@@ -236,8 +266,12 @@ export default {
     background: $overlay__profile;
 }
 
-.mobile-screen {
+.mobile-screen,
+.user-profile__support-mobile {
     display: none;
+}
+.user-profile-adresses-main {
+    background: transparent;
 }
 .profile-container {
     margin: 0 auto;
@@ -266,7 +300,7 @@ export default {
     /* background: $white; */
     border-radius: 10px;
     box-shadow: 0px 8px 16px $box__shadow;
-    border: 1px solid #f00808;
+    /* border: 1px solid #f00808; */
     &__support {
         @include display-flex();
         flex-direction: row;
@@ -286,7 +320,7 @@ export default {
         border-bottom-right-radius: 10px;
         background: $white;
         width: 100%;
-        height: 219px;
+        height: 200px;
     }
     &__topic {
         font-size: 18px;
@@ -337,41 +371,57 @@ export default {
     width: 100%;
     margin-top: 24px;
     padding: 0 22px;
-    border: 1px solid #f00808;
+    /* border: 1px solid #f00808; */
 }
 .support-contact__description {
     font-weight: 400;
     color: $gray;
-    width: 45%;
+    width: 48%;
+    padding-top: 4px;
     text-align: right;
-    line-height: 140.62%;
+    line-height: 180.62%;
     /* border: 1px solid #3608f0; */
 }
 .support-contact__left {
     @include display-flex();
     flex-direction: column;
     border-right: 1px solid $light-gray;
-    padding-right: 30px;
+    padding: 4px 30px 0 0;
     align-self: center;
     height: 89px;
-    width: 45%;
+    width: 48%;
+    /* border: 1px solid #3608f0; */
 }
-.support-contact__mail {
+.support-contact__mail,
+.support-contact__call {
     @include display-flex();
     flex-direction: row;
+}
+.support-contact__call {
+    margin-top: 27px;
 }
 .support-contact__mail-title::before {
     @include font-icon__limoo();
     content: "\e81a";
     font-size: 18px;
     vertical-align: middle;
+    margin-left: 8px;
 }
-.support-contact__mail-title {
+.support-contact__call-title::before {
+    @include font-icon__limoo();
+    content: "\e81f";
+    font-size: 18px;
+    vertical-align: middle;
+    margin-left: 8px;
+}
+.support-contact__mail-title,
+.support-contact__call-title {
     font-weight: 400;
     color: $gray;
     line-height: 140.62%;
 }
-.support-contact__mail-limoo {
+.support-contact__mail-limoo,
+.support-contact__call-limoo {
     line-height: 140.62%;
     font-size: 16px;
     margin-right: 8px;
@@ -390,14 +440,72 @@ export default {
 }
 
 @media (max-width: 1220px) {
+    .support-contact__holder {
+        padding: 0 5px;
+    }
+    .support-contact__left {
+        padding-right: 5px;
+        width: 49%;
+    }
+    .support-contact__mail-title,
+    .support-contact__mail-title::before,
+    .support-contact__call-title,
+    .support-contact__call-title::before {
+        font-size: 13px;
+    }
+    .support-contact__mail-limoo,
+    .support-contact__call-limoo {
+        font-size: 15px;
+        margin-right: 2px;
+    }
+    .support-contact__description {
+        font-size: 15px;
+        width: 49%;
+    }
 }
 
 @media (max-width: 960px) {
     .desktop-screen {
         display: none;
     }
-    .splicer-line {
+    .splicer-line,
+    .user-profile__support-contact,
+    .user-profile__support {
         display: none;
+    }
+    .user-profile__support-mobile {
+        @include display-flex();
+        flex-direction: column;
+        background: $white;
+        height: 121px;
+        width: 100%;
+        padding-right: 11px;
+        border-radius: 10px;
+        box-shadow: 0px 8px 16px $box__shadow;
+    }
+    .support-contact__mobile-title {
+        font-weight: 400;
+        font-size: 14px;
+        text-align: right;
+        margin-top: 19px;
+    }
+    .support-contact__call,
+    .support-contact__mail {
+        margin-top: 16px;
+    }
+    .support-contact__mail {
+        margin-bottom: 16px;
+    }
+    .support-contact__mail-title,
+    .support-contact__mail-title::before,
+    .support-contact__call-title,
+    .support-contact__call-title::before {
+        font-size: 14px;
+    }
+    .support-contact__mail-limoo,
+    .support-contact__call-limoo {
+        font-size: 14px;
+        margin-right: 4px;
     }
     .mobile-screen {
         display: block;
@@ -448,5 +556,20 @@ export default {
 }
 
 @media (max-width: 320px) {
+}
+@media (max-width: 280px) {
+    .support-contact__mobile-title {
+        font-size: 13px;
+    }
+    .support-contact__mail-title,
+    .support-contact__mail-title::before,
+    .support-contact__call-title,
+    .support-contact__call-title::before {
+        font-size: 12px;
+    }
+    .support-contact__mail-limoo,
+    .support-contact__call-limoo {
+        font-size: 12px;
+    }
 }
 </style>
