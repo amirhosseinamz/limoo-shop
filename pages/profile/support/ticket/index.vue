@@ -17,11 +17,34 @@
             <div class="user-profile w-100">
                 <div class="user-profile__support d-rtl">
                     <span class="user-profile__topic">پشتیبانی لیمو</span>
-                    <NuxtLink to="/profile" class="user-profile__back-btn"
-                        >55</NuxtLink
-                    >
+                    <NuxtLink
+                        to="/profile"
+                        class="user-profile__back-btn"
+                    ></NuxtLink>
                 </div>
                 <hr class="splicer-line" />
+                <div class="user-profile__support-contact d-rtl">
+                    <h4 class="support-contact__title">
+                        راه های ارتباطی مستقیم با پشتیبانی لیمو
+                    </h4>
+                    <div class="support-contact__holder">
+                        <h4 class="support-contact__description">
+                            شما با استفاده از راه های ارتباطی درج شده می توانید
+                            به صورت شبانه روزی با پشتیبانی سایت لیمو در ارتباط
+                            باشید و برای حل مشکلات خود اقدام نمایید.
+                        </h4>
+                        <div class="support-contact__left">
+                            <div class="support-contact__mail">
+                                <h4 class="support-contact__mail-title">
+                                    پست الکترونیکی:
+                                </h4>
+                                <span class="support-contact__mail-limoo"
+                                    >Limooport@limoo.com</span
+                                >
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <div class="w-100 user-profile-adresses-main flex-column">
                     <contentAdresses
                         :adress-data="adressesData"
@@ -240,17 +263,30 @@ export default {
     /* justify-content: center; */
     align-items: center;
     text-align: center;
-    background: $white;
+    /* background: $white; */
     border-radius: 10px;
     box-shadow: 0px 8px 16px $box__shadow;
-    /* border: 1px solid #f00808; */
+    border: 1px solid #f00808;
     &__support {
         @include display-flex();
         flex-direction: row;
         justify-content: space-between;
         align-items: flex-end;
+        border-top-left-radius: 10px;
+        border-top-right-radius: 10px;
+        background: $white;
         width: 100%;
-        border: 1px solid #f00808;
+        height: 96px;
+        /* border: 1px solid #f00808; */
+    }
+    &__support-contact {
+        @include display-flex();
+        flex-direction: column;
+        border-bottom-left-radius: 10px;
+        border-bottom-right-radius: 10px;
+        background: $white;
+        width: 100%;
+        height: 219px;
     }
     &__topic {
         font-size: 18px;
@@ -259,25 +295,92 @@ export default {
         align-self: flex-end;
         margin-top: 37px;
         margin-right: 25px;
+        margin-bottom: 38px;
+    }
+    &__back-btn img {
+        margin-left: 16px;
     }
     &__back-btn {
         text-decoration: none;
+        /* border: 1px solid #f00808; */
+        @include display-flex();
+        flex-direction: row;
+        border-right: 1px solid $light-gray;
+        height: 64px;
+        margin-left: 26px;
+        margin-bottom: 16px;
+        cursor: initial;
     }
-    &__back-btn::before {
-        content: "\e81b";
+    &__back-btn::after {
+        content: "\e801";
+        /* border: 1px solid #f00808; */
         @include font-icon__limoo();
         @include display-flex();
-        font-size: 14px;
+        font-size: 15px;
+        padding: 4px;
         color: $input-border;
-        transform: rotate(90deg);
+        align-self: center;
+        cursor: pointer;
+        margin-right: 16px;
     }
+}
+.support-contact__title {
+    font-weight: 400;
+    text-align: right;
+    margin-top: 24px;
+    margin-right: 22px;
+}
+.support-contact__holder {
+    @include display-flex();
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+    margin-top: 24px;
+    padding: 0 22px;
+    border: 1px solid #f00808;
+}
+.support-contact__description {
+    font-weight: 400;
+    color: $gray;
+    width: 45%;
+    text-align: right;
+    line-height: 140.62%;
+    /* border: 1px solid #3608f0; */
+}
+.support-contact__left {
+    @include display-flex();
+    flex-direction: column;
+    border-right: 1px solid $light-gray;
+    padding-right: 30px;
+    align-self: center;
+    height: 89px;
+    width: 45%;
+}
+.support-contact__mail {
+    @include display-flex();
+    flex-direction: row;
+}
+.support-contact__mail-title::before {
+    @include font-icon__limoo();
+    content: "\e81a";
+    font-size: 18px;
+    vertical-align: middle;
+}
+.support-contact__mail-title {
+    font-weight: 400;
+    color: $gray;
+    line-height: 140.62%;
+}
+.support-contact__mail-limoo {
+    line-height: 140.62%;
+    font-size: 16px;
+    margin-right: 8px;
 }
 .splicer-line {
     display: block;
     width: 100%;
     border: none;
     border-bottom: 1px solid $light-gray;
-    margin-top: 38px;
 }
 .user-profile__topic {
     text-align: right;
