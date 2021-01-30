@@ -119,7 +119,9 @@
             <hr class="splicer" />
             <div class=" profile-sidebar__flex profile-sidebar__support">
                 <div class="profile-sidebar__flex-part d-rtl">
-                    <NuxtLink class="profile-sidebar__support-icon" to=""
+                    <NuxtLink
+                        class="profile-sidebar__support-icon"
+                        to="/profile/support/ticket"
                         >پشتیبانی</NuxtLink
                     >
                 </div>

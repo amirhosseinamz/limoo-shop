@@ -4,7 +4,7 @@
 
         <div class="mobile-screen">
             <div class="mobile-screen__holder">
-                <span class="mobile-screen__holder-txt">آدرس های شما</span>
+                <span class="mobile-screen__holder-txt">پشتیبانی لیمو</span>
                 <img
                     @click="goToProfile"
                     class="mobile-screen__holder-arrow"
@@ -15,7 +15,12 @@
 
         <div class="user-profile__holder">
             <div class="user-profile w-100">
-                <span class="user-profile__topic">آدرس های شما</span>
+                <div class="user-profile__support d-rtl">
+                    <span class="user-profile__topic">پشتیبانی لیمو</span>
+                    <NuxtLink to="/profile" class="user-profile__back-btn"
+                        >55</NuxtLink
+                    >
+                </div>
                 <hr class="splicer-line" />
                 <div class="w-100 user-profile-adresses-main flex-column">
                     <contentAdresses
@@ -239,17 +244,40 @@ export default {
     border-radius: 10px;
     box-shadow: 0px 8px 16px $box__shadow;
     /* border: 1px solid #f00808; */
+    &__support {
+        @include display-flex();
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: flex-end;
+        width: 100%;
+        border: 1px solid #f00808;
+    }
     &__topic {
         font-size: 18px;
         line-height: 140.62%;
         color: $black-topic;
         align-self: flex-end;
-        margin-top: 23px;
+        margin-top: 37px;
         margin-right: 25px;
+    }
+    &__back-btn {
+        text-decoration: none;
+    }
+    &__back-btn::before {
+        content: "\e81b";
+        @include font-icon__limoo();
+        @include display-flex();
+        font-size: 14px;
+        color: $input-border;
+        transform: rotate(90deg);
     }
 }
 .splicer-line {
-    display: none;
+    display: block;
+    width: 100%;
+    border: none;
+    border-bottom: 1px solid $light-gray;
+    margin-top: 38px;
 }
 .user-profile__topic {
     text-align: right;
@@ -263,6 +291,9 @@ export default {
 
 @media (max-width: 960px) {
     .desktop-screen {
+        display: none;
+    }
+    .splicer-line {
         display: none;
     }
     .mobile-screen {
