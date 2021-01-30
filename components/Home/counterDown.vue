@@ -215,6 +215,12 @@ export default {
   text-align: center;
   margin-top: 2px;
 }
+.productContent-timeIcon{
+  width: 46px;
+  height: 46px;
+  margin-right: auto;
+  margin-left: auto;
+}
 
 
 

@@ -53,8 +53,10 @@
   }
   .flickity-prev-next-button.next{
     left: 24px;
+    z-index: 1;
   }
   .flickity-prev-next-button.previous{
     right: 24px;
+    z-index: 1;
   }
 }
