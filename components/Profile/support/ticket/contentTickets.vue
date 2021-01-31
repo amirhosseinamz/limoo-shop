@@ -304,10 +304,11 @@ export default {
 .p-adresses-content-main {
     /* padding-right: 21px;
     padding-left: 21px; */
-    border-radius: 10px;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
     background: $white;
-    margin-top: 24px;
-    padding: 0 24px 35px 24px;
+
+    padding: 0 24px 19px 24px;
 }
 .p-adresses-content-btn-add-main {
     @include display-flex();
@@ -341,7 +342,7 @@ export default {
     border: 1px solid $light-gray;
     border-radius: 10px;
     height: 241px;
-    margin-bottom: 24px;
+    margin-bottom: 16px;
 }
 .p-adresses-content-header {
     @include display-flex();
@@ -447,7 +448,7 @@ export default {
         margin-left: 10%;
     }
     .p-adresses-content-main {
-        margin-top: 0;
+        border-radius: 10px;
         padding: 0 11px 18px 11px;
     }
     .p-adresses-content-btn-add-main {

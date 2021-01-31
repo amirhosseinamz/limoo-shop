@@ -75,6 +75,28 @@
                         >
                     </div>
                 </div>
+                <div class="support__navbar-desktop d-rtl">
+                    <div
+                        @click="goToSupport('sendTicket')"
+                        :class="{ 'item-active': sendTicket }"
+                        class="support-nav__items"
+                    >
+                        <NuxtLink to="/profile/support/ticket"
+                            >ارسال تیکت</NuxtLink
+                        >
+                        <span class="bottomLine"></span>
+                    </div>
+                    <div
+                        @click="goToSupport('faqPart')"
+                        :class="{ 'item-active': faqPart }"
+                        class="support-nav__items support-nav__faq"
+                    >
+                        <NuxtLink to="/profile/support/faq"
+                            >سوالات متداول</NuxtLink
+                        >
+                        <span class="bottomLine"></span>
+                    </div>
+                </div>
                 <div class="w-100 user-profile-adresses-main flex-column">
                     <contentTickets
                         :adress-data="adressesData"
@@ -112,6 +134,8 @@ export default {
 
     data() {
         return {
+            sendTicket: true,
+            faqPart: false,
             adressesData: [
                 {
                     id: 1,
@@ -120,7 +144,8 @@ export default {
                     city: "جنت آباد",
                     codePoste: "90",
                     nameReceiver: "test",
-                    numberReceiver: "10"
+                    numberReceiver: "10",
+                    QA: [{ id: 1 }, { id: 2 }]
                 },
                 {
                     id: 2,
@@ -190,7 +215,14 @@ export default {
         goToProfile() {
             this.$router.push("/profile");
         },
-
+        goToSupport(page) {
+            if (page == "sendTicket") {
+                this.sendTicket = true;
+            } else if (page == "faqPart") {
+                this.sendTicket = false;
+                this.faqPart = true;
+            }
+        },
         btnDeleteProduct(data) {
             const removeFavorite = () => {
                 let indexDelete = -1;
@@ -331,9 +363,6 @@ export default {
         margin-right: 25px;
         margin-bottom: 38px;
     }
-    &__back-btn img {
-        margin-left: 16px;
-    }
     &__back-btn {
         text-decoration: none;
         /* border: 1px solid #f00808; */
@@ -357,6 +386,48 @@ export default {
         cursor: pointer;
         margin-right: 16px;
     }
+}
+.support__navbar-desktop {
+    @include display-flex();
+    flex-direction: row;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    background-color: $white;
+    box-shadow: 0px 8px 16px $box__shadow;
+    z-index: 1;
+    padding: 0 57px;
+    margin-top: 24px;
+    width: 100%;
+    height: 83px;
+}
+.support-nav__items {
+    @include display-flex();
+    flex-direction: column;
+    justify-content: space-between;
+    margin-top: 31px;
+}
+.support-nav__faq {
+    margin-right: 143px;
+}
+.support-nav__items a {
+    color: $gray;
+    text-decoration: none;
+    font-size: 18px;
+    line-height: 140.62%;
+}
+.item-active {
+    & a {
+        color: $black-topic;
+    }
+}
+.bottomLine {
+    align-self: center;
+    background-color: $yellow;
+    height: 5px;
+    width: 170%;
+    margin-top: 20px;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
 }
 .support-contact__title {
     font-weight: 400;
@@ -465,7 +536,8 @@ export default {
 }
 
 @media (max-width: 960px) {
-    .desktop-screen {
+    .desktop-screen,
+    .support__navbar-desktop {
         display: none;
     }
     .splicer-line,
