@@ -247,6 +247,9 @@ export default {
   display: none;
   margin-left: 9px;
 }
+.d-flex{
+  display: flex;
+}
 
 
 @media (max-width: 960px) {

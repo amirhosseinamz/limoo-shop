@@ -83,6 +83,7 @@ export default {
           // freeScroll      : true,
           pageDots        : false,
           groupCells      : true,
+          fade            : false,
         });
 
       },

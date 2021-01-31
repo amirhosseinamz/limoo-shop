@@ -52,6 +52,7 @@ export default {
         cellAlign       : 'right',
         prevNextButtons : false,
         imagesLoaded    : true,
+        // fade            : true,
       });
     },
 
