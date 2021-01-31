@@ -1,5 +1,5 @@
 <template>
-    <div class="container">
+    <div class="container"> 
         <the-user-info />
         <div class="profile-sidebar">
             <!-- =section1= -->
