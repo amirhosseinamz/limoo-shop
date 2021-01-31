@@ -12,7 +12,32 @@
                 />
             </div>
         </div>
-
+        <!-- ----- -->
+        <div class="support__navbar-mobile d-rtl">
+            <div
+                :class="{ 'item-active': sendTicket }"
+                class="support-nav__mobile-items"
+            >
+                <NuxtLink
+                    @click="goToSupport('sendTicket')"
+                    to="/profile/support/ticket"
+                    >تماس و تیکت</NuxtLink
+                >
+                <span class="bottomLine-mobile"></span>
+            </div>
+            <div
+                :class="{ 'item-active': faqPart }"
+                class="support-nav__mobile-items support-nav__mobile-faq"
+            >
+                <NuxtLink
+                    @click="goToSupport('faqPart')"
+                    to="/profile/support/faq"
+                    >سوالات متداول</NuxtLink
+                >
+                <span class="bottomLine-mobile"></span>
+            </div>
+        </div>
+        <!-- ----- -->
         <div class="user-profile__holder">
             <div class="user-profile w-100">
                 <div class="user-profile__support d-rtl">
@@ -313,7 +338,8 @@ export default {
 }
 
 .mobile-screen,
-.user-profile__support-mobile {
+.user-profile__support-mobile,
+.support__navbar-mobile {
     display: none;
 }
 .user-profile-adresses-main {
@@ -559,6 +585,48 @@ export default {
     .user-profile__support {
         display: none;
     }
+    /* ================== */
+    .support__navbar-mobile {
+        @include display-flex();
+        flex-direction: row;
+        justify-content: space-between;
+        background-color: $white;
+        box-shadow: 0px 8px 16px $box__shadow;
+        border-top: 1px solid $light-gray;
+        padding: 0 170px;
+        width: 100%;
+        height: 54px;
+    }
+    .support-nav__mobile-items {
+        @include display-flex();
+        flex-direction: column;
+        justify-content: space-between;
+        margin-top: 14px;
+    }
+    /* .support-nav__faq {
+    margin-right: 143px;
+} */
+    .support-nav__mobile-items a {
+        color: $gray;
+        text-decoration: none;
+        font-size: 14px;
+        line-height: 140.62%;
+    }
+    .item-active {
+        & a {
+            color: $black-topic;
+        }
+        .bottomLine-mobile {
+            align-self: center;
+            background-color: $yellow;
+            height: 4px;
+            width: 150%;
+            margin-top: 15px;
+            border-top-left-radius: 15px;
+            border-top-right-radius: 15px;
+        }
+    }
+    /* ============= */
     .user-profile__support-mobile {
         @include display-flex();
         flex-direction: column;
@@ -635,6 +703,9 @@ export default {
         background: none;
         border: none;
         box-shadow: none;
+    }
+    .support__navbar-mobile {
+        padding: 0 41px;
     }
 }
 
