@@ -77,21 +77,23 @@
                 </div>
                 <div class="support__navbar-desktop d-rtl">
                     <div
-                        @click="goToSupport('sendTicket')"
                         :class="{ 'item-active': sendTicket }"
                         class="support-nav__items"
                     >
-                        <NuxtLink to="/profile/support/ticket"
+                        <NuxtLink
+                            @click="goToSupport('sendTicket')"
+                            to="/profile/support/ticket"
                             >ارسال تیکت</NuxtLink
                         >
                         <span class="bottomLine"></span>
                     </div>
                     <div
-                        @click="goToSupport('faqPart')"
                         :class="{ 'item-active': faqPart }"
                         class="support-nav__items support-nav__faq"
                     >
-                        <NuxtLink to="/profile/support/faq"
+                        <NuxtLink
+                            @click="goToSupport('faqPart')"
+                            to="/profile/support/faq"
                             >سوالات متداول</NuxtLink
                         >
                         <span class="bottomLine"></span>
@@ -134,11 +136,16 @@ export default {
 
     data() {
         return {
-            sendTicket: true,
+            sendTicket: false,
             faqPart: false,
             adressesData: [
                 {
                     id: 1,
+                    ticketTitle: "ثبت نشدن عکس پروفایل",
+                    state: "acceptting",
+                    question:
+                        "متاسفانه پس از بارها تلاش کردن موفق به ثبت عکس پروفایل کاربری در سایت لیمو نشدم لطفا راهنمایی بفرمایید.",
+                    answer: "",
                     address: "تهران ، خیابان ولیعصر ، تقاطع کوچه حسینی راد 1",
                     province: "تهران",
                     city: "جنت آباد",
@@ -149,19 +156,16 @@ export default {
                 },
                 {
                     id: 2,
+                    ticketTitle: "ثبت نشدن ایمیل کاربری من",
+                    state: "accepted",
+                    question:
+                        "متاسفانه پس از بارها تلاش کردن موفق به ثبت ایمیل کاربری در سایت لیمو نشدم لطفا راهنمایی بفرمایید.",
+                    answer:
+                        " با سلام کاربر گرامی تیکت شما را بررسی کردیم و نتیجه به این شرح است.",
                     address: "تهران ، خیابان ولیعصر ، تقاطع کوچه حسینی راد 2",
                     province: "قم",
                     city: "قم",
                     codePoste: "2",
-                    nameReceiver: "test",
-                    numberReceiver: "10"
-                },
-                {
-                    id: 3,
-                    address: "تهران ، خیابان ولیعصر ، تقاطع کوچه حسینی راد 3",
-                    province: "قم",
-                    city: "قم",
-                    codePoste: "3",
                     nameReceiver: "test",
                     numberReceiver: "10"
                 }
@@ -209,7 +213,16 @@ export default {
 
     watch: {},
 
-    mounted() {},
+    mounted() {
+        const curentRoute = this.$route.path;
+        // const activeTab = this.$route.query.activeTab;
+        if (curentRoute == "/profile/support/ticket") {
+            this.sendTicket = true;
+            // this.delivered = false;
+            // this.returned = false;
+            // this.canceled = false;
+        }
+    },
 
     methods: {
         goToProfile() {
@@ -217,9 +230,10 @@ export default {
         },
         goToSupport(page) {
             if (page == "sendTicket") {
+                this.$router.push("/profile/support/ticket");
                 this.sendTicket = true;
             } else if (page == "faqPart") {
-                this.sendTicket = false;
+                this.$router.push("/profile/support/faq");
                 this.faqPart = true;
             }
         },
@@ -419,15 +433,15 @@ export default {
     & a {
         color: $black-topic;
     }
-}
-.bottomLine {
-    align-self: center;
-    background-color: $yellow;
-    height: 5px;
-    width: 170%;
-    margin-top: 20px;
-    border-top-left-radius: 15px;
-    border-top-right-radius: 15px;
+    .bottomLine {
+        align-self: center;
+        background-color: $yellow;
+        height: 5px;
+        width: 170%;
+        margin-top: 20px;
+        border-top-left-radius: 15px;
+        border-top-right-radius: 15px;
+    }
 }
 .support-contact__title {
     font-weight: 400;

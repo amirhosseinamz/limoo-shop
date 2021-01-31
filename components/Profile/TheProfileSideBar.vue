@@ -121,6 +121,9 @@
                 <div class="profile-sidebar__flex-part d-rtl">
                     <NuxtLink
                         class="profile-sidebar__support-icon"
+                        :class="{
+                            'link-item__activated': supportIsActive
+                        }"
                         to="/profile/support/ticket"
                         >پشتیبانی</NuxtLink
                     >
@@ -224,7 +227,8 @@ export default {
             adressActive: false,
             userHistoryIsActive: false,
             OrdersIsActive: false,
-            commentsIsActive: false
+            commentsIsActive: false,
+            supportIsActive: false
         };
     },
     created() {
@@ -262,6 +266,13 @@ export default {
             curentRoute == "/profile/comments/"
         ) {
             this.commentsIsActive = true;
+        } else if (
+            curentRoute == "/profile/support/ticket" ||
+            curentRoute == "/profile/support/ticket/" ||
+            curentRoute == "/profile/support/faq" ||
+            curentRoute == "/profile/support/faq/"
+        ) {
+            this.supportIsActive = true;
         }
 
         // else if (curentRoute == "/cart") {
