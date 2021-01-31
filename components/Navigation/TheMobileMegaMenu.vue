@@ -75,7 +75,7 @@ export default {
             MobileCategoryIsActive: false,
             profileIsActive: false,
             basketIsActive: false,
-            homeIsActive: false
+            homeIsActive: false,
         };
     },
     components: {
@@ -91,6 +91,8 @@ export default {
         } else if (curentRoute.search("/profile") + 1 == 1) {
             this.profileIsActive = true;
         }
+
+
     },
     methods: {
         showCategory() {

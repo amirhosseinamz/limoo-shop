@@ -261,6 +261,12 @@ export default {
         ) {
             this.commentsIsActive = true;
         }
+        else if (curentRoute == "/profile/favorites") {
+          this.favoriteActive = true;
+        }
+        else if (curentRoute == "/profile/adresses") {
+          this.adressActive = true;
+        }
 
         // else if (curentRoute == "/cart") {
         //     this.basketIsActive = true;
