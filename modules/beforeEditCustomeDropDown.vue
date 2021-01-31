@@ -1,5 +1,8 @@
 <template>
-    <div  class=" d-flex flex-wrap birthday-item-wrapper" :class="{ 'dropdown-active': showDropDown }">
+    <div
+        class=" d-flex flex-wrap birthday-item-wrapper"
+        :class="{ 'dropdown-active': showDropDown }"
+    >
         <div
             class="flex-wrap d-flex birthday-item-main align-items-start cursor-pointer"
             :class="className"
@@ -62,48 +65,44 @@
                 </div>
             </div>
         </div>
-      </div>
-
+    </div>
 </template>
 
 <script>
 export default {
     name: "customeDropDown",
     props: {
-      initialValue: {
-          type: [String],
-          required: {}
-      },
-      options: {
-          type: [Array,Object],
-          required: {}
-      },
-      label: {
-          type: String,
-          required: {}
-      },
-      className: {
-          type: String,
-          required: {}
-      },
-
+        initialValue: {
+            type: [String],
+            required: {}
+        },
+        options: {
+            type: [Array, Object],
+            required: {}
+        },
+        label: {
+            type: String,
+            required: {}
+        },
+        className: {
+            type: String,
+            required: {}
+        }
     },
 
     data() {
         return {
             //   ***************************
-            showDropDown       : false,
-            searchValue        : "",
-            lastUpdateValue    : 10,
-            findSelectedOption : 0,
-            valueOptions       : [],
+            showDropDown: false,
+            searchValue: "",
+            lastUpdateValue: 10,
+            findSelectedOption: 0,
+            valueOptions: []
             //   ***************************
         };
     },
 
-    computed: {
-
-    },
+    computed: {},
     //   ***************************⇓
     watch: {
         lastUpdateValue(value) {
@@ -115,16 +114,13 @@ export default {
         },
 
         findSelectedOption() {
-          // پیدا کردن آیتم انتخاب شده از سلیکت باکس //
-
+            // پیدا کردن آیتم انتخاب شده از سلیکت باکس //
 
             let indexShowSelectOption = -1;
             if (this.showDropDown) {
                 if (this.lastUpdateValue != "") {
                     this.valueOptions.map((content, index) => {
-                        if (
-                            content[this.label] == this.lastUpdateValue
-                        ) {
+                        if (content[this.label] == this.lastUpdateValue) {
                             indexShowSelectOption = index;
                             content.selected = true;
                         }
@@ -146,10 +142,9 @@ export default {
     methods: {
         //   ***************************⇓
         checkCloseDropDown(e) {
-          // هر جایی به غیر از باکس دراپ دان کلیک شود در صورتی که دراپ دان باز باشد بسته می شود //
+            // هر جایی به غیر از باکس دراپ دان کلیک شود در صورتی که دراپ دان باز باشد بسته می شود //
 
-
-          // چک کردت این که روی دراپ دان کلیک شده یا خیر //
+            // چک کردت این که روی دراپ دان کلیک شده یا خیر //
             function findAncestor(el, cls) {
                 while ((el = el.parentElement) && !el.classList.contains(cls));
                 return el;
@@ -165,8 +160,8 @@ export default {
         },
 
         searchFilter(data) {
-          // جستجو برای آیتم سرچ شده //
-          // و در صورت پیدا کردن آیتم به صورت حالت انتخابی می شود //
+            // جستجو برای آیتم سرچ شده //
+            // و در صورت پیدا کردن آیتم به صورت حالت انتخابی می شود //
 
             let filteredArray = this.valueOptions.filter((content, index) => {
                 if (
@@ -191,7 +186,7 @@ export default {
         //   ***************************⇓
         showOptionsDropDown() {
             let indexShowSelectOption = -1;
-             // نمایش باکس دراپ دان //
+            // نمایش باکس دراپ دان //
 
             if (this.showDropDown) {
                 this.showDropDown = false;
@@ -200,16 +195,15 @@ export default {
             }
 
             this.$nextTick(() => {
-              // پیدا کردن آیتم انتخاب شده //
+                // پیدا کردن آیتم انتخاب شده //
                 this.findSelectedOption++;
             });
-
         },
 
         selectOption(data) {
-          //  آپدیت انتخاب یکی از آیتم های آپشن //
+            //  آپدیت انتخاب یکی از آیتم های آپشن //
             this.showDropDown = false;
-            this.searchValue  = "";
+            this.searchValue = "";
 
             this.valueOptions.map(t => {
                 if (t[this.label] == data[this.label]) {
@@ -220,7 +214,6 @@ export default {
                 }
                 t.show = false;
             });
-
         }
         //   ***************************⇑
     },
@@ -234,16 +227,12 @@ export default {
     },
 
     mounted() {
-      // آپدیت مقدار پیش فرض Select box //
-      this.lastUpdateValue = this.initialValue;
+        // آپدیت مقدار پیش فرض Select box //
+        this.lastUpdateValue = this.initialValue;
 
-      if (this.options.length != 0) {
-        this.valueOptions = this.options;
-      }
-
-
-
-
+        if (this.options.length != 0) {
+            this.valueOptions = this.options;
+        }
     }
 };
 </script>

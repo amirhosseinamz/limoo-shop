@@ -12,18 +12,12 @@
                     </NuxtLink>
                 </div>
                 <div class="city-label">
-                    <img
-                        class="city-label__arrow"
-                        src="/icons/arrow-down.svg"
-                    />
+                    <span class="city-label__arrow"></span>
                     <div class="city-label__btn-holder">
                         <button class="city-label__btn">
                             تهران
                         </button>
-                        <img
-                            class="city-label__location"
-                            src="/icons/location.svg"
-                        />
+                        <span class="city-label__location"></span>
                     </div>
                 </div>
                 <!-- search-section -->
@@ -35,9 +29,7 @@
                             dir="rtl"
                             placeholder="جستجوی محصول..."
                         />
-                        <button class="search-section__btn">
-                            <img class="" src="/icons/search.svg" />
-                        </button>
+                        <button class="search-section__btn"></button>
                     </div>
                 </div>
             </div>
@@ -47,17 +39,10 @@
                     <button class="navigation-item__cart-btn">
                         سبد خرید
                     </button>
-                    <img
-                        class="navigation-item__cart-basket"
-                        src="/icons/basket.svg"
-                    />
+                    <span class="navigation-item__cart-basket"></span>
                 </div>
                 <div class="navigation-item navigation-item__profile">
-                    <img
-                        class="navigation-item__profile-person"
-                        src="/icons/profile.svg"
-                    />
-
+                    <span class="navigation-item__profile-person"></span>
                     <button class="navigation-item__profile-btn">
                         ورود <span style="color: #e0e0e0">|</span> عضویت
                     </button>
@@ -66,21 +51,13 @@
                     @click="show"
                     class="navigation-item navigation-item__call"
                 >
-                    <img
-                        class="navigation-item__call-person"
-                        src="/icons/call.svg"
-                    />
-
+                    <span class="navigation-item__call-person"></span>
                     <button class="navigation-item__call-btn">
                         پشتیبانی
                     </button>
                 </div>
                 <div class="navigation-item navigation-item__sell">
-                    <img
-                        class="navigation-item__sell-person"
-                        src="/icons/plus.svg"
-                    />
-
+                    <span class="navigation-item__sell-person"></span>
                     <button class="navigation-item__sell-btn">
                         شروع فروش کالا
                     </button>
@@ -144,7 +121,7 @@ export default {
     width: 100%;
     height: 135px;
     background-color: $white;
-    z-index: 100;
+    z-index: 1;
 }
 .the-header {
     @include display-flex();
@@ -195,7 +172,16 @@ export default {
         @extend .sass-input__default;
         margin: 14px 16px 15px 4px;
     }
+    &__btn::before {
+        @include font-icon__limoo();
+        font-size: 17px;
+        content: "\e869";
+        cursor: pointer;
+        color: $input-border;
+        vertical-align: middle;
+    }
 }
+
 .city-label {
     @include display-flex();
     flex-direction: row;
@@ -219,13 +205,24 @@ export default {
         outline: none;
         background: transparent;
     }
-    &__arrow {
-        margin-left: 8px;
+    &__arrow::before {
+        @include display-flex();
+        @include font-icon__limoo();
+        font-size: 13px;
+        content: "\e801";
+        margin-left: 10px;
         cursor: pointer;
+        color: $input-border;
+        transform: rotate(270deg);
     }
-    &__location {
+    &__location::before {
         margin-right: 8px;
-        margin-left: 4px;
+        margin-left: 6px;
+        content: "\e817";
+        @include font-icon__limoo();
+        font-size: 17px;
+        color: $code;
+        /* vertical-align: middle; */
     }
 }
 .navigation-items {
@@ -241,6 +238,28 @@ export default {
     border: 1px solid $gray-border;
     border-radius: 10px;
     cursor: pointer;
+    &__cart-basket::before,
+    &__profile-person::before,
+    &__call-person::before,
+    &__sell-person::before {
+        content: "\e802";
+        @include font-icon__limoo();
+        font-size: 15px;
+        color: $code;
+    }
+    &__profile-person::before {
+        content: "\e823";
+    }
+    &__call-person::before {
+        content: "\e81f";
+
+        font-size: 14px;
+    }
+    &__sell-person::before {
+        content: "\e821";
+        font-size: 14px;
+        color: $yellow;
+    }
     &__cart {
         width: 115px;
         margin-left: 16px;
@@ -270,10 +289,6 @@ export default {
     &__call {
         width: 109px;
         margin-left: 8px;
-        &-person {
-            width: 14px;
-            height: 14px;
-        }
         &-btn {
             font-size: 14px;
             font-family: inherit;

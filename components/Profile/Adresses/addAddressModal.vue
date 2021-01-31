@@ -51,7 +51,6 @@
               </div>
               <span class="splicer-line p-modal-header-line" ></span>
           </div>
-
       </div>
 
 
@@ -683,9 +682,9 @@ export default {
 .p-modal-btns{
   padding-top: 49px;
 }
-.p-modal-address{
+/* .p-modal-address{
   // height: 109px;
-}
+} */
 .p-modal-show_error .pass__alert{
   visibility: inherit;
 }

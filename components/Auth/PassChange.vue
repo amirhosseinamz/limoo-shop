@@ -3,7 +3,6 @@
         <div class="card">
             <div class="signin-next-btn">
                 <button @click="nextPage" class="app-signin-next-btn">
-                    <img src="/icons/next.svg" />
                 </button>
                 <div
                     class="success-message"
@@ -38,6 +37,7 @@
                                     :type="passwordFieldType"
                                     placeholder="کلمه عبور..."
                                     v-model="password"
+                                    maxlength="32"
                                     required
                                 />
                                 <button
@@ -46,22 +46,22 @@
                                     class="clear-input"
                                     aria-label="Close"
                                 >
-                                    <img
+                                    <span
                                         :style="
                                             passwordFieldType === 'password'
                                                 ? 'display: block'
                                                 : 'display: none'
                                         "
-                                        src="/icons/closeEye.svg"
-                                    />
-                                    <img
+                                        class="signin__close-eye"
+                                    ></span>
+                                    <span
                                         :style="
                                             passwordFieldType === 'text'
                                                 ? 'display: block'
                                                 : 'display: none'
                                         "
-                                        src="/icons/openEye.svg"
-                                    />
+                                        class="signin__open-eye"
+                                    ></span>
                                 </button>
                             </div>
                         </div>
@@ -83,6 +83,7 @@
                                     :type="passwordFieldTypeVerify"
                                     placeholder="کلمه عبور..."
                                     v-model="passwordVerify"
+                                    maxlength="32"
                                     required
                                 />
                                 <button
@@ -91,23 +92,23 @@
                                     class="clear-input"
                                     aria-label="Close"
                                 >
-                                    <img
+                                    <span
                                         :style="
                                             passwordFieldTypeVerify ===
                                             'password'
                                                 ? 'display: block'
                                                 : 'display: none'
                                         "
-                                        src="/icons/closeEye.svg"
-                                    />
-                                    <img
+                                        class="signin__close-eye"
+                                    ></span>
+                                    <span
                                         :style="
                                             passwordFieldTypeVerify === 'text'
                                                 ? 'display: block'
                                                 : 'display: none'
                                         "
-                                        src="/icons/openEye.svg"
-                                    />
+                                        class="signin__open-eye"
+                                    ></span>
                                 </button>
                             </div>
                         </div>
@@ -219,6 +220,30 @@ export default {
     width: 30px;
     height: 30px;
     margin-top: 24px;
+}
+.app-signin-next-btn::before {
+    content: "\e801";
+    @include font-icon__limoo();
+    font-size: 24px;
+    color: $black-icon;
+}
+.signin__close-eye::before {
+    content: "\e810";
+    @include font-icon__limoo();
+    font-size: 20px;
+    color: $gray;
+    vertical-align: middle;
+}
+.signin__close-eye,
+.signin__open-eye {
+    margin-bottom: 2px;
+}
+.signin__open-eye::before {
+    content: "\e811";
+    @include font-icon__limoo();
+    font-size: 20px;
+    color: $gray;
+    vertical-align: middle;
 }
 .input-holder {
     margin-bottom: 38px;

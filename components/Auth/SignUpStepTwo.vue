@@ -2,9 +2,7 @@
     <div class="signup-container">
         <div class="card">
             <div>
-                <button @click="nextPage" class="app-signin-next-btn">
-                    <img src="/icons/next.svg" />
-                </button>
+                <button @click="nextPage" class="app-signin-next-btn"></button>
                 <div
                     class="success-message"
                     :class="{ 'success-message-animation': newCodeSent }"
@@ -44,6 +42,7 @@
                                     class="signup-input form-control"
                                     type="text"
                                     v-model="verifyCode"
+                                    maxlength="4"
                                     required
                                 />
                             </div>
@@ -190,6 +189,12 @@ export default {
     width: 13.5px;
     height: 24px;
     cursor: pointer;
+}
+.app-signin-next-btn::before {
+    content: "\e801";
+    @include font-icon__limoo();
+    font-size: 25px;
+    color: $black-icon;
 }
 .success-txt {
     font-weight: 500;

@@ -2,9 +2,10 @@
     <div class="signup-container">
         <div class="card">
             <div class="signup-close-btn">
-                <button @click="closePage" class="app-signup-close-btn">
-                    <img src="/icons/close.svg" />
-                </button>
+                <button
+                    @click="closePage"
+                    class="app-signup-close-btn"
+                ></button>
             </div>
 
             <div class="signup-limoo-logo">
@@ -140,6 +141,10 @@ export default {
                     // });
                 } else {
                     // this.$router.push("/signin");
+                    this.$store.dispatch({
+                        type: "userIsAuth",
+                        value: true
+                    });
                     this.$store.commit("walkInSignUpcomponents", {
                         value: "stepTwo"
                     });
@@ -183,12 +188,13 @@ export default {
 .signup-close-btn {
     @include display-flex();
     justify-content: flex-start;
-    img {
-        width: 30px;
-        height: 30px;
-    }
-
     margin-top: 24px;
+}
+.app-signup-close-btn::before {
+    content: "\e807";
+    @include font-icon__limoo();
+    font-size: 28px;
+    color: $gray;
 }
 .signup-input {
     padding-right: 24px;

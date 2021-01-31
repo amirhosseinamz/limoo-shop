@@ -50,6 +50,12 @@
 .icon-up:before { content: '\e830'; } /* '' */
 .icon-verify:before { content: '\e831'; } /* '' */
 .icon-share:before { content: '\e832'; } /* '' */
+.icon-links:before { content: '\e83a'; } /* '' */
+.icon-book:before { content: '\e866'; } /* '' */
+.icon-lock:before { content: '\e867'; } /* '' */
+.icon-search:before { content: '\e869'; } /* '' */
+.icon-setting:before { content: '\e86a'; } /* '' */
+.icon-plus-circle:before { content: '\e86b'; } /* '' */
 .icon-factor-reg:before { content: '\e896'; } /* '' */
 .icon-coin-reg:before { content: '\e897'; } /* '' */
 .icon-state:before { content: '\e898'; } /* '' */

@@ -13,7 +13,7 @@
                     <div class="user-info__phone">09120080960</div>
                 </div>
             </div>
-            <img class="user-info__profile-icon" src="/icons/setting.svg" />
+            <span class="user-info__profile-icon setting-icon"></span>
         </div>
         <hr class="splicer" />
         <div class="user-info__wallet">
@@ -32,12 +32,13 @@
                     </div>
                 </div>
             </div>
-            <img class="user-info__profile-icon" src="/icons/addicon.svg" />
+            <span class="user-info__profile-icon add-icon"></span>
         </div>
     </div>
 </template>
 <script>
 export default {
+    name: "TheUserInfo",
     methods: {
         goToProfile() {
             this.$router.push("/profile");
@@ -87,10 +88,10 @@ export default {
             cursor: pointer;
         }
         &-icon {
-            width: 32px;
-            height: 32px;
             margin-left: 24px;
             cursor: pointer;
+            width: 32px;
+            height: 32px;
         }
     }
     &__name {
@@ -142,6 +143,19 @@ export default {
     border: none;
     border-top: 1px solid $gray-border;
 }
+.setting-icon::before {
+    @include font-icon__limoo();
+    color: $gray;
+    content: "\e86a";
+    font-size: 32px;
+}
+.add-icon::before {
+    @include font-icon__limoo();
+    color: $icon__green;
+    content: "\e86b";
+    font-size: 32px;
+    font-weight: bold;
+}
 @media (max-width: 960px) {
     .user-info {
         width: 100%;
@@ -166,8 +180,6 @@ export default {
                 margin-right: 18px;
             }
             &-icon {
-                width: 24px;
-                height: 24px;
                 margin-left: 28px;
             }
         }

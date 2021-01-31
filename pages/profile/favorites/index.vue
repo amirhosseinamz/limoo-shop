@@ -10,12 +10,13 @@
 
         <div class="mobile-screen">
             <div class="mobile-screen__holder">
-                <span class="mobile-screen__holder-txt">لیست علاقه مندی  شما</span>
-                <img
+                <span class="mobile-screen__holder-txt"
+                    >لیست علاقه مندی شما</span
+                >
+                <span
                     @click="goToProfile"
                     class="mobile-screen__holder-arrow"
-                    src="/icons/arrow-left.svg"
-                />
+                ></span>
             </div>
         </div>
 
@@ -24,17 +25,20 @@
                 <span class="user-profile__topic">لیست علاقه مندی شما</span>
                 <hr class="splicer-line" />
 
-                <favorite-product @event-show-modal-delete-favorite="eventShowModalDeleteFavorite" :favorite-data="favoriteData"></favorite-product>
-
+                <favorite-product
+                    @event-show-modal-delete-favorite="
+                        eventShowModalDeleteFavorite
+                    "
+                    :favorite-data="favoriteData"
+                ></favorite-product>
             </div>
         </div>
 
         <modalDeleteFav
-        :active.sync="showModalDeleteFavorite"
-        :current-favorite="currentFavorite"
-        @btn-delete-favorite="btnDeleteFavorite"
+            :active.sync="showModalDeleteFavorite"
+            :current-favorite="currentFavorite"
+            @btn-delete-favorite="btnDeleteFavorite"
         />
-
     </div>
 </template>
 <script>
@@ -42,76 +46,71 @@ import TheProfileSideBar from "~/components/Profile/TheProfileSideBar.vue";
 import favoriteProduct from "~/components/Profile/Favorites/favoriteProduct.vue";
 import modalDeleteFav from "~/components/Profile/Favorites/modalDeleteFav.vue";
 
-
-
 export default {
+    middleware: "authentication",
     components: {
         TheProfileSideBar,
         favoriteProduct,
-        modalDeleteFav,
+        modalDeleteFav
     },
 
     data() {
         return {
-          showModalDeleteFavorite: false,
-          favoriteData           : [
-            {
-              id    : 1,
-              title : 'Fake',
-              img   : '../img/phone.jpg',
-            },
-            {
-              id    : 2,
-              title : 'Fake',
-              img   : '../img/phoneApple.jpg',
-            },
-            {
-              id    : 3,
-              title : 'Fake',
-              img   : '../img/apple-watch-series-6-blue-aluminium-case-with-deep-navy-sport-band-16.jpg',
-            },
-          ],
-          currentFavorite : {},
-
+            showModalDeleteFavorite: false,
+            favoriteData: [
+                {
+                    id: 1,
+                    title: "Fake",
+                    img: "../img/phone.jpg"
+                },
+                {
+                    id: 2,
+                    title: "Fake",
+                    img: "../img/phoneApple.jpg"
+                },
+                {
+                    id: 3,
+                    title: "Fake",
+                    img:
+                        "../img/apple-watch-series-6-blue-aluminium-case-with-deep-navy-sport-band-16.jpg"
+                }
+            ],
+            currentFavorite: {}
         };
     },
 
-    watch: {
+    watch: {},
 
-    },
-
-    mounted() {
-    },
+    mounted() {},
 
     methods: {
         goToProfile() {
             this.$router.push("/profile");
         },
 
-        eventShowModalDeleteFavorite(data){
-          this.showModalDeleteFavorite = true;
-          this.currentFavorite         = data;
+        eventShowModalDeleteFavorite(data) {
+            this.showModalDeleteFavorite = true;
+            this.currentFavorite = data;
         },
 
-        btnDeleteFavorite(data){
-          const removeFavorite = () => {
-              let indexDeleteFavoriteData = -1;
+        btnDeleteFavorite(data) {
+            const removeFavorite = () => {
+                let indexDeleteFavoriteData = -1;
 
-              this.favoriteData.map((content,index)=>{
-                if (content.id == data.id) {
-                  indexDeleteFavoriteData = index;
-                }
-              })
+                this.favoriteData.map((content, index) => {
+                    if (content.id == data.id) {
+                        indexDeleteFavoriteData = index;
+                    }
+                });
 
-              this.favoriteData.splice(indexDeleteFavoriteData,1);
-          };
+                this.favoriteData.splice(indexDeleteFavoriteData, 1);
+            };
 
-          removeFavorite();
-          this.showModalDeleteFavorite = false;
+            removeFavorite();
+            this.showModalDeleteFavorite = false;
 
-          // request //
-        },
-
+            // request //
+        }
     }
 };
 </script>
@@ -132,7 +131,6 @@ export default {
     z-index: 1;
     background: $overlay__profile;
 }
-
 
 .mobile-screen {
     display: none;
@@ -173,16 +171,13 @@ export default {
         margin-top: 23px;
         margin-right: 25px;
     }
-
 }
 .splicer-line {
     display: none;
 }
 @media (max-width: 1450px) {
-
 }
 @media (max-width: 1220px) {
-
 }
 @media (max-width: 960px) {
     .desktop-screen {
@@ -207,6 +202,14 @@ export default {
             &-arrow {
                 margin-left: 16px;
             }
+            &-arrow::before {
+                content: "\e801";
+                @include font-icon__limoo();
+                font-size: 14px;
+                color: $input-border;
+                margin-right: 4px;
+                margin-left: 8px;
+            }
         }
     }
     .profile-container {
@@ -223,24 +226,19 @@ export default {
             display: none;
         }
     }
-
 }
 
 @media (max-width: 600px) {
-  .user-profile{
-    background: none;
-    border:none;
-    box-shadow: none;
-  }
+    .user-profile {
+        background: none;
+        border: none;
+        box-shadow: none;
+    }
 }
 
-
 @media (max-width: 350px) {
-
 }
 
 @media (max-width: 320px) {
-
 }
-
 </style>

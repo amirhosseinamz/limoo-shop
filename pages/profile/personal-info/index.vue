@@ -1,6 +1,6 @@
 <template>
     <div class="profile-container">
-        <transition moda="in-out">
+        <transition mode="in-out">
             <div id="overlay" v-if="passChangeIsActive">
                 <The-profile-pass-modal />
             </div>
@@ -9,17 +9,24 @@
         <div class="mobile-screen">
             <div class="mobile-screen__holder">
                 <span class="mobile-screen__holder-txt">اطلاعات حساب شخصی</span>
-                <img
+                <span
                     @click="goToProfile"
                     class="mobile-screen__holder-arrow"
-                    src="/icons/arrow-left.svg"
-                />
+                ></span>
             </div>
         </div>
         <div class="user-profile__holder">
             <div class="user-profile">
                 <span class="user-profile__topic">اطلاعات حساب شخصی</span>
-                <div class="user-profile__userpic">جای عکس کاربر</div>
+                <div class="user-profile__userpic">
+                    <img
+                        class="user-info__profile__imgholder-default"
+                        src="/icons/profile-holder.svg"
+                    />
+                    <span class="user-profile__changepic-btn"
+                        >تغییر عکس کاربری</span
+                    >
+                </div>
                 <hr class="splicer-line" />
                 <!-- =============== -->
                 <form>
@@ -47,9 +54,7 @@
                             <!-- <div class="user-profile__info-email">ایمیل</div> -->
                             <!-- ================================================ -->
                             <div class="user-profile__info-phone">
-                                <label for="phoneNumber"
-                                    >شماره همراه:<span>*</span></label
-                                >
+                                <label for="phoneNumber">شماره همراه:</label>
                                 <input
                                     type="text"
                                     id="phoneNumber"
@@ -60,12 +65,14 @@
                                 />
                             </div>
                             <div class="user-profile__info-birthday">
-                                <date-dropdown
-                                    default="1373.11.17"
-                                    min="1300"
-                                    max="1387"
-                                    v-model="selectedDate"
-                                />
+                                <client-only>
+                                    <the-date-dropdown
+                                        default="1373.11.17"
+                                        min="1300"
+                                        max="1387"
+                                        v-model="selectedDate"
+                                    />
+                                </client-only>
                                 <!-- <the-birthday /> -->
                             </div>
                             <div class="user-profile__info-nationalcode">
@@ -138,15 +145,15 @@
 
 <script>
 import TheProfileSideBar from "~/components/Profile/TheProfileSideBar.vue";
-import TheProfilePassModal from "~/components/Profile/TheProfilePassModal.vue";
-import TheBirthday from "~/components/Profile/TheBirthday.vue";
-import DateDropdown from "~/components/Profile/DateDropdown.vue";
+import TheProfilePassModal from "~/components/Profile/PersonalInfo/TheProfilePassModal.vue";
+
+import TheDateDropdown from "~/components/Profile/PersonalInfo/TheDateDropdown.vue";
 export default {
+    middleware: "authentication",
     components: {
         TheProfileSideBar,
         TheProfilePassModal,
-        TheBirthday,
-        DateDropdown
+        TheDateDropdown
     },
     data() {
         return {
@@ -255,6 +262,19 @@ export default {
     height: max-content;
     /* border: 5px solid #2f0404; */
 }
+
+.user-info__profile__imgholder-default {
+    width: 140px;
+    height: 140px;
+    /* border: 1px solid red; */
+    border-radius: 50%;
+    background-color: $gray-border;
+}
+.user-profile__changepic-btn {
+    color: $code-request;
+    font-size: 18px;
+    line-height: 140.62%;
+}
 .user-profile {
     width: 100%;
 
@@ -277,7 +297,10 @@ export default {
         margin-right: 25px;
     }
     &__userpic {
-        border: 1px solid gray;
+        /* border: 1px solid gray; */
+        @include display-flex();
+        flex-direction: column;
+        align-items: center;
         margin-top: 23px;
         height: 162px;
         width: 162px;
@@ -337,7 +360,6 @@ export default {
             text-align: right;
             margin-bottom: 16px;
         }
-        &-phone > label > span,
         &-pass > label > span {
             color: $alert-red;
             margin-right: 3px;
@@ -502,7 +524,22 @@ export default {
             &-arrow {
                 margin-left: 16px;
             }
+            &-arrow::before {
+                content: "\e801";
+                @include font-icon__limoo();
+                font-size: 14px;
+                color: $input-border;
+                margin-right: 4px;
+                margin-left: 8px;
+            }
         }
+    }
+    .user-info__profile__imgholder-default {
+        width: 100px;
+        height: 100px;
+    }
+    .user-profile__changepic-btn {
+        font-size: 14px;
     }
     .profile-container {
         @include display-flex();
