@@ -131,7 +131,7 @@ export default {
 .icon-location::after {
     content: '\e817';
     @include font-icon__limoo();
-    font-size: 17px;
+    font-size: 16px;
     margin-top: 1px;
     color: $color_festival;
 }
@@ -145,12 +145,15 @@ export default {
 }
 
 
-
 @media (max-width: 1450px) {
   .page-home{
+    // padding-right: 26px;
+    // padding-left: 26px;
+    width: 100%;
+  }
+  .page__home-wrapper-main{
     padding-right: 26px;
     padding-left: 26px;
-    width: 100%;
   }
 
 }
@@ -209,7 +212,7 @@ export default {
 }
 
 @media (max-width: 460px) {
-  .page-home{
+  .page__home-wrapper-main{
     padding-right: 10px;
     padding-left: 10px;
   }

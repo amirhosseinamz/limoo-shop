@@ -3,38 +3,36 @@
         <div class="productContent__mainSlider main-carousel w-100">
             <div v-for="data in products" :key="data.id" class="carousel-cell productContent__carousel ">
             <div class="productContent__carouselContent w-100">
-              <span class="productContent__carouselLine"></span>
-
-              <div class="productContent__carouselImgMain w-100">
-                <img class="productContent__carouselImgItem" :src="data.image" alt="">
-              </div>
-
-              <div class="productContent__carouselData">
-                <div class="w-100">
-                  <h3 class="productContent__carouselDataTitle">
-                    {{data.title}}
-                  </h3>
-                </div>
-                <div class="w-100 productContent__carouselPriceMain" :class="{'productContent__noneDiscount':data.discount == ''}">
-                  <div class="productContent__discount">
-                    <div class="productContent__pricePercent">
-                      <h3 class="productContent__percentTitle">30%</h3>
+                    <span class="productContent__carouselLine"></span>
+                    <div class="productContent__carouselImgMain w-100">
+                      <img class="productContent__carouselImgItem" :src="data.image" alt="">
                     </div>
-                    <div class="productContent__priceDiscount">
-                      <h3 class="productContent__discountTitle">
-                        {{data.addCamaDiscount}}
-                        <span class="productContent__discountLine"></span>
+                    <div class="productContent__carouselData">
+                  <div class="w-100">
+                    <h3 class="productContent__carouselDataTitle">
+                      {{data.title}}
+                    </h3>
+                  </div>
+                  <div class="w-100 productContent__carouselPriceMain" :class="{'productContent__noneDiscount':data.discount == ''}">
+                    <div class="productContent__discount">
+                      <div class="productContent__pricePercent">
+                        <h3 class="productContent__percentTitle">30%</h3>
+                      </div>
+                      <div class="productContent__priceDiscount">
+                        <h3 class="productContent__discountTitle">
+                          {{data.addCamaDiscount}}
+                          <span class="productContent__discountLine"></span>
+                        </h3>
+                      </div>
+                    </div>
+                    <div class="w-100 productContent__priceUnit">
+                      <h3 class="productContent__priceTitle">
+                        {{data.addCamaRealPrice}}
+                        <span>تومان</span>
                       </h3>
                     </div>
                   </div>
-                  <div class="w-100 productContent__priceUnit">
-                    <h3 class="productContent__priceTitle">
-                      {{data.addCamaRealPrice}}
-                      <span>تومان</span>
-                    </h3>
-                  </div>
                 </div>
-              </div>
             </div>
           </div>
         </div>
@@ -83,6 +81,16 @@ export default {
           // freeScroll      : true,
           pageDots        : false,
           groupCells      : true,
+          fade            : false,
+        });
+
+
+        sliderOptions.on( 'staticClick', ( event, pointer, cellElement, cellIndex ) =>{
+            this.products.map((content,index)=>{
+              if (index == cellIndex) {
+                this.$router.push(`/home/${content.id}`);
+              }
+            })
         });
 
       },
@@ -110,6 +118,7 @@ export default {
   // border-right: solid 2px $gray-border;
   // padding-right: 11px;
   // padding-left: 11px;
+  cursor: pointer;
 }
 .productContent__carouselDataTitle{
   font-size: 14px;

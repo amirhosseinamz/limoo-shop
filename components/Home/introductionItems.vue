@@ -4,6 +4,16 @@
               <div class="page__home__introduction-slider-main main-carousel w-100">
                       <div class="carousel-cell w-100">
                             <div class="page__home__introduction__slider w-100">
+                                <img class="page__home__introduction__slider-pic " src="/img/2126986.jpg" alt="">
+                            </div>
+                      </div>
+                      <div class="carousel-cell w-100">
+                            <div class="page__home__introduction__slider w-100">
+                                <img class="page__home__introduction__slider-pic " src="/img/apple-watch-series-4-hermes-double1.svg" alt="">
+                            </div>
+                      </div>
+                      <div class="carousel-cell w-100">
+                            <div class="page__home__introduction__slider w-100">
                                 <img class="page__home__introduction__slider-pic " src="/img/apple-watch-series-4-hermes-double1.svg" alt="">
                             </div>
                       </div>
@@ -17,10 +27,14 @@
 
         <div class="introduction__left">
             <div class="introduction__leftitem w-100 ">
+                  <NuxtLink class="w-100 h-100" to="/profile"  >
                     <img class="introduction__leftimg h-100" src="/img/apple-watch-series-3-gps-cellurar1.svg" alt="">
+                  </NuxtLink>
             </div>
             <div class="introduction__leftitem2 w-100">
-                    <img class="introduction__leftimg h-100" src="/img/apple-watch-series-6-desktop-min1.svg" alt="">
+                  <NuxtLink class="w-100 h-100" to="/profile"  >
+                      <img class="introduction__leftimg h-100" src="/img/apple-watch-series-6-desktop-min1.svg" alt="">
+                  </NuxtLink>
             </div>
         </div>
   </div>
@@ -43,7 +57,7 @@ export default {
     },
 
     mounted() {
-      let Flickity       = require("flickity")
+      let Flickity       = require("flickity-fade")
       let sliderOptions  = new Flickity( '.page__home__introduction-slider-main', {
         accessibility   : true,
         adaptiveHeight  : true,
@@ -52,7 +66,13 @@ export default {
         cellAlign       : 'right',
         prevNextButtons : false,
         imagesLoaded    : true,
+        fade            : true,
       });
+
+      sliderOptions.on( 'staticClick', ( event, pointer, cellElement, cellIndex ) =>{
+        this.$router.push("/home");
+      });
+
     },
 
     computed: {
@@ -75,6 +95,7 @@ export default {
   .page__home__introduction__slider{
     border-radius: 12px;
     width: 100%;
+    cursor: pointer;
   }
   .page__home__introduction__slider-pic{
     height: 457px;

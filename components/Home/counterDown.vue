@@ -247,6 +247,9 @@ export default {
   display: none;
   margin-left: 9px;
 }
+.d-flex{
+  display: flex;
+}
 
 
 @media (max-width: 960px) {
@@ -294,6 +297,19 @@ export default {
     }
 
 }
+
+@media (max-width: 960px) {
+  .productContent-timeText{
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 280px) {
+  .productContent-timeMobileTitle{
+    margin-top: 3px;
+  }
+}
+
 
 
 

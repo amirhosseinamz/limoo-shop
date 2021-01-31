@@ -1,13 +1,19 @@
 <template>
   <div class="w-100 bannerItems">
       <div class="bannerItems__item">
+        <NuxtLink class="w-100 h-100" to="/profile"  >
           <img class="bannerItems__itemPic h-100" src="/img/picWatch.svg" alt="">
+        </NuxtLink>
       </div>
       <div class="bannerItems__item">
+        <NuxtLink class="w-100 h-100" to="/profile"  >
           <img class="bannerItems__itemPic h-100" src="/img/picPhone2.svg" alt="">
+        </NuxtLink>
       </div>
       <div class="bannerItems__item">
+        <NuxtLink class="w-100 h-100" to="/profile"  >
           <img class="bannerItems__itemPic h-100" src="/img/picPhone2.svg" alt="">
+        </NuxtLink>
       </div>
   </div>
 </template>
