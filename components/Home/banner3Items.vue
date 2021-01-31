@@ -1,7 +1,9 @@
 <template>
   <div class="w-100 bannerItems">
       <div class="bannerItems__item">
+        <NuxtLink class="w-100 h-100" to="/profile"  >
           <img class="bannerItems__itemPic h-100" src="/img/09e2e4e3ba102806e2a9ce0bb750c149484c2015_1611135172.jpg" alt="">
+        </NuxtLink>
       </div>
   </div>
 </template>
