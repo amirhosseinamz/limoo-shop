@@ -298,6 +298,19 @@ export default {
 
 }
 
+@media (max-width: 960px) {
+  .productContent-timeText{
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 280px) {
+  .productContent-timeMobileTitle{
+    margin-top: 3px;
+  }
+}
+
+
 
 
 </style>
