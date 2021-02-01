@@ -4,55 +4,38 @@
         :class="{ 'modal-animation__close': modalClose }"
         dir="rtl"
     >
-        <div class="w-100 p-modal-header">
+        <div class="w-100 p-ticket-modal-header">
             <div class="w-100 p-modal-header-mobile">
                 <div
                     class="w-100 d-flex justify-content-center p-modal-header-icon"
                 >
-                    <img
-                        @click="closeModalDesktop"
-                        class="modal__close-cross"
-                        src="/icons/close.svg"
-                    />
-                    <img
-                        @click="closeModalMobile"
+                    <span
                         class="modal__close-line"
-                        src="/icons/line.svg"
-                    />
-                </div>
-
-                <div class="p-modal-header-top align-items-center">
-                    <img
                         @click="closeModalMobile"
-                        class="p-modal-header-icon-location"
-                        src="/icons/location_adress.svg"
-                    />
-                    <span class="p-modal-header-top-title"
-                        >افزودن آدرس جدید</span
-                    >
+                    ></span>
                 </div>
+                <span class="p-modal-header-top-title-mobile"
+                    >ارسال درخواست</span
+                >
+                <!-- <div class="p-modal-header-top align-items-center">
+                   
+                    
+                </div> -->
 
-                <hr class="splicer-line" />
+                <!-- <hr class="splicer-line" /> -->
             </div>
 
             <div class="p-modal-header-desktop w-100 flex-column">
                 <div class="w-100 p-modal-header-top-main">
                     <div class="p-modal-header-top align-items-center">
-                        <img
-                            class="p-modal-header-icon-location"
-                            src="/icons/location_adress.svg"
-                        />
                         <h3 class="p-modal-header-top-title">
-                            افزودن آدرس جدید
+                            ارسال درخواست
                         </h3>
                     </div>
-                    <div class="p-modal-header-close ">
-                        <img
-                            @click="closeModalMobile"
-                            class="modal__close-cross p-modal-header-close-icon"
-                            src="/icons/close_modal_address.svg"
-                        />
-                    </div>
+                    <span
+                        @click="closeModalMobile"
+                        class="p-modal-header-close-icon"
+                    ></span>
                 </div>
                 <span class="splicer-line p-modal-header-line"></span>
             </div>
@@ -70,10 +53,10 @@
                     class="w-100 p-modal-address"
                 >
                     <h3 class="p-modal-wrapper-province_city-title">
-                        نشانی پستی دقیق :
+                        موضوع درخواست :
                     </h3>
                     <input
-                        maxlength="65"
+                        maxlength="200"
                         @keyup="updateAddress"
                         v-model="formData.address"
                         type="text"
@@ -87,112 +70,23 @@
                 <div class="w-100 p-modal-content-items flex-wrap">
                     <div
                         :class="{
-                            'p-modal-show_error': showErrorValidationProvince
-                        }"
-                        class="p-modal-wrapper-item flex-wrap "
-                        :key="initialValueProvince"
-                    >
-                        <h3 class="p-modal-wrapper-province_city-title">
-                            انتخاب استان:
-                        </h3>
-                        <customeDropDown
-                            :options="allProvince"
-                            :initial-value="initialValueProvince"
-                            label="title"
-                            className="p-modal-select-box-province_city"
-                            @last-update="selectedProvince"
-                        ></customeDropDown>
-                        <!-- <span class="pass__alert p-modal-validation-desktop">استان خود را انتخاب کنید</span> -->
-                        <span class="pass__alert ">انتخاب استان</span>
-                    </div>
-                    <div
-                        :class="{
-                            'p-modal-show_error': showErrorValidationCity
-                        }"
-                        class="p-modal-wrapper-item"
-                    >
-                        <h3 class="p-modal-wrapper-province_city-title">
-                            انتخاب شهر :
-                        </h3>
-                        <customeDropDown
-                            :options="allCitys"
-                            :initial-value="initialValueCity"
-                            label="title"
-                            className="p-modal-select-box-province_city"
-                            @last-update="selectedCity"
-                        ></customeDropDown>
-                        <!-- <span class="pass__alert p-modal-validation-desktop">لطفا شهر خود را انتخاب کنید</span> -->
-                        <span class="pass__alert">انتخاب شهر</span>
-                    </div>
-                    <div
-                        :class="{
-                            'p-modal-show_error': showErrorValidationCodePoste
-                        }"
-                        class="p-modal-wrapper-item p-margin-left-0"
-                    >
-                        <h3
-                            class="p-modal-wrapper-province_city-title p-modal-header-mobile"
-                        >
-                            کد پستی :
-                        </h3>
-                        <h3
-                            class="p-modal-wrapper-province_city-title p-modal-header-desktop"
-                        >
-                            کد پستی (اختیاری) :
-                        </h3>
-                        <input
-                            @keyup="updateCodePoste"
-                            v-model="formData.codePoste"
-                            maxlength="10"
-                            type="text"
-                            class="p-modal-item-input p-input-style__default"
-                        />
-                        <span class="pass__alert ">{{
-                            validationCodePosteMsg
-                        }}</span>
-                    </div>
-                    <div
-                        :class="{
                             'p-modal-show_error': showErrorValidationNameReceiver
                         }"
                         class="p-modal-wrapper-item "
                     >
-                        <h3 class="p-modal-wrapper-province_city-title">
-                            نام گیرنده:
+                        <h3 class="p-modal-wrapper__description-title">
+                            توضیحات کامل:
                         </h3>
-                        <input
+                        <textarea
                             @keyup="updateNameReceiver"
                             v-model="formData.nameReceiver"
-                            maxlength="34"
+                            maxlength="500"
                             type="text"
-                            class="p-modal-item-input p-input-style__default"
+                            class="p-input-style__description"
                         />
                         <span class="pass__alert ">{{
                             validationNameReceiverMsg
                         }}</span>
-                        <!-- <span class="pass__alert  p-modal-validation-mobile">اشتباه است</span> -->
-                    </div>
-
-                    <div
-                        :class="{
-                            'p-modal-show_error': showErrorValidationNumberReceiver
-                        }"
-                        class="p-modal-wrapper-item"
-                    >
-                        <h3 class="p-modal-wrapper-province_city-title">
-                            شماره گیرنده :
-                        </h3>
-                        <input
-                            @keyup="UpdateNumberReceiver"
-                            v-model="formData.numberReceiver"
-                            maxlength="11"
-                            type="text"
-                            class="p-modal-item-input  p-input-style__default"
-                        />
-                        <span class="pass__alert ">{{
-                            errorValidationNumberReceiverMsg
-                        }}</span>
-                        <!-- <span class="pass__alert  p-modal-validation-mobile">اشتباه است</span> -->
                     </div>
                 </div>
             </div>
@@ -204,24 +98,23 @@
                     @click="submitAddressAdd"
                     type="button"
                     name="button"
-                    class="p-product-btn  p-favorite-product-btn-modal-delete cursor-pointer  "
+                    class="btn__send-ticket"
                 >
-                    ثبت
+                    ارسال
                 </button>
                 <button
                     @click="eventCloseModal"
                     type="button"
                     name="button"
-                    class="p-product-btn  cursor-pointer p-favorite-product-btn-modal-cancel  "
+                    class="btn__cancel-ticket"
                 >
-                    بازگشت
+                    انصراف
                 </button>
             </div>
         </form>
     </div>
 </template>
 <script>
-import customeDropDown from "~/modules/customeDropDown.vue";
 import "~/assets/styles/_adresses.scss";
 
 export default {
@@ -232,9 +125,7 @@ export default {
         dataEditAddress: { type: Object, default: {} },
         profilePhoneNumber: { type: [Number, String], default: "" }
     },
-    components: {
-        customeDropDown
-    },
+    components: {},
     data() {
         return {
             modalClose: false,
@@ -417,10 +308,15 @@ export default {
         },
 
         closeModalMobile() {
-            this.$emit("close-modal");
-            // setTimeout(() => {
-            //     this.$parent.passChange();
-            // }, 280);
+            // this.$emit("close-modal");
+            if (screen.width < 950) {
+                this.modalClose = true;
+                setTimeout(() => {
+                    this.$emit("close-modal");
+                }, 280);
+            } else {
+                this.$emit("close-modal");
+            }
         },
 
         closeModalDesktop() {
@@ -542,13 +438,14 @@ export default {
 <style lang="scss" scoped>
 .p-modal-header-icon {
     @include display-flex();
+    height: 22px;
 }
 .modal {
     @include display-flex();
     flex-direction: column;
     align-items: center;
-    width: 982px;
-    height: 623px;
+    width: 642px;
+    height: 524px;
     background: $white;
     box-shadow: 0px 8px 16px $box__shadow;
     border-radius: 15px;
@@ -585,6 +482,26 @@ export default {
                 margin-right: 3px;
             }
         }
+    }
+    .btn__send-ticket,
+    .btn__cancel-ticket {
+        width: 130px;
+        height: 47px;
+        font-family: inherit;
+        font-size: 16px;
+        line-height: 140.62%;
+        border: none;
+        border-radius: 10px;
+        color: $white;
+        background-color: $yellow;
+        margin-left: 24px;
+        cursor: pointer;
+    }
+    .btn__cancel-ticket {
+        color: $gray;
+        background-color: $light-gray;
+        margin-left: 0;
+        cursor: pointer;
     }
     .pass__repeat {
         margin-bottom: 42px;
@@ -656,30 +573,38 @@ export default {
     @include display-flex();
 }
 .p-modal-header-close-icon {
-    margin-left: 0;
+    /* border: 1px solid red; */
+    margin-top: 24px;
+}
+.p-modal-header-close-icon::before {
+    @include font-icon__limoo();
+    content: "\e807";
+    color: $gray;
+    font-size: 28px;
+    cursor: pointer;
 }
 .p-modal_wrapper {
-    padding-right: 191px;
-    padding-left: 191px;
+    padding-right: 99px;
+    padding-left: 93px;
     @include display-flex();
-    padding-top: 51px;
+    padding-top: 38px;
 }
 .p-modal-wrapper-item {
-    width: 175px;
-    margin-left: 37px;
-    margin-bottom: 11px;
+    width: 100%;
+    height: 224px;
 }
-.p-modal-wrapper-item:last-of-type {
-    margin-left: 0;
-}
-.p-modal-wrapper-province_city-title {
+
+.p-modal-wrapper-province_city-title,
+.p-modal-wrapper__description-title {
     font-family: inherit;
-    font-size: 16px;
+    font-size: 14px;
     font-weight: 500;
     margin-bottom: 16px;
-    color: $black;
+    color: $code;
     text-align: right;
-    padding-right: 7px;
+}
+.p-modal-wrapper__description-title {
+    margin-top: 24px;
 }
 .p-margin-left-0 {
     margin-left: 0;
@@ -702,11 +627,19 @@ export default {
     color: $black;
     font-size: 18px;
     font-weight: 500;
-    margin-right: 11.5px;
+    margin-bottom: 11px;
 }
-.p-modal-header {
-    padding-right: 41px;
-    padding-left: 41px;
+.p-modal-header-top-title-mobile {
+    margin-top: 21px;
+    margin-bottom: 16px;
+    font-size: 14px;
+    color: $gray;
+}
+.p-ticket-modal-header {
+    /* border: 1px solid red; */
+    height: 67px;
+    padding-right: 99px;
+    padding-left: 21px;
 }
 .p-modal-content {
     @include display-flex();
@@ -716,27 +649,27 @@ export default {
 }
 .p-modal-address-input {
     width: 100%;
+    background-color: $gray-border;
 }
 .p-modal-address {
-    margin-bottom: 19px;
+    height: 90px;
+    /* margin-bottom: 19px; */
 }
 .p-modal-header-line {
-    width: 95%;
-    margin-right: auto;
-    margin-left: auto;
+    width: 85%;
     height: 1px;
     background: $gray-border;
     @include display-flex();
-    margin-top: 2px;
+    /* margin-top: 2px; */
 }
 .p-modal-header-top-main {
     @include display-flex();
 }
 .p-modal-header-top {
-    padding-top: 11px;
+    height: 67px;
 }
 .p-modal-btns {
-    padding-top: 49px;
+    padding-top: 24px;
 }
 /* .p-modal-address{
   // height: 109px;
@@ -744,29 +677,44 @@ export default {
 .p-modal-show_error .pass__alert {
     visibility: inherit;
 }
-.p-modal-show_error .p-modal-item-input {
+.p-modal-show_error .p-input-style__description {
     border: solid 1px $red !important;
 }
-.p-favorite-product-btn-modal-delete {
-    font-size: 16px;
+.p-input-style__description {
+    @include display-flex();
+    width: 100%;
+    height: 161px;
+    resize: none;
+    border-radius: 10px;
+    border: 1px solid $input-border;
+    background-color: $gray-border;
+    outline: none;
+    padding: 5px 10px;
+    font-family: inherit;
+    font-size: 14px;
+    color: $gray;
 }
-.p-favorite-product-btn-modal-cancel {
-    font-size: 16px;
-}
+
 .p-modal-validation-mobile {
     display: none !important;
 }
-.p-input-style__default:focus {
+.p-input-style__default:focus,
+.p-input-style__description:focus {
     border: solid 1px $black;
 }
 
 @media (max-width: 960px) {
+    .p-ticket-modal-header {
+        border-bottom: 1px solid $gray-border;
+        height: 75px;
+        padding: 0;
+    }
     .modal-animation__open {
         animation: modalOpen 600ms linear;
     }
     @keyframes modalOpen {
         0% {
-            transform: translate(0, 579px);
+            transform: translate(0, 521px);
         }
         100% {
             transform: translate(0, 0);
@@ -780,14 +728,30 @@ export default {
             transform: translate(0, 0);
         }
         100% {
-            transform: translate(0, 579px);
+            transform: translate(0, 521px);
         }
+    }
+    .modal__close-line::before {
+        @include font-icon__limoo();
+        content: "\e81b";
+        color: $gray;
+        font-size: 28px;
+    }
+    .p-input-style__description {
+        height: 157px;
+    }
+    .p-modal-wrapper-item {
+        height: 220px;
+    }
+    .btn__send-ticket,
+    .btn__cancel-ticket {
+        font-size: 14px !important;
     }
     .modal {
         align-self: flex-end;
         position: absolute;
         width: 100%;
-        height: 723px;
+        height: 521px;
         background: $white;
         box-shadow: 0px 20px 24px $overlay__profile-mobile;
         border-top-left-radius: 30px;
@@ -862,27 +826,22 @@ export default {
     .p-modal-header-desktop {
         display: none;
     }
-    .p-modal-wrapper-province_city-title {
-        font-size: 14px;
+    .p-modal-wrapper-province_city-title,
+    .p-modal-wrapper__description-title {
+        color: $black-topic;
     }
-    .p-modal-wrapper-item {
-        width: 43%;
-        margin-left: 13%;
-        margin-bottom: 4px;
-    }
-    .p-modal-wrapper-item:nth-child(2n) {
-        margin-left: 0;
-    }
-    .p-modal-wrapper-item:nth-child(3n) {
-        margin-left: 13%;
+    .p-modal-address-input,
+    .p-input-style__description {
+        background-color: $white;
     }
     .p-input-style__default {
         width: 100%;
+        height: 47px;
     }
     .p-modal_wrapper {
-        padding-right: 32px;
-        padding-left: 32px;
-        padding-top: 24px;
+        padding-right: 30px;
+        padding-left: 30px;
+        padding-top: 28px;
     }
     .splicer-line {
         margin-bottom: 0;
@@ -896,63 +855,45 @@ export default {
         color: $gray;
     }
     .p-modal-header-top {
-        padding-top: 32px;
+        /* padding-top: 32px; */
     }
     .p-modal-btns {
-        padding-top: 55px;
+        padding-top: 40px;
     }
+}
+@media (max-width: 720px) {
 }
 
 @media (max-width: 540px) {
-    .modal {
-        height: 688px;
-    }
-    .p-modal-btns {
-        padding-top: 25px;
-    }
 }
 
 @media screen and (max-width: 485px) {
-    .p-product-btn {
+    /* .p-product-btn {
         width: 47%;
         margin-left: 0;
-    }
-    .p-favorite-product-btn-modal-delete {
+    } */
+    /* .p-favorite-product-btn-modal-delete {
         margin-left: 4%;
-    }
-    .p-favorite-product-btn-modal-cancel {
+    } */
+    /* .p-favorite-product-btn-modal-cancel {
         margin-left: 0;
-    }
-    .p-modal-btns {
-        padding-top: 9px;
-    }
-    .modal {
-        height: 617px;
-    }
+    } */
+
     .p-modal-address {
-        margin-bottom: 6px;
+        /* margin-bottom: 6px; */
     }
-    .p-modal_wrapper {
-        padding-right: 29px;
-        padding-left: 29px;
-    }
+
     .p-modal-wrapper-item {
-        margin-bottom: 6px;
-    }
-    .modal .pass__alert {
-        height: 20px;
+        /* margin-bottom: 6px; */
     }
     .splicer-line {
         margin-top: 16px;
     }
     .p-modal-header-top {
-        padding-top: 33px;
+        /* padding-top: 33px; */
     }
     .p-input-style__default {
         height: 46px;
-    }
-    .p-modal-wrapper-item {
-        margin-bottom: 0;
     }
     .modal__close-line {
         margin-top: 21px;
@@ -1033,48 +974,52 @@ export default {
         margin-bottom: 10px;
         margin-top: 10px;
     }
-    .modal {
-        height: 536px;
-    }
     .p-modal_wrapper {
-        padding-top: 0;
+        padding-top: 15px;
+    }
+    .p-modal-wrapper__description-title {
+        margin-top: 10px;
     }
     .p-modal-header-top {
-        padding-top: 16px;
-    }
-    .p-modal-btns {
-        padding-top: 9px;
+        /* padding-top: 16px; */
     }
     .p-modal-wrapper-province_city-title {
         margin-bottom: 8px;
     }
     .p-modal-address {
-        margin-bottom: 0;
+        /* margin-bottom: 0; */
     }
-    .p-modal-wrapper-item {
-        margin-bottom: 1px;
+    .p-modal-btns {
+        padding-top: 10px;
+    }
+    .btn__send-ticket,
+    .btn__cancel-ticket {
+        width: 100px !important;
+        font-size: 13px !important;
     }
 }
 
 @media screen and (max-width: 280px) {
-    .modal {
-        height: 617px;
-    }
     .p-modal-wrapper-province_city-title {
         margin-bottom: 11px;
     }
-    .p-favorite-product-btn-modal-delete {
+    /* .p-favorite-product-btn-modal-delete {
         margin-left: 3%;
+    } */
+    .p-modal-wrapper__description-title {
+        margin-top: 10px;
     }
     .p-modal_wrapper {
-        padding-top: 24px;
+        padding-top: 10px;
+        padding-right: 10px;
+        padding-left: 10px;
     }
     .splicer-line {
         margin-top: 17px;
         margin-bottom: 0px;
     }
     .p-modal-wrapper-item {
-        margin-bottom: 6px;
+        /* margin-bottom: 6px; */
     }
     .p-modal-wrapper-province_city-title {
         margin-bottom: 16px;

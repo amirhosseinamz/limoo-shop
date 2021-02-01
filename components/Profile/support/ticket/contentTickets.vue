@@ -211,7 +211,15 @@ export default {
     top: 0;
     right: 0;
 }
-
+.v-leave-from {
+    opacity: 0.5;
+}
+.v-leave-active {
+    transition: all 300ms ease-in;
+}
+.v-leave-to {
+    opacity: 0;
+}
 .p-adresses-content-main {
     /* padding-right: 21px;
     padding-left: 21px; */
