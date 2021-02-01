@@ -224,12 +224,8 @@ export default {
                 }
             ],
             formData: {
-                province: "",
-                city: "",
-                codePoste: "",
-                nameReceiver: "",
-                numberReceiver: "",
-                address: ""
+                ticketTitle: "",
+                question: ""
             },
             updateAddress: 0,
             profilePhoneNumber: "09198814783"

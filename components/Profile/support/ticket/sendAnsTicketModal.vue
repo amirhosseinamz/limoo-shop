@@ -17,19 +17,13 @@
                 <span class="p-modal-header-top-title-mobile"
                     >ارسال درخواست</span
                 >
-                <!-- <div class="p-modal-header-top align-items-center">
-                   
-                    
-                </div> -->
-
-                <!-- <hr class="splicer-line" /> -->
             </div>
 
             <div class="p-modal-header-desktop w-100 flex-column">
                 <div class="w-100 p-modal-header-top-main">
                     <div class="p-modal-header-top align-items-center">
                         <h3 class="p-modal-header-top-title">
-                            ارسال درخواست
+                            پاسخ شما:
                         </h3>
                     </div>
                     <span
@@ -46,27 +40,6 @@
             class="w-100 p-modal_wrapper align-items-start"
         >
             <div class="p-modal-content w-100 align-items-start flex-wrap">
-                <div
-                    :class="{
-                        'p-modal-show_error': showErrorValidationAddress
-                    }"
-                    class="w-100 p-modal-address"
-                >
-                    <h3 class="p-modal-wrapper-province_city-title">
-                        موضوع درخواست :
-                    </h3>
-                    <input
-                        maxlength="200"
-                        @keyup="updateAddress"
-                        v-model="formData.ticketTitle"
-                        type="text"
-                        class="p-modal-address-input "
-                    />
-                    <span class="pass__alert ">{{
-                        errorValidationNumberAddress
-                    }}</span>
-                </div>
-
                 <div class="w-100 p-modal-content-items flex-wrap">
                     <div
                         :class="{
@@ -75,11 +48,11 @@
                         class="p-modal-wrapper-item "
                     >
                         <h3 class="p-modal-wrapper__description-title">
-                            توضیحات کامل:
+                            پاسخ شما:
                         </h3>
                         <textarea
                             @keyup="updateNameReceiver"
-                            v-model="formData.question"
+                            v-model="formData.userAnswer"
                             maxlength="500"
                             type="text"
                             class="p-input-style__description"
@@ -163,24 +136,10 @@ export default {
     mounted() {},
 
     methods: {
-        // isEmailAddress(str) {
-        //     var pattern = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-        //     return pattern.test(str); // returns a boolean
-        // },
-
         isNotEmpty(str) {
             var pattern = /\S+/;
             return pattern.test(str); // returns a boolean
         },
-
-        // isNumber(str) {
-        //     var pattern = /^\d+$/;
-        //     return pattern.test(str); // returns a boolean
-        // },
-
-        // isSame(str1, str2) {
-        //     return str1 === str2;
-        // },
         checkHasString(value) {
             let num = value;
             let digits = num.toString().split("");
@@ -273,11 +232,7 @@ export default {
             let checkVerifiSubmitForm = true;
 
             const checkEmptyForm = () => {
-                if (this.formData.ticketTitle == "") {
-                    this.showErrorValidationAddress = true;
-                    this.errorValidationNumberAddress = "معتبر نیست";
-                }
-                if (this.formData.question == "") {
+                if (this.formData.userAnswer == "") {
                     this.showErrorValidationNameReceiver = true;
                     this.validationNameReceiverMsg = "معتبر نیست";
                 }
@@ -288,10 +243,7 @@ export default {
             checkEmptyForm();
 
             // در صورت داشتن ارور اجرا می شود //
-            if (
-                this.showErrorValidationAddress ||
-                this.showErrorValidationNameReceiver
-            ) {
+            if (this.showErrorValidationNameReceiver) {
                 checkVerifiSubmitForm = false;
             }
 
@@ -326,39 +278,16 @@ export default {
     background: $white;
     box-shadow: 0px 8px 16px $box__shadow;
     border-radius: 15px;
-    &__close-cross {
-        align-self: flex-end;
-        width: 30px;
-        height: 30px;
-        margin-top: 24px;
-        margin-left: 24px;
-        cursor: pointer;
-    }
     &__close-line {
         display: none;
         align-self: center;
         margin-top: 24px;
     }
-    &__title {
-        display: none;
-    }
+
     form {
         @include display-flex();
         flex-direction: column;
         align-items: center;
-    }
-    .pass__holder {
-        height: 88px;
-        margin-bottom: 35px;
-        width: 45%;
-        label {
-            font-size: 16px;
-            line-height: 140.62%;
-            span {
-                color: $red;
-                margin-right: 3px;
-            }
-        }
     }
     .btn__send-ticket,
     .btn__cancel-ticket {
@@ -380,57 +309,6 @@ export default {
         margin-left: 0;
         cursor: pointer;
     }
-    .pass__repeat {
-        margin-bottom: 42px;
-    }
-    .pass__old,
-    .pass__new,
-    .pass__new-repeat {
-        @include display-flex();
-        flex-direction: row;
-        justify-content: space-between;
-        align-items: center;
-        height: 52px;
-        flex-grow: 1;
-        background: $white;
-        border: 1px solid $input-border;
-        box-sizing: border-box;
-        box-shadow: 0px 4px 4px $gray-border;
-        border-radius: 15px;
-        margin-top: 15px;
-    }
-    .pass__old > input,
-    .pass__new > input,
-    .pass__new-repeat > input {
-        height: 52px;
-        flex-grow: 1;
-        background: transparent;
-        /* border: 1px solid red; */
-        padding: 16px;
-        line-height: 140.62%;
-        border: none;
-        border-radius: 15px;
-        font-family: inherit;
-        outline: none;
-        /* letter-spacing: 5px; */
-        font-size: 16px;
-    }
-    .pass__submitbtn {
-        align-self: center;
-        margin-bottom: 40px;
-        height: 57px;
-        width: 270px;
-        background: $btn__green;
-        color: $white;
-        font-size: 18px;
-        font-family: inherit;
-        line-height: 140.62%;
-        text-align: center;
-        border-radius: 10px;
-        cursor: pointer;
-        outline: none;
-        border: none;
-    }
     .pass__alert {
         margin-top: 4px;
         color: $alert-red;
@@ -446,9 +324,7 @@ export default {
 .splicer-line {
     display: none;
 }
-.p-modal-city_provence {
-    @include display-flex();
-}
+
 .p-modal-header-close-icon {
     /* border: 1px solid red; */
     margin-top: 24px;
@@ -464,15 +340,15 @@ export default {
     padding-right: 99px;
     padding-left: 93px;
     @include display-flex();
-    padding-top: 38px;
+    padding-top: 42px;
 }
 .p-modal-wrapper-item {
     width: 100%;
     height: 224px;
 }
 
-.p-modal-wrapper-province_city-title,
 .p-modal-wrapper__description-title {
+    display: none;
     font-family: inherit;
     font-size: 14px;
     font-weight: 500;
@@ -497,9 +373,7 @@ export default {
     @include display-flex();
     padding-top: 32px;
 }
-.p-modal-header-icon-location {
-    width: 24px;
-}
+
 .p-modal-header-top-title {
     color: $black;
     font-size: 18px;
@@ -524,18 +398,6 @@ export default {
 .p-modal-content-items {
     @include display-flex();
 }
-.p-modal-address-input {
-    font-family: inherit;
-    border: 1px solid $input-border;
-    width: 100%;
-    height: 47px;
-    background-color: $gray-border;
-    color: $gray;
-    border-radius: 10px;
-    outline: none;
-    padding-right: 10px;
-    padding-left: 10px;
-}
 .p-modal-address {
     height: 90px;
     /* margin-bottom: 19px; */
@@ -554,7 +416,7 @@ export default {
     height: 67px;
 }
 .p-modal-btns {
-    padding-top: 24px;
+    padding-top: 116px;
 }
 /* .p-modal-address{
   // height: 109px;
@@ -562,14 +424,13 @@ export default {
 .p-modal-show_error .pass__alert {
     visibility: inherit;
 }
-.p-modal-show_error .p-input-style__description,
-.p-modal-show_error .p-modal-address-input {
+.p-modal-show_error .p-input-style__description {
     border: solid 1px $red !important;
 }
 .p-input-style__description {
     @include display-flex();
     width: 100%;
-    height: 161px;
+    height: 226px;
     resize: none;
     border-radius: 10px;
     border: 1px solid $input-border;
@@ -624,7 +485,7 @@ export default {
         font-size: 28px;
     }
     .p-input-style__description {
-        height: 157px;
+        height: 224px;
     }
     .p-modal-wrapper-item {
         height: 220px;
@@ -644,58 +505,16 @@ export default {
         border-top-right-radius: 30px;
         border-bottom-left-radius: 0;
         border-bottom-right-radius: 0;
-        &__close-cross {
-            display: none;
-        }
         &__close-line {
             display: block;
             align-self: center;
             margin-top: 24px;
         }
-        &__title {
-            display: block;
-            font-size: 14px;
-            line-height: 140.62%;
-            color: $gray;
-            margin-top: 24px;
-            text-align: right;
-        }
-        /* form {
-            margin-top: 5px;
-        } */
-        .pass__holder {
-            height: 80px;
-            width: 84vw;
-            margin-bottom: 35px;
-            label {
-                font-size: 14px;
-            }
-        }
 
-        .pass__old,
-        .pass__new,
-        .pass__new-repeat {
-            @include display-flex();
-            height: 46px;
-        }
-        .pass__old > input,
-        .pass__new > input,
-        .pass__new-repeat > input {
-            height: 46px;
-            width: 200px;
-        }
-        .pass__submitbtn {
-            width: 91vw;
-            margin-bottom: 47px;
-        }
         .pass__alert {
             font-size: 13px;
             padding-right: 7px;
         }
-    }
-    .clear-input > img {
-        width: 17px;
-        height: 15px;
     }
     .splicer-line {
         display: block;
@@ -712,11 +531,11 @@ export default {
     .p-modal-header-desktop {
         display: none;
     }
-    .p-modal-wrapper-province_city-title,
+
     .p-modal-wrapper__description-title {
+        display: block;
         color: $black-topic;
     }
-    .p-modal-address-input,
     .p-input-style__description {
         background-color: $white;
     }
@@ -727,22 +546,21 @@ export default {
     .p-modal_wrapper {
         padding-right: 30px;
         padding-left: 30px;
-        padding-top: 28px;
+        padding-top: 14px;
+        height: fit-content;
     }
     .splicer-line {
         margin-bottom: 0;
         margin-top: 20px;
     }
-    .p-modal-header-icon-location {
-        width: 19px;
-    }
+
     .p-modal-header-top-title {
         font-size: 14px;
         color: $gray;
     }
-   
+
     .p-modal-btns {
-        padding-top: 40px;
+        padding-top: 130px;
     }
 }
 @media (max-width: 720px) {
@@ -752,11 +570,10 @@ export default {
 }
 
 @media screen and (max-width: 485px) {
-
     .splicer-line {
         margin-top: 16px;
     }
- 
+
     .p-input-style__default {
         height: 46px;
     }
@@ -799,34 +616,6 @@ export default {
         &__close-line {
             margin-top: 20px;
         }
-        &__title {
-            margin-top: 20px;
-        }
-        .pass__holder {
-            height: 70px;
-            width: 84vw;
-            margin-bottom: 25px;
-            label {
-                font-size: 13px;
-            }
-        }
-        .pass__old,
-        .pass__new,
-        .pass__new-repeat {
-            @include display-flex();
-            height: 40px;
-        }
-        .pass__old > input,
-        .pass__new > input,
-        .pass__new-repeat > input {
-            height: 40px;
-            width: 200px;
-        }
-        .pass__submitbtn {
-            width: 91vw;
-            margin-bottom: 37px;
-            margin-top: 15px;
-        }
     }
     .splicer-line {
         margin-bottom: 17px;
@@ -846,12 +635,8 @@ export default {
         margin-top: 10px;
     }
 
-    .p-modal-wrapper-province_city-title {
-        margin-bottom: 8px;
-    }
- 
     .p-modal-btns {
-        padding-top: 10px;
+        padding-top: 100px;
     }
     .btn__send-ticket,
     .btn__cancel-ticket {
@@ -861,10 +646,6 @@ export default {
 }
 
 @media screen and (max-width: 280px) {
-    .p-modal-wrapper-province_city-title {
-        margin-bottom: 11px;
-    }
- 
     .p-modal-wrapper__description-title {
         margin-top: 10px;
     }
@@ -876,10 +657,6 @@ export default {
     .splicer-line {
         margin-top: 17px;
         margin-bottom: 0px;
-    }
- 
-    .p-modal-wrapper-province_city-title {
-        margin-bottom: 16px;
     }
 }
 </style>

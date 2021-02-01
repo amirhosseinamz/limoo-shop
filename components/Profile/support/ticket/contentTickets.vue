@@ -3,19 +3,23 @@
         <transition moda="in-out">
             <div id="overlay" v-if="passChangeIsActive">
                 <add-ticket-modal
-                    :all-province="allProvince"
-                    :all-citys="allCitys"
                     :form-data-original="formData"
                     :data-edit-address="dataEditAddress"
-                    :profile-phone-number="profilePhoneNumber"
-                    @selected-province="selectedProvince"
-                    @selected-city="selectedCity"
                     @submit-address-add="submitAddressAdd"
                     @close-modal="closeModal"
                 />
             </div>
         </transition>
-
+        <transition moda="in-out">
+            <div id="overlay" v-if="sendAnswerToTicket">
+                <send-ans-ticket-modal
+                    :form-data-original="formData"
+                    :data-edit-address="dataEditAddress"
+                    @submit-address-add="submitAddressAdd"
+                    @close-modal="closeModal"
+                />
+            </div>
+        </transition>
         <div class="w-100 flex-wrap p-adresses-content-btn-add-main">
             <button
                 @click="addAddress"
@@ -109,6 +113,7 @@
                                     </div>
                                     <button
                                         v-show="data.answer"
+                                        @click="sendAnswer"
                                         class="ticket__send-answer"
                                     >
                                         ارسال پاسخ
@@ -125,6 +130,7 @@
 
 <script>
 import addTicketModal from "./addTicketModal.vue";
+import sendAnsTicketModal from "./sendAnsTicketModal.vue";
 
 export default {
     props: {
@@ -135,11 +141,13 @@ export default {
         profilePhoneNumber: { type: [Number, String], default: "" }
     },
     components: {
-        addTicketModal
+        addTicketModal,
+        sendAnsTicketModal
     },
     data() {
         return {
             passChangeIsActive: false,
+            sendAnswerToTicket: false,
             dataEditAddress: {}
         };
     },
@@ -183,11 +191,15 @@ export default {
         closeModal() {
             this.dataEditAddress = {};
             this.passChangeIsActive = false;
+            this.sendAnswerToTicket = false;
         },
 
         editAddress(data) {
             this.dataEditAddress = data;
             this.passChangeIsActive = true;
+        },
+        sendAnswer(data) {
+            this.sendAnswerToTicket = true;
         }
     }
 };
@@ -455,6 +467,10 @@ export default {
         margin-top: 24px;
         margin-bottom: 14px;
     }
+    .ticket__send-answer {
+        font-size: 14px;
+        width: 149px;
+    }
 }
 
 @media (max-width: 600px) {
@@ -476,6 +492,7 @@ export default {
         font-size: 14px;
     }
     .p-adresses-content-data-btns {
+        padding-left: 8px;
         margin-bottom: 0;
         margin-top: 35px;
         height: 63px;

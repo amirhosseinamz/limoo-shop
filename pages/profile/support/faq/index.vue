@@ -336,7 +336,8 @@ export default {
 }
 
 .mobile-screen,
-.user-profile__support-mobileو .support__navbar-mobile {
+.user-profile__support-mobile,
+.support__navbar-mobile {
     display: none;
 }
 .user-profile-adresses-main {
