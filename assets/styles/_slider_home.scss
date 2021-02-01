@@ -60,10 +60,17 @@
     z-index: 1;
   }
 
+
   @media (max-width: 960px) {
     .flickity-button{
       display: none;
     }
   }
 
+}
+
+.productContent__mainCat{
+  .flickity-viewport{
+    width: 100%;
+  }
 }

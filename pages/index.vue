@@ -12,7 +12,7 @@
               /> -->
           </div>
       </div>
-      <content-home :products="products"></content-home>
+      <content-home :products="products" :all-category="allCategory"></content-home>
     </div>
 </template>
 <script>
@@ -29,7 +29,7 @@ export default {
 
     data() {
         return {
-          products : [
+          products     : [
             {
               id        : 1,
               title     : 'حافظه SSD وسترن دیجیتال مدل GREEN WDS480G2G0A ظرفیت 480 گیگابایت',
@@ -75,7 +75,46 @@ export default {
               realPrice : '120000',
               image     : '/img/phoneAndroid.svg',
             }
-          ]
+          ],
+          allCategory  : [
+            {
+              id    : 1,
+              title : 'موبایل و تبلت',
+              count : 'بیش از 220 هزار کالا',
+              image : '/img/2126986.jpg',
+            },
+            {
+              id    : 2,
+              title : 'دیتا تستی',
+              count : 'بیش از 200 هزار کالا',
+              image : '/img/2126986.jpg',
+            },
+            {
+              id    : 3,
+              title : 'دیتا تستی',
+              count : 'بیش از 200 هزار کالا',
+              image : '/img/2126986.jpg',
+            },
+            {
+              id    : 4,
+              title : 'دیتا تستی',
+              count : 'بیش از 200 هزار کالا',
+              image : '/img/2126986.jpg',
+            },
+            {
+              id    : 5,
+              title : 'دیتا تستی',
+              count : 'بیش از 200 هزار کالا',
+              image : '/img/2126986.jpg',
+            },
+            {
+              id    : 6,
+              title : 'دیتا تستی',
+              count : 'بیش از 200 هزار کالا',
+              image : '/img/2126986.jpg',
+            },
+
+          ],
         };
     },
 

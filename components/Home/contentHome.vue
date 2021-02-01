@@ -2,7 +2,8 @@
   <div class="w-100 page__home-wrapper-main">
         <div class="page__home-introduction-main w-100">
             <introduction-items></introduction-items>
-            <product-content :products="products"></product-content>
+            <product-content :products="products" ></product-content>
+            <product-cat :all-category="allCategory"></product-cat>
             <banner-items></banner-items>
             <banner-2-items></banner-2-items>
             <banner-3-items></banner-3-items>
@@ -18,11 +19,13 @@ import bannerItems from './bannerItems';
 import banner2Items from './banner2Items';
 import banner3Items from './banner3Items';
 import productContent from './productContent';
+import productCat from './productCat';
 
 
 export default {
     props: {
-      products   : { type: [Object,Array], default: [] },
+      products      : { type: [Object,Array], default: [] },
+      allCategory   : { type: [Object,Array], default: [] },
     },
 
     components: {
@@ -31,6 +34,7 @@ export default {
       banner2Items,
       banner3Items,
       productContent,
+      productCat,
     },
 
     data() {
