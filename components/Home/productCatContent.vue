@@ -314,16 +314,18 @@ export default {
     box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.16);
     height: 66px;
     border-radius: 10px;
-    width: 92.5%;
+    width:195px;
     margin-top: 1px;
     padding-top: 6px;
     padding-bottom: 10px;
+    margin-right: auto;
+    margin-left: auto;
   }
   // .productContent__carousel:nth-child(1) .productContent__carouselContent{
   //   margin-right: 11px;
   // }
   .productContent__carousel{
-    width:211px;
+    width:215px;
     height: 152px;
     border-radius: 7px;
     flex-flow: row;
@@ -339,7 +341,7 @@ export default {
     padding-bottom: 0;
     display: inherit;
     padding-bottom: 10px;
-    padding-right: 11px;
+    // padding-right: 11px;
   }
   .productContent__carouselImgItem{
     height: 46px;
