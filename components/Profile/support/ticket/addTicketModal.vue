@@ -17,12 +17,6 @@
                 <span class="p-modal-header-top-title-mobile"
                     >ارسال درخواست</span
                 >
-                <!-- <div class="p-modal-header-top align-items-center">
-                   
-                    
-                </div> -->
-
-                <!-- <hr class="splicer-line" /> -->
             </div>
 
             <div class="p-modal-header-desktop w-100 flex-column">
@@ -48,29 +42,29 @@
             <div class="p-modal-content w-100 align-items-start flex-wrap">
                 <div
                     :class="{
-                        'p-modal-show_error': showErrorValidationAddress
+                        'p-modal-show_error': showErrorValidationTicket
                     }"
-                    class="w-100 p-modal-address"
+                    class="w-100 p-modal-ticket"
                 >
                     <h3 class="p-modal-wrapper-province_city-title">
                         موضوع درخواست :
                     </h3>
                     <input
                         maxlength="200"
-                        @keyup="updateAddress"
+                        @keyup="updateTicket"
                         v-model="formData.ticketTitle"
                         type="text"
-                        class="p-modal-address-input "
+                        class="p-modal-ticket-input "
                     />
                     <span class="pass__alert ">{{
-                        errorValidationNumberAddress
+                        errorValidationTopicTicket
                     }}</span>
                 </div>
 
                 <div class="w-100 p-modal-content-items flex-wrap">
                     <div
                         :class="{
-                            'p-modal-show_error': showErrorValidationNameReceiver
+                            'p-modal-show_error': showErrorValidationDescription
                         }"
                         class="p-modal-wrapper-item "
                     >
@@ -78,14 +72,14 @@
                             توضیحات کامل:
                         </h3>
                         <textarea
-                            @keyup="updateNameReceiver"
+                            @keyup="updateDescription"
                             v-model="formData.question"
                             maxlength="500"
                             type="text"
                             class="p-input-style__description"
                         />
                         <span class="pass__alert ">{{
-                            validationNameReceiverMsg
+                            validationDescriptionMsg
                         }}</span>
                     </div>
                 </div>
@@ -95,7 +89,7 @@
                 class="p-profile-favorite-btns w-100 justify-content-center p-modal-btns"
             >
                 <button
-                    @click="submitAddressAdd"
+                    @click="submitTicketAdd"
                     type="button"
                     name="button"
                     class="btn__send-ticket"
@@ -115,39 +109,35 @@
     </div>
 </template>
 <script>
-// import "~/assets/styles/_adresses.scss";
 
 export default {
     props: {
         formDataOriginal: { type: [Object, Array], default: {} },
-        dataEditAddress: { type: Object, default: {} }
+        dataEditTicket: { type: Object, default: {} }
     },
     components: {},
     data() {
         return {
             modalClose: false,
             msg: [],
-            valueProvince: {},
-            valueCitys: {},
             formData: {},
-            showErrorValidationAddress: false,
-            showErrorValidationNumberReceiver: false,
-            showErrorValidationNameReceiver: false,
+            showErrorValidationTicket: false,
+            showErrorValidationDescription: false,
             errorValidationNumberReceiverMsg: "عدد مجاز است",
-            validationNameReceiverMsg: "معتبر نیست",
-            errorValidationNumberAddress: "عدد مجاز است"
+            validationDescriptionMsg: "معتبر نیست",
+            errorValidationTopicTicket: "عدد مجاز است"
         };
     },
 
     watch: {
-        dataEditAddress(data) {}
+        dataEditTicket(data) {}
     },
 
     created() {
         // پس از کلیک روی ویرایش آدرس کاندیشن زیر اجرا می شود //
-        if (typeof this.dataEditAddress.id != "undefined") {
-            for (let key in this.dataEditAddress) {
-                this.formData[key] = this.dataEditAddress[key];
+        if (typeof this.dataEditTicket.id != "undefined") {
+            for (let key in this.dataEditTicket) {
+                this.formData[key] = this.dataEditTicket[key];
             }
         } else {
             const formDataOriginal = this.formDataOriginal;
@@ -163,77 +153,37 @@ export default {
     mounted() {},
 
     methods: {
-        // isEmailAddress(str) {
-        //     var pattern = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-        //     return pattern.test(str); // returns a boolean
-        // },
-
         isNotEmpty(str) {
             var pattern = /\S+/;
             return pattern.test(str); // returns a boolean
         },
-
-        // isNumber(str) {
-        //     var pattern = /^\d+$/;
-        //     return pattern.test(str); // returns a boolean
-        // },
-
-        // isSame(str1, str2) {
-        //     return str1 === str2;
-        // },
-        checkHasString(value) {
-            let num = value;
-            let digits = num.toString().split("");
-            let realDigits = digits.map(Number);
-            let checkStringNumberStatus = false;
-            let counterCheckLenNumber = -1;
-            let inValid = /\s/;
-
-            realDigits.map((t, i) => {
-                if (isNaN(t)) {
-                    counterCheckLenNumber++;
-                }
-            });
-
-            if (realDigits.length - 1 == counterCheckLenNumber) {
-                checkStringNumberStatus = true;
-            }
-
-            // در صورتی که کاربر مقدار نوشته شده اش فاصله داشته باشد اجرا می شود //
-            if (inValid.test(value)) {
-                checkStringNumberStatus = true;
-            }
-
-            return checkStringNumberStatus;
-        },
-
-        updateNameReceiver(e, submitValue) {
+        updateDescription(e, submitValue) {
             const value = e.target.value;
             if (value != "") {
                 if (this.isNotEmpty(value)) {
-                    this.showErrorValidationNameReceiver = false;
+                    this.showErrorValidationDescription = false;
                 }
                 if (value.length == 500) {
-                    this.showErrorValidationNameReceiver = true;
-                    this.validationNameReceiverMsg = "بیش از حد مجاز";
+                    this.showErrorValidationDescription = true;
+                    this.validationDescriptionMsg = "بیش از حد مجاز";
                 }
             } else {
-                this.showErrorValidationNameReceiver = false;
+                this.showErrorValidationDescription = false;
             }
         },
-        updateAddress(e, submitValue) {
+        updateTicket(e, submitValue) {
             const value = e.target.value;
 
             if (value != "") {
                 if (this.isNotEmpty(value)) {
-                    this.showErrorValidationAddress = false;
+                    this.showErrorValidationTicket = false;
                 }
                 if (value.length == 200) {
-                    this.showErrorValidationAddress = true;
-                    this.errorValidationNumberAddress = "بیش از حد مجاز";
+                    this.showErrorValidationTicket = true;
+                    this.errorValidationTopicTicket = "بیش از حد مجاز";
                 }
             } else {
-                this.showErrorValidationAddress = false;
+                this.showErrorValidationTicket = false;
             }
         },
 
@@ -255,42 +205,26 @@ export default {
 
         checkValidFormData() {},
 
-        checkShowErrorCityProvince() {
-            if (this.formData.province == "") {
-                this.showErrorValidationProvince = true;
-            } else {
-                this.showErrorValidationProvince = false;
-            }
-
-            if (this.formData.city == "") {
-                this.showErrorValidationCity = true;
-            } else {
-                this.showErrorValidationCity = false;
-            }
-        },
-
         checkErrorForm() {
             let checkVerifiSubmitForm = true;
 
             const checkEmptyForm = () => {
                 if (this.formData.ticketTitle == "") {
-                    this.showErrorValidationAddress = true;
-                    this.errorValidationNumberAddress = "معتبر نیست";
+                    this.showErrorValidationTicket = true;
+                    this.errorValidationTopicTicket = "معتبر نیست";
                 }
                 if (this.formData.question == "") {
-                    this.showErrorValidationNameReceiver = true;
-                    this.validationNameReceiverMsg = "معتبر نیست";
+                    this.showErrorValidationDescription = true;
+                    this.validationDescriptionMsg = "معتبر نیست";
                 }
-                this.checkShowErrorCityProvince();
-                // this.updateNameReceiver('',this.formData.nameReceiver);
             };
 
             checkEmptyForm();
 
             // در صورت داشتن ارور اجرا می شود //
             if (
-                this.showErrorValidationAddress ||
-                this.showErrorValidationNameReceiver
+                this.showErrorValidationTicket ||
+                this.showErrorValidationDescription
             ) {
                 checkVerifiSubmitForm = false;
             }
@@ -298,12 +232,12 @@ export default {
             return checkVerifiSubmitForm;
         },
 
-        submitAddressAdd() {
+        submitTicketAdd() {
             const checkVerifiSubmitForm = this.checkErrorForm();
 
             // در صورتی که اروی برای نمایش نباشد ارسال می شود //
             if (checkVerifiSubmitForm) {
-                this.$emit("submit-address-add", this.formData);
+                this.$emit("submit-ticket-add", this.formData);
             }
         },
         eventCloseModal() {
@@ -524,7 +458,7 @@ export default {
 .p-modal-content-items {
     @include display-flex();
 }
-.p-modal-address-input {
+.p-modal-ticket-input {
     font-family: inherit;
     border: 1px solid $input-border;
     width: 100%;
@@ -536,7 +470,7 @@ export default {
     padding-right: 10px;
     padding-left: 10px;
 }
-.p-modal-address {
+.p-modal-ticket {
     height: 90px;
     /* margin-bottom: 19px; */
 }
@@ -556,14 +490,12 @@ export default {
 .p-modal-btns {
     padding-top: 24px;
 }
-/* .p-modal-address{
-  // height: 109px;
-} */
+
 .p-modal-show_error .pass__alert {
     visibility: inherit;
 }
 .p-modal-show_error .p-input-style__description,
-.p-modal-show_error .p-modal-address-input {
+.p-modal-show_error .p-modal-ticket-input {
     border: solid 1px $red !important;
 }
 .p-input-style__description {
@@ -716,7 +648,7 @@ export default {
     .p-modal-wrapper__description-title {
         color: $black-topic;
     }
-    .p-modal-address-input,
+    .p-modal-ticket-input,
     .p-input-style__description {
         background-color: $white;
     }
@@ -740,7 +672,7 @@ export default {
         font-size: 14px;
         color: $gray;
     }
-   
+
     .p-modal-btns {
         padding-top: 40px;
     }
@@ -752,11 +684,10 @@ export default {
 }
 
 @media screen and (max-width: 485px) {
-
     .splicer-line {
         margin-top: 16px;
     }
- 
+
     .p-input-style__default {
         height: 46px;
     }
@@ -849,7 +780,7 @@ export default {
     .p-modal-wrapper-province_city-title {
         margin-bottom: 8px;
     }
- 
+
     .p-modal-btns {
         padding-top: 10px;
     }
@@ -864,7 +795,7 @@ export default {
     .p-modal-wrapper-province_city-title {
         margin-bottom: 11px;
     }
- 
+
     .p-modal-wrapper__description-title {
         margin-top: 10px;
     }
@@ -877,7 +808,7 @@ export default {
         margin-top: 17px;
         margin-bottom: 0px;
     }
- 
+
     .p-modal-wrapper-province_city-title {
         margin-bottom: 16px;
     }

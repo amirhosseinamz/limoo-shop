@@ -124,17 +124,12 @@
                         <span class="bottomLine"></span>
                     </div>
                 </div>
-                <div class="w-100 user-profile-adresses-main flex-column">
+                <div class="w-100 user-profile-tickets-main flex-column">
                     <contentTickets
-                        :adress-data="adressesData"
-                        :all-province="allProvince"
-                        :all-citys="allCitys"
+                        :ticket-data="ticketsData"
                         :form-data="formData"
-                        :profile-phone-number="profilePhoneNumber"
                         @show-modal-delete-product="showModalDeleteProduct"
-                        @selected-province="selectedProvince"
-                        @selected-city="selectedCity"
-                        @submit-address-add="submitAddressAdd"
+                        @submit-ticket-add="submitTicketsAdd"
                     ></contentTickets>
                 </div>
             </div>
@@ -163,7 +158,7 @@ export default {
         return {
             sendTicket: false,
             faqPart: false,
-            adressesData: [
+            ticketsData: [
                 {
                     id: 1,
                     ticketTitle: "ثبت نشدن عکس پروفایل",
@@ -171,12 +166,7 @@ export default {
                     question:
                         "متاسفانه پس از بارها تلاش کردن موفق به ثبت عکس پروفایل کاربری در سایت لیمو نشدم لطفا راهنمایی بفرمایید.",
                     answer: "",
-                    address: "تهران ، خیابان ولیعصر ، تقاطع کوچه حسینی راد 1",
-                    province: "تهران",
-                    city: "جنت آباد",
-                    codePoste: "90",
-                    nameReceiver: "test",
-                    numberReceiver: "10",
+
                     QA: [{ id: 1 }, { id: 2 }]
                 },
                 {
@@ -186,49 +176,16 @@ export default {
                     question:
                         "متاسفانه پس از بارها تلاش کردن موفق به ثبت ایمیل کاربری در سایت لیمو نشدم لطفا راهنمایی بفرمایید.",
                     answer:
-                        " با سلام کاربر گرامی تیکت شما را بررسی کردیم و نتیجه به این شرح است.",
-                    address: "تهران ، خیابان ولیعصر ، تقاطع کوچه حسینی راد 2",
-                    province: "قم",
-                    city: "قم",
-                    codePoste: "2",
-                    nameReceiver: "test",
-                    numberReceiver: "10"
+                        " با سلام کاربر گرامی تیکت شما را بررسی کردیم و نتیجه به این شرح است."
                 }
             ],
             currentProduct: {},
             statusShowModalDeleteProduct: false,
-            allProvince: [
-                {
-                    id: 1,
-                    title: "تهران",
-                    selected: false
-                },
-                {
-                    id: 2,
-                    title: "قم",
-                    selected: false
-                }
-            ],
-            allCitys: [
-                {
-                    id: 1,
-                    parent_id: 2,
-                    title: "قم",
-                    selected: false
-                },
-                {
-                    id: 2,
-                    parent_id: 1,
-                    title: "جنت آباد",
-                    selected: false
-                }
-            ],
             formData: {
                 ticketTitle: "",
                 question: ""
             },
-            updateAddress: 0,
-            profilePhoneNumber: "09198814783"
+            updateTicket: 0
         };
     },
 
@@ -262,13 +219,13 @@ export default {
             const removeFavorite = () => {
                 let indexDelete = -1;
 
-                this.adressesData.map((content, index) => {
+                this.ticketsData.map((content, index) => {
                     if (content.id == data.id) {
                         indexDelete = index;
                     }
                 });
 
-                this.adressesData.splice(indexDelete, 1);
+                this.ticketsData.splice(indexDelete, 1);
             };
 
             removeFavorite();
@@ -282,22 +239,14 @@ export default {
             this.statusShowModalDeleteProduct = true;
         },
 
-        selectedProvince(data) {
-            // console.log(data,'selectedProvince');
-        },
-
-        selectedCity(data) {
-            // console.log(data,'selectedCitys');
-        },
-
-        submitAddressAdd(data, state) {
-            this.updateAddress++;
+        submitTicketsAdd(data, state) {
+            this.updateTicket++;
             let findIndex = 0;
 
             const faceUpdatePage = () => {
-                this.adressesData.map((content, i) => {
+                this.ticketsData.map((content, i) => {
                     if (content.id == data.id) {
-                        this.adressesData[i] = data;
+                        this.ticketsData[i] = data;
                     }
                 });
             };
@@ -306,8 +255,8 @@ export default {
             if (state == "edit") {
                 faceUpdatePage();
             } else {
-                data.id = 20 + this.updateAddress;
-                this.adressesData.push(data);
+                data.id = 20 + this.updateTicket;
+                this.ticketsData.push(data);
             }
 
             // send data server //
@@ -338,7 +287,7 @@ export default {
 .support__navbar-mobile {
     display: none;
 }
-.user-profile-adresses-main {
+.user-profile-tickets-main {
     background: transparent;
 }
 .profile-container {

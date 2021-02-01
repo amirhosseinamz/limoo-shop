@@ -18,7 +18,6 @@
                     >ارسال درخواست</span
                 >
             </div>
-
             <div class="p-modal-header-desktop w-100 flex-column">
                 <div class="w-100 p-modal-header-top-main">
                     <div class="p-modal-header-top align-items-center">
@@ -43,7 +42,7 @@
                 <div class="w-100 p-modal-content-items flex-wrap">
                     <div
                         :class="{
-                            'p-modal-show_error': showErrorValidationNameReceiver
+                            'p-modal-show_error': showErrorValidationUserAnswer
                         }"
                         class="p-modal-wrapper-item "
                     >
@@ -51,14 +50,14 @@
                             پاسخ شما:
                         </h3>
                         <textarea
-                            @keyup="updateNameReceiver"
+                            @keyup="updateUserAnswer"
                             v-model="formData.userAnswer"
                             maxlength="500"
                             type="text"
                             class="p-input-style__description"
                         />
                         <span class="pass__alert ">{{
-                            validationNameReceiverMsg
+                            validationUserAnswerMsg
                         }}</span>
                     </div>
                 </div>
@@ -68,7 +67,7 @@
                 class="p-profile-favorite-btns w-100 justify-content-center p-modal-btns"
             >
                 <button
-                    @click="submitAddressAdd"
+                    @click="submitUserAnswer"
                     type="button"
                     name="button"
                     class="btn__send-ticket"
@@ -88,39 +87,31 @@
     </div>
 </template>
 <script>
-// import "~/assets/styles/_adresses.scss";
-
 export default {
     props: {
         formDataOriginal: { type: [Object, Array], default: {} },
-        dataEditAddress: { type: Object, default: {} }
+        dataEditTicket: { type: Object, default: {} }
     },
     components: {},
     data() {
         return {
             modalClose: false,
             msg: [],
-            valueProvince: {},
-            valueCitys: {},
             formData: {},
-            showErrorValidationAddress: false,
-            showErrorValidationNumberReceiver: false,
-            showErrorValidationNameReceiver: false,
-            errorValidationNumberReceiverMsg: "عدد مجاز است",
-            validationNameReceiverMsg: "معتبر نیست",
-            errorValidationNumberAddress: "عدد مجاز است"
+            showErrorValidationUserAnswer: false,
+            validationUserAnswerMsg: "معتبر نیست"
         };
     },
 
     watch: {
-        dataEditAddress(data) {}
+        dataEditTicket(data) {}
     },
 
     created() {
         // پس از کلیک روی ویرایش آدرس کاندیشن زیر اجرا می شود //
-        if (typeof this.dataEditAddress.id != "undefined") {
-            for (let key in this.dataEditAddress) {
-                this.formData[key] = this.dataEditAddress[key];
+        if (typeof this.dataEditTicket.id != "undefined") {
+            for (let key in this.dataEditTicket) {
+                this.formData[key] = this.dataEditTicket[key];
             }
         } else {
             const formDataOriginal = this.formDataOriginal;
@@ -128,9 +119,6 @@ export default {
                 this.formData[key] = formDataOriginal[key];
             }
         }
-
-        // پس از اتصال به بک اند بعد از گرفتن پروفایل قسمت مورد آپدیت شود //
-        this.formData.numberReceiver = this.profilePhoneNumber;
     },
 
     mounted() {},
@@ -140,59 +128,19 @@ export default {
             var pattern = /\S+/;
             return pattern.test(str); // returns a boolean
         },
-        checkHasString(value) {
-            let num = value;
-            let digits = num.toString().split("");
-            let realDigits = digits.map(Number);
-            let checkStringNumberStatus = false;
-            let counterCheckLenNumber = -1;
-            let inValid = /\s/;
 
-            realDigits.map((t, i) => {
-                if (isNaN(t)) {
-                    counterCheckLenNumber++;
-                }
-            });
-
-            if (realDigits.length - 1 == counterCheckLenNumber) {
-                checkStringNumberStatus = true;
-            }
-
-            // در صورتی که کاربر مقدار نوشته شده اش فاصله داشته باشد اجرا می شود //
-            if (inValid.test(value)) {
-                checkStringNumberStatus = true;
-            }
-
-            return checkStringNumberStatus;
-        },
-
-        updateNameReceiver(e, submitValue) {
+        updateUserAnswer(e, submitValue) {
             const value = e.target.value;
             if (value != "") {
                 if (this.isNotEmpty(value)) {
-                    this.showErrorValidationNameReceiver = false;
+                    this.showErrorValidationUserAnswer = false;
                 }
                 if (value.length == 500) {
-                    this.showErrorValidationNameReceiver = true;
-                    this.validationNameReceiverMsg = "بیش از حد مجاز";
+                    this.showErrorValidationUserAnswer = true;
+                    this.validationUserAnswerMsg = "بیش از حد مجاز";
                 }
             } else {
-                this.showErrorValidationNameReceiver = false;
-            }
-        },
-        updateAddress(e, submitValue) {
-            const value = e.target.value;
-
-            if (value != "") {
-                if (this.isNotEmpty(value)) {
-                    this.showErrorValidationAddress = false;
-                }
-                if (value.length == 200) {
-                    this.showErrorValidationAddress = true;
-                    this.errorValidationNumberAddress = "بیش از حد مجاز";
-                }
-            } else {
-                this.showErrorValidationAddress = false;
+                this.showErrorValidationUserAnswer = false;
             }
         },
 
@@ -214,48 +162,32 @@ export default {
 
         checkValidFormData() {},
 
-        checkShowErrorCityProvince() {
-            if (this.formData.province == "") {
-                this.showErrorValidationProvince = true;
-            } else {
-                this.showErrorValidationProvince = false;
-            }
-
-            if (this.formData.city == "") {
-                this.showErrorValidationCity = true;
-            } else {
-                this.showErrorValidationCity = false;
-            }
-        },
-
         checkErrorForm() {
             let checkVerifiSubmitForm = true;
 
             const checkEmptyForm = () => {
                 if (this.formData.userAnswer == "") {
-                    this.showErrorValidationNameReceiver = true;
-                    this.validationNameReceiverMsg = "معتبر نیست";
+                    this.showErrorValidationUserAnswer = true;
+                    this.validationUserAnswerMsg = "معتبر نیست";
                 }
-                this.checkShowErrorCityProvince();
-                // this.updateNameReceiver('',this.formData.nameReceiver);
             };
 
             checkEmptyForm();
 
             // در صورت داشتن ارور اجرا می شود //
-            if (this.showErrorValidationNameReceiver) {
+            if (this.showErrorValidationUserAnswer) {
                 checkVerifiSubmitForm = false;
             }
 
             return checkVerifiSubmitForm;
         },
 
-        submitAddressAdd() {
+        submitUserAnswer() {
             const checkVerifiSubmitForm = this.checkErrorForm();
 
             // در صورتی که اروی برای نمایش نباشد ارسال می شود //
             if (checkVerifiSubmitForm) {
-                this.$emit("submit-address-add", this.formData);
+                this.$emit("submit-ticket-add", this.formData);
             }
         },
         eventCloseModal() {
@@ -398,10 +330,7 @@ export default {
 .p-modal-content-items {
     @include display-flex();
 }
-.p-modal-address {
-    height: 90px;
-    /* margin-bottom: 19px; */
-}
+
 .p-modal-header-line {
     width: 85%;
     height: 1px;
@@ -418,9 +347,7 @@ export default {
 .p-modal-btns {
     padding-top: 116px;
 }
-/* .p-modal-address{
-  // height: 109px;
-} */
+
 .p-modal-show_error .pass__alert {
     visibility: inherit;
 }

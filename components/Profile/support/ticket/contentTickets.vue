@@ -1,47 +1,47 @@
 <template>
-    <div class="p-adresses-content-main w-100 flex-column flex-wrap  d-rtl">
+    <div class="p-tickets-content-main w-100 flex-column flex-wrap  d-rtl">
         <transition moda="in-out">
             <div id="overlay" v-if="passChangeIsActive">
                 <add-ticket-modal
                     :form-data-original="formData"
-                    :data-edit-address="dataEditAddress"
-                    @submit-address-add="submitAddressAdd"
+                    :data-edit-ticket="dataEditTicket"
+                    @submit-ticket-add="submitTicketAdd"
                     @close-modal="closeModal"
                 />
             </div>
         </transition>
         <transition moda="in-out">
-            <div id="overlay" v-if="sendAnswerToTicket">
+            <div id="ansoverlay" v-if="sendAnswerToTicket">
                 <send-ans-ticket-modal
                     :form-data-original="formData"
-                    :data-edit-address="dataEditAddress"
-                    @submit-address-add="submitAddressAdd"
+                    :data-edit-ticket="dataEditTicket"
+                    @submit-ticket-add="submitTicketAdd"
                     @close-modal="closeModal"
                 />
             </div>
         </transition>
-        <div class="w-100 flex-wrap p-adresses-content-btn-add-main">
+        <div class="w-100 flex-wrap p-tickets-content-btn-add-main">
             <button
-                @click="addAddress"
+                @click="addTicket"
                 type="submit"
-                class=" btn-change p-adresses-content-btn-data"
+                class=" btn-change p-tickets-content-btn-data"
             >
                 ارسال درخواست جدید
             </button>
             <span class="p-ticket__topic">درخواست های شما</span>
         </div>
 
-        <div class="w-100 flex-wrap p-adresses-content-items">
+        <div class="w-100 flex-wrap">
             <div
-                v-for="data in adressData"
+                v-for="data in ticketData"
                 :key="data.id"
-                class="w-100 flex-wrap p-adresses-content-item"
+                class="w-100 flex-wrap p-tickets-content-item"
             >
                 <div
-                    class="flex-wrap w-100 p-adresses-content-wrapper align-items-start"
+                    class="flex-wrap w-100 p-ticketss-content-wrapper align-items-start"
                 >
                     <div class="d-flex align-items-start w-100">
-                        <div class="w-100 flex-wrap  p-adresses-content-header">
+                        <div class="w-100 flex-wrap  p-tickets-content-header">
                             <!-- ======================== -->
                             <div class="ticket__title">
                                 {{ data.ticketTitle }}
@@ -77,12 +77,12 @@
                         </div>
 
                         <div
-                            class="w-100 flex-column p-adresses-content-data-main"
+                            class="w-100 flex-column p-tickets-content-data-main"
                         >
                             <div
-                                class="w-100 flex-wrap  p-adresses-content-data-wrapper"
+                                class="w-100 flex-wrap  p-tickets-content-data-wrapper"
                             >
-                                <div class="w-100 p-adresses-content-data">
+                                <div class="w-100 p-tickets-content-data">
                                     <div class="ticket-content__question">
                                         {{ data.question }}
                                     </div>
@@ -94,11 +94,11 @@
                                     </div>
                                 </div>
                                 <div
-                                    class="p-adresses-content-data-btns w-100 justify-content-end"
+                                    class="p-tickets-content-data-btns w-100 justify-content-end"
                                 >
                                     <div class="p-favorite-product-btn-main">
                                         <button
-                                            @click="editAddress(data)"
+                                            @click="editTicket(data)"
                                             type="button"
                                             class="p-product-btn cursor-pointer p-ticket-content-btn-edit"
                                             name="button"
@@ -107,7 +107,7 @@
                                             @click="
                                                 showModalDeleteProduct(data)
                                             "
-                                            class="p-favorite-product-btn-delete cursor-pointer  p-adresses-content-btn-delete"
+                                            class="p-favorite-product-btn-delete cursor-pointer  p-tickets-content-btn-delete"
                                             name="button"
                                         ></button>
                                     </div>
@@ -134,11 +134,8 @@ import sendAnsTicketModal from "./sendAnsTicketModal.vue";
 
 export default {
     props: {
-        allProvince: { type: [Object, Array], default: [] },
-        allCitys: { type: [Object, Array], default: [] },
-        adressData: { type: [Object, Array], default: {} },
-        formData: { type: [Object, Array], default: {} },
-        profilePhoneNumber: { type: [Number, String], default: "" }
+        ticketData: { type: [Object, Array], default: {} },
+        formData: { type: [Object, Array], default: {} }
     },
     components: {
         addTicketModal,
@@ -148,7 +145,7 @@ export default {
         return {
             passChangeIsActive: false,
             sendAnswerToTicket: false,
-            dataEditAddress: {}
+            dataEditTicket: {}
         };
     },
 
@@ -161,8 +158,8 @@ export default {
             this.$emit("show-modal-delete-product", data);
         },
 
-        addAddress() {
-            this.dataEditAddress = {};
+        addTicket() {
+            this.dataEditTicket = {};
             this.passChangeIsActive = !this.passChangeIsActive;
         },
 
@@ -174,28 +171,28 @@ export default {
             this.$emit("selected-city", data);
         },
 
-        submitAddressAdd(data) {
+        submitTicketAdd(data) {
             // بر اساس آیدی تغیین می شود که حالت ویرایش است یا خیر //
 
             let stateEditAdd = "";
-            if (typeof this.dataEditAddress.id == "undefined") {
+            if (typeof this.dataEditTicket.id == "undefined") {
                 stateEditAdd = "add";
             } else {
                 stateEditAdd = "edit";
             }
 
             this.passChangeIsActive = false;
-            this.$emit("submit-address-add", data, stateEditAdd);
+            this.$emit("submit-ticket-add", data, stateEditAdd);
         },
 
         closeModal() {
-            this.dataEditAddress = {};
+            this.dataEditTicket = {};
             this.passChangeIsActive = false;
             this.sendAnswerToTicket = false;
         },
 
-        editAddress(data) {
-            this.dataEditAddress = data;
+        editTicket(data) {
+            this.dataEditTicket = data;
             this.passChangeIsActive = true;
         },
         sendAnswer(data) {
@@ -206,7 +203,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-#overlay {
+#overlay,
+#ansoverlay {
     position: fixed; /* Sit on top of the page content */
     @include display-flex();
     justify-content: center;
@@ -223,6 +221,7 @@ export default {
     top: 0;
     right: 0;
 }
+
 .v-leave-from {
     opacity: 0.5;
 }
@@ -232,7 +231,7 @@ export default {
 .v-leave-to {
     opacity: 0;
 }
-.p-adresses-content-main {
+.p-tickets-content-main {
     /* padding-right: 21px;
     padding-left: 21px; */
     border-bottom-left-radius: 10px;
@@ -241,7 +240,7 @@ export default {
 
     padding: 0 24px 19px 24px;
 }
-.p-adresses-content-btn-add-main {
+.p-tickets-content-btn-add-main {
     @include display-flex();
     flex-direction: column;
     /* border: 1px solid red; */
@@ -254,7 +253,7 @@ export default {
     margin-right: 1px;
     margin-top: 28px;
 }
-.p-adresses-content-btn-data {
+.p-tickets-content-btn-data {
     margin: 38px 14px 0 0;
     font-size: 16px;
     height: 57px;
@@ -264,11 +263,11 @@ export default {
     border: 2px solid $yellow;
     box-shadow: 0px 8px 16px $box__shadow;
 }
-.p-adresses-content-btn-data:hover {
+.p-tickets-content-btn-data:hover {
     color: $white;
     background: $yellow;
 }
-.p-adresses-content-item {
+.p-tickets-content-item {
     @include display-flex();
     border: 1px solid $light-gray;
     border-radius: 10px;
@@ -277,7 +276,7 @@ export default {
     margin-bottom: 16px;
     /* border: 1px solid red; */
 }
-.p-adresses-content-header {
+.p-tickets-content-header {
     @include display-flex();
     justify-content: space-between;
     align-items: center;
@@ -336,7 +335,7 @@ export default {
     background-color: $yellow;
     margin-left: 11px;
 }
-.p-adresses-content-data {
+.p-tickets-content-data {
     @include display-flex();
     flex-direction: column;
     justify-content: flex-start;
@@ -357,18 +356,7 @@ export default {
     line-height: 140.62%;
     color: $green__answer;
 }
-.p-adresses-content-text-data {
-    font-family: inherit;
-    font-size: 16px;
-    color: $black-topic;
-    font-weight: 400;
-}
-.p-adresses-content-text-main {
-    @include display-flex();
-    margin-top: 25px;
-    margin-bottom: 36px;
-}
-.p-adresses-content-data-btns {
+.p-tickets-content-data-btns {
     @include display-flex();
     flex-direction: row-reverse;
     justify-content: flex-start;
@@ -411,16 +399,13 @@ export default {
     height: 47px;
     width: 47px;
 }
-.p-adresses-content-wrapper {
+.p-ticketss-content-wrapper {
     @include display-flex();
 }
-.p-adresses-content-data-main {
+.p-tickets-content-data-main {
     @include display-flex();
 }
-.p-adresses-content-edit-icon {
-    width: 16px;
-    height: 16px;
-}
+
 .p-favorite-product-btn-delete::before {
     @include font-icon__limoo();
     font-size: 16px;
@@ -428,7 +413,7 @@ export default {
     color: $input-border;
 }
 
-.p-adresses-content-data-wrapper {
+.p-tickets-content-data-wrapper {
     height: fit-content;
     min-height: 177px;
     @include display-flex();
@@ -446,16 +431,16 @@ export default {
 }
 
 @media (max-width: 960px) {
-    .p-adresses-content-main {
+    .p-tickets-content-main {
         border-radius: 10px;
         padding: 0 11px 18px 11px;
     }
-    .p-adresses-content-btn-add-main {
+    .p-tickets-content-btn-add-main {
         height: 130px;
         /* background: $white; */
         margin-top: 8px;
     }
-    .p-adresses-content-btn-data {
+    .p-tickets-content-btn-data {
         margin: 24px auto 0 auto;
         height: 47px;
         width: 259px;
@@ -474,7 +459,7 @@ export default {
 }
 
 @media (max-width: 600px) {
-    .p-adresses-content-header {
+    .p-tickets-content-header {
         /* flex-flow: column; */
         padding-right: 8px;
         padding-left: 8px;
@@ -482,16 +467,12 @@ export default {
         height: fit-content;
         background: $white;
     }
-    .p-adresses-content-item {
+    .p-tickets-content-item {
         background: $white;
         min-height: fit-content;
         margin-bottom: 8px;
     }
-
-    .p-adresses-content-text-data {
-        font-size: 14px;
-    }
-    .p-adresses-content-data-btns {
+    .p-tickets-content-data-btns {
         padding-left: 8px;
         margin-bottom: 0;
         margin-top: 35px;
@@ -518,7 +499,7 @@ export default {
         margin-top: 16px;
         font-size: 14px;
     }
-    .p-adresses-content-data {
+    .p-tickets-content-data {
         padding-right: 8px;
         padding-left: 40px;
     }
@@ -539,7 +520,7 @@ export default {
     .p-tickets__state-acceptting__icon {
         margin-left: 8px;
     }
-    .p-adresses-content-btn-delete {
+    .p-tickets-content-btn-delete {
         margin-right: 16px;
     }
     .p-ticket-content-btn-edit {
@@ -557,27 +538,21 @@ export default {
     .p-ticket-content-btn-edit:hover::before {
         color: $yellow;
     }
-    .p-adresses-content-text-main {
-        margin-bottom: 0;
-    }
-    /* .p-adresses-content-data-wrapper {
-        height: auto;
-    } */
-    .p-adresses-content-data-wrapper {
+    .p-tickets-content-data-wrapper {
         min-height: 166px;
     }
     .p-favorite-product-btn-main {
         margin-bottom: 0;
     }
-    .p-adresses-content-item:last-of-type {
+    .p-tickets-content-item:last-of-type {
         margin-bottom: 0;
     }
 }
 @media (max-width: 280px) {
-    .p-adresses-content-btn-data {
+    .p-tickets-content-btn-data {
         width: 200px;
     }
-    .p-adresses-content-main {
+    .p-tickets-content-main {
         padding: 0 0 18px 0;
     }
 }
