@@ -71,9 +71,9 @@
                         >
                         <span class="mobile-delivered__arrow"></span>
                     </div>
-                    <the-user-order
+                    <the-delivered
                         :user-order-data="userOrderData"
-                    ></the-user-order>
+                    ></the-delivered>
                     <div
                         @click="goToOrder('returned')"
                         class="mobile-nav__order-returned d-rtl"
@@ -97,13 +97,13 @@
 </template>
 <script>
 import TheProfileSideBar from "~/components/Profile/TheProfileSideBar.vue";
-import TheUserOrder from "~/components/Profile/UserOrder/TheUserOrder.vue";
+import TheDelivered from "~/components/Profile/UserOrder/TheDelivered.vue";
 
 export default {
     middleware: "authentication",
     components: {
         TheProfileSideBar,
-        TheUserOrder
+        TheDelivered
     },
 
     data() {
@@ -217,7 +217,7 @@ export default {
         },
         goToOrder(page) {
             if (page == "paidInProgress") {
-                this.$router.push("/profile/my-orders");
+                this.$router.push("/profile/my-orders/in-progress");
                 this.paidInProgress = true;
             } else if (page == "delivered") {
                 this.$router.push("/profile/my-orders/delivered");

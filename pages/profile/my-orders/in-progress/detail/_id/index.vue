@@ -2,7 +2,7 @@
     <div class="profile-container">
         <the-profile-side-bar />
         <div class="user-profile">
-            delivered
+            in-progress
         </div>
     </div>
 </template>
@@ -52,3 +52,4 @@ export default {
     }
 }
 </style>
+

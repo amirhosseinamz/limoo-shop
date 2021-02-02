@@ -87,7 +87,7 @@ export default {
             this.homeIsActive = true;
         } else if (curentRoute == "/cart") {
             this.basketIsActive = true;
-        } else if (curentRoute.search("/profile") + 1 == 1) {
+        } else if (curentRoute.search("/profile") == 0) {
             this.profileIsActive = true;
         }
     },

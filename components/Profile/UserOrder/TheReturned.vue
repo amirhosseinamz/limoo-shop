@@ -72,7 +72,10 @@
                         name="button"
                     >
                         <NuxtLink
-                            to="/profile/my-orders/detail/"
+                            :to="
+                                '/profile/my-orders/returned/detail/' +
+                                    data.orderCode
+                            "
                             class="p-history-product-btn-link"
                         >
                             <span class="btn-text-desktop">مشاهده سفارش</span>
@@ -482,3 +485,4 @@ export default {
     }
 }
 </style>
+

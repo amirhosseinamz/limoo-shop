@@ -20,7 +20,7 @@
                     <NuxtLink
                         class="profile-sidebar__order-icon"
                         :class="{ 'link-item__activated': OrdersIsActive }"
-                        to="/profile/my-orders"
+                        to="/profile/my-orders/in-progress"
                     >
                         سفارش های من</NuxtLink
                     >
@@ -256,10 +256,7 @@ export default {
             curentRoute == "/profile/user-history/"
         ) {
             this.userHistoryIsActive = true;
-        } else if (
-            curentRoute.search("/profile/my-orders") + 1 == 1 ||
-            curentRoute.search("/profile/my-orders/") + 1 == 1
-        ) {
+        } else if (curentRoute.search("/profile/my-orders/") == 0) {
             this.OrdersIsActive = true;
         } else if (
             curentRoute == "/profile/comments" ||
@@ -295,7 +292,7 @@ export default {
             this.$router.push("/profile/adresses");
         },
         goToMyOrders() {
-            this.$router.push("/profile/my-orders");
+            this.$router.push("/profile/my-orders/in-progress");
         },
         logOutUser() {
             if (typeof Storage !== "undefined") {
