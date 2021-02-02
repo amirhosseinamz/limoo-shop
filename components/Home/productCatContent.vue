@@ -1,54 +1,11 @@
 <template>
   <div class="w-100 productContent__sliderWrapper">
+      <div class="w-100 productContent__catTop">
+        <h3 class="w-100 productContent__catTitle">دسته بندی محصولات پرفروش</h3>
+      </div>
 
         <!-- mobile show -->
-          <!-- <div v-if="showSliderMobile" class="productContent__mainCat  main-carousel w-100">
-                  <div v-for="data in allCategoryMobileSplitTwice" :key="data.id" class="carousel-cell productContent__carousel ">
-                      <div class="productContent__carouselContent w-100">
-                              <span class="productContent__carouselLine"></span>
-                              <div class="productContent__carouselImgMain w-100">
-                                <img class="productContent__carouselImgItem" :src="data.image" alt="">
-                              </div>
-                              <div class="productContent__carouselData">
-                                  <div class="w-100">
-                                    <h3 class="productContent__carouselDataTitle">
-                                      {{data.title}}
-                                    </h3>
-                                    <h3 class="productContent__carouselCount">
-                                      {{data.count}}
-                                    </h3>
-                                  </div>
-                            </div>
-                      </div>
-                </div>
-          </div> -->
-
-          <!-- <div v-else class="productContent__mainCat  main-carousel w-100">
-                <div v-for="data in allCategory" :key="data.id" class="carousel-cell productContent__carousel ">
-                <div class="productContent__carouselContent w-100">
-                        <span class="productContent__carouselLine"></span>
-                        <div class="productContent__carouselImgMain w-100">
-                          <img class="productContent__carouselImgItem" :src="data.image" alt="">
-                        </div>
-                        <div class="productContent__carouselData">
-                            <div class="w-100">
-                              <h3 class="productContent__carouselDataTitle">
-                                {{data.title}}
-                              </h3>
-                              <h3 class="productContent__carouselCount">
-                                {{data.count}}
-                              </h3>
-                            </div>
-                      </div>
-                </div>
-              </div>
-          </div> -->
-
-          <div class="w-100 productContent__catTop">
-            <h3 class="w-100 productContent__catTitle">دسته بندی محصولات پرفروش</h3>
-          </div>
-
-          <div  class="productContent__mainCat  main-carousel w-100">
+          <div v-if="showSliderMobile" class="productContent__mainCat  main-carousel w-100">
                 <div v-for="data in allCategoryMobileSplitTwice" :key="data.id" class="carousel-cell productContent__carousel ">
                       <div v-for="contentChildren in data.children" :key="contentChildren.id" class="productContent__carouselContent w-100">
 
@@ -72,6 +29,29 @@
               </div>
           </div>
 
+          <div v-else class="productContent__mainCat  main-carousel w-100">
+                <div v-for="data in allCategory" :key="data.id" class="carousel-cell productContent__carousel ">
+                <div class="productContent__carouselContent w-100">
+                        <span class="productContent__carouselLine"></span>
+                        <div class="productContent__carouselImgMain w-100">
+                          <img class="productContent__carouselImgItem" :src="data.image" alt="">
+                        </div>
+                        <div class="productContent__carouselData">
+                            <div class="w-100">
+                              <h3 class="productContent__carouselDataTitle">
+                                {{data.title}}
+                              </h3>
+                              <h3 class="productContent__carouselCount">
+                                {{data.count}}
+                              </h3>
+                            </div>
+                      </div>
+                </div>
+              </div>
+          </div>
+
+
+
   </div>
 </template>
 
@@ -94,19 +74,19 @@ export default {
     },
 
     mounted() {
-      // const width = window.screen.width;
-      // if (960 >= width) {
-      //   this.flickityOptions();
-      //   this.showSliderMobile = true;
-      //   // جدا کزدن دسته بندی به صورت دوتا دوتا //
-      //   this.itemCategorySplitTwice();
-      // }
-
-
+      const width = window.screen.width;
+      
+      if (485 >= width) {
+        this.showSliderMobile = true;
+      }
+      // جدا کزدن دسته بندی به صورت دوتا دوتا //
       this.itemCategorySplitTwice();
+
       setTimeout( () =>{
         this.flickityOptions();
       });
+
+
     },
 
     computed: {
@@ -124,10 +104,10 @@ export default {
           imagesLoaded    : true,
           wrapAround      : false,
           contain         : true,
-          // prevNextButtons : false,
+          prevNextButtons : true,
           // autoPlay        : true, // advance cells every 3 seconds
           // autoPlay: 1500 // {Number}
-          // freeScroll      : true,
+          freeScroll      : true,
           pageDots        : false,
           groupCells      : true,
           fade            : false,
@@ -149,6 +129,7 @@ export default {
         let contentTwiceSplit = [];
         let levelSplit        = 0;
 
+        // دوتا دوتا جدا سازی آیتم ها در موبایل //
         this.allCategory.map((content,index)=>{
             counterTwice++;
 
@@ -303,7 +284,7 @@ export default {
 
 
 
-@media (max-width: 960px) {
+@media (max-width: 485px) {
   // .productContent__carouselContent:last-of-type{
   //   margin-bottom: 0;
   // }
@@ -376,10 +357,7 @@ export default {
 
 }
 
-@media (max-width: 485px) {
 
-
-}
 
 
 </style>

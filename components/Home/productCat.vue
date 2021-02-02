@@ -75,9 +75,6 @@ export default {
 }
 
 @media (max-width: 960px) {
-  .productContent{
-    margin-top: 8px;
-  }
 
 }
 
@@ -86,6 +83,9 @@ export default {
 }
 
 @media (max-width: 485px) {
+  .productContent{
+    margin-top: 8px;
+  }
   .productContent{
     height: 231px;
   }
