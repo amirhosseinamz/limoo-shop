@@ -12,7 +12,11 @@
               /> -->
           </div>
       </div>
-      <content-home :products="products" :all-category="allCategory"></content-home>
+      <content-home
+        :products="products"
+        :all-category="allCategory"
+        :all-product-vertical="allProductVertical"
+       ></content-home>
     </div>
 </template>
 <script>
@@ -29,7 +33,7 @@ export default {
 
     data() {
         return {
-          products     : [
+          products            : [
             {
               id        : 1,
               title     : 'حافظه SSD وسترن دیجیتال مدل GREEN WDS480G2G0A ظرفیت 480 گیگابایت',
@@ -76,7 +80,7 @@ export default {
               image     : '/img/phoneAndroid.svg',
             }
           ],
-          allCategory  : [
+          allCategory         : [
             {
               id    : 1,
               title : 'موبایل و تبلت',
@@ -127,6 +131,44 @@ export default {
             },
 
           ],
+          allProductVertical  : [
+            {
+              id        : 1,
+              title     : 'اپ واچ سری قرمز آلومینیوم آبی با بند اسپرت سیلیکون آبی ویژه سایز 42 و 44',
+              discount  : '10000',
+              realPrice : '50000',
+              image     : '/img/sony_pic_1.svg',
+            },
+            {
+              id        : 2,
+              title     : 'اپ واچ سری قرمز آلومینیوم آبی با بند اسپرت سیلیکون آبی ویژه سایز 42 و 44',
+              discount  : '',
+              realPrice : '50000',
+              image     : '/img/sony_pic_1.svg',
+            },
+            {
+              id        : 3,
+              title     : 'اپ واچ سری قرمز آلومینیوم آبی با بند اسپرت سیلیکون آبی ویژه سایز 42 و 44',
+              discount  : '',
+              realPrice : '50000',
+              image     : '/img/sony_pic_1.svg',
+            },
+            {
+              id        : 4,
+              title     : 'اپ واچ سری قرمز آلومینیوم آبی با بند اسپرت سیلیکون آبی ویژه سایز 42 و 44',
+              discount  : '',
+              realPrice : '50000',
+              image     : '/img/sony_pic_1.svg',
+            },
+            {
+              id        : 5,
+              title     : 'اپ واچ سری قرمز آلومینیوم آبی با بند اسپرت سیلیکون آبی ویژه سایز 42 و 44',
+              discount  : '',
+              realPrice : '50000',
+              image     : '/img/sony_pic_1.svg',
+            },
+
+          ],
         };
     },
 
@@ -137,6 +179,7 @@ export default {
     created() {
       // پس از اتصال به سرور فانکشن مورد نظر بعد رسپانس ریکوئست صدا زده شود //
       this.addCamaProduct();
+      this.addCamaProductVertical();
     },
 
     mounted() {
@@ -149,7 +192,14 @@ export default {
           content.addCamaRealPrice = addCamaPrice(content.realPrice);
           content.addCamaDiscount  = addCamaPrice(content.discount);
         })
-      }
+      },
+
+      addCamaProductVertical(){
+        this.allProductVertical.map((content)=>{
+          content.addCamaRealPrice = addCamaPrice(content.realPrice);
+          content.addCamaDiscount  = addCamaPrice(content.discount);
+        })
+      },
 
     }
 };

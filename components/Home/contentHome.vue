@@ -4,12 +4,11 @@
             <introduction-items></introduction-items>
             <product-content :products="products" ></product-content>
             <product-cat :all-category="allCategory"></product-cat>
+            <product-vertical-content :products="allProductVertical" ></product-vertical-content>
             <banner-items></banner-items>
             <banner-2-items></banner-2-items>
             <banner-3-items></banner-3-items>
         </div>
-
-
   </div>
 </template>
 
@@ -20,12 +19,14 @@ import banner2Items from './banner2Items';
 import banner3Items from './banner3Items';
 import productContent from './productContent';
 import productCat from './productCat';
+import productVerticalContent from './productVerticalContent';
 
 
 export default {
     props: {
-      products      : { type: [Object,Array], default: [] },
-      allCategory   : { type: [Object,Array], default: [] },
+      products             : { type: [Object,Array], default: [] },
+      allCategory          : { type: [Object,Array], default: [] },
+      allProductVertical   : { type: [Object,Array], default: [] },
     },
 
     components: {
@@ -35,6 +36,7 @@ export default {
       banner3Items,
       productContent,
       productCat,
+      productVerticalContent,
     },
 
     data() {
