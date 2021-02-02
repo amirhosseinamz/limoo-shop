@@ -144,8 +144,8 @@
 </template>
 <script>
 import TheProfileSideBar from "~/components/Profile/TheProfileSideBar.vue";
-import contentTickets from "~/components/Profile/Support/ticket/contentTickets.vue";
-import modalDeleteTicket from "~/components/Profile/Support/ticket/modalDeleteTicket.vue";
+import contentTickets from "~/components/Profile/Support/Ticket/contentTickets.vue";
+import modalDeleteTicket from "~/components/Profile/Support/Ticket/modalDeleteTicket.vue";
 
 export default {
     components: {
