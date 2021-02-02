@@ -73,4 +73,11 @@
   .flickity-viewport{
     width: 100%;
   }
+
+  @media (max-width: 485px) {
+    .flickity-prev-next-button{
+      display: none;
+    }
+  }
+  
 }

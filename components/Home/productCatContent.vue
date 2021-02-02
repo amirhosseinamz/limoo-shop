@@ -1,8 +1,18 @@
 <template>
   <div class="w-100 productContent__sliderWrapper">
       <div class="w-100 productContent__catTop">
-        <h3 class="w-100 productContent__catTitle">دسته بندی محصولات پرفروش</h3>
+          <div class="productContent__topRight">
+              <h3 class="w-100 productContent__catTitle">دسته بندی محصولات پرفروش</h3>
+          </div>
+
+          <div class=" productContent__sliderMore productContent__topLeft">
+              <nuxt-link class="productContent__moreItem" to="/">
+                لیست کامل محصولات
+                <span class=" productContent__moreIcon mobile-inprogress__arrow"></span>
+              </nuxt-link>
+          </div>
       </div>
+
 
         <!-- mobile show -->
           <div v-if="showSliderMobile" class="productContent__mainCat  main-carousel w-100">
@@ -49,7 +59,7 @@
                 </div>
               </div>
           </div>
-
+          <div class="productContent__line"></div>
 
 
   </div>
@@ -75,17 +85,17 @@ export default {
 
     mounted() {
       const width = window.screen.width;
-      
+
       if (485 >= width) {
         this.showSliderMobile = true;
       }
+
       // جدا کزدن دسته بندی به صورت دوتا دوتا //
       this.itemCategorySplitTwice();
 
       setTimeout( () =>{
         this.flickityOptions();
       });
-
 
     },
 
@@ -107,7 +117,7 @@ export default {
           prevNextButtons : true,
           // autoPlay        : true, // advance cells every 3 seconds
           // autoPlay: 1500 // {Number}
-          freeScroll      : true,
+          freeScroll      : false,
           pageDots        : false,
           groupCells      : true,
           fade            : false,
@@ -229,15 +239,16 @@ export default {
   border-radius: 8px;
   top: 0;
 }
-// .productContent__line{
-//   position: absolute;
-//   left: 0;
-//   top: 0;
-//   width: 54px;
-//   height: 316px;
-//   background: linear-gradient(90deg, #FFFFFF -41.48%, rgba(255, 255, 255, 0) 151.7%);
-//   opacity: 0.9;
-// }
+.productContent__line{
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 91px;
+  height: 220px;
+  background: linear-gradient(90deg, #FFFFFF -41.48%, rgba(255, 255, 255, 0) 151.7%);
+  opacity: 0.9;
+  display: none;
+}
 .productContent__sliderWrapper{
   align-items: flex-start;
   @include display-flex();
@@ -269,19 +280,64 @@ export default {
   @include display-flex();
 }
 .productContent__catTitle{
-  margin-bottom: 31px;
   color: $black;
   font-size: 18px;
+  font-weight: 500;
 }
 .productContent__catTop{
   @include display-flex();
   flex-wrap: wrap;
   padding-right: 24px;
   padding-left: 24px;
+  align-items: center;
+  margin-bottom: 31px;
+}
+.productContent__sliderMore{
   align-items: flex-start;
+  @include display-flex();
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  padding-left: 13px;
+}
+.productContent__moreItem{
+  font-size: 16px;
+  color: $gray;
+  border-bottom: none;
+  text-decoration: none;
+  @include display-flex();
+  align-items: center;
+}
+.productContent__moreIcon{
+  @include display-flex();
+  margin-right: 11px;
+}
+.mobile-inprogress__arrow::after {
+    content: "\e801";
+    @include font-icon__limoo();
+    font-size: 14px;
+    margin-top: 1px;
+}
+.productContent__topRight{
+  flex-grow: 1;
+  @include display-flex();
 }
 
 
+
+@media (max-width: 600px) {
+  .productContent__topRight{
+    width: 100%;
+  }
+  .productContent__topLeft{
+    width: 100%;
+  }
+  .productContent__catTitle{
+    font-size: 16px;
+  }
+  .productContent__moreItem{
+    font-size: 14px;
+  }
+}
 
 
 @media (max-width: 485px) {
@@ -345,14 +401,21 @@ export default {
     padding-bottom: 21px;
   }
   .productContent__catTitle{
-    margin-bottom: 16px;
     font-size: 14px;
     color: $black-topic;
     font-weight: 300;
+    height: 27px;
   }
   .productContent__catTop{
+    margin-bottom: 16px;
     padding-right: 11px;
     padding-left: 11px;
+  }
+  .productContent__topLeft{
+    display: none;
+  }
+  .productContent__line{
+    @include display-flex();
   }
 
 }
