@@ -32,8 +32,55 @@
                     ></NuxtLink>
                 </div>
                 <hr class="splicer-line" />
-                <div class="user-profile__support-contact d-rtl">
-                    <div class="order-desktop__holder">55555555555</div>
+                <div class="user-profile__order-detail d-rtl">
+                    <div class="order-desktop__status-holder">
+                        <div class="order-part__status">
+                            <span class="order-status__title">وضعیت:</span>
+                            <span class="order-status__show"
+                                >در حال پردازش</span
+                            >
+                        </div>
+                        <div class="order-part__status">
+                            <span class="order-status__date"
+                                >تاریخ ثبت سفارش:</span
+                            >
+                            <span class="order-status__show">1399/04/05</span>
+                        </div>
+                        <div class="order-part__status">
+                            <span class="order-status__pay"
+                                >مبلغ پرداخت شده:</span
+                            >
+                            <span class="order-status__show">850,000</span>
+                            <span class="order-status__toman">تومان</span>
+                        </div>
+                    </div>
+                    <div class="order-desktop__shipment-detail">
+                        <div class="shipment-detail__holder">
+                            <span class="shipment-detail__person"
+                                >تحویل گیرنده:</span
+                            >
+                            <span class="shipment-detail__person-detail"
+                                >شروین پیکارجو</span
+                            >
+                        </div>
+                        <div class="shipment-detail__holder">
+                            <span class="shipment-detail__address"
+                                >آدرس تحویل کالا:</span
+                            >
+                            <span class="shipment-detail__address-detail"
+                                >تهران، خیابان ولیعصر، تقاطع مطهری، کوچه حسینی
+                                راد</span
+                            >
+                        </div>
+                        <div class="shipment-detail__holder">
+                            <span class="shipment-detail__tel"
+                                >شماره تماس گیرنده:</span
+                            >
+                            <span class="shipment-detail__tel-detail"
+                                >09120056088</span
+                            >
+                        </div>
+                    </div>
                 </div>
                 <!-- ============================ -->
                 <div class="user-profile__order-mobile d-rtl">
@@ -88,25 +135,25 @@ export default {
                     nameReceiver: "test",
                     numberReceiver: "10",
                     QA: [{ id: 1 }, { id: 2 }]
-                },
-                {
-                    id: 2,
-                    address: "تهران ، خیابان ولیعصر ، تقاطع کوچه حسینی راد 2",
-                    province: "قم",
-                    city: "قم",
-                    codePoste: "2",
-                    nameReceiver: "test",
-                    numberReceiver: "10"
-                },
-                {
-                    id: 3,
-                    address: "تهران ، خیابان ولیعصر ، تقاطع کوچه حسینی راد 3",
-                    province: "قم",
-                    city: "قم",
-                    codePoste: "3",
-                    nameReceiver: "test",
-                    numberReceiver: "10"
                 }
+                // {
+                //     id: 2,
+                //     address: "تهران ، خیابان ولیعصر ، تقاطع کوچه حسینی راد 2",
+                //     province: "قم",
+                //     city: "قم",
+                //     codePoste: "2",
+                //     nameReceiver: "test",
+                //     numberReceiver: "10"
+                // },
+                // {
+                //     id: 3,
+                //     address: "تهران ، خیابان ولیعصر ، تقاطع کوچه حسینی راد 3",
+                //     province: "قم",
+                //     city: "قم",
+                //     codePoste: "3",
+                //     nameReceiver: "test",
+                //     numberReceiver: "10"
+                // }
             ],
             currentProduct: {},
             statusShowModalDeleteProduct: false,
@@ -273,13 +320,9 @@ export default {
 }
 .order-factor__title::before {
     content: "\e812";
-    /* border: 1px solid #f00808; */
     @include font-icon__limoo();
-    /* @include display-flex(); */
     font-size: 15px;
-
     color: $code-request;
-    /* align-self: center; */
     cursor: pointer;
     margin-right: 16px;
     margin-left: 8px;
@@ -333,14 +376,14 @@ export default {
         height: 96px;
         /* border: 1px solid #f00808; */
     }
-    &__support-contact {
+    &__order-detail {
         @include display-flex();
         flex-direction: column;
         border-bottom-left-radius: 10px;
         border-bottom-right-radius: 10px;
         background: $white;
         width: 100%;
-        height: 200px;
+        height: 279px;
     }
     &__topic {
         font-size: 18px;
@@ -397,16 +440,128 @@ export default {
     }
 }
 
-.order-desktop__holder {
+.order-desktop__status-holder {
     @include display-flex();
     flex-direction: row;
     justify-content: space-between;
     width: 100%;
-    margin-top: 24px;
-    padding: 0 22px;
+    height: 84px;
+    /* margin-top: 24px;*/
+    padding-left: 153px;
+    border-bottom: 1px solid $light-gray;
+}
+.order-desktop__shipment-detail {
+    @include display-flex();
+    flex-direction: column;
+    justify-content: space-between;
+    width: 100%;
+    height: 100%;
+    padding: 31px 24px 41px 0;
+    /* border: 1px solid #f00808; */
+}
+.shipment-detail__holder {
+    @include display-flex();
+    /* border: 1px solid #f00808; */
+    flex-direction: row;
+}
+.shipment-detail__address,
+.shipment-detail__person,
+.shipment-detail__tel {
+    /* border: 1px solid #f00808; */
+    white-space: nowrap;
+    font-size: 16px;
+    line-height: 140.62%;
+    text-align: right;
+    color: $gray;
+    margin-left: 8px;
+}
+.shipment-detail__address-detail,
+.shipment-detail__person-detail,
+.shipment-detail__tel-detail {
+    font-size: 16px;
+    line-height: 140.62%;
+    text-align: right;
+    color: $black-topic;
+}
+.shipment-detail__person::before {
+    content: "\e823";
+    @include font-icon__limoo();
+    vertical-align: -10%;
+    color: $gray;
+    font-size: 18px;
+    margin-left: 8px;
+}
+.shipment-detail__address::before {
+    content: "\e817";
+    @include font-icon__limoo();
+    vertical-align: -10%;
+    color: $gray;
+    font-size: 18px;
+    margin-left: 8px;
+}
+.shipment-detail__tel::before {
+    content: "\e81f";
+    @include font-icon__limoo();
+    vertical-align: -10%;
+    color: $gray;
+    font-size: 18px;
+    margin-left: 8px;
+}
+.order-part__status {
+    @include display-flex();
+    flex-direction: row;
+    height: 100%;
     /* border: 1px solid #f00808; */
 }
 
+.order-status__title,
+.order-status__date,
+.order-status__pay {
+    font-size: 16px;
+    line-height: 140.62%;
+    text-align: right;
+    color: $gray;
+    margin: 31px 0 36px 0;
+}
+.order-status__title::before {
+    content: "\e898";
+    @include font-icon__limoo();
+    vertical-align: -10%;
+    color: $gray;
+    font-size: 22px;
+    margin-left: 11px;
+    margin-right: 24.5px;
+}
+.order-status__date::before {
+    content: "\e804";
+    @include font-icon__limoo();
+    vertical-align: -10%;
+    color: $gray;
+    font-size: 22px;
+    margin-left: 11px;
+}
+.order-status__pay::before {
+    content: "\e897";
+    @include font-icon__limoo();
+    vertical-align: -10%;
+    color: $gray;
+    font-size: 22px;
+    margin-left: 11px;
+}
+.order-status__show {
+    font-size: 16px;
+    line-height: 140.62%;
+    text-align: right;
+    margin: 32px 8px 34px 0;
+    color: $black-topic;
+}
+.order-status__toman {
+    font-size: 16px;
+    line-height: 140.62%;
+    text-align: right;
+    margin: 32px 3px 34px 0;
+    color: $black-topic;
+}
 .splicer-line {
     display: block;
     width: 100%;
@@ -418,12 +573,72 @@ export default {
 }
 
 @media (max-width: 1450px) {
+    .order-desktop__status-holder {
+        padding-left: 8px;
+    }
 }
 
 @media (max-width: 1220px) {
-    .order-desktop__holder {
-        padding: 0 5px;
+    .order-status__title,
+    .order-status__date,
+    .order-status__pay {
+        font-size: 14px;
+        white-space: nowrap;
     }
+    .order-status__title::before {
+        font-size: 16px;
+        margin-left: 5px;
+        margin-right: 10px;
+    }
+    .order-status__date::before {
+        font-size: 16px;
+        margin-left: 5px;
+    }
+    .order-status__pay::before {
+        font-size: 16px;
+        margin-left: 5px;
+    }
+    .order-status__show {
+        font-size: 14px;
+        margin: 32px 5px 34px 0;
+        white-space: nowrap;
+    }
+    .order-status__toman {
+        font-size: 14px;
+        margin: 32px 2px 34px 0;
+    }
+    /*  */
+    .order-desktop__shipment-detail {
+        padding: 31px 14px 41px 0;
+    }
+    .shipment-detail__holder {
+        @include display-flex();
+        flex-direction: row;
+    }
+    .shipment-detail__address,
+    .shipment-detail__person,
+    .shipment-detail__tel {
+        font-size: 14px;
+        margin-left: 5px;
+    }
+    .shipment-detail__address-detail,
+    .shipment-detail__person-detail,
+    .shipment-detail__tel-detail {
+        font-size: 14px;
+    }
+    .shipment-detail__person::before {
+        font-size: 16px;
+        margin-left: 5px;
+    }
+    .shipment-detail__address::before {
+        font-size: 16px;
+        margin-left: 5px;
+    }
+    .shipment-detail__tel::before {
+        font-size: 16px;
+        margin-left: 5px;
+    }
+    /*  */
 }
 
 @media (max-width: 960px) {
@@ -431,7 +646,7 @@ export default {
         display: none;
     }
     .splicer-line,
-    .user-profile__support-contact,
+    .user-profile__order-detail,
     .user-profile__support {
         display: none;
     }
