@@ -152,9 +152,9 @@ import TheProfileSideBar from "~/components/Profile/TheProfileSideBar.vue";
 
 export default {
     components: {
-        TheProfileSideBar,
-        contentTickets,
-        modalDeleteTicket
+        TheProfileSideBar
+        // contentTickets,
+        // modalDeleteTicket
     },
 
     data() {
