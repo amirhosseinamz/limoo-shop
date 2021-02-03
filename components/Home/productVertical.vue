@@ -15,40 +15,36 @@
 
         </div>
 
-        <div class="productContent__mainSlider main-carousel w-100">
+        <div class="productContent__mainSlider main-carousel w-100 productContent__vertical">
 
-                  <div v-for="data in products" :key="data.id" class="carousel-cell productContent__carousel ">
-                      <nuxt-link
-                      class="w-100 productContent__link"
-                      :to="'/product/' + data.id"
-                      >
-                          <div class="productContent__carouselContent w-100">
-                            <div class="productContent__carouselRight">
-                              <img class="productContent__carouselImgItem" :src="data.image" alt="">
-                            </div>
+            <div v-for="data in allDesktopSplitTwice" :key="data.id" class="carousel-cell productContent__carousel ">
+                  <div v-for="contentChildren in data.children" :key="contentChildren.id" class="productContent__carouselContent w-100">
 
-                            <div class="productContent__carouselLeft">
-                              <span class="productContent__carouselLine"></span>
+                        <div class="productContent__carouselRight">
+                          <img class="productContent__carouselImgItem" :src="contentChildren.image" alt="">
+                        </div>
 
+                      <div class="productContent__carouselLeft">
+                          <span class="productContent__carouselLine"></span>
                               <div class="productContent__carouselData">
                                 <div class="w-100">
                                   <h3 class="productContent__carouselDataTitle">
-                                    {{data.title}}
+                                    {{contentChildren.title}}
                                   </h3>
                                 </div>
 
-                                <div class="w-100 productContent__carouselPriceMain" :class="{'productContent__haveDiscount':data.discount != ''}">
+                                <div class="w-100 productContent__carouselPriceMain" :class="{'productContent__haveDiscount':contentChildren.discount != ''}">
                                   <div class="productContent__discount">
                                     <div class="productContent__priceDiscount">
                                       <h3 class="productContent__discountTitle">
-                                        {{data.addCamaDiscount}}
+                                        {{contentChildren.addCamaDiscount}}
                                         <span class="productContent__discountLine"></span>
                                       </h3>
                                     </div>
 
                                     <div class="productContent__priceMain">
                                       <h3 class="productContent__priceTitle">
-                                        {{data.addCamaRealPrice}}
+                                        {{contentChildren.addCamaRealPrice}}
                                         <span>تومان</span>
                                       </h3>
                                     </div>
@@ -56,10 +52,14 @@
 
                                 </div>
                               </div>
-                            </div>
-                          </div>
-                      </nuxt-link>
+                      </div>
+
                 </div>
+
+        <!-- </nuxt-link> -->
+  </div>
+
+
 
         </div>
   </div>
@@ -78,10 +78,20 @@ export default {
 
     data() {
       return {
+        allDesktopSplitTwice : [],
       }
     },
 
     mounted() {
+      const width = window.screen.width;
+      this.itemCategorySplitTwice();
+
+      if (860 < width) {
+        setTimeout( () =>{
+          this.flickityOptions();
+        });
+      }
+
     },
 
     computed: {
@@ -89,6 +99,57 @@ export default {
     },
 
     methods: {
+      flickityOptions(){
+        let Flickity       = require("flickity")
+        let sliderOptions  = new Flickity( '.productContent__vertical', {
+          accessibility   : true,
+          adaptiveHeight  : true,
+          rightToLeft     : true,
+          cellAlign       : 'right',
+          imagesLoaded    : true,
+          wrapAround      : false,
+          contain         : true,
+          prevNextButtons : true,
+          // autoPlay        : true, // advance cells every 3 seconds
+          // autoPlay: 1500 // {Number}
+          freeScroll      : false,
+          pageDots        : false,
+          groupCells      : true,
+          fade            : false,
+        });
+      },
+
+      itemCategorySplitTwice(){
+        let counterTwice      = 0;
+        let contentTwiceSplit = [];
+        let levelSplit        = 0;
+
+        // دوتا دوتا جدا سازی آیتم ها در موبایل //
+        this.products.map((content,index)=>{
+            counterTwice++;
+
+          if (counterTwice <= 2) {
+            contentTwiceSplit = [...contentTwiceSplit,content];
+          }
+
+          if (counterTwice >= 2) {
+            counterTwice                     = 0;
+            this.allDesktopSplitTwice.push({children:contentTwiceSplit});
+            contentTwiceSplit                = [];
+            levelSplit                       +=2;
+          }
+
+        });
+
+
+        // پیدا کردن آیتم ای که در جدا سازی دوتایی آیتم ها اضافه آماده است //
+        if (this.products.length != levelSplit) {
+          const lastFindCatOutSideTwice = this.allCategory[levelSplit];
+          this.allDesktopSplitTwice.push( { children: [lastFindCatOutSideTwice] } );
+        }
+
+
+      },
 
     },
 
@@ -97,35 +158,45 @@ export default {
 
 <style lang="scss" scoped>
 .productContent__carousel{
-  // width: 460.5px;
-  width: 33.3%;
+  width: 460.5px;
   background: $white;
+  height: 283px;
 }
 .productContent__mainSlider{
-  position: relative;
-  align-items: flex-start;
-  flex-wrap: wrap;
-  @include display-flex();
+  // position: relative;
+  // align-items: flex-start;
+  // flex-wrap: wrap;
+  // @include display-flex();
 }
 .productContent__carouselContent{
   align-items:center;
   flex-wrap: wrap;
   @include display-flex();
   cursor: pointer;
-  border-left: solid 1px $gray-border;
+  // border-left: solid 1px $gray-border;
   height: 145px;
   border-bottom: solid 1px $gray-border;
   padding-right: 14px;
   align-items: flex-start;
 }
-.productContent__carousel:nth-child(3n) .productContent__carouselContent{
-  border-left: none;
+// .productContent__carousel:nth-child(3n) .productContent__carouselContent{
+//   border-left: none;
+// }
+// .productContent__carousel:nth-child(3n+1) .productContent__carouselContent{
+//   padding-right: 24px;
+// }
+// .productContent__carousel:nth-child(n+4) .productContent__carouselContent{
+//   border-bottom: none;
+//   padding-top: 28px;
+// }
+
+.productContent__carousel:nth-child(n+2) .productContent__carouselContent:nth-child(2){
+  padding-top: 28px;
 }
-.productContent__carousel:nth-child(3n+1) .productContent__carouselContent{
+.productContent__carousel:nth-child(3n+1) .productContent__carouselContent:nth-child(2){
   padding-right: 24px;
 }
-.productContent__carousel:nth-child(n+4) .productContent__carouselContent{
-  border-bottom: none;
+.productContent__carousel:nth-child(1) .productContent__carouselContent:nth-child(2){
   padding-top: 28px;
 }
 
@@ -256,6 +327,7 @@ export default {
 .productContent__catLeft{
   flex-grow: 1;
   @include display-flex();
+  width: 264px;
 }
 .productContent__catTitle{
   color: $black;
@@ -308,40 +380,33 @@ export default {
 
 
 
-@media (max-width: 1200px) {
-  .productContent__carouselLeft{
-    width: 206px;
-  }
-}
+// @media (max-width: 1200px) {
+//   .productContent__carouselLeft{
+//     width: 206px;
+//   }
+// }
 
-@media (max-width: 1024px) {
-  .productContent__carousel{
-    width: 50%;
-  }
-  .productContent__carouselLeft{
-    width: 280px;
-  }
-  .productContent__carousel:nth-child(3n) .productContent__carouselContent{
-    border-left: solid 1px $border-gray-bg;
-    padding-top: 10px;
-  }
-  .productContent__carousel:nth-child(n+4) .productContent__carouselContent{
-    border-bottom: solid 1px $border-gray-bg;
-    padding-top: 10px;
-  }
-  .productContent__carouselContent{
-    height: auto;
-    padding-bottom: 10px;
-  }
-  // .productContent__carousel:nth-child(n+5) .productContent__carouselContent{
-  //   border-bottom: none;
-  // }
-  // .productContent__carousel:nth-last-child(1) .productContent__carouselContent{
-  //   border-bottom: none;
-  //   border-left: none;
-  // }
-
-}
+// @media (max-width: 1024px) {
+//   .productContent__carousel{
+//     width: 50%;
+//   }
+//   .productContent__carouselLeft{
+//     width: 280px;
+//   }
+//   .productContent__carousel:nth-child(3n) .productContent__carouselContent{
+//     border-left: solid 1px $border-gray-bg;
+//     padding-top: 10px;
+//   }
+//   .productContent__carousel:nth-child(n+4) .productContent__carouselContent{
+//     border-bottom: solid 1px $border-gray-bg;
+//     padding-top: 10px;
+//   }
+//   .productContent__carouselContent{
+//     height: auto;
+//     padding-bottom: 10px;
+//   }
+//
+// }
 
 @media (max-width: 960px) {
 }

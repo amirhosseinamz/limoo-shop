@@ -63,7 +63,7 @@ export default {
   flex-wrap: wrap;
   @include display-flex();
   padding-top: 24px;
-  padding-bottom: 24px;
+  padding-bottom: 31px;
 }
 .productContent__left{
   flex-grow: 1;
@@ -140,10 +140,10 @@ export default {
   .productContent__mobile{
     @include display-flex();
   }
-  .productContent__items{
-    padding-top: 16px;
-    padding-bottom: 16px;
-  }
+  // .productContent__items{
+  //   padding-top: 16px;
+  //   padding-bottom: 16px;
+  // }
   .productContent{
     height: auto;
   }
