@@ -6,7 +6,7 @@
                 <product-vertical :products="products"></product-vertical>
                 <div class="w-100 productContent__sliderMore">
                     <nuxt-link class="productContent__moreItem" to="/">
-                      لیست کامل محصولات
+                      لیست کامل دسته بندی
                       <span class=" productContent__moreIcon mobile-inprogress__arrow"></span>
                     </nuxt-link>
                 </div>
@@ -53,7 +53,7 @@ export default {
   margin-top: 40px;
   background: $white;
   border-radius: 12px;
-  height: 401px;
+  // height: 401px;
   @include display-flex();
   align-items: flex-start;
   flex-wrap: wrap;
@@ -62,8 +62,8 @@ export default {
   align-items: flex-start;
   flex-wrap: wrap;
   @include display-flex();
-  padding-top: 38px;
-  padding-bottom: 38px;
+  padding-top: 24px;
+  padding-bottom: 24px;
 }
 .productContent__left{
   flex-grow: 1;
@@ -126,9 +126,6 @@ export default {
   .productContent{
     margin-top: 8px;
   }
-  .productContent__sliderMore{
-    display: flex;
-  }
   .productContent__right{
     width: 100%;
     padding-right: 11px;
@@ -136,7 +133,6 @@ export default {
   }
   .productContent__left{
     width: 100%;
-    margin-top: 24px;
   }
   .productContent__desktop{
     display: none;
@@ -152,14 +148,16 @@ export default {
     height: auto;
   }
   .productContent__sliderMore{
-    margin-top: 34px;
+    margin-top: 32px;
   }
 
 
 }
 
-@media (max-width: 600px) {
-
+@media (max-width: 860px) {
+  .productContent__sliderMore{
+    display: flex;
+  }
 }
 
 @media (max-width: 485px) {

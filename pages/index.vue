@@ -151,7 +151,7 @@ export default {
               title     : 'اپ واچ سری قرمز آلومینیوم آبی با بند اسپرت سیلیکون آبی ویژه سایز 42 و 44',
               discount  : '',
               realPrice : '50000',
-              image     : '/img/sony_pic_1.svg',
+              image     : '/img/sony_pic_3.svg',
             },
             {
               id        : 4,
@@ -164,6 +164,13 @@ export default {
               id        : 5,
               title     : 'اپ واچ سری قرمز آلومینیوم آبی با بند اسپرت سیلیکون آبی ویژه سایز 42 و 44',
               discount  : '',
+              realPrice : '50000',
+              image     : '/img/sony_pic_1.svg',
+            },
+            {
+              id        : 6,
+              title     : 'اپ واچ سری قرمز آلومینیوم آبی با بند اسپرت سیلیکون آبی ویژه سایز 42 و 44',
+              discount  : '36000',
               realPrice : '50000',
               image     : '/img/sony_pic_1.svg',
             },
@@ -225,7 +232,7 @@ export default {
 .page-home{
   @include display-flex();
   align-items: flex-start;
-  width: 72.6%;
+  width: 1381px;
   margin-right: auto;
   margin-left: auto;
 }
