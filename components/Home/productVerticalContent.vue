@@ -6,7 +6,7 @@
                 <product-vertical :products="products"></product-vertical>
                 <div class="w-100 productContent__sliderMore">
                     <nuxt-link class="productContent__moreItem" to="/">
-                      لیست کامل دسته بندی
+                      لیست کامل محصولات
                       <span class=" productContent__moreIcon mobile-inprogress__arrow"></span>
                     </nuxt-link>
                 </div>

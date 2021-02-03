@@ -3,12 +3,12 @@
 
         <div class="w-100 productContent__catTop">
             <div class="productContent__topRight">
-                <h3 class="w-100 productContent__catTitle">دسته بندی محصولات پرفروش</h3>
+                <h3 class="w-100 productContent__catTitle">موبایل اندرویدی</h3>
             </div>
 
             <div class=" productContent__sliderMore productContent__topLeft">
                 <nuxt-link class="productContent__moreItem" to="/">
-                  لیست کامل دسته بندی
+                  لیست کامل محصولات
                   <span class=" productContent__moreIcon mobile-inprogress__arrow"></span>
                 </nuxt-link>
             </div>
@@ -18,45 +18,47 @@
         <div class="productContent__mainSlider main-carousel w-100">
 
                   <div v-for="data in products" :key="data.id" class="carousel-cell productContent__carousel ">
+                      <nuxt-link
+                      class="w-100 productContent__link"
+                      :to="'/product/' + data.id"
+                      >
+                          <div class="productContent__carouselContent w-100">
+                            <div class="productContent__carouselRight">
+                              <img class="productContent__carouselImgItem" :src="data.image" alt="">
+                            </div>
 
-                      <div class="productContent__carouselContent w-100">
-                          <div class="productContent__carouselRight">
-                            <img class="productContent__carouselImgItem" :src="data.image" alt="">
-                          </div>
+                            <div class="productContent__carouselLeft">
+                              <span class="productContent__carouselLine"></span>
 
-                          <div class="productContent__carouselLeft">
-                                <span class="productContent__carouselLine"></span>
-
-                                <div class="productContent__carouselData">
-                                        <div class="w-100">
-                                            <h3 class="productContent__carouselDataTitle">
-                                              {{data.title}}
-                                            </h3>
-                                        </div>
-
-                                        <div class="w-100 productContent__carouselPriceMain" :class="{'productContent__haveDiscount':data.discount != ''}">
-                                              <div class="productContent__discount">
-                                                      <div class="productContent__priceDiscount">
-                                                          <h3 class="productContent__discountTitle">
-                                                            {{data.addCamaDiscount}}
-                                                            <span class="productContent__discountLine"></span>
-                                                          </h3>
-                                                      </div>
-
-                                                      <div class="productContent__priceMain">
-                                                            <h3 class="productContent__priceTitle">
-                                                              {{data.addCamaRealPrice}}
-                                                              <span>تومان</span>
-                                                            </h3>
-                                                      </div>
-                                              </div>
-
-                                        </div>
+                              <div class="productContent__carouselData">
+                                <div class="w-100">
+                                  <h3 class="productContent__carouselDataTitle">
+                                    {{data.title}}
+                                  </h3>
                                 </div>
+
+                                <div class="w-100 productContent__carouselPriceMain" :class="{'productContent__haveDiscount':data.discount != ''}">
+                                  <div class="productContent__discount">
+                                    <div class="productContent__priceDiscount">
+                                      <h3 class="productContent__discountTitle">
+                                        {{data.addCamaDiscount}}
+                                        <span class="productContent__discountLine"></span>
+                                      </h3>
+                                    </div>
+
+                                    <div class="productContent__priceMain">
+                                      <h3 class="productContent__priceTitle">
+                                        {{data.addCamaRealPrice}}
+                                        <span>تومان</span>
+                                      </h3>
+                                    </div>
+                                  </div>
+
+                                </div>
+                              </div>
+                            </div>
                           </div>
-
-                      </div>
-
+                      </nuxt-link>
                 </div>
 
         </div>
@@ -130,7 +132,7 @@ export default {
 .productContent__carouselDataTitle{
   font-size: 16px;
   line-height: 2.2em;
-  color: $black-topic;
+  color: $color_product_vertical;
   font-weight: 500;
   overflow: hidden;
   height: 60px;
@@ -297,6 +299,13 @@ export default {
   flex-grow: 1;
   @include display-flex();
 }
+.productContent__link{
+  flex-wrap: wrap;
+  align-items: flex-start;
+  @include display-flex();
+  text-decoration: none;
+}
+
 
 
 @media (max-width: 1200px) {
