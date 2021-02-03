@@ -6,7 +6,7 @@
             <div class="mobile-screen__holder">
                 <span class="mobile-screen__holder-txt">جزئیات سفارش</span>
                 <img
-                    @click="goToProfile"
+                    @click="goToOrders"
                     class="mobile-screen__holder-arrow"
                     src="/icons/arrow-left.svg"
                 />
@@ -36,21 +36,25 @@
                     <div class="order-desktop__status-holder">
                         <div class="order-part__status">
                             <span class="order-status__title">وضعیت:</span>
-                            <span class="order-status__show"
-                                >در حال پردازش</span
-                            >
+                            <span class="order-status__show">{{
+                                userOrderData.orderSituation
+                            }}</span>
                         </div>
                         <div class="order-part__status">
                             <span class="order-status__date"
                                 >تاریخ ثبت سفارش:</span
                             >
-                            <span class="order-status__show">1399/04/05</span>
+                            <span class="order-status__show">{{
+                                userOrderData.orderData
+                            }}</span>
                         </div>
                         <div class="order-part__status">
                             <span class="order-status__pay"
                                 >مبلغ پرداخت شده:</span
                             >
-                            <span class="order-status__show">850,000</span>
+                            <span class="order-status__show">{{
+                                userOrderData.orderPrice
+                            }}</span>
                             <span class="order-status__toman">تومان</span>
                         </div>
                     </div>
@@ -59,56 +63,106 @@
                             <span class="shipment-detail__person"
                                 >تحویل گیرنده:</span
                             >
-                            <span class="shipment-detail__person-detail"
-                                >شروین پیکارجو</span
-                            >
+                            <span class="shipment-detail__person-detail">{{
+                                userOrderData.person
+                            }}</span>
                         </div>
                         <div class="shipment-detail__holder">
                             <span class="shipment-detail__address"
                                 >آدرس تحویل کالا:</span
                             >
-                            <span class="shipment-detail__address-detail"
-                                >تهران، خیابان ولیعصر، تقاطع مطهری، کوچه حسینی
-                                راد</span
-                            >
+                            <span class="shipment-detail__address-detail">{{
+                                userOrderData.address
+                            }}</span>
                         </div>
                         <div class="shipment-detail__holder">
                             <span class="shipment-detail__tel"
                                 >شماره تماس گیرنده:</span
                             >
-                            <span class="shipment-detail__tel-detail"
-                                >09120056088</span
-                            >
+                            <span class="shipment-detail__tel-detail">{{
+                                userOrderData.tel
+                            }}</span>
                         </div>
                     </div>
                 </div>
                 <!-- ============================ -->
                 <div class="user-profile__order-mobile d-rtl">
-                    قسمت موبایل
+                    <span class="user-profile__topic-order__mobile"
+                        >سفارش {{ $route.params.id }}</span
+                    >
+                    <div class="order-status__mobile-detail">
+                        <div class="order-part__status-mobile">
+                            <span class="order-status__title-mobile"
+                                >وضعیت:</span
+                            >
+                            <span class="order-status__show-mobile">{{
+                                userOrderData.orderSituation
+                            }}</span>
+                        </div>
+                        <!--  -->
+                        <div class="order-part__status-mobile">
+                            <span class="order-status__pay-mobile"
+                                >مبلغ کل واریز شده:</span
+                            >
+                            <span class="order-status__show-mobile">{{
+                                userOrderData.orderPrice
+                            }}</span>
+                            <span class="order-status__toman-mobile"
+                                >تومان</span
+                            >
+                        </div>
+                        <!--  -->
+                        <div class="order-part__status-mobile">
+                            <span class="order-status__date-mobile"
+                                >تاریخ:</span
+                            >
+                            <span class="order-status__show-mobile">{{
+                                userOrderData.orderData
+                            }}</span>
+                        </div>
+                        <!--  -->
+                        <div class="order-part__status-mobile">
+                            <span class="shipment-detail__person-mobile"
+                                >تحویل گیرنده:</span
+                            >
+                            <span class="order-status__show-mobile">{{
+                                userOrderData.person
+                            }}</span>
+                        </div>
+                        <!--  -->
+                        <div class="order-part__status-mobile">
+                            <span class="shipment-detail__tel-mobile"
+                                >شماره تماس گیرنده:</span
+                            >
+                            <span class="order-status__show-mobile">{{
+                                userOrderData.tel
+                            }}</span>
+                        </div>
+                        <!--  -->
+                        <div class="order-part__status-mobile">
+                            <span class="shipment-detail__address-mobile"
+                                >آدرس تحویل کالا:</span
+                            >
+                            <span class="order-status__show-mobile">{{
+                                userOrderData.address
+                            }}</span>
+                        </div>
+                        <!--  -->
+                    </div>
+                    <div class="order-factor__mobile">
+                        <span class="order-factor__mobile-title"
+                            >دریافت فاکتور</span
+                        >
+                    </div>
                 </div>
 
                 <div class="w-100 user-profile-orders-main flex-column">
                     وضعیت سفارش ها
-                    <!-- <contentTickets
-                        :adress-data="adressesData"
-                        :all-province="allProvince"
-                        :all-citys="allCitys"
-                        :form-data="formData"
-                        :profile-phone-number="profilePhoneNumber"
-                        @show-modal-delete-product="showModalDeleteProduct"
-                        @selected-province="selectedProvince"
-                        @selected-city="selectedCity"
-                        @submit-address-add="submitAddressAdd"
-                    ></contentTickets> -->
+                    <!-- ******
+                    ************ -->
                 </div>
             </div>
         </div>
-
-        <!-- <modalDeleteTicket
-            :active.sync="statusShowModalDeleteProduct"
-            :current-product="currentProduct"
-            @btn-delete-modal="btnDeleteProduct"
-        /> -->
     </div>
 </template>
 <script>
@@ -117,82 +171,48 @@ import TheProfileSideBar from "~/components/Profile/TheProfileSideBar.vue";
 export default {
     components: {
         TheProfileSideBar
-        // contentTickets,
-        // modalDeleteTicket
     },
 
     data() {
         return {
             sendTicket: false,
             faqPart: false,
-            adressesData: [
-                {
-                    id: 1,
-                    address: "تهران ، خیابان ولیعصر ، تقاطع کوچه حسینی راد 1",
-                    province: "تهران",
-                    city: "جنت آباد",
-                    codePoste: "90",
-                    nameReceiver: "test",
-                    numberReceiver: "10",
-                    QA: [{ id: 1 }, { id: 2 }]
-                }
-                // {
-                //     id: 2,
-                //     address: "تهران ، خیابان ولیعصر ، تقاطع کوچه حسینی راد 2",
-                //     province: "قم",
-                //     city: "قم",
-                //     codePoste: "2",
-                //     nameReceiver: "test",
-                //     numberReceiver: "10"
-                // },
-                // {
-                //     id: 3,
-                //     address: "تهران ، خیابان ولیعصر ، تقاطع کوچه حسینی راد 3",
-                //     province: "قم",
-                //     city: "قم",
-                //     codePoste: "3",
-                //     nameReceiver: "test",
-                //     numberReceiver: "10"
-                // }
-            ],
-            currentProduct: {},
-            statusShowModalDeleteProduct: false,
-            allProvince: [
-                {
-                    id: 1,
-                    title: "تهران",
-                    selected: false
-                },
-                {
-                    id: 2,
-                    title: "قم",
-                    selected: false
-                }
-            ],
-            allCitys: [
-                {
-                    id: 1,
-                    parent_id: 2,
-                    title: "قم",
-                    selected: false
-                },
-                {
-                    id: 2,
-                    parent_id: 1,
-                    title: "جنت آباد",
-                    selected: false
-                }
-            ],
-            formData: {
-                province: "",
-                city: "",
-                codePoste: "",
-                nameReceiver: "",
-                numberReceiver: "",
-                address: ""
-            },
-            updateAddress: 0,
-            profilePhoneNumber: "09198814783"
+            userOrderData: {
+                id: 1,
+                orderCode: "6861457M",
+                orderPrice: "850,000",
+                orderData: "1399/04/05",
+                person: "شروین پیکارجو",
+                address: "تهران، خیابان ولیعصر، تقاطع مطهری، کوچه حسینی راد",
+                tel: "09120121023",
+                orderSituation: "در حال پردازش",
+                orders: [
+                    {
+                        id: 1,
+                        title:
+                            " اپل واچ سری 1 آلومینیوم آبی اپل واچ سری 1 آلومینیوم",
+                        img: "/img/apple-watch-1.png"
+                    },
+                    {
+                        id: 2,
+                        title:
+                            " اپل واچ سری 2 آلومینیوم آبی اپل واچ سری 2 آلومینیوم",
+                        img: "/img/apple-watch-2.png"
+                    },
+                    {
+                        id: 3,
+                        title:
+                            " اپل واچ سری 3 آلومینیوم آبی اپل واچ سری 3 آلومینیوم",
+                        img: "/img/apple-watch-3.png"
+                    },
+                    {
+                        id: 4,
+                        title:
+                            " اپل واچ سری 4 آلومینیوم آبی اپل واچ سری 4 آلومینیوم",
+                        img: "/img/apple-watch-4.png"
+                    }
+                ]
+            }
         };
     },
 
@@ -203,78 +223,12 @@ export default {
         // const activeTab = this.$route.query.activeTab;
         if (curentRoute == "/profile/support/faq") {
             this.faqPart = true;
-            // this.delivered = false;
-            // this.returned = false;
-            // this.canceled = false;
         }
     },
 
     methods: {
-        goToProfile() {
-            this.$router.push("/profile");
-        },
-        goToSupport(page) {
-            if (page == "sendTicket") {
-                this.$router.push("/profile/support/ticket");
-                this.sendTicket = true;
-            } else if (page == "faqPart") {
-                this.$router.push("/profile/support/faq");
-                this.faqPart = true;
-            }
-        },
-        btnDeleteProduct(data) {
-            const removeFavorite = () => {
-                let indexDelete = -1;
-
-                this.adressesData.map((content, index) => {
-                    if (content.id == data.id) {
-                        indexDelete = index;
-                    }
-                });
-
-                this.adressesData.splice(indexDelete, 1);
-            };
-
-            removeFavorite();
-            this.statusShowModalDeleteProduct = false;
-
-            // request //
-        },
-
-        showModalDeleteProduct(data) {
-            this.currentProduct = data;
-            this.statusShowModalDeleteProduct = true;
-        },
-
-        selectedProvince(data) {
-            // console.log(data,'selectedProvince');
-        },
-
-        selectedCity(data) {
-            // console.log(data,'selectedCitys');
-        },
-
-        submitAddressAdd(data, state) {
-            this.updateAddress++;
-            let findIndex = 0;
-
-            const faceUpdatePage = () => {
-                this.adressesData.map((content, i) => {
-                    if (content.id == data.id) {
-                        this.adressesData[i] = data;
-                    }
-                });
-            };
-
-            // بعد از اتصال به بک این قسمت حذف شود //
-            if (state == "edit") {
-                faceUpdatePage();
-            } else {
-                data.id = 20 + this.updateAddress;
-                this.adressesData.push(data);
-            }
-
-            // send data server //
+        goToOrders() {
+            this.$router.push("/profile/my-orders/in-progress");
         }
     }
 };
@@ -579,6 +533,21 @@ export default {
 }
 
 @media (max-width: 1220px) {
+    .user-profile__topic {
+        font-size: 16px;
+    }
+    .order-factor {
+        margin-right: 15px;
+    }
+    .order-factor__title {
+        font-size: 14px;
+        margin: 22px 0 28px 0;
+    }
+    .order-factor__title::before {
+        font-size: 14px;
+        margin-right: 10px;
+        margin-left: 5px;
+    }
     .order-status__title,
     .order-status__date,
     .order-status__pay {
@@ -671,13 +640,139 @@ export default {
         @include display-flex();
         flex-direction: column;
         background: $white;
-        height: 121px;
+        min-height: 369px;
+        height: fit-content;
         width: 100%;
-        padding-right: 11px;
         border-radius: 10px;
         box-shadow: 0px 8px 16px $box__shadow;
     }
-
+    .user-profile__topic-order__mobile {
+        @include display-flex();
+        align-items: center;
+        height: 59px;
+        width: 100%;
+        font-size: 16px;
+        color: $code;
+        padding-right: 11px;
+        text-align: right;
+        border-bottom: 1px solid $gray-border;
+    }
+    .order-part__status-mobile {
+        @include display-flex();
+        flex-direction: row;
+        width: 100%;
+        margin-top: 15px;
+        /* border: 1px solid red; */
+    }
+    /* /\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\ */
+    .order-status__title-mobile,
+    .order-status__show-mobile,
+    .order-status__pay-mobile,
+    .order-status__date-mobile,
+    .shipment-detail__person-mobile,
+    .shipment-detail__tel-mobile,
+    .shipment-detail__address-mobile {
+        font-size: 14px;
+        line-height: 140.62%;
+        text-align: right;
+        color: $gray;
+    }
+    .shipment-detail__address-mobile {
+        white-space: nowrap;
+    }
+    .order-status__title-mobile::before {
+        content: "\e898";
+        @include font-icon__limoo();
+        vertical-align: -15%;
+        color: $gray;
+        font-size: 17px;
+        margin-left: 12px;
+    }
+    .order-status__pay-mobile::before {
+        content: "\e897";
+        @include font-icon__limoo();
+        vertical-align: -15%;
+        color: $gray;
+        font-size: 17px;
+        margin-left: 12px;
+    }
+    .order-status__date-mobile::before {
+        content: "\e804";
+        @include font-icon__limoo();
+        vertical-align: -15%;
+        color: $gray;
+        font-size: 17px;
+        margin-left: 12px;
+    }
+    .shipment-detail__person-mobile::before {
+        content: "\e823";
+        @include font-icon__limoo();
+        vertical-align: -15%;
+        color: $gray;
+        font-size: 17px;
+        margin-left: 12px;
+    }
+    .shipment-detail__tel-mobile::before {
+        content: "\e81f";
+        @include font-icon__limoo();
+        vertical-align: -15%;
+        color: $gray;
+        font-size: 17px;
+        margin-left: 12px;
+    }
+    .shipment-detail__address-mobile::before {
+        content: "\e817";
+        @include font-icon__limoo();
+        vertical-align: -15%;
+        color: $gray;
+        font-size: 17px;
+        margin-left: 12px;
+    }
+    .order-status__show-mobile {
+        margin-right: 4px;
+        color: $black-topic;
+    }
+    .order-status__toman-mobile {
+        font-size: 14px;
+        line-height: 140.62%;
+        text-align: right;
+        margin-right: 2px;
+        color: $black-topic;
+    }
+    .order-status__mobile-detail {
+        @include display-flex();
+        flex-direction: column;
+        justify-content: space-between;
+        /* border: 1px solid red; */
+        min-height: 240px;
+        height: fit-content;
+        width: 100%;
+        padding-right: 11px;
+        padding-top: 9px;
+    }
+    .order-factor__mobile {
+        @include display-flex();
+        justify-content: center;
+        align-self: center;
+        height: 70px;
+        width: 100%;
+    }
+    .order-factor__mobile-title {
+        font-size: 14px;
+        line-height: 140.62%;
+        color: $code-request;
+        margin: 25px 0 24.5px 0;
+        cursor: pointer;
+    }
+    .order-factor__mobile-title::before {
+        content: "\e812";
+        @include font-icon__limoo();
+        font-size: 22px;
+        vertical-align: -10%;
+        color: $code-request;
+        cursor: pointer;
+        margin-left: 8px;
+    }
     .mobile-screen {
         display: block;
         &__holder {
@@ -729,5 +824,11 @@ export default {
 @media (max-width: 320px) {
 }
 @media (max-width: 280px) {
+    .user-profile__topic-order__mobile {
+        font-size: 14px;
+    }
+    .order-status__mobile-detail {
+        padding-right: 5px;
+    }
 }
 </style>

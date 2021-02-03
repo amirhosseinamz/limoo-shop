@@ -39,7 +39,14 @@
                         </div>
                     </div>
                 </div>
-                <span class="btn-mobile__order-detail">مشاهده جزئیات </span>
+                <NuxtLink
+                    :to="
+                        '/profile/my-orders/in-progress/detail/' +
+                            data.orderCode
+                    "
+                    class="btn-mobile__order-detail"
+                    >مشاهده جزئیات
+                </NuxtLink>
             </div>
             <div class="paid-detail">
                 <div class="order-detail order-code">
@@ -366,6 +373,7 @@ export default {
         color: $gray;
         margin-bottom: 14px;
         margin-right: 4px;
+        text-decoration: none;
     }
     .btn-mobile__order-detail::after {
         content: "\e800";
