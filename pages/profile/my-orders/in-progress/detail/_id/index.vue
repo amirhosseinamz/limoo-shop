@@ -157,9 +157,13 @@
                 </div>
 
                 <div class="w-100 user-profile-orders-main flex-column">
-                    وضعیت سفارش ها
-                    <!-- ******
-                    ************ -->
+                    <span class="order-status__detail-title">
+                        وضعیت سفارش ها
+                    </span>
+
+                    <the-order-detail
+                        :user-order-data="userOrderData"
+                    ></the-order-detail>
                 </div>
             </div>
         </div>
@@ -167,10 +171,11 @@
 </template>
 <script>
 import TheProfileSideBar from "~/components/Profile/TheProfileSideBar.vue";
-
+import TheOrderDetail from "~/components/Profile/UserOrder/OrderDetail/TheOrderDetail.vue";
 export default {
     components: {
-        TheProfileSideBar
+        TheProfileSideBar,
+        TheOrderDetail
     },
 
     data() {
@@ -191,25 +196,29 @@ export default {
                         id: 1,
                         title:
                             " اپل واچ سری 1 آلومینیوم آبی اپل واچ سری 1 آلومینیوم",
-                        img: "/img/apple-watch-1.png"
+                        img: "/img/apple-watch-1.png",
+                        price: "1,200,000"
                     },
                     {
                         id: 2,
                         title:
                             " اپل واچ سری 2 آلومینیوم آبی اپل واچ سری 2 آلومینیوم",
-                        img: "/img/apple-watch-2.png"
+                        img: "/img/apple-watch-2.png",
+                        price: "2,200,000"
                     },
                     {
                         id: 3,
                         title:
                             " اپل واچ سری 3 آلومینیوم آبی اپل واچ سری 3 آلومینیوم",
-                        img: "/img/apple-watch-3.png"
+                        img: "/img/apple-watch-3.png",
+                        price: "3,200,000"
                     },
                     {
                         id: 4,
                         title:
                             " اپل واچ سری 4 آلومینیوم آبی اپل واچ سری 4 آلومینیوم",
-                        img: "/img/apple-watch-4.png"
+                        img: "/img/apple-watch-4.png",
+                        price: "4,200,000"
                     }
                 ]
             }
@@ -282,6 +291,8 @@ export default {
     margin-left: 8px;
 }
 .user-profile-orders-main {
+    @include display-flex();
+    flex-direction: column;
     background: $white;
     width: 100%;
     min-height: 100px;
@@ -289,6 +300,7 @@ export default {
     border-radius: 10px;
     box-shadow: 0px 8px 16px $box__shadow;
     margin-top: 16px;
+    padding: 24px 24px 67px 24px;
 }
 .profile-container {
     margin: 0 auto;
@@ -304,6 +316,11 @@ export default {
     min-height: 100vh;
     height: max-content;
     /* border: 5px solid #2f0404; */
+}
+.order-status__detail-title {
+    font-size: 18px;
+    line-height: 140.62%;
+    text-align: right;
 }
 .user-profile {
     width: 100%;
@@ -533,6 +550,7 @@ export default {
 }
 
 @media (max-width: 1220px) {
+    .order-status__detail-title,
     .user-profile__topic {
         font-size: 16px;
     }
@@ -618,6 +636,13 @@ export default {
     .user-profile__order-detail,
     .user-profile__support {
         display: none;
+    }
+    .user-profile-orders-main {
+        margin-top: 8px;
+        padding: 13px 11px 51px 11px;
+    }
+    .order-status__detail-title {
+        font-size: 14px;
     }
     /* ================== */
 

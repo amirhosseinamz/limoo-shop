@@ -108,7 +108,7 @@ export default {
         userOrderData: { type: [Object, Array], default: {} }
     },
     mounted() {
-        console.log(this.userOrderData);
+        // console.log(this.userOrderData);
     }
 };
 </script>
