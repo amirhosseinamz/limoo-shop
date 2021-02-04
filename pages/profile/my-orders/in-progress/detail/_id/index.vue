@@ -27,7 +27,7 @@
                         </div>
                     </div>
                     <NuxtLink
-                        to="/profile"
+                        to="/profile/my-orders/in-progress"
                         class="user-profile__back-btn"
                     ></NuxtLink>
                 </div>
@@ -180,8 +180,6 @@ export default {
 
     data() {
         return {
-            sendTicket: false,
-            faqPart: false,
             userOrderData: {
                 id: 1,
                 orderCode: "6861457M",
@@ -197,28 +195,32 @@ export default {
                         title:
                             " اپل واچ سری 1 آلومینیوم آبی اپل واچ سری 1 آلومینیوم",
                         img: "/img/apple-watch-1.png",
-                        price: "1,200,000"
+                        price: "1,200,000",
+                        progress: 1
                     },
                     {
                         id: 2,
                         title:
                             " اپل واچ سری 2 آلومینیوم آبی اپل واچ سری 2 آلومینیوم",
                         img: "/img/apple-watch-2.png",
-                        price: "2,200,000"
+                        price: "2,200,000",
+                        progress: 2
                     },
                     {
                         id: 3,
                         title:
                             " اپل واچ سری 3 آلومینیوم آبی اپل واچ سری 3 آلومینیوم",
                         img: "/img/apple-watch-3.png",
-                        price: "3,200,000"
+                        price: "3,200,000",
+                        progress: 3
                     },
                     {
                         id: 4,
                         title:
                             " اپل واچ سری 4 آلومینیوم آبی اپل واچ سری 4 آلومینیوم",
                         img: "/img/apple-watch-4.png",
-                        price: "4,200,000"
+                        price: "4,200,000",
+                        progress: 4
                     }
                 ]
             }
@@ -227,13 +229,7 @@ export default {
 
     watch: {},
 
-    mounted() {
-        const curentRoute = this.$route.path;
-        // const activeTab = this.$route.query.activeTab;
-        if (curentRoute == "/profile/support/faq") {
-            this.faqPart = true;
-        }
-    },
+    mounted() {},
 
     methods: {
         goToOrders() {

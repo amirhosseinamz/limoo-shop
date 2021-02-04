@@ -136,6 +136,7 @@ export default {
         right: 0;
         bottom: 0;
         background: $main-bg;
+        z-index: 2;
     }
     .mobile-mega-menu {
         @include display-flex();
@@ -152,6 +153,7 @@ export default {
         height: 58px;
         position: fixed;
         bottom: 0;
+        z-index: 5;
         /* we have issue --> the main page content stay behind nav */
         &__items {
             /* border: 1px solid red; */

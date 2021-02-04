@@ -39,7 +39,11 @@
                         </div>
                     </div>
                 </div>
-                <span class="btn-mobile__order-detail">مشاهده جزئیات </span>
+                <NuxtLink
+                    :to="'/profile/my-orders/returned/detail/' + data.orderCode"
+                    class="btn-mobile__order-detail"
+                    >مشاهده جزئیات
+                </NuxtLink>
             </div>
             <div class="paid-detail">
                 <div class="order-detail order-code">
@@ -286,6 +290,7 @@ export default {
 .p-history-product-line {
     display: none;
 }
+
 @media (max-width: 1220px) {
     .paid-detail {
         width: 320px;
@@ -366,6 +371,8 @@ export default {
         color: $gray;
         margin-bottom: 14px;
         margin-right: 4px;
+        text-decoration: none;
+        white-space: nowrap;
     }
     .btn-mobile__order-detail::after {
         content: "\e800";
@@ -485,4 +492,3 @@ export default {
     }
 }
 </style>
-

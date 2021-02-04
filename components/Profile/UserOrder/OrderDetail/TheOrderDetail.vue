@@ -23,10 +23,34 @@
             </div>
             <div class="order-detail__timeline">
                 <ul class="progressbar">
-                    <li class="active">بررسی</li>
-                    <li class="active">آماده سازی</li>
-                    <li>ارسال</li>
-                    <li>تحویل</li>
+                    <li
+                        :class="[
+                            order.progress == 1 ? 'active' : '',
+                            order.progress == 2 ? 'active' : '',
+                            order.progress == 3 ? 'active' : '',
+                            order.progress == 4 ? 'active' : ''
+                        ]"
+                    >
+                        بررسی
+                    </li>
+                    <li
+                        :class="[
+                            order.progress == 2 ? 'active' : '',
+                            order.progress == 3 ? 'active' : '',
+                            order.progress == 4 ? 'active' : ''
+                        ]"
+                    >
+                        آماده سازی
+                    </li>
+                    <li
+                        :class="[
+                            order.progress == 3 ? 'active' : '',
+                            order.progress == 4 ? 'active' : ''
+                        ]"
+                    >
+                        ارسال
+                    </li>
+                    <li :class="{ active: order.progress == 4 }">تحویل</li>
                 </ul>
             </div>
             <div class="order-detail__shipment-date">
@@ -45,9 +69,6 @@ export default {
 </script>
 <style lang="scss" scoped>
 /*  */
-.progressbar {
-    counter-reset: step;
-}
 .progressbar li {
     list-style: none;
     display: inline-block;
@@ -61,7 +82,6 @@ export default {
     width: 26px;
     height: 26px;
     line-height: 30px;
-    /* border: 1px solid #ddd; */
     border-radius: 50%;
     display: block;
     text-align: center;
@@ -75,7 +95,7 @@ export default {
     position: absolute;
     width: 100%;
     height: 2px;
-    background-color: #ddd;
+    background-color: $gray__bar;
     top: 13px;
     left: 50%;
     z-index: 0;
@@ -90,7 +110,7 @@ export default {
     border-color: $icon__green;
     background-color: $icon__green;
 }
-.progressbar li.active + li:after {
+.progressbar li.active:after {
     background-color: $icon__green;
 }
 /*  */
@@ -102,7 +122,6 @@ export default {
     width: 100%;
     min-height: 280px;
     height: fit-content;
-    border: 1px solid;
     border: 1px solid $light-gray;
     box-sizing: border-box;
     border-radius: 10px;
@@ -111,7 +130,7 @@ export default {
 .order-detail__timeline {
     padding-top: 12px;
     width: 125%;
-    border: 1px solid red;
+    /* border: 1px solid red; */
     height: 80px;
     margin-right: -12.5%;
     margin-left: -12.5%;
@@ -167,6 +186,7 @@ export default {
     text-align: right;
     color: $black-topic;
     margin-right: 15px;
+    margin-top: 38px;
     /* border: 1px solid red; */
 }
 @media (max-width: 1450px) {
@@ -184,11 +204,100 @@ export default {
     }
 }
 @media (max-width: 960px) {
+    .order-detail__shipment-date {
+        display: none;
+    }
+    .the-order-detail__holder {
+        margin-top: 11px;
+        width: 100%;
+        min-height: 182px;
+        padding: 0 0px 0px 0px;
+    }
+    .order-detail__holder {
+        min-height: 86px;
+        height: fit-content;
+        padding: 16px 8px 0 8px;
+    }
+    /* /\/\/\/\/\/\/\/\ */
+    .order-detail__timeline {
+        padding-top: 5px;
+        width: 120%;
+        height: 46px;
+        margin-right: -10%;
+        margin-left: -10%;
+        margin-bottom: 16px;
+    }
+    .progressbar li {
+        width: 24%;
+        font-size: 13px;
+    }
+    .progressbar li:before {
+        width: 15px;
+        height: 15px;
+        margin: 0 auto 10px auto;
+    }
+    .progressbar li:after {
+        width: 100%;
+        top: 7px;
+    }
+    /* /\/\/\/\/\/\/\/\ */
+    .paid-order-product-img {
+        width: 80px;
+        height: 80px;
+    }
+    .order-title__holder {
+        min-height: 60px;
+        height: fit-content;
+        padding-top: 7px;
+    }
+    .p-product-content-title {
+        font-size: 13px;
+    }
+    .p-product-content-price {
+        margin-top: 10px;
+    }
+    .p-product-content-price-title {
+        font-size: 13px;
+    }
 }
 @media (max-width: 700px) {
+    .p-product-content-price {
+        margin-top: 4px;
+    }
+    .order-detail__timeline {
+        width: 120%;
+        margin-right: -10%;
+        margin-left: -10%;
+    }
+
+    .progressbar li {
+        width: 24%;
+        font-size: 13px;
+    }
+    .progressbar li:before {
+        width: 9px;
+        height: 9px;
+        margin: 0 auto 10px auto;
+    }
+    .progressbar li:after {
+        width: 105%;
+        top: 4px;
+    }
+}
+@media (max-width: 500px) {
+    .progressbar li {
+        width: 22%;
+    }
 }
 @media (max-width: 340px) {
+    .progressbar li {
+        width: 20%;
+        font-size: 12px;
+    }
 }
 @media (max-width: 280px) {
+    .progressbar li {
+        font-size: 11px;
+    }
 }
 </style>

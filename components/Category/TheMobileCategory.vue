@@ -38,7 +38,7 @@ export default {
         border-radius: 10px;
         position: fixed;
         top: 0;
-
+        z-index: 3;
         /* z-index: 200; */
         &__header {
             font-size: 14px;

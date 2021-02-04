@@ -374,6 +374,7 @@ export default {
         margin-bottom: 14px;
         margin-right: 4px;
         text-decoration: none;
+        white-space: nowrap;
     }
     .btn-mobile__order-detail::after {
         content: "\e800";
