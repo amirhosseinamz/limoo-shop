@@ -114,6 +114,7 @@ export default {
     background-color: $icon__green;
 }
 /*  */
+
 .the-order-detail__holder {
     @include display-flex();
     flex-direction: column;
@@ -141,7 +142,9 @@ export default {
     width: 100%;
     min-height: 106px;
     height: fit-content;
+
     padding: 16px 15px 0 15px;
+
     /* border: 1px solid red; */
 }
 .paid-order-product-img {
