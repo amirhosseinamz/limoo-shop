@@ -113,6 +113,12 @@ export default {
             isActive: false
         };
     },
+    watch: {
+        phone(value) {
+            this.phone = value;
+            this.validationPhoneNumber(value);
+        }
+    },
     computed: {
         PhoneNumberPicker() {
             this.storePhone = this.$store.getters.PhoneNumberPicker;
@@ -121,6 +127,15 @@ export default {
     methods: {
         changeRTL() {
             this.$vuetify.rtl = true;
+        },
+        validationPhoneNumber(value) {
+            if (/\D/.test(value)) {
+                this.wrongInput = true;
+            } else if (!/\D/.test(value)) {
+                this.wrongInput = false;
+            } else if (value.length == 0) {
+                this.wrongInput = false;
+            }
         },
         goToNextStepofSignUp() {
             const condition = this.phone.match(/\d/g);

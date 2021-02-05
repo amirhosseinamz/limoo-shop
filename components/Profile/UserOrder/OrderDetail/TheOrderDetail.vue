@@ -215,6 +215,7 @@ export default {
         width: 100%;
         min-height: 182px;
         padding: 0 0px 0px 0px;
+        overflow-x: hidden;
     }
     .order-detail__holder {
         min-height: 86px;
