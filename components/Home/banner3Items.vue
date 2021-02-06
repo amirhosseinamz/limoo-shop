@@ -58,6 +58,13 @@ export default {
     border-radius: 14px;
   }
 
+
+  @media (max-width: 960px) {
+    .bannerItems{
+      margin-bottom: 100px;
+    }
+  }
+
   @media (max-width: 460px) {
     .bannerItems{
       display: none;

@@ -140,27 +140,26 @@ export default {
   .productContent__mobile{
     @include display-flex();
   }
-  // .productContent__items{
-  //   padding-top: 16px;
-  //   padding-bottom: 16px;
-  // }
   .productContent{
     height: auto;
   }
   .productContent__sliderMore{
     margin-top: 32px;
   }
-
+  .productContent__items{
+    padding-top: 16px;
+    padding-bottom: 16px;
+  }
 
 }
 
 @media (max-width: 860px) {
-  .productContent__sliderMore{
-    display: flex;
-  }
 }
 
 @media (max-width: 485px) {
+  .productContent__sliderMore{
+    display: flex;
+  }
 }
 
 @media (max-width: 350px) {

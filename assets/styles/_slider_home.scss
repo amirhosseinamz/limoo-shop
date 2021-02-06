@@ -21,9 +21,14 @@
     position: absolute;
     top: 0;
     right: 0;
-    z-index: 1;
     left: 0;
+    z-index: 1;
     margin: auto;
+  }
+  @-moz-document url-prefix() {
+    .flickity-page-dots .dot::before{
+      top: 1px;
+    }
   }
   .flickity-page-dots .dot.is-selected::before{
     background: $gray;
@@ -79,5 +84,11 @@
       display: none;
     }
   }
-  
+
 }
+
+// .productContent__vertical{
+//   .flickity-button:disabled{
+//     display: none;
+//   }
+// }

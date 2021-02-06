@@ -1,13 +1,13 @@
 <template>
-  <div class="w-100 productContent">
+  <div :class="removeMarginTop" class="w-100 productContent">
 
       <div class="productContent__items w-100">
-            <div class="productContent__right">
+            <div v-if="statusShowCounterDown" class="productContent__right">
                   <counter-down></counter-down>
             </div>
 
             <div class="productContent__left">
-              <product-slider :products="products"></product-slider>
+              <product-slider :name-element-find-slider="nameElementFindSlider" :products="products" :title="title"></product-slider>
               <div class="w-100 productContent__sliderMore">
                   <nuxt-link class="productContent__moreItem" to="/">
                     لیست کامل محصولات
@@ -32,7 +32,11 @@ export default {
     },
 
     props: {
-      products   : { type: [Object,Array], default: [] },
+      products                : { type: [Object,Array], default: [] },
+      statusShowCounterDown   : { type: Boolean, default: true },
+      nameElementFindSlider   : { type: String, default: '' },
+      title                   : { type: Object, default: {} },
+      removeMarginTop         : { type: String, default: '' },
     },
 
     data() {
@@ -63,6 +67,8 @@ export default {
   @include display-flex();
   align-items: flex-start;
   flex-wrap: wrap;
+  box-shadow: 0px 8px 16px rgba(17, 17, 17, 0.03);
+  border-radius: 10px;
 }
 .productContent__items{
   align-items: flex-start;
@@ -113,6 +119,20 @@ export default {
 .productContent__mobile{
   display: none;
 }
+.productContent__updateMargin .productContent__left{
+  margin-top: 0;
+}
+.productContent__updateMargin .productContent__items{
+  padding-top: 24px;
+  padding-bottom: 31px;
+}
+.productContent__updateMargin {
+  height: 419px;
+}
+
+
+
+
 
 
 
@@ -132,9 +152,6 @@ export default {
   .productContent{
     margin-top: 8px;
   }
-  .productContent__sliderMore{
-    display: flex;
-  }
   .productContent__right{
     width: 100%;
     padding-right: 11px;
@@ -150,10 +167,6 @@ export default {
   .productContent__mobile{
     @include display-flex();
   }
-  .productContent__items{
-    padding-top: 16px;
-    padding-bottom: 16px;
-  }
   .productContent{
     height: auto;
   }
@@ -161,6 +174,14 @@ export default {
     margin-top: 34px;
   }
 
+  .productContent__updateMargin .productContent__items{
+    padding-top: 16px;
+    padding-bottom: 16px;
+  }
+  .productContent__items{
+    padding-top: 16px;
+    padding-bottom: 16px;
+  }
 
 }
 
@@ -169,6 +190,9 @@ export default {
 }
 
 @media (max-width: 485px) {
+  .productContent__sliderMore{
+    display: flex;
+  }
 }
 
 @media (max-width: 350px) {

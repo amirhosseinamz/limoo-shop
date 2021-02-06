@@ -15,7 +15,7 @@
 
         </div>
 
-        <div class="productContent__mainSlider main-carousel w-100 productContent__vertical">
+        <div class="main-carousel w-100 productContent__vertical productContent__mainSlider">
 
             <div v-for="data in allDesktopSplitTwice" :key="data.id" class="carousel-cell productContent__carousel ">
                   <div v-for="contentChildren in data.children" :key="contentChildren.id" class="productContent__carouselContent w-100">
@@ -24,35 +24,35 @@
                           <img class="productContent__carouselImgItem" :src="contentChildren.image" alt="">
                         </div>
 
-                      <div class="productContent__carouselLeft">
-                          <span class="productContent__carouselLine"></span>
-                              <div class="productContent__carouselData">
-                                <div class="w-100">
-                                  <h3 class="productContent__carouselDataTitle">
-                                    {{contentChildren.title}}
-                                  </h3>
-                                </div>
-
-                                <div class="w-100 productContent__carouselPriceMain" :class="{'productContent__haveDiscount':contentChildren.discount != ''}">
-                                  <div class="productContent__discount">
-                                    <div class="productContent__priceDiscount">
-                                      <h3 class="productContent__discountTitle">
-                                        {{contentChildren.addCamaDiscount}}
-                                        <span class="productContent__discountLine"></span>
+                          <div class="productContent__carouselLeft">
+                              <span class="productContent__carouselLine"></span>
+                                  <div class="productContent__carouselData">
+                                    <div class="w-100">
+                                      <h3 class="productContent__carouselDataTitle">
+                                        {{contentChildren.title}}
                                       </h3>
                                     </div>
 
-                                    <div class="productContent__priceMain">
-                                      <h3 class="productContent__priceTitle">
-                                        {{contentChildren.addCamaRealPrice}}
-                                        <span>تومان</span>
-                                      </h3>
+                                    <div class="w-100 productContent__carouselPriceMain" :class="{'productContent__haveDiscount':contentChildren.discount != ''}">
+                                      <div class="productContent__discount">
+                                        <div class="productContent__priceDiscount">
+                                          <h3 class="productContent__discountTitle">
+                                            {{contentChildren.addCamaDiscount}}
+                                            <span class="productContent__discountLine"></span>
+                                          </h3>
+                                        </div>
+
+                                        <div class="productContent__priceMain">
+                                          <h3 class="productContent__priceTitle">
+                                            {{contentChildren.addCamaRealPrice}}
+                                            <span>تومان</span>
+                                          </h3>
+                                        </div>
+                                      </div>
+
                                     </div>
                                   </div>
-
-                                </div>
-                              </div>
-                      </div>
+                          </div>
 
                 </div>
 
@@ -79,14 +79,16 @@ export default {
     data() {
       return {
         allDesktopSplitTwice : [],
+        flkty                : {},
       }
     },
 
     mounted() {
-      const width = window.screen.width;
+      const width   = window.innerWidth;
       this.itemCategorySplitTwice();
+      this.detectedResizeBrowser();
 
-      if (860 < width) {
+      if (485 < width) {
         setTimeout( () =>{
           this.flickityOptions();
         });
@@ -117,6 +119,8 @@ export default {
           groupCells      : true,
           fade            : false,
         });
+        this.flkty         = sliderOptions;
+
       },
 
       itemCategorySplitTwice(){
@@ -150,6 +154,22 @@ export default {
 
 
       },
+
+      detectedResizeBrowser(){
+        // در سایز موبایل اسلایدر غیرفغال شده و در سایز دسکتاپ دوباره اسلایدر فعال می شود //
+        window.addEventListener("resize", ()=>{
+          const width   = window.innerWidth;
+            if (485 < width) {
+              this.flickityOptions();
+            }
+            else {
+              if (typeof(this.flkty.fadeIndex) != 'undefined') {
+                this.flkty.destroy()
+              }
+            }
+          }, true);
+      }
+
 
     },
 
@@ -412,27 +432,53 @@ export default {
 }
 
 @media (max-width: 860px) {
-  .productContent__carousel:nth-child(3n+1) .productContent__carouselContent{
+
+}
+
+@media (max-width: 600px) {
+  .productContent__catTitle{
+    font-size: 16px;
+  }
+  .productContent__moreItem{
+    font-size: 14px;
+  }
+  .productContent__topRight{
+    width: 100%;
+  }
+  .productContent__topLeft{
+    justify-content: flex-end;
+    width: 100%;
+  }
+}
+
+
+@media (max-width: 485px) {
+  .productContent__catTitle{
+    font-size: 14px;
+  }
+  .productContent__carousel:nth-child(n+2) .productContent__carouselContent:nth-child(2){
+    padding-top: 16px;
+  }
+  .productContent__carousel:nth-child(3n+1) .productContent__carouselContent:nth-child(2){
     padding-right: 11px;
     padding-left: 11px;
   }
-  .productContent__carousel:nth-child(3n) .productContent__carouselContent{
+  .productContent__carousel:nth-child(1) .productContent__carouselContent:nth-child(2){
     padding-top: 16px;
   }
-  .productContent__carousel:nth-child(n+4) .productContent__carouselContent{
-    padding-top: 16px;
+  .productContent__carousel:last-of-type .productContent__carouselContent:nth-child(2){
+    border-bottom: none;
   }
   .productContent__carousel{
     width: 100%;
+    height: auto;
+    padding-top: 0;
   }
   .productContent__catTop{
-    margin-bottom: 8px;
+    margin-bottom: 9px;
     padding-right: 11px;
     padding-left: 11px;
   }
-  // .productContent__carousel:nth-child(n+2) .productContent__carouselContent{
-  //   padding-top: 16px;
-  // }
   .productContent__carouselContent{
     border-left: none;
     padding-bottom: 0;
@@ -465,30 +511,21 @@ export default {
     width: 80px;
     height: 80px;
   }
-  .productContent__catTitle{
-    font-size: 14px;
-  }
+
   .productContent__carouselData{
     padding-top: 0;
   }
-  .productContent__carousel:nth-child(n+5) .productContent__carouselContent{
-    border-bottom: solid 1px $border-gray-bg;
-  }
-  .productContent__carousel:last-of-type .productContent__carouselContent{
-    border-bottom: none;
-  }
+
   .productContent__carouselLeft{
     width: 237px;
   }
   .productContent__sliderMore{
     display: none;
   }
-}
-
-@media (max-width: 485px) {
   .productContent__carouselLeft{
     width: 221px;
   }
+
 }
 
 @media (max-width: 320px) {

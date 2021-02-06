@@ -87,6 +87,9 @@ export default {
     .bannerItems__item:first-child{
       display: flex;
     }
+    .bannerItems{
+      margin-bottom: 92px;
+    }
   }
 
   // @media (max-width: 420px) {

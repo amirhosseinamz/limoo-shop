@@ -1,5 +1,5 @@
 <template>
-  <div class="w-100 productContent__sliderWrapper">
+  <div class="w-100 productContent__sliderWrapper" :key="updateSlider">
       <div class="w-100 productContent__catTop">
           <div class="productContent__topRight">
               <h3 class="w-100 productContent__catTitle">دسته بندی محصولات پرفروش</h3>
@@ -15,7 +15,7 @@
 
 
         <!-- mobile show -->
-          <div v-if="showSliderMobile" class="productContent__mainCat  main-carousel w-100">
+          <div v-if="showSliderMobile" class="productContent__mainCat  main-carousel w-100 productContent__mainSlider">
                 <div v-for="data in allCategoryMobileSplitTwice" :key="data.id" class="carousel-cell productContent__carousel ">
                       <div v-for="contentChildren in data.children" :key="contentChildren.id" class="productContent__carouselContent w-100">
 
@@ -39,7 +39,7 @@
               </div>
           </div>
 
-          <div v-else class="productContent__mainCat  main-carousel w-100">
+          <div v-else class="productContent__mainCat  main-carousel w-100 productContent__mainSlider">
                 <div v-for="data in allCategory" :key="data.id" class="carousel-cell productContent__carousel ">
                 <div class="productContent__carouselContent w-100">
                         <span class="productContent__carouselLine"></span>
@@ -80,22 +80,26 @@ export default {
       return {
         showSliderMobile            : false,
         allCategoryMobileSplitTwice : [],
+        flkty                       : {},
+        updateSlider                : 0,
       }
     },
 
     mounted() {
-      const width = window.screen.width;
+      const width   = window.innerWidth;
 
       if (485 >= width) {
         this.showSliderMobile = true;
       }
 
+
       // جدا کزدن دسته بندی به صورت دوتا دوتا //
       this.itemCategorySplitTwice();
+      this.detectedResizeBrowser();
 
       setTimeout( () =>{
         this.flickityOptions();
-      });
+      },100);
 
     },
 
@@ -123,6 +127,7 @@ export default {
           fade            : false,
         });
 
+        this.flkty = sliderOptions;
 
         // sliderOptions.on( 'staticClick', ( event, pointer, cellElement, cellIndex ) =>{
         //     this.products.map((content,index)=>{
@@ -165,6 +170,27 @@ export default {
 
 
       },
+
+      detectedResizeBrowser(){
+        // نمایش اسلایدر در موبایل در صورت ریسایز کردن مرورگر //
+        window.addEventListener("resize", ()=>{
+            // let checkUpdateSlider = false;
+            const width   = window.innerWidth;
+
+            if (485 >= width) {
+              this.showSliderMobile = true;
+            }
+            else {
+              this.showSliderMobile = false;
+            }
+
+            this.updateSlider++;
+            setTimeout( () =>{
+              this.flickityOptions()
+            });
+          }, true);
+      }
+
 
 
     },
@@ -323,6 +349,12 @@ export default {
 }
 
 
+@media (max-width: 960px) {
+  .productContent__sliderWrapper{
+    padding-top: 16px;
+    padding-bottom: 21px;
+  }
+}
 
 @media (max-width: 600px) {
   .productContent__topRight{
@@ -395,10 +427,6 @@ export default {
     height: 17px;
     justify-content: flex-start;
     margin-top: 4px;
-  }
-  .productContent__sliderWrapper{
-    padding-top: 16px;
-    padding-bottom: 21px;
   }
   .productContent__catTitle{
     font-size: 14px;

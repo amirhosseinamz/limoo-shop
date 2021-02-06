@@ -4,7 +4,7 @@
               <div class="page__home__introduction-slider-main main-carousel w-100">
                       <div class="carousel-cell w-100">
                             <div class="page__home__introduction__slider w-100">
-                                <img class="page__home__introduction__slider-pic " src="/img/2126986.jpg" alt="">
+                                <img class="page__home__introduction__slider-pic " src="/img/phoneAndroid.svg" alt="">
                             </div>
                       </div>
                       <div class="carousel-cell w-100">

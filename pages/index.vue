@@ -39,7 +39,7 @@ export default {
               title     : 'حافظه SSD وسترن دیجیتال مدل GREEN WDS480G2G0A ظرفیت 480 گیگابایت',
               discount  : '10000',
               realPrice : '50000',
-              image     : '/img/2126986.jpg',
+              image     : '/img/phoneAndroid.svg',
             },
             {
               id        : 2,
@@ -85,7 +85,7 @@ export default {
               id    : 1,
               title : 'موبایل و تبلت',
               count : 'بیش از 220 هزار کالا',
-              image : '/img/2126986.jpg',
+              image : '/img/phoneAndroid.svg',
             },
             {
               id    : 2,

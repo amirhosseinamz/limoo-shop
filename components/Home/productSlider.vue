@@ -1,6 +1,19 @@
 <template>
   <div class="w-100 productContent__sliderWrapper">
-        <div class="productContent__mainSlider main-carousel w-100">
+      <div v-if="title.title != '' " class="w-100 productContent__catTop">
+          <div class="productContent__topRight">
+              <h3 class="w-100 productContent__catTitle">{{title.title}}</h3>
+          </div>
+
+          <div class=" productContent__sliderMore productContent__topLeft">
+              <nuxt-link class="productContent__moreItem" :to="title.href">
+                لیست کامل محصولات
+                <span class=" productContent__moreIcon mobile-inprogress__arrow"></span>
+              </nuxt-link>
+          </div>
+      </div>
+
+        <div :class="nameElementFindSlider" class=" main-carousel w-100 productContent__mainSlider">
             <div v-for="data in products" :key="data.id" class="carousel-cell productContent__carousel ">
             <div class="productContent__carouselContent w-100">
                     <span class="productContent__carouselLine"></span>
@@ -48,7 +61,9 @@ export default {
     },
 
     props: {
-      products   : { type: [Object,Array], default: [] },
+      products                 : { type: [Object,Array], default: [] },
+      nameElementFindSlider    : { type: String, default: '' },
+      title                    : { type: Object, default: {} },
     },
 
     data() {
@@ -67,7 +82,7 @@ export default {
     methods: {
       flickityOptions(){
         let Flickity       = require("flickity")
-        let sliderOptions  = new Flickity( '.productContent__mainSlider', {
+        let sliderOptions  = new Flickity( `.${this.nameElementFindSlider}`, {
           accessibility   : true,
           adaptiveHeight  : true,
           rightToLeft     : true,
@@ -232,6 +247,57 @@ export default {
   flex-wrap: wrap;
   position:relative;
 }
+.productContent__catTitle{
+  color: $black;
+  font-size: 18px;
+  font-weight: 500;
+}
+.productContent__catTop{
+  @include display-flex();
+  flex-wrap: wrap;
+  padding-right: 24px;
+  padding-left: 24px;
+  align-items: center;
+  margin-bottom: 31px;
+}
+.productContent__sliderMore{
+  align-items: flex-start;
+  @include display-flex();
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  padding-left: 13px;
+}
+.productContent__moreItem{
+  font-size: 16px;
+  color: $gray;
+  border-bottom: none;
+  text-decoration: none;
+  @include display-flex();
+  align-items: center;
+}
+.productContent__moreIcon{
+  @include display-flex();
+  margin-right: 11px;
+}
+.mobile-inprogress__arrow::after {
+    content: "\e801";
+    @include font-icon__limoo();
+    font-size: 14px;
+    margin-top: 1px;
+}
+.productContent__topRight{
+  flex-grow: 1;
+  @include display-flex();
+}
+.productContent__link{
+  flex-wrap: wrap;
+  align-items: flex-start;
+  @include display-flex();
+  text-decoration: none;
+}
+
+
+
 
 @media (max-width: 960px) {
   .productContent__carousel:first-child .productContent__carouselLine{
@@ -239,7 +305,31 @@ export default {
   }
 }
 
+@media (max-width: 600px) {
+  .productContent__catTitle{
+    font-size: 16px;
+  }
+  .productContent__moreItem{
+    font-size: 14px;
+  }
+  .productContent__topRight{
+    width: 100%;
+  }
+  .productContent__topLeft{
+    justify-content: flex-end;
+    width: 100%;
+  }
+}
+
 @media (max-width: 485px) {
+  .productContent__catTop{
+    margin-bottom: 16px;
+    padding-right: 11px;
+    padding-left: 11px;
+  }
+  .productContent__catTitle{
+    font-size: 14px;
+  }
   .productContent__carouselData{
     width: 182px;
     margin-top: 8px;
@@ -276,6 +366,9 @@ export default {
   .productContent__carouselPriceMain{
     padding-right: 0;
     padding-left: 0;
+  }
+  .productContent__topLeft{
+    display: none;
   }
 
 
