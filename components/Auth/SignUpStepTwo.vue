@@ -89,8 +89,9 @@ export default {
         },
 
         nextPage() {
-            // go to ...
-            this.$store.commit("walkInSignUpcomponents", { value: "stepOne" });
+            // go to .../users/signin-up
+            this.$router.push("/users/signin-up");
+            // this.$store.commit("walkInSignUpcomponents", { value: "stepOne" });
         }
     }
 };

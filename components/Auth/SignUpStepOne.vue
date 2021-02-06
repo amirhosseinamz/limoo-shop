@@ -87,12 +87,18 @@
                     </div>
 
                     <div class="btn-control">
-                        <button class="signup-btn desk-display" type="submit">
-                            ورود به لیمو
+                        <button
+                            class="signup-btn"
+                            type="submit"
+                            :disabled="btnIsDisabled"
+                        >
+                            <span class="desk-display">ورود به لیمو</span>
+                            <span class="min-display">ورود</span>
                         </button>
-                        <button class="signup-btn min-display" type="submit">
+
+                        <!-- <button class="signup-btn min-display" type="submit">
                             ورود
-                        </button>
+                        </button> -->
                         <button class="google-signup-btn" type="submit">
                             ورود با حساب گوگل
                         </button>
@@ -110,7 +116,8 @@ export default {
             phone: "",
             storePhone: "",
             wrongInput: false,
-            isActive: false
+            isActive: false,
+            btnIsDisabled: false
         };
     },
     watch: {
@@ -119,11 +126,15 @@ export default {
             this.validationPhoneNumber(value);
         }
     },
-    computed: {
-        PhoneNumberPicker() {
-            this.storePhone = this.$store.getters.PhoneNumberPicker;
-        }
+    created() {
+        this.storePhone = this.$store.getters.PhoneNumberPicker;
+        this.phone = this.$store.getters.PhoneNumberPicker;
     },
+    // computed: {
+    //     PhoneNumberPicker() {
+    //         this.storePhone = this.$store.getters.PhoneNumberPicker;
+    //     }
+    // },
     methods: {
         changeRTL() {
             this.$vuetify.rtl = true;
@@ -131,38 +142,35 @@ export default {
         validationPhoneNumber(value) {
             if (/\D/.test(value)) {
                 this.wrongInput = true;
+                this.btnIsDisabled = true;
             } else if (!/\D/.test(value)) {
                 this.wrongInput = false;
-            } else if (value.length == 0) {
-                this.wrongInput = false;
+                this.btnIsDisabled = false;
+                // } else if (value.length == 0) {
+                //     this.wrongInput = false;
             }
         },
         goToNextStepofSignUp() {
             const condition = this.phone.match(/\d/g);
 
-            if (
-                this.phone == "" ||
-                this.phone == String ||
-                condition.length < 11 ||
-                condition.length > 11
-            ) {
+            if (this.phone == "" || condition.length < 11) {
                 this.wrongInput = true;
+                console.log("input is '' or < 11");
             } else if (condition.length === 11) {
+                console.log("input length is === 11");
                 this.wrongInput = false;
                 this.$store.commit("PhoneNumber", { value: this.phone });
-                if (this.phone == this.storePhone) {
-                    // this.$store.commit("walkInSignUpcomponents", {
-                    //     value: "stepTwo"
-                    // });
-                } else {
+                if (!this.wrongInput) {
+                    console.log("go to confirm");
                     // this.$router.push("/signin");
                     this.$store.dispatch({
                         type: "userIsAuth",
                         value: true
                     });
-                    this.$store.commit("walkInSignUpcomponents", {
-                        value: "stepTwo"
-                    });
+                    // this.$store.commit("walkInSignUpcomponents", {
+                    //     value: "stepTwo"
+                    // });
+                    this.$router.push("/users/register/confirm");
                 }
             }
 
