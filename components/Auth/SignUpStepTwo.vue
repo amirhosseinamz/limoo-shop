@@ -40,7 +40,8 @@
                                 <input
                                     @click="[(isActive = true)]"
                                     class="signup-input form-control"
-                                    type="text"
+                                    type="number"
+                                    oninput="if(value.length>4)value=value.slice(0,4)"
                                     v-model="verifyCode"
                                     maxlength="4"
                                     required

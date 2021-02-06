@@ -132,7 +132,7 @@
                         <!--  -->
                         <div class="order-part__status-mobile">
                             <span class="shipment-detail__tel-mobile"
-                                >شماره تماس گیرنده:</span
+                                >شماره تلفن:</span
                             >
                             <span class="order-status__show-mobile">{{
                                 userOrderData.tel
@@ -141,7 +141,7 @@
                         <!--  -->
                         <div class="order-part__status-mobile">
                             <span class="shipment-detail__address-mobile"
-                                >آدرس تحویل کالا:</span
+                                >آدرس:</span
                             >
                             <span class="order-status__show-mobile">{{
                                 userOrderData.address
@@ -223,7 +223,7 @@ export default {
                             " اپل واچ سری 4 آلومینیوم آبی اپل واچ سری 4 آلومینیوم",
                         img: "/img/apple-watch-4.png",
 
-                        price: "4,200,000",
+                        price: "4،200،000",
                         progress: 4
                     }
                 ]

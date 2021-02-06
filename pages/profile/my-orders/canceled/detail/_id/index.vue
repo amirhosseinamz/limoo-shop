@@ -132,7 +132,7 @@
                         <!--  -->
                         <div class="order-part__status-mobile">
                             <span class="shipment-detail__tel-mobile"
-                                >شماره تماس گیرنده:</span
+                                >شماره تلفن:</span
                             >
                             <span class="order-status__show-mobile">{{
                                 userOrderData.tel
@@ -141,7 +141,7 @@
                         <!--  -->
                         <div class="order-part__status-mobile">
                             <span class="shipment-detail__address-mobile"
-                                >آدرس تحویل کالا:</span
+                                >آدرس:</span
                             >
                             <span class="order-status__show-mobile">{{
                                 userOrderData.address
