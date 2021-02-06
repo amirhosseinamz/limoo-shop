@@ -1,5 +1,5 @@
 <template>
-    <div class="container">
+    <div class="container"> 
         <the-user-info />
         <div class="profile-sidebar">
             <!-- =section1= -->
@@ -270,6 +270,12 @@ export default {
             curentRoute == "/profile/support/faq/"
         ) {
             this.supportIsActive = true;
+        }
+        else if (curentRoute == "/profile/favorites") {
+          this.favoriteActive = true;
+        }
+        else if (curentRoute == "/profile/adresses") {
+          this.adressActive = true;
         }
 
         // else if (curentRoute == "/cart") {
