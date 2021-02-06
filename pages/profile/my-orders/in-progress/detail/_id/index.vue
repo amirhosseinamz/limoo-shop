@@ -27,7 +27,7 @@
                         </div>
                     </div>
                     <NuxtLink
-                        to="/profile/my-orders/canceled"
+                        to="/profile/my-orders/in-progress"
                         class="user-profile__back-btn"
                     ></NuxtLink>
                 </div>
@@ -188,13 +188,14 @@ export default {
                 person: "شروین پیکارجو",
                 address: "تهران، خیابان ولیعصر، تقاطع مطهری، کوچه حسینی راد",
                 tel: "09120121023",
-                orderSituation: " لغو شده",
+                orderSituation: "در حال پردازش",
                 orders: [
                     {
                         id: 1,
                         title:
                             " اپل واچ سری 1 آلومینیوم آبی اپل واچ سری 1 آلومینیوم",
                         img: "/img/apple-watch-1.png",
+
                         price: "1,200,000",
                         progress: 1
                     },
@@ -203,6 +204,7 @@ export default {
                         title:
                             " اپل واچ سری 2 آلومینیوم آبی اپل واچ سری 2 آلومینیوم",
                         img: "/img/apple-watch-2.png",
+
                         price: "2,200,000",
                         progress: 2
                     },
@@ -211,6 +213,7 @@ export default {
                         title:
                             " اپل واچ سری 3 آلومینیوم آبی اپل واچ سری 3 آلومینیوم",
                         img: "/img/apple-watch-3.png",
+
                         price: "3,200,000",
                         progress: 3
                     },
@@ -219,7 +222,8 @@ export default {
                         title:
                             " اپل واچ سری 4 آلومینیوم آبی اپل واچ سری 4 آلومینیوم",
                         img: "/img/apple-watch-4.png",
-                        price: "4,200,000",
+
+                        price: "4،200،000",
                         progress: 4
                     }
                 ]
@@ -233,7 +237,7 @@ export default {
 
     methods: {
         goToOrders() {
-            this.$router.push("/profile/my-orders/canceled");
+            this.$router.push("/profile/my-orders/in-progress");
         }
     }
 };

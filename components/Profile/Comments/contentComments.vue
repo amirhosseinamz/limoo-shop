@@ -203,7 +203,6 @@ export default {
     data() {
         return {
             passChangeIsActive: false,
-            fullDescription: false,
             dataEditAddress: {},
             updateSelected: 0
         };

@@ -274,9 +274,12 @@ export default {
 }
 .signup-input {
     padding: 0;
+    color: $code;
     text-align: center;
-    letter-spacing: 0.7rem;
+    text-align: -moz-center;
     font-size: 20px;
+    max-width: 461px;
+    letter-spacing: 0.7em;
 }
 .signup-btn {
     margin-top: 14px;

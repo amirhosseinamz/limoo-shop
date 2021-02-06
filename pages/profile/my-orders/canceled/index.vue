@@ -87,9 +87,9 @@
                         <span class="mobile-canceled__title">لغو شده</span>
                         <span class="mobile-canceled__arrow"></span>
                     </div>
-                    <the-user-order
+                    <the-canceled
                         :user-order-data="userOrderData"
-                    ></the-user-order>
+                    ></the-canceled>
                 </div>
             </div>
         </div>
@@ -97,13 +97,13 @@
 </template>
 <script>
 import TheProfileSideBar from "~/components/Profile/TheProfileSideBar.vue";
-import TheUserOrder from "~/components/Profile/UserOrder/TheUserOrder.vue";
+import TheCanceled from "~/components/Profile/UserOrder/TheCanceled.vue";
 
 export default {
     middleware: "authentication",
     components: {
         TheProfileSideBar,
-        TheUserOrder
+        TheCanceled
     },
 
     data() {
@@ -217,7 +217,7 @@ export default {
         },
         goToOrder(page) {
             if (page == "paidInProgress") {
-                this.$router.push("/profile/my-orders");
+                this.$router.push("/profile/my-orders/in-progress");
                 this.paidInProgress = true;
             } else if (page == "delivered") {
                 this.$router.push("/profile/my-orders/delivered");

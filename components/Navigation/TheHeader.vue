@@ -330,11 +330,11 @@ export default {
     /* make header scrolable with main page in mobile screen */
     .header-container {
         background-color: transparent;
-        z-index: 1;
+        z-index: 5;
     }
     .the-header {
         background-color: $white;
-        z-index: 1;
+        z-index: 5;
 
         position: fixed;
         transform: translate3d(0, 0, 0);

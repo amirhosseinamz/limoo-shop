@@ -79,9 +79,9 @@
                         <span class="mobile-returned__title">مرجوع شده</span>
                         <span class="mobile-returned__arrow"></span>
                     </div>
-                    <the-user-order
+                    <the-returned
                         :user-order-data="userOrderData"
-                    ></the-user-order>
+                    ></the-returned>
                     <div
                         @click="goToOrder('canceled')"
                         class="mobile-nav__order-canceled d-rtl"
@@ -97,13 +97,13 @@
 </template>
 <script>
 import TheProfileSideBar from "~/components/Profile/TheProfileSideBar.vue";
-import TheUserOrder from "~/components/Profile/UserOrder/TheUserOrder.vue";
+import TheReturned from "~/components/Profile/UserOrder/TheReturned.vue";
 
 export default {
     middleware: "authentication",
     components: {
         TheProfileSideBar,
-        TheUserOrder
+        TheReturned
     },
 
     data() {
@@ -217,7 +217,7 @@ export default {
         },
         goToOrder(page) {
             if (page == "paidInProgress") {
-                this.$router.push("/profile/my-orders");
+                this.$router.push("/profile/my-orders/in-progress");
                 this.paidInProgress = true;
             } else if (page == "delivered") {
                 this.$router.push("/profile/my-orders/delivered");

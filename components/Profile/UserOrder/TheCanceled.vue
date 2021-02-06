@@ -39,7 +39,11 @@
                         </div>
                     </div>
                 </div>
-                <span class="btn-mobile__order-detail">مشاهده جزئیات </span>
+                <NuxtLink
+                    :to="'/profile/my-orders/canceled/detail/' + data.orderCode"
+                    class="btn-mobile__order-detail"
+                    >مشاهده جزئیات
+                </NuxtLink>
             </div>
             <div class="paid-detail">
                 <div class="order-detail order-code">
@@ -65,20 +69,12 @@
                         data.orderSituation
                     }}</span>
                 </div>
-                <div class="p-order-product-btn-main">
-                    <button
-                        type="button"
-                        class="paid-order-btn cursor-pointer"
-                        name="button"
-                    >
-                        <NuxtLink
-                            to="/profile/my-orders/detail/"
-                            class="p-history-product-btn-link"
-                        >
-                            <span class="btn-text-desktop">مشاهده سفارش</span>
-                        </NuxtLink>
-                    </button>
-                </div>
+                <NuxtLink
+                    :to="'/profile/my-orders/canceled/detail/' + data.orderCode"
+                    class="p-history-product-btn-link"
+                >
+                    مشاهده سفارش
+                </NuxtLink>
             </div>
             <span
                 class="p-history-product-line w-100 p-history-product-desktop"
@@ -260,24 +256,21 @@ export default {
     color: $black-topic;
 }
 
-.paid-order-btn {
+.p-history-product-btn-link {
+    @include display-flex();
+    align-items: center;
+    justify-content: center;
     width: 270px;
     height: 57px;
-    margin-top: 41px;
-    margin-bottom: 19px;
-    background-color: $btn__green;
-    border-radius: 10px;
-    outline: none;
-    border: none;
-}
-.paid-order-btn a {
-    text-decoration: none;
-}
-.btn-text-desktop {
     color: $white;
+    background-color: $btn__green;
     font-size: 16px;
+    text-align: center;
     line-height: 140.62%;
-    font-family: "IRANYekan";
+    font-family: inherit;
+    border-radius: 10px;
+    text-decoration: none;
+    margin: 41px auto 19px auto;
 }
 .btn-mobile__order-detail,
 .p-history-product-line {
@@ -311,10 +304,10 @@ export default {
     .p-history-product-content-price-title {
         font-size: 14px;
     }
-    .btn-text-desktop {
+    .p-history-product-btn-link {
         font-size: 15px;
     }
-    .paid-order-btn {
+    .p-history-product-btn-link {
         width: 250px;
     }
 }
@@ -350,7 +343,7 @@ export default {
         padding-top: 11px;
         /* border: 1px solid blue; */
     }
-    .p-order-product-btn-main,
+    .p-history-product-btn-link,
     .order-situation,
     .order-price {
         display: none;
@@ -363,6 +356,8 @@ export default {
         color: $gray;
         margin-bottom: 14px;
         margin-right: 4px;
+        text-decoration: none;
+        white-space: nowrap;
     }
     .btn-mobile__order-detail::after {
         content: "\e800";
