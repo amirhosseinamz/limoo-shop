@@ -1,8 +1,9 @@
 <template>
   <div class="w-100 productContent__sliderWrapper">
       <div v-if="title.title != '' " class="w-100 productContent__catTop">
-          <div class="productContent__topRight">
+          <div class="productContent__topRight ">
               <h3 class="w-100 productContent__catTitle">{{title.title}}</h3>
+              <h3 class="productContent__titleVisit w-100">{{title.titleVisit}}</h3>
           </div>
 
           <div class=" productContent__sliderMore productContent__topLeft">
@@ -288,12 +289,20 @@ export default {
 .productContent__topRight{
   flex-grow: 1;
   @include display-flex();
+  flex-flow: column;
 }
 .productContent__link{
   flex-wrap: wrap;
   align-items: flex-start;
   @include display-flex();
   text-decoration: none;
+}
+.productContent__titleVisit{
+  margin-top: 13px;
+  color: $gray;
+  font-size: 17px;
+  font-weight: 300;
+  // display: none;
 }
 
 
@@ -319,11 +328,18 @@ export default {
     justify-content: flex-end;
     width: 100%;
   }
+  .productContent__titleVisit{
+    font-size: 15px;
+  }
 }
 
 @media (max-width: 485px) {
+  .productContent__titleVisit{
+    @include display-flex();
+    font-size: 13px;
+  }
   .productContent__catTop{
-    margin-bottom: 16px;
+    margin-bottom: 14px;
     padding-right: 11px;
     padding-left: 11px;
   }

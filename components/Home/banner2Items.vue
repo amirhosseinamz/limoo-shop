@@ -1,12 +1,12 @@
 <template>
   <div class="w-100 bannerItems">
       <div class="bannerItems__item">
-        <NuxtLink class="w-100 h-100" to="/profile"  >
+        <NuxtLink class="w-100 h-100  d-flex" to="/profile"  >
           <img class="bannerItems__itemPic h-100" src="/img/orangeBnner.svg" alt="">
         </NuxtLink class="w-100 h-100" to="/profile"  >
       </div>
       <div class="bannerItems__item">
-        <NuxtLink class="w-100 h-100" to="/profile"  >
+        <NuxtLink class="w-100 h-100 d-flex" to="/profile"  >
           <img class="bannerItems__itemPic h-100" src="/img/greenBanner.svg" alt="">
         </NuxtLink class="w-100 h-100" to="/profile"  >
       </div>
@@ -45,6 +45,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+  .d-flex{
+    display: flex;
+  }
   .bannerItems{
     width: 100%;
     @include display-flex();
@@ -89,6 +92,7 @@ export default {
     }
     .bannerItems{
       margin-bottom: 92px;
+      margin-top: 8px;
     }
   }
 

@@ -2,33 +2,39 @@
   <div class="w-100 page__home-wrapper-main">
         <div class="page__home-introduction-main w-100">
             <introduction-items></introduction-items>
+
             <product-content
               :products="products"
               :status-show-counter-down="true"
               name-element-find-slider="productContent__mainSlider1"
               remove-margin-top=""
-              :title="{title:'',href:''}"
+              :title="{title:'',href:'',titleVisit:''}"
              ></product-content>
+
             <product-cat :all-category="allCategory"></product-cat>
 
             <product-vertical-content :products="allProductVertical" ></product-vertical-content>
             <banner-items></banner-items>
+
             <product-content
             :products="products"
             :status-show-counter-down="false"
             name-element-find-slider="productContent__mainSlider2"
             remove-margin-top="productContent__updateMargin"
-            :title="{title:'موبایل تستی 2',href:'test'}"
+            :title="{title:'موبایل تستی 2',href:'test',titleVisit:'پر فروش ترین محصولات'}"
             ></product-content>
+
             <product-content
             :products="products"
             :status-show-counter-down="false"
             name-element-find-slider="productContent__mainSlider3"
             remove-margin-top="productContent__updateMargin"
-            :title="{title:'3موبایل تستی 2',href:'test'}"
+            :title="{title:'تستی 3',href:'test',titleVisit:'پر فروش ترین محصولات'}"
             ></product-content>
+
             <banner-2-items></banner-2-items>
             <banner-3-items></banner-3-items>
+
         </div>
   </div>
 </template>
