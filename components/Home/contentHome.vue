@@ -2,7 +2,6 @@
   <div class="w-100 page__home-wrapper-main">
         <div class="page__home-introduction-main w-100">
             <introduction-items></introduction-items>
-
             <product-content
               :products="products"
               :status-show-counter-down="true"
@@ -32,6 +31,14 @@
             :title="{title:'تستی 3',href:'test',titleVisit:'پر فروش ترین محصولات'}"
             ></product-content>
 
+            <question-content
+            :products="products"
+            :status-show-counter-down="false"
+            name-element-find-slider="productContent__mainSlider3"
+            remove-margin-top="productContent__updateMargin"
+            :title="{title:'تستی 3',href:'test',titleVisit:'پر فروش ترین محصولات'}"
+            ></question-content>
+
             <banner-2-items></banner-2-items>
             <banner-3-items></banner-3-items>
 
@@ -47,6 +54,8 @@ import banner3Items from './banner3Items';
 import productContent from './productContent';
 import productCat from './productCat';
 import productVerticalContent from './productVerticalContent';
+import questions from './questions';
+import questionContent from './questionContent';
 
 
 export default {
@@ -64,6 +73,8 @@ export default {
       productContent,
       productCat,
       productVerticalContent,
+      questions,
+      questionContent,
     },
 
     data() {
