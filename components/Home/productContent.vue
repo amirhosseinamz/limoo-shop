@@ -127,7 +127,7 @@ export default {
   padding-bottom: 31px;
 }
 .productContent__updateMargin {
-  height: 446px;
+  height: 451px;
 }
 
 
