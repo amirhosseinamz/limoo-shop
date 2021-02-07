@@ -82,9 +82,10 @@ export default {
     methods: {
         pressed() {
             // talk to server
-            this.$store.commit("walkInSignIncomponents", {
-                value: "PassChange"
-            });
+            // this.$store.commit("walkInSignIncomponents", {
+            //     value: "PassChange"
+            // });
+        this.$router.push("/users/password");
         },
         animate() {
             this.timerPassed = true;
@@ -97,10 +98,11 @@ export default {
         },
         nextPage() {
             // go to ...
-            console.log("hi");
-            this.$store.commit("walkInSignIncomponents", {
-                value: "recyclePass"
-            });
+            // console.log("hi");
+            // this.$store.commit("walkInSignIncomponents", {
+            //     value: "recyclePass"
+            // });
+             this.$router.push("/users/password/forget");
         }
     }
 };

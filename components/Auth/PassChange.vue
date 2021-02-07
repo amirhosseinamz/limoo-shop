@@ -2,8 +2,7 @@
     <div class="pass-container">
         <div class="card">
             <div class="signin-next-btn">
-                <button @click="nextPage" class="app-signin-next-btn">
-                </button>
+                <button @click="nextPage" class="app-signin-next-btn"></button>
                 <div
                     class="success-message"
                     :class="{ 'message-animation': passChenged }"
@@ -150,8 +149,8 @@ export default {
     },
     methods: {
         pressed() {
-            this.$store.commit("passHolder", { value: this.password });
-            console.log(this.password);
+            // this.$store.commit("passHolder", { value: this.password });
+            // console.log(this.password);
             //* move to another method later
             this.passChenged = true;
             setTimeout(() => {
@@ -171,9 +170,10 @@ export default {
         },
         nextPage() {
             // go to ...
-            this.$store.commit("walkInSignIncomponents", {
-                value: "recyclePassStepTwo"
-            });
+            // this.$store.commit("walkInSignIncomponents", {
+            //     value: "recyclePassStepTwo"
+            // });
+            this.$router.push("/users/password/forget/confirm");
         }
     }
 };

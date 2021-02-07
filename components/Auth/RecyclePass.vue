@@ -6,7 +6,7 @@
             </div>
 
             <div class="card-body">
-                <form @submit.prevent="pressed">
+                <form @submit.prevent="goToNextStepofRecyclePass">
                     <div class="form-group">
                         <p class="txt-header">بازیابی رمز عبور</p>
                         <p class="txt-content">
@@ -80,11 +80,7 @@
                     </div>
 
                     <div class="btn-control">
-                        <button
-                            @click="goToNextStepofRecyclePass"
-                            class="signup-btn"
-                            type="submit"
-                        >
+                        <button class="signup-btn" type="submit">
                             ادامه
                         </button>
                     </div>
@@ -116,9 +112,6 @@ export default {
         }
     },
     methods: {
-        changeRTL() {
-            this.$vuetify.rtl = true;
-        },
         validationPhoneNumber(value) {
             if (/\D/.test(value)) {
                 this.wrongInput = true;
@@ -146,45 +139,19 @@ export default {
                         value: "stepTwo"
                     });
                 } else {
-                    this.$store.commit("walkInSignIncomponents", {
-                        value: "recyclePassStepTwo"
-                    });
+                    // this.$store.commit("walkInSignIncomponents", {
+                    //     value: "recyclePassStepTwo"
+                    // });
+                    this.$router.push("/users/password/forget/confirm");
                 }
             }
 
             // pattern="[0-9]{4}[0-9]{3}[0-9]{4}"
         },
-
-        pressed() {
-            const condition = this.phone.match(/\d/g);
-
-            if (
-                this.phone == "" ||
-                this.phone == String ||
-                condition.length < 11 ||
-                condition.length > 11
-            ) {
-                this.wrongInput = true;
-            } else if (condition.length === 11) {
-                this.wrongInput = false;
-                this.$store.commit("PhoneNumber", { value: this.phone });
-                if (this.phone == this.storePhone) {
-                    this.$store.commit("walkInSignUpcomponents", {
-                        value: "stepTwo"
-                    });
-                } else {
-                    this.$store.commit("walkInSignIncomponents", {
-                        value: "recyclePassStepTwo"
-                    });
-                }
-            }
-        },
-        changeRTL() {
-            this.$vuetify.rtl = true;
-        },
         nextPage() {
-            this.$store.commit("walkInSignIncomponents", { value: "stepOne" });
+            // this.$store.commit("walkInSignIncomponents", { value: "stepOne" });
             //   this.$router.push("/signin");
+            this.$router.push("/users/signin");
         }
     }
 };
