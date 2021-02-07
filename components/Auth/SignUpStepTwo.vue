@@ -56,7 +56,11 @@
                         </p>
                     </div>
                     <div class="btn-control">
-                        <button class="signup-btn" type="submit">
+                        <button
+                            class="signup-btn"
+                            type="submit"
+                            @click="showWellcomeModal"
+                        >
                             تایید
                         </button>
                     </div>
@@ -92,6 +96,9 @@ export default {
             // go to .../users/signin-up
             this.$router.push("/users/signin-up");
             // this.$store.commit("walkInSignUpcomponents", { value: "stepOne" });
+        },
+        showWellcomeModal() {
+            this.$emit("event-show-modal-wellcome");
         }
     }
 };

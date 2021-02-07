@@ -2,23 +2,24 @@
     <div class="wellcome-container">
         <div class="card">
             <div class="card-body">
-                <form @submit.prevent="pressed">
-                    <div class="form-control">
-                        <p class="txt-header" dir="rtl">خوش اومدی!</p>
-                        <p dir="rtl" class="txt-content">
-                            شما عضو لیمو شدی و حالا میتونی مشخصاتت رو تکمیل کنی
-                            یا به پر کردن سبد خریدت برسی!
-                        </p>
-                    </div>
-                    <div class="btn-control">
-                        <button class="badge-btn complete-btn" type="submit">
-                            تکمیل مشخصات
-                        </button>
-                        <button class="badge-btn later-btn" type="submit">
-                            فعلا نه
-                        </button>
-                    </div>
-                </form>
+                <div class="form-control">
+                    <p class="txt-header" dir="rtl">خوش اومدی!</p>
+                    <p dir="rtl" class="txt-content">
+                        شما عضو لیمو شدی و حالا میتونی مشخصاتت رو تکمیل کنی یا
+                        به پر کردن سبد خریدت برسی!
+                    </p>
+                </div>
+                <div class="btn-control">
+                    <NuxtLink
+                        to="/profile/personal-info"
+                        class="badge-btn complete-btn"
+                    >
+                        تکمیل مشخصات
+                    </NuxtLink>
+                    <NuxtLink to="/" class="badge-btn later-btn">
+                        فعلا نه
+                    </NuxtLink>
+                </div>
             </div>
         </div>
     </div>
@@ -34,17 +35,14 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-body {
-    background-color:$white;
-}
 .wellcome-container {
     height: 100vh;
+    width: 100%;
     @include display-flex();
     flex-direction: column;
     justify-content: flex-start;
     align-items: flex-end;
-    margin-top: 72px;
-    margin-right: 115px;
+    padding: 72px 115px 0 0;
 }
 
 .card {
@@ -87,6 +85,9 @@ body {
     padding-left: 50px;
 }
 .badge-btn {
+    @include display-flex();
+    align-items: center;
+    justify-content: center;
     font-family: inherit;
     text-align: center;
     border: none;
@@ -97,6 +98,7 @@ body {
     height: 52px;
     font-weight: 500;
     font-size: 14px;
+    text-decoration: none;
 }
 .complete-btn {
     color: $white;
@@ -109,7 +111,15 @@ body {
     margin: 0px 24px 28px 10px;
 }
 
-@media screen and (max-width: 540px) {
+@media screen and (max-width: 700px) {
+    .wellcome-container {
+        height: 100vh;
+        @include display-flex();
+        flex-direction: column;
+        justify-content: flex-end;
+        align-items: center;
+        padding: 0 0 32px 0;
+    }
     .btn-control {
         flex-direction: row-reverse;
     }

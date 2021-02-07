@@ -136,9 +136,6 @@ export default {
     //     }
     // },
     methods: {
-        changeRTL() {
-            this.$vuetify.rtl = true;
-        },
         validationPhoneNumber(value) {
             if (/\D/.test(value)) {
                 this.wrongInput = true;
@@ -175,10 +172,6 @@ export default {
             }
 
             // pattern="[0-9]{4}[0-9]{3}[0-9]{4}"
-        },
-
-        changeRTL() {
-            this.$vuetify.rtl = true;
         },
         closePage() {
             this.$router.push("/");
