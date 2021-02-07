@@ -18,7 +18,7 @@
         <div class="main-carousel w-100 productContent__vertical productContent__mainSlider">
 
             <div v-for="data in allDesktopSplitTwice" :key="data.id" class="carousel-cell productContent__carousel ">
-                  <div v-for="contentChildren in data.children" :key="contentChildren.id" class="productContent__carouselContent w-100">
+                  <div v-if="contentChildren.mobileShow" v-for="contentChildren in data.children" :key="contentChildren.id" class="productContent__carouselContent w-100">
 
                         <div class="productContent__carouselRight">
                           <img class="productContent__carouselImgItem" :src="contentChildren.image" alt="">
@@ -80,11 +80,14 @@ export default {
       return {
         allDesktopSplitTwice : [],
         flkty                : {},
+        allProducts          : [],
       }
     },
 
     mounted() {
-      const width   = window.innerWidth;
+      const width      = window.innerWidth;
+      this.allProducts = this.products;
+
       this.itemCategorySplitTwice();
       this.detectedResizeBrowser();
 
@@ -124,13 +127,28 @@ export default {
       },
 
       itemCategorySplitTwice(){
-        let counterTwice      = 0;
-        let contentTwiceSplit = [];
-        let levelSplit        = 0;
+        let counterTwice          = 0;
+        let contentTwiceSplit     = [];
+        let levelSplit            = 0;
+        const width               = window.innerWidth;
+        let productLimited        = [];
+        this.allDesktopSplitTwice = [];
 
         // دوتا دوتا جدا سازی آیتم ها در موبایل //
         this.products.map((content,index)=>{
             counterTwice++;
+
+          if (485 >= width) {
+              if (index <= 3) {
+                content.mobileShow = true;
+              }
+              else {
+                content.mobileShow = false;
+              }
+          }
+          else {
+            content.mobileShow = true;
+          }
 
           if (counterTwice <= 2) {
             contentTwiceSplit = [...contentTwiceSplit,content];
@@ -146,9 +164,10 @@ export default {
         });
 
 
+
         // پیدا کردن آیتم ای که در جدا سازی دوتایی آیتم ها اضافه آماده است //
         if (this.products.length != levelSplit) {
-          const lastFindCatOutSideTwice = this.allCategory[levelSplit];
+          const lastFindCatOutSideTwice = this.products[levelSplit];
           this.allDesktopSplitTwice.push( { children: [lastFindCatOutSideTwice] } );
         }
 
@@ -160,10 +179,12 @@ export default {
         window.addEventListener("resize", ()=>{
           const width   = window.innerWidth;
             if (485 < width) {
+              this.itemCategorySplitTwice();
               this.flickityOptions();
             }
             else {
               if (typeof(this.flkty.fadeIndex) != 'undefined') {
+                this.itemCategorySplitTwice();
                 this.flkty.destroy()
               }
             }
@@ -226,7 +247,7 @@ export default {
   color: $color_product_vertical;
   font-weight: 500;
   overflow: hidden;
-  height: 60px;
+  height: 61px;
   text-align: right;
 }
 .productContent__carouselImgMain{

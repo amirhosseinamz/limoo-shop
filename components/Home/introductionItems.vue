@@ -4,12 +4,12 @@
               <div class="page__home__introduction-slider-main main-carousel w-100">
                       <div class="carousel-cell w-100">
                             <div class="page__home__introduction__slider w-100">
-                                <img class="page__home__introduction__slider-pic " src="/img/phoneAndroid.svg" alt="">
+                                <img class="page__home__introduction__slider-pic " src="/img/picTest1.jpg" alt="">
                             </div>
                       </div>
                       <div class="carousel-cell w-100">
                             <div class="page__home__introduction__slider w-100">
-                                <img class="page__home__introduction__slider-pic " src="/img/apple-watch-series-4-hermes-double1.svg" alt="">
+                                <img class="page__home__introduction__slider-pic " src="/img/ArEJJ7Elmy2iAF1okIadw53iJdxCqisTJVkXwh1R.jpeg" alt="">
                             </div>
                       </div>
                       <div class="carousel-cell w-100">
