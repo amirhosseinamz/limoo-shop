@@ -80,7 +80,11 @@
                     </div>
 
                     <div class="btn-control">
-                        <button class="signup-btn" type="submit">
+                        <button
+                            class="signup-btn"
+                            :disabled="btnIsDisabled"
+                            type="submit"
+                        >
                             ادامه
                         </button>
                     </div>
@@ -97,7 +101,8 @@ export default {
             phone: "",
             storePhone: "",
             wrongInput: false,
-            isActive: false
+            isActive: false,
+            btnIsDisabled: false
         };
     },
     watch: {
@@ -105,6 +110,10 @@ export default {
             this.phone = value;
             this.validationPhoneNumber(value);
         }
+    },
+    created() {
+        this.storePhone = this.$store.getters.PhoneNumberPicker;
+        this.phone = this.$store.getters.PhoneNumberPicker;
     },
     computed: {
         PhoneNumberPicker() {
@@ -115,42 +124,34 @@ export default {
         validationPhoneNumber(value) {
             if (/\D/.test(value)) {
                 this.wrongInput = true;
+                this.btnIsDisabled = true;
             } else if (!/\D/.test(value)) {
                 this.wrongInput = false;
-            } else if (value.length == 0) {
-                this.wrongInput = false;
+                this.btnIsDisabled = false;
+                // } else if (value.length == 0) {
+                //     this.wrongInput = false;
             }
         },
         goToNextStepofRecyclePass() {
             const condition = this.phone.match(/\d/g);
 
-            if (
-                this.phone == "" ||
-                this.phone == String ||
-                condition.length < 11 ||
-                condition.length > 11
-            ) {
+            if (this.phone == "" || condition.length < 11) {
                 this.wrongInput = true;
             } else if (condition.length === 11) {
                 this.wrongInput = false;
                 this.$store.commit("PhoneNumber", { value: this.phone });
-                if (this.phone == this.storePhone) {
-                    this.$store.commit("walkInSignUpcomponents", {
-                        value: "stepTwo"
-                    });
-                } else {
-                    // this.$store.commit("walkInSignIncomponents", {
-                    //     value: "recyclePassStepTwo"
-                    // });
-                    this.$router.push("/users/password/forget/confirm");
-                }
+                // if (this.phone == this.storePhone) {
+                //     this.$store.commit("walkInSignUpcomponents", {
+                //         value: "stepTwo"
+                //     });
+                // }
             }
-
-            // pattern="[0-9]{4}[0-9]{3}[0-9]{4}"
+            if (!this.wrongInput) {
+                console.log("go to confirm");
+                this.$router.push("/users/password/forget/confirm");
+            }
         },
         nextPage() {
-            // this.$store.commit("walkInSignIncomponents", { value: "stepOne" });
-            //   this.$router.push("/signin");
             this.$router.push("/users/signin");
         }
     }

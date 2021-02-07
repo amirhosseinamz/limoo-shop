@@ -170,9 +170,6 @@ export default {
         },
         nextPage() {
             // go to ...
-            // this.$store.commit("walkInSignIncomponents", {
-            //     value: "recyclePassStepTwo"
-            // });
             this.$router.push("/users/password/forget/confirm");
         }
     }

@@ -40,7 +40,8 @@
                                 <input
                                     @click="[(isActive = true)]"
                                     class="signup-input form-control"
-                                    type="text"
+                                    type="number"
+                                    oninput="if(value.length>4)value=value.slice(0,4)"
                                     v-model="verifyCode"
                                     maxlength="4"
                                     required
@@ -85,7 +86,7 @@ export default {
             // this.$store.commit("walkInSignIncomponents", {
             //     value: "PassChange"
             // });
-        this.$router.push("/users/password");
+            this.$router.push("/users/password");
         },
         animate() {
             this.timerPassed = true;
@@ -102,7 +103,7 @@ export default {
             // this.$store.commit("walkInSignIncomponents", {
             //     value: "recyclePass"
             // });
-             this.$router.push("/users/password/forget");
+            this.$router.push("/users/password/forget");
         }
     }
 };

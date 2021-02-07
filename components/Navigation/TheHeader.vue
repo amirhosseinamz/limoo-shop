@@ -1,5 +1,10 @@
 <template>
     <div class="header-container">
+        <!--  -->
+        <div id="overlay" v-if="showModalAuth">
+            <wellcome-sign-up></wellcome-sign-up>
+        </div>
+        <!--  -->
         <header class="the-header" :class="{ 'navbar--hidden': !showNavbar }">
             <div class="the-header__items">
                 <div class="logo">
@@ -43,14 +48,11 @@
                 </div>
                 <div class="navigation-item navigation-item__profile">
                     <span class="navigation-item__profile-person"></span>
-                    <button class="navigation-item__profile-btn">
+                    <button @click="show" class="navigation-item__profile-btn">
                         ورود <span style="color: #e0e0e0">|</span> عضویت
                     </button>
                 </div>
-                <div
-                    @click="show"
-                    class="navigation-item navigation-item__call"
-                >
+                <div class="navigation-item navigation-item__call">
                     <span class="navigation-item__call-person"></span>
                     <button class="navigation-item__call-btn">
                         پشتیبانی
@@ -70,15 +72,18 @@
 
 <script>
 import TheMegaMenu from "~/components/Navigation/TheMegaMenu.vue";
+import WellcomeSignUp from "~/components/Auth/WellcomeSignUp.vue";
 export default {
     name: "TheHeader",
     components: {
-        TheMegaMenu
+        TheMegaMenu,
+        WellcomeSignUp
     },
     data() {
         return {
             showNavbar: true,
-            lastScrollPosition: 0
+            lastScrollPosition: 0,
+            showModalAuth: false
         };
     },
     mounted() {
@@ -91,6 +96,7 @@ export default {
     methods: {
         show() {
             console.log("hi");
+            this.showModalAuth = true;
         },
         onScroll() {
             const currentScrollPosition =
@@ -122,6 +128,16 @@ export default {
     height: 135px;
     background-color: $white;
     z-index: 2;
+}
+#overlay {
+    position: fixed; /* Sit on top of the page content */
+    @include display-flex();
+    justify-content: center;
+    align-items: center;
+    width: 100%; /* Full width (cover the whole page) */
+    height: 100%; /* Full height (cover the whole page) */
+    z-index: 3;
+    background: $overlay__profile;
 }
 .the-header {
     @include display-flex();
@@ -332,10 +348,12 @@ export default {
         background-color: transparent;
         z-index: 5;
     }
+    #overlay {
+        display: none;
+    }
     .the-header {
         background-color: $white;
         z-index: 5;
-
         position: fixed;
         transform: translate3d(0, 0, 0);
         transition: 0.1s all ease-out;

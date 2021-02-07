@@ -157,21 +157,15 @@ export default {
                 console.log("input length is === 11");
                 this.wrongInput = false;
                 this.$store.commit("PhoneNumber", { value: this.phone });
-                if (!this.wrongInput) {
-                    console.log("go to confirm");
-                    // this.$router.push("/signin");
-                    this.$store.dispatch({
-                        type: "userIsAuth",
-                        value: true
-                    });
-                    // this.$store.commit("walkInSignUpcomponents", {
-                    //     value: "stepTwo"
-                    // });
-                    this.$router.push("/users/register/confirm");
-                }
             }
-
-            // pattern="[0-9]{4}[0-9]{3}[0-9]{4}"
+            if (!this.wrongInput) {
+                console.log("go to confirm");
+                this.$store.dispatch({
+                    type: "userIsAuth",
+                    value: true
+                });
+                this.$router.push("/users/register/confirm");
+            }
         },
         closePage() {
             this.$router.push("/");
