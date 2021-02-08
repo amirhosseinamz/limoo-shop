@@ -91,7 +91,7 @@ export default {
       display: flex;
     }
     .bannerItems{
-      margin-bottom: 92px;
+      margin-bottom: 0;
       margin-top: 8px;
     }
   }

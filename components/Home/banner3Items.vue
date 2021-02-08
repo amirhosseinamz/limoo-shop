@@ -65,7 +65,7 @@ export default {
 
   @media (max-width: 960px) {
     .bannerItems{
-      margin-bottom: 100px;
+      margin-bottom: 0;
     }
   }
 
