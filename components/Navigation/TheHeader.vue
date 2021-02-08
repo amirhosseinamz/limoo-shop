@@ -103,10 +103,34 @@ export default {
     },
     mounted() {
         window.addEventListener("scroll", this.onScroll);
-        setInterval(() => {
-            this.showModalWellcome = this.$store.getters.stateShowModalWellcome;
-            // console.log("legendary");
-        }, 100);
+        // setInterval(() => {
+        //     this.showModalWellcome = this.$store.getters.stateShowModalWellcome;
+        //     // console.log("legendary");
+        // }, 100);
+
+        // this.$store.watch(
+        //     state => {
+        //         return this.$store.getters.stateShowModalWellcome;
+        //     },
+        //     val => {
+        //         //something changed do something
+        //         this.showModalWellcome = val;
+        //     }
+        //     // {
+        //     //     deep: true
+        //     // }
+        // );
+    },
+    computed: {
+        stateShowModalWellcome: function() {
+            return this.$store.getters.stateShowModalWellcome; // return the state value in `my_state`
+        }
+    },
+    watch: {
+        stateShowModalWellcome: function(newVal, oldVal) {
+            // this function will trigger when ever the value of `my_state` changes
+            this.showModalWellcome = newVal;
+        }
     },
     beforeDestroy() {
         window.removeEventListener("scroll", this.onScroll);
