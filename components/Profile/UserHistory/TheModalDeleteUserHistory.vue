@@ -64,6 +64,7 @@ export default {
 <style lang="scss" scoped>
 .p-profile-history-wrapper {
     @include display-flex();
+    padding: 1rem;
 }
 .p-profile-history-btns {
     @include display-flex();

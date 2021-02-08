@@ -1,23 +1,19 @@
 <template>
     <div>
-        <div id="overlay" v-if="showModalWellcome">
+        <!-- <div id="overlay" v-if="showModalWellcome">
             <wellcome-sign-up></wellcome-sign-up>
-        </div>
-        <sign-up-step-two
-            @event-show-modal-wellcome="eventShowModalWellcome"
-        ></sign-up-step-two>
+        </div> -->
+        <sign-up-step-two></sign-up-step-two>
     </div>
 </template>
 
 <script>
 import SignUpStepTwo from "~/components/Auth/SignUpStepTwo";
-import modalWellcome from "~/components/Auth/AuthModals/modalWellcome";
 import WellcomeSignUp from "~/components/Auth/WellcomeSignUp.vue";
 export default {
     layout: "signinup",
     components: {
         SignUpStepTwo,
-        modalWellcome,
         WellcomeSignUp
     },
     data() {
@@ -25,11 +21,7 @@ export default {
             showModalWellcome: false
         };
     },
-    methods: {
-        eventShowModalWellcome() {
-            this.showModalWellcome = true;
-        }
-    }
+    methods: {}
 };
 </script>
 <style lang="scss" scoped>

@@ -10,15 +10,19 @@
                     </p>
                 </div>
                 <div class="btn-control">
-                    <NuxtLink
-                        to="/profile/personal-info"
+                     <!-- to="/profile/personal-info" -->
+                    <button
+                        @click="closeWellcomeModalandGoToProfile"
                         class="badge-btn complete-btn"
                     >
                         تکمیل مشخصات
-                    </NuxtLink>
-                    <NuxtLink to="/" class="badge-btn later-btn">
+                    </button>
+                    <button
+                        @click="closeWellcomeModal"
+                        class="badge-btn later-btn"
+                    >
                         فعلا نه
-                    </NuxtLink>
+                    </button>
                 </div>
             </div>
         </div>
@@ -30,7 +34,14 @@ export default {
     data() {
         return {};
     },
-    methods: {}
+    methods: {
+        closeWellcomeModal() {
+            this.$emit("event-close-modal-wellcome");
+        },
+        closeWellcomeModalandGoToProfile(){
+             this.$emit("event-close-modal-and-go-to-perofile");
+        }
+    }
 };
 </script>
 

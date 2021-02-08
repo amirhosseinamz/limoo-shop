@@ -1,8 +1,13 @@
 <template>
     <div class="header-container">
         <!--  -->
-        <div id="overlay" v-if="showModalAuth">
-            <wellcome-sign-up></wellcome-sign-up>
+        <div id="overlay" v-if="showModalWellcome">
+            <WellcomeSignUp
+                @event-close-modal-wellcome="closeWellcomeModal"
+                @event-close-modal-and-go-to-perofile="
+                    closeWellcomeModalandGoToProfile
+                "
+            />
         </div>
         <!--  -->
         <header class="the-header" :class="{ 'navbar--hidden': !showNavbar }">
@@ -46,9 +51,12 @@
                     </button>
                     <span class="navigation-item__cart-basket"></span>
                 </div>
-                <div class="navigation-item navigation-item__profile">
+                <div
+                    class="navigation-item navigation-item__profile"
+                    @click="showAuthModal"
+                >
                     <span class="navigation-item__profile-person"></span>
-                    <button @click="show" class="navigation-item__profile-btn">
+                    <button class="navigation-item__profile-btn">
                         ورود <span style="color: #e0e0e0">|</span> عضویت
                     </button>
                 </div>
@@ -67,36 +75,71 @@
             </div>
         </header>
         <the-mega-menu />
+        <modalAuth
+            :active.sync="showModalAuth"
+            @event-show-modal-wellcome="showWellcomeModal"
+        />
     </div>
 </template>
 
 <script>
 import TheMegaMenu from "~/components/Navigation/TheMegaMenu.vue";
 import WellcomeSignUp from "~/components/Auth/WellcomeSignUp.vue";
+import modalAuth from "~/components/Auth/AuthModals/modalAuth.vue";
 export default {
     name: "TheHeader",
     components: {
         TheMegaMenu,
-        WellcomeSignUp
+        WellcomeSignUp,
+        modalAuth
     },
     data() {
         return {
             showNavbar: true,
             lastScrollPosition: 0,
-            showModalAuth: false
+            showModalAuth: false,
+            showModalWellcome: false
         };
     },
     mounted() {
         window.addEventListener("scroll", this.onScroll);
+        setInterval(() => {
+            this.showModalWellcome = this.$store.getters.stateShowModalWellcome;
+            // console.log("legendary");
+        }, 100);
     },
     beforeDestroy() {
         window.removeEventListener("scroll", this.onScroll);
     },
-
     methods: {
-        show() {
+        showAuthModal() {
             console.log("hi");
             this.showModalAuth = true;
+        },
+        showWellcomeModal() {
+            this.showModalAuth = false;
+            this.$store.dispatch({
+                type: "stateShowModalWellcome",
+                value: true
+            });
+            // setTimeout(() => {
+            //     this.showModalWellcome = this.$store.getters.stateShowModalWellcome;
+            // }, 200);
+        },
+        closeWellcomeModal() {
+            this.showModalWellcome = false;
+            this.$store.dispatch({
+                type: "stateShowModalWellcome",
+                value: false
+            });
+        },
+        closeWellcomeModalandGoToProfile() {
+            this.showModalWellcome = false;
+            this.$store.dispatch({
+                type: "stateShowModalWellcome",
+                value: false
+            });
+            this.$router.push("/profile/personal-info");
         },
         onScroll() {
             const currentScrollPosition =
@@ -136,7 +179,7 @@ export default {
     align-items: center;
     width: 100%; /* Full width (cover the whole page) */
     height: 100%; /* Full height (cover the whole page) */
-    z-index: 3;
+    z-index: 7;
     background: $overlay__profile;
 }
 .the-header {
@@ -346,11 +389,11 @@ export default {
     /* make header scrolable with main page in mobile screen */
     .header-container {
         background-color: transparent;
-        z-index: 5;
+        z-index: 7;
     }
-    #overlay {
+    /* #overlay {
         display: none;
-    }
+    } */
     .the-header {
         background-color: $white;
         z-index: 5;

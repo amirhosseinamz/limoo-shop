@@ -164,11 +164,11 @@ export default {
                     type: "userIsAuth",
                     value: true
                 });
-                this.$router.push("/users/register/confirm");
+                this.$emit("btn-go-back-signup-step-two");
             }
         },
         closePage() {
-            this.$router.push("/");
+            this.$emit("btn-close-modal");
         }
     }
 };
@@ -176,12 +176,13 @@ export default {
 
 <style lang="scss" scoped>
 .signup-container {
-    height: 100vh;
+    /* height: 100vh; */
     @include display-flex();
     flex-direction: column;
     justify-content: center;
     align-items: center;
     text-align: center;
+    /* background-color: red; */
 }
 
 .card {

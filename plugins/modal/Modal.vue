@@ -318,7 +318,7 @@ export default {
 
 .modal-body {
     position: relative;
-    padding: 1rem;
+    /* padding: 1rem; */
     font-size: 12px;
 }
 .modal-body h1,

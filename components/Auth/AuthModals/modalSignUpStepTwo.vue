@@ -94,16 +94,12 @@ export default {
 
         nextPage() {
             // go to .../users/signin-up
-            this.$router.push("/users/signin-up");
+            // this.$router.push("/users/signin-up");
             // this.$store.commit("walkInSignUpcomponents", { value: "stepOne" });
+             this.$emit("btn-go-back-signup-step-one");
         },
         showWellcomeModal() {
-            this.$store.dispatch({
-                type: "stateShowModalWellcome",
-                value: true
-            });
-
-            this.$router.push("/");
+            this.$emit("event-show-modal-wellcome");
         }
     }
 };
@@ -167,7 +163,7 @@ export default {
 }
 
 .signup-container {
-    height: 100vh;
+    /* height: 100vh; */
     @include display-flex();
     flex-direction: column;
     justify-content: center;

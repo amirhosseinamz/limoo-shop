@@ -1,7 +1,8 @@
 <template>
     <div>
-        <div id="overlay" v-if="MobileCategoryIsActive"></div>
-        <The-mobile-category v-if="MobileCategoryIsActive" />
+        <div id="overlay" v-if="MobileCategoryIsActive">
+            <The-mobile-category />
+        </div>
         <div class="mobile-mega-menu">
             <div
                 @click="goToProfile"
@@ -33,7 +34,7 @@
                     سبد خرید
                 </button>
             </div>
-            
+
             <div
                 @click="showCategory"
                 class="mobile-mega-menu__items mobile-mega-menu__category"
@@ -75,7 +76,7 @@ export default {
             MobileCategoryIsActive: false,
             profileIsActive: false,
             basketIsActive: false,
-            homeIsActive: false,
+            homeIsActive: false
         };
     },
     components: {
@@ -91,8 +92,6 @@ export default {
         } else if (curentRoute.search("/profile") == 0) {
             this.profileIsActive = true;
         }
-
-
     },
     methods: {
         showCategory() {
