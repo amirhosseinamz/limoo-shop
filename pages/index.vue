@@ -16,6 +16,8 @@
         :products="products"
         :all-category="allCategory"
         :all-product-vertical="allProductVertical"
+        :all-brand="allBrand"
+
        ></content-home>
     </div>
 </template>
@@ -187,6 +189,58 @@ export default {
               discount  : '36000',
               realPrice : '50000',
               image     : '/img/sony_pic_1.svg',
+            },
+
+          ],
+          allBrand     : [
+            {
+              id    : 1,
+              title : 'موبایل و تبلت',
+              count : 'بیش از 220 هزار کالا',
+              image : '/img/brand_huawei.svg',
+              href  : 'https://www.huawei.com/en/',
+            },
+            {
+              id    : 2,
+              title : 'دیتا تستی',
+              count : 'بیش از 200 هزار کالا',
+              image : '/img/brand1.svg',
+              href  : 'https://www.huawei.com/en/',
+            },
+            {
+              id    : 3,
+              title : 'دیتا تستی',
+              count : 'بیش از 200 هزار کالا',
+              image : '/img/cat_pic2.svg',
+              href  : 'https://www.huawei.com/en/',
+            },
+            {
+              id    : 4,
+              title : 'دیتا تستی',
+              count : 'بیش از 200 هزار کالا',
+              image : '/img/pic_cat3.svg',
+              href  : 'https://www.huawei.com/en/',
+            },
+            {
+              id    : 6,
+              title : 'دیتا تستی',
+              count : 'بیش از 200 هزار کالا',
+              image : '/img/cat_pic2.svg',
+              href  : 'https://www.huawei.com/en/',
+            },
+            {
+              id    : 7,
+              title : 'دیتا تستی',
+              count : 'بیش از 200 هزار کالا',
+              image : '/img/pic_cat_4.svg',
+              href  : 'https://www.huawei.com/en/',
+            },
+            {
+              id    : 8,
+              title : 'دیتا تستی',
+              count : 'بیش از 200 هزار کالا',
+              image : '/img/cat_pic2.svg',
+              href  : 'https://www.huawei.com/en/',
             },
 
           ],

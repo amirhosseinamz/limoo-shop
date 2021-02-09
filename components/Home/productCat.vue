@@ -1,8 +1,8 @@
 <template>
-  <div class="w-100 productContent">
+  <div :class="changeStyle" class="w-100 productContent">
 
       <div class="productContent__items w-100">
-        <product-cat-content :all-category="allCategory"></product-cat-content>
+        <product-cat-content :all-category="allCategory" :name-element-find-slider="nameElementFindSlider" :title="title"></product-cat-content>
       </div>
 
   </div>
@@ -18,7 +18,10 @@ export default {
     },
 
     props: {
-      allCategory   : { type: [Object,Array], default: [] },
+      allCategory             : { type: [Object,Array], default: [] },
+      nameElementFindSlider   : { type: String, default: '' },
+      changeStyle             : { type: String, default: '' },
+      title                   : { type: Object, default: {} },
     },
 
     data() {
@@ -46,7 +49,6 @@ export default {
   margin-top: 40px;
   background: $white;
   border-radius: 12px;
-  height: 281px;
   @include display-flex();
   align-items: flex-start;
   flex-wrap: wrap;
@@ -59,8 +61,9 @@ export default {
   padding-bottom: 0px;
   height: 100%;
 }
-
-
+.productContent__catChangeStyle{
+  margin-bottom: 42px;
+}
 
 
 
@@ -89,6 +92,10 @@ export default {
   .productContent{
     height: 231px;
   }
+  .productContent__catChangeStyle{
+    display: none;
+  }
+
 }
 
 @media (max-width: 350px) {

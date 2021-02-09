@@ -2,7 +2,8 @@
   <div class="w-100 productContent__sliderWrapper" :key="updateSlider">
       <div class="w-100 productContent__catTop">
           <div class="productContent__topRight">
-              <h3 class="w-100 productContent__catTitle">دسته بندی محصولات پرفروش</h3>
+              <h3 class="w-100 productContent__catTitle">{{title.title}}</h3>
+              <h3 class="productContent__titleVisit w-100">{{title.titleVisit}}</h3>
           </div>
 
           <div class=" productContent__sliderMore productContent__topLeft">
@@ -15,7 +16,7 @@
 
 
         <!-- mobile show -->
-          <div v-if="showSliderMobile" class="productContent__mainCat  main-carousel w-100 productContent__mainSlider">
+          <div v-if="showSliderMobile" :class="nameElementFindSlider" class="productContent__mainCat  main-carousel w-100 productContent__mainSlider">
                 <div v-for="data in allCategoryMobileSplitTwice" :key="data.id" class="carousel-cell productContent__carousel ">
                       <div v-for="contentChildren in data.children" :key="contentChildren.id" class="productContent__carouselContent w-100">
 
@@ -39,7 +40,7 @@
               </div>
           </div>
 
-          <div v-else class="productContent__mainCat  main-carousel w-100 productContent__mainSlider">
+          <div v-else :class="nameElementFindSlider" class="productContent__mainCat  main-carousel w-100 productContent__mainSlider">
                 <div v-for="data in allCategory" :key="data.id" class="carousel-cell productContent__carousel ">
                 <div class="productContent__carouselContent w-100">
                         <span class="productContent__carouselLine"></span>
@@ -73,7 +74,10 @@ export default {
     },
 
     props: {
-      allCategory   : { type: [Object,Array], default: [] },
+      allCategory              : { type: [Object,Array], default: [] },
+      nameElementFindSlider    : { type: String, default: '' },
+      title                    : { type: Object, default: {} },
+
     },
 
     data() {
@@ -110,7 +114,7 @@ export default {
     methods: {
       flickityOptions(){
         let Flickity       = require("flickity")
-        let sliderOptions  = new Flickity( '.productContent__mainCat', {
+        let sliderOptions  = new Flickity( `.${this.nameElementFindSlider}`, {
           accessibility   : true,
           adaptiveHeight  : true,
           rightToLeft     : true,
@@ -129,13 +133,19 @@ export default {
 
         this.flkty = sliderOptions;
 
-        // sliderOptions.on( 'staticClick', ( event, pointer, cellElement, cellIndex ) =>{
-        //     this.products.map((content,index)=>{
-        //       if (index == cellIndex) {
-        //         this.$router.push(`/home/${content.id}`);
-        //       }
-        //     })
-        // });
+        sliderOptions.on( 'staticClick', ( event, pointer, cellElement, cellIndex ) =>{
+            this.allCategory.map((content,index)=>{
+              if (index == cellIndex) {
+                // در صورتی که بر روی یکی از آیتم های برند کلیک شود به آدرس ای که گفته شده می رود //
+                if (this.title.sliderItemHref == 'brand') {
+                  window.location.href = content.href;
+                }
+                else {
+                  this.$router.push(`/${this.title.sliderItemHref}/${content.id}`);
+                }
+              }
+            })
+        });
 
       },
 
@@ -315,7 +325,7 @@ export default {
   flex-wrap: wrap;
   padding-right: 24px;
   padding-left: 24px;
-  align-items: center;
+  align-items: flex-start;
   margin-bottom: 31px;
 }
 .productContent__sliderMore{
@@ -346,7 +356,22 @@ export default {
 .productContent__topRight{
   flex-grow: 1;
   @include display-flex();
+  flex-wrap: wrap;
 }
+.productContent__titleVisit{
+  margin-top: 8px;
+  color: $gray;
+  font-size: 17px;
+  font-weight: 300;
+  // display: none;
+}
+.productContent__catChangeStyle .productContent__carouselImgItem{
+  height: 63px;
+}
+.productContent__catChangeStyle  .productContent__catTop{
+  margin-bottom: 38px;
+}
+
 
 
 @media (max-width: 960px) {
@@ -376,6 +401,10 @@ export default {
   // .productContent__carouselContent:last-of-type{
   //   margin-bottom: 0;
   // }
+  .productContent__titleVisit{
+    @include display-flex();
+    font-size: 13px;
+  }
   .productContent__carouselContent{
     flex-flow: inherit;
     margin-bottom: 16px;

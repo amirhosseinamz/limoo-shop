@@ -10,7 +10,11 @@
               :title="{title:'',href:'',titleVisit:''}"
              ></product-content>
 
-            <product-cat :all-category="allCategory"></product-cat>
+            <product-cat
+             :all-category="allCategory"
+             name-element-find-slider="productContent__mainCat1"
+             :title="{title:'دسته بندی محصولات' , href:'#' , titleVisit:'',sliderItemHref:'category' }"
+             ></product-cat>
 
             <product-vertical-content :products="allProductVertical" ></product-vertical-content>
             <banner-items></banner-items>
@@ -40,7 +44,16 @@
             ></question-content>
 
             <banner-2-items></banner-2-items>
+
             <banner-3-items></banner-3-items>
+
+            <product-cat
+             :all-category="allBrand"
+             name-element-find-slider="productContent__mainCat2"
+             change-style            ="productContent__catChangeStyle"
+            :title="{title:'برند های لیمویی' ,  href:'#' ,titleVisit:'لیست برتر برند های در لیمو',sliderItemHref:'brand'}"
+            ></product-cat>
+
 
         </div>
   </div>
@@ -63,6 +76,7 @@ export default {
       products             : { type: [Object,Array], default: [] },
       allCategory          : { type: [Object,Array], default: [] },
       allProductVertical   : { type: [Object,Array], default: [] },
+      allBrand             : { type: [Object,Array], default: [] },
     },
 
     components: {
