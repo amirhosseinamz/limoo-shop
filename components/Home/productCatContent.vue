@@ -291,7 +291,7 @@ export default {
   flex-wrap: wrap;
   position:relative;
   padding-top: 24px;
-  padding-bottom: 24px;
+  padding-bottom: 34px;
 }
 .productContent__carouselCount{
   font-size: 14px;
