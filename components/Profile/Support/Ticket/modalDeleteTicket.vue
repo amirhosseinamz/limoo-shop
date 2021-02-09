@@ -70,6 +70,7 @@ export default {
 <style lang="scss" scoped>
 .p-profile-favorite-wrapper {
     @include display-flex();
+    padding: 1rem;
 }
 .p-profile-favorite-btns {
     @include display-flex();

@@ -1,5 +1,5 @@
 <template>
-    <div class="recycle-container">
+    <div class="signup-container">
         <div class="card">
             <div>
                 <button @click="nextPage" class="app-signin-next-btn"></button>
@@ -20,13 +20,13 @@
                     </p>
                 </div>
             </div>
-
             <div class="card-body">
                 <form @submit.prevent="pressed">
                     <div class="form-group">
-                        <p class="txt-header">بازیابی رمز عبور</p>
+                        <p class="txt-header">تایید شماره همراه</p>
                         <p dir="rtl" class="txt-content">
-                            لطفا کد تایید را وارد کنید.
+                            کد ارسال شده به شماره <span>09120121023</span> را
+                            وارد کنید.
                         </p>
                         <div class="input-section">
                             <div
@@ -56,11 +56,12 @@
                         </p>
                     </div>
                     <div class="btn-control">
-                        <button class="signup-btn" type="submit">
-                            ادامه
-                        </button>
-                        <button class="google-signup-btn" type="submit">
-                            ورود با حساب گوگل
+                        <button
+                            class="signup-btn"
+                            type="submit"
+                            @click="showWellcomeModal"
+                        >
+                            تایید
                         </button>
                     </div>
                 </form>
@@ -74,36 +75,31 @@ export default {
     data() {
         return {
             verifyCode: "",
-            wrongInput: false,
             timerPassed: false,
             newCodeSent: false,
             isActive: false
         };
     },
     methods: {
-        pressed() {
-            // talk to server
-            // this.$store.commit("walkInSignIncomponents", {
-            //     value: "PassChange"
-            // });
-            this.$router.push("/users/password");
-        },
         animate() {
-            this.timerPassed = true;
+            console.log(this.verifyCode);
+            this.newCodeSent = true;
             setTimeout(() => {
-                this.timerPassed = false;
+                this.newCodeSent = false;
             }, 5000);
         },
-        changeRTL() {
-            this.$vuetify.rtl = true;
+        pressed() {
+            // talk to server
         },
+
         nextPage() {
-            // go to ...
-            // console.log("hi");
-            // this.$store.commit("walkInSignIncomponents", {
-            //     value: "recyclePass"
-            // });
-            this.$router.push("/users/password/forget");
+            // go to .../users/signin-up
+            // this.$router.push("/users/signin-up");
+            // this.$store.commit("walkInSignUpcomponents", { value: "stepOne" });
+             this.$emit("btn-go-back-signup-step-one");
+        },
+        showWellcomeModal() {
+            this.$emit("event-show-modal-wellcome");
         }
     }
 };
@@ -116,7 +112,7 @@ export default {
     width: 463px;
     height: 58px;
     background-color: $alert-massage__green;
-    margin: 44px 90px 0px 89px;
+    margin: 8px 90px 0px 89px;
     border-radius: 10px;
     position: absolute;
     opacity: 0;
@@ -142,6 +138,7 @@ export default {
 .alert-message-animation {
     animation: cssAnimation 2000ms 2 alternate;
 }
+
 @keyframes cssAnimation {
     0% {
         opacity: 0;
@@ -149,24 +146,24 @@ export default {
     }
     70% {
         opacity: 1;
-        transform: translate(0%, -120%);
+        transform: translate(0%, -60%);
     }
     80% {
         opacity: 1;
-        transform: translate(0%, -120%);
+        transform: translate(0%, -60%);
     }
     90% {
         opacity: 1;
-        transform: translate(0%, -120%);
+        transform: translate(0%, -60%);
     }
     100% {
         opacity: 1;
-        transform: translate(0%, -120%);
+        transform: translate(0%, -60%);
     }
 }
 
-.recycle-container {
-    height: 100vh;
+.signup-container {
+    /* height: 100vh; */
     @include display-flex();
     flex-direction: column;
     justify-content: center;
@@ -196,7 +193,6 @@ export default {
     margin-right: 18px;
     margin-top: 17px;
 }
-
 .app-signin-next-btn {
     @include display-flex();
     margin: 24px 11.5px 0 24px;
@@ -207,7 +203,7 @@ export default {
 .app-signin-next-btn::before {
     content: "\e801";
     @include font-icon__limoo();
-    font-size: 24px;
+    font-size: 25px;
     color: $black-icon;
 }
 .success-txt {
@@ -266,17 +262,17 @@ export default {
     line-height: 33.75px;
     font-weight: 400;
     text-align: right;
-    margin: 63px 90px 33px 0;
+    margin: 77px 90px 33px 0;
 }
 .txt-content {
     font-size: 16px;
     line-height: 22.5px;
     font-weight: 318;
     text-align: right;
-    margin: 5px 90px 16px 0;
+    margin-bottom: 25px;
+    margin-right: 90px;
 }
 .signup-input {
-    padding: 0;
     color: $code;
     text-align: center;
     text-align: -moz-center;
@@ -286,16 +282,9 @@ export default {
 }
 .signup-btn {
     margin-top: 14px;
-    margin-bottom: 148px;
+    margin-bottom: 126px;
 }
-.google-signup-btn {
-    display: none;
-}
-@media screen and (max-width: 600px) {
-    .google-signup-btn {
-        display: block;
-    }
-}
+
 @media screen and (max-width: 540px) {
     @keyframes cssAnimation {
         0% {
@@ -322,7 +311,6 @@ export default {
     .success-message {
         width: 328px;
         height: 56px;
-
         margin: 16px 16px 0px 16px;
     }
     .alert-message {
@@ -361,19 +349,18 @@ export default {
 
     .signup-btn {
         width: 328px;
-        margin-top: 32px;
-        margin-bottom: 107px;
+        margin-top: 38px;
+        margin-bottom: 184px;
     }
     .txt-header {
         font-size: 20px;
         line-height: 140.62%;
         width: 328px;
-        margin: 120px 16px 24px 16px;
+        margin: 128px 16px 24px 16px;
     }
     .txt-content {
         width: 328px;
         font-size: 14px;
-        margin-bottom: 17px;
         margin-right: 16px;
         margin-left: 16px;
     }
@@ -382,6 +369,13 @@ export default {
     }
     .code-request {
         margin-right: 16px;
+    }
+}
+@media screen and (max-width: 321px) and (min-width: 299px) {
+    .card {
+        @include display-flex();
+        flex-direction: column;
+        justify-content: space-between;
     }
 }
 @media screen and (max-width: 350px) {
@@ -417,13 +411,6 @@ export default {
         margin-top: 0;
     }
 }
-@media screen and (max-width: 321px) and (min-width: 299px) {
-    .card {
-        @include display-flex();
-        flex-direction: column;
-        justify-content: space-between;
-    }
-}
 @media screen and (max-width: 280px) {
     .success-message {
         width: 270px;
@@ -433,10 +420,6 @@ export default {
         height: 60px;
         margin-right: 5px;
     }
-    .card {
-        padding-right: 0;
-    }
-
     .alert-txt {
         padding-left: 30px;
     }
@@ -448,6 +431,7 @@ export default {
     }
     .input-holder {
         width: 270px;
+        margin-right: 10px;
     }
     .signup-btn {
         width: 270px;

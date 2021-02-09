@@ -10,5 +10,8 @@ export default {
     },
     CurentRoute(state) {
         return state.CurentRoute;
+    },
+    stateShowModalWellcome(state) {
+        return state.showModalWellcome;
     }
 };

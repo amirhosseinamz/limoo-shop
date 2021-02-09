@@ -13,5 +13,9 @@ export default {
     },
     userIsAuth(state, payload) {
         state.userAuth = payload.value;
+    },
+    stateShowModalWellcome(state, payload) {
+        state.showModalWellcome = payload.value;
+        console.log("store say hi", payload.value);
     }
 };

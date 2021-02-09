@@ -1,5 +1,15 @@
 <template>
     <div class="header-container">
+        <!--  -->
+        <div id="overlay" v-if="showModalWellcome">
+            <WellcomeSignUp
+                @event-close-modal-wellcome="closeWellcomeModal"
+                @event-close-modal-and-go-to-perofile="
+                    closeWellcomeModalandGoToProfile
+                "
+            />
+        </div>
+        <!--  -->
         <header class="the-header" :class="{ 'navbar--hidden': !showNavbar }">
             <div class="the-header__items">
                 <div class="logo">
@@ -41,16 +51,16 @@
                     </button>
                     <span class="navigation-item__cart-basket"></span>
                 </div>
-                <div class="navigation-item navigation-item__profile">
+                <div
+                    class="navigation-item navigation-item__profile"
+                    @click="showAuthModal"
+                >
                     <span class="navigation-item__profile-person"></span>
                     <button class="navigation-item__profile-btn">
                         ورود <span style="color: #e0e0e0">|</span> عضویت
                     </button>
                 </div>
-                <div
-                    @click="show"
-                    class="navigation-item navigation-item__call"
-                >
+                <div class="navigation-item navigation-item__call">
                     <span class="navigation-item__call-person"></span>
                     <button class="navigation-item__call-btn">
                         پشتیبانی
@@ -65,32 +75,95 @@
             </div>
         </header>
         <the-mega-menu />
+        <modalAuth
+            :active.sync="showModalAuth"
+            @event-show-modal-wellcome="showWellcomeModal"
+        />
     </div>
 </template>
 
 <script>
 import TheMegaMenu from "~/components/Navigation/TheMegaMenu.vue";
+import WellcomeSignUp from "~/components/Auth/WellcomeSignUp.vue";
+import modalAuth from "~/components/Auth/AuthModals/modalAuth.vue";
 export default {
     name: "TheHeader",
     components: {
-        TheMegaMenu
+        TheMegaMenu,
+        WellcomeSignUp,
+        modalAuth
     },
     data() {
         return {
             showNavbar: true,
-            lastScrollPosition: 0
+            lastScrollPosition: 0,
+            showModalAuth: false,
+            showModalWellcome: false
         };
     },
     mounted() {
         window.addEventListener("scroll", this.onScroll);
+        // setInterval(() => {
+        //     this.showModalWellcome = this.$store.getters.stateShowModalWellcome;
+        //     // console.log("legendary");
+        // }, 100);
+
+        // this.$store.watch(
+        //     state => {
+        //         return this.$store.getters.stateShowModalWellcome;
+        //     },
+        //     val => {
+        //         //something changed do something
+        //         this.showModalWellcome = val;
+        //     }
+        //     // {
+        //     //     deep: true
+        //     // }
+        // );
+    },
+    computed: {
+        stateShowModalWellcome: function() {
+            return this.$store.getters.stateShowModalWellcome; // return the state value in `my_state`
+        }
+    },
+    watch: {
+        stateShowModalWellcome: function(newVal, oldVal) {
+            // this function will trigger when ever the value of `my_state` changes
+            this.showModalWellcome = newVal;
+        }
     },
     beforeDestroy() {
         window.removeEventListener("scroll", this.onScroll);
     },
-
     methods: {
-        show() {
+        showAuthModal() {
             console.log("hi");
+            this.showModalAuth = true;
+        },
+        showWellcomeModal() {
+            this.showModalAuth = false;
+            this.$store.dispatch({
+                type: "stateShowModalWellcome",
+                value: true
+            });
+            // setTimeout(() => {
+            //     this.showModalWellcome = this.$store.getters.stateShowModalWellcome;
+            // }, 200);
+        },
+        closeWellcomeModal() {
+            this.showModalWellcome = false;
+            this.$store.dispatch({
+                type: "stateShowModalWellcome",
+                value: false
+            });
+        },
+        closeWellcomeModalandGoToProfile() {
+            this.showModalWellcome = false;
+            this.$store.dispatch({
+                type: "stateShowModalWellcome",
+                value: false
+            });
+            this.$router.push("/profile/personal-info");
         },
         onScroll() {
             const currentScrollPosition =
@@ -122,6 +195,16 @@ export default {
     height: 135px;
     background-color: $white;
     z-index: 2;
+}
+#overlay {
+    position: fixed; /* Sit on top of the page content */
+    @include display-flex();
+    justify-content: center;
+    align-items: center;
+    width: 100%; /* Full width (cover the whole page) */
+    height: 100%; /* Full height (cover the whole page) */
+    z-index: 7;
+    background: $overlay__profile;
 }
 .the-header {
     @include display-flex();
@@ -330,12 +413,14 @@ export default {
     /* make header scrolable with main page in mobile screen */
     .header-container {
         background-color: transparent;
-        z-index: 5;
+        z-index: 7;
     }
+    /* #overlay {
+        display: none;
+    } */
     .the-header {
         background-color: $white;
         z-index: 5;
-
         position: fixed;
         transform: translate3d(0, 0, 0);
         transition: 0.1s all ease-out;

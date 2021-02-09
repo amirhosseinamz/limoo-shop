@@ -106,17 +106,19 @@ export default {
         },
         forgetPass() {
             // send request to disposablePass
-            this.$store.commit("walkInSignIncomponents", {
-                value: "recyclePass"
-            });
+            // this.$store.commit("walkInSignIncomponents", {
+            //     value: "recyclePass"
+            // });
+            this.$router.push("/users/password/forget");
         },
         disposablePass() {
             // send request to disposablePass
-            this.$store.commit("walkInSignIncomponents", { value: "stepTwo" });
+            // this.$store.commit("walkInSignIncomponents", { value: "stepTwo" });
+            this.$router.push("/users/password/disposable");
         },
         previousPage() {
             // go to ...
-            this.$router.push("/signup");
+            this.$router.push("/users/signin-up");
         }
     }
 };

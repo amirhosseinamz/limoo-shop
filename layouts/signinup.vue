@@ -13,4 +13,9 @@
     background: $main-bg;
     overflow-x: hidden;
 }
+@media screen and (max-width: 700px) {
+    .container {
+        background: $white;
+    }
+}
 </style>
