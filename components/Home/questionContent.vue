@@ -3,7 +3,7 @@
 
       <div class="productContent__items w-100 ">
             <div class="productContent__left">
-              <questions></questions>
+              <questions :all-question="allQuestion"></questions>
               <div class="w-100 productContent__sliderMore">
                   <nuxt-link class="productContent__moreItem" to="/">
                     لیست کامل محصولات
@@ -17,24 +17,16 @@
 </template>
 
 <script>
-import counterDown from './counterDown';
-import productSlider from './productSlider';
 import questions from './questions';
 
 
 export default {
     components: {
-      counterDown,
-      productSlider,
       questions,
     },
 
     props: {
-      products                : { type: [Object,Array], default: [] },
-      statusShowCounterDown   : { type: Boolean, default: true },
-      nameElementFindSlider   : { type: String, default: '' },
-      title                   : { type: Object, default: {} },
-      removeMarginTop         : { type: String, default: '' },
+      allQuestion   : { type: [Object,Array], default: [] },
     },
 
     data() {
@@ -72,7 +64,7 @@ export default {
   flex-wrap: wrap;
   @include display-flex();
   padding-top: 24px;
-  padding-bottom: 24px;
+  padding-bottom:0px;
 }
 .productContent__left{
   flex-grow: 1;
@@ -110,30 +102,6 @@ export default {
     font-size: 12px;
     margin-top: 1px;
 }
-.productContent__desktop{
-  @include display-flex();
-}
-.productContent__mobile{
-  display: none;
-}
-.productContent__updateMargin .productContent__left{
-  margin-top: 0;
-}
-.productContent__updateMargin .productContent__items{
-  padding-top: 24px;
-  padding-bottom: 31px;
-}
-.productContent__updateMargin {
-  height: 451px;
-}
-
-
-
-
-
-
-
-
 
 
 
@@ -153,13 +121,7 @@ export default {
   }
   .productContent__left{
     width: 100%;
-    margin-top: 24px;
-  }
-  .productContent__desktop{
-    display: none;
-  }
-  .productContent__mobile{
-    @include display-flex();
+    margin-top: 0px;
   }
   .productContent{
     height: auto;
@@ -167,15 +129,12 @@ export default {
   .productContent__sliderMore{
     margin-top: 34px;
   }
-
-  .productContent__updateMargin .productContent__items{
-    padding-top: 16px;
-    padding-bottom: 16px;
-  }
   .productContent__items{
     padding-top: 16px;
     padding-bottom: 16px;
   }
+
+
 
 }
 

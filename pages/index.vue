@@ -18,7 +18,7 @@
         :all-product-vertical="allProductVertical"
         :all-brand="allBrand"
         :brand-introduction="brandIntroduction"
-
+        :all-question="allQuestion"
 
        ></content-home>
     </div>
@@ -273,6 +273,32 @@ export default {
             },
 
           ],
+
+          allQuestion   : [
+            {
+              id         : 1,
+              title      : 'اگر از خرید ناراضی بودم قابلیت مرجوعی وجود دارد؟',
+              active     : false,
+            },
+            {
+              id         : 2,
+              title      : 'اگر از خرید ناراضی بودم قابلیت مرجوعی وجود دارد؟',
+              active     : false,
+            },
+            {
+              id         : 3,
+              title      : 'اگر از خرید ناراضی بودم قابلیت مرجوعی وجود دارد؟',
+              active     : false,
+            },
+            {
+              id         : 4,
+              title      : 'اگر از خرید ناراضی بودم قابلیت مرجوعی وجود دارد؟',
+              active     : false,
+            },
+
+
+          ],
+
         };
     },
 

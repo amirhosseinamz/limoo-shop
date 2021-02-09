@@ -38,11 +38,7 @@
             ></product-content>
 
             <question-content
-            :products="products"
-            :status-show-counter-down="false"
-            name-element-find-slider="productContent__mainSlider3"
-            remove-margin-top="productContent__updateMargin"
-            :title="{title:'تستی 3',href:'test',titleVisit:'پر فروش ترین محصولات'}"
+            :all-question="allQuestion"
             ></question-content>
 
             <banner-2-items></banner-2-items>
@@ -83,6 +79,8 @@ export default {
       allProductVertical   : { type: [Object,Array], default: [] },
       allBrand             : { type: [Object,Array], default: [] },
       brandIntroduction    : { type: [Object,Array], default: [] },
+      allQuestion          : { type: [Object,Array], default: [] },
+
     },
 
     components: {
