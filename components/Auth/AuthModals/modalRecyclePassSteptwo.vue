@@ -1,10 +1,8 @@
 <template>
-    <div class="signin-container">
+    <div class="recycle-container">
         <div class="card">
             <div>
-                <button @click="nextPage" class="app-signin-next-btn">
-                    <img src="/icons/next.svg" />
-                </button>
+                <button @click="nextPage" class="app-signin-next-btn"></button>
                 <div
                     class="success-message"
                     :class="{ 'success-message-animation': newCodeSent }"
@@ -22,13 +20,13 @@
                     </p>
                 </div>
             </div>
+
             <div class="card-body">
                 <form @submit.prevent="pressed">
                     <div class="form-group">
-                        <p class="txt-header">تایید شماره همراه</p>
+                        <p class="txt-header">بازیابی رمز عبور</p>
                         <p dir="rtl" class="txt-content">
-                            کد ارسال شده به شماره <span>09120121023</span> را
-                            وارد کنید.
+                            لطفا کد تایید را وارد کنید.
                         </p>
                         <div class="input-section">
                             <div
@@ -59,7 +57,10 @@
                     </div>
                     <div class="btn-control">
                         <button class="signup-btn" type="submit">
-                            تایید
+                            ادامه
+                        </button>
+                        <button class="google-signup-btn" type="submit">
+                            ورود با حساب گوگل
                         </button>
                     </div>
                 </form>
@@ -73,6 +74,7 @@ export default {
     data() {
         return {
             verifyCode: "",
+            wrongInput: false,
             timerPassed: false,
             newCodeSent: false,
             isActive: false
@@ -81,6 +83,11 @@ export default {
     methods: {
         pressed() {
             // talk to server
+            // this.$store.commit("walkInSignIncomponents", {
+            //     value: "PassChange"
+            // });
+            // this.$router.push("/users/password");
+            this.$emit("btn-go-to-pass-change");
         },
         animate() {
             this.timerPassed = true;
@@ -93,8 +100,12 @@ export default {
         },
         nextPage() {
             // go to ...
-            // this.$store.commit("walkInSignIncomponents", { value: "stepOne" });
-            this.$router.push("/users/signin");
+            // console.log("hi");
+            // this.$store.commit("walkInSignIncomponents", {
+            //     value: "recyclePass"
+            // });
+            // this.$router.push("/users/password/forget");
+            this.$emit("btn-go-back-recycle-pass");
         }
     }
 };
@@ -156,14 +167,13 @@ export default {
     }
 }
 
-.signin-container {
-    height: 100vh;
+.recycle-container {
+    /* height: 100vh; */
     @include display-flex();
     flex-direction: column;
     justify-content: center;
     align-items: center;
     text-align: center;
-    overflow: hidden;
 }
 
 .card {
@@ -195,6 +205,12 @@ export default {
     width: 13.5px;
     height: 24px;
     cursor: pointer;
+}
+.app-signin-next-btn::before {
+    content: "\e801";
+    @include font-icon__limoo();
+    font-size: 24px;
+    color: $black-icon;
 }
 .success-txt {
     font-weight: 500;
@@ -237,7 +253,6 @@ export default {
     color: $code-request;
     margin-right: 90px;
     cursor: pointer;
-    display: block;
 }
 .btn-control {
     @include display-flex();
@@ -253,17 +268,17 @@ export default {
     line-height: 33.75px;
     font-weight: 400;
     text-align: right;
-    margin: 37px 90px 33px 0;
+    margin: 63px 90px 33px 0;
 }
 .txt-content {
     font-size: 16px;
     line-height: 22.5px;
     font-weight: 318;
     text-align: right;
-    margin-bottom: 25px;
-    margin-right: 90px;
+    margin: 5px 90px 16px 0;
 }
 .signup-input {
+    padding: 0;
     color: $code;
     text-align: center;
     text-align: -moz-center;
@@ -272,11 +287,18 @@ export default {
     letter-spacing: 0.7em;
 }
 .signup-btn {
-    margin-top: 32px;
-    margin-bottom: 144px;
+    margin-top: 14px;
+    margin-bottom: 148px;
 }
-
-@media (max-width: 540px) {
+.google-signup-btn {
+    display: none;
+}
+@media screen and (max-width: 600px) {
+    .google-signup-btn {
+        display: block;
+    }
+}
+@media screen and (max-width: 540px) {
     @keyframes cssAnimation {
         0% {
             opacity: 0;
@@ -284,24 +306,25 @@ export default {
         }
         70% {
             opacity: 1;
-            transform: translate(0%, -70%);
+            transform: translate(0%, -80%);
         }
         80% {
             opacity: 1;
-            transform: translate(0%, -70%);
+            transform: translate(0%, -80%);
         }
         90% {
             opacity: 1;
-            transform: translate(0%, -70%);
+            transform: translate(0%, -80%);
         }
         100% {
             opacity: 1;
-            transform: translate(0%, -70%);
+            transform: translate(0%, -80%);
         }
     }
     .success-message {
         width: 328px;
         height: 56px;
+
         margin: 16px 16px 0px 16px;
     }
     .alert-message {
@@ -340,17 +363,19 @@ export default {
 
     .signup-btn {
         width: 328px;
-        margin: 32px 16px 184px 16px;
+        margin-top: 32px;
+        margin-bottom: 107px;
     }
     .txt-header {
         font-size: 20px;
         line-height: 140.62%;
         width: 328px;
-        margin: 128px 16px 33px 16px;
+        margin: 120px 16px 24px 16px;
     }
     .txt-content {
-        font-size: 14px;
         width: 328px;
+        font-size: 14px;
+        margin-bottom: 17px;
         margin-right: 16px;
         margin-left: 16px;
     }
@@ -410,12 +435,16 @@ export default {
         height: 60px;
         margin-right: 5px;
     }
+    .card {
+        padding-right: 0;
+    }
+
     .alert-txt {
         padding-left: 30px;
     }
     .signup-input {
         margin-right: 5px;
-        margin-left: 15px;
+        margin-left: 5px;
         width: 270px;
         margin-bottom: 42px;
     }
@@ -429,11 +458,11 @@ export default {
         font-size: 20px;
         line-height: 140.62%;
         width: 270px;
-        margin-right: 15px;
+        margin-right: 5px;
     }
     .txt-content {
         width: 270px;
-        margin-right: 15px;
+        margin-right: 5px;
     }
     .signup-limoo-logo {
         margin-top: 0.2rem;

@@ -166,6 +166,7 @@ export default {
     justify-content: center;
     align-items: center;
     text-align: center;
+    overflow: hidden;
 }
 .signup-input-wrong,
 .signup-input {

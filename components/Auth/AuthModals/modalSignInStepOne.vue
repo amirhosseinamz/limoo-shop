@@ -109,16 +109,19 @@ export default {
             // this.$store.commit("walkInSignIncomponents", {
             //     value: "recyclePass"
             // });
-            this.$router.push("/users/password/forget");
+            // this.$router.push("/users/password/forget");
+            this.$emit("btn-go-to-recycle-pass");
         },
         disposablePass() {
             // send request to disposablePass
             // this.$store.commit("walkInSignIncomponents", { value: "stepTwo" });
-            this.$router.push("/users/password/disposable");
+            // this.$router.push("/users/password/disposable");
+            this.$emit("btn-go-to-signin-step-two");
         },
         previousPage() {
             // go to ...
-            this.$router.push("/users/signin-up");
+            // this.$router.push("/users/signin-up");
+            this.$emit("btn-go-back-signup-step-one");
         }
     }
 };
@@ -126,13 +129,12 @@ export default {
 
 <style lang="scss" scoped>
 .signin-container {
-    height: 100vh;
+    /* height: 100vh; */
     @include display-flex();
     flex-direction: column;
     justify-content: center;
     align-items: center;
     text-align: center;
-    overflow: hidden;
 }
 
 .card {

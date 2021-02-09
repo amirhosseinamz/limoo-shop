@@ -170,7 +170,8 @@ export default {
         },
         nextPage() {
             // go to ...
-            this.$router.push("/users/password/forget/confirm");
+            // this.$router.push("/users/password/forget/confirm");
+            this.$emit("btn-go-back-recycle-pass-step-two");
         }
     }
 };
@@ -178,13 +179,12 @@ export default {
 
 <style lang="scss" scoped>
 .pass-container {
-    height: 100vh;
+    /* height: 100vh; */
     @include display-flex();
     flex-direction: column;
     justify-content: center;
     align-items: center;
     text-align: center;
-    overflow: hidden;
 }
 
 .card {

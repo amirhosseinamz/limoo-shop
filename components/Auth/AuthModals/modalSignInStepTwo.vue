@@ -94,7 +94,8 @@ export default {
         nextPage() {
             // go to ...
             // this.$store.commit("walkInSignIncomponents", { value: "stepOne" });
-            this.$router.push("/users/signin");
+            // this.$router.push("/users/signin");
+            this.$emit("btn-go-back-signin-step-one");
         }
     }
 };
@@ -157,13 +158,12 @@ export default {
 }
 
 .signin-container {
-    height: 100vh;
+    /* height: 100vh; */
     @include display-flex();
     flex-direction: column;
     justify-content: center;
     align-items: center;
     text-align: center;
-    overflow: hidden;
 }
 
 .card {

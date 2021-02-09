@@ -123,12 +123,12 @@ export default {
     },
     computed: {
         stateShowModalWellcome: function() {
-            return this.$store.getters.stateShowModalWellcome; // return the state value in `my_state`
+            return this.$store.getters.stateShowModalWellcome; // return the state value in `stateShowModalWellcome`
         }
     },
     watch: {
         stateShowModalWellcome: function(newVal, oldVal) {
-            // this function will trigger when ever the value of `my_state` changes
+            // this function will trigger when ever the value of `stateShowModalWellcome` changes
             this.showModalWellcome = newVal;
         }
     },

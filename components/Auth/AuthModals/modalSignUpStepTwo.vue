@@ -96,7 +96,7 @@ export default {
             // go to .../users/signin-up
             // this.$router.push("/users/signin-up");
             // this.$store.commit("walkInSignUpcomponents", { value: "stepOne" });
-             this.$emit("btn-go-back-signup-step-one");
+            this.$emit("btn-go-back-signup-step-one");
         },
         showWellcomeModal() {
             this.$emit("event-show-modal-wellcome");
