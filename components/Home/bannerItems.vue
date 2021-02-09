@@ -84,21 +84,30 @@ export default {
     }
   }
 
-  @media (max-width: 460px) {
-    .bannerItems__item{
-      display: none;
-      width: 100%;
-      margin-left: 0;
-      max-height: 220px;
-    }
-    .bannerItems__item:first-child{
-      display: flex;
-    }
-    .bannerItems{
-      margin-top: 8px;
-      margin-bottom: 0px;
-    }
+  @media (max-width: 960px) {
+
   }
+
+  @media (max-width: 485px) {
+      .bannerItems{
+        margin-top: 8px;
+        margin-bottom: 8px;
+      }
+      .bannerItems__item{
+        display: none;
+        width: 100%;
+        margin-left: 0;
+        max-height: auto;
+      }
+      .bannerItems__item:first-child{
+        display: flex;
+      }
+      .bannerItems{
+        margin-top: 8px;
+        margin-bottom: 0px;
+      }
+  }
+
 
   // @media (max-width: 420px) {
   //   .bannerItems__item{

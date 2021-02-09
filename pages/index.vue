@@ -17,6 +17,8 @@
         :all-category="allCategory"
         :all-product-vertical="allProductVertical"
         :all-brand="allBrand"
+        :brand-introduction="brandIntroduction"
+
 
        ></content-home>
     </div>
@@ -192,7 +194,7 @@ export default {
             },
 
           ],
-          allBrand     : [
+          allBrand            : [
             {
               id    : 1,
               title : 'موبایل و تبلت',
@@ -241,6 +243,33 @@ export default {
               count : 'بیش از 200 هزار کالا',
               image : '/img/cat_pic2.svg',
               href  : 'https://www.huawei.com/en/',
+            },
+
+          ],
+          brandIntroduction   : [
+            {
+              id         : 1,
+              title      : 'تضمین کیفیت',
+              image      : '/icons/Guarantee.svg',
+              nameClass  : 'guarantee1',
+            },
+            {
+              id         : 2,
+              title      : 'ارسال فوری',
+              image      : '/icons/startup1.svg',
+              nameClass  : 'startup',
+            },
+            {
+              id         : 3,
+              title      : 'پشتیبانی 24 ساعته',
+              image      : '/icons/telemarketer1.svg',
+              nameClass  : 'telemarketer',
+            },
+            {
+              id         : 4,
+              title      : '7 روز ضمانت ',
+              image      : '/icons/guarantee1.svg',
+              nameClass  : 'guarantee7',
             },
 
           ],
@@ -387,7 +416,7 @@ export default {
 
 }
 
-@media (max-width: 460px) {
+@media (max-width: 485px) {
   .page__home-wrapper-main{
     padding-right: 10px;
     padding-left: 10px;

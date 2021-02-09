@@ -80,21 +80,31 @@ export default {
     }
   }
 
-  @media (max-width: 460px) {
+  @media (max-width: 960px) {
+    .bannerItems{
+      margin-top: 36px;
+    }
+  }
+
+  @media (max-width: 485px) {
+    .bannerItems{
+      margin-bottom: 0;
+      margin-top: 8px;
+    }
     .bannerItems__item{
       display: none;
       width: 100%;
       margin-left: 0;
-      max-height: 220px;
+      max-height: auto;
     }
     .bannerItems__item:first-child{
       display: flex;
     }
     .bannerItems{
-      margin-bottom: 0;
       margin-top: 8px;
     }
   }
+
 
   // @media (max-width: 420px) {
   //   .bannerItems__item{

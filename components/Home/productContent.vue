@@ -193,6 +193,9 @@ export default {
   .productContent__sliderMore{
     display: flex;
   }
+  .productContent{
+    margin-top: 8px;
+  }
 }
 
 @media (max-width: 350px) {

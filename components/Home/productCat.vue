@@ -62,7 +62,7 @@ export default {
   height: 100%;
 }
 .productContent__catChangeStyle{
-  margin-bottom: 42px;
+  margin-bottom: 40px;
 }
 
 
@@ -94,6 +94,13 @@ export default {
   }
   .productContent__catChangeStyle{
     display: none;
+  }
+  .productContent{
+    margin-top: 8px;
+  }
+  .productContent__catChangeStyle{
+    margin-bottom: 8px;
+    margin-top: 8px;
   }
 
 }

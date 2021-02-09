@@ -684,7 +684,9 @@ export default {
 
 @media (max-width: 1400px) {
   .theFooter-wrapper{
-    width: 96%;
+    width: 100%;
+    padding-right: 24px;
+    padding-left: 24px;
   }
   .theFooter-itemRight{
     margin-left: 17%;
@@ -841,6 +843,10 @@ export default {
   }
   .theFooter-licenseLink{
     margin-left: 16px;
+  }
+  .theFooter-wrapper{
+    padding-right: 11px;
+    padding-left: 11px;
   }
 }
 

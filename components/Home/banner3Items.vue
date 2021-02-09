@@ -62,18 +62,21 @@ export default {
     border-radius: 14px;
   }
 
-
   @media (max-width: 960px) {
-    .bannerItems{
-      margin-bottom: 0;
-    }
+
   }
 
-  @media (max-width: 460px) {
+  @media (max-width: 485px) {
+    .bannerItems{
+      margin-bottom: 0;
+      margin-top: 8px;
+    }
     .bannerItems{
       display: none;
     }
   }
+
+
 
 
 

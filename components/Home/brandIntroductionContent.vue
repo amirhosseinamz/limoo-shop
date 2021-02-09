@@ -1,40 +1,28 @@
 <template>
-  <div  class="w-100 productContent productContent__question">
+  <div  class="w-100 productContent ">
 
       <div class="productContent__items w-100 ">
-            <div class="productContent__left">
-              <questions></questions>
-              <div class="w-100 productContent__sliderMore">
-                  <nuxt-link class="productContent__moreItem" to="/">
-                    لیست کامل محصولات
-                    <span class=" productContent__moreIcon mobile-inprogress__arrow"></span>
-                  </nuxt-link>
-              </div>
-            </div>
+          <brand-introduction :products="products"></brand-introduction>
       </div>
 
   </div>
 </template>
 
 <script>
-import counterDown from './counterDown';
-import productSlider from './productSlider';
-import questions from './questions';
+import brandIntroduction from './brandIntroduction';
 
 
 export default {
     components: {
-      counterDown,
-      productSlider,
-      questions,
+      brandIntroduction,
     },
 
     props: {
       products                : { type: [Object,Array], default: [] },
-      statusShowCounterDown   : { type: Boolean, default: true },
-      nameElementFindSlider   : { type: String, default: '' },
-      title                   : { type: Object, default: {} },
-      removeMarginTop         : { type: String, default: '' },
+      // statusShowCounterDown   : { type: Boolean, default: true },
+      // nameElementFindSlider   : { type: String, default: '' },
+      // title                   : { type: Object, default: {} },
+      // removeMarginTop         : { type: String, default: '' },
     },
 
     data() {
@@ -59,6 +47,7 @@ export default {
 <style lang="scss" scoped>
 .productContent{
   margin-top: 40px;
+  margin-bottom: 40px;
   background: $white;
   border-radius: 12px;
   @include display-flex();
@@ -189,6 +178,7 @@ export default {
   }
   .productContent{
     margin-top: 8px;
+    margin-bottom: 0px;
   }
 }
 

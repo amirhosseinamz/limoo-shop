@@ -2,6 +2,7 @@
   <div class="w-100 page__home-wrapper-main">
         <div class="page__home-introduction-main w-100">
             <introduction-items></introduction-items>
+
             <product-content
               :products="products"
               :status-show-counter-down="true"
@@ -17,6 +18,7 @@
              ></product-cat>
 
             <product-vertical-content :products="allProductVertical" ></product-vertical-content>
+
             <banner-items></banner-items>
 
             <product-content
@@ -54,6 +56,8 @@
             :title="{title:'برند های لیمویی' ,  href:'#' ,titleVisit:'لیست برتر برند های در لیمو',sliderItemHref:'brand'}"
             ></product-cat>
 
+            <brand-introduction-content :products="brandIntroduction"></brand-introduction-content>
+
 
         </div>
   </div>
@@ -69,6 +73,7 @@ import productCat from './productCat';
 import productVerticalContent from './productVerticalContent';
 import questions from './questions';
 import questionContent from './questionContent';
+import brandIntroductionContent from './brandIntroductionContent';
 
 
 export default {
@@ -77,6 +82,7 @@ export default {
       allCategory          : { type: [Object,Array], default: [] },
       allProductVertical   : { type: [Object,Array], default: [] },
       allBrand             : { type: [Object,Array], default: [] },
+      brandIntroduction    : { type: [Object,Array], default: [] },
     },
 
     components: {
@@ -89,6 +95,7 @@ export default {
       productVerticalContent,
       questions,
       questionContent,
+      brandIntroductionContent,
     },
 
     data() {
@@ -116,13 +123,6 @@ export default {
     margin-top: 175px;
   }
 
-
-  @media (max-width: 960px) {
-    .page__home-wrapper-main{
-      margin-top: 8px;
-    }
-  }
-
   @media (max-width: 1220px) {
 
   }
@@ -132,11 +132,19 @@ export default {
   }
 
   @media (max-width: 960px) {
-
+    .page__home-wrapper-main{
+      margin-top: 8px;
+    }
   }
 
   @media (max-width: 600px) {
 
+  }
+
+  @media (max-width: 485px) {
+    .page__home-wrapper-main{
+      margin-top: 8px;
+    }
   }
 
 

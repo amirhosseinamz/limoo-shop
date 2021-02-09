@@ -123,9 +123,6 @@ export default {
 }
 
 @media (max-width: 960px) {
-  .productContent{
-    margin-top: 8px;
-  }
   .productContent__right{
     width: 100%;
     padding-right: 11px;
@@ -159,6 +156,9 @@ export default {
 @media (max-width: 485px) {
   .productContent__sliderMore{
     display: flex;
+  }
+  .productContent{
+    margin-top: 8px;
   }
 }
 
