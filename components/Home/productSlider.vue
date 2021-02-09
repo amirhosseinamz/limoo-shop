@@ -258,7 +258,7 @@ export default {
   flex-wrap: wrap;
   padding-right: 24px;
   padding-left: 24px;
-  align-items: center;
+  align-items: flex-start;
   margin-bottom: 31px;
 }
 .productContent__sliderMore{
