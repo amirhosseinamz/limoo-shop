@@ -41,8 +41,9 @@
             v-else-if="RecyclePassStepTwo"
         />
         <modalPassChange
-        @btn-go-back-recycle-pass-step-two="goToRecyclePassStepTwo"
-         v-else-if="PassChange"/>
+            @btn-go-back-recycle-pass-step-two="goToRecyclePassStepTwo"
+            v-else-if="PassChange"
+        />
         <!--  -->
     </modal>
 </template>
@@ -67,7 +68,7 @@ export default {
             SignInSteptwo: false,
             RecyclePass: false,
             RecyclePassStepTwo: false,
-            PassChange:false
+            PassChange: false
         };
     },
     components: {
@@ -127,11 +128,10 @@ export default {
             this.PassChange = false;
             this.RecyclePassStepTwo = true;
         },
-        goToPassChange(){
+        goToPassChange() {
             this.RecyclePassStepTwo = false;
             this.PassChange = true;
         }
-
     }
 };
 </script>
@@ -141,9 +141,6 @@ export default {
     position: relative;
     padding: 0 !important;
     font-size: 12px;
-}
-#p-profile-favorite-modal {
-    background-color: brown !important;
 }
 @media (max-width: 768px) {
 }
