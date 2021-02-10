@@ -344,7 +344,7 @@ export default {
 }
 .productContent__carouselLeft{
   width: 275px;
-  margin-right: 9px;
+  padding-right: 9px;
 }
 .productContent__carouselRight{
   width: 120px;
@@ -418,36 +418,6 @@ export default {
   @include display-flex();
   text-decoration: none;
 }
-
-
-
-// @media (max-width: 1200px) {
-//   .productContent__carouselLeft{
-//     width: 206px;
-//   }
-// }
-
-// @media (max-width: 1024px) {
-//   .productContent__carousel{
-//     width: 50%;
-//   }
-//   .productContent__carouselLeft{
-//     width: 280px;
-//   }
-//   .productContent__carousel:nth-child(3n) .productContent__carouselContent{
-//     border-left: solid 1px $border-gray-bg;
-//     padding-top: 10px;
-//   }
-//   .productContent__carousel:nth-child(n+4) .productContent__carouselContent{
-//     border-bottom: solid 1px $border-gray-bg;
-//     padding-top: 10px;
-//   }
-//   .productContent__carouselContent{
-//     height: auto;
-//     padding-bottom: 10px;
-//   }
-//
-// }
 
 @media (max-width: 960px) {
 }
@@ -525,7 +495,7 @@ export default {
     margin-top: 8px;
   }
   .productContent__carouselRight{
-    width: 80px;
+    width: 24%;
     height: 80px;
   }
   .productContent__carouselImgItem{
@@ -538,26 +508,22 @@ export default {
   }
 
   .productContent__carouselLeft{
-    width: 237px;
+    width: 76%;
   }
   .productContent__sliderMore{
     display: none;
   }
-  .productContent__carouselLeft{
-    width: 221px;
-  }
+
 
 }
 
 @media (max-width: 320px) {
-  .productContent__carouselLeft{
-    width: 180px;
-  }
+
 }
 
 @media (max-width: 280px) {
   .productContent__carouselLeft{
-    width:134px;
+    padding-right: 12px;
   }
 }
 
