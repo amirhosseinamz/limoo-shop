@@ -17,12 +17,11 @@
           <div class="productContent__questionItems w-100">
                 <div :class="{'active-question':data.active}" @click="showQuestion(data)" v-for="data in allQuestion" :key="data.id"  class="productContent__questionItem w-100">
                         <div class="productContent__questionHeader w-100">
-                            <div class="productContent__questionRight">
-                              <span class="productContent__questionArrow mobile-inprogress__arrow"></span>
-                            </div>
-                            <div class="productContent__questionLeft">
-                              <h3 class="productContent__questionTitle">اگر از خرید ناراضی بودم قابلیت مرجوعی وجود دارد؟</h3>
-                            </div>
+                              <h3 class="productContent__questionTitle">
+                                <!-- <span class=" mobile-inprogress__arrow"></span> -->
+                                <img class="productContent__questionArrow" src="/icons/arrow-down.svg" alt="">
+                                {{data.title}}
+                              </h3>
                         </div>
                         <div class="productContent__questionContent w-100">
                           <h3 class="productContent__questionText">لحظاتی پیش اپل با رونمایی از لبتاپ سری آلمونیوم با بند اسپرت نسل جدید تحولی</h3>
@@ -162,20 +161,26 @@ export default {
   font-size: 16px;
   font-weight: 400;
   width: 100%;
+  @include display-flex();
+  padding-left: 22px;
 }
 .productContent__questionArrow{
-  transform: rotate(270deg);
+  // transform: rotate(270deg);
   // margin-right: 19px;
   @include display-flex();
   transition  : all .3s ease-in-out;
   color: $color-gray;
-  margin-top: 6px;
+  height:21px;
+  margin-right: 19px;
+  margin-left: 12px;
+  margin-top: 1px;
 }
 .productContent__questionHeader{
   @include display-flex();
-  align-items: center;
+  align-items: flex-start;
   flex-wrap: wrap;
   height: 78px;
+  padding-top: 26px;
 }
 .productContent__questionContent{
   @include display-flex();
@@ -199,18 +204,19 @@ export default {
 }
 .active-question .productContent__questionArrow{
   transition  : all .2s ease-in;
-  transform   : rotate(91deg);
+  transform   : rotate(-176deg);
 }
 .productContent__questionRight{
-  // margin-right: 18px;
-  width: 5%;
-  padding-right: 3%;
+  margin-right: 19px;
+  margin-top: 1px;
+  width: 14px;
+  height: 14px;
 }
-.productContent__questionLeft{
-  width: 95%;
-  padding-right: 2%;
-  padding-left: 2%;
-}
+// .productContent__questionLeft{
+//   max-width: 90%;
+//   margin-right: auto;
+//   margin-left: auto;
+// }
 
 
 @media (max-width: 960px) {
@@ -274,6 +280,21 @@ export default {
   .productContent__questionContent{
     margin-bottom: 21px;
   }
+  .productContent__questionHeader{
+    padding-top: 16px;
+  }
+  .productContent__questionArrow{
+    margin-right: 11px;
+    margin-left: 7px;
+    margin-top: -3px;
+  }
+  .productContent__questionTitle{
+    padding-left: 11px;
+  }
+  .productContent__questionData{
+    padding-right: 11px;
+    padding-left: 11px;
+  }
 }
 
 @media (max-width: 420px) {
@@ -282,10 +303,6 @@ export default {
   }
   .productContent__questionText{
     font-size: 12px;
-  }
-  .productContent__questionLeft{
-    margin-right: 11px;
-    margin-left: 11px;
   }
   .productContent__catTop{
     margin-bottom: 16px;
@@ -306,6 +323,35 @@ export default {
   //   font-size: 12px;
   // }
 }
+
+@media (max-width: 358px) {
+  .productContent__questionHeader{
+    padding-top: 17px;
+    height: 63px;
+  }
+  .active-question{
+    max-height: 1000px;
+  }
+  .productContent__questionTitle{
+    font-size: 11px;
+  }
+  .productContent__questionHeader{
+    padding-top: 14px;
+  }
+  .productContent__questionHeader{
+    height: 50px;
+  }
+  .active-question{
+    max-height: 1000px;
+  }
+}
+
+@media (max-width: 330px) {
+  .productContent__questionHeader{
+    padding-top: 7px;
+  }
+}
+
 
 @media (max-width: 280px) {
   // .productContent__questionLeft{
