@@ -40,8 +40,7 @@
                                 <input
                                     @click="[(isActive = true)]"
                                     class="signup-input form-control"
-                                    type="number"
-                                    oninput="if(value.length>4)value=value.slice(0,4)"
+                                    type="text"
                                     v-model="verifyCode"
                                     maxlength="4"
                                     required
@@ -80,7 +79,22 @@ export default {
             isActive: false
         };
     },
+    watch: {
+        verifyCode(value) {
+            this.verifyCode = value;
+            this.validationVerifyCode(value);
+        }
+    },
     methods: {
+        validationVerifyCode(value) {
+            if (/\D/.test(value)) {
+                // console.log(value);
+                this.verifyCode = this.verifyCode.substring(
+                    0,
+                    this.verifyCode.length - 1
+                );
+            }
+        },
         pressed() {
             // talk to server
             // this.$store.commit("walkInSignIncomponents", {

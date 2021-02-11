@@ -98,6 +98,7 @@ export default {
         },
         showWellcomeModal() {
             this.$emit("event-show-modal-wellcome");
+            this.gotoSignUpStepOne();
         },
         gotoSignUpStepTwo() {
             this.SignUpStepOne = false;

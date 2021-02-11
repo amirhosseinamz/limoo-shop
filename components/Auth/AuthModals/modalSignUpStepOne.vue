@@ -152,14 +152,14 @@ export default {
 
             if (this.phone == "" || condition.length < 11) {
                 this.wrongInput = true;
-                console.log("input is '' or < 11");
+                // console.log("input is '' or < 11");
             } else if (condition.length === 11) {
-                console.log("input length is === 11");
+                // console.log("input length is === 11");
                 this.wrongInput = false;
                 this.$store.commit("PhoneNumber", { value: this.phone });
             }
             if (!this.wrongInput) {
-                console.log("go to confirm");
+                // console.log("go to confirm");
                 this.$store.dispatch({
                     type: "userIsAuth",
                     value: true
