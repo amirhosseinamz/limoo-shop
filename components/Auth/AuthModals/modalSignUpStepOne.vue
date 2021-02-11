@@ -164,8 +164,8 @@ export default {
                     type: "userIsAuth",
                     value: true
                 });
-                // this.$emit("btn-go-back-signup-step-two");
-                this.$emit("btn-go-to-signin-step-one");
+                this.$emit("btn-go-to-signup-step-two");
+                // this.$emit("btn-go-to-signin-step-one");
             }
         },
         closePage() {
