@@ -170,9 +170,9 @@ export default {
   @include display-flex();
   transition  : all .3s ease-in-out;
   color: $color-gray;
-  height:21px;
-  margin-right: 19px;
-  margin-left: 12px;
+  height:20px;
+  margin-right: 16px;
+  margin-left: 11px;
   margin-top: 1px;
 }
 .productContent__questionHeader{
@@ -212,11 +212,6 @@ export default {
   width: 14px;
   height: 14px;
 }
-// .productContent__questionLeft{
-//   max-width: 90%;
-//   margin-right: auto;
-//   margin-left: auto;
-// }
 
 
 @media (max-width: 960px) {
@@ -229,6 +224,9 @@ export default {
   .productContent__questionData{
     padding-top: 0;
     padding-bottom: 0;
+  }
+  .productContent__questionArrow{
+    height: 21px;
   }
 }
 
@@ -260,6 +258,7 @@ export default {
 @media (max-width: 485px) {
   .productContent__questionContent{
     padding-left: 26px;
+    margin-bottom: 11px;
   }
   .productContent__catTitle{
     font-size: 14px;
@@ -277,16 +276,13 @@ export default {
     max-height: 1000px;
     transition: max-height 1s ease-in-out;
   }
-  .productContent__questionContent{
-    margin-bottom: 21px;
-  }
   .productContent__questionHeader{
     padding-top: 16px;
   }
   .productContent__questionArrow{
     margin-right: 11px;
     margin-left: 7px;
-    margin-top: -3px;
+    margin-top: 0;
   }
   .productContent__questionTitle{
     padding-left: 11px;
@@ -295,6 +291,12 @@ export default {
     padding-right: 11px;
     padding-left: 11px;
   }
+  .productContent__questionArrow{
+    height: 20px;
+  }
+  .productContent__questionText{
+    font-size: 13px;
+  }
 }
 
 @media (max-width: 420px) {
@@ -302,29 +304,18 @@ export default {
     font-size: 12px;
   }
   .productContent__questionText{
-    font-size: 12px;
+    font-size: 11px;
   }
   .productContent__catTop{
     margin-bottom: 16px;
   }
-  // .productContent__questionTitle{
-  //   font-size: 10px;
-  // }
-  // .productContent__questionText{
-  //   font-size: 9px;
-  // }
-  // .productContent__questionArrow::after{
-  //   font-size: 11px;
-  // }
-  // .productContent__questionContent{
-  //   margin-bottom: 14px;
-  // }
-  // .productContent__catTitle{
-  //   font-size: 12px;
-  // }
+  .productContent__questionArrow{
+    margin-top: -2px;
+    height: 19px;
+  }
 }
 
-@media (max-width: 358px) {
+@media (max-width: 354px) {
   .productContent__questionHeader{
     padding-top: 17px;
     height: 63px;
@@ -344,11 +335,17 @@ export default {
   .active-question{
     max-height: 1000px;
   }
+  .productContent__questionArrow{
+    margin-top: 0;
+  }
 }
 
-@media (max-width: 330px) {
+@media (max-width: 323px) {
   .productContent__questionHeader{
     padding-top: 7px;
+  }
+  .productContent__questionTitle{
+    padding-left: 16px;
   }
 }
 

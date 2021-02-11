@@ -206,7 +206,7 @@ export default {
               id    : 2,
               title : 'دیتا تستی',
               count : 'بیش از 200 هزار کالا',
-              image : '/img/brand1.svg',
+              image : '/img/brand-icon-img1.svg',
               href  : 'https://www.huawei.com/en/',
             },
             {

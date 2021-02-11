@@ -403,6 +403,7 @@ export default {
   font-weight: 400;
   color: #515151;
   line-height: 2.3em;
+  text-align: justify;
 }
 .logo-img{
   height: 59px;
