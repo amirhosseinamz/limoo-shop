@@ -215,35 +215,35 @@ export default {
               id    : 3,
               title : 'دیتا تستی',
               count : 'بیش از 200 هزار کالا',
-              image : '/img/cat_pic2.svg',
+              image : '/img/brand_huawei.svg',
               href  : 'https://www.huawei.com/en/',
             },
             {
               id    : 4,
               title : 'دیتا تستی',
               count : 'بیش از 200 هزار کالا',
-              image : '/img/pic_cat3.svg',
+              image : '/img/brand-icon-img1.svg',
               href  : 'https://www.huawei.com/en/',
             },
             {
               id    : 6,
               title : 'دیتا تستی',
               count : 'بیش از 200 هزار کالا',
-              image : '/img/cat_pic2.svg',
+              image : '/img/brand_huawei.svg',
               href  : 'https://www.huawei.com/en/',
             },
             {
               id    : 7,
               title : 'دیتا تستی',
               count : 'بیش از 200 هزار کالا',
-              image : '/img/pic_cat_4.svg',
+              image : '/img/brand-icon-img1.svg',
               href  : 'https://www.huawei.com/en/',
             },
             {
               id    : 8,
               title : 'دیتا تستی',
               count : 'بیش از 200 هزار کالا',
-              image : '/img/cat_pic2.svg',
+              image : '/img/brand_huawei.svg',
               href  : 'https://www.huawei.com/en/',
             },
 
@@ -363,12 +363,28 @@ export default {
 
     created() {
       // پس از اتصال به سرور فانکشن مورد نظر بعد رسپانس ریکوئست صدا زده شود //
+      const width     = window.innerWidth;
+
       this.addCamaProduct();
       this.addCamaProductVertical();
-      this.checkAddCircleBlogPorduct()
+
+
+
+      // detected add circle //
+      this.detectedResizeBrowser()
+
+      // add circle blog //
+      if (485 < width) {
+        this.checkAddCircleBlogPorduct('desktop')
+      }
+      else {
+        this.checkAddCircleBlogPorduct('mobile')
+      }
+
     },
 
     mounted() {
+
     },
 
     methods: {
@@ -386,13 +402,17 @@ export default {
         })
       },
 
-      checkAddCircleBlogPorduct(){
-        //  desktop limit //
-        const NUMBERLIMIT     = 135;
+      checkAddCircleBlogPorduct(stateChangeNumberLimit){
+        let NUMBERLIMIT     = -1;
 
-        // mobile limit //
-        // const NUMBERLIMIT  = 94;
-
+        if (stateChangeNumberLimit == 'mobile') {
+          // mobile limit //
+          NUMBERLIMIT  = 94;
+        }
+        else {
+          NUMBERLIMIT   = 135;
+          //  desktop limit //
+        }
 
         const integratedWordDescription = (splitedDescription) => {
           let concatStr = '';
@@ -422,7 +442,22 @@ export default {
 
         })
 
+      },
+
+      detectedResizeBrowser(){
+        window.addEventListener("resize", ()=>{
+            const width   = window.innerWidth;
+
+            if (485 >= width) {
+              this.checkAddCircleBlogPorduct('mobile')
+            }
+            else {
+              this.checkAddCircleBlogPorduct('desktop')
+            }
+
+          }, true);
       }
+
 
     }
 };

@@ -15,16 +15,18 @@
 
       <div class="w-100 productContent__questionData">
           <div class="productContent__questionItems w-100">
-                <div :class="{'active-question':data.active}" @click="showQuestion(data)" v-for="data in allQuestion" :key="data.id"  class="productContent__questionItem w-100">
-                        <div class="productContent__questionHeader w-100">
-                              <h3 class="productContent__questionTitle">
-                                <!-- <span class=" mobile-inprogress__arrow"></span> -->
-                                <img class="productContent__questionArrow" src="/icons/arrow-down.svg" alt="">
-                                {{data.title}}
-                              </h3>
-                        </div>
-                        <div class="productContent__questionContent w-100">
-                          <h3 class="productContent__questionText">لحظاتی پیش اپل با رونمایی از لبتاپ سری آلمونیوم با بند اسپرت نسل جدید تحولی</h3>
+                <div  v-for="(data,index) in allCategoryMobileSplitTwice" :key="index"  class=" w-100 productContent__questionParent">
+                        <div @click="showQuestion(contentChild)"  :class="{'active-question':contentChild.active}" v-for="contentChild in data.children" :key="contentChild.id" class="w-100 productContent__questionItem">
+                              <div class="productContent__questionHeader w-100">
+                                <h3 class="productContent__questionTitle">
+                                  <!-- <span class=" mobile-inprogress__arrow"></span> -->
+                                  <img class="productContent__questionArrow" src="/icons/arrow-down.svg" alt="">
+                                  {{contentChild.title}}
+                                </h3>
+                              </div>
+                              <div class="productContent__questionContent w-100">
+                                <h3 class="productContent__questionText">لحظاتی پیش اپل با رونمایی از لبتاپ سری آلمونیوم با بند اسپرت نسل جدید تحولی</h3>
+                              </div>
                         </div>
                 </div>
           </div>
@@ -47,10 +49,13 @@ export default {
 
     data() {
       return {
+        allCategoryMobileSplitTwice  : [],
       }
     },
 
     mounted() {
+      // جدا کزدن دسته بندی به صورت دوتا دوتا //
+      this.itemCategorySplitTwice();
     },
 
     computed: {
@@ -72,7 +77,41 @@ export default {
             // t.active = false;
           }
         })
-      }
+      },
+
+      itemCategorySplitTwice(){
+        let counterTwice      = 0;
+        let contentTwiceSplit = [];
+        let levelSplit        = 0;
+
+        // دوتا دوتا جدا سازی آیتم ها در موبایل //
+        this.allQuestion.map((content,index)=>{
+            counterTwice++;
+
+          if (counterTwice <= 2) {
+            contentTwiceSplit = [...contentTwiceSplit,content];
+          }
+
+          if (counterTwice >= 2) {
+            counterTwice                     = 0;
+            this.allCategoryMobileSplitTwice.push({children:contentTwiceSplit});
+            contentTwiceSplit                = [];
+            levelSplit                       +=2;
+          }
+
+        });
+
+
+        // پیدا کردن آیتم ای که در جدا سازی دوتایی آیتم ها اضافه آماده است //
+        if (this.allQuestion.length != levelSplit) {
+          const lastFindCatOutSideTwice = this.allQuestion[levelSplit];
+          this.allCategoryMobileSplitTwice.push( { children: [lastFindCatOutSideTwice] } );
+        }
+
+
+      },
+
+
     },
 
 };
@@ -93,8 +132,8 @@ export default {
 .productContent__catTop{
   @include display-flex();
   flex-wrap: wrap;
-  padding-right: 24px;
-  padding-left: 24px;
+  padding-right: 26px;
+  padding-left: 26px;
   align-items: flex-start;
   margin-bottom: 31px;
 }
@@ -138,6 +177,27 @@ export default {
   align-items: flex-start;
   flex-wrap: wrap;
 }
+// .productContent__questionItem{
+//   @include display-flex();
+//   align-items: flex-start;
+//   flex-wrap: wrap;
+//   border: solid 1px #ccc;
+//   border-radius: 10px;
+//   cursor: pointer;
+//   margin-bottom: 16px;
+//   position: relative;
+//   overflow: hidden;
+//   max-height: 78px;
+//   transition: max-height 0.5s cubic-bezier(0, 1, 0, 1);
+//   width: 49%;
+//   margin-left: 2%;
+// }
+// .productContent__questionItem:nth-child(2n){
+//   margin-left: 0;
+// }
+// .productContent__questionItem:nth-last-child(-n+2){
+//   margin-bottom: 0;
+// }
 .productContent__questionItem{
   @include display-flex();
   align-items: flex-start;
@@ -150,15 +210,26 @@ export default {
   overflow: hidden;
   max-height: 78px;
   transition: max-height 0.5s cubic-bezier(0, 1, 0, 1);
+  width: 100%;
+}
+.productContent__questionParent:nth-child(2n){
+  margin-left: 0;
+}
+.productContent__questionItem:nth-child(2n){
+  margin-bottom: 0;
+}
+.productContent__questionParent{
+  @include display-flex();
+  align-items: flex-start;
+  flex-wrap: wrap;
+  flex-flow: column;
   width: 49%;
   margin-left: 2%;
 }
-.productContent__questionItem:nth-child(2n){
-  margin-left: 0;
-}
-.productContent__questionItem:nth-last-child(-n+2){
-  margin-bottom: 0;
-}
+
+
+
+
 .productContent__questionTitle{
   color: $color_question_gray;
   font-size: 16px;
@@ -234,19 +305,26 @@ export default {
 }
 
 @media (max-width: 860px) {
-  .productContent__questionItem {
+  .productContent__questionParent {
     margin-left: 0;
     width: 100%;
   }
-  .productContent__questionItem:nth-last-child(-n+2){
+  .productContent__questionParent:nth-last-child(-n+2){
     margin-bottom: 8px;
   }
-  .productContent__questionItem{
+  .productContent__questionParent{
     margin-bottom: 8px;
   }
-  .productContent__questionItem:last-of-type{
+  .productContent__questionParent:last-of-type{
     margin-bottom: 0px;
   }
+  .productContent__questionItem:nth-child(1){
+    margin-bottom: 8px;
+  }
+  .productContent__questionItem:nth-child(2){
+    margin-bottom: 0;
+  }
+
 }
 
 
@@ -308,6 +386,11 @@ export default {
   }
   .productContent__questionText{
     font-size: 13px;
+  }
+  .productContent__catTop{
+    padding-right: 14px;
+    padding-left: 14px;
+    margin-bottom: 16px;
   }
 }
 

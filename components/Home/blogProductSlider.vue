@@ -42,9 +42,17 @@
                         </div>
                         <div class="w-100 productContent__carouselMore w-100" >
                             <div class=" productContent__moreBtn">
-                              <!-- <span class="productContent__moreArrow"></span> -->
-                              <img src="/icons/arrow-blog.svg" alt="">
-                              <h3 class="productContent__moreSingle">ادامه...</h3>
+                                <div class="w-100">
+                                  <NuxtLink
+                                      class=" productContent__moreLink"
+                                      :to="'/blog/' + data.id"
+                                      >
+                                      <img src="/icons/arrow-blog.svg" alt="">
+                                      <h3 class="productContent__moreSingle">ادامه...</h3>
+                                    </NuxtLink>
+
+
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -343,7 +351,11 @@ export default {
 .productContent__circle{
   display: inline-flex;
 }
-
+.productContent__moreLink{
+  @include display-flex();
+  align-items: center;
+  text-decoration: none;
+}
 
 
 @media (max-width: 960px) {

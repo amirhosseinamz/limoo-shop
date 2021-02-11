@@ -2,12 +2,12 @@
   <div class="w-100 bannerItems">
       <div class="bannerItems__item">
         <NuxtLink class="w-100 h-100  d-flex" to="/profile"  >
-          <img class="bannerItems__itemPic h-100" src="/img/orangeBnner.svg" alt="">
+          <img class="bannerItems__itemPic h-100" src="/img/picCover3.jpg" alt="">
         </NuxtLink class="w-100 h-100" to="/profile"  >
       </div>
       <div class="bannerItems__item">
         <NuxtLink class="w-100 h-100 d-flex" to="/profile"  >
-          <img class="bannerItems__itemPic h-100" src="/img/greenBanner.svg" alt="">
+          <img class="bannerItems__itemPic h-100" src="/img/WkYmcxWLn35eA5YEPl3dDpzXjmLCvu4PGGA5HFYA.jpg" alt="">
         </NuxtLink class="w-100 h-100" to="/profile"  >
       </div>
   </div>
