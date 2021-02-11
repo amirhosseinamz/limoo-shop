@@ -21,9 +21,14 @@
     position: absolute;
     top: 0;
     right: 0;
-    z-index: 1;
     left: 0;
+    z-index: 1;
     margin: auto;
+  }
+  @-moz-document url-prefix() {
+    .flickity-page-dots .dot::before{
+      top: 1px;
+    }
   }
   .flickity-page-dots .dot.is-selected::before{
     background: $gray;
@@ -60,6 +65,7 @@
     z-index: 1;
   }
 
+
   @media (max-width: 960px) {
     .flickity-button{
       display: none;
@@ -67,3 +73,22 @@
   }
 
 }
+
+.productContent__mainCat{
+  .flickity-viewport{
+    width: 100%;
+  }
+
+  @media (max-width: 485px) {
+    .flickity-prev-next-button{
+      display: none;
+    }
+  }
+
+}
+
+// .productContent__vertical{
+//   .flickity-button:disabled{
+//     display: none;
+//   }
+// }
