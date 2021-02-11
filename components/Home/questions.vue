@@ -7,7 +7,7 @@
 
           <div class=" productContent__sliderMore productContent__topLeft">
               <nuxt-link class="productContent__moreItem" to="/test">
-                لیست کامل محصولات
+                لیست کامل سوالات
                 <span class=" productContent__moreIcon mobile-inprogress__arrow"></span>
               </nuxt-link>
           </div>
@@ -156,6 +156,9 @@ export default {
 .productContent__questionItem:nth-child(2n){
   margin-left: 0;
 }
+.productContent__questionItem:nth-last-child(-n+2){
+  margin-bottom: 0;
+}
 .productContent__questionTitle{
   color: $color_question_gray;
   font-size: 16px;
@@ -234,6 +237,15 @@ export default {
   .productContent__questionItem {
     margin-left: 0;
     width: 100%;
+  }
+  .productContent__questionItem:nth-last-child(-n+2){
+    margin-bottom: 8px;
+  }
+  .productContent__questionItem{
+    margin-bottom: 8px;
+  }
+  .productContent__questionItem:last-of-type{
+    margin-bottom: 0px;
   }
 }
 

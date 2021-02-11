@@ -37,6 +37,13 @@
             :title="{title:'تستی 3',href:'test',titleVisit:'پر فروش ترین محصولات'}"
             ></product-content>
 
+            <blog-content
+            :products="allBlogProduct"
+            :status-show-counter-down="false"
+            name-element-find-slider="productContent__mainSliderBlog"
+            :title="{title:'بلاگ لیمو',href:'test',titleVisit:'آخرین رویداد های اپل'}"
+            ></blog-content>
+
             <question-content
             :all-question="allQuestion"
             ></question-content>
@@ -70,6 +77,7 @@ import productVerticalContent from './productVerticalContent';
 import questions from './questions';
 import questionContent from './questionContent';
 import brandIntroductionContent from './brandIntroductionContent';
+import blogContent from './blogContent';
 
 
 export default {
@@ -80,7 +88,7 @@ export default {
       allBrand             : { type: [Object,Array], default: [] },
       brandIntroduction    : { type: [Object,Array], default: [] },
       allQuestion          : { type: [Object,Array], default: [] },
-
+      allBlogProduct       : { type: [Object,Array], default: [] },
     },
 
     components: {
@@ -94,6 +102,7 @@ export default {
       questions,
       questionContent,
       brandIntroductionContent,
+      blogContent,
     },
 
     data() {

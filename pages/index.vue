@@ -19,6 +19,8 @@
         :all-brand="allBrand"
         :brand-introduction="brandIntroduction"
         :all-question="allQuestion"
+        :all-blog-product="allBlogProduct"
+
 
        ></content-home>
     </div>
@@ -273,8 +275,7 @@ export default {
             },
 
           ],
-
-          allQuestion   : [
+          allQuestion         : [
             {
               id         : 111,
               title      : 'آیا می توانم از کیف پول برای خرید استفاده کنم?',
@@ -295,8 +296,62 @@ export default {
               title      : 'اگر از خرید ناراضی بودم قابلیت مرجوعی وجود دارد؟',
               active     : false,
             },
+          ],
+          allBlogProduct      : [
+            {
+              id          : 1,
+              title       : 'حافظه SSD وسترن دیجیتال مدل GREEN WDS480G2G0A ظرفیت 480 گیگابایت',
+              discount    : '10000',
+              realPrice   : '50000',
+              image       : '/img/picPhone2.svg',
+              description : `لحظاتی بیش اپل با رونمایی از لبتاپ سری آلومینیوم با بند اسپرت نسل جدید تحولی عظیم برای تولیدات 11`
+            },
+            {
+              id        : 2,
+              title     : 'اپ واچ سری قرمز آلومینیوم آبی با بند اسپرت سیلیکون آبی ویژه سایز 42 و 44',
+              discount  : '',
+              realPrice : '10000',
+              image     : '/img/picWatch.svg',
+              description : `
+              لحظاتی بیش اپل با رونمایی از لبتاپ سری آلومینیوم با بند اسپرت نسل جدید تحولی عظیم برای تولیدات قطعات ام وان ایجاد کرد کهssfdsfdsfddfasffdsfsdfd
+              لحظاتی بیش اپل با رونمایی از لبتاپ سری آلومینیوم با بند اسپرت نسل جدید تحولی عظیم برای تولیدات قطعات ام وان ایجاد کرد کهssfdsfdsfddfasffdsfsdfd
+              `
+            },
+            {
+              id        : 3,
+              title     : 'اپ واچ سری قرمز آلومینیوم آبی با بند اسپرت سیلیکون آبی ویژه سایز 42 و 44',
+              discount  : '',
+              realPrice : '625000',
+              image     : '/img/pic_phone_3.svg',
+              description : 'لحظاتی بیش اپل با رونمایی از لبتاپ سری                 آلومینیوم با بند اسپرت نسل جدید تحولی عظیم     برای تولیدات قطعات ام وان ایجاد کرد که',
+            },
+            {
+              id        : 4,
+              title     : 'اپ واچ سری قرمز آلومینیوم آبی با بند اسپرت سیلیکون آبی ویژه سایز 42 و 44',
+              discount  : '',
+              realPrice : '120000',
+              image     : '/img/pic_phone_4.svg',
+              description : 'لحظاتی بیش اپل با رونمایی از لبتاپ سری                 آلومینیوم با بند اسپرت نسل جدید تحولی عظیم     برای تولیدات قطعات ام وان ایجاد کرد که',
 
+            },
+            {
+              id        : 5,
+              title     : 'اپ واچ سری قرمز آلومینیوم آبی با بند اسپرت سیلیکون آبی ویژه سایز 42 و 44',
+              discount  : '70000',
+              realPrice : '120000',
+              image     : '/img/phoneAndroid.svg',
+              description : 'dasdasdas M A',
 
+            },
+            {
+              id        : 6,
+              title     : 'اپ واچ سری قرمز آلومینیوم آبی با بند اسپرت سیلیکون آبی ویژه سایز 42 و 44',
+              discount  : '',
+              realPrice : '120000',
+              image     : '/img/phoneAndroid.svg',
+              description : `لحظاتی بیش اپل با رونمایی از لبتاپ سری آلومینیوم با بند اسپرت نسل جدید تحولی عظیم برای تولیدات قطعات ام وان ایجاد کرد که`
+
+            }
           ],
 
         };
@@ -310,10 +365,10 @@ export default {
       // پس از اتصال به سرور فانکشن مورد نظر بعد رسپانس ریکوئست صدا زده شود //
       this.addCamaProduct();
       this.addCamaProductVertical();
+      this.checkAddCircleBlogPorduct()
     },
 
     mounted() {
-
     },
 
     methods: {
@@ -330,6 +385,44 @@ export default {
           content.addCamaDiscount  = addCamaPrice(content.discount);
         })
       },
+
+      checkAddCircleBlogPorduct(){
+        //  desktop limit //
+        const NUMBERLIMIT     = 135;
+
+        // mobile limit //
+        // const NUMBERLIMIT  = 94;
+
+
+        const integratedWordDescription = (splitedDescription) => {
+          let concatStr = '';
+          splitedDescription.map((content,index)=>{
+            if (NUMBERLIMIT > index) {
+              concatStr+= content;
+            }
+          })
+          return concatStr;
+        }
+
+
+        this.allBlogProduct.map((content,index)=>{
+          const description         = content.description;
+          const checkLenDescription = description.length;
+          const splitDescription    = description.split('');
+
+          if (checkLenDescription > NUMBERLIMIT) {
+            const resultIntegrated       = integratedWordDescription(splitDescription);
+            content.limitedDescription   = resultIntegrated;
+            content.showLimitDescription = false;
+          }
+          else {
+            content.limitedDescription   = '';
+            content.showLimitDescription = true;
+          }
+
+        })
+
+      }
 
     }
 };

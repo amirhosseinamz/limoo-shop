@@ -1,32 +1,34 @@
 <template>
-  <div  class="w-100 productContent productContent__question">
+  <div class="w-100 productContent">
 
-      <div class="productContent__items w-100 ">
-            <div class="productContent__left">
-              <questions :all-question="allQuestion"></questions>
+      <div class="productContent__items w-100">
+              <blog-product-slider :name-element-find-slider="nameElementFindSlider" :products="products" :title="title"></blog-product-slider>
               <div class="w-100 productContent__sliderMore">
                   <nuxt-link class="productContent__moreItem" to="/">
-                    لیست کامل سوالات
+                    مطالب بیشتر
                     <span class=" productContent__moreIcon mobile-inprogress__arrow"></span>
                   </nuxt-link>
               </div>
-            </div>
       </div>
 
   </div>
 </template>
 
 <script>
-import questions from './questions';
+import blogProductSlider from './blogProductSlider';
 
 
 export default {
     components: {
-      questions,
+      blogProductSlider,
     },
 
     props: {
-      allQuestion   : { type: [Object,Array], default: [] },
+      products                : { type: [Object,Array], default: [] },
+      statusShowCounterDown   : { type: Boolean, default: true },
+      nameElementFindSlider   : { type: String, default: '' },
+      title                   : { type: Object, default: {} },
+      removeMarginTop         : { type: String, default: '' },
     },
 
     data() {
@@ -64,7 +66,7 @@ export default {
   flex-wrap: wrap;
   @include display-flex();
   padding-top: 24px;
-  padding-bottom:0px;
+  padding-bottom:31px;
 }
 .productContent__left{
   flex-grow: 1;
@@ -102,6 +104,20 @@ export default {
     font-size: 12px;
     margin-top: 1px;
 }
+.productContent__desktop{
+  @include display-flex();
+}
+.productContent__mobile{
+  display: none;
+}
+
+
+
+
+
+
+
+
 
 
 
@@ -114,6 +130,9 @@ export default {
 }
 
 @media (max-width: 960px) {
+  .productContent{
+    margin-top: 8px;
+  }
   .productContent__right{
     width: 100%;
     padding-right: 11px;
@@ -121,7 +140,13 @@ export default {
   }
   .productContent__left{
     width: 100%;
-    margin-top: 0px;
+    margin-top: 24px;
+  }
+  .productContent__desktop{
+    display: none;
+  }
+  .productContent__mobile{
+    @include display-flex();
   }
   .productContent{
     height: auto;
@@ -129,12 +154,15 @@ export default {
   .productContent__sliderMore{
     margin-top: 34px;
   }
+
+  .productContent__updateMargin .productContent__items{
+    padding-top: 16px;
+    padding-bottom: 16px;
+  }
   .productContent__items{
     padding-top: 16px;
     padding-bottom: 16px;
   }
-
-
 
 }
 
