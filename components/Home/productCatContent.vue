@@ -7,7 +7,7 @@
           </div>
 
           <div class=" productContent__sliderMore productContent__topLeft">
-              <nuxt-link class="productContent__moreItem" to="/">
+              <nuxt-link class="productContent__moreItem" :to="title.href">
                 لیست کامل محصولات
                 <span class=" productContent__moreIcon mobile-inprogress__arrow"></span>
               </nuxt-link>

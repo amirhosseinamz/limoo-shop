@@ -48,7 +48,6 @@ export default {
               discount  : '10000',
               realPrice : '50000',
               image     : '/img/phoneAndroid.svg',
-              href      : 'test',
             },
             {
               id        : 2,
@@ -56,7 +55,6 @@ export default {
               discount  : '',
               realPrice : '10000',
               image     : '/img/phoneAndroid.svg',
-              href      : 'test',
             },
             {
               id        : 3,
@@ -64,7 +62,6 @@ export default {
               discount  : '',
               realPrice : '625000',
               image     : '/img/phoneAndroid.svg',
-              href      : 'test',
             },
             {
               id        : 4,
@@ -72,7 +69,6 @@ export default {
               discount  : '',
               realPrice : '120000',
               image     : '/img/phoneAndroid.svg',
-              href      : 'test',
             },
             {
               id        : 5,
@@ -80,7 +76,6 @@ export default {
               discount  : '70000',
               realPrice : '120000',
               image     : '/img/phoneAndroid.svg',
-              href      : 'test',
             },
             {
               id        : 6,
@@ -88,7 +83,6 @@ export default {
               discount  : '',
               realPrice : '120000',
               image     : '/img/phoneAndroid.svg',
-              href      : 'test',
             }
           ],
           allCategory         : [
@@ -365,7 +359,6 @@ export default {
               discount  : '10000',
               realPrice : '50000',
               image     : '/img/picTest1.jpg',
-              href      : 'test',
             },
             {
               id        : 2,
@@ -373,7 +366,6 @@ export default {
               discount  : '',
               realPrice : '10000',
               image     : '/img/ArEJJ7Elmy2iAF1okIadw53iJdxCqisTJVkXwh1R.jpeg',
-              href      : 'test',
             },
             {
               id        : 3,
@@ -381,7 +373,6 @@ export default {
               discount  : '',
               realPrice : '625000',
               image     : '/img/apple-watch-series-4-hermes-double1.svg',
-              href      : 'test',
             },
             {
               id        : 4,
@@ -389,7 +380,6 @@ export default {
               discount  : '',
               realPrice : '120000',
               image     : '/img/apple-watch-series-4-hermes-double1.svg',
-              href      : 'test',
             },
           ],
         };

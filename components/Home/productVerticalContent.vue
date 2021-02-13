@@ -3,9 +3,9 @@
 
       <div class="productContent__items w-100">
             <div class="productContent__left">
-                <product-vertical :products="products"></product-vertical>
+                <product-vertical :products="products" :title="title"></product-vertical>
                 <div class="w-100 productContent__sliderMore">
-                    <nuxt-link class="productContent__moreItem" to="/">
+                    <nuxt-link class="productContent__moreItem" :to="title.href">
                       لیست کامل محصولات
                       <span class=" productContent__moreIcon mobile-inprogress__arrow"></span>
                     </nuxt-link>
@@ -27,6 +27,7 @@ export default {
 
     props: {
       products   : { type: [Object,Array], default: [] },
+      title      : { type: Object, default: {} },
     },
 
     data() {

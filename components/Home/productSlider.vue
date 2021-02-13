@@ -111,7 +111,7 @@ export default {
         sliderOptions.on( 'staticClick', ( event, pointer, cellElement, cellIndex ) =>{
             this.products.map((content,index)=>{
               if (index == cellIndex) {
-                this.$router.push(`/${content.href}/${content.id}`);
+                this.$router.push(`/${this.title.sliderItemHref}/${content.id}`);
               }
             })
         });

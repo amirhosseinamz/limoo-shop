@@ -18,7 +18,14 @@
         <div class="main-carousel w-100 productContent__vertical productContent__mainSlider">
 
             <div v-for="data in allDesktopSplitTwice" :key="data.id" class="carousel-cell productContent__carousel ">
-                  <div v-if="contentChildren.mobileShow" v-for="contentChildren in data.children" :key="contentChildren.id" class="productContent__carouselContent w-100">
+                  <div @click="switchLink($event,contentChildren)" v-if="contentChildren.mobileShow" v-for="contentChildren in data.children" :key="contentChildren.id" class="productContent__carouselContent w-100">
+                      <NuxtLink
+                      class="w-100 productContent__carousel-link"
+                      :to=" '/' + title.sliderItemHref + '/' + contentChildren.id "
+                      target="_blank"
+                      :data-id="contentChildren.id"
+                      >
+                    </NuxtLink>
 
                         <div class="productContent__carouselRight">
                           <img class="productContent__carouselImgItem" :src="contentChildren.image" alt="">
@@ -74,6 +81,7 @@ export default {
 
     props: {
       products   : { type: [Object,Array], default: [] },
+      title      : { type: Object, default: [] },
     },
 
     data() {
@@ -123,6 +131,12 @@ export default {
           fade            : false,
         });
         this.flkty         = sliderOptions;
+
+        sliderOptions.on( 'staticClick', ( event, pointer, cellElement, cellIndex ) =>{
+          const currentId    = parseInt(event.target.getAttribute('data-id'));
+          this.$router.push(`/${this.title.sliderItemHref}/${currentId}`);
+        });
+
 
       },
 
@@ -189,6 +203,15 @@ export default {
               }
             }
           }, true);
+      },
+
+      switchLink(event,data){
+          const width   = window.innerWidth;
+          event.preventDefault();
+
+          if (485 > width) {
+            this.$router.push(`/${this.title.sliderItemHref}/${data.id}`);
+          }
       }
 
 
@@ -219,6 +242,7 @@ export default {
   border-bottom: solid 1px $gray-border;
   padding-right: 14px;
   align-items: flex-start;
+  position: relative;
 }
 // .productContent__carousel:nth-child(3n) .productContent__carouselContent{
 //   border-left: none;
@@ -418,6 +442,14 @@ export default {
   @include display-flex();
   text-decoration: none;
 }
+.productContent__carousel-link{
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+}
+
 
 @media (max-width: 960px) {
 }

@@ -18,10 +18,13 @@
             <product-cat
              :all-category="allCategory"
              name-element-find-slider="productContent__mainCat1"
-             :title="{title:'دسته بندی محصولات' , href:'#' , titleVisit:'',sliderItemHref:'category' , sliderItemHref:'product1'}"
+             :title="{title:'دسته بندی محصولات' , href:'catHref' , titleVisit:'',sliderItemHref:'category' , sliderItemHref:'product1'}"
              ></product-cat>
 
-            <product-vertical-content :products="allProductVertical" ></product-vertical-content>
+            <product-vertical-content
+             :products="allProductVertical"
+             :title="{title:'موبایل اندرویدی' , href:'verticalAll' , titleVisit:'',sliderItemHref:'category' , sliderItemHref:'product-vertical'}"
+              ></product-vertical-content>
 
             <banner-items></banner-items>
 

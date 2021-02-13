@@ -15,7 +15,14 @@
       </div>
 
         <div :class="nameElementFindSlider" class=" main-carousel w-100 productContent__mainSlider">
-            <div v-for="data in products" :key="data.id" class="carousel-cell productContent__carousel ">
+            <div @click="switchLink($event)" v-for="data in products" :key="data.id" class="carousel-cell productContent__carousel ">
+                <NuxtLink
+                class="w-100 productContent__carousel-link"
+                :to=" '/' + title.sliderItemHref + '/' + data.id "
+                target="_blank"
+                :data-id="data.id"
+                >
+              </NuxtLink>
                 <div class="productContent__carouselContent w-100">
                         <span class="productContent__carouselLine"></span>
                         <div class="productContent__carouselImgMain w-100">
@@ -45,7 +52,7 @@
                                 <div class="w-100">
                                   <NuxtLink
                                       class=" productContent__moreLink"
-                                      :to="'/blog/' + data.id"
+                                      :to=" '/' + title.sliderItemHref + '/' + data.id "
                                       >
                                       <img src="/icons/arrow-blog.svg" alt="">
                                       <h3 class="productContent__moreSingle">ادامه...</h3>
@@ -111,14 +118,17 @@ export default {
 
 
         sliderOptions.on( 'staticClick', ( event, pointer, cellElement, cellIndex ) =>{
-            this.products.map((content,index)=>{
-              if (index == cellIndex) {
-                this.$router.push(`/home/${content.id}`);
-              }
-            })
+          const currentId    = parseInt(event.target.getAttribute('data-id'));
+          this.$router.push(`/${this.title.sliderItemHref}/${currentId}`);
         });
 
       },
+
+      switchLink(event){
+          event.preventDefault();
+      }
+
+
     },
 
 };
@@ -356,6 +366,14 @@ export default {
   align-items: center;
   text-decoration: none;
 }
+.productContent__carousel-link{
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+}
+
 
 
 @media (max-width: 960px) {
