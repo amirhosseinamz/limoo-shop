@@ -63,11 +63,12 @@
             ></product-cat>
 
 
-            <brand-introduction-content :products="brandIntroduction"></brand-introduction-content>
-
             <question-content
             :all-question="allQuestion"
             ></question-content>
+            
+            <brand-introduction-content :products="brandIntroduction"></brand-introduction-content>
+
 
 
         </div>
