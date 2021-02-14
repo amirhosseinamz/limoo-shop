@@ -91,14 +91,16 @@ export default {
         validationVerifyCode(value) {
             if (/\D/.test(value)) {
                 // console.log(value);
-                this.verifyCode = this.verifyCode.substring(
-                    0,
-                    this.verifyCode.length - 1
-                );
+                // this.verifyCode = this.verifyCode.substring(
+                //     0,
+                //     this.verifyCode.length - 1
+                // );
+                this.verifyCode = this.verifyCode.slice(0, -1);
             }
         },
         pressed() {
             // talk to server
+            this.$store.commit("PhoneNumber", { value: "" });
         },
         animate() {
             this.timerPassed = true;

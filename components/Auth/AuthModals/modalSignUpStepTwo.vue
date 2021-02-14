@@ -93,10 +93,11 @@ export default {
         validationVerifyCode(value) {
             if (/\D/.test(value)) {
                 // console.log(value);
-                this.verifyCode = this.verifyCode.substring(
-                    0,
-                    this.verifyCode.length - 1
-                );
+                // this.verifyCode = this.verifyCode.substring(
+                //     0,
+                //     this.verifyCode.length - 1
+                // );
+                this.verifyCode = this.verifyCode.slice(0, -1);
             }
         },
         animate() {

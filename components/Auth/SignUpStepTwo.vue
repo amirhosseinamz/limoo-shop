@@ -93,10 +93,10 @@ export default {
         validationVerifyCode(value) {
             if (/\D/.test(value)) {
                 // console.log(value);
-                this.verifyCode = this.verifyCode.substring(
-                    0,
-                    this.verifyCode.length - 1
-                );
+                this.verifyCode = this.verifyCode.slice(0, -1);
+                // THe first is 0, the starting point. The second is the number of
+                // items to remove. Passing a negative number will remove starting
+                // from the end. This is the solution
             }
         },
         animate() {
