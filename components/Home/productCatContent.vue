@@ -7,7 +7,7 @@
           </div>
 
           <div class=" productContent__sliderMore productContent__topLeft">
-              <nuxt-link class="productContent__moreItem" to="/">
+              <nuxt-link class="productContent__moreItem" :to="title.href">
                 لیست کامل محصولات
                 <span class=" productContent__moreIcon mobile-inprogress__arrow"></span>
               </nuxt-link>
@@ -17,48 +17,74 @@
 
         <!-- mobile show -->
           <div v-if="showSliderMobile" :class="nameElementFindSlider" class="productContent__mainCat  main-carousel w-100 productContent__mainSlider">
-                <div v-for="data in allCategoryMobileSplitTwice" :key="data.id" class="carousel-cell productContent__carousel ">
-                      <div v-for="contentChildren in data.children" :key="contentChildren.id" class="productContent__carouselContent w-100">
+                  <div  v-for="data in allCategoryMobileSplitTwice" :key="data.id" class="carousel-cell productContent__carousel ">
+                        <div  @click="switchLink($event)" v-for="contentChildren in data.children" :key="contentChildren.id" class="productContent__carouselContent w-100">
+                            <NuxtLink
+                            class="w-100 productContent__carousel-link"
+                            :to=" '/' + title.sliderItemHref + '/' + contentChildren.id "
+                            target="_blank"
+                            :data-id="contentChildren.id"
+                            >
+                          </NuxtLink>
 
-                            <div class="productContent__catRight">
-                              <img class="productContent__carouselImgItem" :src="contentChildren.image" alt="">
-                            </div>
-
-                          <div class=" productContent__catLeft">
-                              <div class="productContent__carouselData">
-                                  <div class="w-100">
-                                      <h3 class="productContent__carouselDataTitle">
-                                        {{contentChildren.title}}
-                                      </h3>
-                                      <h3 class="productContent__carouselCount">
-                                        {{contentChildren.count}}
-                                      </h3>
-                                  </div>
+                              <div class="productContent__catRight">
+                                <img class="productContent__carouselImgItem" :src="contentChildren.image" alt="">
                               </div>
-                          </div>
-                      </div>
-              </div>
+
+                            <div class=" productContent__catLeft">
+                                <div class="productContent__carouselData">
+                                    <div class="w-100">
+                                        <h3 class="productContent__carouselDataTitle">
+                                          {{contentChildren.title}}
+                                        </h3>
+                                        <h3 class="productContent__carouselCount">
+                                          {{contentChildren.count}}
+                                        </h3>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                </div>
           </div>
 
           <div v-else :class="nameElementFindSlider" class="productContent__mainCat  main-carousel w-100 productContent__mainSlider">
-                <div v-for="data in allCategory" :key="data.id" class="carousel-cell productContent__carousel ">
-                <div class="productContent__carouselContent w-100">
-                        <span class="productContent__carouselLine"></span>
-                        <div class="productContent__carouselImgMain w-100">
-                          <img class="productContent__carouselImgItem" :src="data.image" alt="">
-                        </div>
-                        <div class="productContent__carouselData">
-                            <div class="w-100">
-                              <h3 class="productContent__carouselDataTitle">
-                                {{data.title}}
-                              </h3>
-                              <h3 class="productContent__carouselCount">
-                                {{data.count}}
-                              </h3>
+                  <div :data-href="data.href" :data-id="data.id" @click="switchLink($event)" v-for="data in allCategory" :key="data.id" class="carousel-cell productContent__carousel ">
+                      <div class="productContent__carouselContent w-100">
+
+
+                            <a
+                            class="w-100 productContent__carousel-link"
+                            :href="data.href"
+                            target="_blank"
+                            v-if="title.sliderItemHref == 'brand' "
+                            >
+                            </a>
+
+                            <NuxtLink
+                              class="w-100 productContent__carousel-link"
+                              :to=" '/' + title.sliderItemHref + '/' + data.id "
+                              target="_blank"
+                              v-else
+                              >
+                            </NuxtLink>
+
+                              <span class="productContent__carouselLine"></span>
+                              <div class="productContent__carouselImgMain w-100">
+                                <img class="productContent__carouselImgItem" :src="data.image" alt="">
+                              </div>
+                              <div class="productContent__carouselData">
+                                  <div class="w-100">
+                                    <h3 class="productContent__carouselDataTitle">
+                                      {{data.title}}
+                                    </h3>
+                                    <h3 class="productContent__carouselCount">
+                                      {{data.count}}
+                                    </h3>
+                                  </div>
                             </div>
+
                       </div>
                 </div>
-              </div>
           </div>
           <div class="productContent__line"></div>
 
@@ -134,18 +160,28 @@ export default {
         this.flkty = sliderOptions;
 
         sliderOptions.on( 'staticClick', ( event, pointer, cellElement, cellIndex ) =>{
-            this.allCategory.map((content,index)=>{
-              if (index == cellIndex) {
-                // در صورتی که بر روی یکی از آیتم های برند کلیک شود به آدرس ای که گفته شده می رود //
-                if (this.title.sliderItemHref == 'brand') {
-                  window.location.href = content.href;
-                }
-                else {
-                  this.$router.push(`/${this.title.sliderItemHref}/${content.id}`);
-                }
-              }
-            })
+          let currentId            = -1;
+          const currentIdDesktop   = parseInt(cellElement.getAttribute('data-id'))
+          const currentIdMobile    = parseInt(event.target.getAttribute('data-id'));
+
+          // فقط در موبایل اجرا می شود //
+          if (Number.isNaN(currentIdDesktop)) {
+            currentId = currentIdMobile;
+          }
+          else {
+            currentId = currentIdDesktop;
+          }
+
+          // در صورتی که بر روی یکی از آیتم های برند کلیک شود به آدرس ای که گفته شده می رود //
+          if (this.title.sliderItemHref == 'brand') {
+            const currentHrefBrand   = cellElement.getAttribute('data-href');
+            window.location.href     = currentHrefBrand;
+          }
+          else {
+            this.$router.push(`/${this.title.sliderItemHref}/${currentId}`);
+          }
         });
+
 
       },
 
@@ -199,6 +235,10 @@ export default {
               this.flickityOptions()
             });
           }, true);
+      },
+
+      switchLink(event){
+        event.preventDefault();
       }
 
 
@@ -230,6 +270,7 @@ export default {
   // padding-right: 11px;
   // padding-left: 11px;
   cursor: pointer;
+  position: relative;
 }
 .productContent__carouselDataTitle{
   line-height: 1.9em;
@@ -370,6 +411,13 @@ export default {
 }
 .productContent__catChangeStyle  .productContent__catTop{
   margin-bottom: 38px;
+}
+.productContent__carousel-link{
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
 }
 
 

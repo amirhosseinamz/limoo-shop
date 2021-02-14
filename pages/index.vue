@@ -20,6 +20,8 @@
         :brand-introduction="brandIntroduction"
         :all-question="allQuestion"
         :all-blog-product="allBlogProduct"
+        :introduction-product="introductionProduct"
+
 
 
        ></content-home>
@@ -53,7 +55,6 @@ export default {
               discount  : '',
               realPrice : '10000',
               image     : '/img/phoneAndroid.svg',
-
             },
             {
               id        : 3,
@@ -61,7 +62,6 @@ export default {
               discount  : '',
               realPrice : '625000',
               image     : '/img/phoneAndroid.svg',
-
             },
             {
               id        : 4,
@@ -69,7 +69,6 @@ export default {
               discount  : '',
               realPrice : '120000',
               image     : '/img/phoneAndroid.svg',
-
             },
             {
               id        : 5,
@@ -202,7 +201,7 @@ export default {
               title : 'موبایل و تبلت',
               count : 'بیش از 220 هزار کالا',
               image : '/img/brand_huawei.svg',
-              href  : 'https://www.huawei.com/en/',
+              href  : 'https://www.digikala.com/',
             },
             {
               id    : 2,
@@ -353,7 +352,36 @@ export default {
 
             }
           ],
-
+          introductionProduct : [
+            {
+              id        : 1,
+              title     : 'حافظه SSD وسترن دیجیتال مدل GREEN WDS480G2G0A ظرفیت 480 گیگابایت',
+              discount  : '10000',
+              realPrice : '50000',
+              image     : '/img/picTest1.jpg',
+            },
+            {
+              id        : 2,
+              title     : 'اپ واچ سری قرمز آلومینیوم آبی با بند اسپرت سیلیکون آبی ویژه سایز 42 و 44',
+              discount  : '',
+              realPrice : '10000',
+              image     : '/img/ArEJJ7Elmy2iAF1okIadw53iJdxCqisTJVkXwh1R.jpeg',
+            },
+            {
+              id        : 3,
+              title     : 'اپ واچ سری قرمز آلومینیوم آبی با بند اسپرت سیلیکون آبی ویژه سایز 42 و 44',
+              discount  : '',
+              realPrice : '625000',
+              image     : '/img/apple-watch-series-4-hermes-double1.svg',
+            },
+            {
+              id        : 4,
+              title     : 'اپ واچ سری قرمز آلومینیوم آبی با بند اسپرت سیلیکون آبی ویژه سایز 42 و 44',
+              discount  : '',
+              realPrice : '120000',
+              image     : '/img/apple-watch-series-4-hermes-double1.svg',
+            },
+          ],
         };
     },
 

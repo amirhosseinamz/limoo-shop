@@ -50,7 +50,7 @@ export default {
 
 <style lang="scss" scoped>
 .productContent{
-  margin-top: 40px;
+  margin-bottom: 40px;
   background: $white;
   border-radius: 12px;
   @include display-flex();
@@ -147,6 +147,7 @@ export default {
     display: flex;
   }
   .productContent{
+    margin-bottom: 0px;
     margin-top: 8px;
   }
 }

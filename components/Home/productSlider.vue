@@ -15,40 +15,47 @@
       </div>
 
         <div :class="nameElementFindSlider" class=" main-carousel w-100 productContent__mainSlider">
-            <div v-for="data in products" :key="data.id" class="carousel-cell productContent__carousel ">
-            <div class="productContent__carouselContent w-100">
-                    <span class="productContent__carouselLine"></span>
-                    <div class="productContent__carouselImgMain w-100">
-                      <img class="productContent__carouselImgItem" :src="data.image" alt="">
+              <div @click="switchLink($event)" v-for="data in products" :key="data.id" class="carousel-cell productContent__carousel ">
+                    <div class="productContent__carouselContent w-100">
+                          <NuxtLink
+                          class="w-100 productContent__carousel-link"
+                          :to=" '/' + title.sliderItemHref + '/' + data.id "
+                          target="_blank"
+                          >
+                        </NuxtLink>
+                              <span class="productContent__carouselLine"></span>
+                              <div class="productContent__carouselImgMain w-100">
+                                <img class="productContent__carouselImgItem" :src="data.image" alt="">
+                              </div>
+                              <div class="productContent__carouselData">
+                                <div class="w-100">
+                                    <h3 class="productContent__carouselDataTitle">
+                                      {{data.title}}
+                                    </h3>
+                                </div>
+                                <div class="w-100 productContent__carouselPriceMain" :class="{'productContent__noneDiscount':data.discount == ''}">
+                                    <div class="productContent__discount">
+                                      <div class="productContent__pricePercent">
+                                        <h3 class="productContent__percentTitle">30%</h3>
+                                      </div>
+                                      <div class="productContent__priceDiscount">
+                                        <h3 class="productContent__discountTitle">
+                                          {{data.addCamaDiscount}}
+                                          <span class="productContent__discountLine"></span>
+                                        </h3>
+                                      </div>
+                                    </div>
+                                    <div class="w-100 productContent__priceUnit">
+                                      <h3 class="productContent__priceTitle">
+                                        {{data.addCamaRealPrice}}
+                                        <span>تومان</span>
+                                      </h3>
+                                    </div>
+                                </div>
+                          </div>
+
                     </div>
-                    <div class="productContent__carouselData">
-                  <div class="w-100">
-                    <h3 class="productContent__carouselDataTitle">
-                      {{data.title}}
-                    </h3>
-                  </div>
-                  <div class="w-100 productContent__carouselPriceMain" :class="{'productContent__noneDiscount':data.discount == ''}">
-                    <div class="productContent__discount">
-                      <div class="productContent__pricePercent">
-                        <h3 class="productContent__percentTitle">30%</h3>
-                      </div>
-                      <div class="productContent__priceDiscount">
-                        <h3 class="productContent__discountTitle">
-                          {{data.addCamaDiscount}}
-                          <span class="productContent__discountLine"></span>
-                        </h3>
-                      </div>
-                    </div>
-                    <div class="w-100 productContent__priceUnit">
-                      <h3 class="productContent__priceTitle">
-                        {{data.addCamaRealPrice}}
-                        <span>تومان</span>
-                      </h3>
-                    </div>
-                  </div>
-                </div>
             </div>
-          </div>
         </div>
         <div class="productContent__line"></div>
   </div>
@@ -104,12 +111,17 @@ export default {
         sliderOptions.on( 'staticClick', ( event, pointer, cellElement, cellIndex ) =>{
             this.products.map((content,index)=>{
               if (index == cellIndex) {
-                this.$router.push(`/home/${content.id}`);
+                this.$router.push(`/${this.title.sliderItemHref}/${content.id}`);
               }
             })
         });
 
       },
+
+      switchLink(event){
+        event.preventDefault();
+      }
+
     },
 
 };
@@ -303,6 +315,13 @@ export default {
   font-size: 17px;
   font-weight: 300;
   // display: none;
+}
+.productContent__carousel-link{
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
 }
 
 
