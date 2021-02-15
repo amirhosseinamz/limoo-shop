@@ -102,9 +102,13 @@ export default {
     created() {
         this.userHistory = Object.values(this.historyData).length;
     },
+    computed: {
+        historyData() {
+            return (this.userHistory = Object.values(this.historyData).length);
+        }
+    },
     watch: {
-        userHistory() {
-            this.userHistory = Object.values(this.historyData).length;
+        historyData() {
             console.log(this.userHistory);
         }
     },
@@ -112,9 +116,9 @@ export default {
     methods: {
         deleteFav(data) {
             this.$emit("event-show-modal-delete-history", data);
-            setTimeout(() => {
-                this.userHistory = Object.values(this.historyData).length;
-            }, 1000);
+            // setTimeout(() => {
+            //     this.userHistory = Object.values(this.historyData).length;
+            // }, 1000);
         }
     }
 };
@@ -138,6 +142,7 @@ export default {
 }
 .p-history-product-item {
     @include display-flex();
+    /* border: 1px solid red; */
 }
 .p-history-product-items {
     @include display-flex();
@@ -145,6 +150,7 @@ export default {
     padding-right: 25px;
     padding-left: 25px;
     padding-top: 38px;
+    /* border: 1px solid red; */
 }
 .p-history-product-right {
     @include display-flex();
@@ -207,8 +213,8 @@ export default {
 .p-history-product-line {
     @include display-flex();
     background: $gray-border;
-    margin-top: 35px;
-    margin-bottom: 35px;
+    margin-top: 24px;
+    margin-bottom: 24px;
     height: 1px;
 }
 .p-history-product-item-main {
