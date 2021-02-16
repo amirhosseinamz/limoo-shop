@@ -33,15 +33,21 @@
                 <nuxt-link
                     class="user-profile__continue-list__btn"
                     to="/profile/favorites"
-                    >ادامه لیست علاقه مندی های شما</nuxt-link
+                    >ادامه لیست علاقه مندی شما</nuxt-link
                 >
             </div>
             <div class="user-profile__last-orders">
                 <h3 class="user-profile__list-title">آخرین سفارش های شما</h3>
+                <!--  -->
+                <the-last-orders-list
+                    :table-data="tableData"
+                ></the-last-orders-list>
+                <!--  -->
+                <span class="p-list-product-line"></span>
                 <nuxt-link
-                    class="user-profile__continue-list__btn"
+                    class="user-profile__continue-orderslist__btn"
                     to="/profile/my-orders/in-progress"
-                    >ادامه لیست سفارش های شما</nuxt-link
+                    >ادامه لیست سفارش ها</nuxt-link
                 >
             </div>
             <!--  -->
@@ -66,6 +72,7 @@ import TheUserHistory from "~/components/Profile/UserHistory/TheUserHistory.vue"
 import TheModalDeleteUserHistory from "~/components/Profile/UserHistory/TheModalDeleteUserHistory.vue";
 import favoriteProduct from "~/components/Profile/Favorites/favoriteProduct.vue";
 import modalDeleteFav from "~/components/Profile/Favorites/modalDeleteFav.vue";
+import TheLastOrdersList from "~/components/Profile/TheLastOrdersList.vue";
 export default {
     middleware: "authentication",
     components: {
@@ -73,7 +80,8 @@ export default {
         TheUserHistory,
         TheModalDeleteUserHistory,
         favoriteProduct,
-        modalDeleteFav
+        modalDeleteFav,
+        TheLastOrdersList
     },
     data() {
         return {
@@ -112,6 +120,29 @@ export default {
                     title: "Fake",
                     img:
                         "../img/apple-watch-series-6-blue-aluminium-case-with-deep-navy-sport-band-16.jpg"
+                }
+            ],
+            tableData: [
+                {
+                    id: 1,
+                    orderCode: "6861457M",
+                    orderDate: "1399/11/17",
+                    orderPrice: "123،000",
+                    orderSituation: "در حال پردازش"
+                },
+                {
+                    id: 2,
+                    orderCode: "6861457L",
+                    orderDate: "1399/04/05",
+                    orderPrice: "850،000",
+                    orderSituation: "تحویل داده شده"
+                },
+                {
+                    id: 3,
+                    orderCode: "6861457N",
+                    orderDate: "1399/03/05",
+                    orderPrice: "250،000",
+                    orderSituation: "تحویل داده شده"
                 }
             ],
             currentFavorite: {},
@@ -207,14 +238,27 @@ export default {
     text-align: right;
     line-height: 140.62%;
     font-weight: 400;
+    font-size: 18px;
     margin: 24px 24px 0 0;
 }
-.user-profile__continue-list__btn {
+.user-profile__continue-list__btn,
+.user-profile__continue-orderslist__btn {
+    width: fit-content;
     text-decoration: none;
     color: $gray;
     font-size: 18px;
     line-height: 140.62%;
-    margin-bottom: 38px;
+    margin: 14px auto 38px auto;
+}
+.user-profile__continue-orderslist__btn {
+    margin: 38px auto 38px auto;
+}
+.p-list-product-line {
+    @include display-flex();
+    background: $border-gray-bg;
+    width: 95%;
+    margin: 0 auto;
+    height: 1px;
 }
 @media (max-width: 960px) {
     .profile-container {
@@ -227,6 +271,19 @@ export default {
     .user-profile {
         display: none;
         /* margin: 16px 0 0 0; */
+    }
+}
+@media (max-width: 1220px) {
+    .user-profile__list-title {
+        font-size: 16px;
+    }
+    .user-profile__continue-list__btn {
+        font-size: 16px;
+        margin: 10px auto 34px auto;
+    }
+    .user-profile__continue-orderslist__btn {
+        font-size: 16px;
+        margin: 34px auto 34px auto;
     }
 }
 </style>
