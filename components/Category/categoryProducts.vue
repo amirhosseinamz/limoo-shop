@@ -108,13 +108,13 @@ export default {
 }
 .productContent__carouselDataTitle{
   font-size: 14px;
-  line-height: 1.9em;
+  line-height: 2.4em;
   color: $black-topic;
   font-size: 14px;
   text-align: right;
   font-weight: 500;
   overflow: hidden;
-  height: 49px;
+  height: 58px;
 }
 .productContent__carouselImgMain{
   @include display-flex();
@@ -127,7 +127,7 @@ export default {
   width: 170px;
 }
 .productContent__carouselData{
-  margin-top: 24px;
+  margin-top: 25px;
   width: 228px;
   margin-right: auto;
   margin-left: auto;
@@ -135,7 +135,7 @@ export default {
 .productContent__carouselPriceMain{
   padding-right: 3px;
   padding-left: 3px;
-  margin-top: 17px;
+  margin-top: 25px;
   @include display-flex();
   flex-wrap: wrap;
   align-items: center;
@@ -284,8 +284,6 @@ export default {
   width: 100%;
   height: 100%;
 }
-
-
 
 
 @media (max-width: 960px) {

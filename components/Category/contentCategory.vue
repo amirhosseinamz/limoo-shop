@@ -11,8 +11,11 @@
                       ></category-top>
 
                       <category-products :category-products="categoryProducts"></category-products>
+
+                      <paganation-cat></paganation-cat>
                   </div>
             </div>
+
         </div>
   </div>
 </template>
@@ -21,6 +24,7 @@
 import categorySelected from './categorySelected';
 import categoryProducts from './categoryProducts';
 import categoryTop from './categoryTop';
+import paganationCat from './paganationCat';
 
 
 export default {
@@ -35,6 +39,7 @@ export default {
       categorySelected,
       categoryProducts,
       categoryTop,
+      paganationCat,
     },
 
     data() {
@@ -45,7 +50,9 @@ export default {
     methods: {
       activeCatSuggestion(data){
         this.$emit('active-cat-suggestion',data);
-      }
+      },
+
+
     },
 
 };
@@ -58,10 +65,9 @@ export default {
 .content__bg{
   background: $white;
   padding-top: 24px;
-  padding-bottom: 24px;
+  padding-bottom: 72px;
   padding-right: 24px;
   padding-left: 24px;
-  height: 1566px;
   margin-bottom: 72px;
   border-radius: 10px;
   @include display-flex();

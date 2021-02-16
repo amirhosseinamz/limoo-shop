@@ -110,8 +110,17 @@ export default {
         };
     },
 
-    watch: {
+    // async asyncData (context) {
+    //   const query_params = context.route.query;
+    //   const post         = await context.$axios.$get(`https://api.nuxtjs.dev/posts`);
+    //     console.log('asyncData');
+    //   return { posts:post,id:query_params.id }
+    // },
 
+    watch: {
+      '$route'(data){ // last update route //
+        // this.$router.push({ query: {id :10}})
+      }
     },
 
     created() {
