@@ -1,34 +1,26 @@
 <template>
-  <div :class="removeMarginTop" class="w-100 productContent">
+  <div class="w-100 productContent">
 
       <div class="productContent__items w-100">
-            <div v-if="statusShowCounterDown" class="productContent__right">
-                  <counter-down></counter-down>
-            </div>
-
-            <div class="productContent__left">
-              <product-slider :name-element-find-slider="nameElementFindSlider" :products="products" :title="title"></product-slider>
+              <blog-product-slider :name-element-find-slider="nameElementFindSlider" :products="products" :title="title"></blog-product-slider>
               <div class="w-100 productContent__sliderMore">
                   <nuxt-link class="productContent__moreItem" to="/">
-                    لیست کامل محصولات
+                    مطالب بیشتر
                     <span class=" productContent__moreIcon mobile-inprogress__arrow"></span>
                   </nuxt-link>
               </div>
-            </div>
       </div>
 
   </div>
 </template>
 
 <script>
-import counterDown from './counterDown';
-import productSlider from './productSlider';
+import blogProductSlider from './blogProductSlider';
 
 
 export default {
     components: {
-      counterDown,
-      productSlider,
+      blogProductSlider,
     },
 
     props: {
@@ -63,7 +55,6 @@ export default {
   margin-top: 40px;
   background: $white;
   border-radius: 12px;
-  height: 387px;
   @include display-flex();
   align-items: flex-start;
   flex-wrap: wrap;
@@ -74,8 +65,8 @@ export default {
   align-items: flex-start;
   flex-wrap: wrap;
   @include display-flex();
-  padding-top: 38px;
-  padding-bottom: 38px;
+  padding-top: 24px;
+  padding-bottom:31px;
 }
 .productContent__left{
   flex-grow: 1;
@@ -118,16 +109,6 @@ export default {
 }
 .productContent__mobile{
   display: none;
-}
-.productContent__updateMargin .productContent__left{
-  margin-top: 0;
-}
-.productContent__updateMargin .productContent__items{
-  padding-top: 24px;
-  padding-bottom: 31px;
-}
-.productContent__updateMargin {
-  height: 451px;
 }
 
 

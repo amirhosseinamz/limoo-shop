@@ -1,29 +1,15 @@
 <template>
   <div class="w-100 productContent__sliderWrapper">
-      <div v-if="title.title != '' " class="w-100 productContent__catTop">
-          <div class="productContent__topRight ">
-              <h3 class="w-100 productContent__catTitle">{{title.title}}</h3>
-              <h3 class="productContent__titleVisit w-100">{{title.titleVisit}}</h3>
-          </div>
-
-          <div class=" productContent__sliderMore productContent__topLeft">
-              <nuxt-link class="productContent__moreItem" :to="title.href">
-                لیست کامل محصولات
-                <span class=" productContent__moreIcon mobile-inprogress__arrow"></span>
-              </nuxt-link>
-          </div>
-      </div>
-
-        <div :class="nameElementFindSlider" class=" main-carousel w-100 productContent__mainSlider">
-              <div @click="switchLink($event)" v-for="data in products" :key="data.id" class="carousel-cell productContent__carousel ">
+        <div class=" main-carousel w-100 productContent__mainSlider">
+              <div  v-for="data in categoryProducts" :key="data.id" class="carousel-cell productContent__carousel ">
                     <div class="productContent__carouselContent w-100">
-                          <NuxtLink
+                          <!-- <NuxtLink
                           class="w-100 productContent__carousel-link"
                           :to=" '/' + title.sliderItemHref + '/' + data.id "
                           target="_blank"
                           >
-                        </NuxtLink>
-                              <span class="productContent__carouselLine"></span>
+                          </NuxtLink>
+                           -->
                               <div class="productContent__carouselImgMain w-100">
                                 <img class="productContent__carouselImgItem" :src="data.image" alt="">
                               </div>
@@ -57,7 +43,6 @@
                     </div>
             </div>
         </div>
-        <div class="productContent__line"></div>
   </div>
 </template>
 
@@ -69,9 +54,7 @@ export default {
     },
 
     props: {
-      products                 : { type: [Object,Array], default: [] },
-      nameElementFindSlider    : { type: String, default: '' },
-      title                    : { type: Object, default: {} },
+      categoryProducts           : { type: [Object,Array], default: [] },
     },
 
     data() {
@@ -80,7 +63,6 @@ export default {
     },
 
     mounted() {
-      this.flickityOptions();
     },
 
     computed: {
@@ -88,36 +70,6 @@ export default {
     },
 
     methods: {
-      flickityOptions(){
-        let Flickity       = require("flickity")
-        let sliderOptions  = new Flickity( `.${this.nameElementFindSlider}`, {
-          accessibility   : true,
-          adaptiveHeight  : true,
-          rightToLeft     : true,
-          cellAlign       : 'right',
-          imagesLoaded    : true,
-          wrapAround      : false,
-          contain         : true,
-          // prevNextButtons : false,
-          // autoPlay        : true, // advance cells every 3 seconds
-          // autoPlay: 1500 // {Number}
-          // freeScroll      : true,
-          pageDots        : false,
-          groupCells      : true,
-          fade            : false,
-        });
-
-
-        sliderOptions.on( 'staticClick', ( event, pointer, cellElement, cellIndex ) =>{
-            this.products.map((content,index)=>{
-              if (index == cellIndex) {
-                this.$router.push(`/${this.title.sliderItemHref}/${content.id}`);
-              }
-            })
-        });
-
-      },
-
       switchLink(event){
         event.preventDefault();
       }
@@ -129,31 +81,37 @@ export default {
 
 <style lang="scss" scoped>
 .productContent__carousel{
-  // width: 246px;
-  // width: 313px;
-  width: 249px;
-  height: 319px;
+  width: 260px;
+  height: 374px;
   background: $white;
+  position: relative;
+  margin-left: 8px;
+  margin-bottom: 8px;
+}
+.productContent__carousel:nth-child(5n){
+  margin-left: 0;
 }
 .productContent__mainSlider{
   position: relative;
+  @include display-flex();
+  flex-wrap: wrap;
 }
 .productContent__carouselContent{
   align-items: flex-start;
   flex-wrap: wrap;
   @include display-flex();
   flex-flow: column;
-  // border-right: solid 2px $gray-border;
-  // padding-right: 11px;
-  // padding-left: 11px;
   cursor: pointer;
+  border:solid 1px $light-gray;
+  border-radius: 10px;
+  height: 100%;
 }
 .productContent__carouselDataTitle{
   font-size: 14px;
   line-height: 1.9em;
   color: $black-topic;
   font-size: 14px;
-  text-align: center;
+  text-align: right;
   font-weight: 500;
   overflow: hidden;
   height: 49px;
@@ -162,20 +120,22 @@ export default {
   @include display-flex();
   flex-wrap: wrap;
   justify-content: center;
+  margin-top: 16px;
 }
 .productContent__carouselImgItem{
-  height: 159px;
+  height: 170px;
+  width: 170px;
 }
 .productContent__carouselData{
   margin-top: 24px;
-  width: 214px;
+  width: 228px;
   margin-right: auto;
   margin-left: auto;
 }
 .productContent__carouselPriceMain{
   padding-right: 3px;
   padding-left: 3px;
-  margin-top: 16px;
+  margin-top: 17px;
   @include display-flex();
   flex-wrap: wrap;
   align-items: center;
@@ -259,6 +219,7 @@ export default {
   @include display-flex();
   flex-wrap: wrap;
   position:relative;
+  margin-top: 42px;
 }
 .productContent__catTitle{
   color: $black;
@@ -328,9 +289,7 @@ export default {
 
 
 @media (max-width: 960px) {
-  .productContent__carousel:first-child .productContent__carouselLine{
-    display: none;
-  }
+
 }
 
 @media (max-width: 600px) {

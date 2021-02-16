@@ -2,25 +2,16 @@
   <div class="w-100 page__home-introduction-items">
         <div class="w-100 page__home__introduction-item-slider-content">
               <div class="page__home__introduction-slider-main main-carousel w-100">
-                      <div class="carousel-cell w-100">
-                            <div class="page__home__introduction__slider w-100">
-                                <img class="page__home__introduction__slider-pic " src="/img/2126986.jpg" alt="">
-                            </div>
-                      </div>
-                      <div class="carousel-cell w-100">
-                            <div class="page__home__introduction__slider w-100">
-                                <img class="page__home__introduction__slider-pic " src="/img/apple-watch-series-4-hermes-double1.svg" alt="">
-                            </div>
-                      </div>
-                      <div class="carousel-cell w-100">
-                            <div class="page__home__introduction__slider w-100">
-                                <img class="page__home__introduction__slider-pic " src="/img/apple-watch-series-4-hermes-double1.svg" alt="">
-                            </div>
-                      </div>
-                      <div class="carousel-cell w-100">
-                            <div class="page__home__introduction__slider w-100">
-                                <img class="page__home__introduction__slider-pic " src="/img/apple-watch-series-4-hermes-double1.svg" alt="">
-                            </div>
+                      <div @click="switchLink($event,data)" v-for="data in introductionProduct" :key="data.id" class="carousel-cell w-100">
+                                <div class="page__home__introduction__slider w-100">
+                                    <NuxtLink
+                                    class="w-100 pageHome__Slider-link"
+                                    :to=" '/' + title.sliderItemHref + '/' + data.id"
+                                    target="_blank"
+                                    >
+                                      <img class="page__home__introduction__slider-pic " :src="data.image" alt="">
+                                    </NuxtLink>
+                                </div>
                       </div>
               </div>
         </div>
@@ -48,7 +39,8 @@ export default {
     },
 
     props: {
-      // allProvince           : { type: [Object,Array], default: [] },
+      introductionProduct    : { type: [Object,Array], default: [] },
+      title                  : { type: Object, default: {} },
     },
 
     data() {
@@ -70,7 +62,11 @@ export default {
       });
 
       sliderOptions.on( 'staticClick', ( event, pointer, cellElement, cellIndex ) =>{
-        this.$router.push("/home");
+          this.introductionProduct.map((content,indexSlider)=>{
+              if (indexSlider == cellIndex) {
+                  this.$router.push(`/${this.title.sliderItemHref}/${content.id}`);
+              }
+          })
       });
 
     },
@@ -80,6 +76,9 @@ export default {
     },
 
     methods: {
+      switchLink(event,data){
+        event.preventDefault();
+      }
 
     },
 
@@ -100,6 +99,7 @@ export default {
   .page__home__introduction__slider-pic{
     height: 457px;
     border-radius: 12px;
+    pointer-events: none;
   }
   .page__home__introduction-item-slider-content {
     width: 61.7%;
@@ -126,6 +126,11 @@ export default {
   }
   .carousel-cell {
     width: 850px;
+  }
+  .pageHome__Slider-link{
+    height: 100%;
+    @include display-flex();
+    align-items: flex-start;
   }
 
 
