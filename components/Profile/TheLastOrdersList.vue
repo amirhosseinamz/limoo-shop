@@ -11,7 +11,7 @@
             <tr v-for="data in tableData" :key="data.id" class="table_content">
                 <td>{{ data.orderCode }}</td>
                 <td>{{ data.orderDate }}</td>
-                <td>{{ data.orderPrice }}</td>
+                <td>{{ data.orderPrice }} تومان</td>
                 <td>{{ data.orderSituation }}</td>
                 <td>
                     <NuxtLink
