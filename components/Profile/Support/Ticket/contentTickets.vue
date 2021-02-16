@@ -216,7 +216,7 @@ export default {
     left: 0;
     right: 0;
     bottom: 0; */
-    z-index: 1;
+    z-index: 10;
     background: $overlay__profile;
     top: 0;
     right: 0;
