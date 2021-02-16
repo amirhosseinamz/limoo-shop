@@ -44,16 +44,24 @@
             :title="{title:'تستی 3',href:'test',titleVisit:'پر فروش ترین محصولات' , sliderItemHref:'product3'}"
             ></product-content>
 
+            <banner-2-items></banner-2-items>
+
+            <banner-3-items></banner-3-items>
+
+            <product-content
+            :products="products"
+            :status-show-counter-down="false"
+            name-element-find-slider="productContent__mainSlider10"
+            remove-margin-top="productContent__updateMargin"
+            :title="{title:'موبایل تستی 2',href:'test',titleVisit:'پر فروش ترین محصولات' , sliderItemHref:'product2'}"
+            ></product-content>
+
             <blog-content
             :products="allBlogProduct"
             :status-show-counter-down="false"
             name-element-find-slider="productContent__mainSliderBlog"
             :title="{title:'بلاگ لیمو',href:'test',titleVisit:'آخرین رویداد های اپل' , sliderItemHref:'blog'}"
             ></blog-content>
-
-            <banner-2-items></banner-2-items>
-
-            <banner-3-items></banner-3-items>
 
             <product-cat
              :all-category="allBrand"
@@ -63,11 +71,12 @@
             ></product-cat>
 
 
-            <brand-introduction-content :products="brandIntroduction"></brand-introduction-content>
-
             <question-content
             :all-question="allQuestion"
             ></question-content>
+
+            <brand-introduction-content :products="brandIntroduction"></brand-introduction-content>
+
 
 
         </div>

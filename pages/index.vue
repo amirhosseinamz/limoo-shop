@@ -21,6 +21,8 @@
         :all-question="allQuestion"
         :all-blog-product="allBlogProduct"
         :introduction-product="introductionProduct"
+        :key="updateProduct"
+
 
 
 
@@ -382,6 +384,7 @@ export default {
               image     : '/img/apple-watch-series-4-hermes-double1.svg',
             },
           ],
+          updateProduct  : 0,
         };
     },
 
@@ -390,6 +393,10 @@ export default {
     },
 
     created() {
+
+    },
+
+    mounted() {
       // پس از اتصال به سرور فانکشن مورد نظر بعد رسپانس ریکوئست صدا زده شود //
       const width     = window.innerWidth;
 
@@ -409,10 +416,7 @@ export default {
         this.checkAddCircleBlogPorduct('mobile')
       }
 
-    },
-
-    mounted() {
-
+      this.updateProduct++;
     },
 
     methods: {
