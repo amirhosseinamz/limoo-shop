@@ -370,7 +370,7 @@ export default {
     }
     .user-profile__holder {
         margin: 8px 0;
-        padding: 0 5px;
+        padding: 0 16px;
     }
     .user-profile {
         height: 62px;
@@ -387,6 +387,7 @@ export default {
         flex-direction: row;
         align-items: center;
         height: 62px;
+        padding: 0 10px;
         /* border-bottom: 1px solid $gray-border; */
         /* border: 1px solid red; */
     }
@@ -470,7 +471,16 @@ export default {
         border: 1px solid transparent;
     }
 }
-@media (max-width: 600px) {
+@media (max-width: 700px) {
+    .user-profile__holder {
+        padding: 0 5px;
+    }
+    .mobile-nav__order-inprogress,
+    .mobile-nav__order-delivered,
+    .mobile-nav__order-returned,
+    .mobile-nav__order-canceled {
+        padding: 0;
+    }
 }
 
 @media (max-width: 350px) {

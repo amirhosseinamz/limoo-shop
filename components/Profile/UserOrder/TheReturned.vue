@@ -326,10 +326,15 @@ export default {
         border-radius: 0px;
         /* border: 1px solid blue; */
     }
+    .paid-progress:last-of-type {
+        border-bottom-left-radius: 10px;
+        border-bottom-right-radius: 10px;
+    }
     .mobile-paid-holder {
         @include display-flex();
         flex-direction: row;
         justify-content: space-between;
+        padding: 0 15px 0 8px;
         /* border: 1px solid blue; */
     }
     .paid-detail {
@@ -343,7 +348,7 @@ export default {
         margin-top: 0px;
         margin-bottom: 0px;
         margin-left: 0px;
-        padding-top: 11px;
+        padding: 11px 15px 0 15px;
         /* border: 1px solid blue; */
     }
     .p-history-product-btn-link,
@@ -369,7 +374,7 @@ export default {
         color: $yellow;
         vertical-align: middle;
         font-size: 18px;
-        margin-left: 13px;
+        margin-left: 8px;
     }
     .order-detail {
         justify-content: flex-start;
@@ -430,7 +435,7 @@ export default {
         width: 40px;
         height: 40px;
         margin-left: 5px;
-        border: 1px solid #f2f2f2;
+        border: 1px solid $gray-border;
         border-radius: 5px;
     }
     .paid-order {
@@ -448,6 +453,14 @@ export default {
         background: $gray-border;
 
         height: 1px;
+    }
+}
+@media (max-width: 700px) {
+    .mobile-paid-holder {
+        padding: 0;
+    }
+    .paid-detail {
+        padding: 11px 0 0 0;
     }
 }
 @media (max-width: 350px) {

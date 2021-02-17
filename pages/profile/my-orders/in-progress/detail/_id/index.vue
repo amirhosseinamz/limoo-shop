@@ -639,7 +639,7 @@ export default {
     }
     .user-profile-orders-main {
         margin-top: 8px;
-        padding: 13px 11px 51px 11px;
+        padding: 13px 21px 51px 21px;
     }
     .order-status__detail-title {
         font-size: 14px;
@@ -678,7 +678,7 @@ export default {
         width: 100%;
         font-size: 16px;
         color: $code;
-        padding-right: 11px;
+        padding-right: 21px;
         text-align: right;
         border-bottom: 1px solid $gray-border;
     }
@@ -772,7 +772,7 @@ export default {
         min-height: 240px;
         height: fit-content;
         width: 100%;
-        padding-right: 11px;
+        padding-right: 21px;
         padding-top: 9px;
     }
     .order-factor__mobile {
@@ -826,7 +826,7 @@ export default {
     }
     .user-profile__holder {
         margin: 8px 0;
-        padding: 0 5px;
+        padding: 0 16px;
     }
     .user-profile {
         &__topic {
@@ -840,6 +840,18 @@ export default {
         background: none;
         border: none;
         box-shadow: none;
+    }
+    .user-profile__holder {
+        padding: 0 5px;
+    }
+    .user-profile-orders-main {
+        padding: 13px 11px 51px 11px;
+    }
+    .order-status__mobile-detail {
+        padding-right: 11px;
+    }
+    .user-profile__topic-order__mobile {
+        padding-right: 11px;
     }
 }
 
