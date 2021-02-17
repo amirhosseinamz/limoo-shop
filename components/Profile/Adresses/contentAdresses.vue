@@ -294,7 +294,7 @@ export default {
 .v-leave-to {
     opacity: 0;
 }
-  .p-adresses-content-main{
+.p-adresses-content-main {
     padding-right: 21px;
     padding-left: 21px;
 }
@@ -423,6 +423,10 @@ export default {
         flex-flow: column;
         height: auto;
         background: $white;
+    }
+    .p-adresses-content-main {
+        padding-right: 0;
+        padding-left: 0;
     }
     .p-adresses-content-item {
         background: $white;

@@ -292,7 +292,7 @@ export default {
     }
     .user-profile__holder {
         margin: 8px 0;
-        padding: 0 5px;
+        padding: 0 16px;
     }
     .user-profile {
         &__topic {
@@ -306,6 +306,9 @@ export default {
         background: none;
         border: none;
         box-shadow: none;
+    }
+    .user-profile__holder {
+        padding: 0 5px;
     }
 }
 

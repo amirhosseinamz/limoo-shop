@@ -14,39 +14,41 @@
 
         <div class="user-profile__holder">
             <div class="user-profile">
-                <span class="user-profile__topic">لیست سفارشات شما</span>
-                <div class="order-nav desktop-screen d-rtl">
-                    <div
-                        @click="goToOrder('paidInProgress')"
-                        :class="{ 'item-active': paidInProgress }"
-                        class="order-nav__items"
-                    >
-                        <NuxtLink to="">در حال پردازش</NuxtLink>
-                        <span class="bottomLine"></span>
-                    </div>
-                    <div
-                        @click="goToOrder('delivered')"
-                        :class="{ 'item-active': delivered }"
-                        class="order-nav__items "
-                    >
-                        <NuxtLink to="">تحویل داده شده</NuxtLink>
-                        <span class="bottomLine"></span>
-                    </div>
-                    <div
-                        @click="goToOrder('returned')"
-                        :class="{ 'item-active': returned }"
-                        class="order-nav__items "
-                    >
-                        <NuxtLink to="">مرجوع شده</NuxtLink>
-                        <span class="bottomLine"></span>
-                    </div>
-                    <div
-                        @click="goToOrder('canceled')"
-                        :class="{ 'item-active': canceled }"
-                        class="order-nav__items "
-                    >
-                        <NuxtLink to="">لغو شده</NuxtLink>
-                        <span class="bottomLine"></span>
+                <div class="desktop-nav">
+                    <span class="user-profile__topic">لیست سفارشات شما</span>
+                    <div class="order-nav desktop-screen d-rtl">
+                        <div
+                            @click="goToOrder('paidInProgress')"
+                            :class="{ 'item-active': paidInProgress }"
+                            class="order-nav__items"
+                        >
+                            <NuxtLink to="">در حال پردازش</NuxtLink>
+                            <span class="bottomLine"></span>
+                        </div>
+                        <div
+                            @click="goToOrder('delivered')"
+                            :class="{ 'item-active': delivered }"
+                            class="order-nav__items "
+                        >
+                            <NuxtLink to="">تحویل داده شده</NuxtLink>
+                            <span class="bottomLine"></span>
+                        </div>
+                        <div
+                            @click="goToOrder('returned')"
+                            :class="{ 'item-active': returned }"
+                            class="order-nav__items "
+                        >
+                            <NuxtLink to="">مرجوع شده</NuxtLink>
+                            <span class="bottomLine"></span>
+                        </div>
+                        <div
+                            @click="goToOrder('canceled')"
+                            :class="{ 'item-active': canceled }"
+                            class="order-nav__items "
+                        >
+                            <NuxtLink to="">لغو شده</NuxtLink>
+                            <span class="bottomLine"></span>
+                        </div>
                     </div>
                 </div>
                 <div class="order-holder">
@@ -60,9 +62,11 @@
                         >
                         <span class="mobile-inprogress__arrow"></span>
                     </div>
+                    <!--  -->
                     <the-in-progress
                         :user-order-data="userOrderData"
                     ></the-in-progress>
+                    <!--  -->
                     <div
                         @click="goToOrder('delivered')"
                         class="mobile-nav__order-delivered d-rtl"
@@ -246,23 +250,31 @@ export default {
     display: flex;
     flex-direction: row-reverse;
 }
+
 .user-profile__holder {
     margin: 166px 0 50px 17px;
     width: 100%;
-    min-height: 100vh;
+    min-height: fit-content;
     height: max-content;
-    /* border: 5px solid #2f0404; */
+    /* border: 1px solid #2f0404; */
+}
+.desktop-nav {
+    @include display-flex();
+    flex-direction: column;
+    width: 100%;
+    background-color: $white;
+    border-radius: 10px;
 }
 .user-profile {
     width: 100%;
 
-    height: 139px;
+    min-height: 139px;
     @include display-flex();
     flex-direction: column;
     /* justify-content: center; */
     align-items: center;
     text-align: center;
-    background: $white;
+    /* background: $white; */
     border-radius: 10px;
     box-shadow: 0px 8px 16px $box__shadow;
     /* border: 1px solid #f00808; */
@@ -315,7 +327,7 @@ export default {
     width: 100%;
     /* background: $white; */
     height: max-content;
-    padding-bottom: 70px;
+    /* padding-bottom: 70px; */
     border-radius: 10px;
     /* border: 1px solid blue; */
 }
@@ -389,6 +401,9 @@ export default {
         align-items: center;
         height: 62px;
         padding: 0 10px;
+        background: $white;
+        border-top-left-radius: 10px;
+        border-top-right-radius: 10px;
         /* border-bottom: 1px solid $gray-border; */
         /* border: 1px solid red; */
     }

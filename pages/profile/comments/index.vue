@@ -16,7 +16,7 @@
             <div class="user-profile w-100">
                 <span class="user-profile__topic">نقد و نظرات من</span>
                 <hr class="splicer-line" />
-                <div class="w-100 user-profile-adresses-main flex-column">
+                <div class="w-100 user-profile-comments-main flex-column">
                     <contentComments
                         :comments-data="commentsData"
                         @show-modal-delete-product="showModalDeleteProduct"
@@ -255,9 +255,11 @@ export default {
     }
     .user-profile__holder {
         margin: 8px 0;
-        padding: 0 5px;
+        padding: 0 16px;
     }
     .user-profile {
+        background: transparent;
+        box-shadow: 0px 8px 16px transparent;
         &__topic {
             display: none;
         }
@@ -269,6 +271,9 @@ export default {
         background: none;
         border: none;
         box-shadow: none;
+    }
+    .user-profile__holder {
+        padding: 0 5px;
     }
 }
 

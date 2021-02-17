@@ -578,7 +578,7 @@ export default {
         background: $white;
         height: 121px;
         width: 100%;
-        padding-right: 11px;
+        padding-right: 21px;
         border-radius: 10px;
         box-shadow: 0px 8px 16px $box__shadow;
     }
@@ -634,7 +634,7 @@ export default {
     }
     .user-profile__holder {
         margin: 8px 0;
-        padding: 0 5px;
+        padding: 0 16px;
     }
     .user-profile {
         &__topic {
@@ -651,6 +651,12 @@ export default {
     }
     .support__navbar-mobile {
         padding: 0 41px;
+    }
+    .user-profile__holder {
+        padding: 0 5px;
+    }
+    .user-profile__support-mobile {
+        padding-right: 11px;
     }
 }
 

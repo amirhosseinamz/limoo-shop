@@ -433,7 +433,7 @@ export default {
 @media (max-width: 960px) {
     .p-tickets-content-main {
         border-radius: 10px;
-        padding: 0 11px 18px 11px;
+        padding: 0 21px 18px 21px;
     }
     .p-tickets-content-btn-add-main {
         height: 130px;
@@ -471,6 +471,9 @@ export default {
         background: $white;
         min-height: fit-content;
         margin-bottom: 8px;
+    }
+    .p-tickets-content-main {
+        padding: 0 11px 18px 11px;
     }
     .p-tickets-content-data-btns {
         padding-left: 8px;
