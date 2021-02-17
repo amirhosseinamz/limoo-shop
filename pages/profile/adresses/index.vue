@@ -207,7 +207,6 @@ export default {
     z-index: 1;
     background: $overlay__profile;
 }
-
 .mobile-screen {
     display: none;
 }

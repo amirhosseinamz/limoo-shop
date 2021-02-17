@@ -1,14 +1,85 @@
 <template>
   <div class="w-100 page__home-wrapper-main">
         <div class="page__home-introduction-main w-100">
-            <introduction-items></introduction-items>
-            <product-content :products="products"></product-content>
+            <introduction-items
+             :introduction-product="introductionProduct"
+             :title="{sliderItemHref:'category' }"
+
+             ></introduction-items>
+
+            <product-content
+              :products="products"
+              :status-show-counter-down="true"
+              name-element-find-slider="productContent__mainSlider1"
+              remove-margin-top=""
+              :title="{title:'',href:'',titleVisit:'',sliderItemHref:'content'}"
+             ></product-content>
+
+            <product-cat
+             :all-category="allCategory"
+             name-element-find-slider="productContent__mainCat1"
+             :title="{title:'دسته بندی محصولات' , href:'catHref' , titleVisit:'',sliderItemHref:'category' , sliderItemHref:'product1'}"
+             ></product-cat>
+
+            <product-vertical-content
+             :products="allProductVertical"
+             :title="{title:'موبایل اندرویدی' , href:'verticalAll' , titleVisit:'',sliderItemHref:'category' , sliderItemHref:'product-vertical'}"
+              ></product-vertical-content>
+
             <banner-items></banner-items>
+
+            <product-content
+            :products="products"
+            :status-show-counter-down="false"
+            name-element-find-slider="productContent__mainSlider2"
+            remove-margin-top="productContent__updateMargin"
+            :title="{title:'موبایل تستی 2',href:'test',titleVisit:'پر فروش ترین محصولات' , sliderItemHref:'product2'}"
+            ></product-content>
+
+            <product-content
+            :products="products"
+            :status-show-counter-down="false"
+            name-element-find-slider="productContent__mainSlider3"
+            remove-margin-top="productContent__updateMargin"
+            :title="{title:'تستی 3',href:'test',titleVisit:'پر فروش ترین محصولات' , sliderItemHref:'product3'}"
+            ></product-content>
+
             <banner-2-items></banner-2-items>
+
             <banner-3-items></banner-3-items>
+
+            <product-content
+            :products="products"
+            :status-show-counter-down="false"
+            name-element-find-slider="productContent__mainSlider10"
+            remove-margin-top="productContent__updateMargin"
+            :title="{title:'موبایل تستی 2',href:'test',titleVisit:'پر فروش ترین محصولات' , sliderItemHref:'product2'}"
+            ></product-content>
+
+            <blog-content
+            :products="allBlogProduct"
+            :status-show-counter-down="false"
+            name-element-find-slider="productContent__mainSliderBlog"
+            :title="{title:'بلاگ لیمو',href:'test',titleVisit:'آخرین رویداد های اپل' , sliderItemHref:'blog'}"
+            ></blog-content>
+
+            <product-cat
+             :all-category="allBrand"
+             name-element-find-slider="productContent__mainCat2"
+             change-style            ="productContent__catChangeStyle"
+            :title="{title:'برند های لیمویی' ,  href:'#' ,titleVisit:'لیست برتر برند های در لیمو',sliderItemHref:'brand'}"
+            ></product-cat>
+
+
+            <question-content
+            :all-question="allQuestion"
+            ></question-content>
+
+            <brand-introduction-content :products="brandIntroduction"></brand-introduction-content>
+
+
+
         </div>
-
-
   </div>
 </template>
 
@@ -18,11 +89,24 @@ import bannerItems from './bannerItems';
 import banner2Items from './banner2Items';
 import banner3Items from './banner3Items';
 import productContent from './productContent';
+import productCat from './productCat';
+import productVerticalContent from './productVerticalContent';
+import questions from './questions';
+import questionContent from './questionContent';
+import brandIntroductionContent from './brandIntroductionContent';
+import blogContent from './blogContent';
 
 
 export default {
     props: {
-      products   : { type: [Object,Array], default: [] },
+      products             : { type: [Object,Array], default: [] },
+      allCategory          : { type: [Object,Array], default: [] },
+      allProductVertical   : { type: [Object,Array], default: [] },
+      allBrand             : { type: [Object,Array], default: [] },
+      brandIntroduction    : { type: [Object,Array], default: [] },
+      allQuestion          : { type: [Object,Array], default: [] },
+      allBlogProduct       : { type: [Object,Array], default: [] },
+      introductionProduct  : { type: [Object,Array], default: [] },
     },
 
     components: {
@@ -31,6 +115,12 @@ export default {
       banner2Items,
       banner3Items,
       productContent,
+      productCat,
+      productVerticalContent,
+      questions,
+      questionContent,
+      brandIntroductionContent,
+      blogContent,
     },
 
     data() {
@@ -58,13 +148,6 @@ export default {
     margin-top: 175px;
   }
 
-
-  @media (max-width: 960px) {
-    .page__home-wrapper-main{
-      margin-top: 8px;
-    }
-  }
-
   @media (max-width: 1220px) {
 
   }
@@ -74,11 +157,19 @@ export default {
   }
 
   @media (max-width: 960px) {
-
+    .page__home-wrapper-main{
+      margin-top: 8px;
+    }
   }
 
   @media (max-width: 600px) {
 
+  }
+
+  @media (max-width: 485px) {
+    .page__home-wrapper-main{
+      margin-top: 8px;
+    }
   }
 
 

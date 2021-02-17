@@ -414,7 +414,7 @@ export default {
             border-color: $black;
         }
         .err__input {
-            /* we use this class when user input is wrong 
+            /* we use this class when user input is wrong
             so in this situation_ !important _is not so much bad */
             border-color: $alert-red !important;
             /*background: $alert-red__bg;

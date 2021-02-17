@@ -1,42 +1,28 @@
 <template>
-  <div :class="removeMarginTop" class="w-100 productContent">
+  <div  class="w-100 productContent ">
 
-      <div class="productContent__items w-100">
-            <div v-if="statusShowCounterDown" class="productContent__right">
-                  <counter-down></counter-down>
-            </div>
-
-            <div class="productContent__left">
-              <product-slider :name-element-find-slider="nameElementFindSlider" :products="products" :title="title"></product-slider>
-              <div class="w-100 productContent__sliderMore">
-                  <nuxt-link class="productContent__moreItem" to="/">
-                    لیست کامل محصولات
-                    <span class=" productContent__moreIcon mobile-inprogress__arrow"></span>
-                  </nuxt-link>
-              </div>
-            </div>
+      <div class="productContent__items w-100 ">
+          <brand-introduction :products="products"></brand-introduction>
       </div>
 
   </div>
 </template>
 
 <script>
-import counterDown from './counterDown';
-import productSlider from './productSlider';
+import brandIntroduction from './brandIntroduction';
 
 
 export default {
     components: {
-      counterDown,
-      productSlider,
+      brandIntroduction,
     },
 
     props: {
       products                : { type: [Object,Array], default: [] },
-      statusShowCounterDown   : { type: Boolean, default: true },
-      nameElementFindSlider   : { type: String, default: '' },
-      title                   : { type: Object, default: {} },
-      removeMarginTop         : { type: String, default: '' },
+      // statusShowCounterDown   : { type: Boolean, default: true },
+      // nameElementFindSlider   : { type: String, default: '' },
+      // title                   : { type: Object, default: {} },
+      // removeMarginTop         : { type: String, default: '' },
     },
 
     data() {
@@ -61,9 +47,9 @@ export default {
 <style lang="scss" scoped>
 .productContent{
   margin-top: 40px;
+  margin-bottom: 40px;
   background: $white;
   border-radius: 12px;
-  height: 387px;
   @include display-flex();
   align-items: flex-start;
   flex-wrap: wrap;
@@ -74,8 +60,8 @@ export default {
   align-items: flex-start;
   flex-wrap: wrap;
   @include display-flex();
-  padding-top: 38px;
-  padding-bottom: 38px;
+  padding-top: 24px;
+  padding-bottom: 24px;
 }
 .productContent__left{
   flex-grow: 1;
@@ -149,9 +135,6 @@ export default {
 }
 
 @media (max-width: 960px) {
-  .productContent{
-    margin-top: 8px;
-  }
   .productContent__right{
     width: 100%;
     padding-right: 11px;
@@ -195,6 +178,7 @@ export default {
   }
   .productContent{
     margin-top: 8px;
+    margin-bottom: 0px;
   }
 }
 

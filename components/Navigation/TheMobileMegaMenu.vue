@@ -127,6 +127,7 @@ export default {
 <style lang="scss" scoped>
 .mobile-mega-menu {
     display: none;
+    z-index: 5;
 }
 @media (max-width: 960px) {
     #overlay {

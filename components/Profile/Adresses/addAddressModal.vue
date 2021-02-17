@@ -21,6 +21,7 @@
               </div>
 
               <div class="p-modal-header-top align-items-center">
+
                 <img
                 @click="closeModalMobile"
                 class="p-modal-header-icon-location"
@@ -43,7 +44,7 @@
                   </div>
                   <div class="p-modal-header-close ">
                     <img
-                    @click="closeModalMobile"
+                    @click="closeModalDesktop"
                     class="modal__close-cross p-modal-header-close-icon"
                     src="/icons/close_modal_address.svg"
                     />
@@ -120,9 +121,11 @@
               <button @click="submitAddressAdd"  type="button" name="button" class="p-product-btn  p-favorite-product-btn-modal-delete cursor-pointer  ">
                 ثبت
               </button>
-              <button @click="eventCloseModal"  type="button" name="button" class="p-product-btn  cursor-pointer p-favorite-product-btn-modal-cancel  ">
+
+              <button @click="closeModalMobile"  type="button" name="button" class="p-product-btn  cursor-pointer p-favorite-product-btn-modal-cancel ">
                 بازگشت
               </button>
+
             </div>
 
         </form>
@@ -352,10 +355,10 @@ export default {
       },
 
       closeModalMobile() {
-          this.$emit('close-modal');
-            // setTimeout(() => {
-            //     this.$parent.passChange();
-            // }, 280);
+            this.modalClose = true;
+            setTimeout(() => {
+              this.$emit('close-modal');
+            }, 280);
       },
 
       closeModalDesktop() {
@@ -474,10 +477,6 @@ export default {
         this.formData.selectedCityAllProperty  = allData;
         this.showErrorValidationCity           = false;
         this.$emit('selected-city',allData)
-      },
-
-      eventCloseModal(){
-        this.$emit('close-modal');
       },
 
     }

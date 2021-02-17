@@ -1,16 +1,12 @@
 <template>
-  <div :class="removeMarginTop" class="w-100 productContent">
+  <div  class="w-100 productContent productContent__question">
 
-      <div class="productContent__items w-100">
-            <div v-if="statusShowCounterDown" class="productContent__right">
-                  <counter-down></counter-down>
-            </div>
-
+      <div class="productContent__items w-100 ">
             <div class="productContent__left">
-              <product-slider :name-element-find-slider="nameElementFindSlider" :products="products" :title="title"></product-slider>
+              <questions :all-question="allQuestion"></questions>
               <div class="w-100 productContent__sliderMore">
                   <nuxt-link class="productContent__moreItem" to="/">
-                    لیست کامل محصولات
+                    لیست کامل سوالات
                     <span class=" productContent__moreIcon mobile-inprogress__arrow"></span>
                   </nuxt-link>
               </div>
@@ -21,22 +17,16 @@
 </template>
 
 <script>
-import counterDown from './counterDown';
-import productSlider from './productSlider';
+import questions from './questions';
 
 
 export default {
     components: {
-      counterDown,
-      productSlider,
+      questions,
     },
 
     props: {
-      products                : { type: [Object,Array], default: [] },
-      statusShowCounterDown   : { type: Boolean, default: true },
-      nameElementFindSlider   : { type: String, default: '' },
-      title                   : { type: Object, default: {} },
-      removeMarginTop         : { type: String, default: '' },
+      allQuestion   : { type: [Object,Array], default: [] },
     },
 
     data() {
@@ -60,10 +50,9 @@ export default {
 
 <style lang="scss" scoped>
 .productContent{
-  margin-top: 40px;
+  margin-bottom: 40px;
   background: $white;
   border-radius: 12px;
-  height: 387px;
   @include display-flex();
   align-items: flex-start;
   flex-wrap: wrap;
@@ -74,8 +63,8 @@ export default {
   align-items: flex-start;
   flex-wrap: wrap;
   @include display-flex();
-  padding-top: 38px;
-  padding-bottom: 38px;
+  padding-top: 24px;
+  padding-bottom:0px;
 }
 .productContent__left{
   flex-grow: 1;
@@ -113,30 +102,6 @@ export default {
     font-size: 12px;
     margin-top: 1px;
 }
-.productContent__desktop{
-  @include display-flex();
-}
-.productContent__mobile{
-  display: none;
-}
-.productContent__updateMargin .productContent__left{
-  margin-top: 0;
-}
-.productContent__updateMargin .productContent__items{
-  padding-top: 24px;
-  padding-bottom: 31px;
-}
-.productContent__updateMargin {
-  height: 451px;
-}
-
-
-
-
-
-
-
-
 
 
 
@@ -149,9 +114,6 @@ export default {
 }
 
 @media (max-width: 960px) {
-  .productContent{
-    margin-top: 8px;
-  }
   .productContent__right{
     width: 100%;
     padding-right: 11px;
@@ -159,13 +121,7 @@ export default {
   }
   .productContent__left{
     width: 100%;
-    margin-top: 24px;
-  }
-  .productContent__desktop{
-    display: none;
-  }
-  .productContent__mobile{
-    @include display-flex();
+    margin-top: 0px;
   }
   .productContent{
     height: auto;
@@ -173,15 +129,12 @@ export default {
   .productContent__sliderMore{
     margin-top: 34px;
   }
-
-  .productContent__updateMargin .productContent__items{
-    padding-top: 16px;
-    padding-bottom: 16px;
-  }
   .productContent__items{
     padding-top: 16px;
     padding-bottom: 16px;
   }
+
+
 
 }
 
@@ -194,6 +147,7 @@ export default {
     display: flex;
   }
   .productContent{
+    margin-bottom: 0px;
     margin-top: 8px;
   }
 }
