@@ -16,6 +16,7 @@
           :category-products="categoryProducts"
 
           @active-cat-suggestion="activeCatSuggestion"
+          @update-infinite-cat-mobile="updateInfiniteCatMobile"
         >
         </content-category>
 
@@ -153,10 +154,10 @@ export default {
     },
 
     // async asyncData (context) {
-    //   const query_params = context.route.query;
-    //   const post         = await context.$axios.$get(`https://api.nuxtjs.dev/posts`);
-    //     console.log('asyncData');
-    //   return { posts:post,id:query_params.id }
+      // const query_params = context.route.query;
+      // const post         = await context.$axios.$get(`https://api.nuxtjs.dev/posts`);
+      //   console.log('asyncData');
+      // return { posts:post,id:query_params.id }
     // },
 
     watch: {
@@ -183,6 +184,10 @@ export default {
       activeCatSuggestion(data){
         console.log(data);
       },
+
+      updateInfiniteCatMobile(data){
+        console.log(data,'updateInfiniteCatMobile');
+      }
 
 
     }

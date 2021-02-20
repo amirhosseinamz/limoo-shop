@@ -1,7 +1,8 @@
 <template>
   <div class="w-100 productContent__sliderWrapper">
-        <div class=" main-carousel w-100 productContent__mainSlider" :key="infiniteStartDetected">
-                <div  v-for="data in products" :key="data.id" class="carousel-cell productContent__carousel ">
+
+        <div class=" main-carousel w-100 productContent__mainSlider product__content-desktop" >
+                <div v-for="data in categoryProducts" :key="data.id + 'desktop' " class="carousel-cell productContent__carousel ">
                     <div class="productContent__carouselContent w-100">
                           <!-- <NuxtLink
                           class="w-100 productContent__carousel-link"
@@ -50,6 +51,58 @@
                      </infinite-loading>
                  </client-only>
         </div>
+
+        <div class=" main-carousel w-100 productContent__mainSlider product__content-mobile">
+                <div v-for="data in products" :key="data.id + 'mobile' " class="carousel-cell productContent__carousel ">
+                    <div class="productContent__carouselContent w-100">
+                          <!-- <NuxtLink
+                          class="w-100 productContent__carousel-link"
+                          :to=" '/' + title.sliderItemHref + '/' + data.id "
+                          target="_blank"
+                          >
+                          </NuxtLink>
+                           -->
+                              <div class="productContent__carouselImgMain w-100">
+                                <img class="productContent__carouselImgItem" :src="data.image" alt="">
+                              </div>
+                              <div class="productContent__carouselData">
+                                <div class="w-100">
+                                    <h3 class="productContent__carouselDataTitle">
+                                      {{data.title}}
+                                    </h3>
+                                </div>
+                                <div class="w-100 productContent__carouselPriceMain" :class="{'productContent__noneDiscount':data.discount == ''}">
+                                    <div class="productContent__discount">
+                                      <div class="productContent__pricePercent">
+                                        <h3 class="productContent__percentTitle">30%</h3>
+                                      </div>
+                                      <div class="productContent__priceDiscount">
+                                        <h3 class="productContent__discountTitle">
+                                          {{data.addCamaDiscount}}
+                                          <span class="productContent__discountLine"></span>
+                                        </h3>
+                                      </div>
+                                    </div>
+                                    <div class="w-100 productContent__priceUnit">
+                                      <h3 class="productContent__priceTitle">
+                                        {{data.addCamaRealPrice}}
+                                        <span>تومان</span>
+                                      </h3>
+                                    </div>
+                                </div>
+                          </div>
+
+                    </div>
+                 </div>
+
+                 <client-only >
+                     <infinite-loading @infinite="infiniteHandler">
+                       <div slot="no-more">پایان </div>
+                       <div slot="no-results">نتیجه ای یافت نشد</div>
+                     </infinite-loading>
+                 </client-only>
+        </div>
+
   </div>
 </template>
 
@@ -77,10 +130,12 @@ export default {
 
     mounted() {
       const width   = window.innerWidth;
+
       if (485 < width) {
         this.products = this.categoryProducts;
       }
       // this.detectedResizeBrowser();
+
     },
 
     computed: {
@@ -106,6 +161,7 @@ export default {
             }
             this.list.push(...temp);
             $state.loaded();
+            this.$emit('update-infinite-cat-mobile',this.products);
           }, 1000);
         }
        },
@@ -127,22 +183,22 @@ export default {
       //   });
       // },
 
-      detectedResizeBrowser(){
-        window.addEventListener("resize", ()=>{
-            const width   = window.innerWidth;
-
-            if (485 < width) {
-              this.products = this.categoryProducts;
-            }
-            else {
-              this.products  = [];
-              this.list      = [];
-              this.infiniteStartDetected++;
-            }
-
-
-          }, true);
-      },
+      // detectedResizeBrowser(){
+      //   window.addEventListener("resize", ()=>{
+      //       const width   = window.innerWidth;
+      //
+      //       if (485 < width) {
+      //         this.products = this.categoryProducts;
+      //       }
+      //       else {
+      //         this.products  = [];
+      //         this.list      = [];
+      //         this.infiniteStartDetected++;
+      //       }
+      //
+      //
+      //     }, true);
+      // },
 
     },
 
@@ -362,6 +418,10 @@ export default {
   width: 100%;
   height: 100%;
 }
+.product__content-mobile{
+  display: none;
+}
+
 
 @media (max-width: 1380px) {
   .productContent__carousel{
@@ -527,6 +587,12 @@ export default {
   }
   .productContent__sliderWrapper .infinite-loading-container{
     @include display-flex();
+  }
+  .product__content-desktop{
+    display: none;
+  }
+  .product__content-mobile{
+    display: flex;
   }
 
 }

@@ -8,6 +8,7 @@
               :next-text=" '<span class=icon-paganation></span>' "
               :container-class="'category__product-pagination pagination'">
             </paginate>
+            <!-- <div id="pagination2" class="tui-pagination"></div> -->
           </div>
 
     </div>
@@ -39,7 +40,13 @@ export default {
   },
 
   mounted() {
-
+    // const Pagination = require('tui-pagination'); /* CommonJS */
+    // let pagination   = new Pagination(document.getElementById('pagination2'), {
+    //     totalItems: 500,
+    //     itemsPerPage: 10,
+    //     visiblePages: 5,
+    //     centerAlign: true
+    // });
   },
 
   methods: {

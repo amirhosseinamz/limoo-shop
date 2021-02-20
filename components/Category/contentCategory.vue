@@ -10,7 +10,7 @@
                       @active-cat-suggestion="activeCatSuggestion"
                       ></category-top>
 
-                      <category-products :category-products="categoryProducts"></category-products>
+                      <category-products :category-products="categoryProducts" @update-infinite-cat-mobile="updateInfiniteCatMobile"></category-products>
 
                       <paganation-cat></paganation-cat>
                   </div>
@@ -51,6 +51,10 @@ export default {
       activeCatSuggestion(data){
         this.$emit('active-cat-suggestion',data);
       },
+
+      updateInfiniteCatMobile(data){
+        this.$emit('update-infinite-cat-mobile',this.products);
+      }
 
 
     },
