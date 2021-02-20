@@ -222,7 +222,7 @@ export default {
     left: 0;
     right: 0;
     bottom: 0; */
-    z-index: 1;
+    z-index: 10;
     background: $overlay__profile;
 }
 /* .v-enter-from {
@@ -548,7 +548,7 @@ export default {
     }
     .user-profile__holder {
         margin: 8px 0;
-        padding: 0 5px;
+        padding: 0 16px;
     }
     .user-profile {
         &__topic {
@@ -571,7 +571,7 @@ export default {
             &-pass {
                 width: 100%;
                 height: 90px;
-                margin: 0 24px 24px 24px;
+                margin: 0 100px 24px 100px;
             }
             &-phone {
                 order: 1;
@@ -614,17 +614,17 @@ export default {
             font-weight: 500;
             width: 100%;
             &-holder {
-                padding: 0 11px;
+                padding: 0 200px;
             }
         }
         &__alert {
             font-size: 13px;
         }
         #name {
-            width: 120px;
+            width: 208px;
         }
         #family {
-            width: 142px;
+            width: 277px;
         }
     }
 
@@ -633,6 +633,36 @@ export default {
         width: 100%;
         border: none;
         border-top: 1px solid $gray-border;
+    }
+}
+@media (max-width: 600px) {
+    .user-profile__holder {
+        padding: 0 5px;
+    }
+    .user-profile {
+        &__info {
+            &-name,
+            &-email,
+            &-phone,
+            &-birthday,
+            &-nationalcode,
+            &-pass {
+                width: 100%;
+                height: 90px;
+                margin: 0 24px 24px 24px;
+            }
+        }
+        &__btn {
+            &-holder {
+                padding: 0 11px;
+            }
+        }
+        #name {
+            width: 120px;
+        }
+        #family {
+            width: 142px;
+        }
     }
 }
 @media (max-width: 350px) {

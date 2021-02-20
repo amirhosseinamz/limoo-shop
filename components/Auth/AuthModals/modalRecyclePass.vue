@@ -1,23 +1,16 @@
 <template>
-    <div class="signup-container">
+    <div class="recycle-container">
         <div class="card">
             <div class="signup-close-btn">
-                <button
-                    @click="closePage"
-                    class="app-signup-close-btn"
-                ></button>
-            </div>
-
-            <div class="signup-limoo-logo">
-                <img src="/logos/limoo-logo1.png" alt="لوگوی وبسایت لیمو" />
+                <button @click="nextPage" class="app-signup-close-btn"></button>
             </div>
 
             <div class="card-body">
-                <form @submit.prevent="goToNextStepofSignUp">
+                <form @submit.prevent="goToNextStepofRecyclePass">
                     <div class="form-group">
-                        <p class="txt-header">ورود و عضویت</p>
-                        <p class="txt-content" dir="rtl">
-                            لطفا شماره موبایل خود را وارد کنید.
+                        <p class="txt-header">بازیابی رمز عبور</p>
+                        <p class="txt-content">
+                            .لطفا شماره موبایل خود را وارد کنید
                         </p>
                         <div class="input-section">
                             <div
@@ -33,11 +26,11 @@
                                 ]"
                             >
                                 <input
+                                    class="form-control"
                                     :class="[
                                         wrongInput
                                             ? 'signup-input-wrong'
-                                            : 'signup-input',
-                                        'form-control'
+                                            : 'signup-input'
                                     ]"
                                     @click="
                                         [
@@ -89,18 +82,10 @@
                     <div class="btn-control">
                         <button
                             class="signup-btn"
-                            type="submit"
                             :disabled="btnIsDisabled"
+                            type="submit"
                         >
-                            <span class="desk-display">ورود به لیمو</span>
-                            <span class="min-display">ورود</span>
-                        </button>
-
-                        <!-- <button class="signup-btn min-display" type="submit">
-                            ورود
-                        </button> -->
-                        <button class="google-signup-btn" type="submit">
-                            ورود با حساب گوگل
+                            ادامه
                         </button>
                     </div>
                 </form>
@@ -128,13 +113,13 @@ export default {
     },
     created() {
         this.storePhone = this.$store.getters.PhoneNumberPicker;
-        this.phone = this.$store.getters.PhoneNumberPicker;
+        // this.phone = this.$store.getters.PhoneNumberPicker;
     },
-    // computed: {
-    //     PhoneNumberPicker() {
-    //         this.storePhone = this.$store.getters.PhoneNumberPicker;
-    //     }
-    // },
+    computed: {
+        PhoneNumberPicker() {
+            this.storePhone = this.$store.getters.PhoneNumberPicker;
+        }
+    },
     methods: {
         validationPhoneNumber(value) {
             if (/\D/.test(value)) {
@@ -147,49 +132,51 @@ export default {
                 //     this.wrongInput = false;
             }
         },
-        goToNextStepofSignUp() {
+        goToNextStepofRecyclePass() {
             const condition = this.phone.match(/\d/g);
 
             if (this.phone == "" || condition.length < 11) {
                 this.wrongInput = true;
-                // console.log("input is '' or < 11");
             } else if (condition.length === 11) {
-                // console.log("input length is === 11");
                 this.wrongInput = false;
                 this.$store.commit("PhoneNumber", { value: this.phone });
+                // if (this.phone == this.storePhone) {
+                //     this.$store.commit("walkInSignUpcomponents", {
+                //         value: "stepTwo"
+                //     });
+                // }
             }
             if (!this.wrongInput) {
-                // console.log("go to confirm");
-                this.$store.dispatch({
-                    type: "userIsAuth",
-                    value: true
-                });
-                this.$emit("btn-go-to-signup-step-two");
-                // this.$emit("btn-go-to-signin-step-one");
+                console.log("go to confirm");
+                // this.$router.push("/users/password/forget/confirm");
+                this.$emit("btn-go-back-recycle-pass-step-two");
             }
         },
-        closePage() {
-            this.$emit("btn-close-modal");
+        nextPage() {
+            // this.$router.push("/users/signin");
+            this.$emit("btn-go-back-signin-step-one");
         }
     }
 };
 </script>
 
 <style lang="scss" scoped>
-.signup-container {
+.recycle-container {
     /* height: 100vh; */
     @include display-flex();
     flex-direction: column;
     justify-content: center;
     align-items: center;
     text-align: center;
-    /* background-color: red; */
 }
-
+.signup-input-wrong,
+.signup-input {
+    margin-right: 24px;
+}
 .card {
     @include display-flex();
     flex-direction: column;
-    justify-content: center;
+    justify-content: space-around;
     width: 642px;
     height: 524px;
     background-color: $white;
@@ -200,26 +187,22 @@ export default {
 .signup-close-btn {
     @include display-flex();
     justify-content: flex-start;
+    width: 30px;
+    height: 30px;
     margin-top: 24px;
 }
 .app-signup-close-btn::before {
-    content: "\e807";
+    content: "\e801";
     @include font-icon__limoo();
-    font-size: 28px;
-    color: $gray;
-}
-.signup-input {
-    padding-right: 24px;
-    &-wrong {
-        padding-right: 24px;
-    }
+    font-size: 24px;
+    color: $black-icon;
 }
 .form-control {
     direction: rtl;
     font-family: inherit;
 }
 .signup-btn {
-    margin-bottom: 40px;
+    margin-bottom: 126px;
 }
 .err-text {
     font-family: inherit;
@@ -244,43 +227,32 @@ export default {
     line-height: 33.75px;
     font-weight: 400;
     text-align: right;
-    margin: 37px 90px 33px 0;
+    margin: 77px 90px 33px 0;
 }
 .txt-content {
     font-size: 16px;
     line-height: 22.5px;
-    font-weight: 318;
+    font-weight: 400;
     text-align: right;
     margin-bottom: 25px;
     margin-right: 90px;
 }
-@media screen and (max-width: 600px) {
-    .signup-close-btn {
-        display: none;
-    }
-    .min-display {
-        display: block;
-    }
-    .desk-display {
-        display: none;
-    }
-}
-
 @media screen and (max-width: 540px) {
     .card {
         width: auto;
         height: 100vh;
         border-radius: 0;
     }
+
     .signup-input {
-        margin-right: 18px;
-        padding: 0;
+        margin-right: 16px;
+        margin-left: 16px;
         width: 328px;
         height: 60px;
         margin-bottom: 8px;
         &-wrong {
-            margin-right: 18px;
-            padding: 0;
+            margin-right: 16px;
+            margin-left: 16px;
             width: 328px;
             height: 60px;
             margin-bottom: 8px;
@@ -304,25 +276,24 @@ export default {
     }
 
     .signup-btn {
+        margin-top: 15px;
         width: 328px;
+        margin-bottom: 184px;
     }
     .txt-header {
         font-size: 20px;
         line-height: 140.62%;
         width: 328px;
-        margin-right: 16px;
-        margin-left: 16px;
+        margin: 120px 16px 33px 16px;
     }
     .txt-content {
+        font-size: 14px;
         width: 328px;
         margin-right: 16px;
         margin-left: 16px;
     }
     .err-text {
         margin-right: 16px;
-    }
-    .signup-limoo-logo {
-        margin-top: 0.5rem;
     }
 }
 @media screen and (max-width: 350px) {
@@ -354,6 +325,7 @@ export default {
             margin-bottom: 8px;
         }
     }
+
     .signup-btn {
         width: 280px;
     }
@@ -367,8 +339,12 @@ export default {
         width: 280px;
         margin-right: 10px;
     }
-    .signup-limoo-logo {
-        margin-top: 0;
+}
+@media screen and (max-width: 321px) and (min-width: 299px) {
+    .card {
+        @include display-flex();
+        flex-direction: column;
+        justify-content: space-between;
     }
 }
 @media screen and (max-width: 280px) {
@@ -378,10 +354,10 @@ export default {
         margin-left: 5px;
         width: 270px;
         margin-bottom: 42px;
-        padding-right: 0px;
+        padding-right: 16px;
     }
-    .input-holder-wrong,
-    .input-holder {
+    .input-holder,
+    .input-holder-wrong {
         margin-right: 5px;
         margin-left: 5px;
         width: 270px;
@@ -400,9 +376,6 @@ export default {
     .txt-content {
         width: 270px;
         margin-right: 15px;
-    }
-    .signup-limoo-logo {
-        margin-top: 0.2rem;
     }
 }
 </style>

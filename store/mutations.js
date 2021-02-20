@@ -16,6 +16,6 @@ export default {
     },
     stateShowModalWellcome(state, payload) {
         state.showModalWellcome = payload.value;
-        console.log("store say hi", payload.value);
+        // console.log("showModalWellcome in store is", payload.value);
     }
 };

@@ -14,39 +14,41 @@
 
         <div class="user-profile__holder">
             <div class="user-profile">
-                <span class="user-profile__topic">لیست سفارشات شما</span>
-                <div class="order-nav desktop-screen d-rtl">
-                    <div
-                        @click="goToOrder('paidInProgress')"
-                        :class="{ 'item-active': paidInProgress }"
-                        class="order-nav__items"
-                    >
-                        <NuxtLink to="">در حال پردازش</NuxtLink>
-                        <span class="bottomLine"></span>
-                    </div>
-                    <div
-                        @click="goToOrder('delivered')"
-                        :class="{ 'item-active': delivered }"
-                        class="order-nav__items "
-                    >
-                        <NuxtLink to="">تحویل داده شده</NuxtLink>
-                        <span class="bottomLine"></span>
-                    </div>
-                    <div
-                        @click="goToOrder('returned')"
-                        :class="{ 'item-active': returned }"
-                        class="order-nav__items "
-                    >
-                        <NuxtLink to="">مرجوع شده</NuxtLink>
-                        <span class="bottomLine"></span>
-                    </div>
-                    <div
-                        @click="goToOrder('canceled')"
-                        :class="{ 'item-active': canceled }"
-                        class="order-nav__items "
-                    >
-                        <NuxtLink to="">لغو شده</NuxtLink>
-                        <span class="bottomLine"></span>
+                <div class="desktop-nav">
+                    <span class="user-profile__topic">لیست سفارشات شما</span>
+                    <div class="order-nav desktop-screen d-rtl">
+                        <div
+                            @click="goToOrder('paidInProgress')"
+                            :class="{ 'item-active': paidInProgress }"
+                            class="order-nav__items"
+                        >
+                            <NuxtLink to="">در حال پردازش</NuxtLink>
+                            <span class="bottomLine"></span>
+                        </div>
+                        <div
+                            @click="goToOrder('delivered')"
+                            :class="{ 'item-active': delivered }"
+                            class="order-nav__items "
+                        >
+                            <NuxtLink to="">تحویل داده شده</NuxtLink>
+                            <span class="bottomLine"></span>
+                        </div>
+                        <div
+                            @click="goToOrder('returned')"
+                            :class="{ 'item-active': returned }"
+                            class="order-nav__items "
+                        >
+                            <NuxtLink to="">مرجوع شده</NuxtLink>
+                            <span class="bottomLine"></span>
+                        </div>
+                        <div
+                            @click="goToOrder('canceled')"
+                            :class="{ 'item-active': canceled }"
+                            class="order-nav__items "
+                        >
+                            <NuxtLink to="">لغو شده</NuxtLink>
+                            <span class="bottomLine"></span>
+                        </div>
                     </div>
                 </div>
                 <div class="order-holder">
@@ -166,6 +168,39 @@ export default {
                             img: "/img/apple-watch-4.png"
                         }
                     ]
+                },
+                {
+                    id: 3,
+                    orderCode: "6861457M",
+                    orderPrice: "850,000",
+                    orderData: "1399/04/05",
+                    orderSituation: "لغو شده",
+                    orders: [
+                        {
+                            id: 1,
+                            title:
+                                " اپل واچ سری 1 آلومینیوم آبی اپل واچ سری 1 آلومینیوم",
+                            img: "/img/apple-watch-1.png"
+                        },
+                        {
+                            id: 2,
+                            title:
+                                " اپل واچ سری 2 آلومینیوم آبی اپل واچ سری 2 آلومینیوم",
+                            img: "/img/apple-watch-2.png"
+                        },
+                        {
+                            id: 3,
+                            title:
+                                " اپل واچ سری 3 آلومینیوم آبی اپل واچ سری 3 آلومینیوم",
+                            img: "/img/apple-watch-3.png"
+                        },
+                        {
+                            id: 4,
+                            title:
+                                " اپل واچ سری 4 آلومینیوم آبی اپل واچ سری 4 آلومینیوم",
+                            img: "/img/apple-watch-4.png"
+                        }
+                    ]
                 }
             ],
             // inProgressOrderData: [
@@ -254,16 +289,23 @@ export default {
     height: max-content;
     /* border: 5px solid #2f0404; */
 }
+.desktop-nav {
+    @include display-flex();
+    flex-direction: column;
+    width: 100%;
+    background-color: $white;
+    border-radius: 10px;
+}
 .user-profile {
     width: 100%;
 
-    height: 139px;
+    min-height: 139px;
     @include display-flex();
     flex-direction: column;
     /* justify-content: center; */
     align-items: center;
     text-align: center;
-    background: $white;
+    /* background: $white; */
     border-radius: 10px;
     box-shadow: 0px 8px 16px $box__shadow;
     /* border: 1px solid #f00808; */
@@ -316,7 +358,7 @@ export default {
     width: 100%;
     /* background: $white; */
     height: max-content;
-    padding-bottom: 70px;
+    /* padding-bottom: 70px; */
     border-radius: 10px;
     /* border: 1px solid blue; */
 }
@@ -370,7 +412,7 @@ export default {
     }
     .user-profile__holder {
         margin: 8px 0;
-        padding: 0 5px;
+        padding: 0 16px;
     }
     .user-profile {
         height: 62px;
@@ -387,6 +429,9 @@ export default {
         flex-direction: row;
         align-items: center;
         height: 62px;
+        padding: 0 10px;
+        background: $white;
+        border-radius: 10px;
         /* border-bottom: 1px solid $gray-border; */
         /* border: 1px solid red; */
     }
@@ -469,7 +514,16 @@ export default {
         border: 1px solid transparent;
     }
 }
-@media (max-width: 600px) {
+@media (max-width: 700px) {
+    .user-profile__holder {
+        padding: 0 5px;
+    }
+    .mobile-nav__order-inprogress,
+    .mobile-nav__order-delivered,
+    .mobile-nav__order-returned,
+    .mobile-nav__order-canceled {
+        padding: 0;
+    }
 }
 
 @media (max-width: 350px) {

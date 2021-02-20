@@ -746,13 +746,49 @@ export default {
     .birthday-item-content,
     .item-day .birthday-item__days,
     .p-birthday-select-box {
-        width: 74px;
+        width: 138px;
         font-size: 13px;
     }
     .item-year .birthday-item-content,
     .item-year .p-birthday-select-box {
-        width: 120px;
+        width: 168px;
         font-size: 13px;
+    }
+    .birthday {
+        &-title {
+            font-size: 14px;
+        }
+        &-item {
+            &__days,
+            &__months,
+            &__years {
+                font-size: 13px;
+                height: 46px;
+                width: 138px;
+                &-select {
+                    font-size: 13px;
+                    padding: 5px;
+                    padding-right: 20%;
+                }
+            }
+            &__years {
+                width: 120px;
+            }
+            &__spliter {
+                height: 15px;
+            }
+        }
+    }
+}
+@media (max-width: 700px) {
+    .birthday-item-content,
+    .item-day .birthday-item__days,
+    .p-birthday-select-box {
+        width: 74px;
+    }
+    .item-year .birthday-item-content,
+    .item-year .p-birthday-select-box {
+        width: 120px;
     }
     .birthday {
         &-title {

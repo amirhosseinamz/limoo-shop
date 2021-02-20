@@ -40,7 +40,7 @@
                                     "
                                     type="tel"
                                     maxlength="11"
-                                    placeholder="شماره موبایل..."
+                                    placeholder="*********09"
                                     v-model.trim="phone"
                                 /><button
                                     @click="
@@ -113,7 +113,7 @@ export default {
     },
     created() {
         this.storePhone = this.$store.getters.PhoneNumberPicker;
-        this.phone = this.$store.getters.PhoneNumberPicker;
+        // this.phone = this.$store.getters.PhoneNumberPicker;
     },
     computed: {
         PhoneNumberPicker() {
@@ -166,6 +166,7 @@ export default {
     justify-content: center;
     align-items: center;
     text-align: center;
+    overflow: hidden;
 }
 .signup-input-wrong,
 .signup-input {

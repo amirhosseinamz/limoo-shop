@@ -25,8 +25,8 @@
                     <div class="form-group">
                         <p class="txt-header">تایید شماره همراه</p>
                         <p dir="rtl" class="txt-content">
-                            کد ارسال شده به شماره <span>09120121023</span> را
-                            وارد کنید.
+                            کد ارسال شده به شماره
+                            <span>{{ userPhoneNumber }}</span> را وارد کنید.
                         </p>
                         <div class="input-section">
                             <div
@@ -40,8 +40,7 @@
                                 <input
                                     @click="[(isActive = true)]"
                                     class="signup-input form-control"
-                                    type="number"
-                                    oninput="if(value.length>4)value=value.slice(0,4)"
+                                    type="text"
                                     v-model="verifyCode"
                                     maxlength="4"
                                     required
@@ -77,10 +76,30 @@ export default {
             verifyCode: "",
             timerPassed: false,
             newCodeSent: false,
-            isActive: false
+            isActive: false,
+            userPhoneNumber: ""
         };
     },
+    mounted() {
+        this.userPhoneNumber = this.$store.getters.PhoneNumberPicker;
+    },
+    watch: {
+        verifyCode(value) {
+            this.verifyCode = value;
+            this.validationVerifyCode(value);
+        }
+    },
     methods: {
+        validationVerifyCode(value) {
+            if (/\D/.test(value)) {
+                // console.log(value);
+                // this.verifyCode = this.verifyCode.substring(
+                //     0,
+                //     this.verifyCode.length - 1
+                // );
+                this.verifyCode = this.verifyCode.slice(0, -1);
+            }
+        },
         animate() {
             console.log(this.verifyCode);
             this.newCodeSent = true;
@@ -90,13 +109,14 @@ export default {
         },
         pressed() {
             // talk to server
+            this.$store.commit("PhoneNumber", { value: "" });
         },
 
         nextPage() {
             // go to .../users/signin-up
             // this.$router.push("/users/signin-up");
             // this.$store.commit("walkInSignUpcomponents", { value: "stepOne" });
-             this.$emit("btn-go-back-signup-step-one");
+            this.$emit("btn-go-back-signup-step-one");
         },
         showWellcomeModal() {
             this.$emit("event-show-modal-wellcome");

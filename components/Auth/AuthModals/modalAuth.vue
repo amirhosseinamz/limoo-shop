@@ -11,7 +11,8 @@
         ></div> -->
         <modalSignUpStepOne
             @btn-close-modal="modalClose"
-            @btn-go-back-signup-step-two="gotoSignUpStepTwo"
+            @btn-go-to-signup-step-two="gotoSignUpStepTwo"
+            @btn-go-to-signin-step-one="gotoSignInStepone"
             v-if="SignUpStepOne"
         />
         <modalSignUpStepTwo
@@ -19,12 +20,42 @@
             @event-show-modal-wellcome="showWellcomeModal"
             v-else-if="SignUpStepTwo"
         />
+        <modalSignInStepOne
+            @btn-go-back-signup-step-one="gotoSignUpStepOne"
+            @btn-go-to-signin-step-two="gotoSignInSteptwo"
+            @btn-go-to-recycle-pass="goToRecyclePass"
+            v-else-if="SignInStepone"
+        />
+        <modalSignInStepTwo
+            @btn-go-back-signin-step-one="gotoSignInStepone"
+            v-else-if="SignInSteptwo"
+        />
+        <modalRecyclePass
+            @btn-go-back-signin-step-one="gotoSignInStepone"
+            @btn-go-back-recycle-pass-step-two="goToRecyclePassStepTwo"
+            v-else-if="RecyclePass"
+        />
+        <modalRecyclePassStepTwo
+            @btn-go-back-recycle-pass="goToRecyclePass"
+            @btn-go-to-pass-change="goToPassChange"
+            v-else-if="RecyclePassStepTwo"
+        />
+        <modalPassChange
+            @btn-go-back-recycle-pass-step-two="goToRecyclePassStepTwo"
+            v-else-if="PassChange"
+        />
+        <!--  -->
     </modal>
 </template>
 
 <script>
 import modalSignUpStepOne from "~/components/Auth/AuthModals/modalSignUpStepOne";
 import modalSignUpStepTwo from "~/components/Auth/AuthModals/modalSignUpStepTwo";
+import modalSignInStepOne from "~/components/Auth/AuthModals/modalSignInStepOne";
+import modalSignInStepTwo from "~/components/Auth/AuthModals/modalSignInStepTwo";
+import modalRecyclePass from "~/components/Auth/AuthModals/modalRecyclePass";
+import modalRecyclePassStepTwo from "~/components/Auth/AuthModals/modalRecyclePassStepTwo";
+import modalPassChange from "~/components/Auth/AuthModals/modalPassChange";
 export default {
     props: {
         active: { type: [Boolean, Number], default: false }
@@ -32,12 +63,22 @@ export default {
     data() {
         return {
             SignUpStepOne: true,
-            SignUpStepTwo: false
+            SignUpStepTwo: false,
+            SignInStepone: false,
+            SignInSteptwo: false,
+            RecyclePass: false,
+            RecyclePassStepTwo: false,
+            PassChange: false
         };
     },
     components: {
         modalSignUpStepOne,
-        modalSignUpStepTwo
+        modalSignUpStepTwo,
+        modalSignInStepOne,
+        modalSignInStepTwo,
+        modalRecyclePass,
+        modalRecyclePassStepTwo,
+        modalPassChange
     },
 
     computed: {
@@ -57,6 +98,7 @@ export default {
         },
         showWellcomeModal() {
             this.$emit("event-show-modal-wellcome");
+            this.gotoSignUpStepOne();
         },
         gotoSignUpStepTwo() {
             this.SignUpStepOne = false;
@@ -65,6 +107,31 @@ export default {
         gotoSignUpStepOne() {
             this.SignUpStepOne = true;
             this.SignUpStepTwo = false;
+            this.SignInStepone = false;
+        },
+        gotoSignInStepone() {
+            this.SignUpStepOne = false;
+            this.SignInSteptwo = false;
+            this.RecyclePass = false;
+            this.SignInStepone = true;
+        },
+        gotoSignInSteptwo() {
+            this.SignInStepone = false;
+            this.SignInSteptwo = true;
+        },
+        goToRecyclePass() {
+            this.SignInStepone = false;
+            this.RecyclePassStepTwo = false;
+            this.RecyclePass = true;
+        },
+        goToRecyclePassStepTwo() {
+            this.RecyclePass = false;
+            this.PassChange = false;
+            this.RecyclePassStepTwo = true;
+        },
+        goToPassChange() {
+            this.RecyclePassStepTwo = false;
+            this.PassChange = true;
         }
     }
 };
@@ -75,9 +142,6 @@ export default {
     position: relative;
     padding: 0 !important;
     font-size: 12px;
-}
-#p-profile-favorite-modal {
-    background-color: brown !important;
 }
 @media (max-width: 768px) {
 }

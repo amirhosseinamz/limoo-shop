@@ -145,7 +145,7 @@ export default {
         @include display-flex();
         flex-direction: row;
         justify-content: space-between;
-        padding: 0 10px;
+        padding: 0 30px;
         background: rgba(255, 255, 255, 0.95);
         backdrop-filter: blur(5px);
         opacity: 0.99;
@@ -206,6 +206,11 @@ export default {
             content: "\e814";
         }
         /* ================================ */
+    }
+}
+@media (max-width: 700px) {
+    .mobile-mega-menu {
+        padding: 0 10px;
     }
 }
 @media (max-width: 280px) {

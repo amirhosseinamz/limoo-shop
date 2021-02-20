@@ -101,7 +101,8 @@ export default {
             // this.$store.commit("walkInSignIncomponents", {
             //     value: "PassChange"
             // });
-            this.$router.push("/users/password");
+            // this.$router.push("/users/password");
+            this.$emit("btn-go-to-pass-change");
         },
         animate() {
             this.timerPassed = true;
@@ -118,7 +119,8 @@ export default {
             // this.$store.commit("walkInSignIncomponents", {
             //     value: "recyclePass"
             // });
-            this.$router.push("/users/password/forget");
+            // this.$router.push("/users/password/forget");
+            this.$emit("btn-go-back-recycle-pass");
         }
     }
 };
@@ -181,7 +183,7 @@ export default {
 }
 
 .recycle-container {
-    height: 100vh;
+    /* height: 100vh; */
     @include display-flex();
     flex-direction: column;
     justify-content: center;
