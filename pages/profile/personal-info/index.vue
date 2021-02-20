@@ -658,6 +658,16 @@ export default {
             }
         }
         #name {
+            width: 170px;
+        }
+        #family {
+            width: 220px;
+        }
+    }
+}
+@media (max-width: 530px) {
+    .user-profile {
+        #name {
             width: 120px;
         }
         #family {
