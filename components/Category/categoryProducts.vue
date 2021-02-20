@@ -1,7 +1,7 @@
 <template>
   <div class="w-100 productContent__sliderWrapper">
-        <div class=" main-carousel w-100 productContent__mainSlider">
-              <div  v-for="data in categoryProducts" :key="data.id" class="carousel-cell productContent__carousel ">
+        <div class=" main-carousel w-100 productContent__mainSlider" :key="infiniteStartDetected">
+                <div  v-for="data in products" :key="data.id" class="carousel-cell productContent__carousel ">
                     <div class="productContent__carouselContent w-100">
                           <!-- <NuxtLink
                           class="w-100 productContent__carousel-link"
@@ -41,16 +41,25 @@
                           </div>
 
                     </div>
-            </div>
+                 </div>
+
+                 <client-only >
+                     <infinite-loading @infinite="infiniteHandler">
+                       <div slot="no-more">پایان </div>
+                       <div slot="no-results">نتیجه ای یافت نشد</div>
+                     </infinite-loading>
+                 </client-only>
         </div>
   </div>
 </template>
 
 <script>
+import InfiniteLoading from 'vue-infinite-loading';
 
 
 export default {
     components: {
+      InfiniteLoading,
     },
 
     props: {
@@ -59,10 +68,19 @@ export default {
 
     data() {
       return {
+        page                  : 0,
+        list                  : [],
+        products              : [],
+        infiniteStartDetected : 0,
       }
     },
 
     mounted() {
+      const width   = window.innerWidth;
+      if (485 < width) {
+        this.products = this.categoryProducts;
+      }
+      // this.detectedResizeBrowser();
     },
 
     computed: {
@@ -72,7 +90,59 @@ export default {
     methods: {
       switchLink(event){
         event.preventDefault();
-      }
+      },
+
+      infiniteHandler($state) {
+        if (this.list.length >= 30) {
+          $state.complete();
+        } else {
+          setTimeout(() => {
+            let temp = [];
+            for (let i = this.list.length; i < this.list.length + 10; i++) {
+              temp.push(i);
+              if (typeof(this.categoryProducts[i]) != 'undefined') {
+                this.products.push(this.categoryProducts[i])
+              }
+            }
+            this.list.push(...temp);
+            $state.loaded();
+          }, 1000);
+        }
+       },
+
+      // server request //
+      //  infiniteHandler($state) {
+      //   axios.get(api, {
+      //     params: {
+      //       page: this.page,
+      //     },
+      //   }).then(({ data }) => {
+      //     if (data.hits.length) {
+      //       this.page += 1;
+      //       this.list.push(...data.hits);
+      //       $state.loaded();
+      //     } else {
+      //       $state.complete();
+      //     }
+      //   });
+      // },
+
+      detectedResizeBrowser(){
+        window.addEventListener("resize", ()=>{
+            const width   = window.innerWidth;
+
+            if (485 < width) {
+              this.products = this.categoryProducts;
+            }
+            else {
+              this.products  = [];
+              this.list      = [];
+              this.infiniteStartDetected++;
+            }
+
+
+          }, true);
+      },
 
     },
 
@@ -95,6 +165,7 @@ export default {
   position: relative;
   @include display-flex();
   flex-wrap: wrap;
+  min-height: 400px;
 }
 .productContent__carouselContent{
   align-items: flex-start;
@@ -221,6 +292,13 @@ export default {
   position:relative;
   margin-top: 42px;
 }
+.productContent__sliderWrapper .infinite-loading-container{
+  width: 100%;
+  margin-bottom: 10px;
+  display: none;
+  justify-content: center;
+  text-align: center;
+}
 .productContent__catTitle{
   color: $black;
   font-size: 18px;
@@ -285,10 +363,52 @@ export default {
   height: 100%;
 }
 
+@media (max-width: 1380px) {
+  .productContent__carousel{
+    margin-left: 0.6%;
+    width: 19.52%;
+  }
+  .productContent__carouselData{
+    width: 88.5%;
+  }
+}
 
-@media (max-width: 960px) {
+@media (max-width: 1300px) {
+  .productContent__carousel{
+    width: 24.5%;
+  }
+  .productContent__carousel:nth-child(4n){
+    margin-left: 0;
+  }
+  .productContent__carousel:nth-child(5n){
+    margin-left: 0.6%;
+  }
+}
+
+@media (max-width: 1024px) {
 
 }
+
+@media (max-width: 960px) {
+  .productContent__carousel{
+    width: 32.5%;
+    margin-left: 1%;
+  }
+  .productContent__carousel:nth-child(4n){
+    margin-left: 1%;
+  }
+  .productContent__carousel:nth-child(3n){
+    margin-left: 0;
+  }
+  .productContent__carousel:nth-child(5n){
+    margin-left: 1%;
+  }
+}
+
+@media (max-width: 860px) {
+
+}
+
 
 @media (max-width: 600px) {
   .productContent__catTitle{
@@ -307,6 +427,21 @@ export default {
   .productContent__titleVisit{
     font-size: 15px;
   }
+  .productContent__carousel{
+    width: 49.5%;
+  }
+  .productContent__carousel:nth-child(4n){
+    margin-left: 1%;
+  }
+  .productContent__carousel:nth-child(3n){
+    margin-left: 1%;
+  }
+  .productContent__carousel:nth-child(5n){
+    margin-left: 1%;
+  }
+  .productContent__carousel:nth-child(2n){
+    margin-left: 0;
+  }
 }
 
 @media (max-width: 485px) {
@@ -323,32 +458,40 @@ export default {
     font-size: 14px;
   }
   .productContent__carouselData{
-    width: 182px;
-    margin-top: 8px;
+    width: 60%;
+    margin-top: 0px;
     margin-left: auto;
     margin-right: inherit;
-    padding-right: 16px;
+    padding-right: 8px;
+    padding-left: 0px;
+    flex-grow: 1;
   }
   .productContent__carouselImgItem{
-    height: 102px;
+    height: 80px;
+    width: 80px;
+    // margin-top: 2px;
+    margin-right: auto;
+    margin-left: auto;
   }
   .productContent__carousel{
-    width: 223px;
-    height: 220px;
+    width: 100%;
+    height: 134px;
+    margin-left: 0;
   }
   .productContent__priceTitle{
-    margin-top: 7px;
-    font-size: 13px;
+    margin-top: 9px;
+    font-size: 14px;
+    color: $red-color;
   }
   .productContent__carouselLine{
     width: 2px;
   }
   .productContent__discountTitle{
-    font-size: 13px;
+    font-size: 14px;
   }
   .productContent__carouselDataTitle{
-    line-height: 22.69px;
-    height: 40px;
+    line-height: 26.69px;
+    height: 50px;
     text-align: right;
   }
   .productContent__line{
@@ -358,13 +501,54 @@ export default {
   .productContent__carouselPriceMain{
     padding-right: 0;
     padding-left: 0;
+    margin-top: 8px;
+    position: relative;
   }
   .productContent__topLeft{
     display: none;
   }
-
+  .productContent__carouselImgMain{
+    width: 80px;
+    margin-top: 0;
+  }
+  .productContent__carouselContent{
+    flex-flow: inherit;
+    padding-top: 16px;
+    padding-right: 8px;
+    padding-left: 20px;
+  }
+  .productContent__pricePercent{
+    position: absolute;
+    left: 0;
+    top: 8px;
+  }
+  .productContent__discount{
+    height: 14px;
+  }
+  .productContent__sliderWrapper .infinite-loading-container{
+    @include display-flex();
+  }
 
 }
+
+@media (max-width: 280px) {
+  .productContent__carouselImgMain{
+    width: 70px;
+    height: 70px;
+  }
+  .productContent__carouselImgItem{
+    width: 70px;
+    height: 70px;
+  }
+  // .productContent__carouselContent{
+  //   padding-left: 8px;
+  // }
+  .productContent__carouselDataTitle{
+    font-size: 13px;
+  }
+}
+
+
 
 
 </style>

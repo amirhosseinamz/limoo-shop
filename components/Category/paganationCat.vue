@@ -1,11 +1,16 @@
 <template>
-  <paginate
-    :page-count="20"
-    :click-handler="functionName"
-    :prev-text=" '<span class=icon-paganation></span>' "
-    :next-text=" '<span class=icon-paganation></span>' "
-    :container-class="'category__product-pagination pagination'">
-  </paginate>
+    <div class="w-100">
+          <div class="w-100">
+              <paginate
+              :page-count="20"
+              :click-handler="functionName"
+              :prev-text=" '<span class=icon-paganation></span>' "
+              :next-text=" '<span class=icon-paganation></span>' "
+              :container-class="'category__product-pagination pagination'">
+            </paginate>
+          </div>
+
+    </div>
 </template>
 
 <script>
@@ -41,14 +46,15 @@ export default {
     functionName(data){
     },
 
-
-
   },
 
 };
 </script>
 
 <style lang="scss" scoped>
+.category__product-pagination{
+  margin-top: 63px;
+}
 
 
 @media (max-width: 1220px) {
@@ -68,6 +74,9 @@ export default {
 }
 
 @media (max-width: 485px) {
+  .category__product-pagination{
+    display: none;
+  }
 
 }
 

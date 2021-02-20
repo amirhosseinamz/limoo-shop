@@ -105,7 +105,11 @@ export default {
 }
 
 @media (max-width: 485px) {
-
+  .content__bg{
+    padding-right: 8px;
+    padding-left: 8px;
+    padding-bottom: 0;
+  }
 }
 
 
