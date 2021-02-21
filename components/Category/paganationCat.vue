@@ -1,13 +1,15 @@
 <template>
     <div class="w-100">
           <div class="w-100">
-                    <paginate
-                      :page-count="20"
-                      :click-handler="functionName"
-                      :prev-text=" '<span class=icon-paganation></span>' "
-                      :next-text=" '<span class=icon-paganation></span>' "
-                      :container-class="'category__product-pagination pagination'">
-                    </paginate>
+            <no-ssr>
+                <paginate
+                :page-count="20"
+                :click-handler="functionName"
+                :prev-text=" '<span class=icon-paganation></span>' "
+                :next-text=" '<span class=icon-paganation></span>' "
+                :container-class="'category__product-pagination pagination'">
+              </paginate>
+            </no-ssr>
           </div>
 
     </div>
@@ -29,7 +31,6 @@ export default {
     return {
       page         : 1,
       setPage      : 1,
-      showPaginate : false,
     }
   },
 
@@ -38,7 +39,6 @@ export default {
   },
 
   mounted() {
-    this.showPaginate   = true;
   },
 
   methods: {

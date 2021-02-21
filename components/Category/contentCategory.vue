@@ -12,11 +12,8 @@
                       ></category-top>
 
                       <div class="content__bg w-100">
-                        <category-products :category-product-mobile="categoryProductMobile" :category-products="categoryProducts" @update-infinite-cat-mobile="updateInfiniteCatMobile"></category-products>
-
-                        <no-ssr>
+                          <category-products :category-product-mobile="categoryProductMobile" :category-products="categoryProducts" @update-infinite-cat-mobile="updateInfiniteCatMobile"></category-products>
                           <paganation-cat></paganation-cat>
-                        </no-ssr>
                       </div>
 
                   </div>
