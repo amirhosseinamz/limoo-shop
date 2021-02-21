@@ -22,7 +22,9 @@
 
         <div class="user-profile__holder">
             <div class="user-profile">
-                <span class="user-profile__topic">لیست علاقه مندی شما</span>
+                <span class="user-profile__topic" v-show="userFavorite !== 0"
+                    >لیست علاقه مندی شما</span
+                >
                 <hr class="splicer-line" />
 
                 <favorite-product
@@ -53,47 +55,50 @@ export default {
         favoriteProduct,
         modalDeleteFav
     },
-
+    created() {
+        this.userFavorite = Object.values(this.favoriteData).length;
+    },
     data() {
         return {
             showModalDeleteFavorite: false,
+            userFavorite: -1,
             favoriteData: [
-                {
-                    id: 1,
-                    title: "Fake",
-                    img: "../img/phone.jpg"
-                },
-                {
-                    id: 2,
-                    title: "Fake",
-                    img: "../img/phoneApple.jpg"
-                },
-                {
-                    id: 3,
-                    title: "Fake",
-                    img:
-                        "../img/apple-watch-series-6-blue-aluminium-case-with-deep-navy-sport-band-16.jpg"
-                },
-                {
-                    id: 4,
-                    title: "Fake",
-                    img: "/img/apple-watch-5.png"
-                },
-                {
-                    id: 5,
-                    title: "Fake",
-                    img: "/img/apple-watch-1.png"
-                },
-                {
-                    id: 6,
-                    title: "Fake",
-                    img: "/img/apple-watch-3.png"
-                },
-                {
-                    id: 7,
-                    title: "Fake",
-                    img: "/img/apple-watch-5.png"
-                }
+                // {
+                //     id: 1,
+                //     title: "Fake",
+                //     img: "../img/phone.jpg"
+                // },
+                // {
+                //     id: 2,
+                //     title: "Fake",
+                //     img: "../img/phoneApple.jpg"
+                // },
+                // {
+                //     id: 3,
+                //     title: "Fake",
+                //     img:
+                //         "../img/apple-watch-series-6-blue-aluminium-case-with-deep-navy-sport-band-16.jpg"
+                // },
+                // {
+                //     id: 4,
+                //     title: "Fake",
+                //     img: "/img/apple-watch-5.png"
+                // },
+                // {
+                //     id: 5,
+                //     title: "Fake",
+                //     img: "/img/apple-watch-1.png"
+                // },
+                // {
+                //     id: 6,
+                //     title: "Fake",
+                //     img: "/img/apple-watch-3.png"
+                // },
+                // {
+                //     id: 7,
+                //     title: "Fake",
+                //     img: "/img/apple-watch-5.png"
+                // }
             ],
             currentFavorite: {}
         };
@@ -172,11 +177,11 @@ export default {
 }
 .user-profile {
     width: 100%;
-
+    min-height: 397px;
     height: max-content;
     @include display-flex();
     flex-direction: column;
-    /* justify-content: center; */
+    justify-content: center;
     align-items: center;
     text-align: center;
     background: $white;
@@ -253,6 +258,7 @@ export default {
         background: none;
         border: none;
         box-shadow: none;
+        min-height: 243px;
     }
     .user-profile__holder {
         padding: 0 5px;

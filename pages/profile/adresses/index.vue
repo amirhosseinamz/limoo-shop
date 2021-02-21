@@ -55,33 +55,33 @@ export default {
     data() {
         return {
             adressesData: [
-                {
-                    id: 1,
-                    address: "تهران ، خیابان ولیعصر ، تقاطع کوچه حسینی راد 1",
-                    province: "تهران",
-                    city: "جنت آباد",
-                    codePoste: "90",
-                    nameReceiver: "test",
-                    numberReceiver: "10"
-                },
-                {
-                    id: 2,
-                    address: "تهران ، خیابان ولیعصر ، تقاطع کوچه حسینی راد 2",
-                    province: "قم",
-                    city: "قم",
-                    codePoste: "2",
-                    nameReceiver: "test",
-                    numberReceiver: "10"
-                },
-                {
-                    id: 3,
-                    address: "تهران ، خیابان ولیعصر ، تقاطع کوچه حسینی راد 3",
-                    province: "قم",
-                    city: "قم",
-                    codePoste: "3",
-                    nameReceiver: "test",
-                    numberReceiver: "10"
-                }
+                // {
+                //     id: 1,
+                //     address: "تهران ، خیابان ولیعصر ، تقاطع کوچه حسینی راد 1",
+                //     province: "تهران",
+                //     city: "جنت آباد",
+                //     codePoste: "90",
+                //     nameReceiver: "test",
+                //     numberReceiver: "10"
+                // },
+                // {
+                //     id: 2,
+                //     address: "تهران ، خیابان ولیعصر ، تقاطع کوچه حسینی راد 2",
+                //     province: "قم",
+                //     city: "قم",
+                //     codePoste: "2",
+                //     nameReceiver: "test",
+                //     numberReceiver: "10"
+                // },
+                // {
+                //     id: 3,
+                //     address: "تهران ، خیابان ولیعصر ، تقاطع کوچه حسینی راد 3",
+                //     province: "قم",
+                //     city: "قم",
+                //     codePoste: "3",
+                //     nameReceiver: "test",
+                //     numberReceiver: "10"
+                // }
             ],
             currentProduct: {},
             statusShowModalDeleteProduct: false,
