@@ -2,17 +2,23 @@
   <div class="w-100 content">
         <div class="content__main ">
             <category-selected :category="category" ></category-selected>
-            <div class="content__bg w-100">
+            <div class=" w-100">
                   <div class="w-100 content__wrapper">
                       <category-top
                       :category-suggestion="categorySuggestion"
                       :default-selected-suggestion="defaultSelectedSuggestion"
                       @active-cat-suggestion="activeCatSuggestion"
+
                       ></category-top>
 
-                      <category-products :category-products="categoryProducts" @update-infinite-cat-mobile="updateInfiniteCatMobile"></category-products>
+                      <div class="content__bg w-100">
+                        <category-products :category-product-mobile="categoryProductMobile" :category-products="categoryProducts" @update-infinite-cat-mobile="updateInfiniteCatMobile"></category-products>
 
-                      <paganation-cat></paganation-cat>
+                        <no-ssr>
+                          <paganation-cat></paganation-cat>
+                        </no-ssr>
+                      </div>
+
                   </div>
             </div>
 
@@ -33,6 +39,7 @@ export default {
       categorySuggestion         : { type: [Object,Array], default: [] },
       defaultSelectedSuggestion  : { type: Object, default: {} },
       categoryProducts           : { type: [Object,Array], default: [] },
+      categoryProductMobile      : { type: [Object,Array], default: [] },
     },
 
     components: {
@@ -53,7 +60,7 @@ export default {
       },
 
       updateInfiniteCatMobile(data){
-        this.$emit('update-infinite-cat-mobile',this.products);
+        this.$emit('update-infinite-cat-mobile',data);
       }
 
 
@@ -68,12 +75,13 @@ export default {
 }
 .content__bg{
   background: $white;
-  padding-top: 24px;
+  // padding-top: 24px;
   padding-bottom: 72px;
   padding-right: 24px;
   padding-left: 24px;
   margin-bottom: 72px;
-  border-radius: 10px;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
   @include display-flex();
   align-items: flex-start;
   flex-wrap: wrap;
@@ -100,7 +108,10 @@ export default {
 
 @media (max-width: 960px) {
   .content{
-    margin-top: 8px;
+    margin-top:0px;
+  }
+  .content__main{
+    margin-top: 45px;
   }
 }
 
@@ -114,6 +125,13 @@ export default {
     padding-left: 8px;
     padding-bottom: 0;
   }
+  .productContent__sliderWrapper{
+    margin-top: 4px;
+  }
+  .content__main{
+    margin-top: 55px;
+  }
+
 }
 
 

@@ -1,6 +1,6 @@
 export default {
     // Global page headers (https://go.nuxtjs.dev/config-head)
-    ssr: false,
+    ssr: true,
 
     head: {
         titleTemplate: "limoo | لیمو",
@@ -27,6 +27,9 @@ export default {
     plugins: [
         { src: "~plugins/modal/index.js" },
         { src: "~/plugins/persistedState.js" },
+        { src: "~/plugins/client-only.js" , mode : 'client'},
+
+        // { src: "~/plugins/vuejs-paginate/index.js" }
 
     ],
 

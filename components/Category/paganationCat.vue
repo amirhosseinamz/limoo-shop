@@ -1,14 +1,13 @@
 <template>
     <div class="w-100">
           <div class="w-100">
-              <paginate
-              :page-count="20"
-              :click-handler="functionName"
-              :prev-text=" '<span class=icon-paganation></span>' "
-              :next-text=" '<span class=icon-paganation></span>' "
-              :container-class="'category__product-pagination pagination'">
-            </paginate>
-            <!-- <div id="pagination2" class="tui-pagination"></div> -->
+                    <paginate
+                      :page-count="20"
+                      :click-handler="functionName"
+                      :prev-text=" '<span class=icon-paganation></span>' "
+                      :next-text=" '<span class=icon-paganation></span>' "
+                      :container-class="'category__product-pagination pagination'">
+                    </paginate>
           </div>
 
     </div>
@@ -16,7 +15,6 @@
 
 <script>
 import '~/assets/styles/plugins/_paganation.scss'
-import Paginate from 'vuejs-paginate'
 
 
 export default {
@@ -25,13 +23,13 @@ export default {
   },
 
   components: {
-    Paginate,
   },
 
   data() {
     return {
-      page : 1,
-      setPage : 1
+      page         : 1,
+      setPage      : 1,
+      showPaginate : false,
     }
   },
 
@@ -40,13 +38,7 @@ export default {
   },
 
   mounted() {
-    // const Pagination = require('tui-pagination'); /* CommonJS */
-    // let pagination   = new Pagination(document.getElementById('pagination2'), {
-    //     totalItems: 500,
-    //     itemsPerPage: 10,
-    //     visiblePages: 5,
-    //     centerAlign: true
-    // });
+    this.showPaginate   = true;
   },
 
   methods: {

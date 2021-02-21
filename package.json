@@ -29,8 +29,7 @@
         "flickity": "2.2.2",
         "flickity-fade": "1.0.0",
         "vue-infinite-loading" : "2.4.5",
-        "vuejs-paginate" : "2.1.0",
-        "tui-pagination" : "3.4.0"
+        "vuejs-paginate" : "2.1.0"
     },
     "devDependencies": {
         "@nuxtjs/style-resources": "^1.0.0",

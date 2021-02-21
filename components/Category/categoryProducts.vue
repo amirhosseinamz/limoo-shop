@@ -1,6 +1,7 @@
 <template>
-  <div class="w-100 productContent__sliderWrapper">
+  <div class="w-100 productContent__sliderWrapper" :key="infiniteStartDetected">
 
+        <!-- در حالت موبایل با توجه به پیج صفحه به صورت هیدن آیتم ها ساخته شده -->
         <div class=" main-carousel w-100 productContent__mainSlider product__content-desktop" >
                 <div v-for="data in categoryProducts" :key="data.id + 'desktop' " class="carousel-cell productContent__carousel ">
                     <div class="productContent__carouselContent w-100">
@@ -44,16 +45,17 @@
                     </div>
                  </div>
 
-                 <client-only >
-                     <infinite-loading @infinite="infiniteHandler">
-                       <div slot="no-more">پایان </div>
-                       <div slot="no-results">نتیجه ای یافت نشد</div>
-                     </infinite-loading>
-                 </client-only>
+                 <no-ssr >
+                   <infinite-loading @infinite="infiniteHandler">
+                     <div slot="no-more">پایان </div>
+                     <div slot="no-results">نتیجه ای یافت نشد</div>
+                   </infinite-loading>
+                 </no-ssr >
         </div>
 
+        <!-- در حالت موبایل بدونه چک کردن پیج صفحه از اولین صفحه شروع می کنیم -->
         <div class=" main-carousel w-100 productContent__mainSlider product__content-mobile">
-                <div v-for="data in products" :key="data.id + 'mobile' " class="carousel-cell productContent__carousel ">
+                <div v-for="data in scrollDataCategoryProduct" :key="data.id + 'mobile' " class="carousel-cell productContent__carousel ">
                     <div class="productContent__carouselContent w-100">
                           <!-- <NuxtLink
                           class="w-100 productContent__carousel-link"
@@ -95,12 +97,12 @@
                     </div>
                  </div>
 
-                 <client-only >
-                     <infinite-loading @infinite="infiniteHandler">
-                       <div slot="no-more">پایان </div>
-                       <div slot="no-results">نتیجه ای یافت نشد</div>
-                     </infinite-loading>
-                 </client-only>
+                 <no-ssr >
+                    <infinite-loading @infinite="infiniteHandler">
+                      <div slot="no-more">پایان </div>
+                      <div slot="no-results">نتیجه ای یافت نشد</div>
+                    </infinite-loading>
+                  </no-ssr>
         </div>
 
   </div>
@@ -116,14 +118,15 @@ export default {
     },
 
     props: {
-      categoryProducts           : { type: [Object,Array], default: [] },
+      categoryProducts        : { type: [Object,Array], default: [] },
+      categoryProductMobile   : { type: [Object,Array], default: [] },
     },
 
     data() {
       return {
         page                  : 0,
         list                  : [],
-        products              : [],
+        scrollDataCategoryProduct              : [],
         infiniteStartDetected : 0,
       }
     },
@@ -132,9 +135,10 @@ export default {
       const width   = window.innerWidth;
 
       if (485 < width) {
-        this.products = this.categoryProducts;
+        this.scrollDataCategoryProduct = this.categoryProductMobile;
       }
-      // this.detectedResizeBrowser();
+
+      this.detectedResizeBrowser();
 
     },
 
@@ -155,13 +159,13 @@ export default {
             let temp = [];
             for (let i = this.list.length; i < this.list.length + 10; i++) {
               temp.push(i);
-              if (typeof(this.categoryProducts[i]) != 'undefined') {
-                this.products.push(this.categoryProducts[i])
+              if (typeof(this.categoryProductMobile[i]) != 'undefined') {
+                this.scrollDataCategoryProduct.push(this.categoryProductMobile[i])
               }
             }
             this.list.push(...temp);
             $state.loaded();
-            this.$emit('update-infinite-cat-mobile',this.products);
+            this.$emit('update-infinite-cat-mobile',this.scrollDataCategoryProduct);
           }, 1000);
         }
        },
@@ -183,22 +187,27 @@ export default {
       //   });
       // },
 
-      // detectedResizeBrowser(){
-      //   window.addEventListener("resize", ()=>{
-      //       const width   = window.innerWidth;
-      //
-      //       if (485 < width) {
-      //         this.products = this.categoryProducts;
-      //       }
-      //       else {
-      //         this.products  = [];
-      //         this.list      = [];
-      //         this.infiniteStartDetected++;
-      //       }
-      //
-      //
-      //     }, true);
-      // },
+      detectedResizeBrowser(){
+        window.addEventListener("resize", ()=>{
+            const width   = window.innerWidth;
+
+            if (485 < width) {
+              this.scrollDataCategoryProduct = this.categoryProductMobile;
+            }
+            else {
+              this.scrollDataCategoryProduct  = [];
+              this.list      = [];
+              this.infiniteStartDetected++;
+              window.scroll({
+                top: 0,
+                left: 0,
+                behavior: 'smooth'
+              })
+            }
+
+
+          }, true);
+      },
 
     },
 
@@ -346,7 +355,7 @@ export default {
   @include display-flex();
   flex-wrap: wrap;
   position:relative;
-  margin-top: 42px;
+  margin-top: 34px;
 }
 .productContent__sliderWrapper .infinite-loading-container{
   width: 100%;
@@ -423,7 +432,7 @@ export default {
 }
 
 
-@media (max-width: 1380px) {
+@media (max-width: 1400px) {
   .productContent__carousel{
     margin-left: 0.6%;
     width: 19.52%;
@@ -465,12 +474,10 @@ export default {
   }
 }
 
-@media (max-width: 860px) {
-
-}
-
-
-@media (max-width: 600px) {
+@media (max-width: 760px) {
+  .productContent__carouselImgItem{
+    height: 148px;
+  }
   .productContent__catTitle{
     font-size: 16px;
   }
@@ -504,6 +511,11 @@ export default {
   }
 }
 
+
+@media (max-width: 600px) {
+
+}
+
 @media (max-width: 485px) {
   .productContent__titleVisit{
     @include display-flex();
@@ -522,7 +534,7 @@ export default {
     margin-top: 0px;
     margin-left: auto;
     margin-right: inherit;
-    padding-right: 8px;
+    padding-right: 16px;
     padding-left: 0px;
     flex-grow: 1;
   }
@@ -539,7 +551,7 @@ export default {
     margin-left: 0;
   }
   .productContent__priceTitle{
-    margin-top: 9px;
+    margin-top: 8px;
     font-size: 14px;
     color: $red-color;
   }
@@ -547,7 +559,7 @@ export default {
     width: 2px;
   }
   .productContent__discountTitle{
-    font-size: 14px;
+    font-size: 13px;
   }
   .productContent__carouselDataTitle{
     line-height: 26.69px;
@@ -593,6 +605,12 @@ export default {
   }
   .product__content-mobile{
     display: flex;
+  }
+  .productContent__carousel:nth-child(5n){
+    margin-left: 0;
+  }
+  .productContent__carousel:nth-child(3n){
+    margin-left: 0;
   }
 
 }
