@@ -432,7 +432,7 @@ export default {
 }
 
 
-@media (max-width: 1400px) {
+@media (max-width: 1500px) {
   .productContent__carousel{
     margin-left: 0.6%;
     width: 19.52%;
