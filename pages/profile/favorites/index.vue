@@ -22,9 +22,7 @@
 
         <div class="user-profile__holder">
             <div class="user-profile">
-                <span class="user-profile__topic" v-show="userFavorite !== 0"
-                    >لیست علاقه مندی شما</span
-                >
+                <span class="user-profile__topic">لیست علاقه مندی شما</span>
                 <hr class="splicer-line" />
 
                 <favorite-product
@@ -55,13 +53,9 @@ export default {
         favoriteProduct,
         modalDeleteFav
     },
-    created() {
-        this.userFavorite = Object.values(this.favoriteData).length;
-    },
     data() {
         return {
             showModalDeleteFavorite: false,
-            userFavorite: -1,
             favoriteData: [
                 // {
                 //     id: 1,

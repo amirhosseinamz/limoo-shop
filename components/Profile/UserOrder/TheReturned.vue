@@ -1,5 +1,14 @@
 <template>
     <div>
+        <div class="user-returned__empty-container" v-show="userReturned == 0">
+            <img
+                src="/empty-pages/empty-returned.svg"
+                alt=" هیچ سفارش مرجوع شده ای ندارید."
+            />
+            <span class="user-returned__empty d-rtl">
+                هیچ سفارش مرجوع شده ای ندارید.</span
+            >
+        </div>
         <div
             class="paid-progress d-rtl"
             v-for="data in userOrderData"
@@ -88,17 +97,42 @@ export default {
     data() {
         return {
             // paidOrderData:0
+            userReturned: -1
         };
     },
     props: {
         userOrderData: { type: [Object, Array], default: {} }
     },
+    created() {
+        this.userReturned = Object.values(this.userOrderData).length;
+    },
     mounted() {
-        console.log(this.userOrderData);
+        // console.log(this.userOrderData);
     }
 };
 </script>
 <style lang="scss" scoped>
+.user-returned__empty-container {
+    @include display-flex();
+    flex-direction: column;
+    justify-content: flex-start;
+    height: 374px;
+    background: $white;
+    margin-top: 24px;
+    border-radius: 10px;
+    box-shadow: 0px 8px 16px $box__shadow;
+}
+.user-returned__empty-container img {
+    margin-top: 38px;
+    opacity: 0.6;
+}
+.user-returned__empty {
+    font-size: 18px;
+    line-height: 140.62%;
+    text-align: center;
+    color: $gray;
+    margin-top: 38px;
+}
 .paid-holder {
     @include display-flex();
     flex-direction: column;
@@ -315,6 +349,9 @@ export default {
     }
 }
 @media (max-width: 960px) {
+    .user-returned__empty-container {
+        display: none;
+    }
     .paid-progress {
         /* @include display-flex(); */
         flex-direction: column-reverse;

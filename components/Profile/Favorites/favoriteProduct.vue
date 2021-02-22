@@ -129,6 +129,7 @@ export default {
     justify-content: flex-start;
     height: 268px;
     background: $white;
+    border-radius: 10px;
     /* border: 1px solid red; */
 }
 .user-favorite__empty-container img {

@@ -1,6 +1,18 @@
 <template>
     <div>
         <div
+            class="user-delivered__empty-container"
+            v-show="userDelivered == 0"
+        >
+            <img
+                src="/empty-pages/empty-delivered.svg"
+                alt=" هیچ سفارش تحویل داده شده ای ندارید."
+            />
+            <span class="user-delivered__empty d-rtl">
+                هیچ سفارش تحویل داده شده ای ندارید.</span
+            >
+        </div>
+        <div
             class="paid-progress d-rtl"
             v-for="data in userOrderData"
             :key="data.id"
@@ -92,17 +104,42 @@ export default {
     data() {
         return {
             // paidOrderData:0
+            userDelivered: -1
         };
     },
     props: {
         userOrderData: { type: [Object, Array], default: {} }
     },
+    created() {
+        this.userDelivered = Object.values(this.userOrderData).length;
+    },
     mounted() {
-        console.log(this.userOrderData);
+        // console.log(this.userOrderData);
     }
 };
 </script>
 <style lang="scss" scoped>
+.user-delivered__empty-container {
+    @include display-flex();
+    flex-direction: column;
+    justify-content: flex-start;
+    height: 374px;
+    background: $white;
+    margin-top: 24px;
+    border-radius: 10px;
+    box-shadow: 0px 8px 16px $box__shadow;
+}
+.user-delivered__empty-container img {
+    margin-top: 38px;
+    opacity: 0.6;
+}
+.user-delivered__empty {
+    font-size: 18px;
+    line-height: 140.62%;
+    text-align: center;
+    color: $gray;
+    margin-top: 38px;
+}
 .paid-holder {
     @include display-flex();
     flex-direction: column;
@@ -318,6 +355,9 @@ export default {
     }
 }
 @media (max-width: 960px) {
+    .user-delivered__empty-container {
+        display: none;
+    }
     .paid-progress {
         /* @include display-flex(); */
         flex-direction: column-reverse;

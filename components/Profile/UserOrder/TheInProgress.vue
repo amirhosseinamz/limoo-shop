@@ -1,6 +1,18 @@
 <template>
     <div>
         <div
+            class="user-inprogress__empty-container"
+            v-show="userInprogress == 0"
+        >
+            <img
+                src="/empty-pages/empty-inprogress.svg"
+                alt="فعلا هیچ سفارش در حال پردازشی ندارید."
+            />
+            <span class="user-inprogress__empty d-rtl"
+                >فعلا هیچ سفارش در حال پردازشی ندارید.</span
+            >
+        </div>
+        <div
             class="paid-progress d-rtl"
             v-for="data in userOrderData"
             :key="data.id"
@@ -94,10 +106,14 @@ export default {
     data() {
         return {
             // paidOrderData:0
+            userInprogress: -1
         };
     },
     props: {
         userOrderData: { type: [Object, Array], default: {} }
+    },
+    created() {
+        this.userInprogress = Object.values(this.userOrderData).length;
     },
     mounted() {
         // console.log(this.userOrderData);
@@ -105,6 +121,27 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
+.user-inprogress__empty-container {
+    @include display-flex();
+    flex-direction: column;
+    justify-content: flex-start;
+    height: 374px;
+    background: $white;
+    margin-top: 24px;
+    border-radius: 10px;
+    box-shadow: 0px 8px 16px $box__shadow;
+}
+.user-inprogress__empty-container img {
+    margin-top: 38px;
+    opacity: 0.6;
+}
+.user-inprogress__empty {
+    font-size: 18px;
+    line-height: 140.62%;
+    text-align: center;
+    color: $gray;
+    margin-top: 38px;
+}
 .paid-holder {
     @include display-flex();
     flex-direction: column;
@@ -318,6 +355,9 @@ export default {
     }
 }
 @media (max-width: 960px) {
+    .user-inprogress__empty-container {
+        display: none;
+    }
     .paid-progress {
         /* @include display-flex(); */
         flex-direction: column-reverse;

@@ -185,7 +185,7 @@
         <div class="user-adresses__empty-container" v-show="userAddress == 0">
             <img
                 src="/empty-pages/empty-location.svg"
-                alt="فعلا لیست علاقه مندی های شما خالی است"
+                alt="آدرس های شما فعلا خالی است"
             />
             <span class="user-adresses__empty"
                 >آدرس های شما فعلا خالی است!</span
@@ -304,6 +304,7 @@ export default {
     height: 273px;
     background: $white;
     padding-top: 25px;
+    border-radius: 10px;
     /* border: 1px solid red; */
 }
 .user-adresses__empty-container img {
