@@ -278,7 +278,7 @@ export default {
     /* border: 1px solid red; */
 }
 .user-comments__empty-container img {
-    opacity: 0.6;
+    opacity: 1;
 }
 .user-comments__empty {
     font-size: 18px;

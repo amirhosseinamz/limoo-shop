@@ -124,7 +124,7 @@ export default {
 }
 .user-returned__empty-container img {
     margin-top: 38px;
-    opacity: 0.6;
+    opacity: 1;
 }
 .user-returned__empty {
     font-size: 18px;

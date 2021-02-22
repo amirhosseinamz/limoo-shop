@@ -80,7 +80,7 @@ table {
     /* border: 1px solid red; */
 }
 .user-listOrders__empty-container img {
-    opacity: 0.6;
+    opacity:1;
 }
 .user-listOrders__empty {
     @include display-flex();

@@ -133,7 +133,7 @@ export default {
 }
 .user-inprogress__empty-container img {
     margin-top: 38px;
-    opacity: 0.6;
+    opacity: 1;
 }
 .user-inprogress__empty {
     font-size: 18px;

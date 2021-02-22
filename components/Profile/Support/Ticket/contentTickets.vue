@@ -244,7 +244,7 @@ export default {
     /* border: 1px solid red; */
 }
 .user-Ticket__empty-container img {
-    opacity: 0.6;
+    opacity:1;
 }
 .user-Ticket__empty {
     font-size: 18px;

@@ -133,7 +133,7 @@ export default {
     /* border: 1px solid red; */
 }
 .user-favorite__empty-container img {
-    opacity: 0.6;
+    opacity: 1;
 }
 .user-favorite__empty {
     font-size: 18px;

@@ -131,7 +131,7 @@ export default {
 }
 .user-delivered__empty-container img {
     margin-top: 38px;
-    opacity: 0.6;
+    opacity: 1;
 }
 .user-delivered__empty {
     font-size: 18px;

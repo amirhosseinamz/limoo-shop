@@ -142,7 +142,7 @@ export default {
     /* border: 1px solid red; */
 }
 .user-history__empty-container img {
-    opacity: 0.6;
+    opacity: 1;
 }
 .user-history__empty {
     font-size: 18px;

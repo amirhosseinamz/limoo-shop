@@ -308,7 +308,7 @@ export default {
     /* border: 1px solid red; */
 }
 .user-adresses__empty-container img {
-    opacity: 0.6;
+    opacity: 1;
 }
 .user-adresses__empty {
     font-size: 18px;
