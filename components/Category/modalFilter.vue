@@ -10,7 +10,7 @@
                       <div class="modal-filter__close-item w-100">
                             <div class="w-100 modal-filter__item ">
                                 <h3 class="modal-filter__item-title">جستجوی پیشرفته</h3>
-                                <div class="modal-filter__item-left">
+                                <div @click="modalClose" class="modal-filter__item-left">
                                   <span class="modal-filter__item-close"></span>
                                 </div>
                             </div>
@@ -44,6 +44,7 @@ export default {
       filterToggleActiveBtn,
     },
 
+
     computed: {
         show: {
             set(val) {
@@ -53,6 +54,12 @@ export default {
                 return !!this.active;
             }
         }
+    },
+
+    watch: {
+      active(data) {
+        this.$emit('status-show-modal',data);
+      },
     },
 
     methods: {

@@ -1,9 +1,6 @@
 @import "_colors.scss";
 
 #modal-filter{
-  // background: #515151;
-  // opacity: 0.6;
-  // filter: blur(4px);
   .modal-dialog{
     margin-left: auto !important;
     margin:inherit !important;
@@ -14,6 +11,10 @@
     height: 100vh;
     background: #fff;
   }
+}
 
-
+.modal-filter{
+  .modal-backdrop{
+    background: rgba(81, 81, 81, .6) !important;
+  }
 }

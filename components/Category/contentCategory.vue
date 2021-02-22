@@ -17,9 +17,6 @@
                           <paganation-cat></paganation-cat>
                       </div>
 
-                      <modal-filter
-                      :active.sync="showModalFilter"
-                      ></modal-filter>
 
                   </div>
             </div>
@@ -33,7 +30,6 @@ import categorySelected from './categorySelected';
 import categoryProducts from './categoryProducts';
 import categoryTop from './categoryTop';
 import paganationCat from './paganationCat';
-import modalFilter from './modalFilter';
 
 
 export default {
@@ -50,7 +46,6 @@ export default {
       categoryProducts,
       categoryTop,
       paganationCat,
-      modalFilter,
     },
 
     data() {
@@ -69,7 +64,7 @@ export default {
       },
 
       showBoxFilter(){
-        this.showModalFilter = true;
+        this.$store.state.category.showModal = true;
       },
 
 
