@@ -1,0 +1,19 @@
+@import "_colors.scss";
+
+#modal-filter{
+  // background: #515151;
+  // opacity: 0.6;
+  // filter: blur(4px);
+  .modal-dialog{
+    margin-left: auto !important;
+    margin:inherit !important;
+    min-height: auto;
+    max-width: 377px;
+  }
+  .modal-content{
+    height: 100vh;
+    background: #fff;
+  }
+
+
+}

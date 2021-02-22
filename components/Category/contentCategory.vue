@@ -8,6 +8,7 @@
                       :category-suggestion="categorySuggestion"
                       :default-selected-suggestion="defaultSelectedSuggestion"
                       @active-cat-suggestion="activeCatSuggestion"
+                      @show-box-filter="showBoxFilter"
 
                       ></category-top>
 
@@ -15,6 +16,10 @@
                           <category-products :category-product-mobile="categoryProductMobile" :category-products="categoryProducts" @update-infinite-cat-mobile="updateInfiniteCatMobile"></category-products>
                           <paganation-cat></paganation-cat>
                       </div>
+
+                      <modal-filter
+                      :active.sync="showModalFilter"
+                      ></modal-filter>
 
                   </div>
             </div>
@@ -28,6 +33,7 @@ import categorySelected from './categorySelected';
 import categoryProducts from './categoryProducts';
 import categoryTop from './categoryTop';
 import paganationCat from './paganationCat';
+import modalFilter from './modalFilter';
 
 
 export default {
@@ -44,10 +50,12 @@ export default {
       categoryProducts,
       categoryTop,
       paganationCat,
+      modalFilter,
     },
 
     data() {
       return {
+        showModalFilter : false,
       }
     },
 
@@ -58,7 +66,11 @@ export default {
 
       updateInfiniteCatMobile(data){
         this.$emit('update-infinite-cat-mobile',data);
-      }
+      },
+
+      showBoxFilter(){
+        this.showModalFilter = true;
+      },
 
 
     },

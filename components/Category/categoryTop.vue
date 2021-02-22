@@ -9,7 +9,7 @@
             </div>
 
             <div class="products__filter-btns w-100 ">
-              <button class="products__filter-btn" type="button">
+              <button @click="showBoxFilter" class="products__filter-btn" type="button">
                 <img class="products__filter-icon" src="/icons/filter_search_icon.svg" alt="">
                 <h3 class="products__filter-text">فیلتر جستجو</h3>
               </button>
@@ -80,7 +80,12 @@ export default {
       })
 
       this.allCategorySuggestion = updateCategorySuggestion;
+    },
+
+    showBoxFilter(){
+      this.$emit('show-box-filter');
     }
+
   },
 
 };
