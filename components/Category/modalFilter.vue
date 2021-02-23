@@ -138,7 +138,12 @@ export default {
 
 }
 
-@media (max-width: 460px) {
+@media (max-width: 485px) {
+  .modal-filter__item-title{
+    font-size: 14px;
+    align-items: flex-start;
+  }
 
 }
+
 </style>

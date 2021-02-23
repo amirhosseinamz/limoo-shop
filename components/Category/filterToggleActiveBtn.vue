@@ -146,4 +146,22 @@ export default {
 }
 
 
+
+
+@media (max-width: 485px) {
+    .modal-filter__item{
+      align-items: flex-start;
+    }
+    .tools--title{
+      font-size: 14px;
+      margin-top: 1px;
+    }
+    .modal-filter__line{
+      margin-top: 18px;
+      margin-bottom: 18px;
+    }
+
+}
+
+
 </style>

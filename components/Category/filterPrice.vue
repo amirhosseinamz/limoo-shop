@@ -154,6 +154,7 @@ export default {
   max-height: 51px;
   transition: max-height 0.5s cubic-bezier(0, 1, 0, 1);
   overflow: hidden;
+  margin-top: 6px;
 }
 .modal-filter__box-content{
   @include display-flex();
@@ -178,6 +179,7 @@ export default {
 .modal-filter__box-arrow{
   height:19px;
   transition  : all .3s ease-in-out;
+  margin-top: 3px;
 }
 .modal-filter__box-title{
   @include display-flex();
@@ -192,6 +194,8 @@ export default {
   max-height: 1000px;
   transition: max-height 1s ease-in-out;
 }
+
+
 .renge-circle{
   pointer-events: none;
 }
@@ -236,6 +240,49 @@ export default {
 }
 .modal-filter__box-renge{
   margin-top: 19px;
+}
+
+
+@media (max-width: 420px) {
+  .modal-filter__box-renge{
+    margin-top: 12px;
+  }
+  .modal-filter__box-text{
+    font-size: 14px;
+  }
+  .modal-filter__box-title{
+    align-items: flex-start;
+  }
+  .modal-filter__box-value{
+    width: 90px;
+  }
+  .modal-filter__box-titlePrice{
+    font-size: 14px;
+  }
+  .modal-filter__box-unit{
+    font-size: 13px;
+    margin-right: 6px;
+  }
+  .modal-filter__filter-tools{
+    margin-top: 16px;
+  }
+  .modal-filter__box-price{
+    justify-content: center;
+  }
+  .modal-filter__box-data{
+    font-size: 13px;
+  }
+
+
+}
+
+@media (max-width: 350px) {
+  .modal-filter__box-items{
+    overflow-x: auto;
+    flex-shrink: 0;
+    height: 72px;
+    @include display-flex();
+  }
 }
 
 
