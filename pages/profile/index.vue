@@ -2,7 +2,10 @@
     <div class="profile-container">
         <the-profile-side-bar />
         <div class="user-profile">
-            <div class="user-profile__lastseen-product">
+            <div
+                v-show="userHistory !== 0"
+                class="user-profile__lastseen-product"
+            >
                 <h3 class="user-profile__list-title">
                     آخرین محصولاتی که مشاهده کردید
                 </h3>
@@ -31,6 +34,7 @@
                 ></favorite-product>
                 <!--  -->
                 <nuxt-link
+                    v-show="userFavorite !== 0"
                     class="user-profile__continue-list__btn"
                     to="/profile/favorites"
                     >ادامه لیست علاقه مندی شما</nuxt-link
@@ -43,8 +47,12 @@
                     :table-data="tableData"
                 ></the-last-orders-list>
                 <!--  -->
-                <span class="p-list-product-line"></span>
+                <span
+                    class="p-list-product-line"
+                    v-show="userOrdersList !== 0"
+                ></span>
                 <nuxt-link
+                    v-show="userOrdersList !== 0"
                     class="user-profile__continue-orderslist__btn"
                     to="/profile/my-orders/in-progress"
                     >ادامه لیست سفارش ها</nuxt-link
@@ -87,68 +95,77 @@ export default {
         return {
             showModalDeleteHistory: false,
             showModalDeleteFavorite: false,
+            userHistory: -1,
+            userFavorite: -1,
+            userOrdersList: -1,
             historyData: [
-                {
-                    id: 1,
-                    title: "Fake",
-                    img: "/img/apple-watch-1.png"
-                },
-                {
-                    id: 2,
-                    title: "Fake",
-                    img: "/img/apple-watch-2.png"
-                },
-                {
-                    id: 3,
-                    title: "Fake",
-                    img: "/img/apple-watch-3.png"
-                }
+                // {
+                //     id: 1,
+                //     title: "Fake",
+                //     img: "/img/apple-watch-1.png"
+                // },
+                // {
+                //     id: 2,
+                //     title: "Fake",
+                //     img: "/img/apple-watch-2.png"
+                // },
+                // {
+                //     id: 3,
+                //     title: "Fake",
+                //     img: "/img/apple-watch-3.png"
+                // }
             ],
             favoriteData: [
-                {
-                    id: 1,
-                    title: "Fake",
-                    img: "../img/phone.jpg"
-                },
-                {
-                    id: 2,
-                    title: "Fake",
-                    img: "../img/phoneApple.jpg"
-                },
-                {
-                    id: 3,
-                    title: "Fake",
-                    img:
-                        "../img/apple-watch-series-6-blue-aluminium-case-with-deep-navy-sport-band-16.jpg"
-                }
+                // {
+                //     id: 1,
+                //     title: "Fake",
+                //     img: "../img/phone.jpg"
+                // },
+                // {
+                //     id: 2,
+                //     title: "Fake",
+                //     img: "../img/phoneApple.jpg"
+                // },
+                // {
+                //     id: 3,
+                //     title: "Fake",
+                //     img:
+                //         "../img/apple-watch-series-6-blue-aluminium-case-with-deep-navy-sport-band-16.jpg"
+                // }
             ],
             tableData: [
-                {
-                    id: 1,
-                    orderCode: "6861457M",
-                    orderDate: "1399/11/17",
-                    orderPrice: "123،000",
-                    orderSituation: "در حال پردازش"
-                },
-                {
-                    id: 2,
-                    orderCode: "6861457L",
-                    orderDate: "1399/04/05",
-                    orderPrice: "850،000",
-                    orderSituation: "تحویل داده شده"
-                },
-                {
-                    id: 3,
-                    orderCode: "6861457N",
-                    orderDate: "1399/03/05",
-                    orderPrice: "250،000",
-                    orderSituation: "تحویل داده شده"
-                }
+                // {
+                //     id: 1,
+                //     orderCode: "6861457M",
+                //     orderDate: "1399/11/17",
+                //     orderPrice: "123،000",
+                //     orderSituation: "در حال پردازش"
+                // },
+                // {
+                //     id: 2,
+                //     orderCode: "6861457L",
+                //     orderDate: "1399/04/05",
+                //     orderPrice: "850،000",
+                //     orderSituation: "تحویل داده شده"
+                // },
+                // {
+                //     id: 3,
+                //     orderCode: "6861457N",
+                //     orderDate: "1399/03/05",
+                //     orderPrice: "250،000",
+                //     orderSituation: "تحویل داده شده"
+                // }
             ],
             currentFavorite: {},
             currentHistory: {}
         };
     },
+    created() {
+        this.userHistory = Object.values(this.historyData).length;
+        this.userFavorite = Object.values(this.favoriteData).length;
+        this.userOrdersList = Object.values(this.tableData).length;
+    },
+
     methods: {
         eventShowModalDeleteHistory(data) {
             this.showModalDeleteHistory = true;

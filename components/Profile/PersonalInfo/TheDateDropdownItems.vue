@@ -784,11 +784,11 @@ export default {
     .birthday-item-content,
     .item-day .birthday-item__days,
     .p-birthday-select-box {
-        width: 74px;
+        width: 110px;
     }
     .item-year .birthday-item-content,
     .item-year .p-birthday-select-box {
-        width: 120px;
+        width: 140px;
     }
     .birthday {
         &-title {
@@ -800,7 +800,7 @@ export default {
             &__years {
                 font-size: 13px;
                 height: 46px;
-                width: 74px;
+                width: 110px;
                 &-select {
                     font-size: 13px;
                     padding: 5px;
@@ -812,6 +812,28 @@ export default {
             }
             &__spliter {
                 height: 15px;
+            }
+        }
+    }
+}
+@media (max-width: 530px) {
+    .birthday-item-content,
+    .item-day .birthday-item__days,
+    .p-birthday-select-box {
+        width: 74px;
+    }
+    .item-year .birthday-item-content,
+    .item-year .p-birthday-select-box {
+        width: 120px;
+    }
+    .birthday {
+        &-item {
+            &__days,
+            &__months,
+            &__years {
+                font-size: 13px;
+                height: 46px;
+                width: 74px;
             }
         }
     }

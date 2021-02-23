@@ -182,7 +182,15 @@
                 </div>
             </div>
         </div>
-
+        <div class="user-adresses__empty-container" v-show="userAddress == 0">
+            <img
+                src="/empty-pages/empty-location.svg"
+                alt="آدرس های شما فعلا خالی است"
+            />
+            <span class="user-adresses__empty"
+                >آدرس های شما فعلا خالی است!</span
+            >
+        </div>
         <div
             class="w-100 flex-wrap p-adresses-content-btn-add-mobile p-adresses-content-item-mobile"
         >
@@ -211,10 +219,14 @@ export default {
     components: {
         addAddressModal
     },
+    created() {
+        this.userAddress = Object.values(this.adressData).length;
+    },
     data() {
         return {
             passChangeIsActive: false,
-            dataEditAddress: {}
+            dataEditAddress: {},
+            userAddress: -1
         };
     },
 
@@ -285,6 +297,27 @@ export default {
     top: 0;
     right: 0;
 }
+.user-adresses__empty-container {
+    @include display-flex();
+    flex-direction: column;
+    justify-content: flex-start;
+    height: 273px;
+    background: $white;
+    padding-top: 25px;
+    border-radius: 10px;
+    /* border: 1px solid red; */
+}
+.user-adresses__empty-container img {
+    opacity: 1;
+}
+.user-adresses__empty {
+    font-size: 18px;
+    line-height: 140.62%;
+    text-align: center;
+    color: $gray;
+    margin-top: 37px;
+}
+
 .v-leave-from {
     opacity: 0.5;
 }
@@ -419,6 +452,26 @@ export default {
 }
 
 @media (max-width: 600px) {
+    .user-adresses__empty-container {
+        @include display-flex();
+        flex-direction: column;
+        justify-content: flex-start;
+        height: 206px;
+        background: $white;
+        padding-top: 25px;
+        margin-bottom: 25vh;
+        /* border: 1px solid red; */
+    }
+    .user-adresses__empty-container img {
+        margin: 0 auto;
+        height: 78px;
+        width: 78px;
+    }
+    .user-adresses__empty {
+        font-size: 14px;
+        margin-top: 24px;
+    }
+
     .p-adresses-content-header {
         flex-flow: column;
         height: auto;

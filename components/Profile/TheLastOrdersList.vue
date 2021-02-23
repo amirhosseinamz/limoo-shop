@@ -8,6 +8,19 @@
                 <th>وضعیت سفارش</th>
                 <th>جزئیات</th>
             </tr>
+            <tr v-show="userOrdersList == 0">
+                <td></td>
+                <td></td>
+                <td class="user-listOrders__empty-holder">
+                    <div class="user-listOrders__empty-container">
+                        <span class="user-listOrders__empty d-rtl"
+                            >موردی یافت نشد!</span
+                        >
+                    </div>
+                </td>
+                <td></td>
+                <td></td>
+            </tr>
             <tr v-for="data in tableData" :key="data.id" class="table_content">
                 <td>{{ data.orderCode }}</td>
                 <td>{{ data.orderDate }}</td>
@@ -32,6 +45,14 @@
 export default {
     props: {
         tableData: { type: [Object, Array], default: {} }
+    },
+    data() {
+        return {
+            userOrdersList: -1
+        };
+    },
+    created() {
+        this.userOrdersList = Object.values(this.tableData).length;
     }
 };
 </script>
@@ -42,6 +63,36 @@ table {
     width: 100%;
     margin-top: 13px;
 }
+.user-listOrders__empty-holder {
+    @include display-flex();
+    flex-direction: row;
+    justify-content: center;
+    /* border: 1px solid red; */
+    width: 100%;
+}
+.user-listOrders__empty-container {
+    @include display-flex();
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 169px;
+    width: 140px;
+    /* border: 1px solid red; */
+}
+.user-listOrders__empty-container img {
+    opacity:1;
+}
+.user-listOrders__empty {
+    @include display-flex();
+    flex-direction: column;
+    justify-content: center;
+    font-size: 18px;
+    line-height: 140.62%;
+    text-align: center;
+    width: 100%;
+    height: 100%;
+    color: $gray;
+}
 .table_header {
     height: 72px;
     box-shadow: 0px 8px 16px $box__shadow;
@@ -49,7 +100,7 @@ table {
 .table_content {
     height: 68px;
 }
-.table_content:nth-child(3n) {
+.table_content:nth-child(2n) {
     background-color: $overlay;
 }
 .p-order-list-btn-link {
@@ -84,6 +135,7 @@ th {
     font-weight: 400;
     color: $black-topic;
 }
+
 @media (max-width: 1220px) {
     th {
         font-size: 15px;

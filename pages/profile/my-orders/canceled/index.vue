@@ -51,6 +51,20 @@
                         </div>
                     </div>
                 </div>
+                <!--  -->
+                <div
+                    class="user-orders__empty-container"
+                    v-show="userOrders == 0"
+                >
+                    <img
+                        src="/empty-pages/empty-orders.svg"
+                        alt="شما فعلا هیچ سفارشی ندارید!"
+                    />
+                    <span class="user-orders__empty d-rtl">
+                        شما فعلا هیچ سفارشی ندارید!</span
+                    >
+                </div>
+                <!--  -->
                 <div class="order-holder">
                     <div
                         @click="goToOrder('paidInProgress')"
@@ -107,128 +121,105 @@ export default {
         TheProfileSideBar,
         TheCanceled
     },
-
+    created() {
+        this.userOrders = Object.values(this.userOrderData).length;
+    },
     data() {
         return {
             paidInProgress: false,
             delivered: false,
             returned: false,
             canceled: false,
+            userOrders: -1,
             userOrderData: [
-                {
-                    id: 1,
-                    orderCode: "6861457M",
-                    orderPrice: "850,000",
-                    orderData: "1399/04/05",
-                    orderSituation: "لغو شده",
-                    orders: [
-                        {
-                            id: 1,
-                            title:
-                                " اپل واچ سری 1 آلومینیوم آبی اپل واچ سری 1 آلومینیوم",
-                            img: "/img/apple-watch-1.png"
-                        },
-                        {
-                            id: 2,
-                            title:
-                                " اپل واچ سری 2 آلومینیوم آبی اپل واچ سری 2 آلومینیوم",
-                            img: "/img/apple-watch-2.png"
-                        },
-                        {
-                            id: 3,
-                            title:
-                                " اپل واچ سری 3 آلومینیوم آبی اپل واچ سری 3 آلومینیوم",
-                            img: "/img/apple-watch-3.png"
-                        },
-                        {
-                            id: 4,
-                            title:
-                                " اپل واچ سری 4 آلومینیوم آبی اپل واچ سری 4 آلومینیوم",
-                            img: "/img/apple-watch-4.png"
-                        }
-                    ]
-                },
-                {
-                    id: 2,
-                    orderCode: "6861457L",
-                    orderPrice: "450,000",
-                    orderData: "1399/04/06",
-                    orderSituation: "لغو شده",
-                    orders: [
-                        {
-                            id: 3,
-                            title:
-                                " اپل واچ سری 3 آلومینیوم آبی اپل واچ سری 3 آلومینیوم",
-                            img: "/img/apple-watch-3.png"
-                        },
-                        {
-                            id: 4,
-                            title:
-                                " اپل واچ سری 4 آلومینیوم آبی اپل واچ سری 4 آلومینیوم",
-                            img: "/img/apple-watch-4.png"
-                        }
-                    ]
-                },
-                {
-                    id: 3,
-                    orderCode: "6861457M",
-                    orderPrice: "850,000",
-                    orderData: "1399/04/05",
-                    orderSituation: "لغو شده",
-                    orders: [
-                        {
-                            id: 1,
-                            title:
-                                " اپل واچ سری 1 آلومینیوم آبی اپل واچ سری 1 آلومینیوم",
-                            img: "/img/apple-watch-1.png"
-                        },
-                        {
-                            id: 2,
-                            title:
-                                " اپل واچ سری 2 آلومینیوم آبی اپل واچ سری 2 آلومینیوم",
-                            img: "/img/apple-watch-2.png"
-                        },
-                        {
-                            id: 3,
-                            title:
-                                " اپل واچ سری 3 آلومینیوم آبی اپل واچ سری 3 آلومینیوم",
-                            img: "/img/apple-watch-3.png"
-                        },
-                        {
-                            id: 4,
-                            title:
-                                " اپل واچ سری 4 آلومینیوم آبی اپل واچ سری 4 آلومینیوم",
-                            img: "/img/apple-watch-4.png"
-                        }
-                    ]
-                }
+                // {
+                //     id: 1,
+                //     orderCode: "6861457M",
+                //     orderPrice: "850,000",
+                //     orderData: "1399/04/05",
+                //     orderSituation: "لغو شده",
+                //     orders: [
+                //         {
+                //             id: 1,
+                //             title:
+                //                 " اپل واچ سری 1 آلومینیوم آبی اپل واچ سری 1 آلومینیوم",
+                //             img: "/img/apple-watch-1.png"
+                //         },
+                //         {
+                //             id: 2,
+                //             title:
+                //                 " اپل واچ سری 2 آلومینیوم آبی اپل واچ سری 2 آلومینیوم",
+                //             img: "/img/apple-watch-2.png"
+                //         },
+                //         {
+                //             id: 3,
+                //             title:
+                //                 " اپل واچ سری 3 آلومینیوم آبی اپل واچ سری 3 آلومینیوم",
+                //             img: "/img/apple-watch-3.png"
+                //         },
+                //         {
+                //             id: 4,
+                //             title:
+                //                 " اپل واچ سری 4 آلومینیوم آبی اپل واچ سری 4 آلومینیوم",
+                //             img: "/img/apple-watch-4.png"
+                //         }
+                //     ]
+                // },
+                // {
+                //     id: 2,
+                //     orderCode: "6861457L",
+                //     orderPrice: "450,000",
+                //     orderData: "1399/04/06",
+                //     orderSituation: "لغو شده",
+                //     orders: [
+                //         {
+                //             id: 3,
+                //             title:
+                //                 " اپل واچ سری 3 آلومینیوم آبی اپل واچ سری 3 آلومینیوم",
+                //             img: "/img/apple-watch-3.png"
+                //         },
+                //         {
+                //             id: 4,
+                //             title:
+                //                 " اپل واچ سری 4 آلومینیوم آبی اپل واچ سری 4 آلومینیوم",
+                //             img: "/img/apple-watch-4.png"
+                //         }
+                //     ]
+                // },
+                // {
+                //     id: 3,
+                //     orderCode: "6861457M",
+                //     orderPrice: "850,000",
+                //     orderData: "1399/04/05",
+                //     orderSituation: "لغو شده",
+                //     orders: [
+                //         {
+                //             id: 1,
+                //             title:
+                //                 " اپل واچ سری 1 آلومینیوم آبی اپل واچ سری 1 آلومینیوم",
+                //             img: "/img/apple-watch-1.png"
+                //         },
+                //         {
+                //             id: 2,
+                //             title:
+                //                 " اپل واچ سری 2 آلومینیوم آبی اپل واچ سری 2 آلومینیوم",
+                //             img: "/img/apple-watch-2.png"
+                //         },
+                //         {
+                //             id: 3,
+                //             title:
+                //                 " اپل واچ سری 3 آلومینیوم آبی اپل واچ سری 3 آلومینیوم",
+                //             img: "/img/apple-watch-3.png"
+                //         },
+                //         {
+                //             id: 4,
+                //             title:
+                //                 " اپل واچ سری 4 آلومینیوم آبی اپل واچ سری 4 آلومینیوم",
+                //             img: "/img/apple-watch-4.png"
+                //         }
+                //     ]
+                // }
             ],
-            // inProgressOrderData: [
-            //     {
-            //         id: 1,
-            //         title:
-            //             " اپل واچ سری 1 آلومینیوم آبی اپل واچ سری 1 آلومینیوم",
-            //         img: "/img/apple-watch-1.png"
-            //     },
-            //     {
-            //         id: 2,
-            //         title:
-            //             " اپل واچ سری 2 آلومینیوم آبی اپل واچ سری 2 آلومینیوم",
-            //         img: "/img/apple-watch-2.png"
-            //     },
-            //     {
-            //         id: 3,
-            //         title:
-            //             " اپل واچ سری 3 آلومینیوم آبی اپل واچ سری 3 آلومینیوم",
-            //         img: "/img/apple-watch-3.png"
-            //     },
-            //     {
-            //         id: 4,
-            //         title:
-            //             " اپل واچ سری 4 آلومینیوم آبی اپل واچ سری 4 آلومینیوم",
-            //         img: "/img/apple-watch-4.png"
-            //     }
-            // ],
             currentOrder: {}
         };
     },
@@ -271,6 +262,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.user-orders__empty-container {
+    display: none;
+}
 .mobile-screen {
     display: none;
 }
@@ -373,6 +367,30 @@ export default {
 @media (max-width: 1220px) {
 }
 @media (max-width: 960px) {
+    .user-orders__empty-container {
+        @include display-flex();
+        flex-direction: column;
+        justify-content: flex-start;
+        height: 184px;
+        width: 100%;
+        background: $white;
+        margin-bottom: 7px;
+        border-radius: 10px;
+        box-shadow: 0px 8px 16px $box__shadow;
+    }
+    .user-orders__empty-container img {
+        margin-top: 24px;
+        opacity: 0.6;
+    }
+    .user-orders__empty {
+        font-size: 14px;
+        line-height: 140.62%;
+        text-align: center;
+        color: $gray;
+        margin-top: 25px;
+        margin-bottom: 63px;
+    }
+    /*  */
     .desktop-screen {
         display: none;
     }

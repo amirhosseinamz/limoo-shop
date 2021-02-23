@@ -1,5 +1,14 @@
 <template>
     <div>
+        <div class="user-canceled__empty-container" v-show="userCanceled == 0">
+            <img
+                src="/empty-pages/empty-canceled.svg"
+                alt=" هیچ سفارش لغو شده ای ندارید."
+            />
+            <span class="user-canceled__empty d-rtl">
+                هیچ سفارش لغو شده ای ندارید.</span
+            >
+        </div>
         <div
             class="paid-progress d-rtl"
             v-for="data in userOrderData"
@@ -88,10 +97,14 @@ export default {
     data() {
         return {
             // paidOrderData:0
+            userCanceled: -1
         };
     },
     props: {
         userOrderData: { type: [Object, Array], default: {} }
+    },
+    created() {
+        this.userCanceled = Object.values(this.userOrderData).length;
     },
     mounted() {
         console.log(this.userOrderData);
@@ -99,6 +112,27 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
+.user-canceled__empty-container {
+    @include display-flex();
+    flex-direction: column;
+    justify-content: flex-start;
+    height: 374px;
+    background: $white;
+    margin-top: 24px;
+    border-radius: 10px;
+    box-shadow: 0px 8px 16px $box__shadow;
+}
+.user-canceled__empty-container img {
+    margin-top: 38px;
+    opacity: 1;
+}
+.user-canceled__empty {
+    font-size: 18px;
+    line-height: 140.62%;
+    text-align: center;
+    color: $gray;
+    margin-top: 38px;
+}
 .paid-holder {
     @include display-flex();
     flex-direction: column;
@@ -312,6 +346,9 @@ export default {
     }
 }
 @media (max-width: 960px) {
+    .user-canceled__empty-container {
+        display: none;
+    }
     .paid-progress {
         /* @include display-flex(); */
         flex-direction: column-reverse;

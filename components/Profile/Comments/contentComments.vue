@@ -13,6 +13,15 @@
                 /> -->
             </div>
         </transition>
+        <div class="user-comments__empty-container" v-show="userComments == 0">
+            <img
+                src="/empty-pages/empty-comment-list.svg"
+                alt="هنوز هیچ نقد و نظری ثبت نکرده اید"
+            />
+            <span class="user-comments__empty"
+                >هنوز هیچ نقد و نظری ثبت نکرده اید.</span
+            >
+        </div>
         <div
             class="w-100 flex-wrap p-comment-content-items"
             :key="updateSelected"
@@ -204,10 +213,13 @@ export default {
         return {
             passChangeIsActive: false,
             dataEditAddress: {},
-            updateSelected: 0
+            updateSelected: 0,
+            userComments: -1
         };
     },
-
+    created() {
+        this.userComments = Object.values(this.commentsData).length;
+    },
     components: {},
     computed: {},
 
@@ -256,6 +268,24 @@ export default {
     background: $overlay__profile;
     top: 0;
     right: 0;
+}
+.user-comments__empty-container {
+    @include display-flex();
+    flex-direction: column;
+    justify-content: flex-start;
+    height: 233px;
+    background: $white;border-radius: 10px;
+    /* border: 1px solid red; */
+}
+.user-comments__empty-container img {
+    opacity: 1;
+}
+.user-comments__empty {
+    font-size: 18px;
+    line-height: 140.62%;
+    text-align: center;
+    color: $gray;
+    margin-top: 37px;
 }
 .p-comments-content-main {
     padding-right: 24px;
@@ -539,6 +569,10 @@ export default {
 }
 
 @media (max-width: 960px) {
+    .user-comments__empty-container {
+        padding-top: 24px;
+        height: 280px;
+    }
     .p-comments-content-header-item {
         margin-left: 10%;
     }
@@ -551,6 +585,19 @@ export default {
 }
 
 @media (max-width: 600px) {
+    .user-comments__empty-container {
+        height: 252px;
+        padding-top: 24px;
+    }
+    .user-comments__empty-container img {
+        margin: 0 auto;
+        height: 74px;
+        width: 74px;
+    }
+    .user-comments__empty {
+        font-size: 14px;
+        margin-top: 24px;
+    }
     .p-comments__state-desktop {
         display: none;
     }

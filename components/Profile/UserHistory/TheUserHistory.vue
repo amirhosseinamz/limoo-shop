@@ -1,8 +1,15 @@
 <template>
     <div class="p-history-product-items w-100 flex-column flex-wrap">
         <div class="user-history__empty-container" v-show="userHistory == 0">
+            <img
+                src="/empty-pages/empty-last-seen.svg"
+                alt="هنوز محصولی را مشاهده نکرده اید"
+            />
             <span class="user-history__empty"
-                >لیست بازدید های اخیر شما خالی است.</span
+                >هنوز محصولی را مشاهده نکرده اید!</span
+            >
+            <nuxt-link to="/" class="user-history__empty-link"
+                >مشاهده محصولات پرفروش</nuxt-link
             >
         </div>
         <div
@@ -127,19 +134,33 @@ export default {
 <style lang="scss" scoped>
 .user-history__empty-container {
     @include display-flex();
-    flex-direction: row;
-    justify-content: center;
-    height: 778px;
+    flex-direction: column;
+    justify-content: flex-start;
+    height: 278px;
     background: $white;
+    border-radius: 10px;
     /* border: 1px solid red; */
 }
-.user-history__empty {
-    font-size: 16px;
-    font-family: inherit;
-    margin-top: 60px;
-    height: 20px;
-    /* border: 1px solid blue; */
+.user-history__empty-container img {
+    opacity: 1;
 }
+.user-history__empty {
+    font-size: 18px;
+    line-height: 140.62%;
+    text-align: center;
+    color: $gray;
+    margin-top: 42px;
+}
+.user-history__empty-link {
+    text-decoration: none;
+    font-size: 14px;
+    line-height: 140.62%;
+    text-align: center;
+    margin-top: 24px;
+    color: $code-request;
+    cursor: pointer;
+}
+/*  */
 .p-history-product-item {
     @include display-flex();
     /* border: 1px solid red; */
@@ -271,6 +292,23 @@ export default {
 }
 
 @media (max-width: 600px) {
+    .user-history__empty-container {
+        height: 252px;
+        padding-top: 24px;
+    }
+    .user-history__empty-container img {
+        margin: 0 auto;
+        width: 78px;
+        height: 78px;
+    }
+    .user-history__empty {
+        font-size: 14px;
+        margin-top: 25px;
+    }
+    .user-history__empty-link {
+        font-size: 13px;
+        margin-top: 8px;
+    }
     .p-history-product-content-right {
         width: 91px;
     }

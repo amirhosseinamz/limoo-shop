@@ -28,9 +28,20 @@
             >
                 ارسال درخواست جدید
             </button>
-            <span class="p-ticket__topic">درخواست های شما</span>
-        </div>
 
+            <span class="p-ticket__topic" v-show="userTicket !== 0"
+                >درخواست های شما</span
+            >
+        </div>
+        <div class="user-Ticket__empty-container" v-show="userTicket == 0">
+            <img
+                src="/empty-pages/empty-ticket-list.svg"
+                alt="تاکنون درخواستی ثبت نشده است"
+            />
+            <span class="user-Ticket__empty"
+                >تاکنون درخواستی ثبت نشده است.</span
+            >
+        </div>
         <div class="w-100 flex-wrap">
             <div
                 v-for="data in ticketData"
@@ -145,14 +156,17 @@ export default {
         return {
             passChangeIsActive: false,
             sendAnswerToTicket: false,
-            dataEditTicket: {}
+            dataEditTicket: {},
+            userTicket: -1
         };
     },
 
     components: {},
 
     computed: {},
-
+    created() {
+        this.userTicket = Object.values(this.ticketData).length;
+    },
     methods: {
         showModalDeleteProduct(data) {
             this.$emit("show-modal-delete-product", data);
@@ -221,7 +235,25 @@ export default {
     top: 0;
     right: 0;
 }
-
+.user-Ticket__empty-container {
+    @include display-flex();
+    flex-direction: column;
+    justify-content: flex-start;
+    height: 220px;
+    background: $white;border-radius: 10px;
+    /* border: 1px solid red; */
+}
+.user-Ticket__empty-container img {
+    opacity:1;
+}
+.user-Ticket__empty {
+    font-size: 18px;
+    line-height: 140.62%;
+    text-align: center;
+    color: $gray;
+    margin-top: 24px;
+    margin-bottom: 24px;
+}
 .v-leave-from {
     opacity: 0.5;
 }
@@ -459,6 +491,19 @@ export default {
 }
 
 @media (max-width: 600px) {
+    .user-Ticket__empty-container {
+        height: 136px;
+    }
+    .user-Ticket__empty-container img {
+        margin: 0 auto;
+        height: 78px;
+        width: 78px;
+    }
+    .user-Ticket__empty {
+        font-size: 13px;
+        margin-top: 24px;
+        margin-bottom: 10px;
+    }
     .p-tickets-content-header {
         /* flex-flow: column; */
         padding-right: 8px;
