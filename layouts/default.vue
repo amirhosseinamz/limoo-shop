@@ -58,7 +58,7 @@ body {
     background: $overlay;
 }
 .active--blur{
-  filter: blur(3px);
+  filter: blur(2px);
   overflow: hidden;
 }
 

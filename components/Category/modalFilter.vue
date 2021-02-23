@@ -20,7 +20,22 @@
 
                             <filter-toggle-active-btn></filter-toggle-active-btn>
 
-                            <filter-price :open-default-box="true"></filter-price>
+                            <filter-price
+                             :open-default-box="true"
+                             :title="'حدود قیمت'"
+                             :minMax="{min:0,max:5000}"
+                             :from-to-renge="{from:1000,to:3000}"
+                             @last-update-slider-renge="lastUpdateSliderRenge"
+
+                             ></filter-price>
+
+                             <!-- <filter-price
+                              :open-default-box="true"
+                              :data="{}"
+                              :title="'انتخاب برند'"
+
+                              ></filter-price> -->
+
 
                       </div>
         </div>
@@ -67,6 +82,10 @@ export default {
             this.show = false;
         },
 
+        lastUpdateSliderRenge(data){
+          console.log(data);
+        }
+
 
     }
 };
@@ -78,8 +97,8 @@ export default {
   @include display-flex();
   flex-wrap: wrap;
   align-items: flex-start;
-  padding-right: 27px;
-  padding-left: 27px;
+  padding-right: 18px;
+  padding-left: 18px;
   padding-top: 30px;
 }
 .modal-filter__item{
