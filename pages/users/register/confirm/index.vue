@@ -57,7 +57,7 @@ export default {
                         this.$router.replace("/");
                         this.$store.commit("PhoneNumber", { value: "" });
                         console.log(result.token);
-                        localStorage.setItem(token, result.token);
+                        window.localStorage.setItem("token", result.token);
                     }
                 })
                 .catch(e => console.log(e));

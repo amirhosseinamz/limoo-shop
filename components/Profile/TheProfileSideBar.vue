@@ -299,7 +299,7 @@ export default {
             this.$router.push("/profile/my-orders/in-progress");
         },
         logOutUser() {
-            const token = localStorage.getItem(token);
+            const token = localStorage.getItem("token");
             if (typeof Storage !== "undefined") {
                 this.$store.dispatch({
                     type: "userIsAuth",
