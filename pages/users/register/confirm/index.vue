@@ -3,7 +3,7 @@
         <!-- <div id="overlay" v-if="showModalWellcome">
             <wellcome-sign-up></wellcome-sign-up>
         </div> -->
-        <sign-up-step-two></sign-up-step-two>
+        <sign-up-step-two @onConfirm="onConfirm"></sign-up-step-two>
     </div>
 </template>
 
@@ -18,10 +18,51 @@ export default {
     },
     data() {
         return {
-            showModalWellcome: false
+            showModalWellcome: false,
+            userPhoneNumber: ""
         };
     },
-    methods: {}
+    mounted() {
+        this.userPhoneNumber = this.$store.getters.PhoneNumberPicker;
+    },
+    methods: {
+        onConfirm(verifyCode) {
+            // console.log(phone);
+            const headers = {
+                "Content-Type": "application/json",
+                "Client-Key": "4FDD6981-C063-46E1-BBE9-D88D2B889EB3"
+            };
+            this.$axios
+                .$post(
+                    "https://unison-dev.parsdata.net/auth/signin/otp",
+                    {
+                        phone: this.userPhoneNumber,
+                        activation_code: verifyCode
+                    },
+                    {
+                        headers: headers
+                    }
+                )
+                .then(result => {
+                    console.log(result);
+                    if (result.response_code == 1) {
+                        this.$store.dispatch({
+                            type: "stateShowModalWellcome",
+                            value: true
+                        });
+                        this.$store.dispatch({
+                            type: "userIsAuth",
+                            value: true
+                        });
+                        this.$router.replace("/");
+                        this.$store.commit("PhoneNumber", { value: "" });
+                        console.log(result.token);
+                        localStorage.setItem(token, result.token);
+                    }
+                })
+                .catch(e => console.log(e));
+        }
+    }
 };
 </script>
 <style lang="scss" scoped>

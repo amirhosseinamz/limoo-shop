@@ -58,6 +58,7 @@
                         <button
                             class="signup-btn"
                             type="submit"
+                            :disabled="btnIsDisabled"
                             @click="showWellcomeModal"
                         >
                             تایید
@@ -77,7 +78,8 @@ export default {
             timerPassed: false,
             newCodeSent: false,
             isActive: false,
-            userPhoneNumber: ""
+            userPhoneNumber: "",
+            btnIsDisabled: false
         };
     },
     watch: {
@@ -97,6 +99,10 @@ export default {
                 // THe first is 0, the starting point. The second is the number of
                 // items to remove. Passing a negative number will remove starting
                 // from the end. This is the solution
+            } else if (this.verifyCode.length < 4) {
+                this.btnIsDisabled = true;
+            } else if (this.verifyCode.length == 4) {
+                this.btnIsDisabled = false;
             }
         },
         animate() {
@@ -108,7 +114,7 @@ export default {
         },
         pressed() {
             // talk to server
-            this.$store.commit("PhoneNumber", { value: "" });
+            // this.$store.commit("PhoneNumber", { value: "" });
         },
 
         nextPage() {
@@ -117,12 +123,14 @@ export default {
             // this.$store.commit("walkInSignUpcomponents", { value: "stepOne" });
         },
         showWellcomeModal() {
-            this.$store.dispatch({
-                type: "stateShowModalWellcome",
-                value: true
-            });
+            // this.$store.dispatch({
+            //     type: "stateShowModalWellcome",
+            //     value: true
+            // });
 
-            this.$router.push("/");
+            // this.$router.push("/");
+            this.$emit("onConfirm",parseInt(this.verifyCode));
+            // console.log(parseInt(this.verifyCode));
         }
     }
 };

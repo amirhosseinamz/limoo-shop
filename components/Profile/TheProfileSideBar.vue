@@ -1,5 +1,5 @@
 <template>
-    <div class="container"> 
+    <div class="container">
         <the-user-info />
         <div class="profile-sidebar">
             <!-- =section1= -->
@@ -270,12 +270,10 @@ export default {
             curentRoute == "/profile/support/faq/"
         ) {
             this.supportIsActive = true;
-        }
-        else if (curentRoute == "/profile/favorites") {
-          this.favoriteActive = true;
-        }
-        else if (curentRoute == "/profile/adresses") {
-          this.adressActive = true;
+        } else if (curentRoute == "/profile/favorites") {
+            this.favoriteActive = true;
+        } else if (curentRoute == "/profile/adresses") {
+            this.adressActive = true;
         }
 
         // else if (curentRoute == "/cart") {
@@ -301,15 +299,43 @@ export default {
             this.$router.push("/profile/my-orders/in-progress");
         },
         logOutUser() {
+            const token = localStorage.getItem(token);
             if (typeof Storage !== "undefined") {
                 this.$store.dispatch({
                     type: "userIsAuth",
                     value: false
                 });
-                localStorage.removeItem("token");
-                window.location.assign("http://localhost:3000/");
+                // localStorage.removeItem("token");
+                // window.location.assign("http://localhost:3000/");
                 // this.$router.replace("/");
                 // location.reload();
+                const headers = {
+                    "Content-Type": "application/json",
+                    "Client-Key": "4FDD6981-C063-46E1-BBE9-D88D2B889EB3",
+                    Authorization: token
+                };
+                this.$axios
+                    .$delete(
+                        "https://unison-dev.parsdata.net/auth/signout",
+
+                        {
+                            headers: headers
+                        }
+                    )
+                    .then(result => {
+                        console.log(result);
+                        if (result.response_code == 1) {
+                            this.$store.dispatch({
+                                type: "userIsAuth",
+                                value: false
+                            });
+                            localStorage.removeItem("token");
+                            window.location.assign("http://localhost:3000/");
+                            // this.$router.replace("/");
+                            this.$store.commit("PhoneNumber", { value: "" });
+                        }
+                    })
+                    .catch(e => console.log(e));
             }
         }
     }
