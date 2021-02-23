@@ -13,6 +13,7 @@
                                 <div @click="modalClose" class="modal-filter__item-left">
                                   <span class="modal-filter__item-close"></span>
                                 </div>
+                                <div class="modal-filter__line"></div>
                             </div>
                       </div>
 
@@ -128,9 +129,18 @@ export default {
   @include display-flex();
   justify-content: flex-end;
 }
-.modal-filter__filter-tools{
-  margin-top: 47px;
+// .modal-filter__filter-tools{
+//   margin-top: 47px;
+// }
+.modal-filter__line{
+  height: 1px;
+  width: 100%;
+  @include display-flex();
+  margin-top: 20px;
+  margin-bottom: 18px;
+  background: $flash_white;
 }
+
 
 
 
@@ -142,6 +152,9 @@ export default {
   .modal-filter__item-title{
     font-size: 14px;
     align-items: flex-start;
+  }
+  .modal-filter__filter-tools{
+    margin-top: 0;
   }
 
 }
