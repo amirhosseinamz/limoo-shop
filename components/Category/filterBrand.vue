@@ -9,9 +9,9 @@
         <div class="modal-filter__box-content w-100">
                   <div class="modal-filter__box-items w-100">
                             <div  v-for="data in checkBoxData" :key="data.id" class="modal-filter__box-item">
-                                <label class="container">
+                                <label @change="addChecked($event,data)" class="container">
                                   <h3 class="modal-filter__checkbox-title">{{data.title}}</h3>
-                                  <input type="checkbox">
+                                  <input :checked="data.checked" type="checkbox">
                                   <span class="checkmark"></span>
                                 </label>
                             </div>
@@ -29,7 +29,6 @@ export default {
     openDefaultBox  : { type: Boolean, default: false },
     title           : { type: String, default: '' },
     checkBoxData    : { type: [Array,Object], default: [] },
-
   },
 
   components: {
@@ -64,6 +63,12 @@ export default {
       else {
         this.openBox = true;
       }
+    },
+
+    addChecked(e,data){
+      const checked = e.target.checked;
+      data.checked  = checked;
+      this.$emit('checked-brand-filter',this.checkBoxData);
     },
 
   },
@@ -138,8 +143,6 @@ export default {
 
 
 // check box style //
-
-/* The container */
 .container {
   display: block;
   position: relative;
@@ -150,8 +153,6 @@ export default {
   -ms-user-select: none;
   user-select: none;
 }
-
-/* Hide the browser's default checkbox */
 .container input {
   position: absolute;
   opacity: 0;
@@ -159,47 +160,33 @@ export default {
   height: 0;
   width: 0;
 }
-
-/* Create a custom checkbox */
 .checkmark {
   position: absolute;
   top: 0;
   right: 0;
   height: 18px;
   width: 18px;
-  background-color: #eee;
+  border:solid 1px $color-gray;
   border-radius: 5px;
 }
-
-/* On mouse-over, add a grey background color */
-.container:hover input ~ .checkmark {
-  background-color: #ccc;
-}
-
-/* When the checkbox is checked, add a blue background */
 .container input:checked ~ .checkmark {
-  background-color: #2196F3;
+  background-color: $yellow;
+  border-color: $yellow;
 }
-
-/* Create the checkmark/indicator (hidden when not checked) */
 .checkmark:after {
   content: "";
   position: absolute;
   display: none;
 }
-
-/* Show the checkmark when checked */
 .container input:checked ~ .checkmark:after {
   display: block;
 }
-
-/* Style the checkmark/indicator */
 .container .checkmark:after {
-  left: 0px;
+  left: 4px;
   top: 5px;
   content: "\e82b";
   @include font-icon__limoo();
-  font-size: 8px;
+  font-size: 6px;
   color: $white;
 }
 .modal-filter__checkbox-title{
@@ -211,8 +198,10 @@ export default {
 
 
 
-@media (max-width: 420px) {
-
+@media (max-width: 485px) {
+  .modal-filter__box-text{
+    font-size: 14px;
+  }
 }
 
 @media (max-width: 350px) {

@@ -335,9 +335,20 @@ export default {
       },
 
       setDataModalFilter(){
-        this.$store.state.category.dataModalFilter = {
-          checkbox : this.checkBoxData,
+      
+        const addCheckedBrandFilter = () => {
+            this.checkBoxData.map((content)=>{
+              if (content.id == 3) {
+                content.checked = true
+              }
+              else {
+                content.checked = false;
+              }
+            })
         }
+
+        addCheckedBrandFilter();
+        this.$store.state.category.submitDataFilterModal.lastUpdateCheckBox  = this.checkBoxData;
       },
 
       submitData(){

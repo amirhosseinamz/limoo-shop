@@ -3,10 +3,9 @@ const state = {
   submitFliterModal     : false,
   submitDataFilterModal : {
     lastUpdateSliderRenge : [],
+    lastUpdateCheckBox    : [],
   },
-  dataModalFilter       : {
 
-  },
 }
 
 const getters = {}

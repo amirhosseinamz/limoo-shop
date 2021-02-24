@@ -27,14 +27,14 @@
                              :minMax="{min:0,max:100000}"
                              :from-to-renge="rengeFromTo"
                              @last-update-slider-renge="lastUpdateSliderRenge"
-                             @from-to-renge-update="fromToRengeUpdate"
-
                              ></filter-price>
 
                              <filter-brand
                               :open-default-box="true"
                               :title="'انتخاب برند'"
                               :check-box-data="checkboxData"
+                              @checked-brand-filter="checkedBrandFilter"
+
 
                               ></filter-brand>
 
@@ -99,9 +99,17 @@ export default {
         this.$emit('status-show-modal',data);
       },
 
-      '$store.state.category.dataModalFilter'(data){
-        this.checkboxData    = data.checkbox;
+      '$store.state.category.submitDataFilterModal'(data){
+         this.checkboxData    = data.lastUpdateCheckBox;
       },
+    },
+
+    mounted() {
+      const getDataFilterModal = this.$store.state.category.submitDataFilterModal;
+      const getCheckBox        = getDataFilterModal.lastUpdateCheckBox;
+      if (getCheckBox.length != 0) {
+        this.checkboxData    = getCheckBox
+      }
     },
 
     methods: {
@@ -118,8 +126,8 @@ export default {
           this.$store.state.category.submitFliterModal     = true;
         },
 
-        fromToRengeUpdate(value){
-          this.rengeFromTo.from = value;
+        checkedBrandFilter(data){
+          this.$store.state.category.submitDataFilterModal.lastUpdateCheckBox = data;
         },
 
 
