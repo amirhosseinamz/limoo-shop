@@ -91,6 +91,8 @@ export default {
   },
 
   mounted() {
+    const minMax = [this.fromToRenge.from, this.fromToRenge.to];
+
     if (this.openDefaultBox) {
       this.openBox = true;
     }
@@ -98,7 +100,8 @@ export default {
       this.openBox = false;
     }
 
-    this.addCamaPrice([this.fromToRenge.from, this.fromToRenge.to])
+    this.addCamaPrice(minMax)
+    this.$emit("last-update-slider-renge",minMax);
   },
 
   methods: {

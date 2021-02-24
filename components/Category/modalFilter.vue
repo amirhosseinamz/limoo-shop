@@ -24,20 +24,23 @@
                             <filter-price
                              :open-default-box="true"
                              :title="'حدود قیمت'"
-                             :minMax="{min:0,max:5000}"
+                             :minMax="{min:1000,max:100000}"
                              :from-to-renge="{from:1000,to:3000}"
                              @last-update-slider-renge="lastUpdateSliderRenge"
+                             step="1"
 
                              ></filter-price>
 
-                             <!-- <filter-price
-                              :open-default-box="true"
-                              :data="{}"
-                              :title="'انتخاب برند'"
+                      </div>
 
-                              ></filter-price> -->
-
-
+                      <div class="w-100 modal-filter__btn">
+                            <div class="modal-filter__line"></div>
+                            <button @click="submitFliterModal" type="button" name="button" class="p-product-btn    ">
+                              ثبت تغییرات
+                            </button>
+                             <button @click="modalClose" type="button" name="button" class="modal-cancel">
+                              انصراف
+                            </button>
                       </div>
         </div>
     </modal>
@@ -60,6 +63,11 @@ export default {
       filterToggleActiveBtn,
     },
 
+    data() {
+      return {
+      }
+    },
+
 
     computed: {
         show: {
@@ -80,12 +88,17 @@ export default {
 
     methods: {
         modalClose() {
-            this.show = false;
+            this.show                                    = false;
+            this.$store.state.category.submitFliterModal = false;
         },
 
         lastUpdateSliderRenge(data){
-          console.log(data);
-        }
+          this.$store.state.category.submitDataFilterModal.lastUpdateSliderRenge = data;
+        },
+
+        submitFliterModal(){
+          this.$store.state.category.submitFliterModal     = true;
+        },
 
 
     }
@@ -140,7 +153,39 @@ export default {
   margin-bottom: 18px;
   background: $flash_white;
 }
-
+.p-product-btn{
+  width: 130px;
+  height: 47px;
+  background: $yellow !important;
+  color: $white;
+  margin-left: 24px;
+  font-size: 16px;
+  cursor: pointer;
+}
+.modal-cancel{
+  width: 130px;
+  height: 47px;
+  background: $light-gray;
+  margin-left: 0;
+  border-color: $gray;
+  color: #828282;
+  border-radius: 10px;
+  border:none;
+  font-family: inherit;
+  font-size: 16px;
+  cursor: pointer;
+}
+.modal-filter__btn{
+  padding-bottom: 18px;
+  padding-top: 18px;
+  justify-content: center;
+  @include display-flex();
+  justify-content: center;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  flex-wrap: wrap;
+}
 
 
 
@@ -155,6 +200,12 @@ export default {
   }
   .modal-filter__filter-tools{
     margin-top: 0;
+  }
+  .modal-cancel{
+    font-size: 14px;
+  }
+  .p-product-btn{
+    font-size: 14px;
   }
 
 }

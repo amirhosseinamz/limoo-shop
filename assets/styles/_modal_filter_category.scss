@@ -13,6 +13,10 @@
     border-bottom-right-radius: 0;
     background: #fff;
   }
+  .modal-body{
+    height: 100%;
+  }
+
 
   @media (max-width: 420px) {
     .modal-dialog{

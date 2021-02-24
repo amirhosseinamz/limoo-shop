@@ -1,5 +1,9 @@
 const state = {
-  showModal: false,
+  showModal             : false,
+  submitFliterModal     : false,
+  submitDataFilterModal : {
+    lastUpdateSliderRenge : [],
+  },
 }
 
 const getters = {}

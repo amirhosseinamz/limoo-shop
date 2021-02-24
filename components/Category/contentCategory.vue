@@ -64,7 +64,8 @@ export default {
       },
 
       showBoxFilter(){
-        this.$store.state.category.showModal = true;
+        this.$store.state.category.showModal         = true;
+        this.$store.state.category.submitFliterModal = false;
       },
 
 
