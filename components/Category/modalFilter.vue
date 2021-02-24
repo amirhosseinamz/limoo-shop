@@ -24,10 +24,10 @@
                             <filter-price
                              :open-default-box="true"
                              :title="'حدود قیمت'"
-                             :minMax="{min:1000,max:100000}"
-                             :from-to-renge="{from:1000,to:3000}"
+                             :minMax="{min:0,max:100000}"
+                             :from-to-renge="rengeFromTo"
                              @last-update-slider-renge="lastUpdateSliderRenge"
-                             step="1"
+                             @from-to-renge-update="fromToRengeUpdate"
 
                              ></filter-price>
 
@@ -65,6 +65,10 @@ export default {
 
     data() {
       return {
+        rengeFromTo : {
+          from :10000,
+          to   :30000
+        }
       }
     },
 
@@ -98,6 +102,10 @@ export default {
 
         submitFliterModal(){
           this.$store.state.category.submitFliterModal     = true;
+        },
+
+        fromToRengeUpdate(value){
+          this.rengeFromTo.from = value;
         },
 
 
@@ -142,9 +150,6 @@ export default {
   @include display-flex();
   justify-content: flex-end;
 }
-// .modal-filter__filter-tools{
-//   margin-top: 47px;
-// }
 .modal-filter__line{
   height: 1px;
   width: 100%;
@@ -186,8 +191,9 @@ export default {
   right: 0;
   flex-wrap: wrap;
 }
-
-
+.modal-filter__close-item .modal-filter__item-title{
+  color: $color-price;
+}
 
 @media (max-width: 768px) {
 
@@ -207,7 +213,26 @@ export default {
   .p-product-btn{
     font-size: 14px;
   }
+  .modal-filter__item-close::before{
+    content: "\e801";
+    @include font-icon__limoo();
+    font-size: 17px;
+  }
 
+}
+
+
+@media (max-width: 330px) {
+  // .modal-filter__item-close::before{
+  //   font-size: 17px;
+  // }
+  .p-product-btn{
+    width: 36%;
+    margin-left: 7%;
+  }
+  .modal-cancel{
+    width: 36%;
+  }
 }
 
 </style>

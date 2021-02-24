@@ -14,20 +14,18 @@
                                       <div class="w-100 modal-filter__box-price">
                                             <div class="modal-filter__box-from">
                                                 <h3 class="modal-filter__box-titlePrice">از</h3>
-                                                <div class="modal-filter__box-value">
-                                                  <h3 class="modal-filter__box-data">{{lastUpdateValueRenge.addCamaFromPrice}}</h3>
-                                                </div>
+                                                <input @keyup="fromPrice" v-model="lastUpdateValueRenge.addCamaFromPrice" type="text" class="modal-filter__box-value modal-filter__box-data">
+                                                </input>
                                             </div>
                                             <div class="modal-filter__box-from box--to">
                                                 <h3 class="modal-filter__box-titlePrice">تا</h3>
-                                                <div class="modal-filter__box-value">
-                                                  <h3 class="modal-filter__box-data">{{lastUpdateValueRenge.addCamaToPrice}}</h3>
-                                                </div>
+                                                <input @keyup="toPrice" v-model="lastUpdateValueRenge.addCamaToPrice" type="text" class="modal-filter__box-value modal-filter__box-data">
+                                                </input>
                                             </div>
                                             <h3 class="modal-filter__box-unit">تومان</h3>
                                       </div>
 
-                                        <div class="modal-filter__box-renge">
+                                        <div class="modal-filter__box-renge" :key="updateRenge">
                                               <vue-slider
                                               v-model="value"
                                               :max="minMax.max"
@@ -83,6 +81,8 @@ export default {
         addCamaFromPrice : '',
         addCamaToPrice   : '',
       },
+      updateRenge          : 0,
+      changeInputRenge     : true,
     }
   },
 
@@ -130,8 +130,56 @@ export default {
     },
 
     changeSliderRenge(value, index){
-      this.addCamaPrice(value);
-      this.$emit("last-update-slider-renge",value);
+      if (this.changeInputRenge) {
+        this.addCamaPrice(value);
+        this.$emit("last-update-slider-renge",value);
+      }
+      else {
+        this.changeInputRenge = true;
+      }
+
+    },
+
+    removeCamaTyping(e){
+      const value    = e.target.value.split(',');
+      let removeCama = '';
+      value.map((content)=>{
+        removeCama+= content;
+      })
+
+      return removeCama;
+    },
+
+    fromPrice(e){
+      const removeCama                           = this.removeCamaTyping(e);
+      this.lastUpdateValueRenge.addCamaFromPrice = addCamaPrice(removeCama);
+
+      // ایندکس 0 به معنای from است //
+      this.updateInputChangeRenge(e,0,removeCama)
+    },
+
+    toPrice(e){
+      const removeCama                         = this.removeCamaTyping(e);
+      this.lastUpdateValueRenge.addCamaToPrice = addCamaPrice(removeCama);
+
+      // ایندکس یک به معنای to است //
+      this.updateInputChangeRenge(e,1,removeCama)
+    },
+
+    updateInputChangeRenge(e,indexUpdateFromToRenge,valueRengeRemoveCama){
+      const value       = e.target.value;
+      if (value != '') {
+        if (this.minMax.max >= valueRengeRemoveCama) {
+              this.value[indexUpdateFromToRenge] = parseInt(valueRengeRemoveCama);
+          }
+          else {
+              this.value[indexUpdateFromToRenge]   = this.minMax.max;
+          }
+      }
+
+      this.changeInputRenge = false;
+      this.$emit("last-update-slider-renge",this.value);
+      this.updateRenge++
     }
 
   },
@@ -223,12 +271,17 @@ export default {
 }
 .modal-filter__box-value{
   background: $flash_white;
+  border:1px solid $flash_white;
   width: 99px;
   height: 30px;
   justify-content: center;
   @include display-flex();
   align-items: center;
   border-radius: 100px;
+  outline: none;
+  font-family: inherit;
+  text-align: center;
+  direction: ltr;
 }
 .modal-filter__box-unit{
   font-weight: 300;
@@ -249,6 +302,7 @@ export default {
 @media (max-width: 420px) {
   .modal-filter__box-renge{
     margin-top: 12px;
+    display: none;
   }
   .modal-filter__box-text{
     font-size: 14px;
@@ -275,17 +329,20 @@ export default {
   .modal-filter__box-data{
     font-size: 13px;
   }
+  .modal-filter__box-renge{
+    display: none;
+  }
 
 
 }
 
 @media (max-width: 350px) {
-  .modal-filter__box-items{
-    overflow-x: auto;
-    flex-shrink: 0;
-    height: 72px;
-    @include display-flex();
-  }
+  // .modal-filter__box-items{
+  //   overflow-x: auto;
+  //   flex-shrink: 0;
+  //   height: 72px;
+  //   @include display-flex();
+  // }
 }
 
 
