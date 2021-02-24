@@ -7,6 +7,7 @@
           :default-selected-suggestion="defaultSelectedSuggestion"
           :category-products="categoryProducts"
           :category-product-mobile="categoryProductMobile"
+          :check-box-data="checkBoxData"
 
           @active-cat-suggestion="activeCatSuggestion"
           @update-infinite-cat-mobile="updateInfiniteCatMobile"
@@ -264,6 +265,20 @@ export default {
               image     : '/img/phoneAndroid.svg',
             },
           ],
+          checkBoxData                      : [
+            {
+              id    : 1,
+              title : 'تستی 1'
+            },
+            {
+              id    : 2,
+              title : 'تستی 2'
+            },
+            {
+              id    : 3,
+              title : 'تستی 3'
+            },
+          ],
 
         };
     },
@@ -278,7 +293,15 @@ export default {
     watch: {
       '$route'(data){ // last update route //
         // this.$router.push({ query: {id :10}})
-      }
+      },
+
+      // ارسال در خواست به سرور برای فیلتر کردن آپزشن های انتخابی //
+      '$store.state.category.submitFliterModal'(submited) {
+        if (submited) {
+          this.submitData()
+        }
+      },
+
     },
 
     created() {
@@ -286,6 +309,8 @@ export default {
     },
 
     mounted() {
+      // پس از گرفتن دیتا های مربوط به مودال فیلتر دیتا های مورد نظر به مودال ارسال می شود //
+      this.setDataModalFilter()
     },
 
     methods: {
@@ -307,7 +332,19 @@ export default {
 
       updateInfiniteCatMobile(data){
         console.log(data,'updateInfiniteCatMobile');
-      }
+      },
+
+      setDataModalFilter(){
+        this.$store.state.category.dataModalFilter = {
+          checkbox : this.checkBoxData,
+        }
+      },
+
+      submitData(){
+        const getLastUpdate =  this.$store.state.category.submitDataFilterModal;
+        console.log(getLastUpdate,'getLastUpdate');
+      },
+
 
 
     }

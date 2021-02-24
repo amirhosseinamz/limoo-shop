@@ -31,6 +31,14 @@
 
                              ></filter-price>
 
+                             <filter-brand
+                              :open-default-box="true"
+                              :title="'انتخاب برند'"
+                              :check-box-data="checkboxData"
+
+                              ></filter-brand>
+
+
                       </div>
 
                       <div class="w-100 modal-filter__btn">
@@ -50,17 +58,18 @@
 import '~/assets/styles/_modal_filter_category.scss'
 import filterPrice from './filterPrice';
 import filterToggleActiveBtn from './filterToggleActiveBtn';
+import filterBrand from './filterBrand';
 
 
 export default {
     props: {
         active: { type: [Boolean, Number], default: false },
-        // currentProduct: { type: Object, default: {} }
     },
 
     components: {
       filterPrice,
       filterToggleActiveBtn,
+      filterBrand,
     },
 
     data() {
@@ -68,7 +77,8 @@ export default {
         rengeFromTo : {
           from :10000,
           to   :30000
-        }
+        },
+        checkboxData : [],
       }
     },
 
@@ -87,6 +97,10 @@ export default {
     watch: {
       active(data) {
         this.$emit('status-show-modal',data);
+      },
+
+      '$store.state.category.dataModalFilter'(data){
+        this.checkboxData    = data.checkbox;
       },
     },
 

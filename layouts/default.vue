@@ -40,28 +40,11 @@ export default {
         this.activeModal = data;
       },
 
-      // ارسال در خواست به سرور برای فیلتر کردن آپزشن های انتخابی //
-      '$store.state.category.submitFliterModal'(submited) {
-        if (submited) {
-          this.submitData()
-        }
-      },
-
     },
 
     methods: {
       statusShowModal(data) {
         this.$store.state.category.showModal         = data;
-      },
-
-      submitData(){
-        const getLastUpdate =  this.$store.state.category.submitDataFilterModal;
-
-        setTimeout( () =>{
-          this.activeModal = false;
-        }, 2000);
-
-        console.log(getLastUpdate);
       },
 
     },

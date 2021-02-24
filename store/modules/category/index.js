@@ -4,6 +4,9 @@ const state = {
   submitDataFilterModal : {
     lastUpdateSliderRenge : [],
   },
+  dataModalFilter       : {
+
+  },
 }
 
 const getters = {}
