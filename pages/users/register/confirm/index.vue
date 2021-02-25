@@ -28,39 +28,23 @@ export default {
     methods: {
         onConfirm(verifyCode) {
             // console.log(phone);
-            const headers = {
-                "Content-Type": "application/json",
-                "Client-Key": "4FDD6981-C063-46E1-BBE9-D88D2B889EB3"
-            };
-            this.$axios
-                .$post(
-                    "https://unison-dev.parsdata.net/auth/signin/otp",
-                    {
-                        phone: this.userPhoneNumber,
-                        activation_code: verifyCode
-                    },
-                    {
-                        headers: headers
-                    }
-                )
-                .then(result => {
-                    console.log(result);
-                    if (result.response_code == 1) {
-                        this.$store.dispatch({
-                            type: "stateShowModalWellcome",
-                            value: true
-                        });
-                        this.$store.dispatch({
-                            type: "userIsAuth",
-                            value: true
-                        });
-                        this.$router.replace("/");
-                        this.$store.commit("PhoneNumber", { value: "" });
-                        console.log(result.token);
-                        window.localStorage.setItem("token", result.token);
-                    }
+            this.$store
+                .dispatch("authUser/confirmAuthUser", {
+                    userPhoneNumber: this.userPhoneNumber,
+                    verifyCode: verifyCode
                 })
-                .catch(e => console.log(e));
+                .then(() => {
+                    this.$store.dispatch({
+                        type: "stateShowModalWellcome",
+                        value: true
+                    });
+                    this.$store.dispatch({
+                        type: "userIsAuth",
+                        value: true
+                    });
+                    this.$router.replace("/");
+                    this.$store.commit("PhoneNumber", { value: "" });
+                });
         }
     }
 };

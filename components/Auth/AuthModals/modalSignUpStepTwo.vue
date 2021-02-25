@@ -55,11 +55,7 @@
                         </p>
                     </div>
                     <div class="btn-control">
-                        <button
-                            class="signup-btn"
-                            type="submit"
-                            @click="showWellcomeModal"
-                        >
+                        <button class="signup-btn" type="submit">
                             تایید
                         </button>
                     </div>
@@ -109,7 +105,35 @@ export default {
         },
         pressed() {
             // talk to server
-            this.$store.commit("PhoneNumber", { value: "" });
+            const headers = {
+                "Content-Type": "application/json",
+                "Client-Key": "4FDD6981-C063-46E1-BBE9-D88D2B889EB3"
+            };
+            this.$axios
+                .$post(
+                    "https://unison-dev.parsdata.net/auth/signin/otp",
+                    {
+                        phone: this.userPhoneNumber,
+                        activation_code: this.verifyCode
+                    },
+                    {
+                        headers: headers
+                    }
+                )
+                .then(result => {
+                    console.log(result);
+                    if (result.response_code == 1) {
+                        this.$store.dispatch({
+                            type: "userIsAuth",
+                            value: true
+                        });
+                        this.$store.commit("authUser/setToken", result.token);
+                        this.$store.commit("PhoneNumber", { value: "" });
+                        this.$emit("event-show-modal-wellcome");
+                        console.log(result.token);
+                    }
+                })
+                .catch(e => console.log(e));
         },
 
         nextPage() {
@@ -117,9 +141,6 @@ export default {
             // this.$router.push("/users/signin-up");
             // this.$store.commit("walkInSignUpcomponents", { value: "stepOne" });
             this.$emit("btn-go-back-signup-step-one");
-        },
-        showWellcomeModal() {
-            this.$emit("event-show-modal-wellcome");
         }
     }
 };

@@ -13,26 +13,10 @@ export default {
     },
     methods: {
         onSubmit(phone) {
-            // console.log(phone);
-            const headers = {
-                "Content-Type": "application/json",
-                "Client-Key": "4FDD6981-C063-46E1-BBE9-D88D2B889EB3"
-            };
-            this.$axios
-                .$post(
-                    "https://unison-dev.parsdata.net/auth/signin",
-                    { phone },
-                    {
-                        headers: headers
-                    }
-                )
-                .then(result => {
-                    console.log(result.response_code);
-                    if (result.response_code == 2208) {
-                        this.$router.push("/users/register/confirm");
-                    }
-                })
-                .catch(e => console.log(e));
+            console.log(phone);
+            this.$store.dispatch("authUser/signInUpUser", {
+                phone: phone
+            });
         }
     }
 };
