@@ -34,16 +34,20 @@ export default {
                     verifyCode: verifyCode
                 })
                 .then(() => {
-                    this.$store.dispatch({
-                        type: "stateShowModalWellcome",
-                        value: true
-                    });
-                    this.$store.dispatch({
-                        type: "userIsAuth",
-                        value: true
-                    });
-                    this.$router.replace("/");
-                    this.$store.commit("PhoneNumber", { value: "" });
+                    const token = this.$store.getters["authUser/getToken"];
+                    console.log(token);
+                    if (Boolean(token)) {
+                        this.$store.dispatch({
+                            type: "stateShowModalWellcome",
+                            value: true
+                        });
+                        this.$store.dispatch({
+                            type: "userIsAuth",
+                            value: true
+                        });
+                        this.$router.replace("/");
+                        this.$store.commit("PhoneNumber", { value: "" });
+                    }
                 });
         }
     }

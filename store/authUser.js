@@ -12,11 +12,11 @@ const actions = {
         console.log("authData", authData);
         const headers = {
             "Content-Type": "application/json",
-            "Client-Key": "4FDD6981-C063-46E1-BBE9-D88D2B889EB3"
+            "Client-Key": process.env.CLIENT_KEY
         };
         return this.$axios
             .$post(
-                "https://unison-dev.parsdata.net/auth/signin",
+                process.env.SIGN_UP_API,
                 { phone: authData.phone },
                 {
                     headers: headers
@@ -33,11 +33,11 @@ const actions = {
     confirmAuthUser(vuexContext, authData) {
         const headers = {
             "Content-Type": "application/json",
-            "Client-Key": "4FDD6981-C063-46E1-BBE9-D88D2B889EB3"
+            "Client-Key": process.env.CLIENT_KEY
         };
         return this.$axios
             .$post(
-                "https://unison-dev.parsdata.net/auth/signin/otp",
+                process.env.SIGN_UP_OTP_API,
                 {
                     phone: authData.userPhoneNumber,
                     activation_code: authData.verifyCode
@@ -58,22 +58,18 @@ const actions = {
     signOutUser(vuexContext, authData) {
         const headers = {
             "Content-Type": "application/json",
-            "Client-Key": "4FDD6981-C063-46E1-BBE9-D88D2B889EB3",
+            "Client-Key": process.env.CLIENT_KEY,
             Authorization: authData.token
         };
         return this.$axios
-            .$delete(
-                "https://unison-dev.parsdata.net/auth/signout",
-
-                {
-                    headers: headers
-                }
-            )
+            .$delete(process.env.SIGN_OUT_API, {
+                headers: headers
+            })
             .then(result => {
                 if (result.response_code == 1) {
                     console.log(result);
-                    console.log(state.token);
                     vuexContext.commit("setToken", null);
+                    console.log(state.token);
                 }
             })
             .catch(e => console.log(e));

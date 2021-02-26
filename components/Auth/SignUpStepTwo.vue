@@ -171,11 +171,11 @@ export default {
         sendNewRequest() {
             const headers = {
                 "Content-Type": "application/json",
-                "Client-Key": "4FDD6981-C063-46E1-BBE9-D88D2B889EB3"
+                "Client-Key": process.env.CLIENT_KEY
             };
             this.$axios
                 .$post(
-                    "https://unison-dev.parsdata.net/auth/signin",
+                    process.env.SIGN_UP_API,
                     { phone: this.userPhoneNumber },
                     {
                         headers: headers
