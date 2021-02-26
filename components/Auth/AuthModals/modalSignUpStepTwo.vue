@@ -49,13 +49,37 @@
                         </div>
                     </div>
                     <div class="timer-holder">
-                        <p class="timer"><span>02:45</span> ارسال مجدد کد</p>
-                        <p @click="animate" class="code-request">
+                        <p :class="{ 'show-timer': timerZero }" class="timer">
+                            <span class="tCounter">
+                                <span class="timer-timeText">0</span>
+                                <h3 class="timer-timeText">
+                                    {{ counterDownMinutes[1] }}
+                                </h3>
+                                <span class="timer-timeText">:</span>
+                                <h3 class="timer-timeText">
+                                    {{ counterDownSecond[0] }}
+                                </h3>
+
+                                <h3 class="timer-timeText">
+                                    {{ counterDownSecond[1] }}
+                                </h3></span
+                            >
+                            ارسال مجدد کد
+                        </p>
+                        <p
+                            @click="sendNewRequest"
+                            :class="{ 'show-code-request': timerZero }"
+                            class="code-request"
+                        >
                             درخواست ارسال مجدد کد
                         </p>
                     </div>
                     <div class="btn-control">
-                        <button class="signup-btn" type="submit">
+                        <button
+                            class="signup-btn"
+                            type="submit"
+                            :disabled="btnIsDisabled"
+                        >
                             تایید
                         </button>
                     </div>
@@ -73,11 +97,17 @@ export default {
             timerPassed: false,
             newCodeSent: false,
             isActive: false,
-            userPhoneNumber: ""
+            userPhoneNumber: "",
+            btnIsDisabled: false,
+            counterDownMinutes: [],
+            counterDownSecond: [],
+            Tcounter: 178,
+            timerZero: false
         };
     },
     mounted() {
         this.userPhoneNumber = this.$store.getters.PhoneNumberPicker;
+        this.countdownTimer(2, 60);
     },
     watch: {
         verifyCode(value) {
@@ -94,17 +124,22 @@ export default {
                 //     this.verifyCode.length - 1
                 // );
                 this.verifyCode = this.verifyCode.slice(0, -1);
+            } else if (this.verifyCode.length < 4) {
+                this.btnIsDisabled = true;
+            } else if (this.verifyCode.length == 4) {
+                this.btnIsDisabled = false;
             }
         },
-        animate() {
-            console.log(this.verifyCode);
-            this.newCodeSent = true;
+        animateTimerPassed() {
+            this.timerPassed = true;
             setTimeout(() => {
-                this.newCodeSent = false;
+                this.timerPassed = false;
             }, 5000);
         },
         pressed() {
             // talk to server
+            const verifyCode = parseInt(this.verifyCode);
+            console.log(verifyCode, this.userPhoneNumber);
             const headers = {
                 "Content-Type": "application/json",
                 "Client-Key": "4FDD6981-C063-46E1-BBE9-D88D2B889EB3"
@@ -114,7 +149,7 @@ export default {
                     "https://unison-dev.parsdata.net/auth/signin/otp",
                     {
                         phone: this.userPhoneNumber,
-                        activation_code: this.verifyCode
+                        activation_code: verifyCode
                     },
                     {
                         headers: headers
@@ -138,9 +173,58 @@ export default {
 
         nextPage() {
             // go to .../users/signin-up
-            // this.$router.push("/users/signin-up");
-            // this.$store.commit("walkInSignUpcomponents", { value: "stepOne" });
             this.$emit("btn-go-back-signup-step-one");
+        },
+        countdownTimer(mm, ss) {
+            const interval = setInterval(() => {
+                //
+                this.Tcounter--;
+                // console.log(this.Tcounter);
+                ss--;
+                if (ss == 0) {
+                    ss = 59;
+                    mm--;
+                }
+                if (this.Tcounter == 0) {
+                    console.log("TimerPassed");
+                    this.animateTimerPassed();
+                    clearInterval(interval);
+                    this.timerZero = true;
+                }
+                if (mm.toString().length < 2) mm = "0" + mm;
+                if (ss.toString().length < 2) ss = "0" + ss;
+                this.counterDownMinutes = mm.toString().split("");
+                this.counterDownSecond = ss.toString().split("");
+            }, 1000);
+        },
+        sendNewRequest() {
+            const headers = {
+                "Content-Type": "application/json",
+                "Client-Key": "4FDD6981-C063-46E1-BBE9-D88D2B889EB3"
+            };
+            this.$axios
+                .$post(
+                    "https://unison-dev.parsdata.net/auth/signin",
+                    { phone: this.userPhoneNumber },
+                    {
+                        headers: headers
+                    }
+                )
+                .then(result => {
+                    console.log(result.response_code);
+                    if (result.response_code == 2208) {
+                        this.countdownTimer(2, 60);
+                        this.Tcounter = 178;
+                        setTimeout(() => {
+                            this.timerZero = false;
+                        }, 1000);
+                        this.newCodeSent = true;
+                        setTimeout(() => {
+                            this.newCodeSent = false;
+                        }, 5000);
+                    }
+                })
+                .catch(e => console.log(e));
         }
     }
 };
@@ -274,11 +358,27 @@ export default {
     justify-content: flex-end;
 }
 .timer {
+    @include display-flex();
+    flex-direction: row;
     font-size: 14px;
     line-height: 140.62%;
     color: $gray;
     margin-right: 90px;
+}
+.show-timer {
     display: none;
+}
+.tCounter {
+    @include display-flex();
+    flex-direction: row;
+    margin-right: 5px;
+}
+.timer-timeText {
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 140.62%;
+    color: $gray;
+    margin-right: 2px;
 }
 .code-request {
     font-weight: 500;
@@ -288,6 +388,10 @@ export default {
     color: $code-request;
     margin-right: 90px;
     cursor: pointer;
+    display: none;
+}
+.show-code-request {
+    display: block;
 }
 .btn-control {
     @include display-flex();
@@ -407,6 +511,10 @@ export default {
     }
     .timer {
         margin-right: 16px;
+        font-size: 13px;
+    }
+    .timer-timeText {
+        font-size: 13px;
     }
     .code-request {
         margin-right: 16px;
