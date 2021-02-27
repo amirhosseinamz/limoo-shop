@@ -13,7 +13,53 @@
                             <span class="order-detail__title">
                                 {{ data.title }}</span
                             >
-                            <div class="order-detail__content-holder"></div>
+                            <div class="order-detail__content-holder">
+                                <div class="order-detail__content-color">
+                                    <span
+                                        class="order-detail__content-color__title"
+                                        >رنگ:</span
+                                    >
+                                    <span
+                                        class="order-detail__content-color__name"
+                                        >قرمز</span
+                                    >
+                                    <span
+                                        class="order-detail__content-color__circle"
+                                    ></span>
+                                </div>
+                                <div class="order-detail__content-guarantee">
+                                    <span
+                                        class="order-detail__content-guarantee__title"
+                                        >گارانتی:</span
+                                    >
+                                    <span
+                                        class="order-detail__content-guarantee__name"
+                                        >2 سال ضمانت کالا</span
+                                    >
+                                </div>
+                                <div class="order-detail__content-seller-price">
+                                    <div class="order-detail__content-seller">
+                                        <span
+                                            class="order-detail__content-seller__title"
+                                            >فروشنده:</span
+                                        >
+                                        <span
+                                            class="order-detail__content-seller__name"
+                                            >ایپک</span
+                                        >
+                                    </div>
+                                    <div class="order-detail__content-price">
+                                        <span
+                                            class="order-detail__content-price__title"
+                                            >هزینه ارسال:</span
+                                        >
+                                        <span
+                                            class="order-detail__content-price__name"
+                                            >20،000 تومان</span
+                                        >
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -73,8 +119,65 @@ export default {
     margin: 24px 17px 17px 0;
 }
 .order-detail__content-holder {
+    @include display-flex();
+    flex-direction: column;
     height: 91px;
+    padding-right: 16px;
     border-right: 2px solid $gray-border;
+}
+.order-detail__content-color {
+    @include display-flex();
+    flex-direction: row;
+}
+.order-detail__content-color__title,
+.order-detail__content-guarantee__title,
+.order-detail__content-seller__title,
+.order-detail__content-price__title {
+    font-size: 14px;
+    line-height: 140.62%;
+    color: $gray;
+    margin-left: 5px;
+}
+.order-detail__content-price__title {
+    color: $code;
+}
+.order-detail__content-color__name {
+    font-size: 14px;
+    line-height: 140.62%;
+    color: $black-topic;
+    margin-left: 5px;
+}
+.order-detail__content-guarantee,
+.order-detail__content-seller {
+    @include display-flex();
+    flex-direction: row;
+    margin-top: 16px;
+    margin-left: 16px;
+}
+.order-detail__content-price {
+    @include display-flex();
+    flex-direction: row;
+    margin-top: 16px;
+}
+.order-detail__content-color__circle {
+    background-color: $red-logout;
+    height: 18px;
+    width: 18px;
+    border-radius: 50%;
+}
+.order-detail__content-guarantee__name,
+.order-detail__content-seller__name,
+.order-detail__content-price__name {
+    font-size: 14px;
+    line-height: 140.62%;
+    color: $black-topic;
+}
+.order-detail__content-price__name {
+    color: $code;
+}
+.order-detail__content-seller-price {
+    @include display-flex();
+    flex-direction: row;
 }
 @media (max-width: 960px) {
     .orders-content__main {
