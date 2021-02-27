@@ -279,6 +279,28 @@ export default {
               title : 'تستی 3'
             },
           ],
+          sortData                      : [
+            {
+              id    : 1,
+              title : 'جدیدترین ها'
+            },
+            {
+              id    : 2,
+              title : 'ارزان ترین '
+            },
+            {
+              id    : 3,
+              title : 'ارزان ترین '
+            },
+            {
+              id    : 4,
+              title : 'ارزان ترین '
+            },
+            {
+              id    : 5,
+              title : 'ارزان ترین '
+            },
+          ],
 
         };
     },
@@ -302,6 +324,15 @@ export default {
         }
       },
 
+      '$store.state.category.submitSortModal'(submited) {
+        if (submited) {
+          this.submitDataSortModal()
+        }
+      },
+
+
+
+
     },
 
     created() {
@@ -311,6 +342,7 @@ export default {
     mounted() {
       // پس از گرفتن دیتا های مربوط به مودال فیلتر دیتا های مورد نظر به مودال ارسال می شود //
       this.setDataModalFilter()
+      this.setDataModalSort()
     },
 
     methods: {
@@ -335,7 +367,7 @@ export default {
       },
 
       setDataModalFilter(){
-      
+
         const addCheckedBrandFilter = () => {
             this.checkBoxData.map((content)=>{
               if (content.id == 3) {
@@ -354,6 +386,28 @@ export default {
       submitData(){
         const getLastUpdate =  this.$store.state.category.submitDataFilterModal;
         console.log(getLastUpdate,'getLastUpdate');
+      },
+
+      setDataModalSort(){
+        const addRaidoSelectedSort = () => {
+            this.sortData.map((content)=>{
+              if (content.id == 1) {
+                content.checked = true
+              }
+              else {
+                content.checked = false;
+              }
+            })
+        }
+
+        addRaidoSelectedSort();
+        this.$store.state.category.lastUpdateSortModal  = this.sortData;
+        console.log(this.lastUpdateSortModal,'lastUpdateSortModal');
+      },
+
+      submitDataSortModal(){
+        const getLastUpdate =  this.$store.state.category.lastUpdateSortModal;
+        console.log(getLastUpdate,'lastUpdateSortModal');
       },
 
 

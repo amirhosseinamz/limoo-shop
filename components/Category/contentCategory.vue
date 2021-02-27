@@ -9,6 +9,7 @@
                       :default-selected-suggestion="defaultSelectedSuggestion"
                       @active-cat-suggestion="activeCatSuggestion"
                       @show-box-filter="showBoxFilter"
+                      @show-modal-sort="showModalSort"
 
                       ></category-top>
 
@@ -67,6 +68,13 @@ export default {
         this.$store.state.category.showModal         = true;
         this.$store.state.category.submitFliterModal = false;
       },
+
+      showModalSort(){
+        this.$store.state.category.showModalSort     = true;
+        this.$store.state.category.submitSortModal   = false;
+      },
+
+
 
 
     },

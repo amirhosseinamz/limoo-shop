@@ -12,6 +12,8 @@
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
     background: #fff;
+    // height: 1160px;
+    overflow-x: auto;
   }
   .modal-body{
     height: 100%;
@@ -30,6 +32,9 @@
       margin-right: auto;
       margin-left: auto;
     }
+    .modal-content{
+      height: 460px;
+    }
   }
 
 }
@@ -37,5 +42,11 @@
 .modal-filter{
   .modal-backdrop{
     background: rgba(81, 81, 81, .6) !important;
+  }
+}
+
+.modal-sort{
+  .modal-dialog{
+    max-width: 466px !important;
   }
 }

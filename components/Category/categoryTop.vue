@@ -13,7 +13,7 @@
                 <img class="products__filter-icon" src="/icons/filter_search_icon.svg" alt="">
                 <h3 class="products__filter-text">فیلتر جستجو</h3>
               </button>
-              <button class="products__filter-btn btn--filter-gray" type="button">
+              <button @click="showModalSort" class="products__filter-btn btn--filter-gray" type="button">
                 <img class="products__filter-icon" src="/icons/arrow-filter.svg" alt="">
                 <h3 class="products__filter-text">جدید ترین ها</h3>
               </button>
@@ -84,7 +84,11 @@ export default {
 
     showBoxFilter(){
       this.$emit('show-box-filter');
-    }
+    },
+
+    showModalSort(){
+      this.$emit('show-modal-sort');
+    },
 
   },
 

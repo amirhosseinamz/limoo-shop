@@ -12,6 +12,11 @@
             :active.sync="activeModal"
             @status-show-modal="statusShowModal"
             ></modal-filter>
+
+            <modal-sort
+            :active.sync="activeModalSort"
+            @status-show-modal="showSort"
+            ></modal-sort>
           </div>
     </div>
 </template>
@@ -21,6 +26,8 @@ import TheHeader from "~/components/Navigation/TheHeader.vue";
 import TheMobileMegaMenu from "~/components/Navigation/TheMobileMegaMenu.vue";
 import theFooter from "~/components/Navigation/theFooter.vue";
 import modalFilter from '~/components/Category/modalFilter';
+import modalSort from '~/components/Category/modalSort';
+
 
 export default {
     components: {
@@ -28,10 +35,12 @@ export default {
         TheMobileMegaMenu,
         theFooter,
         modalFilter,
+        modalSort,
     },
     data() {
       return {
-        activeModal: false,
+        activeModal      : false,
+        activeModalSort  : false,
       }
     },
 
@@ -40,11 +49,19 @@ export default {
         this.activeModal = data;
       },
 
+      '$store.state.category.showModalSort'(data) {
+        this.activeModalSort = data;
+      },
+
     },
 
     methods: {
       statusShowModal(data) {
         this.$store.state.category.showModal         = data;
+      },
+
+      showSort(data){
+        this.$store.state.category.showModalSort     = data;
       },
 
     },

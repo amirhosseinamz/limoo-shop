@@ -5,6 +5,9 @@ const state = {
     lastUpdateSliderRenge : [],
     lastUpdateCheckBox    : [],
   },
+  showModalSort       : false,
+  submitSortModal     : false,
+  lastUpdateSortModal : [],
 
 }
 

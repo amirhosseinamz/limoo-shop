@@ -1,55 +1,29 @@
 <template>
     <modal
-        id="modal-filter"
-        class="modal-filter d-rtl"
+        id="modal-sort"
+        class="modal-sort d-rtl"
         size="800px"
         :show.sync="show"
         :footer="false"
     >
-        <div class="modal-filter__main">
-                      <div class="modal-filter__close-item w-100">
+        <div class="modal-sort__main">
+                      <div class="modal-sort__close-item w-100">
                             <div class="w-100 modal-filter__item ">
-                                <h3 class="modal-filter__item-title">جستجوی پیشرفته</h3>
+                                <h3 class="modal-filter__item-title">مرتب سازی بر اساس:</h3>
                                 <div @click="modalClose" class="modal-filter__item-left">
                                   <span class="modal-filter__item-close"></span>
                                 </div>
-                                <div class="modal-filter__line"></div>
                             </div>
+                            <div class="modal-filter__line remove--margin"></div>
                       </div>
 
-                      <div class="w-100 modal-filter__filter-tools">
-
-                            <filter-toggle-active-btn></filter-toggle-active-btn>
-
-                            <filter-price
-                             :open-default-box="true"
-                             :title="'حدود قیمت'"
-                             :minMax="{min:0,max:100000}"
-                             :from-to-renge="rengeFromTo"
-                             @last-update-slider-renge="lastUpdateSliderRenge"
-                             ></filter-price>
-
-                             <filter-brand
-                              :open-default-box="true"
-                              :title="'انتخاب برند'"
-                              :check-box-data="checkboxData"
-                              @checked-brand-filter="checkedBrandFilter"
-                              ></filter-brand>
-
-                              <filter-store
-                               :open-default-box="false"
-                               :title="'فروشنده کالا'"
-                               :select-box-selectet-initial="'فروشنده کالا'"
-                               :check-box-data="checkboxData"
-                               @checked-brand-filter="checkedBrandFilter"
-                               ></filter-store>
-
-
+                      <div class="w-100 modal-sort__content">
+                            <sort-box :sort-data="sortData" @active-radio="activeRadio"></sort-box>
                       </div>
 
                       <div class="w-100 modal-filter__btn">
                             <div class="modal-filter__line"></div>
-                            <button @click="submitFliterModal" type="button" name="button" class="p-product-btn    ">
+                            <button @click="submitModal" type="button" name="button" class="p-product-btn    ">
                               ثبت تغییرات
                             </button>
                              <button @click="modalClose" type="button" name="button" class="modal-cancel">
@@ -62,31 +36,23 @@
 
 <script>
 import '~/assets/styles/_modal_filter_category.scss'
-import filterPrice from './filterPrice';
-import filterToggleActiveBtn from './filterToggleActiveBtn';
-import filterBrand from './filterBrand';
-import filterStore from './filterStore';
+import sortBox from './sortBox';
+
 
 
 export default {
     props: {
-        active: { type: [Boolean, Number], default: false },
+        active    : { type: [Boolean, Number], default: false },
     },
 
     components: {
-      filterPrice,
-      filterToggleActiveBtn,
-      filterBrand,
-      filterStore,
+      sortBox,
     },
 
     data() {
       return {
-        rengeFromTo : {
-          from :10000,
-          to   :30000
-        },
-        checkboxData       : [],
+        sortData             :  [],
+        selectedRadioBtnData : {},
       }
     },
 
@@ -107,34 +73,40 @@ export default {
         this.$emit('status-show-modal',data);
       },
 
-      '$store.state.category.submitDataFilterModal'(data){
-         this.checkboxData    = data.lastUpdateCheckBox;
+      '$store.state.category.lastUpdateSortModal'(data){
+         this.sortData  = data;
       },
     },
 
     mounted() {
-      const getDataFilterModal = this.$store.state.category.submitDataFilterModal;
-      const getCheckBox        = getDataFilterModal.lastUpdateCheckBox;
-      if (getCheckBox.length != 0) {
-        this.checkboxData    = getCheckBox
-      }
+      // const getDataFilterModal = this.$store.state.category.submitDataFilterModal;
+      // const getCheckBox        = getDataFilterModal.lastUpdateCheckBox;
+      // if (getCheckBox.length != 0) {
+      //   this.radioData    = getCheckBox
+      // }
     },
 
     methods: {
         modalClose() {
             this.show                                    = false;
-            this.$store.state.category.submitFliterModal = false;
+            this.$store.state.category.submitSortModal   = false;
         },
 
-        lastUpdateSliderRenge(data){
-          this.$store.state.category.submitDataFilterModal.lastUpdateSliderRenge = data;
+        submitModal(){
+          this.sortData.map((content,index)=>{
+            if (content.id == this.selectedRadioBtnData.id) {
+              content.checked = true;
+            }
+            else {
+              content.checked = false;
+            }
+          })
+
+          this.$store.state.category.submitSortModal     = true;
         },
 
-        submitFliterModal(){
-          this.$store.state.category.submitFliterModal                        = true;
-        },
-
-        checkedBrandFilter(data){
+        activeRadio(data){
+          this.selectedRadioBtnData = data;
         },
 
 
@@ -143,13 +115,11 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.modal-filter__main{
+.modal-sort__main{
   width: 100%;
   @include display-flex();
   flex-wrap: wrap;
   align-items: flex-start;
-  padding-right: 18px;
-  padding-left: 18px;
   padding-top: 30px;
 }
 .modal-filter__item{
@@ -159,20 +129,23 @@ export default {
   align-items: center;
 }
 .modal-filter__item-title{
-  font-size: 16px;
-  color: $dark_gray;
+  font-size: 18px;
   font-weight: 300;
+  color: $black;
 }
 .modal-filter__item-close::before {
   content: "\e807";
   @include font-icon__limoo();
-  font-size: 22px;
+  font-size: 31px;
   color: $gray;
   cursor: pointer;
 }
-.modal-filter__close-item{
+.modal-sort__close-item{
   @include display-flex();
   align-items: flex-start;
+  padding-right: 15px;
+  padding-left: 15px;
+  flex-flow: column;
 }
 .modal-filter__item-left{
   flex-grow: 1;
@@ -183,7 +156,7 @@ export default {
   height: 1px;
   width: 100%;
   @include display-flex();
-  margin-top: 20px;
+  margin-top: 18px;
   margin-bottom: 18px;
   background: $flash_white;
 }
@@ -216,9 +189,17 @@ export default {
   justify-content: center;
   flex-wrap: wrap;
 }
-.modal-filter__close-item .modal-filter__item-title{
-  color: $color-price;
+.modal-sort__content{
+  margin-top: 54px;
+  @include display-flex();
+  align-items: flex-start;
 }
+.remove--margin{
+  margin-bottom: 0;
+  margin-top: 10px;
+}
+
+
 
 @media (max-width: 768px) {
 

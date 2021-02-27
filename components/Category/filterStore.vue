@@ -1,24 +1,30 @@
 <template>
-  <div :class="{'active--box':openBox}" class="w-100 modal-filter__box margin--top">
-        <div @click="toggleBox" class="modal-filter__box-title w-100">
-          <h3 class="modal-filter__box-text">{{title}}</h3>
-          <!-- <span class="modal-filter__box-arrow"></span> -->
-          <img class="modal-filter__box-arrow" src="/icons/arrow-down.svg" alt="">
-        </div>
+    <div  class="w-100 modal-filter__store margin--top">
+          <div class="w-100 modal__store-item">
+              <h3 class="modal-filter__box-text store--text">{{title}}</h3>
+          </div>
 
-        <div class="modal-filter__box-content w-100">
-                  <div class="modal-filter__box-items w-100">
-                            <div  v-for="(data,index) in checkBoxData" :key="data.id" class="modal-filter__box-item">
-                                <label @change="addChecked($event,data)" class="container">
-                                  <h3 class="modal-filter__checkbox-title">{{data.title}}</h3>
-                                  <input v-model="data.checked" type="checkbox">
-                                  <span class="checkmark"></span>
-                                </label>
-                            </div>
+          <div :class="{'active--box':openBox}"  class="w-100 modal-filter__box ">
+                <div @click="toggleBox" class="modal-filter__box-title w-100">
+                  <h3 class="modal-filter__box-text">{{title}}</h3>
+                  <!-- <span class="modal-filter__box-arrow"></span> -->
+                  <img class="modal-filter__box-arrow" src="/icons/arrow-down.svg" alt="">
+                </div>
+
+                <div class="modal-filter__box-content w-100">
+                    <div class="modal-filter__box-items w-100">
+                        <div  v-for="data in checkBoxData" :key="data.id" class="modal-filter__box-item">
+                            <label @change="addChecked($event,data)" class="container">
+                              <h3 class="modal-filter__checkbox-title">{{data.title}}</h3>
+                              <input :checked="data.checked" type="checkbox">
+                              <span class="checkmark"></span>
+                            </label>
+                        </div>
                   </div>
-        </div>
+                </div>
+          </div>
+    </div>
 
-  </div>
 </template>
 
 <script>
@@ -26,9 +32,10 @@
 
 export default {
   props: {
-    openDefaultBox  : { type: Boolean, default: false },
-    title           : { type: String, default: '' },
-    checkBoxData    : { type: [Array,Object], default: [] },
+    openDefaultBox              : { type: Boolean, default: false },
+    title                       : { type: String, default: '' },
+    selectBoxSelectetInitial    : { type: String, default: '' },
+    checkBoxData                : { type: [Array,Object], default: [] },
   },
 
   components: {
@@ -37,8 +44,7 @@ export default {
   data() {
     return {
       openBox              : false,
-      checkedBrand         : [],
-      lastChecked          : [],
+
     }
   },
 
@@ -67,9 +73,10 @@ export default {
     },
 
     addChecked(e,data){
-      this.$emit('checked-brand-filter');
+      const checked = e.target.checked;
+      data.checked  = checked;
+      this.$emit('checked-brand-filter',this.checkBoxData);
     },
-
 
   },
 
@@ -78,7 +85,6 @@ export default {
 
 <style lang="scss" scoped>
 .modal-filter__box{
-  width: 98%;
   margin-right: auto;
   margin-left: auto;
   background: $white;
@@ -198,12 +204,25 @@ export default {
 .margin--top{
   margin-top: 24px;
 }
+.store--text{
+  margin-bottom: 16px;
+  margin-right: 4px;
+}
+.modal-filter__store{
+  width: 98%;
+  margin-right: auto;
+  margin-left: auto;
+}
 
 
 
 @media (max-width: 485px) {
   .modal-filter__box-text{
     font-size: 14px;
+  }
+  .store--text{
+    font-size: 14px;
+    margin-bottom: 8px;
   }
 }
 
