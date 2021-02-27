@@ -159,12 +159,29 @@ export default {
                 this.$store.commit("PhoneNumber", { value: this.phone });
             }
             if (!this.wrongInput) {
-                // console.log("go to confirm");
-                this.$store.dispatch({
-                    type: "userIsAuth",
-                    value: true
-                });
-                this.$emit("btn-go-to-signup-step-two");
+                console.log("send to back-end");
+                const headers = {
+                    "Content-Type": "application/json",
+                    "Client-Key": process.env.CLIENT_KEY
+                };
+                this.$axios
+                    .$post(
+                       process.env.SIGN_UP_API,
+                        { phone: this.phone },
+                        {
+                            headers: headers
+                        }
+                    )
+                    .then(result => {
+                        console.log(result.response_code);
+                        if (result.response_code == 2208) {
+                            this.$emit("btn-go-to-signup-step-two");
+                        }
+                    })
+                    .catch(e => console.log(e));
+
+                //
+
                 // this.$emit("btn-go-to-signin-step-one");
             }
         },

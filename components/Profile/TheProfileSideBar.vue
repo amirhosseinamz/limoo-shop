@@ -1,5 +1,5 @@
 <template>
-    <div class="container"> 
+    <div class="container">
         <the-user-info />
         <div class="profile-sidebar">
             <!-- =section1= -->
@@ -270,12 +270,10 @@ export default {
             curentRoute == "/profile/support/faq/"
         ) {
             this.supportIsActive = true;
-        }
-        else if (curentRoute == "/profile/favorites") {
-          this.favoriteActive = true;
-        }
-        else if (curentRoute == "/profile/adresses") {
-          this.adressActive = true;
+        } else if (curentRoute == "/profile/favorites") {
+            this.favoriteActive = true;
+        } else if (curentRoute == "/profile/adresses") {
+            this.adressActive = true;
         }
 
         // else if (curentRoute == "/cart") {
@@ -301,16 +299,17 @@ export default {
             this.$router.push("/profile/my-orders/in-progress");
         },
         logOutUser() {
-            if (typeof Storage !== "undefined") {
-                this.$store.dispatch({
-                    type: "userIsAuth",
-                    value: false
+            const userToken = this.$store.getters["authUser/getToken"];
+            this.$store
+                .dispatch("authUser/signOutUser", { token: userToken })
+                .then(() => {
+                    this.$store.dispatch({
+                        type: "userIsAuth",
+                        value: false
+                    });
+                    this.$router.replace("/");
+                    this.$store.commit("PhoneNumber", { value: "" });
                 });
-                localStorage.removeItem("token");
-                window.location.assign("http://localhost:3000/");
-                // this.$router.replace("/");
-                // location.reload();
-            }
         }
     }
 };

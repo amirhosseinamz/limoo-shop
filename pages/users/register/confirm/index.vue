@@ -3,7 +3,7 @@
         <!-- <div id="overlay" v-if="showModalWellcome">
             <wellcome-sign-up></wellcome-sign-up>
         </div> -->
-        <sign-up-step-two></sign-up-step-two>
+        <sign-up-step-two @onConfirm="onConfirm"></sign-up-step-two>
     </div>
 </template>
 
@@ -18,10 +18,39 @@ export default {
     },
     data() {
         return {
-            showModalWellcome: false
+            showModalWellcome: false,
+            userPhoneNumber: ""
         };
     },
-    methods: {}
+    mounted() {
+        this.userPhoneNumber = this.$store.getters.PhoneNumberPicker;
+    },
+    methods: {
+        onConfirm(verifyCode) {
+            // console.log(phone);
+            this.$store
+                .dispatch("authUser/confirmAuthUser", {
+                    userPhoneNumber: this.userPhoneNumber,
+                    verifyCode: verifyCode
+                })
+                .then(() => {
+                    const token = this.$store.getters["authUser/getToken"];
+                    console.log(token);
+                    if (Boolean(token)) {
+                        this.$store.dispatch({
+                            type: "stateShowModalWellcome",
+                            value: true
+                        });
+                        this.$store.dispatch({
+                            type: "userIsAuth",
+                            value: true
+                        });
+                        this.$router.replace("/");
+                        this.$store.commit("PhoneNumber", { value: "" });
+                    }
+                });
+        }
+    }
 };
 </script>
 <style lang="scss" scoped>

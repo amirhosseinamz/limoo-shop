@@ -1,6 +1,6 @@
 <template>
     <keep-alive>
-        <sign-up-step-one></sign-up-step-one>
+        <sign-up-step-one @onSubmit="onSubmit"></sign-up-step-one>
     </keep-alive>
 </template>
 
@@ -10,6 +10,14 @@ export default {
     layout: "signinup",
     components: {
         SignUpStepOne
+    },
+    methods: {
+        onSubmit(phone) {
+            console.log(phone);
+            this.$store.dispatch("authUser/signInUpUser", {
+                phone: phone
+            });
+        }
     }
 };
 </script>

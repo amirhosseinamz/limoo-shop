@@ -160,11 +160,12 @@ export default {
             }
             if (!this.wrongInput) {
                 // console.log("go to confirm");
-                this.$store.dispatch({
-                    type: "userIsAuth",
-                    value: true
-                });
-                this.$router.push("/users/register/confirm");
+                // this.$store.dispatch({
+                //     type: "userIsAuth",
+                //     value: true
+                // });
+                // this.$router.push("/users/register/confirm");
+                this.$emit("onSubmit",this.phone);
             }
         },
         closePage() {
