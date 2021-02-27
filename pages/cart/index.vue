@@ -1,6 +1,12 @@
 <template>
     <div class="cart-container d-rtl">
         <div class="user-cart__container">
+            <div class="mobile-screen__holder d-rtl">
+                <span class="user-cart__title-mobile-screen"
+                    >لیست سفارشات شما</span
+                >
+                <span @click="goBack" class="mobile-screen__arrow"></span>
+            </div>
             <div class="user-cart__orders-container">
                 <span class="user-cart__title">لیست سفارشات شما</span>
                 <The-cart-orders
@@ -61,6 +67,9 @@ export default {
         };
     },
     methods: {
+        goBack() {
+            this.$router.push("/");
+        },
         eventShowModalDeleteOrder(data) {
             this.showModalDeleteOrder = true;
             this.currentOrders = data;
@@ -135,5 +144,45 @@ export default {
     font-size: 12px;
     margin-left: 6px;
     transform: rotate(180deg);
+}
+.mobile-screen__holder {
+    display: none;
+}
+@media (max-width: 960px) {
+    .user-cart__container {
+        padding: 47px 0 0 0;
+        margin-bottom: 60px;
+        flex-direction: column;
+    }
+    .user-cart__orders-container {
+        width: 100%;
+        /* border: 1px solid blue; */
+        margin-left: 0;
+    }
+    .user-cart__go-back {
+        display: none;
+    }
+    .user-cart__title {
+        display: none;
+    }
+    .mobile-screen__holder {
+        @include display-flex();
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        height: 56px;
+        background: $white;
+        margin-bottom: 8px;
+        padding: 0 16px;
+    }
+    .mobile-screen__arrow::before {
+        content: "\e801";
+        @include font-icon__limoo();
+        font-size: 16px;
+        color: $gray;
+        font-weight: bold;
+        /* margin-right: 4px;
+        margin-left: 8px; */
+    }
 }
 </style>

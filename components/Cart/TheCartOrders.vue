@@ -31,7 +31,7 @@ export default {
 </script>
 <style lang="scss" scoped>
 .orders-content__main {
-    border: 1px solid red;
+    /* border: 1px solid red; */
 }
 .order-content-item {
     @include display-flex();
@@ -75,5 +75,17 @@ export default {
 .order-detail__content-holder {
     height: 91px;
     border-right: 2px solid $gray-border;
+}
+@media (max-width: 960px) {
+    .orders-content__main {
+        padding: 0 5px;
+    }
+    .order-content-item {
+        min-height: 314px;
+        margin-bottom: 8px;
+    }
+    .order-detail__content-holder {
+        display: none;
+    }
 }
 </style>
