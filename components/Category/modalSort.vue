@@ -220,9 +220,9 @@ export default {
     font-size: 14px;
   }
   .modal-filter__item-close::before{
-    content: "\e801";
-    @include font-icon__limoo();
-    font-size: 17px;
+    // content: "\e801";
+    // @include font-icon__limoo();
+    font-size: 24px;
   }
   .modal-filter__line{
     margin-top: 12px;
@@ -230,6 +230,19 @@ export default {
   .modal-filter__btn{
     padding-bottom: 12px;
   }
+  .modal-sort__content{
+    margin-top: 25px;
+  }
+  .remove--margin{
+    margin-top: 23px;
+  }
+  .modal-filter__btn{
+    margin-top: 24px;
+  }
+  .p-product-btn{
+    margin-left: 4%;
+  }
+
 
 }
 
@@ -246,5 +259,12 @@ export default {
     width: 36%;
   }
 }
+
+@media (max-width: 320px) {
+  .p-product-btn{
+    width: 45%;
+  }
+}
+
 
 </style>

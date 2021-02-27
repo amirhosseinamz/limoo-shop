@@ -143,6 +143,29 @@ export default {
     display: block;
   }
 
+  @media (max-width: 485px) {
+    .modal-sort__item{
+      border:none;
+      box-shadow: none;
+      margin-bottom: 39px;
+      height: 24px;
+      padding-right: 0px;
+      padding-left: 0;
+    }
+    .modal-sort__items{
+      padding-right: 24px;
+      padding-left: 24px;
+    }
+    .modal-sort__title{
+      font-size: 14px;
+    }
+    .checkmark{
+      top: 1px;
+    }
+
+
+  }
+
 
 
 </style>
