@@ -63,7 +63,46 @@
                         </div>
                     </div>
                 </div>
-                <div class="order-detail__btn"></div>
+                <div class="order-detail__content-holder__mobile">
+                    <div class="order-detail__content-color">
+                        <span class="order-detail__content-color__title"
+                            >رنگ:</span
+                        >
+                        <span class="order-detail__content-color__name"
+                            >قرمز</span
+                        >
+                        <span
+                            class="order-detail__content-color__circle"
+                        ></span>
+                    </div>
+                    <div class="order-detail__content-guarantee">
+                        <span class="order-detail__content-guarantee__title"
+                            >گارانتی:</span
+                        >
+                        <span class="order-detail__content-guarantee__name"
+                            >2 سال ضمانت کالا</span
+                        >
+                    </div>
+                    <div class="order-detail__content-seller-price">
+                        <div class="order-detail__content-seller">
+                            <span class="order-detail__content-seller__title"
+                                >فروشنده:</span
+                            >
+                            <span class="order-detail__content-seller__name"
+                                >ایپک</span
+                            >
+                        </div>
+                        <div class="order-detail__content-price">
+                            <span class="order-detail__content-price__title"
+                                >هزینه ارسال:</span
+                            >
+                            <span class="order-detail__content-price__name"
+                                >20،000 تومان</span
+                            >
+                        </div>
+                    </div>
+                </div>
+                <div class="order-detail__btns-price"></div>
             </div>
         </div>
     </div>
@@ -94,7 +133,7 @@ export default {
     width: 100%;
     border-bottom: 1px solid $gray-border;
 }
-.order-detail__btn {
+.order-detail__btns-price {
     height: 77px;
     width: 100%;
 }
@@ -145,7 +184,7 @@ export default {
     font-size: 14px;
     line-height: 140.62%;
     color: $black-topic;
-    margin-left: 5px;
+    margin-left: 8px;
 }
 .order-detail__content-guarantee,
 .order-detail__content-seller {
@@ -179,6 +218,9 @@ export default {
     @include display-flex();
     flex-direction: row;
 }
+.order-detail__content-holder__mobile {
+    display: none;
+}
 @media (max-width: 960px) {
     .orders-content__main {
         padding: 0 5px;
@@ -189,6 +231,48 @@ export default {
     }
     .order-detail__content-holder {
         display: none;
+    }
+    .order-detail__btns-price {
+        height: 68px;
+    }
+    .order-detail {
+        height: 114px;
+    }
+    .order-detail__img {
+        height: 80px;
+        width: 80px;
+        margin: 16px 6px 0 0;
+    }
+    .order-detail__title {
+        font-size: 14px;
+        margin: 23px 16px 16px 19px;
+    }
+    .order-detail__content-holder__mobile {
+        @include display-flex();
+        flex-direction: column;
+        height: 132px;
+        border-bottom: 1px solid $gray-border;
+        padding-right: 12px;
+    }
+    .order-detail__content-color {
+        margin-top: 16px;
+    }
+    .order-detail__content-color__title,
+    .order-detail__content-guarantee__title,
+    .order-detail__content-seller__title,
+    .order-detail__content-price__title,
+    .order-detail__content-color__name,
+    .order-detail__content-guarantee__name,
+    .order-detail__content-seller__name,
+    .order-detail__content-price__name {
+        font-size: 13px;
+        margin-left: 3px;
+    }
+    .order-detail__content-color__name {
+        margin-left: 8px;
+    }
+    .order-detail__content-seller {
+        margin-left: 7px;
     }
 }
 </style>
