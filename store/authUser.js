@@ -9,7 +9,7 @@ const mutations = {
 };
 const actions = {
     signInUpUser(vuexContext, authData) {
-        console.log("authData", authData);
+        // console.log("authData", authData);
         const headers = {
             "Content-Type": "application/json",
             "Client-Key": process.env.CLIENT_KEY
@@ -23,7 +23,7 @@ const actions = {
                 }
             )
             .then(result => {
-                console.log(result.response_code);
+                // console.log(result.response_code);
                 if (result.response_code == 2208) {
                     this.$router.push("/users/register/confirm");
                 }
@@ -47,9 +47,9 @@ const actions = {
                 }
             )
             .then(result => {
-                console.log(result);
+                // console.log(result);
                 if (result.response_code == 1) {
-                    console.log(result.token);
+                    // console.log(result.token);
                     vuexContext.commit("setToken", result.token);
                 }
             })
@@ -67,9 +67,9 @@ const actions = {
             })
             .then(result => {
                 if (result.response_code == 1) {
-                    console.log(result);
+                    // console.log(result);
                     vuexContext.commit("setToken", null);
-                    console.log(state.token);
+                    // console.log(state.token);
                 }
             })
             .catch(e => console.log(e));

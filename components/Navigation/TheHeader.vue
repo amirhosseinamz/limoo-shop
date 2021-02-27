@@ -45,7 +45,10 @@
             </div>
             <!-- <div class="spacer"></div> -->
             <div class="navigation-items">
-                <div class="navigation-item navigation-item__cart">
+                <div
+                    class="navigation-item navigation-item__cart"
+                    @click="goToBasket"
+                >
                     <button class="navigation-item__cart-btn">
                         سبد خرید
                     </button>
@@ -184,6 +187,9 @@ export default {
             }
             this.showNavbar = currentScrollPosition < this.lastScrollPosition;
             this.lastScrollPosition = currentScrollPosition;
+        },
+        goToBasket() {
+            this.$router.push("/cart");
         }
     }
 };

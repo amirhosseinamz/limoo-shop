@@ -35,7 +35,7 @@ export default {
                 })
                 .then(() => {
                     const token = this.$store.getters["authUser/getToken"];
-                    console.log(token);
+                    // console.log(token);
                     if (Boolean(token)) {
                         this.$store.dispatch({
                             type: "stateShowModalWellcome",

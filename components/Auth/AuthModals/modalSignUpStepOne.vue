@@ -159,7 +159,7 @@ export default {
                 this.$store.commit("PhoneNumber", { value: this.phone });
             }
             if (!this.wrongInput) {
-                console.log("send to back-end");
+                // console.log("send to back-end");
                 const headers = {
                     "Content-Type": "application/json",
                     "Client-Key": process.env.CLIENT_KEY
@@ -173,7 +173,7 @@ export default {
                         }
                     )
                     .then(result => {
-                        console.log(result.response_code);
+                        // console.log(result.response_code);
                         if (result.response_code == 2208) {
                             this.$emit("btn-go-to-signup-step-two");
                         }
