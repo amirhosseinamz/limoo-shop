@@ -49,6 +49,9 @@
   .modal-dialog{
     max-width: 466px !important;
   }
+  .modal-backdrop{
+    background: rgba(81, 81, 81, .6) !important;
+  }
 }
 
 @media (max-width: 485px) {

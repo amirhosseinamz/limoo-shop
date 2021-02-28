@@ -2,8 +2,9 @@ const state = {
   showModal             : false,
   submitFliterModal     : false,
   submitDataFilterModal : {
-    lastUpdateSliderRenge : [],
-    lastUpdateCheckBox    : [],
+    lastUpdateSliderRenge   : [],
+    lastUpdateCheckBox      : [],
+    lastUpdateCheckBoxStore : [],
   },
   showModalSort       : false,
   submitSortModal     : false,

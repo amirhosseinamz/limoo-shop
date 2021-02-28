@@ -191,6 +191,7 @@ export default {
 }
 .modal-sort__content{
   margin-top: 54px;
+  margin-bottom: 54px;
   @include display-flex();
   align-items: flex-start;
 }
@@ -227,9 +228,6 @@ export default {
   .modal-filter__line{
     margin-top: 12px;
   }
-  .modal-filter__btn{
-    padding-bottom: 12px;
-  }
   .modal-sort__content{
     margin-top: 25px;
   }
@@ -237,10 +235,19 @@ export default {
     margin-top: 23px;
   }
   .modal-filter__btn{
-    margin-top: 24px;
+    margin-top: 0px;
+    padding-bottom: 18px;
   }
   .p-product-btn{
     margin-left: 4%;
+  }
+  .modal-sort__close-item{
+    padding-right: 0px;
+    padding-left: 0;
+  }
+  .modal-filter__item{
+    padding-right: 15px;
+    padding-left: 15px;
   }
 
 

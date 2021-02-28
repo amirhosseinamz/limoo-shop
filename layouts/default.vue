@@ -1,6 +1,6 @@
 <template>
     <div>
-          <div :class="{'active--blur':activeModal}" class="page__content w-100">
+          <div :class="{'active--blur':activeBlur}" class="page__content w-100">
               <the-header />
               <Nuxt />
               <the-mobile-mega-menu />
@@ -41,16 +41,19 @@ export default {
       return {
         activeModal      : false,
         activeModalSort  : false,
+        activeBlur       : false,
       }
     },
 
     watch: {
       '$store.state.category.showModal'(data) {
-        this.activeModal = data;
+        this.activeModal     = data;
+        this.activeBlur      = data;
       },
 
       '$store.state.category.showModalSort'(data) {
         this.activeModalSort = data;
+        this.activeBlur      = data;
       },
 
     },

@@ -7,17 +7,18 @@
         :footer="false"
     >
         <div class="modal-filter__main">
-                      <div class="modal-filter__close-item w-100">
-                            <div class="w-100 modal-filter__item ">
-                                <h3 class="modal-filter__item-title">جستجوی پیشرفته</h3>
-                                <div @click="modalClose" class="modal-filter__item-left">
-                                  <span class="modal-filter__item-close"></span>
-                                </div>
-                                <div class="modal-filter__line"></div>
-                            </div>
-                      </div>
 
                       <div class="w-100 modal-filter__filter-tools">
+
+                            <div class="modal-filter__close-item w-100">
+                                <div class="w-100 modal-filter__item ">
+                                    <h3 class="modal-filter__item-title">جستجوی پیشرفته</h3>
+                                    <div @click="modalClose" class="modal-filter__item-left">
+                                      <span class="modal-filter__item-close"></span>
+                                    </div>
+                                    <div class="modal-filter__line"></div>
+                                </div>
+                          </div>
 
                             <filter-toggle-active-btn></filter-toggle-active-btn>
 
@@ -38,7 +39,7 @@
 
                               <filter-store
                                :open-default-box="false"
-                               :title="'فروشنده کالا'"
+                               :title="'لیمو'"
                                :select-box-selectet-initial="'فروشنده کالا'"
                                :check-box-data="checkboxData"
                                @checked-brand-filter="checkedBrandFilter"
@@ -151,6 +152,9 @@ export default {
   padding-right: 18px;
   padding-left: 18px;
   padding-top: 30px;
+  height: 100vh;
+  flex-flow: column;
+  justify-content: space-between;
 }
 .modal-filter__item{
   width: 100%;

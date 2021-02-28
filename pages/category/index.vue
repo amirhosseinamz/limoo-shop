@@ -279,7 +279,7 @@ export default {
               title : 'تستی 3'
             },
           ],
-          sortData                      : [
+          sortData                          : [
             {
               id    : 1,
               title : 'جدیدترین ها'
@@ -299,6 +299,20 @@ export default {
             {
               id    : 5,
               title : 'ارزان ترین '
+            },
+          ],
+          checkBoxStore                     : [
+            {
+              id    : 1,
+              title : 'تستی 1'
+            },
+            {
+              id    : 2,
+              title : 'تستی 2'
+            },
+            {
+              id    : 3,
+              title : 'تستی 3'
             },
           ],
 
@@ -379,9 +393,24 @@ export default {
             })
         }
 
+        const addCheckedStoreFilter = () => {
+            this.checkBoxStore.map((content)=>{
+              if (content.id == 3) {
+                content.checked = true
+              }
+              else {
+                content.checked = false;
+              }
+            })
+        }
+
         addCheckedBrandFilter();
-        this.$store.state.category.submitDataFilterModal.lastUpdateCheckBox  = this.checkBoxData;
+        addCheckedStoreFilter();
+        this.$store.state.category.submitDataFilterModal.lastUpdateCheckBox       = this.checkBoxData;
+        this.$store.state.category.submitDataFilterModal.lastUpdateCheckBoxStore  = this.checkBoxStore;
       },
+
+
 
       submitData(){
         const getLastUpdate =  this.$store.state.category.submitDataFilterModal;
@@ -402,12 +431,10 @@ export default {
 
         addRaidoSelectedSort();
         this.$store.state.category.lastUpdateSortModal  = this.sortData;
-        console.log(this.lastUpdateSortModal,'lastUpdateSortModal');
       },
 
       submitDataSortModal(){
         const getLastUpdate =  this.$store.state.category.lastUpdateSortModal;
-        console.log(getLastUpdate,'lastUpdateSortModal');
       },
 
 
