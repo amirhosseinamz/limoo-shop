@@ -51,7 +51,7 @@ export default {
 
     methods: {
         DeleteOrder() {
-            this.$emit("btn-delete-history", this.currentOrders);
+            this.$emit("btn-delete-order", this.currentOrders);
         },
 
         modalClose() {

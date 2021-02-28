@@ -11,6 +11,8 @@
                 <span class="user-cart__title">لیست سفارشات شما</span>
                 <The-cart-orders
                     @event-show-modal-delete-order="eventShowModalDeleteOrder"
+                    @add-more-order-to-card="addMoreOrderToCard"
+                    @minus-order-from-card="minusOrderFromCart"
                     :orders-data="ordersData"
                 ></The-cart-orders>
                 <nuxt-link to="/" class="user-cart__go-back">بازگشت</nuxt-link>
@@ -20,7 +22,7 @@
         <TheModalDeleteUserOrders
             :active.sync="showModalDeleteOrder"
             :current-orders="currentOrders"
-            @btn-delete-order="btnDeleteorder"
+            @btn-delete-order="btnDeleteOrder"
         />
     </div>
 </template>
@@ -44,7 +46,8 @@ export default {
                         "اپل واچ سری 1 آلومینیوم آبی با بند اسپرت سیلیکون آبی",
                     img: "/img/apple-watch-1.png",
                     orderPrice: "113،000،000",
-                    orderPriceOff: "223،000"
+                    orderPriceOff: "223،000",
+                    count: 2
                 },
                 {
                     id: 2,
@@ -52,7 +55,8 @@ export default {
                         "اپل واچ سری 2 آلومینیوم قرمز با بند اسپرت سیلیکون قرمز",
                     img: "/img/apple-watch-2.png",
                     orderPrice: "143،000،000",
-                    orderPriceOff: "123،000"
+                    orderPriceOff: "123،000",
+                    count: 1
                 },
                 {
                     id: 3,
@@ -60,7 +64,8 @@ export default {
                         "اپل واچ سری 3 آلومینیوم زرد با بند اسپرت سیلیکون زرد",
                     img: "/img/apple-watch-3.png",
                     orderPrice: "103،000،000",
-                    orderPriceOff: "323،000"
+                    orderPriceOff: "323،000",
+                    count: 1
                 }
             ],
             currentOrders: {}
@@ -74,7 +79,7 @@ export default {
             this.showModalDeleteOrder = true;
             this.currentOrders = data;
         },
-        btnDeleteorder(data) {
+        btnDeleteOrder(data) {
             const removeOrder = () => {
                 let indexDeleteOrderData = -1;
 
@@ -91,6 +96,20 @@ export default {
             this.showModalDeleteOrder = false;
 
             // request //
+        },
+        addMoreOrderToCard(data) {
+            this.ordersData.map(content => {
+                if (content.id == data.id) {
+                    content.count++;
+                }
+            });
+        },
+        minusOrderFromCart(data) {
+            this.ordersData.map(content => {
+                if (content.id == data.id) {
+                    content.count--;
+                }
+            });
         }
     }
 };

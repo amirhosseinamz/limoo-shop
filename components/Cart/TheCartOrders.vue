@@ -13,6 +13,14 @@
                             <span class="order-detail__title">
                                 {{ data.title }}</span
                             >
+                            <div class="order-detail__price-container__mobile">
+                                <span class="order-detail__orderPrice"
+                                    >{{ data.orderPrice }} تومان</span
+                                >
+                                <span class="order-detail__orderPriceOff"
+                                    >{{ data.orderPriceOff }} تومان</span
+                                >
+                            </div>
                             <div class="order-detail__content-holder">
                                 <div class="order-detail__content-color">
                                     <span
@@ -102,7 +110,38 @@
                         </div>
                     </div>
                 </div>
-                <div class="order-detail__btns-price"></div>
+                <div class="order-detail__btns-price">
+                    <div class="order-detail__btns-container">
+                        <div class="order-detail__btns-add-minus">
+                            <button
+                                @click="addOrderToCart(data)"
+                                class="order-detail__btns-add"
+                                :disabled="data.count == 10"
+                            ></button>
+                            <span class="order-detail__count">{{
+                                data.count
+                            }}</span>
+                            <button
+                                @click="minusOrderFromCart(data)"
+                                class="order-detail__btns-minus"
+                                :disabled="data.count == 1"
+                            ></button>
+                        </div>
+                        <button
+                            @click="showModalDeleteOrder(data)"
+                            class="order-detail__btn-delete"
+                            name="button"
+                        ></button>
+                    </div>
+                    <div class="order-detail__price-container">
+                        <span class="order-detail__orderPrice"
+                            >{{ data.orderPrice }} تومان</span
+                        >
+                        <span class="order-detail__orderPriceOff"
+                            >{{ data.orderPriceOff }} تومان</span
+                        >
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -111,6 +150,17 @@
 export default {
     props: {
         ordersData: { type: [Object, Array], default: {} }
+    },
+    methods: {
+        showModalDeleteOrder(data) {
+            this.$emit("event-show-modal-delete-order", data);
+        },
+        addOrderToCart(data) {
+            this.$emit("add-more-order-to-card", data);
+        },
+        minusOrderFromCart(data) {
+            this.$emit("minus-order-from-card", data);
+        }
     }
 };
 </script>
@@ -134,6 +184,10 @@ export default {
     border-bottom: 1px solid $gray-border;
 }
 .order-detail__btns-price {
+    @include display-flex();
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
     height: 77px;
     width: 100%;
 }
@@ -221,6 +275,81 @@ export default {
 .order-detail__content-holder__mobile {
     display: none;
 }
+.order-detail__btns-container {
+    @include display-flex();
+    flex-direction: row;
+    justify-content: space-between;
+    width: 190px;
+    /* border: 1px solid red; */
+    margin-right: 16px;
+}
+.order-detail__btn-delete,
+.order-detail__btns-add,
+.order-detail__btns-minus {
+    width: 43px;
+    height: 43px;
+    background-color: $circle-bg;
+    box-sizing: border-box;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+}
+.order-detail__btn-delete::before {
+    @include font-icon__limoo();
+    content: "\e826";
+    font-size: 16px;
+    color: $color-gray;
+}
+
+.order-detail__btns-add-minus {
+    @include display-flex();
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 123px;
+    border: 1px solid $circle-bg;
+    border-radius: 10px;
+}
+.order-detail__btns-add::before,
+.order-detail__btns-minus::before {
+    @include font-icon__limoo();
+    content: "\e822";
+    font-size: 10px;
+    font-weight: bold;
+    color: $code;
+}
+.order-detail__btns-minus::before {
+    content: "\e81b";
+}
+.order-detail__count {
+    font-size: 16px;
+    color: $code;
+    line-height: 140.62%;
+}
+.order-detail__price-container {
+    @include display-flex();
+    flex-direction: row;
+    justify-content: space-between;
+    margin-left: 25px;
+    width: fit-content;
+}
+.order-detail__orderPrice {
+    font-size: 16px;
+    font-family: inherit;
+    text-decoration: line-through;
+    color: $color-gray;
+    padding-left: 15px;
+}
+.order-detail__orderPriceOff {
+    font-size: 16px;
+    font-family: inherit;
+    color: $code;
+    padding-right: 15px;
+    border-right: 1px solid $light-gray;
+}
+.order-detail__price-container__mobile {
+    display: none;
+}
 @media (max-width: 960px) {
     .orders-content__main {
         padding: 0 5px;
@@ -273,6 +402,64 @@ export default {
     }
     .order-detail__content-seller {
         margin-left: 7px;
+    }
+    .order-detail__btns-container {
+        width: 100%;
+        margin-left: 16px;
+    }
+    .order-detail__btn-delete,
+    .order-detail__btns-add,
+    .order-detail__btns-minus {
+        width: 36px;
+        height: 36px;
+    }
+    .order-detail__btns-add-minus {
+        width: 108px;
+    }
+    .order-detail__btn-delete::before {
+        font-size: 14px;
+    }
+    .order-detail__price-container {
+        display: none;
+    }
+    .order-detail__price-container__mobile {
+        @include display-flex();
+        flex-direction: row;
+        justify-content: space-between;
+        margin: 0 16px 16px 19px;
+        width: fit-content;
+    }
+    .order-detail__orderPrice {
+        font-size: 13px;
+        padding-left: 8px;
+        white-space: nowrap;
+    }
+    .order-detail__orderPriceOff {
+        font-size: 13px;
+        padding-right: 8px;
+        white-space: nowrap;
+    }
+}
+@media (max-width: 280px) {
+    .order-detail__img {
+        height: 70px;
+        width: 70px;
+        margin: 16px 5px 0 0;
+    }
+    .order-detail__title {
+        font-size: 14px;
+        margin: 20px 6px 16px 19px;
+    }
+    .order-detail__price-container__mobile {
+        margin: 0 6px 16px 19px;
+    }
+    .order-detail__orderPrice {
+        font-size: 12px;
+        padding-left: 5px;
+    }
+    .order-detail__orderPriceOff {
+        font-size: 12px;
+        padding-right: 5px;
     }
 }
 </style>
