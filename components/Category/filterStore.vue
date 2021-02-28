@@ -1,8 +1,8 @@
 <template>
     <div  class="w-100 modal-filter__store margin--top">
-          <div class="w-100 modal__store-item">
+          <!-- <div class="w-100 modal__store-item">
               <h3 class="modal-filter__box-text store--text">{{title}}</h3>
-          </div>
+          </div> -->
 
           <div :class="{'active--box':openBox}"  class="w-100 modal-filter__box ">
                 <div @click="toggleBox" class="modal-filter__box-title w-100">
@@ -15,9 +15,9 @@
                     <div class="modal-filter__box-items w-100">
                         <div  v-for="data in checkBoxData" :key="data.id" class="modal-filter__box-item">
                             <label @change="addChecked($event,data)" class="container">
-                              <h3 class="modal-filter__checkbox-title">{{data.title}}</h3>
                               <input :checked="data.checked" type="checkbox">
                               <span class="checkmark"></span>
+                              <h3 class="modal-filter__checkbox-title">{{data.title}}</h3>
                             </label>
                         </div>
                   </div>
@@ -88,14 +88,14 @@ export default {
   margin-right: auto;
   margin-left: auto;
   background: $white;
-  padding-top: 13px;
-  padding-bottom: 13px;
+  // padding-top: 13px;
+  padding-bottom: 15px;
+  // padding-right: 16px;
+  // padding-left: 16px;
   border:solid 1px $chinese_white;
   @include display-flex();
   align-items: flex-start;
   border-radius: 10px;
-  padding-right: 16px;
-  padding-left: 16px;
   flex-wrap: wrap;
   max-height: 51px;
   transition: max-height 0.5s cubic-bezier(0, 1, 0, 1);
@@ -106,7 +106,9 @@ export default {
   @include display-flex();
   align-items: flex-start;
   flex-wrap: wrap;
-  margin-top: 16px;
+  padding-right: 16px;
+  padding-left: 16px;
+  padding-top: 4px;
 }
 .modal-filter__box-text{
   font-size: 16px;
@@ -131,6 +133,10 @@ export default {
   @include display-flex();
   align-items: center;
   cursor: pointer;
+  padding-right: 16px;
+  padding-left: 16px;
+  padding-top: 13px;
+  padding-bottom: 13px;
 }
 .active--box .modal-filter__box-arrow{
   transform:rotate(-180deg);
@@ -186,6 +192,9 @@ export default {
 }
 .container input:checked ~ .checkmark:after {
   display: block;
+}
+.container input:checked ~ .modal-filter__checkbox-title {
+  color: $black-topic;
 }
 .container .checkmark:after {
   left: 4px;

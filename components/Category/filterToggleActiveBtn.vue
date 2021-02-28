@@ -118,8 +118,8 @@ export default {
     transition: background-color 0.25s ease;
   }
   .switch-label::after {
-    left: 0;
-    top: 1.5px;
+    left: 2px;
+    top: 2px;
     width: 25px;
     height: 25px;
     border-radius: 50%;

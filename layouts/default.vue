@@ -46,14 +46,29 @@ export default {
     },
 
     watch: {
-      '$store.state.category.showModal'(data) {
-        this.activeModal     = data;
-        this.activeBlur      = data;
+      '$store.state.category.showModal'(status) {
+        this.activeModal     = status;
+        this.activeBlur      = status;
+
+        if (status) {
+          document.body.style.overflow =  'hidden';
+        }
+        else {
+          document.body.style.overflow =  '';
+        }
+
       },
 
-      '$store.state.category.showModalSort'(data) {
-        this.activeModalSort = data;
-        this.activeBlur      = data;
+      '$store.state.category.showModalSort'(status) {
+        this.activeModalSort = status;
+        this.activeBlur      = status;
+
+        if (status) {
+          document.body.style.overflow =  'hidden';
+        }
+        else {
+          document.body.style.overflow =  '';
+        }
       },
 
     },
