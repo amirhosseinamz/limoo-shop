@@ -53,7 +53,6 @@ export default {
     else {
       this.openBox = false;
     }
-
   },
 
   methods: {
@@ -67,7 +66,7 @@ export default {
     },
 
     addChecked(e,data){
-      this.$emit('checked-brand-filter');
+      this.$emit('checked-brand-filter',data);
     },
 
 

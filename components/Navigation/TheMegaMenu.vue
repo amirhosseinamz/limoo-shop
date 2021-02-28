@@ -2,7 +2,7 @@
     <div class="nav-holder">
         <nav class="mega-menu">
             <div class="mega-menu__item">
-                <NuxtLink to="/category/?digitalkala=10">
+                <NuxtLink to="/category/?electronic-devices/=10">
                     کالای دیجیتال
                 </NuxtLink>
                 <div class="mega-menu__section">

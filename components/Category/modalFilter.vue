@@ -30,21 +30,14 @@
                              @last-update-slider-renge="lastUpdateSliderRenge"
                              ></filter-price>
 
+
                              <filter-brand
-                              :open-default-box="true"
-                              :title="'انتخاب برند'"
-                              :check-box-data="checkboxData"
+                              v-for="(data,index) in checkBoxData" :key="index"
+                              :open-default-box="data.openDefault"
+                              :title="data.title"
+                              :check-box-data="data.children"
                               @checked-brand-filter="checkedBrandFilter"
                               ></filter-brand>
-
-                              <filter-store
-                               :open-default-box="false"
-                               :title="'لیمو'"
-                               :select-box-selectet-initial="'فروشنده کالا'"
-                               :check-box-data="checkboxData"
-                               @checked-brand-filter="checkedBrandFilter"
-                               ></filter-store>
-
 
                       </div>
 
@@ -87,7 +80,8 @@ export default {
           from :10000,
           to   :30000
         },
-        checkboxData       : [],
+        checkBoxData : {},
+
       }
     },
 
@@ -108,17 +102,15 @@ export default {
         this.$emit('status-show-modal',data);
       },
 
-      '$store.state.category.submitDataFilterModal'(data){
-         this.checkboxData    = data.lastUpdateCheckBox;
-      },
+      // '$store.state.category.submitDataFilterModal'(data){
+      // },
+    },
+
+    created() {
     },
 
     mounted() {
-      const getDataFilterModal = this.$store.state.category.submitDataFilterModal;
-      const getCheckBox        = getDataFilterModal.lastUpdateCheckBox;
-      if (getCheckBox.length != 0) {
-        this.checkboxData    = getCheckBox
-      }
+      this.getDefaultCheckbox();
     },
 
     methods: {
@@ -136,8 +128,16 @@ export default {
         },
 
         checkedBrandFilter(data){
+          console.log(data);
         },
 
+        getDefaultCheckbox(){
+          const getDataFilterModal = this.$store.state.category.submitDataFilterModal;
+          const getCheckBox        = getDataFilterModal.lastUpdateCheckBox;
+          for (let key in getCheckBox) {
+             this.checkBoxData[key]  = getCheckBox[key]
+          }
+        }
 
     }
 };

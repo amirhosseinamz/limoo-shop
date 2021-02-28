@@ -265,20 +265,44 @@ export default {
               image     : '/img/phoneAndroid.svg',
             },
           ],
-          checkBoxData                      : [
-            {
-              id    : 1,
-              title : 'تستی 1'
-            },
-            {
-              id    : 2,
-              title : 'تستی 2'
-            },
-            {
-              id    : 3,
-              title : 'تستی 3'
-            },
-          ],
+          checkBoxData                      : {
+                brand : {
+                        title       : 'برند',
+                        openDefault : true,
+                        children : [
+                            {
+                              id    : 1,
+                              title : 'تستی 1'
+                            },
+                            {
+                              id    : 2,
+                              title : 'تستی 2'
+                            },
+                            {
+                              id    : 3,
+                              title : 'تستی 3'
+                            },
+                        ]
+                  },
+                  store : {
+                          title       : 'لیمو',
+                          openDefault : false,
+                          children : [
+                              {
+                                id    : 1,
+                                title : 'تستی 1'
+                              },
+                              {
+                                id    : 2,
+                                title : 'تستی 2'
+                              },
+                              {
+                                id    : 3,
+                                title : 'تستی 3'
+                              },
+                          ]
+                    },
+          },
           sortData                          : [
             {
               id    : 1,
@@ -301,20 +325,7 @@ export default {
               title : 'ارزان ترین '
             },
           ],
-          checkBoxStore                     : [
-            {
-              id    : 1,
-              title : 'تستی 1'
-            },
-            {
-              id    : 2,
-              title : 'تستی 2'
-            },
-            {
-              id    : 3,
-              title : 'تستی 3'
-            },
-          ],
+
 
         };
     },
@@ -383,31 +394,28 @@ export default {
       setDataModalFilter(){
 
         const addCheckedBrandFilter = () => {
-            this.checkBoxData.map((content)=>{
-              if (content.id == 3) {
-                content.checked = true
-              }
-              else {
-                content.checked = false;
-              }
-            })
-        }
+          let nameObject = '';
+          for (let key in this.checkBoxData) {
+            const getAllCheckBox = this.checkBoxData[key]
 
-        const addCheckedStoreFilter = () => {
-            this.checkBoxStore.map((content)=>{
-              if (content.id == 3) {
-                content.checked = true
-              }
-              else {
-                content.checked = false;
-              }
-            })
+            // پس از اتصال یه بک این قسمت باید مقدارش از سمت بک گرفته شود //
+            // check default checkbox //
+
+              getAllCheckBox.children.map((content)=>{
+                if (content.id == 3) {
+                  content.checked = true
+                }
+                else {
+                  content.checked = false;
+                }
+              })
+
+              this.$store.state.category.submitDataFilterModal.lastUpdateCheckBox[key] = getAllCheckBox;
+          }
         }
 
         addCheckedBrandFilter();
-        addCheckedStoreFilter();
-        this.$store.state.category.submitDataFilterModal.lastUpdateCheckBox       = this.checkBoxData;
-        this.$store.state.category.submitDataFilterModal.lastUpdateCheckBoxStore  = this.checkBoxStore;
+        // نام آبجکت ها پس از اتصال از بک گرفته شود //
       },
 
 
