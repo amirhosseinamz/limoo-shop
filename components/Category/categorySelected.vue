@@ -85,6 +85,26 @@ export default {
     display: none;
   }
 
+  @media (max-width: 960px) {
+
+  }
+
+  @media (max-width: 485px) {
+    .category{
+      background: $white;
+      margin:0;
+      padding-top: 8px;
+      padding-bottom: 17px;
+      padding-right: 14px;
+      padding-left: 14px;
+      border-top-right-radius: 10px;
+      border-top-left-radius: 10px;
+    }
+    .category__title{
+      font-size: 10px;
+    }
+  }
+
 
 
 </style>

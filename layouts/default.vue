@@ -1,9 +1,23 @@
 <template>
     <div>
-        <the-header />
-        <Nuxt />
-        <the-mobile-mega-menu />
-        <theFooter></theFooter>
+          <div :class="{'active--blur':activeBlur}" class="page__content w-100">
+              <the-header />
+              <Nuxt />
+              <the-mobile-mega-menu />
+              <theFooter></theFooter>
+          </div>
+
+          <div class="w-100 modal-content">
+            <modal-filter
+            :active.sync="activeModal"
+            @status-show-modal="statusShowModal"
+            ></modal-filter>
+
+            <modal-sort
+            :active.sync="activeModalSort"
+            @status-show-modal="showSort"
+            ></modal-sort>
+          </div>
     </div>
 </template>
 
@@ -11,13 +25,65 @@
 import TheHeader from "~/components/Navigation/TheHeader.vue";
 import TheMobileMegaMenu from "~/components/Navigation/TheMobileMegaMenu.vue";
 import theFooter from "~/components/Navigation/theFooter.vue";
+import modalFilter from '~/components/Category/modalFilter';
+import modalSort from '~/components/Category/modalSort';
+
 
 export default {
     components: {
         TheHeader,
         TheMobileMegaMenu,
-        theFooter
-    }
+        theFooter,
+        modalFilter,
+        modalSort,
+    },
+    data() {
+      return {
+        activeModal      : false,
+        activeModalSort  : false,
+        activeBlur       : false,
+      }
+    },
+
+    watch: {
+      '$store.state.category.showModal'(status) {
+        this.activeModal     = status;
+        this.activeBlur      = status;
+
+        if (status) {
+          document.body.style.overflow =  'hidden';
+        }
+        else {
+          document.body.style.overflow =  '';
+        }
+
+      },
+
+      '$store.state.category.showModalSort'(status) {
+        this.activeModalSort = status;
+        this.activeBlur      = status;
+
+        if (status) {
+          document.body.style.overflow =  'hidden';
+        }
+        else {
+          document.body.style.overflow =  '';
+        }
+      },
+
+    },
+
+    methods: {
+      statusShowModal(data) {
+        this.$store.state.category.showModal         = data;
+      },
+
+      showSort(data){
+        this.$store.state.category.showModalSort     = data;
+      },
+
+    },
+
 };
 </script>
 <style lang="scss">
@@ -28,4 +94,9 @@ body {
     font-family: "IRANYekan";
     background: $overlay;
 }
+.active--blur{
+  filter: blur(2px);
+  overflow: hidden;
+}
+
 </style>
