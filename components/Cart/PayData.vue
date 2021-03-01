@@ -1,25 +1,67 @@
 <template>
-    <div class="cart-detail__container">
-        <div class="cart-detail__main">
-             <PayData :detail-price="detailPrice"></PayData>
+  <div class="cart-detail__payment">
+      <div class="cart-detail__items">
+                <div class="cart-detail__item">
+                    <div class="cart-detail__right">
+                      <img src="/icons/coin.svg" class="cart-detail__icon" alt="">
+                      <h3 class="cart-detail__right-title">قیمت محصولات:</h3>
+                    </div>
+                    <div class="cart-detail__left">
+                      <h3 class="cart-detail__left-title">{{detailPrice.price}}</h3>
+                      <h3 class="cart-detail__left-title">تومان</h3>
+                    </div>
+                </div>
 
-              <div class="w-100 cart-detail__about">
-                  <div class="cart-detail__about-item">
-                      <img class="cart-detail__about-icon" src="/icons/Warranty.svg" alt="">
-                      <h3 class="cart-detail__about-title">ضمانت بازگشت وجه در صورت عدم رضایت</h3>
+                <div class="cart-detail__item">
+                    <div class="cart-detail__right">
+                      <img src="/icons/Discount-cart.svg" class="cart-detail__icon discount--icon" alt="">
+                      <h3 class="cart-detail__right-title">تخفیف کل:</h3>
+                    </div>
+                    <div class="cart-detail__left">
+                      <h3 class="cart-detail__left-title">{{detailPrice.totalDiscount}}</h3>
+                      <h3 class="cart-detail__left-title">تومان</h3>
+                    </div>
+                </div>
+
+              <div class="cart-detail__item">
+                  <div class="cart-detail__right">
+                    <img src="/icons/car.svg" class="cart-detail__icon car--icon" alt="">
+                    <h3 class="cart-detail__right-title">هزینه ارسال:</h3>
                   </div>
-                  <div class="cart-detail__about-item">
-                      <img class="cart-detail__about-icon" src="/icons/Star.svg" alt="">
-                      <h3 class="cart-detail__about-title">ضمانت بازگشت وجه در صورت عدم رضایت</h3>
+                  <div class="cart-detail__left">
+                    <h3 class="cart-detail__left-title">{{detailPrice.submitDeliveryPrice}}</h3>
                   </div>
               </div>
-        </div>
 
-    </div>
+              <span class="cart-detail__line"></span>
+          </div>
+
+          <div class="cart-detail__total">
+              <div class="cart-detail__item">
+                  <div class="cart-detail__right">
+                    <img src="/icons/coin.svg" alt="">
+                    <h3 class="cart-detail__right-title red--pay">جمع قابل پرداخت:</h3>
+                  </div>
+                  <div class="cart-detail__left">
+                    <h3 class="cart-detail__left-title red--pay">{{detailPrice.totalPrice}}</h3>
+                    <h3 class="cart-detail__left-title red--pay">تومان</h3>
+                  </div>
+              </div>
+          </div>
+
+          <div class="cart-detail__btn w-100">
+              <button type="button" class="cart-detail__btn-item remove--border" name="button">
+                ادامه فرایند خرید
+              </button>
+              <button type="button" class="cart-detail__btn-item btn--debtor" name="button">
+                خرید اقساصی کالا
+              </button>
+          </div>
+
+  </div>
 </template>
 
 <script>
-import PayData from './PayData';
 
 export default {
     props: {
@@ -27,7 +69,7 @@ export default {
     },
 
     components: {
-      PayData,
+
     },
 
     data() {
