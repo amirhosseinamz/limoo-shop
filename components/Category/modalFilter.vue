@@ -173,6 +173,7 @@ export default {
   font-size: 22px;
   color: $gray;
   cursor: pointer;
+  opacity: .5;
 }
 .modal-filter__close-item{
   @include display-flex();
@@ -246,6 +247,7 @@ export default {
     content: "\e801";
     @include font-icon__limoo();
     font-size: 17px;
+    opacity: 1;
   }
   .modal-filter__line{
     margin-top: 12px;
