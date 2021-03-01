@@ -12,6 +12,7 @@
     width: 30%;
     /* border: 1px solid red; */
     height: 541px;
+    margin-top: 49px;
     text-align: center;
     background-color: $white;
     border-radius: 10px;
