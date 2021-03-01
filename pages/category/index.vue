@@ -410,7 +410,8 @@ export default {
                 }
               })
 
-              this.$store.state.category.submitDataFilterModal.lastUpdateCheckBox[key] = getAllCheckBox;
+              // this.$store.state.category.submitDataFilterModal.lastUpdateCheckBox[key] = getAllCheckBox;
+              this.$store.commit('category/updateStateFilterModal',{key:key,getAllCheckBox:getAllCheckBox})
           }
         }
 
@@ -438,7 +439,8 @@ export default {
         }
 
         addRaidoSelectedSort();
-        this.$store.state.category.lastUpdateSortModal  = this.sortData;
+        // this.$store.state.category.lastUpdateSortModal  = this.sortData;
+        this.$store.commit('category/updateStateModals',{lastUpdateSortModal:this.sortData})
       },
 
       submitDataSortModal(){

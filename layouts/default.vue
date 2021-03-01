@@ -75,11 +75,13 @@ export default {
 
     methods: {
       statusShowModal(data) {
-        this.$store.state.category.showModal         = data;
+        // this.$store.state.category.showModal         = data;
+        this.$store.commit('category/updateStateModals',{showModal:data})
       },
 
       showSort(data){
-        this.$store.state.category.showModalSort     = data;
+        // this.$store.state.category.showModalSort     = data;
+        this.$store.commit('category/updateStateModals',{showModalSort:data})
       },
 
     },

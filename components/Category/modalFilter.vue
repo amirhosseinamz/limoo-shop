@@ -116,15 +116,18 @@ export default {
     methods: {
         modalClose() {
             this.show                                    = false;
-            this.$store.state.category.submitFliterModal = false;
+            // this.$store.state.category.submitFliterModal = false;
+            this.$store.commit('category/updateStateModals',{submitFliterModal:false})
         },
 
         lastUpdateSliderRenge(data){
-          this.$store.state.category.submitDataFilterModal.lastUpdateSliderRenge = data;
+          // this.$store.state.category.submitDataFilterModal.lastUpdateSliderRenge = data;
+          this.$store.commit('category/updateSliderRenge',data)
         },
 
         submitFliterModal(){
-          this.$store.state.category.submitFliterModal                        = true;
+          // this.$store.state.category.submitFliterModal                        = true;
+          this.$store.commit('category/updateStateModals',{submitFliterModal:true})
         },
 
         checkedBrandFilter(data){

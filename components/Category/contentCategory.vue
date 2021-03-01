@@ -69,13 +69,15 @@ export default {
       },
 
       showBoxFilter(){
-        this.$store.state.category.showModal         = true;
-        this.$store.state.category.submitFliterModal = false;
+        // this.$store.state.category.showModal         = true;
+        // this.$store.state.category.submitFliterModal = false;
+        this.$store.commit('category/updateStateModals',{showModal:true,submitFliterModal:false})
       },
 
       showModalSort(){
-        this.$store.state.category.showModalSort     = true;
-        this.$store.state.category.submitSortModal   = false;
+        // this.$store.state.category.showModalSort     = true;
+        // this.$store.state.category.submitSortModal   = false;
+        this.$store.commit('category/updateStateModals',{showModalSort:true,submitSortModal:false})
       },
 
 

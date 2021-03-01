@@ -89,7 +89,8 @@ export default {
     methods: {
         modalClose() {
             this.show                                    = false;
-            this.$store.state.category.submitSortModal   = false;
+            // this.$store.state.category.submitSortModal   = false;
+            this.$store.commit('category/updateStateModals',{submitSortModal:false})
         },
 
         submitModal(){
@@ -102,7 +103,8 @@ export default {
             }
           })
 
-          this.$store.state.category.submitSortModal     = true;
+          // this.$store.state.category.submitSortModal     = true;
+          this.$store.commit('category/updateStateModals',{submitSortModal:true})
         },
 
         activeRadio(data){
