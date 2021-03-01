@@ -195,14 +195,14 @@ export default {
               this.scrollDataCategoryProduct = this.categoryProductMobile;
             }
             else {
-              // this.scrollDataCategoryProduct  = [];
-              // this.list      = [];
-              // this.infiniteStartDetected++;
-              // window.scroll({
-              //   top: 0,
-              //   left: 0,
-              //   behavior: 'smooth'
-              // })
+              this.scrollDataCategoryProduct  = [];
+              this.list      = [];
+              this.infiniteStartDetected++;
+              window.scroll({
+                top: 0,
+                left: 0,
+                behavior: 'smooth'
+              })
             }
 
 
