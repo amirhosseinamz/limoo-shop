@@ -10,8 +10,13 @@
             <div class="user-cart__shipping-container">
                 <div class="d-fleX w-100 justify-content-space-between">
                     <span class="user-shipping__title">انتخاب آدرس</span>
-                    <span>افزودن آدرس جدید</span>
+                    <span class="user-shipping__address-btn"
+                        >افزودن آدرس جدید</span
+                    >
                 </div>
+                <span class="card-shape__circle">
+                    <span class="card-shape__circle-inner"></span>
+                </span>
                 <The-cart-orders
                     @event-show-modal-delete-order="eventShowModalDeleteOrder"
                     @add-more-order-to-card="addMoreOrderToCard"
@@ -27,7 +32,6 @@
             :current-orders="currentOrders"
             @btn-delete-order="btnDeleteOrder"
         />
-        
     </div>
 </template>
 <script>
@@ -119,6 +123,23 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
+.card-shape__circle {
+    @include display-flex();
+    justify-content: center;
+    align-items: center;
+    width: 19px;
+    height: 19px;
+    border-radius: 50%;
+    background-color: $yellow;
+    /* background-color: $light-gray; */
+}
+.card-shape__circle-inner {
+    width: 9.5px;
+    height: 9.5px;
+    border-radius: 50%;
+    background-color: $white;
+}
+/*  */
 .cart-container {
     margin: 0 auto;
     width: 100%;
@@ -153,6 +174,23 @@ export default {
     color: $black-topic;
     margin: 24px 24px 24px 0;
     /* border: 1px solid blue; */
+}
+.user-shipping__address-btn {
+    font-family: inherit;
+    font-size: 16px;
+    line-height: 140.62%;
+    margin: 24px 0 24px 0;
+    color: $gray;
+    cursor: pointer;
+}
+.user-shipping__address-btn::after {
+    @include font-icon__limoo();
+    content: "\e821";
+    color: $yellow;
+    font-size: 24px;
+    margin-left: 23px;
+    margin-right: 8px;
+    vertical-align: middle;
 }
 .user-cart__go-back {
     @include display-flex();

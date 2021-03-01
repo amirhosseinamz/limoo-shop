@@ -134,9 +134,9 @@
                         ></button>
                     </div>
                     <div class="order-detail__price-container">
-                        <span class="order-detail__orderPrice"
-                            >{{ data.orderPrice }} تومان</span
-                        >
+                        <span class="order-detail__orderPrice">{{
+                            data.orderPrice
+                        }}</span>
                         <span class="order-detail__orderPriceOff"
                             >{{ data.orderPriceOff }} تومان</span
                         >
