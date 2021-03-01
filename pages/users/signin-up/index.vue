@@ -13,7 +13,7 @@ export default {
     },
     methods: {
         onSubmit(phone) {
-            console.log(phone);
+            // console.log(phone);
             this.$store.dispatch("authUser/signInUpUser", {
                 phone: phone
             });

@@ -223,7 +223,7 @@ export default {
     width: 100%;
     max-width: 1920px;
     min-height: 100vh;
-    display: flex;
+    @include display-flex();
     flex-direction: row-reverse;
 }
 .user-profile {

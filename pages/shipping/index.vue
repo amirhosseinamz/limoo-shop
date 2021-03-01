@@ -1,24 +1,32 @@
 <template>
     <div class="cart-container d-rtl">
         <div class="user-cart__container">
-            <div class="mobile-screen__holder d-rtl">
-                <span class="user-cart__title-mobile-screen"
+            <!-- <div class="mobile-screen__holder d-rtl">
+                <span class="user-shipping__title-mobile-screen"
                     >لیست سفارشات شما</span
                 >
                 <span @click="goBack" class="mobile-screen__arrow"></span>
-            </div>
-            <div class="user-cart__orders-container">
-                <span class="user-cart__title">لیست سفارشات شما</span>
+            </div> -->
+            <div class="user-cart__shipping-container">
+                <div class="d-fleX w-100 justify-content-space-between">
+                    <span class="user-shipping__title">انتخاب آدرس</span>
+                    <span class="user-shipping__address-btn"
+                        >افزودن آدرس جدید</span
+                    >
+                </div>
+                <span class="card-shape__circle">
+                    <span class="card-shape__circle-inner"></span>
+                </span>
                 <The-cart-orders
                     @event-show-modal-delete-order="eventShowModalDeleteOrder"
                     @add-more-order-to-card="addMoreOrderToCard"
                     @minus-order-from-card="minusOrderFromCart"
                     :orders-data="ordersData"
                 ></The-cart-orders>
-                <nuxt-link to="/" class="user-cart__go-back">بازگشت</nuxt-link>
             </div>
-            <The-cart-pay-detail></The-cart-pay-detail>
+            <The-cart-shipping-detail></The-cart-shipping-detail>
         </div>
+        <nuxt-link to="/" class="user-cart__go-back">بازگشت</nuxt-link>
         <TheModalDeleteUserOrders
             :active.sync="showModalDeleteOrder"
             :current-orders="currentOrders"
@@ -27,12 +35,12 @@
     </div>
 </template>
 <script>
-import TheCartPayDetail from "~/components/Cart/TheCartPayDetail.vue";
+import TheCartShippingDetail from "~/components/Shipping/TheShippingPayDetail.vue";
 import TheCartOrders from "~/components/Cart/TheCartOrders.vue";
 import TheModalDeleteUserOrders from "~/components/Cart/TheModalDeleteUserOrders.vue";
 export default {
     components: {
-        TheCartPayDetail,
+        TheCartShippingDetail,
         TheCartOrders,
         TheModalDeleteUserOrders
     },
@@ -40,33 +48,33 @@ export default {
         return {
             showModalDeleteOrder: false,
             ordersData: [
-                {
-                    id: 1,
-                    title:
-                        "اپل واچ سری 1 آلومینیوم آبی با بند اسپرت سیلیکون آبی",
-                    img: "/img/apple-watch-1.png",
-                    orderPrice: "113،000،000",
-                    orderPriceOff: "223،000",
-                    count: 2
-                },
-                {
-                    id: 2,
-                    title:
-                        "اپل واچ سری 2 آلومینیوم قرمز با بند اسپرت سیلیکون قرمز",
-                    img: "/img/apple-watch-2.png",
-                    orderPrice: "143،000،000",
-                    orderPriceOff: "123،000",
-                    count: 1
-                },
-                {
-                    id: 3,
-                    title:
-                        "اپل واچ سری 3 آلومینیوم زرد با بند اسپرت سیلیکون زرد",
-                    img: "/img/apple-watch-3.png",
-                    orderPrice: "103،000،000",
-                    orderPriceOff: "323،000",
-                    count: 1
-                }
+                // {
+                //     id: 1,
+                //     title:
+                //         "اپل واچ سری 1 آلومینیوم آبی با بند اسپرت سیلیکون آبی",
+                //     img: "/img/apple-watch-1.png",
+                //     orderPrice: "113،000،000",
+                //     orderPriceOff: "223،000",
+                //     count: 2
+                // },
+                // {
+                //     id: 2,
+                //     title:
+                //         "اپل واچ سری 2 آلومینیوم قرمز با بند اسپرت سیلیکون قرمز",
+                //     img: "/img/apple-watch-2.png",
+                //     orderPrice: "143،000،000",
+                //     orderPriceOff: "123،000",
+                //     count: 1
+                // },
+                // {
+                //     id: 3,
+                //     title:
+                //         "اپل واچ سری 3 آلومینیوم زرد با بند اسپرت سیلیکون زرد",
+                //     img: "/img/apple-watch-3.png",
+                //     orderPrice: "103،000،000",
+                //     orderPriceOff: "323،000",
+                //     count: 1
+                // }
             ],
             currentOrders: {}
         };
@@ -115,11 +123,28 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
+.card-shape__circle {
+    @include display-flex();
+    justify-content: center;
+    align-items: center;
+    width: 19px;
+    height: 19px;
+    border-radius: 50%;
+    background-color: $yellow;
+    /* background-color: $light-gray; */
+}
+.card-shape__circle-inner {
+    width: 9.5px;
+    height: 9.5px;
+    border-radius: 50%;
+    background-color: $white;
+}
+/*  */
 .cart-container {
     margin: 0 auto;
     width: 100%;
     max-width: 1920px;
-    min-height: 100vh;
+    height: fit-content;
 }
 .user-cart__container {
     padding: 166px 16px 0 16px;
@@ -128,23 +153,44 @@ export default {
     height: fit-content;
     @include display-flex();
     flex-direction: row;
-    /* border: 1px solid red; */
+    border: 1px solid red;
 }
-.user-cart__orders-container {
+.user-cart__shipping-container {
     @include display-flex();
     flex-direction: column;
     width: 70%;
     /* border: 1px solid blue; */
     margin-left: 31px;
+    background-color: $white;
+    border-radius: 10px;
+    min-height: 192px;
+    height: fit-content;
 }
-.user-cart__title {
+.user-shipping__title {
     font-family: inherit;
     font-size: 18px;
     line-height: 140.62%;
     text-align: right;
     color: $black-topic;
-    margin-bottom: 24px;
+    margin: 24px 24px 24px 0;
     /* border: 1px solid blue; */
+}
+.user-shipping__address-btn {
+    font-family: inherit;
+    font-size: 16px;
+    line-height: 140.62%;
+    margin: 24px 0 24px 0;
+    color: $gray;
+    cursor: pointer;
+}
+.user-shipping__address-btn::after {
+    @include font-icon__limoo();
+    content: "\e821";
+    color: $yellow;
+    font-size: 24px;
+    margin-left: 23px;
+    margin-right: 8px;
+    vertical-align: middle;
 }
 .user-cart__go-back {
     @include display-flex();
@@ -173,7 +219,7 @@ export default {
         margin-bottom: 60px;
         flex-direction: column;
     }
-    .user-cart__orders-container {
+    .user-cart__shipping-container {
         width: 100%;
         /* border: 1px solid blue; */
         margin-left: 0;
@@ -181,7 +227,7 @@ export default {
     .user-cart__go-back {
         display: none;
     }
-    .user-cart__title {
+    .user-shipping__title {
         display: none;
     }
     .mobile-screen__holder {

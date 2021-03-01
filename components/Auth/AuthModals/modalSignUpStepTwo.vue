@@ -139,7 +139,7 @@ export default {
         pressed() {
             // talk to server
             const verifyCode = parseInt(this.verifyCode);
-            console.log(verifyCode, this.userPhoneNumber);
+            // console.log(verifyCode, this.userPhoneNumber);
             const headers = {
                 "Content-Type": "application/json",
                 "Client-Key": process.env.CLIENT_KEY
@@ -156,7 +156,7 @@ export default {
                     }
                 )
                 .then(result => {
-                    console.log(result);
+                    // console.log(result);
                     if (result.response_code == 1) {
                         this.$store.dispatch({
                             type: "userIsAuth",
@@ -165,7 +165,7 @@ export default {
                         this.$store.commit("authUser/setToken", result.token);
                         this.$store.commit("PhoneNumber", { value: "" });
                         this.$emit("event-show-modal-wellcome");
-                        console.log(result.token);
+                        // console.log(result.token);
                     }
                 })
                 .catch(e => console.log(e));
@@ -186,7 +186,7 @@ export default {
                     mm--;
                 }
                 if (this.Tcounter == 0) {
-                    console.log("TimerPassed");
+                    // console.log("TimerPassed");
                     this.animateTimerPassed();
                     clearInterval(interval);
                     this.timerZero = true;
@@ -211,7 +211,7 @@ export default {
                     }
                 )
                 .then(result => {
-                    console.log(result.response_code);
+                    // console.log(result.response_code);
                     if (result.response_code == 2208) {
                         this.countdownTimer(2, 60);
                         this.Tcounter = 178;

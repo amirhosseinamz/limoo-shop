@@ -85,12 +85,12 @@ export default {
     watch: {},
     created() {
         const curentRoute = this.$route.path;
-        if (curentRoute == "/") {
-            this.homeIsActive = true;
+        if (curentRoute.search("/profile") == 0) {
+            this.profileIsActive = true;
         } else if (curentRoute == "/cart") {
             this.basketIsActive = true;
-        } else if (curentRoute.search("/profile") == 0) {
-            this.profileIsActive = true;
+        } else if (curentRoute == "/") {
+            this.homeIsActive = true;
         }
     },
     methods: {
