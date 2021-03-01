@@ -12,7 +12,7 @@
     width: 30%;
     /* border: 1px solid red; */
     height: 541px;
-    margin-top: 49px;
+    /* margin-top: 49px; */
     text-align: center;
     background-color: $white;
     border-radius: 10px;
@@ -24,7 +24,7 @@
 @media (max-width: 960px) {
     .cart-shipping__container {
         width: 100%;
-        margin-top: 0;
+        margin-top: 8px;
         padding: 0 5px;
     }
 }
