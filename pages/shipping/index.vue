@@ -19,9 +19,7 @@
                         >
                     </div>
                     <span class="user-cart__shipping-line"></span>
-                    <!-- <span class="card-shape__circle">
-                        <span class="card-shape__circle-inner"></span>
-                    </span> -->
+
                     <The-shipping-address
                         @event-show-modal-delete-order="
                             eventShowModalDeleteOrder
@@ -61,15 +59,25 @@ export default {
             ordersData: [
                 {
                     id: 1,
-                    title: "تهران خیابان ولی عصر 1 تقاطع مطهری، کوچه حسینی راد"
+                    title: "تهران خیابان ولی عصر 1 تقاطع مطهری، کوچه حسینی راد",
+                    reciverPerson: "شروین پیکارجو",
+                    phone: "09120121023",
+                    defultAddress: true
                 },
                 {
                     id: 2,
-                    title: "تهران خیابان ولی عصر 2 تقاطع مطهری، کوچه حسینی راد"
+                    title:
+                        "تهران خیابان ولی عصر 2 تقاطع مطهری، کوچه حسینی راد تهران خیابان ولی عصر 2 تقاطع مطهری، کوچه حسینی راد",
+                    reciverPerson: "خشایار سُلگی",
+                    phone: "09190894025",
+                    defultAddress: false
                 },
                 {
                     id: 3,
-                    title: "تهران خیابان ولی عصر 3 تقاطع مطهری، کوچه حسینی راد"
+                    title: "تهران خیابان ولی عصر 3 تقاطع مطهری، کوچه حسینی راد",
+                    reciverPerson: "مهدی دادور",
+                    phone: "09180151023",
+                    defultAddress: false
                 }
             ],
             currentOrders: {}
@@ -119,23 +127,6 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
-.card-shape__circle {
-    @include display-flex();
-    justify-content: center;
-    align-items: center;
-    width: 19px;
-    height: 19px;
-    border-radius: 50%;
-    background-color: $yellow;
-    /* background-color: $light-gray; */
-}
-.card-shape__circle-inner {
-    width: 9.5px;
-    height: 9.5px;
-    border-radius: 50%;
-    background-color: $white;
-}
-/*  */
 .cart-container {
     margin: 0 auto;
     width: 100%;
@@ -173,7 +164,7 @@ export default {
     border-radius: 10px;
     min-height: 192px;
     height: fit-content;
-    padding: 0 24px;
+    padding: 0 24px 30px 24px;
 }
 .user-shipping__title {
     font-family: inherit;
@@ -299,6 +290,11 @@ export default {
         font-weight: bold;
         /* margin-right: 4px;
         margin-left: 8px; */
+    }
+}
+@media (max-width: 280px) {
+    .user-cart__shipping-container {
+        padding: 0 3px;
     }
 }
 </style>
