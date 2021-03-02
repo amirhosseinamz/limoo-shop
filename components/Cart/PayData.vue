@@ -1,29 +1,34 @@
 <template>
   <div class="cart-detail__payment">
+      <div class="w-100 cart-detail__text">
+        <h3 class="cart-detail__title">صورتحساب</h3>
+      </div>
+
       <div class="cart-detail__items">
+          <div class="w-100 cart-detail__content">
                 <div class="cart-detail__item">
-                    <div class="cart-detail__right">
-                      <img src="/icons/coin.svg" class="cart-detail__icon" alt="">
-                      <h3 class="cart-detail__right-title">قیمت محصولات:</h3>
-                    </div>
-                    <div class="cart-detail__left">
-                      <h3 class="cart-detail__left-title">{{detailPrice.price}}</h3>
-                      <h3 class="cart-detail__left-title">تومان</h3>
-                    </div>
+                  <div class="cart-detail__right">
+                    <img src="/icons/coin.svg" class="cart-detail__icon" alt="">
+                    <h3 class="cart-detail__right-title">قیمت محصولات:</h3>
+                  </div>
+                  <div class="cart-detail__left">
+                    <h3 class="cart-detail__left-title">{{detailPrice.price}}</h3>
+                    <h3 class="cart-detail__left-title">تومان</h3>
+                  </div>
                 </div>
 
                 <div class="cart-detail__item">
-                    <div class="cart-detail__right">
-                      <img src="/icons/Discount-cart.svg" class="cart-detail__icon discount--icon" alt="">
-                      <h3 class="cart-detail__right-title">تخفیف کل:</h3>
-                    </div>
-                    <div class="cart-detail__left">
-                      <h3 class="cart-detail__left-title">{{detailPrice.totalDiscount}}</h3>
-                      <h3 class="cart-detail__left-title">تومان</h3>
-                    </div>
+                  <div class="cart-detail__right">
+                    <img src="/icons/Discount-cart.svg" class="cart-detail__icon discount--icon" alt="">
+                    <h3 class="cart-detail__right-title">تخفیف کل:</h3>
+                  </div>
+                  <div class="cart-detail__left">
+                    <h3 class="cart-detail__left-title">{{detailPrice.totalDiscount}}</h3>
+                    <h3 class="cart-detail__left-title">تومان</h3>
+                  </div>
                 </div>
 
-              <div class="cart-detail__item">
+                <div class="cart-detail__item">
                   <div class="cart-detail__right">
                     <img src="/icons/car.svg" class="cart-detail__icon car--icon" alt="">
                     <h3 class="cart-detail__right-title">هزینه ارسال:</h3>
@@ -31,23 +36,25 @@
                   <div class="cart-detail__left">
                     <h3 class="cart-detail__left-title">{{detailPrice.submitDeliveryPrice}}</h3>
                   </div>
-              </div>
-
-              <span class="cart-detail__line"></span>
+                </div>
           </div>
 
-          <div class="cart-detail__total">
-              <div class="cart-detail__item">
-                  <div class="cart-detail__right">
-                    <img src="/icons/coin.svg" alt="">
-                    <h3 class="cart-detail__right-title red--pay">جمع قابل پرداخت:</h3>
-                  </div>
-                  <div class="cart-detail__left">
-                    <h3 class="cart-detail__left-title red--pay">{{detailPrice.totalPrice}}</h3>
-                    <h3 class="cart-detail__left-title red--pay">تومان</h3>
+              <span class="cart-detail__line line--desk"></span>
+
+              <div class="cart-detail__total">
+                  <div class="cart-detail__item">
+                      <div class="cart-detail__right">
+                        <h3 class="cart-detail__right-title red--pay">جمع قابل پرداخت:</h3>
+                      </div>
+                      <div class="cart-detail__left">
+                        <h3 class="cart-detail__left-title red--pay">{{detailPrice.totalPrice}}</h3>
+                        <h3 class="cart-detail__left-title red--pay">تومان</h3>
+                      </div>
                   </div>
               </div>
+
           </div>
+
 
           <div class="cart-detail__btn w-100">
               <button type="button" class="cart-detail__btn-item remove--border" name="button">
@@ -193,6 +200,7 @@ export default {
   margin-top: 24px;
   font-weight: 400;
   cursor: pointer;
+
 }
 .cart-detail__btn-item:nth-child(1){
   margin-top: 0;
@@ -240,16 +248,102 @@ export default {
   margin-right: 8px;
   font-size: 16px;
 }
+.cart-detail__title{
+  font-size: 14px;
+  color: $black-topic;
+  font-weight: 400;
+  text-align: right;
+}
+.cart-detail__text{
+  margin-top: 16px;
+  margin-bottom: 23px;
+}
+.cart-detail__total .cart-detail__right-title{
+  margin-right: 0;
+}
 
 
 
+@media (max-width: 1300px) {
+  .cart-detail__right-title{
+    font-size: 13px;
+  }
+  .cart-detail__left-title{
+    font-size: 13px;
+  }
+  .cart-detail__icon{
+    width: 14px;
+    height: 14px;
+  }
+  .cart-detail__btn-item{
+    width: 100%;
+  }
 
+
+}
 
 @media (max-width: 960px) {
+    .cart-detail__item:nth-child(1){
+      margin-top: 16px;
+    }
+    .cart-detail__item{
+      margin-top:23px;
+    }
     .cart-detail__container {
         width: 100%;
         margin-top: 0;
         padding: 0 5px;
     }
+    .cart-detail__items{
+      border:solid 1px $google-btn__bg;
+      border-radius: 10px;
+      padding-right: 0px;
+      padding-left: 0px;
+    }
+    .cart-detail__total{
+      // margin-top: 16px;
+      margin-bottom: 16px;
+      padding-right: 12px;
+      padding-left: 12px;
+    }
+    .cart-detail__content{
+      padding-right: 12px;
+      padding-left: 12px;
+    }
+    .cart-detail__line{
+      width: 100%;
+      background: $google-btn__bg;
+      height: 1px;
+      margin-top: 16px;
+    }
+    .btn--debtor{
+      display: none;
+    }
+    .cart-detail__btn{
+      z-index: 11;
+      position: fixed;
+      bottom: 58px;
+      right: 0;
+      background: $white;
+      padding-bottom: 8px;
+      padding-top: 8px;
+      padding-right: 16px;
+      padding-left: 16px;
+      box-shadow: 0px 1px 15px rgba(0, 0, 0, 0.09);
+    }
+    .cart-detail__icon{
+      height: 17px;
+      height: 17px;
+    }
+    .car--icon{
+      width: 19px;
+      height: 19px;
+    }
+    .discount--icon{
+      width: 17px;
+      height: 17px;
+    }
+
 }
+
 </style>
