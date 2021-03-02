@@ -57,11 +57,21 @@
 
 
           <div class="cart-detail__btn w-100">
-              <button type="button" class="cart-detail__btn-item remove--border" name="button">
-                ادامه فرایند خرید
+              <button  type="button" class="cart-detail__btn-item remove--border" name="button">
+                    <NuxtLink
+                      class="cart-detail__btn-link"
+                      to="/shipping"
+                    >
+                      ادامه فرایند خرید
+                    </NuxtLink>
               </button>
               <button type="button" class="cart-detail__btn-item btn--debtor" name="button">
-                خرید اقساصی کالا
+                  <NuxtLink
+                    class="cart-detail__btn-link"
+                    to="/shipping"
+                  >
+                    خرید اقساصی کالا
+                  </NuxtLink>
               </button>
           </div>
 
@@ -190,7 +200,7 @@ export default {
 }
 .cart-detail__btn-item{
   width: 395px;
-  height: 57px;
+  // height: 57px;
   background: $btn__green;
   border-radius: 10px;
   border: 2px solid $gray;
@@ -262,6 +272,18 @@ export default {
 .cart-detail__total .cart-detail__right-title{
   margin-right: 0;
 }
+.cart-detail__btn-link{
+  color: $white;
+  text-decoration: none;
+  height: 57px;
+  @include display-flex();
+  justify-content: center;
+  align-items: center;
+}
+.btn--debtor .cart-detail__btn-link{
+  color: $gray;
+}
+
 
 
 

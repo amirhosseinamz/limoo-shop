@@ -34,7 +34,7 @@
                         >افزودن آدرس جدید</span
                     >
                 </div>
-                <The-cart-shipping-detail></The-cart-shipping-detail>
+                <The-cart-shipping-detail :detail-price="detailPrice"></The-cart-shipping-detail>
             </div>
         </div>
         <nuxt-link to="/" class="user-cart__go-back">بازگشت</nuxt-link>
@@ -49,6 +49,9 @@
 import TheCartShippingDetail from "~/components/Shipping/TheShippingPayDetail.vue";
 import TheShippingAddress from "~/components/Shipping/TheShippingAddress.vue";
 import TheModalDeleteUserOrders from "~/components/Cart/TheModalDeleteUserOrders.vue";
+import addCamaPrice from "~/modules/addCamaPrice.js";
+
+
 export default {
     components: {
         TheCartShippingDetail,
@@ -72,9 +75,20 @@ export default {
                     title: "تهران خیابان ولی عصر 3 تقاطع مطهری، کوچه حسینی راد"
                 }
             ],
-            currentOrders: {}
+            currentOrders: {},
+            detailPrice  : {
+              price               : 12000,
+              totalDiscount       : 142250,
+              submitDeliveryPrice : 'رایگان',
+              totalPrice          : 2587000,
+            }
         };
     },
+
+    mounted() {
+      this.addCama();
+    },
+
     methods: {
         goBack() {
             this.$router.push("/cart");
@@ -114,7 +128,24 @@ export default {
                     content.count--;
                 }
             });
-        }
+        },
+
+        addCama(){
+          const getDetailPrice       = this.detailPrice;
+          const setUpdateDetailPrice = {
+          }
+
+          for (let key in getDetailPrice) {
+            setUpdateDetailPrice[key] = getDetailPrice[key];
+
+            if (getDetailPrice[key] != 'رایگان') {
+               setUpdateDetailPrice[key] = addCamaPrice(getDetailPrice[key]);
+            }
+          }
+
+          this.detailPrice = setUpdateDetailPrice;
+        },
+
     }
 };
 </script>
