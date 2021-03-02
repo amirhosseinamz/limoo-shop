@@ -17,7 +17,7 @@
                 ></The-cart-orders>
                 <nuxt-link to="/" class="user-cart__go-back">بازگشت</nuxt-link>
             </div>
-            <The-cart-pay-detail></The-cart-pay-detail>
+            <The-cart-pay-detail :detail-price="detailPrice"></The-cart-pay-detail>
         </div>
         <TheModalDeleteUserOrders
             :active.sync="showModalDeleteOrder"
@@ -30,6 +30,9 @@
 import TheCartPayDetail from "~/components/Cart/TheCartPayDetail.vue";
 import TheCartOrders from "~/components/Cart/TheCartOrders.vue";
 import TheModalDeleteUserOrders from "~/components/Cart/TheModalDeleteUserOrders.vue";
+import addCamaPrice from "~/modules/addCamaPrice.js";
+
+
 export default {
     components: {
         TheCartPayDetail,
@@ -68,9 +71,21 @@ export default {
                     count: 1
                 }
             ],
-            currentOrders: {}
+            currentOrders: {},
+            detailPrice  : {
+              price               : 12000,
+              totalDiscount       : 142250,
+              submitDeliveryPrice : 'رایگان',
+              totalPrice          : 2587000,
+            }
         };
     },
+
+    mounted() {
+      // پس ار اتصال به بک این قسمت باید بعد از برگشت اطلاعات از سمت بک صدا زده شود //
+      this.addCama();
+    },
+
     methods: {
         goBack() {
             this.$router.push("/");
@@ -110,7 +125,24 @@ export default {
                     content.count--;
                 }
             });
-        }
+        },
+
+        addCama(){
+          const getDetailPrice       = this.detailPrice;
+          const setUpdateDetailPrice = {
+          }
+
+          for (let key in getDetailPrice) {
+            setUpdateDetailPrice[key] = getDetailPrice[key];
+
+            if (getDetailPrice[key] != 'رایگان') {
+               setUpdateDetailPrice[key] = addCamaPrice(getDetailPrice[key]);
+            }
+          }
+
+          this.detailPrice = setUpdateDetailPrice;
+        },
+
     }
 };
 </script>
