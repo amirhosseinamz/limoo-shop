@@ -257,6 +257,7 @@ export default {
 .cart-detail__text{
   margin-top: 16px;
   margin-bottom: 23px;
+  display: none;
 }
 .cart-detail__total .cart-detail__right-title{
   margin-right: 0;
@@ -278,8 +279,6 @@ export default {
   .cart-detail__btn-item{
     width: 100%;
   }
-
-
 }
 
 @media (max-width: 960px) {
@@ -343,7 +342,9 @@ export default {
       width: 17px;
       height: 17px;
     }
-
+    .cart-detail__text{
+      @include display-flex();
+    }
 }
 
 </style>
