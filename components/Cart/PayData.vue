@@ -47,11 +47,11 @@
               <div class="cart-detail__total">
                   <div class="cart-detail__item">
                       <div class="cart-detail__right">
-                        <h3 class="cart-detail__right-title red--pay">جمع قابل پرداخت:</h3>
+                        <h3 class="cart-detail__right-title green--pay">جمع قابل پرداخت:</h3>
                       </div>
                       <div class="cart-detail__left">
-                        <h3 class="cart-detail__left-title red--pay">{{detailPrice.totalPrice}}</h3>
-                        <h3 class="cart-detail__left-title red--pay">تومان</h3>
+                        <h3 class="cart-detail__left-title green--pay">{{detailPrice.totalPrice}}</h3>
+                        <h3 class="cart-detail__left-title green--pay">تومان</h3>
                       </div>
                   </div>
               </div>
@@ -186,8 +186,8 @@ export default {
 .cart-detail__total .cart-detail__item{
   margin-top: 18px;
 }
-.red--pay{
-  color: $red-color;
+.green--pay{
+  color: $green__answer;
 }
 .cart-detail__icon{
   width: 18px;
