@@ -8,7 +8,9 @@
           <div class="w-100 cart-detail__content">
                 <div class="cart-detail__item">
                   <div class="cart-detail__right">
-                    <img src="/icons/coin.svg" class="cart-detail__icon" alt="">
+                    <!-- <img src="/icons/coin.svg" class="cart-detail__icon" alt=""> -->
+                    <span class="cart-detail__coin" alt=""></span>
+
                     <h3 class="cart-detail__right-title">قیمت محصولات:</h3>
                   </div>
                   <div class="cart-detail__left">
@@ -283,7 +285,10 @@ export default {
 .btn--debtor .cart-detail__btn-link{
   color: $gray;
 }
-
+.cart-detail__coin::after {
+    content: "\e809";
+    @include font-icon__limoo();
+}
 
 
 
