@@ -1,6 +1,6 @@
 <template>
-    <div :key="updateCalcDetailPrice" class="cart-detail__container cart--parent" >
-          <div  v-stick-in-parent="stikyKit" class="cart-detail__main">
+    <div :key="updateCalcDetailPrice" class="cart-detail__container cart--parent" id="some-stickybit-parent">
+          <div   class="cart-detail__main" id="ome-stickybit-nav">
                <PayData :detail-price="detailPrice"></PayData>
 
                 <div class="w-100 cart-detail__about">
@@ -14,11 +14,14 @@
                     </div>
                 </div>
           </div>
+
     </div>
 </template>
 
 <script>
 import PayData from './PayData';
+import stickybits from 'stickybits';
+
 
 export default {
     props: {
@@ -34,7 +37,9 @@ export default {
             stikyKit: {
                  options: {
                    parent     : '.cart--parent',
-                   offset_top : 140
+                   offset_top : 140,
+                   spacer: ".sticky-spacer",
+
                  },
                  on: {
                    'sticky_kit:stick': function(e) {
@@ -50,7 +55,11 @@ export default {
     },
 
     mounted() {
-      this.detectedResizeBrowser();
+      stickybits("#ome-stickybit-nav", {
+         useStickyClasses: false,
+         stickyBitStickyOffset : 140,
+        });
+      // this.detectedResizeBrowser();
     },
 
     methods: {
@@ -222,6 +231,7 @@ export default {
   align-items: flex-start;
   @include display-flex();
   flex-wrap: wrap;
+  margin-bottom: 60px;
 }
 .cart-detail__about-title{
   color: $gray;
