@@ -276,6 +276,9 @@ export default {
 }
 
 @media (max-width: 960px) {
+    .cart-detail__container{
+      width: 100%;
+    }
     .user-cart__container {
         padding: 47px 0 0 0;
         margin-bottom: 60px;

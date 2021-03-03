@@ -231,6 +231,7 @@ export default {
   align-items: flex-start;
   @include display-flex();
   flex-wrap: wrap;
+  z-index: 1;
 }
 .cart-detail__about-title{
   color: $gray;
