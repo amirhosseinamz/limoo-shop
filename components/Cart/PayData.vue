@@ -22,6 +22,7 @@
                 <div class="cart-detail__item">
                   <div class="cart-detail__right">
                     <img src="/icons/Discount-cart.svg" class="cart-detail__icon discount--icon" alt="">
+                    <!-- <span class="cart-detail__discount"></span> -->
                     <h3 class="cart-detail__right-title">تخفیف کل:</h3>
                   </div>
                   <div class="cart-detail__left">
@@ -288,8 +289,26 @@ export default {
 .cart-detail__coin::after {
     content: "\e809";
     @include font-icon__limoo();
+    font-size: 18px;
+}
+.cart-detail__discount::after{
+  content: "\e80d";
+  @include font-icon__limoo();
+  font-size: 18px;
 }
 
+
+@media (max-width: 1500px) {
+  .cart-detail__total .cart-detail__item{
+    margin-top: 16px;
+  }
+  .cart-detail__item:nth-child(1){
+    margin-top: 16px;
+  }
+  .cart-detail__btn{
+    margin-top: 18px;
+  }
+}
 
 
 @media (max-width: 1300px) {
@@ -306,6 +325,7 @@ export default {
   .cart-detail__btn-item{
     width: 100%;
   }
+
 }
 
 @media (max-width: 960px) {

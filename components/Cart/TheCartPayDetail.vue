@@ -240,20 +240,19 @@ export default {
   font-size: 16px;
 }
 
-@media (max-width: 1300px) {
+@media (max-width: 1500px) {
   .cart-detail__payment{
-    padding-right: 13px;
-    padding-left: 13px;
+    padding-bottom: 24px;
   }
+}
+
+@media (max-width: 1300px) {
   .cart-detail__about-title{
     font-size: 13px;
   }
   .cart-detail__about-icon{
     height: 22px;
     margin-top: -12px;
-  }
-  .cart-detail__about-item{
-
   }
 
 }
