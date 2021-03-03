@@ -7,97 +7,73 @@
                 >
                 <span @click="goBack" class="mobile-screen__arrow"></span>
             </div>
-            <span class="user-cart__shipping-topic"
-                >تکمیل اطلاعات ارسال کالا</span
-            >
-            <div class="user-cart__shipping-holder">
-                <div class="user-cart__shipping-container">
-                    <div class="d-fleX w-100 justify-content-space-between">
-                        <span class="user-shipping__title">انتخاب آدرس</span>
-                        <span class="user-shipping__address-btn"
-                            >افزودن آدرس جدید</span
-                        >
+
+            <div class="w-100 payment-content">
+                    <div class="user-cart__shipping-holder">
+                        <div class="user-cart__shipping-container">
+                            <div class="w-100">
+                                <div class="payment__header">
+                                  <span class="user-shipping__title">انتخاب درگاه پرداخت</span>
+                                  <span class="payment__line"></span>
+                                  <payment-gateway :key="updatePaymentGateway" :payment-gateway="paymentGateway" @selected-getway="selectedGetway"></payment-gateway>
+                                </div>
+
+                                <div class="w-100 payment__address-main">
+                                        <div class="w-100">
+                                            <span class="payment__address-text">ارسال کالا به این آدرس</span>
+                                        </div>
+                                        <div class="w-100 payment__address-item">
+                                          <span class="payment__address-place"></span>
+                                          <h3 class="payment__address-title">تهران ، خیابان ولیعصر ، تقاطق مطهری ، کوچه حسینی راد</h3>
+                                        </div>
+                                </div>
+                            </div>
+                        </div>
+                        <The-cart-shipping-detail :detail-price="detailPrice" ></The-cart-shipping-detail>
                     </div>
-                    <span class="user-cart__shipping-line"></span>
-                    <!-- <span class="card-shape__circle">
-                        <span class="card-shape__circle-inner"></span>
-                    </span> -->
-                    <The-shipping-address
-                        @event-show-modal-delete-order="
-                            eventShowModalDeleteOrder
-                        "
-                        @add-more-order-to-card="addMoreOrderToCard"
-                        @minus-order-from-card="minusOrderFromCart"
-                        :orders-data="ordersData"
-                    ></The-shipping-address>
-                    <span class="user-shipping__address-btn__mobile"
-                        >افزودن آدرس جدید</span
-                    >
-                </div>
-                <The-cart-shipping-detail :detail-price="detailPrice"></The-cart-shipping-detail>
+
+
             </div>
+
         </div>
         <nuxt-link to="/" class="user-cart__go-back">بازگشت</nuxt-link>
-        <TheModalDeleteUserOrders
-            :active.sync="showModalDeleteOrder"
-            :current-orders="currentOrders"
-            @btn-delete-order="btnDeleteOrder"
-        />
+
     </div>
 </template>
 <script>
 import TheCartShippingDetail from "~/components/Payment/TheShippingPayDetail.vue";
-import TheShippingAddress from "~/components/Payment/TheShippingAddress.vue";
-import TheModalDeleteUserOrders from "~/components/Cart/TheModalDeleteUserOrders.vue";
 import addCamaPrice from "~/modules/addCamaPrice.js";
+import paymentGateway from "~/components/Payment/paymentGateway.vue";
 
 
 export default {
     components: {
         TheCartShippingDetail,
-        TheShippingAddress,
-        TheModalDeleteUserOrders
+        paymentGateway
     },
     data() {
         return {
-            showModalDeleteOrder: false,
-            ordersData: [
-                {
-                    id: 1,
-                    title: "تهران خیابان ولی عصر 1 تقاطع مطهری، کوچه حسینی راد"
-                },
-                {
-                    id: 2,
-                    title: "تهران خیابان ولی عصر 2 تقاطع مطهری، کوچه حسینی راد"
-                },
-                {
-                    id: 3,
-                    title: "تهران خیابان ولی عصر 3 تقاطع مطهری، کوچه حسینی راد"
-                },
-                {
-                    id: 4,
-                    title: "تهران خیابان ولی عصر 3 تقاطع مطهری، کوچه حسینی راد"
-                },
-                {
-                    id: 5,
-                    title: "تهران خیابان ولی عصر 3 تقاطع مطهری، کوچه حسینی راد"
-                },
-                {
-                    id: 6,
-                    title: "تهران خیابان ولی عصر 3 تقاطع مطهری، کوچه حسینی راد"
-                },
-                {
-                    id: 7,
-                    title: "تهران خیابان ولی عصر 3 تقاطع مطهری، کوچه حسینی راد"
-                },
-            ],
-            currentOrders: {},
             detailPrice  : {
               price               : 12000,
               totalDiscount       : 142250,
               submitDeliveryPrice : 'رایگان',
               totalPrice          : 2587000,
-            }
+            },
+            paymentGateway : [
+                {
+                  id    : 1,
+                  title : 'آسان پرداخت',
+                },
+                {
+                  id    : 2,
+                  title : 'کیف پول دایور',
+                },
+                {
+                  id    : 3,
+                  title : 'بانک ملت',
+                },
+            ],
+            updatePaymentGateway : 0,
         };
     },
 
@@ -108,42 +84,6 @@ export default {
     methods: {
         goBack() {
             this.$router.push("/cart");
-        },
-        eventShowModalDeleteOrder(data) {
-            this.showModalDeleteOrder = true;
-            this.currentOrders = data;
-        },
-        btnDeleteOrder(data) {
-            const removeOrder = () => {
-                let indexDeleteOrderData = -1;
-
-                this.ordersData.map((content, index) => {
-                    if (content.id == data.id) {
-                        indexDeleteOrderData = index;
-                    }
-                });
-
-                this.ordersData.splice(indexDeleteOrderData, 1);
-            };
-
-            removeOrder();
-            this.showModalDeleteOrder = false;
-
-            // request //
-        },
-        addMoreOrderToCard(data) {
-            this.ordersData.map(content => {
-                if (content.id == data.id) {
-                    content.count++;
-                }
-            });
-        },
-        minusOrderFromCart(data) {
-            this.ordersData.map(content => {
-                if (content.id == data.id) {
-                    content.count--;
-                }
-            });
         },
 
         addCama(){
@@ -161,6 +101,18 @@ export default {
 
           this.detailPrice = setUpdateDetailPrice;
         },
+
+        selectedGetway(data){
+          this.paymentGateway.map((content)=>{
+              if (data.id == content.id) {
+                content.selected = true;
+              }
+              else {
+                content.selected = false;
+              }
+          })
+          this.updatePaymentGateway++;
+        }
 
     }
 };
@@ -216,11 +168,9 @@ export default {
     width: 70%;
     /* border: 1px solid blue; */
     margin-left: 30px;
-    background-color: $white;
     border-radius: 10px;
     min-height: 192px;
     height: fit-content;
-    padding: 0 24px;
 }
 .user-shipping__title {
     font-family: inherit;
@@ -228,8 +178,9 @@ export default {
     line-height: 140.62%;
     text-align: right;
     color: $black-topic;
-    margin: 24px 0 24px 0;
+    margin: 38px 0 38px 0;
     /* border: 1px solid blue; */
+    margin-right: 26px;
 }
 .user-shipping__address-btn,
 .user-shipping__address-btn__mobile {
@@ -277,9 +228,90 @@ export default {
 .user-cart__shipping-line {
     display: none;
 }
+.payment__line{
+  width: 100%;
+  height: 1px;
+  background: $light-gray;
+  @include display-flex();
+}
+.payment__header{
+  @include display-flex();
+  flex-wrap: wrap;
+  align-items: flex-start;
+  background: $white;
+}
+.payment-content{
+  @include display-flex();
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+.payment__address-main{
+  background: $white;
+  width: 100%;
+  min-height: 134px;
+  padding-right: 24px;
+  padding-left: 24px;
+  padding-top: 24px;
+  padding-bottom: 24px;
+  margin-top: 16px;
+  border-radius: 10px;
+}
+.payment__address-place::after{
+  color: $gray;
+  content: "\e817";
+  @include font-icon__limoo();
+  font-size: 21px;
+}
+.payment__address-place{
+  margin-left: 11px;
+}
+.payment__address-title{
+  font-size: 16px;
+  color: $color-price;
+  font-weight: 400;
+  width: 91%;
+}
+.payment__address-item{
+  margin-top: 25px;
+  @include display-flex();
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+.payment__address-text{
+  font-size: 18px;
+  font-weight: 400;
+}
+
+
+
+@media (max-width: 1400px) {
+  .user-cart__shipping-container{
+    width: 62.9%;
+    margin-left: 2.1%;
+  }
+}
+
 @media (max-width: 960px) {
     .user-shipping__address-btn {
         display: none;
+    }
+    .payment__address-main{
+      margin-top: 0;
+    }
+    .payment__header{
+      border-radius: 0;
+      border-top-right-radius: 10px;
+      border-top-left-radius: 10px;
+    }
+    .payment__address-text{
+      font-size: 14px;
+    }
+    .payment__address-title{
+      font-size: 14px;
+      width: 90%;
+    }
+    .payment__address-place{
+      margin-left: 11px;
     }
     .user-shipping__address-btn__mobile {
         display: block;
@@ -315,14 +347,13 @@ export default {
         width: 100%;
         /* border: 1px solid blue; */
         margin-left: 0;
-        padding: 0 11px;
     }
     .user-cart__go-back {
         display: none;
     }
     .user-shipping__title {
         font-size: 14px;
-        margin: 16px 0 16px 0;
+        margin: 16px 11px 0px 0;
         /* border: 1px solid blue; */
     }
     .user-cart__shipping-topic {
@@ -346,6 +377,9 @@ export default {
         font-weight: bold;
         /* margin-right: 4px;
         margin-left: 8px; */
+    }
+    .payment__line{
+      display: none;
     }
 }
 </style>

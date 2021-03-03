@@ -1,96 +1,108 @@
 <template>
   <div class="cart-detail__payment">
 
-
-      <div class="cart-detail__btn w-100">
-          <div class="w-100">
-              <div class="shipping-btn__item">
-                  <div class="shipping-btn__right">
-                    <h3 class="cart-detail__right-title">مبلغ قابل پرداخت :</h3>
-                  </div>
-                  <div class="shipping-btn__left">
-                    <h3 class="cart-detail__left-title">{{detailPrice.totalPrice}}</h3>
-                    <h3 class="cart-detail__left-title">تومان</h3>
-                  </div>
-              </div>
-          </div>
-          <div class="w-100">
-              <button  type="button" class="cart-detail__btn-item remove--border" name="button">
-                  <NuxtLink
-                  class="cart-detail__btn-link"
-                  to="/shipping"
-                  >
-                  پرداخت نهایی
-                </NuxtLink>
-                <!-- <NuxtLink
-                class="cart-detail__btn-link "
-                to="/shipping"
-                >
-                پرداخت نهایی
-              </NuxtLink> -->
-            </button>
-          </div>
-      </div>
-
-      <div class="w-100 cart-detail__text shipping--mobile">
-        <h3 class="cart-detail__title">فاکتور</h3>
-      </div>
-
-      <div class="cart-detail__items">
-          <div class="w-100 cart-detail__text shipping--desktop">
-            <h3 class="cart-detail__title">صورتحساب</h3>
-          </div>
-
-          <span class="cart-detail__line "></span>
-
-
-            <div class="w-100 cart-detail__content">
-                  <div class="cart-detail__item">
-                    <div class="cart-detail__right">
-                      <img src="/icons/coin.svg" class="cart-detail__icon" alt="">
-                      <h3 class="cart-detail__right-title">قیمت محصولات:</h3>
-                    </div>
-                    <div class="cart-detail__left">
-                      <h3 class="cart-detail__left-title">{{detailPrice.price}}</h3>
-                      <h3 class="cart-detail__left-title">تومان</h3>
-                    </div>
-                  </div>
-
-                  <div class="cart-detail__item">
-                    <div class="cart-detail__right">
-                      <img src="/icons/Discount-cart.svg" class="cart-detail__icon discount--icon" alt="">
-                      <h3 class="cart-detail__right-title">تخفیف کل:</h3>
-                    </div>
-                    <div class="cart-detail__left">
-                      <h3 class="cart-detail__left-title">{{detailPrice.totalDiscount}}</h3>
-                      <h3 class="cart-detail__left-title">تومان</h3>
-                    </div>
-                  </div>
-
-                  <div class="cart-detail__item">
-                    <div class="cart-detail__right">
-                      <img src="/icons/car.svg" class="cart-detail__icon car--icon" alt="">
-                      <h3 class="cart-detail__right-title">هزینه ارسال:</h3>
-                    </div>
-                    <div class="cart-detail__left">
-                      <h3 class="cart-detail__left-title">{{detailPrice.submitDeliveryPrice}}</h3>
-                    </div>
+      <div class="pay__detail-content w-100">
+            <div class="w-100 pay__detail-discount">
+                  <div class="pay-detail__discount-item">
+                        <div class="pay-detail__discount-right">
+                            <span class="pay-detail__discount-icon"></span>
+                            <input placeholder="کد تخفیف..." class="pay-detail__discount-input" type="text" name="" value="">
+                          </div>
+                          <div class="pay-detail__discount-left">
+                            <button type="button" name="button" class="pay-detail__discount-btn">اعمال کد</button>
+                          </div>
                   </div>
             </div>
 
-          </div>
+
+            <div class="w-100">
+                <div class="w-100 cart-detail__text shipping--mobile">
+                  <h3 class="cart-detail__title">فاکتور</h3>
+                </div>
+
+                <div class="cart-detail__items">
+
+                  <div class="w-100 pay__detail-item">
+                    <div class="w-100 cart-detail__text shipping--desktop">
+                      <h3 class="cart-detail__title">صورتحساب</h3>
+                    </div>
+
+                    <span class="cart-detail__line "></span>
 
 
-          <!-- <div class="cart-detail__btn w-100">
-              <button  type="button" class="cart-detail__btn-item remove--border" name="button">
-                    <NuxtLink
-                      class="cart-detail__btn-link"
-                      to="/shipping"
-                    >
-                      ادامه فرایند خرید
-                    </NuxtLink>
-              </button>
-          </div> -->
+                    <div class="w-100 cart-detail__content">
+                      <div class="cart-detail__item">
+                        <div class="cart-detail__right">
+                          <img src="/icons/coin.svg" class="cart-detail__icon" alt="">
+                          <h3 class="cart-detail__right-title">قیمت محصولات:</h3>
+                        </div>
+                        <div class="cart-detail__left">
+                          <h3 class="cart-detail__left-title">{{detailPrice.price}}</h3>
+                          <h3 class="cart-detail__left-title">تومان</h3>
+                        </div>
+                      </div>
+
+                      <div class="cart-detail__item">
+                        <div class="cart-detail__right">
+                          <img src="/icons/Discount-cart.svg" class="cart-detail__icon discount--icon" alt="">
+                          <h3 class="cart-detail__right-title">تخفیف کل:</h3>
+                        </div>
+                        <div class="cart-detail__left">
+                          <h3 class="cart-detail__left-title">{{detailPrice.totalDiscount}}</h3>
+                          <h3 class="cart-detail__left-title">تومان</h3>
+                        </div>
+                      </div>
+
+                      <div class="cart-detail__item">
+                        <div class="cart-detail__right">
+                          <img src="/icons/car.svg" class="cart-detail__icon car--icon" alt="">
+                          <h3 class="cart-detail__right-title">هزینه ارسال:</h3>
+                        </div>
+                        <div class="cart-detail__left">
+                          <h3 class="cart-detail__left-title">{{detailPrice.submitDeliveryPrice}}</h3>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+            </div>
+
+
+      </div>
+
+
+
+                <div class="cart-detail__btn w-100">
+                    <div class="w-100">
+                        <div class="shipping-btn__item">
+                            <div class="shipping-btn__right">
+                              <h3 class="cart-detail__right-title">مبلغ قابل پرداخت :</h3>
+                            </div>
+                            <div class="shipping-btn__left">
+                              <h3 class="cart-detail__left-title">{{detailPrice.totalPrice}}</h3>
+                              <h3 class="cart-detail__left-title">تومان</h3>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="w-100">
+                        <button  type="button" class="cart-detail__btn-item remove--border" name="button">
+                            <NuxtLink
+                            class="cart-detail__btn-link"
+                            to="/shipping"
+                            >
+                            پرداخت نهایی
+                          </NuxtLink>
+                          <!-- <NuxtLink
+                          class="cart-detail__btn-link "
+                          to="/shipping"
+                          >
+                          پرداخت نهایی
+                        </NuxtLink> -->
+                      </button>
+                    </div>
+                </div>
+
 
   </div>
 </template>
@@ -139,7 +151,7 @@ export default {
     @include display-flex();
     align-items: flex-start;
     flex-flow: column;
-    padding-bottom: 32px;
+    padding-bottom: 27px;
 }
 .cart-detail__item{
   @include display-flex();
@@ -180,11 +192,11 @@ export default {
   align-items: flex-start;
   flex-wrap: wrap;
   width: 100%;
-  margin-top: 79px;
+  margin-top: 0;
   border: 1px solid $chinese_white;
   padding-right: 18px;
   padding-left: 18px;
-  padding-bottom: 80px;
+  padding-bottom: 24px;
   border-radius: 10px;
 }
 .cart-detail__total{
@@ -322,172 +334,231 @@ export default {
   color: $black-topic;
 }
 .cart-detail__content{
-  margin-top: 26px;
+  margin-top: 16px;
 }
 .shipping--mobile{
   display: none;
 }
 
+// *** start payment css //
+.pay__detail-content{
+  @include display-flex();
+  align-items: flex-start;
+  flex-flow: column;
+  margin-top: 33px;
+}
+.pay__detail-discount{
+  width: 97%;
+  margin-right: auto;
+  margin-left: auto;
+}
+.pay-detail__discount-input{
+  width: 72%;
+  outline: none;
+  border:none;
+  height: 100%;
+  font-family: inherit;
+  font-size: 16px;
+  color: $gray;
+  margin-right: 16px;
+}
+.pay-detail__discount-item{
+  position: relative;
+  margin-bottom: 47px;
+  height: 72px;
+  background: #FFFFFF;
+  border: 1px solid #E0E0E0;
+  box-shadow: 0px 4px 4px #F2F2F2;
+  border-radius: 10px;
+  @include display-flex();
+  align-items: center;
+  padding-right: 16px;
+  padding-left: 8px;
+  flex-wrap: wrap;
+}
+.pay-detail__discount-btn{
+  font-size: 14px;
+  color: $color_discount;
+  background: $border-gray-bg;
+  height: 47px;
+  outline: none;
+  cursor: pointer;
+  left: 10px;
+  top: 10px;
+  width: 139px;
+  outline: none;
+  font-family: inherit;
+  border-radius: 10px;
+  border:none;
+}
+.pay-detail__discount-left{
+  justify-content: flex-end;
+  flex-grow: 1;
+  @include display-flex();
+  width: 40%;
+}
+.pay-detail__discount-icon::after{
+  @include font-icon__limoo();
+  content: "\e80d";
+  font-size: 16px;
+  color: #bdbdbd;
+}
+.pay-detail__discount-right{
+  @include display-flex();
+  align-items: flex-start;
+  width: 60%;
+}
 
 
-@media (max-width: 1300px) {
-  .cart-detail__right-title{
-    font-size: 13px;
+@media (max-width: 1280px) {
+  .pay-detail__discount-item{
+    height: auto;
   }
-  .cart-detail__left-title{
-    font-size: 13px;
-  }
-  .cart-detail__icon{
-    width: 14px;
-    height: 14px;
-  }
-  .cart-detail__btn-item{
+  .pay-detail__discount-left{
+    margin-top: 16px;
     width: 100%;
+    margin-bottom: 16px;
   }
-  .cart-detail__title{
-    font-size: 16px;
+  .pay-detail__discount-right{
+    width: 100%;
+    margin-top: 16px;
   }
 }
 
+
+
 @media (max-width: 960px) {
-  .cart-detail__btn-item {
-    width: 395px;
+  .pay-detail__discount-item{
+    border-color: $gray;
+    height: 57px;
+    padding-top: 4px;
+    padding-bottom: 4px;
+    margin-bottom: 24px;
   }
-  .cart-detail__right-title{
-    font-size: 16px;
+  .cart-detail__text{
+    margin-top: 0;
   }
-  .cart-detail__title{
-    font-size: 18px;
+  .pay-detail__discount-input{
+    font-size: 13px;
   }
-  .cart-detail__left-title{
-    font-size: 18px;
+  .pay__detail-discount{
+    width: 100%;
   }
-  .cart-detail__icon{
-    width: 18px;
-    height: 18px;
+  .pay-detail__discount-icon::after{
+    color: $gray;
   }
-  .discount--icon{
-    width: 21px;
-    height: 21px;
+  .pay-detail__discount-left{
+    width: 40%;
+    margin-top: 0;
+    margin-bottom: 0;
   }
-  .car--icon{
-    width: 21px;
-    height: 21px;
-  }
-  .cart-detail__items{
-    padding-bottom: 12px;
+  .pay-detail__discount-right{
+    width: 60%;
+    margin-top: 5px;
   }
   .shipping-btn__right .cart-detail__right-title{
-    font-size: 16px;
+    font-size: 13px;
   }
   .shipping-btn__item .cart-detail__left-title{
-    font-size: 16px;
+    font-size: 13px;
+  }
+  .cart-detail__right-title{
+    font-size: 13px;
+  }
+  .cart-detail__left-title {
+    font-size: 13px;
+  }
+  .cart-detail__btn-item {
+    width: 100%;
+  }
+  .cart-detail__title{
+    font-size: 14px;
+  }
+  .shipping-btn__right{
+    flex-grow: 1;
+    justify-content: flex-start;
+    @include display-flex();
+  }
+  .shipping-btn__item{
+    margin-bottom: 10px;
+    margin-top: 16px;
+    padding-right: 6px;
+    padding-left: 13px;
+  }
+  .shipping--mobile{
+    @include display-flex();
+  }
+  .cart-detail__item:nth-child(1){
+    margin-top: 0;
+  }
+  .cart-detail__item{
+    margin-top:22px;
+  }
+  .cart-detail__container {
+    width: 100%;
+    margin-top: 0;
+  }
+  .cart-detail__items{
+    border:solid 1px $google-btn__bg;
+    border-radius: 10px;
+    padding-right: 0px;
+    padding-left: 0px;
+    padding-bottom: 22px;
+    margin-top: 0;
+  }
+  .cart-detail__total{
+    margin-bottom: 16px;
+    padding-right: 12px;
+    padding-left: 12px;
+  }
+  .cart-detail__content{
+    padding-right: 12px;
+    padding-left: 12px;
+  }
+  .cart-detail__line{
+    width: 100%;
+    background: $google-btn__bg;
+    height: 1px;
+    margin-top: 16px;
+  }
+  .btn--debtor{
+    display: none;
+  }
+  .cart-detail__btn{
+    z-index: 11;
+    position: fixed;
+    bottom: 58px;
+    right: 0;
+    background: $white;
+    padding-bottom: 8px;
+    padding-right: 16px;
+    padding-left: 16px;
+    box-shadow: 0px 1px 15px rgba(0, 0, 0, 0.09);
+  }
+  .cart-detail__icon{
+    height: 17px;
+    height: 17px;
+  }
+  .car--icon{
+    width: 19px;
+    height: 19px;
+  }
+  .discount--icon{
+    width: 17px;
+    height: 17px;
+  }
+  .cart-detail__text{
+    @include display-flex();
+  }
+  .cart-detail__line {
+    display: none;
+  }
+  .shipping--desktop{
+    display: none;
   }
 }
 
 @media (max-width: 485px) {
-    .shipping-btn__right .cart-detail__right-title{
-      font-size: 13px;
-    }
-    .shipping-btn__item .cart-detail__left-title{
-      font-size: 13px;
-    }
-    .cart-detail__right-title{
-      font-size: 13px;
-    }
-    .cart-detail__left-title {
-      font-size: 13px;
-    }
-    .cart-detail__btn-item {
-      width: 100%;
-    }
-    .cart-detail__title{
-      font-size: 14px;
-    }
-    .shipping-btn__right{
-      flex-grow: 1;
-      justify-content: flex-start;
-      @include display-flex();
-    }
-    .shipping-btn__item{
-      margin-bottom: 10px;
-      margin-top: 16px;
-      padding-right: 6px;
-      padding-left: 13px;
-    }
-    .shipping--mobile{
-      @include display-flex();
-    }
-    .cart-detail__item:nth-child(1){
-      margin-top: 0;
-    }
-    .cart-detail__item{
-      margin-top:22px;
-    }
-    .cart-detail__container {
-        width: 100%;
-        margin-top: 0;
-    }
-    .cart-detail__items{
-      border:solid 1px $google-btn__bg;
-      border-radius: 10px;
-      padding-right: 0px;
-      padding-left: 0px;
-      padding-bottom: 22px;
-      margin-top: 0;
-    }
-    .cart-detail__total{
-      // margin-top: 16px;
-      margin-bottom: 16px;
-      padding-right: 12px;
-      padding-left: 12px;
-    }
-    .cart-detail__content{
-      padding-right: 12px;
-      padding-left: 12px;
-      margin-top: 17px;
-    }
-    .cart-detail__line{
-      width: 100%;
-      background: $google-btn__bg;
-      height: 1px;
-      margin-top: 16px;
-    }
-    .btn--debtor{
-      display: none;
-    }
-    .cart-detail__btn{
-      z-index: 11;
-      position: fixed;
-      bottom: 58px;
-      right: 0;
-      background: $white;
-      padding-bottom: 8px;
-      padding-right: 16px;
-      padding-left: 16px;
-      box-shadow: 0px 1px 15px rgba(0, 0, 0, 0.09);
-    }
-    .cart-detail__icon{
-      height: 17px;
-      height: 17px;
-    }
-    .car--icon{
-      width: 19px;
-      height: 19px;
-    }
-    .discount--icon{
-      width: 17px;
-      height: 17px;
-    }
-    .cart-detail__text{
-      @include display-flex();
-    }
-    .cart-detail__line {
-      display: none;
-    }
-    .shipping--desktop{
-      display: none;
-    }
 
 }
 
