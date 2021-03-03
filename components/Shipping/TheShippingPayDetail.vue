@@ -1,6 +1,6 @@
 <template>
-    <div class="cart-detail__container shipping--parent" :key="updateCalcDetailPrice">
-        <div v-stick-in-parent="stikyKit" class="cart-detail__main">
+    <div class="cart-detail__container shipping--parent" id="some-stickybit-parent">
+        <div  class="cart-detail__main" id="some-stickybit-nav">
              <PayData :detail-price="detailPrice"></PayData>
         </div>
 
@@ -9,6 +9,8 @@
 
 <script>
 import PayData from './PayData';
+import stickybits from 'stickybits';
+
 
 export default {
     props: {
@@ -21,45 +23,19 @@ export default {
 
     data() {
         return {
-          stikyKit: {
-               options: {
-                 parent     : '.shipping--parent',
-                 offset_top : 140
-               },
-               on: {
-                 'sticky_kit:stick': function(e) {
-                   console.log("has stuck!", e.target);
-                 },
-                 'sticky_kit:unstick': function(e) {
-                   console.log("has unstuck!", e.target);
-                 },
-               }
-           },
-           updateCalcDetailPrice : 0,
+
         };
     },
 
     mounted() {
-      this.detectedResizeBrowser();
+      stickybits('#some-stickybit-nav', {
+        useStickyClasses      : false,
+        stickyBitStickyOffset : 140,
+      });
     },
 
     methods: {
-      detectedResizeBrowser(){
-        window.addEventListener("resize", ()=>{
-            const width   = window.innerWidth;
-            this.updateCalcDetailPrice++
 
-            if (485 < width) {
-            }
-            else {
-              window.scroll({
-                top: 0,
-                left: 0,
-                behavior: 'smooth'
-              })
-            }
-          }, true);
-      },
     }
 
 };
@@ -68,7 +44,7 @@ export default {
 
 <style lang="scss" scoped>
 .cart-detail__container {
-    width: 25.6%;
+    width: 479px;
     /* border: 1px solid red; */
     text-align: center;
     @include display-flex();
@@ -221,23 +197,24 @@ export default {
   font-size: 16px;
 }
 
-@media (max-width: 1300px) {
-  .cart-detail__payment{
-    padding-right: 13px;
-    padding-left: 13px;
-  }
-  .cart-detail__about-title{
-    font-size: 13px;
-  }
-  .cart-detail__about-icon{
-    height: 22px;
-    margin-top: -12px;
-  }
+@media (max-width: 1400px) {
   .cart-detail__container{
-    width: 30%;
+    width: 35%;
   }
+}
+
+@media (max-width: 1300px) {
+  // .cart-detail__about-title{
+  //   font-size: 13px;
+  // }
+  // .cart-detail__about-icon{
+  //   height: 22px;
+  //   margin-top: -12px;
+  // }
 
 }
+
+
 
 
 

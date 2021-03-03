@@ -34,28 +34,11 @@ export default {
 
     data() {
         return {
-            // stikyKit: {
-            //      options: {
-            //        parent     : '.cart--parent',
-            //        offset_top : 140,
-            //        spacer: ".sticky-spacer",
-            //
-            //      },
-            //      on: {
-            //        'sticky_kit:stick': function(e) {
-            //          console.log("has stuck!", e.target);
-            //        },
-            //        'sticky_kit:unstick': function(e) {
-            //          console.log("has unstuck!", e.target);
-            //        },
-            //      }
-            //  },
-             updateCalcDetailPrice : 0,
+           updateCalcDetailPrice : 0,
         };
     },
 
     mounted() {
-      // this.detectedResizeBrowser();
       stickybits('#some-stickybit-nav', {
         useStickyClasses      : false,
         stickyBitStickyOffset : 140,
@@ -63,22 +46,7 @@ export default {
     },
 
     methods: {
-        detectedResizeBrowser(){
-          window.addEventListener("resize", ()=>{
-              const width   = window.innerWidth;
-              this.updateCalcDetailPrice++
 
-              if (485 < width) {
-              }
-              else {
-                window.scroll({
-                  top: 0,
-                  left: 0,
-                  behavior: 'smooth'
-                })
-              }
-            }, true);
-        },
     }
 
 };

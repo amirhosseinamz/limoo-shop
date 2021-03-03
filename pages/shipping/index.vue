@@ -277,6 +277,16 @@ export default {
 .user-cart__shipping-line {
     display: none;
 }
+
+
+
+@media (max-width: 1400px) {
+  .user-cart__shipping-container{
+    width: 62%;
+    margin-left: 2.2%;
+  }
+}
+
 @media (max-width: 960px) {
     .user-shipping__address-btn {
         display: none;
