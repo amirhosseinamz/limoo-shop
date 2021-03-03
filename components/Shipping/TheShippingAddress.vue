@@ -1,11 +1,26 @@
 <template>
     <div class="orders-content__main">
+        <transition moda="in-out">
+            <div id="overlay" v-if="passChangeIsActive">
+                <add-address-modal
+                    :all-province="allProvince"
+                    :all-citys="allCitys"
+                    :form-data-original="formData"
+                    :data-edit-address="dataEditAddress"
+                    :profile-phone-number="profilePhoneNumber"
+                    @selected-province="selectedProvince"
+                    @selected-city="selectedCity"
+                    @submit-address-add="submitAddressAdd"
+                    @close-modal="closeModal"
+                />
+            </div>
+        </transition>
         <div class="w-100 flex-wrap" :key="updateChoosedAddress">
             <div
                 :class="{
                     'order-detail__choosed-adress': data.defultAddress
                 }"
-                v-for="data in ordersData"
+                v-for="data in addressData"
                 :key="data.id"
                 class="w-100 flex-wrap order-content-item"
             >
@@ -19,16 +34,16 @@
                                 <span class="card-shape__circle-inner"></span>
                             </span>
                             <span class="order-detail__title">
-                                {{ data.title }}</span
+                                {{ data.address }}</span
                             >
                         </div>
                         <div class="address-detail__user-container">
                             <div class="address-detail__user-holder">
                                 <span class="address-detail__user-reciver">{{
-                                    data.reciverPerson
+                                    data.nameReceiver
                                 }}</span>
                                 <span class="address-detail__user-phone">{{
-                                    data.phone
+                                    data.numberReceiver
                                 }}</span>
                             </div>
                             <div
@@ -47,23 +62,23 @@
                             </div>
                         </div>
                         <div
-                            class="order-detail__btn-holder__mobile order-detail__closer"
+                            @click="showEditDeleteOption(data)"
+                            class="order-detail__btn-holder__mobile"
                             :class="{
                                 'order-detail__btn-show': data.selected
                             }"
                         >
                             <button
-                                class="address-detail__btn-delete order-detail__closer"
+                                class="address-detail__btn-delete"
                                 @click="showModalDeleteOrder(data)"
                                 name="button"
                             >
                                 حذف
                             </button>
-                            <span
-                                class="order-detail__btn-holder__line order-detail__closer"
-                            ></span>
+                            <span class="order-detail__btn-holder__line"></span>
                             <button
-                                class="address-detail__btn-edit__mobile order-detail__closer"
+                                @click="editAddress(data)"
+                                class="address-detail__btn-edit__mobile"
                                 name="button"
                             >
                                 ویرایش
@@ -80,7 +95,7 @@
                         name="button"
                     ></button>
                     <button
-                        @click="showModalEditAddress(data)"
+                        @click="editAddress(data)"
                         class="address-detail__btn-edit"
                         name="button"
                     ></button>
@@ -90,13 +105,23 @@
     </div>
 </template>
 <script>
+import addAddressModal from "./addAddressModal.vue";
 export default {
     props: {
-        ordersData: { type: [Object, Array], default: {} }
+        allProvince: { type: [Object, Array], default: [] },
+        allCitys: { type: [Object, Array], default: [] },
+        addressData: { type: [Object, Array], default: {} },
+        formData: { type: [Object, Array], default: {} },
+        profilePhoneNumber: { type: [Number, String], default: "" }
+    },
+    components: {
+        addAddressModal
     },
     data() {
         return {
+            passChangeIsActive: false,
             updateSelected: 0,
+            dataEditAddress: {},
             modalEditSelected: {
                 id: null
             },
@@ -111,6 +136,42 @@ export default {
         document.removeEventListener("click", this.documentClick);
     },
     methods: {
+        selectedProvince(data) {
+            this.$emit("selected-province", data);
+        },
+        addAddress() {
+            this.dataEditAddress = {};
+            this.passChangeIsActive = !this.passChangeIsActive;
+        },
+        selectedCity(data) {
+            this.$emit("selected-city", data);
+        },
+        submitAddressAdd(data) {
+            // بر اساس آیدی تغیین می شود که حالت ویرایش است یا خیر //
+
+            let stateEditAdd = "";
+            if (typeof this.dataEditAddress.id == "undefined") {
+                stateEditAdd = "add";
+            } else {
+                stateEditAdd = "edit";
+            }
+
+            this.passChangeIsActive = false;
+            this.$emit("submit-address-add", data, stateEditAdd);
+            if (stateEditAdd == "edit") {
+                this.showEditDeleteOption(data);
+            }
+        },
+        closeModal() {
+            this.dataEditAddress = {};
+            this.passChangeIsActive = false;
+        },
+
+        editAddress(data) {
+            this.dataEditAddress = data;
+            this.passChangeIsActive = true;
+        },
+        //
         checkCloseDropDown(e) {
             // هر جایی به غیر از باکس دراپ دان کلیک شود در صورتی که دراپ دان باز باشد بسته می شود //
 
@@ -128,7 +189,7 @@ export default {
             }
         },
         pickAddress(data) {
-            this.ordersData.map(content => {
+            this.addressData.map(content => {
                 if (content.id == data.id) {
                     content.defultAddress = true;
 
@@ -150,7 +211,7 @@ export default {
         },
         showModalEditAddress(data) {},
         showEditDeleteOption(data) {
-            this.ordersData.map(content => {
+            this.addressData.map(content => {
                 if (content.id == data.id) {
                     content.selected = !content.selected;
 
@@ -170,6 +231,32 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
+#overlay {
+    position: fixed; /* Sit on top of the page content */
+    @include display-flex();
+    justify-content: center;
+    align-items: center;
+    width: 100%; /* Full width (cover the whole page) */
+    height: 100%; /* Full height (cover the whole page) */
+    /* transition: opacity 200ms ease-out; */
+    /* top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0; */
+    z-index: 10;
+    background: $overlay__profile;
+    top: 0;
+    right: 0;
+}
+.v-leave-from {
+    opacity: 0.5;
+}
+.v-leave-active {
+    transition: all 300ms ease-in;
+}
+.v-leave-to {
+    opacity: 0;
+}
 .order-detail__choosed-adress .card-shape__circle {
     background-color: $yellow;
 }
@@ -352,7 +439,6 @@ export default {
     .order-detail__btn-holder__line {
         width: 100%;
         display: none;
-
         border-top: 1px solid $gray-border;
     }
     .order-detail__btn-show {
