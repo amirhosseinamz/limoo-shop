@@ -136,7 +136,7 @@ export default {
   width: 100%;
 }
 .cart-detail__item:nth-child(1){
-  margin-top: 44px;
+  margin-top: 16px;
 }
 .cart-detail__right{
   @include display-flex();
@@ -184,7 +184,7 @@ export default {
   margin-left: auto;
 }
 .cart-detail__total .cart-detail__item{
-  margin-top: 18px;
+  margin-top: 16px;
 }
 .green--pay{
   color: $green__answer;
@@ -226,7 +226,7 @@ export default {
   color: $gray;
 }
 .cart-detail__btn{
-  margin-top: 79px;
+  margin-top: 18px;
 }
 .cart-detail__about{
   @include display-flex();
@@ -299,15 +299,13 @@ export default {
 
 
 @media (max-width: 1500px) {
-  .cart-detail__total .cart-detail__item{
-    margin-top: 16px;
-  }
-  .cart-detail__item:nth-child(1){
-    margin-top: 16px;
-  }
-  .cart-detail__btn{
-    margin-top: 18px;
-  }
+  // .cart-detail__total .cart-detail__item{
+  //   margin-top: 16px;
+  // }
+  // .cart-detail__item:nth-child(1){
+  //   margin-top: 16px;
+  // }
+
 }
 
 

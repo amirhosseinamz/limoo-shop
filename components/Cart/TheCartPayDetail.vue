@@ -104,7 +104,7 @@ export default {
     @include display-flex();
     align-items: flex-start;
     flex-flow: column;
-    padding-bottom: 42px;
+    padding-bottom: 24px;
 }
 .cart-detail__item{
   @include display-flex();
@@ -240,11 +240,11 @@ export default {
   font-size: 16px;
 }
 
-@media (max-width: 1500px) {
-  .cart-detail__payment{
-    padding-bottom: 24px;
-  }
-}
+// @media (max-width: 1500px) {
+//   .cart-detail__payment{
+//     padding-bottom: 24px;
+//   }
+// }
 
 @media (max-width: 1300px) {
   .cart-detail__about-title{
