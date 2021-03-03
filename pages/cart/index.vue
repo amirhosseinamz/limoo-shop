@@ -262,6 +262,19 @@ export default {
 .mobile-screen__holder {
     display: none;
 }
+
+
+
+@media (max-width: 1400px) {
+  .user-cart__orders-container {
+    width: 62%;
+    margin-left: 2.2%
+  }
+  .cart-detail__container{
+    width: 35%;
+  }
+}
+
 @media (max-width: 960px) {
     .user-cart__container {
         padding: 47px 0 0 0;

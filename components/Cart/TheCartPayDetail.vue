@@ -1,6 +1,6 @@
 <template>
-    <div :key="updateCalcDetailPrice" class="cart-detail__container cart--parent" >
-          <div  v-stick-in-parent="stikyKit" class="cart-detail__main">
+    <div :key="updateCalcDetailPrice" class="cart-detail__container cart--parent" id="some-stickybit-parent" >
+          <div  class="cart-detail__main" id="some-stickybit-nav">
                <PayData :detail-price="detailPrice"></PayData>
 
                 <div class="w-100 cart-detail__about">
@@ -14,11 +14,14 @@
                     </div>
                 </div>
           </div>
+
     </div>
 </template>
 
 <script>
 import PayData from './PayData';
+import stickybits from 'stickybits';
+
 
 export default {
     props: {
@@ -31,28 +34,32 @@ export default {
 
     data() {
         return {
-            stikyKit: {
-                 options: {
-                   parent     : '.cart--parent',
-                   offset_top : 140,
-                   spacer: ".sticky-spacer",
-
-                 },
-                 on: {
-                   'sticky_kit:stick': function(e) {
-                     console.log("has stuck!", e.target);
-                   },
-                   'sticky_kit:unstick': function(e) {
-                     console.log("has unstuck!", e.target);
-                   },
-                 }
-             },
+            // stikyKit: {
+            //      options: {
+            //        parent     : '.cart--parent',
+            //        offset_top : 140,
+            //        spacer: ".sticky-spacer",
+            //
+            //      },
+            //      on: {
+            //        'sticky_kit:stick': function(e) {
+            //          console.log("has stuck!", e.target);
+            //        },
+            //        'sticky_kit:unstick': function(e) {
+            //          console.log("has unstuck!", e.target);
+            //        },
+            //      }
+            //  },
              updateCalcDetailPrice : 0,
         };
     },
 
     mounted() {
-      this.detectedResizeBrowser();
+      // this.detectedResizeBrowser();
+      stickybits('#some-stickybit-nav', {
+        useStickyClasses      : false,
+        stickyBitStickyOffset : 140,
+      });
     },
 
     methods: {

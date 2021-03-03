@@ -201,7 +201,7 @@ export default {
   height: 21px;
 }
 .cart-detail__btn-item{
-  width: 85%;
+  width: 100%;
   // height: 57px;
   background: $btn__green;
   border-radius: 10px;
