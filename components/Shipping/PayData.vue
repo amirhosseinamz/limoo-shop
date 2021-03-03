@@ -221,7 +221,7 @@ export default {
   height: 21px;
 }
 .cart-detail__btn-item{
-  width: 395px;
+  width: 85%;
   // height: 57px;
   background: $btn__green;
   border-radius: 10px;
@@ -257,7 +257,6 @@ export default {
   width: 100%;
   height: 72px;
   background: $white;
-  box-shadow: 0px 4px 4px $gray-border;
   border-radius: 10px;
   margin-bottom: 16px;
   @include display-flex();
@@ -273,6 +272,7 @@ export default {
   align-items: flex-start;
   @include display-flex();
   flex-wrap: wrap;
+  box-shadow: 0px 4px 4px $gray-border;
 }
 .cart-detail__about-title{
   color: $gray;
@@ -410,7 +410,7 @@ export default {
       @include display-flex();
     }
     .shipping-btn__item{
-      margin-bottom: 8px;
+      margin-bottom: 10px;
       margin-top: 16px;
       padding-right: 6px;
       padding-left: 13px;
@@ -433,7 +433,7 @@ export default {
       border-radius: 10px;
       padding-right: 0px;
       padding-left: 0px;
-      padding-bottom: 24px;
+      padding-bottom: 22px;
       margin-top: 0;
     }
     .cart-detail__total{

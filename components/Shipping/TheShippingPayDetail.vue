@@ -1,6 +1,6 @@
 <template>
-    <div class="cart-detail__container">
-        <div class="cart-detail__main">
+    <div class="cart-detail__container shipping--parent" :key="updateCalcDetailPrice">
+        <div v-stick-in-parent="stikyKit" class="cart-detail__main">
              <PayData :detail-price="detailPrice"></PayData>
         </div>
 
@@ -21,12 +21,45 @@ export default {
 
     data() {
         return {
-
+          stikyKit: {
+               options: {
+                 parent     : '.shipping--parent',
+                 offset_top : 140
+               },
+               on: {
+                 'sticky_kit:stick': function(e) {
+                   console.log("has stuck!", e.target);
+                 },
+                 'sticky_kit:unstick': function(e) {
+                   console.log("has unstuck!", e.target);
+                 },
+               }
+           },
+           updateCalcDetailPrice : 0,
         };
     },
 
-    methods: {
+    mounted() {
+      this.detectedResizeBrowser();
+    },
 
+    methods: {
+      detectedResizeBrowser(){
+        window.addEventListener("resize", ()=>{
+            const width   = window.innerWidth;
+            this.updateCalcDetailPrice++
+
+            if (485 < width) {
+            }
+            else {
+              window.scroll({
+                top: 0,
+                left: 0,
+                behavior: 'smooth'
+              })
+            }
+          }, true);
+      },
     }
 
 };
@@ -41,7 +74,6 @@ export default {
     @include display-flex();
     flex-wrap: wrap;
     align-items: flex-start;
-    box-shadow: 0px 8px 16px rgba(17, 17, 17, 0.03);
 }
 .cart-detail__payment {
     width: 100%;
@@ -179,6 +211,8 @@ export default {
   align-items: flex-start;
   @include display-flex();
   flex-wrap: wrap;
+  box-shadow: 0px 8px 16px rgba(17, 17, 17, 0.03);
+
 }
 .cart-detail__about-title{
   color: $gray;

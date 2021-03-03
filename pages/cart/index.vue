@@ -69,7 +69,34 @@ export default {
                     orderPrice: "103،000،000",
                     orderPriceOff: "323،000",
                     count: 1
-                }
+                },
+                {
+                    id: 4,
+                    title:
+                        "اپل واچ سری 3 آلومینیوم زرد با بند اسپرت سیلیکون زرد",
+                    img: "/img/apple-watch-3.png",
+                    orderPrice: "103،000،000",
+                    orderPriceOff: "323،000",
+                    count: 1
+                },
+                {
+                    id: 5,
+                    title:
+                        "اپل واچ سری 3 آلومینیوم زرد با بند اسپرت سیلیکون زرد",
+                    img: "/img/apple-watch-3.png",
+                    orderPrice: "103،000،000",
+                    orderPriceOff: "323،000",
+                    count: 1
+                },
+                {
+                    id: 6,
+                    title:
+                        "اپل واچ سری 3 آلومینیوم زرد با بند اسپرت سیلیکون زرد",
+                    img: "/img/apple-watch-3.png",
+                    orderPrice: "103،000،000",
+                    orderPriceOff: "323،000",
+                    count: 1
+                },
             ],
             currentOrders: {},
             detailPrice  : {

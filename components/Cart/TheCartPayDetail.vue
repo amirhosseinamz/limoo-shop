@@ -1,20 +1,19 @@
 <template>
-    <div class="cart-detail__container">
-        <div class="cart-detail__main">
-             <PayData :detail-price="detailPrice"></PayData>
+    <div :key="updateCalcDetailPrice" class="cart-detail__container cart--parent" >
+          <div  v-stick-in-parent="stikyKit" class="cart-detail__main">
+               <PayData :detail-price="detailPrice"></PayData>
 
-              <div class="w-100 cart-detail__about">
-                  <div class="cart-detail__about-item">
-                      <img class="cart-detail__about-icon" src="/icons/Warranty.svg" alt="">
-                      <h3 class="cart-detail__about-title">ضمانت بازگشت وجه در صورت عدم رضایت</h3>
-                  </div>
-                  <div class="cart-detail__about-item">
-                      <img class="cart-detail__about-icon" src="/icons/Star.svg" alt="">
-                      <h3 class="cart-detail__about-title">ضمانت بازگشت وجه در صورت عدم رضایت</h3>
-                  </div>
-              </div>
-        </div>
-
+                <div class="w-100 cart-detail__about">
+                    <div class="cart-detail__about-item">
+                        <img class="cart-detail__about-icon" src="/icons/Warranty.svg" alt="">
+                        <h3 class="cart-detail__about-title">ضمانت بازگشت وجه در صورت عدم رضایت</h3>
+                    </div>
+                    <div class="cart-detail__about-item">
+                        <img class="cart-detail__about-icon" src="/icons/Star.svg" alt="">
+                        <h3 class="cart-detail__about-title">ضمانت بازگشت وجه در صورت عدم رضایت</h3>
+                    </div>
+                </div>
+          </div>
     </div>
 </template>
 
@@ -32,12 +31,45 @@ export default {
 
     data() {
         return {
-
+            stikyKit: {
+                 options: {
+                   parent     : '.cart--parent',
+                   offset_top : 140
+                 },
+                 on: {
+                   'sticky_kit:stick': function(e) {
+                     console.log("has stuck!", e.target);
+                   },
+                   'sticky_kit:unstick': function(e) {
+                     console.log("has unstuck!", e.target);
+                   },
+                 }
+             },
+             updateCalcDetailPrice : 0,
         };
     },
 
-    methods: {
+    mounted() {
+      this.detectedResizeBrowser();
+    },
 
+    methods: {
+        detectedResizeBrowser(){
+          window.addEventListener("resize", ()=>{
+              const width   = window.innerWidth;
+              this.updateCalcDetailPrice++
+
+              if (485 < width) {
+              }
+              else {
+                window.scroll({
+                  top: 0,
+                  left: 0,
+                  behavior: 'smooth'
+                })
+              }
+            }, true);
+        },
     }
 
 };
