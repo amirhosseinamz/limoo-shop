@@ -273,6 +273,7 @@ export default {
   @include display-flex();
   flex-wrap: wrap;
   box-shadow: 0px 4px 4px $gray-border;
+  z-index: 1;
 }
 .cart-detail__about-title{
   color: $gray;
