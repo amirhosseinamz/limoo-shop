@@ -19,6 +19,15 @@
                         کد منقضی شد، لطفا کد جدید درخواست کنید!
                     </p>
                 </div>
+                <div
+                    class="alert-message "
+                    :class="{ 'alert-message-animation': confirmCode }"
+                >
+                    <img class="alert-icon " src="/icons/alarm.svg" />
+                    <p dir="rtl" class="alert-txt">
+                        کد وارد شده صحیح نمی باشد.
+                    </p>
+                </div>
             </div>
             <div class="card-body">
                 <form @submit.prevent="pressed">
@@ -91,6 +100,9 @@
 
 <script>
 export default {
+    props: {
+        confirmCode: Boolean
+    },
     data() {
         return {
             verifyCode: "",

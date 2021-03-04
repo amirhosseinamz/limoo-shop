@@ -187,6 +187,7 @@ export default {
         },
         closePage() {
             this.$emit("btn-close-modal");
+            this.$store.commit("PhoneNumber", { value: "" });
         }
     }
 };

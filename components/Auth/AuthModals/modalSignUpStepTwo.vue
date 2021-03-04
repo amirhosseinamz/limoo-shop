@@ -19,6 +19,15 @@
                         کد منقضی شد، لطفا کد جدید درخواست کنید!
                     </p>
                 </div>
+                <div
+                    class="alert-message "
+                    :class="{ 'alert-message-animation': confirmCodeIsWrong }"
+                >
+                    <img class="alert-icon " src="/icons/alarm.svg" />
+                    <p dir="rtl" class="alert-txt">
+                        کد وارد شده صحیح نمی باشد.
+                    </p>
+                </div>
             </div>
             <div class="card-body">
                 <form @submit.prevent="pressed">
@@ -102,7 +111,8 @@ export default {
             counterDownMinutes: [],
             counterDownSecond: [],
             Tcounter: 178,
-            timerZero: false
+            timerZero: false,
+            confirmCodeIsWrong: false
         };
     },
     mounted() {
@@ -166,6 +176,11 @@ export default {
                         this.$store.commit("PhoneNumber", { value: "" });
                         this.$emit("event-show-modal-wellcome");
                         // console.log(result.token);
+                    } else if (result.response_code == 2222) {
+                        this.confirmCodeIsWrong = true;
+                        setTimeout(() => {
+                            this.confirmCodeIsWrong = false;
+                        }, 5000);
                     }
                 })
                 .catch(e => console.log(e));
