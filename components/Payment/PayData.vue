@@ -134,7 +134,7 @@ export default {
           activeDiscount  : false,
           messageDiscount : {
             show : false,
-            msg  : '',
+            msg  : 'کد تخقیف 30% برای شمال اعمال شد',
           },
           cancelDiscount  : false,
         };

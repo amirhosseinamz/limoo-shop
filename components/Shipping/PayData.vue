@@ -18,7 +18,7 @@
               <button  type="button" class="cart-detail__btn-item remove--border" name="button">
                   <NuxtLink
                   class="cart-detail__btn-link"
-                  to="/shipping"
+                  to="/payment"
                   >
                   پرداخت نهایی
                 </NuxtLink>
