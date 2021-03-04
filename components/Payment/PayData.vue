@@ -3,14 +3,24 @@
 
       <div class="pay__detail-content w-100">
             <div class="w-100 pay__detail-discount">
-                  <div class="pay-detail__discount-item">
-                        <div class="pay-detail__discount-right">
-                            <span class="pay-detail__discount-icon"></span>
-                            <input placeholder="کد تخفیف..." class="pay-detail__discount-input" type="text" name="" value="">
-                          </div>
-                          <div class="pay-detail__discount-left">
-                            <button type="button" name="button" class="pay-detail__discount-btn">اعمال کد</button>
-                          </div>
+                  <div :class="{'active--discount':activeDiscount}" class="w-100 pay-discount__message-content">
+                          <h3 class="pay-detail__discount-text shipping--mobile">کد تخفیف دارید؟</h3>
+                          <div class="pay-detail__discount-item">
+                                <div class="pay-detail__discount-right">
+                                  <span class="pay-detail__discount-icon"></span>
+                                  <input :disabled="cancelDiscount" v-model="payDiscount" placeholder="کد تخفیف..." class="pay-detail__discount-input" type="text" name="" value="">
+                                </div>
+                                <div v-if="!cancelDiscount" class="pay-detail__discount-left">
+                                  <button @click="submitDiscount" type="button" name="button" class="pay-detail__discount-btn">اعمال کد</button>
+                                </div>
+                                <div v-else class="pay-detail__discount-left">
+                                  <button @click="submitCancelDiscount" type="button" name="button" class="pay-detail__discount-btn pay-detail__discount-cancel">لغو کد</button>
+                                </div>
+                            </div>
+                            <div :class="{'show--messageDiscount':messageDiscount.show}" class="w-100 pay-detail__message-main">
+                              <img class="pay-detail__message" src="/icons/discountMessage-icon.svg" alt="">
+                              <h3 class="pay-detail__message-text">{{messageDiscount.msg}}</h3>
+                            </div>
                   </div>
             </div>
 
@@ -120,11 +130,42 @@ export default {
 
     data() {
         return {
-
+          payDiscount     : '',
+          activeDiscount  : false,
+          messageDiscount : {
+            show : false,
+            msg  : '',
+          },
+          cancelDiscount  : false,
         };
     },
 
+    watch: {
+      payDiscount(value) {
+        if (value != '') {
+           this.activeDiscount = true;
+        }
+        else {
+          this.activeDiscount  = false;
+        }
+
+      },
+
+    },
+
     methods: {
+      submitDiscount(){
+        this.messageDiscount.show = true;
+        this.messageDiscount.msg  = 'کد تخقیف 30% برای شمال اعمال شد';
+        this.cancelDiscount       = true;
+      },
+
+      submitCancelDiscount(){
+        this.cancelDiscount       = false;
+        this.messageDiscount.show = false;
+        this.payDiscount          = '';
+      }
+
 
     }
 
@@ -364,7 +405,7 @@ export default {
 }
 .pay-detail__discount-item{
   position: relative;
-  margin-bottom: 47px;
+  // margin-bottom: 47px;
   height: 72px;
   background: #FFFFFF;
   border: 1px solid #E0E0E0;
@@ -375,6 +416,7 @@ export default {
   padding-right: 16px;
   padding-left: 8px;
   flex-wrap: wrap;
+  width: 100%;
 }
 .pay-detail__discount-btn{
   font-size: 14px;
@@ -408,6 +450,51 @@ export default {
   align-items: flex-start;
   width: 60%;
 }
+.pay-detail__discount-text{
+  margin-bottom: 16px;
+  font-weight: 400;
+  color: $black-topic;
+  text-align: right;
+  font-size: 14px;
+}
+.pay-detail__message-main{
+  @include display-flex();
+  align-items: flex-start;
+  margin-top: 16px;
+  margin-bottom: 47px;
+  padding-right: 3px;
+  opacity: 0;
+  pointer-events: none;
+}
+.pay-discount__message-content{
+  @include display-flex();
+  align-items: flex-start;
+  flex-direction: column;
+}
+.pay-detail__message-text{
+  font-size: 13px;
+  font-weight: 400;
+  color: $green__answer;
+  margin-right: 8px;
+}
+.active--discount .pay-detail__discount-btn{
+  background: $yellow;
+  color: $white;
+}
+.show--messageDiscount{
+  opacity: 1;
+  pointer-events: all;
+}
+.pay-detail__discount-cancel{
+  background: $border-gray-bg !important;
+  color: $color_discount !important;
+}
+.pay-detail__discount-input:disabled{
+  background: inherit;
+}
+
+
+
 
 
 @media (max-width: 1280px) {
@@ -433,7 +520,6 @@ export default {
     height: 57px;
     padding-top: 4px;
     padding-bottom: 4px;
-    margin-bottom: 24px;
   }
   .cart-detail__text{
     margin-top: 0;
@@ -555,6 +641,12 @@ export default {
   }
   .shipping--desktop{
     display: none;
+  }
+  .pay__detail-content{
+    margin-top: 24px;
+  }
+  .pay-detail__message-main{
+    margin-bottom: 24px;
   }
 }
 

@@ -18,7 +18,7 @@
                                   <payment-gateway :key="updatePaymentGateway" :payment-gateway="paymentGateway" @selected-getway="selectedGetway"></payment-gateway>
                                 </div>
 
-                                <div class="w-100 payment__address-main">
+                                <div class="w-100 payment__address-main payment--desktop">
                                         <div class="w-100">
                                             <span class="payment__address-text">ارسال کالا به این آدرس</span>
                                         </div>
@@ -29,7 +29,21 @@
                                 </div>
                             </div>
                         </div>
+
                         <The-cart-shipping-detail :detail-price="detailPrice" ></The-cart-shipping-detail>
+
+                        <div class="w-100 payment__address-main payment--mobile">
+                                <div class="w-100 payment__address-content">
+                                      <div class="w-100 payment__address-line">
+                                        <span class="payment__address-text">ارسال کالا به این آدرس</span>
+                                      </div>
+                                      <div class="w-100 payment__address-item">
+                                        <span class="payment__address-place"></span>
+                                        <h3 class="payment__address-title">تهران ، خیابان ولیعصر ، تقاطق مطهری ، کوچه حسینی راد</h3>
+                                      </div>
+                                </div>
+                        </div>
+
                     </div>
 
 
@@ -281,6 +295,14 @@ export default {
   font-size: 18px;
   font-weight: 400;
 }
+.payment--mobile{
+  display: none;
+}
+.payment__address-line{
+  border-bottom:solid 1px $gray-border;
+  width: 100%;
+  padding-bottom: 16px;
+}
 
 
 
@@ -295,8 +317,17 @@ export default {
     .user-shipping__address-btn {
         display: none;
     }
+    .payment--desktop{
+      display: none;
+    }
+    .user-cart__shipping-container{
+      min-height: auto;
+    }
     .payment__address-main{
       margin-top: 0;
+      padding-right: 0px;
+      padding-left: 0px;
+      min-height: 109px;
     }
     .payment__header{
       border-radius: 0;
@@ -305,6 +336,7 @@ export default {
     }
     .payment__address-text{
       font-size: 14px;
+      margin-right: 11px;
     }
     .payment__address-title{
       font-size: 14px;
@@ -312,6 +344,9 @@ export default {
     }
     .payment__address-place{
       margin-left: 11px;
+    }
+    .payment__address-place::after{
+      font-size: 16px;
     }
     .user-shipping__address-btn__mobile {
         display: block;
@@ -381,5 +416,20 @@ export default {
     .payment__line{
       display: none;
     }
+    .payment--mobile{
+      display: flex;
+      flex-wrap: wrap;
+      margin-top: 8px;
+    }
+    .payment__address-main{
+      padding-bottom: 16px;
+      padding-top: 16px;
+    }
+    .payment__address-item{
+      margin-top: 18px;
+      padding-left: 11px;
+      padding-right: 11px;
+    }
+  
 }
 </style>
