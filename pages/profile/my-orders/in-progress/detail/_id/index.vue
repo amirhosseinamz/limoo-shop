@@ -173,6 +173,7 @@
 import TheProfileSideBar from "~/components/Profile/TheProfileSideBar.vue";
 import TheOrderDetail from "~/components/Profile/UserOrder/OrderDetail/TheOrderDetail.vue";
 export default {
+     middleware: "authentication",
     components: {
         TheProfileSideBar,
         TheOrderDetail

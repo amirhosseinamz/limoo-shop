@@ -169,7 +169,7 @@ export default {
                     mm--;
                 }
                 if (this.Tcounter == 0) {
-                    console.log("TimerPassed");
+                    // console.log("TimerPassed");
                     this.animateTimerPassed();
                     clearInterval(interval);
                     this.timerZero = true;

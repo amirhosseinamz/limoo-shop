@@ -151,6 +151,7 @@
 import TheProfileSideBar from "~/components/Profile/TheProfileSideBar.vue";
 
 export default {
+     middleware: "authentication",
     components: {
         TheProfileSideBar
         // contentTickets,
