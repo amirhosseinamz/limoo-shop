@@ -53,6 +53,8 @@
                                     v-model="verifyCode"
                                     maxlength="4"
                                     required
+                                    oninvalid="this.setCustomValidity('لطفا کد تایید را وارد کنید')"
+                                    oninput="setCustomValidity('')"
                                 />
                             </div>
                         </div>
