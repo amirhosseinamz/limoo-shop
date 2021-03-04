@@ -8,7 +8,7 @@
                           <div class="pay-detail__discount-item">
                                 <div class="pay-detail__discount-right">
                                   <span class="pay-detail__discount-icon"></span>
-                                  <input :disabled="cancelDiscount" v-model="payDiscount" placeholder="کد تخفیف..." class="pay-detail__discount-input" type="text" name="" value="">
+                                  <input :disabled="cancelDiscount" v-model="payDiscount" maxlength="20"  placeholder="کد تخفیف..." class="pay-detail__discount-input" type="text" name="" value="">
                                 </div>
                                 <div v-if="!cancelDiscount" class="pay-detail__discount-left">
                                   <button @click="submitDiscount" type="button" name="button" class="pay-detail__discount-btn">اعمال کد</button>
