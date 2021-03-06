@@ -31,8 +31,8 @@
         "vue-infinite-loading" : "2.4.5",
         "vuejs-paginate" : "2.1.0",
         "vue-slider-component" : "3.2.11",
-        "vue-stickykit" : "1.0.6"
-
+        "vue-stickykit" : "1.0.6",
+        "stickybits"    : "3.7.9"
 
     },
     "devDependencies": {

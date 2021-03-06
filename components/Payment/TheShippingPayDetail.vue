@@ -1,19 +1,8 @@
 <template>
-    <div :key="updateCalcDetailPrice" class="cart-detail__container cart--parent" id="some-stickybit-parent" >
-          <div  class="cart-detail__main" id="some-stickybit-nav">
-               <PayData :detail-price="detailPrice"></PayData>
-
-                <div class="w-100 cart-detail__about">
-                    <div class="cart-detail__about-item">
-                        <img class="cart-detail__about-icon" src="/icons/Warranty.svg" alt="">
-                        <h3 class="cart-detail__about-title">ضمانت بازگشت وجه در صورت عدم رضایت</h3>
-                    </div>
-                    <div class="cart-detail__about-item">
-                        <img class="cart-detail__about-icon" src="/icons/Star.svg" alt="">
-                        <h3 class="cart-detail__about-title">ضمانت بازگشت وجه در صورت عدم رضایت</h3>
-                    </div>
-                </div>
-          </div>
+    <div class="cart-detail__container shipping--parent" id="some-stickybit-parent">
+        <div  class="cart-detail__main" id="some-stickybit-nav">
+             <PayData :detail-price="detailPrice"></PayData>
+        </div>
 
     </div>
 </template>
@@ -34,7 +23,7 @@ export default {
 
     data() {
         return {
-           updateCalcDetailPrice : 0,
+
         };
     },
 
@@ -58,7 +47,6 @@ export default {
     width: 479px;
     /* border: 1px solid red; */
     text-align: center;
-    margin-top: 49px;
     @include display-flex();
     flex-wrap: wrap;
     align-items: flex-start;
@@ -67,12 +55,12 @@ export default {
     width: 100%;
     background-color: $white;
     border-radius: 10px;
-    padding-right: 42px;
-    padding-left: 42px;
+    padding-right: 24px;
+    padding-left: 24px;
     @include display-flex();
     align-items: flex-start;
     flex-flow: column;
-    padding-bottom: 24px;
+    padding-bottom: 42px;
 }
 .cart-detail__item{
   @include display-flex();
@@ -199,7 +187,8 @@ export default {
   align-items: flex-start;
   @include display-flex();
   flex-wrap: wrap;
-  z-index: 1;
+  box-shadow: 0px 8px 16px rgba(17, 17, 17, 0.03);
+
 }
 .cart-detail__about-title{
   color: $gray;
@@ -207,31 +196,22 @@ export default {
   margin-right: 8px;
   font-size: 16px;
 }
-
-// @media (max-width: 1500px) {
-//   .cart-detail__payment{
-//     padding-bottom: 24px;
-//   }
-// }
-
-@media (max-width: 1300px) {
-  .cart-detail__about-title{
-    font-size: 13px;
-  }
-  .cart-detail__about-icon{
-    height: 22px;
-    margin-top: -12px;
-  }
-
+.shipping--parent{
+  z-index: 1;
 }
 
 
 
+@media (max-width: 1400px) {
+  .cart-detail__container{
+    width: 35%;
+  }
+}
+
 @media (max-width: 960px) {
     .cart-detail__container {
         width: 100%;
-        margin-top: 0;
-        padding: 0 5px;
+        // padding: 0 5px;
     }
     .cart-detail__about{
       display: none;
@@ -240,6 +220,9 @@ export default {
       padding-right: 11px;
       padding-left: 11px;
       padding-bottom: 16px;
+      border-radius: 0;
+      border-bottom-left-radius: 10px;
+      border-bottom-right-radius: 10px;
     }
 }
 

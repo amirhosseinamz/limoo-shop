@@ -57,7 +57,7 @@
                         ></span
                     >
                 </div>
-                <The-cart-shipping-detail></The-cart-shipping-detail>
+                <The-cart-shipping-detail :detail-price="detailPrice"></The-cart-shipping-detail>
             </div>
         </div>
         <nuxt-link to="/" class="user-cart__go-back">بازگشت</nuxt-link>
@@ -72,6 +72,10 @@
 import TheCartShippingDetail from "~/components/Shipping/TheShippingPayDetail.vue";
 import TheShippingAddress from "~/components/Shipping/TheShippingAddress.vue";
 import modalDeleteAddress from "~/components/Shipping/modalDeleteAddress.vue";
+import TheModalDeleteUserOrders from "~/components/Cart/TheModalDeleteUserOrders.vue";
+import addCamaPrice from "~/modules/addCamaPrice.js";
+
+
 export default {
     components: {
         TheCartShippingDetail,
@@ -103,18 +107,55 @@ export default {
                     numberReceiver: "09180151023",
                     defultAddress: false
                 },
-                {
+                  {
                     id: 3,
-                    address: "تهران ، خیابان ولیعصر ، تقاطع کوچه حسینی راد 3",
+                    address: "تهران ، خیابان ولیعصر ، تقاطع کوچه حسینی راد 2",
                     province: "قم",
                     city: "قم",
-                    codePoste: "3",
-                    nameReceiver: "مهدی دادور",
-                    numberReceiver: "09180877923",
+                    codePoste: "2",
+                    nameReceiver: "خشایار سُلگی",
+                    numberReceiver: "09180151023",
                     defultAddress: false
-                }
+                },
+
             ],
-            currentAddress: {},
+           ordersData: [
+                {
+                    id: 1,
+                    title: "تهران خیابان ولی عصر 1 تقاطع مطهری، کوچه حسینی راد"
+                },
+                {
+                    id: 2,
+                    title: "تهران خیابان ولی عصر 2 تقاطع مطهری، کوچه حسینی راد"
+                },
+                {
+                    id: 3,
+                    title: "تهران خیابان ولی عصر 3 تقاطع مطهری، کوچه حسینی راد"
+                },
+                {
+                    id: 4,
+                    title: "تهران خیابان ولی عصر 3 تقاطع مطهری، کوچه حسینی راد"
+                },
+                {
+                    id: 5,
+                    title: "تهران خیابان ولی عصر 3 تقاطع مطهری، کوچه حسینی راد"
+                },
+                {
+                    id: 6,
+                    title: "تهران خیابان ولی عصر 3 تقاطع مطهری، کوچه حسینی راد"
+                },
+                {
+                    id: 7,
+                    title: "تهران خیابان ولی عصر 3 تقاطع مطهری، کوچه حسینی راد"
+                },
+            ],
+            currentOrders: {},
+            detailPrice  : {
+              price               : 12000,
+              totalDiscount       : 142250,
+              submitDeliveryPrice : 'رایگان',
+              totalPrice          : 2587000,
+            },
             allProvince: [
                 {
                     id: 1,
@@ -122,8 +163,8 @@ export default {
                     selected: false
                 },
                 {
-                    id: 2,
                     title: "قم",
+                    id: 2,
                     selected: false
                 }
             ],
@@ -151,12 +192,19 @@ export default {
                 defultAddress: true
             },
             updateAddress: 0,
-            profilePhoneNumber: "09198814783"
+            profilePhoneNumber: "09198814783",
+            currentAddress: {},
         };
     },
-    created() {
+
+     created() {
         this.userAddressData = Object.values(this.addressData).length;
     },
+
+    mounted() {
+      this.addCama();
+    },
+
     methods: {
         submitAddressAdd(data, state) {
             this.updateAddress++;
@@ -232,7 +280,24 @@ export default {
                     content.count--;
                 }
             });
-        }
+        },
+
+        addCama(){
+          const getDetailPrice       = this.detailPrice;
+          const setUpdateDetailPrice = {
+          }
+
+          for (let key in getDetailPrice) {
+            setUpdateDetailPrice[key] = getDetailPrice[key];
+
+            if (getDetailPrice[key] != 'رایگان') {
+               setUpdateDetailPrice[key] = addCamaPrice(getDetailPrice[key]);
+            }
+          }
+
+          this.detailPrice = setUpdateDetailPrice;
+        },
+
     }
 };
 </script>
@@ -360,6 +425,16 @@ export default {
 .user-cart__shipping-line {
     display: none;
 }
+
+
+
+@media (max-width: 1400px) {
+  .user-cart__shipping-container{
+    width: 62%;
+    margin-left: 2.2%;
+  }
+}
+
 @media (max-width: 960px) {
     .user-shipping__address-btn__empty {
         width: 259px;

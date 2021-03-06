@@ -8,7 +8,9 @@
           <div class="w-100 cart-detail__content">
                 <div class="cart-detail__item">
                   <div class="cart-detail__right">
-                    <img src="/icons/coin.svg" class="cart-detail__icon" alt="">
+                    <!-- <img src="/icons/coin.svg" class="cart-detail__icon" alt=""> -->
+                    <span class="cart-detail__coin" alt=""></span>
+
                     <h3 class="cart-detail__right-title">قیمت محصولات:</h3>
                   </div>
                   <div class="cart-detail__left">
@@ -20,6 +22,7 @@
                 <div class="cart-detail__item">
                   <div class="cart-detail__right">
                     <img src="/icons/Discount-cart.svg" class="cart-detail__icon discount--icon" alt="">
+                    <!-- <span class="cart-detail__discount"></span> -->
                     <h3 class="cart-detail__right-title">تخفیف کل:</h3>
                   </div>
                   <div class="cart-detail__left">
@@ -44,11 +47,11 @@
               <div class="cart-detail__total">
                   <div class="cart-detail__item">
                       <div class="cart-detail__right">
-                        <h3 class="cart-detail__right-title red--pay">جمع قابل پرداخت:</h3>
+                        <h3 class="cart-detail__right-title green--pay">جمع قابل پرداخت:</h3>
                       </div>
                       <div class="cart-detail__left">
-                        <h3 class="cart-detail__left-title red--pay">{{detailPrice.totalPrice}}</h3>
-                        <h3 class="cart-detail__left-title red--pay">تومان</h3>
+                        <h3 class="cart-detail__left-title green--pay">{{detailPrice.totalPrice}}</h3>
+                        <h3 class="cart-detail__left-title green--pay">تومان</h3>
                       </div>
                   </div>
               </div>
@@ -57,11 +60,21 @@
 
 
           <div class="cart-detail__btn w-100">
-              <button type="button" class="cart-detail__btn-item remove--border" name="button">
-                ادامه فرایند خرید
+              <button  type="button" class="cart-detail__btn-item remove--border" name="button">
+                    <NuxtLink
+                      class="cart-detail__btn-link"
+                      to="/shipping"
+                    >
+                      ادامه فرایند خرید
+                    </NuxtLink>
               </button>
               <button type="button" class="cart-detail__btn-item btn--debtor" name="button">
-                خرید اقساصی کالا
+                  <NuxtLink
+                    class="cart-detail__btn-link"
+                    to="/shipping"
+                  >
+                    خرید اقساصی کالا
+                  </NuxtLink>
               </button>
           </div>
 
@@ -123,7 +136,7 @@ export default {
   width: 100%;
 }
 .cart-detail__item:nth-child(1){
-  margin-top: 44px;
+  margin-top: 16px;
 }
 .cart-detail__right{
   @include display-flex();
@@ -171,10 +184,10 @@ export default {
   margin-left: auto;
 }
 .cart-detail__total .cart-detail__item{
-  margin-top: 18px;
+  margin-top: 16px;
 }
-.red--pay{
-  color: $red-color;
+.green--pay{
+  color: $green__answer;
 }
 .cart-detail__icon{
   width: 18px;
@@ -189,8 +202,8 @@ export default {
   height: 21px;
 }
 .cart-detail__btn-item{
-  width: 395px;
-  height: 57px;
+  width: 100%;
+  // height: 57px;
   background: $btn__green;
   border-radius: 10px;
   border: 2px solid $gray;
@@ -213,7 +226,7 @@ export default {
   color: $gray;
 }
 .cart-detail__btn{
-  margin-top: 79px;
+  margin-top: 18px;
 }
 .cart-detail__about{
   @include display-flex();
@@ -262,7 +275,38 @@ export default {
 .cart-detail__total .cart-detail__right-title{
   margin-right: 0;
 }
+.cart-detail__btn-link{
+  color: $white;
+  text-decoration: none;
+  height: 57px;
+  @include display-flex();
+  justify-content: center;
+  align-items: center;
+}
+.btn--debtor .cart-detail__btn-link{
+  color: $gray;
+}
+.cart-detail__coin::after {
+    content: "\e809";
+    @include font-icon__limoo();
+    font-size: 18px;
+}
+.cart-detail__discount::after{
+  content: "\e80d";
+  @include font-icon__limoo();
+  font-size: 18px;
+}
 
+
+@media (max-width: 1500px) {
+  // .cart-detail__total .cart-detail__item{
+  //   margin-top: 16px;
+  // }
+  // .cart-detail__item:nth-child(1){
+  //   margin-top: 16px;
+  // }
+
+}
 
 
 @media (max-width: 1300px) {
@@ -279,6 +323,7 @@ export default {
   .cart-detail__btn-item{
     width: 100%;
   }
+
 }
 
 @media (max-width: 960px) {
