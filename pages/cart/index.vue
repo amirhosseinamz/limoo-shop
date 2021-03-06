@@ -17,7 +17,7 @@
                 ></The-cart-orders>
                 <nuxt-link to="/" class="user-cart__go-back">بازگشت</nuxt-link>
             </div>
-            <The-cart-pay-detail></The-cart-pay-detail>
+            <The-cart-pay-detail :detail-price="detailPrice"></The-cart-pay-detail>
         </div>
         <TheModalDeleteUserOrders
             :active.sync="showModalDeleteOrder"
@@ -30,6 +30,9 @@
 import TheCartPayDetail from "~/components/Cart/TheCartPayDetail.vue";
 import TheCartOrders from "~/components/Cart/TheCartOrders.vue";
 import TheModalDeleteUserOrders from "~/components/Cart/TheModalDeleteUserOrders.vue";
+import addCamaPrice from "~/modules/addCamaPrice.js";
+
+
 export default {
     components: {
         TheCartPayDetail,
@@ -38,8 +41,8 @@ export default {
     },
     data() {
         return {
-            showModalDeleteOrder: false,
-            ordersData: [
+            showModalDeleteOrder : false,
+            ordersData           : [
                 {
                     id: 1,
                     title:
@@ -66,11 +69,86 @@ export default {
                     orderPrice: "103،000،000",
                     orderPriceOff: "323،000",
                     count: 1
-                }
+                },
+                {
+                    id: 4,
+                    title:
+                        "اپل واچ سری 3 آلومینیوم زرد با بند اسپرت سیلیکون زرد",
+                    img: "/img/apple-watch-3.png",
+                    orderPrice: "103،000،000",
+                    orderPriceOff: "323،000",
+                    count: 1
+                },
+                {
+                    id: 5,
+                    title:
+                        "اپل واچ سری 3 آلومینیوم زرد با بند اسپرت سیلیکون زرد",
+                    img: "/img/apple-watch-3.png",
+                    orderPrice: "103،000،000",
+                    orderPriceOff: "323،000",
+                    count: 1
+                },
+                {
+                    id: 6,
+                    title:
+                        "اپل واچ سری 3 آلومینیوم زرد با بند اسپرت سیلیکون زرد",
+                    img: "/img/apple-watch-3.png",
+                    orderPrice: "103،000،000",
+                    orderPriceOff: "323،000",
+                    count: 1
+                },
+                {
+                    id: 7,
+                    title:
+                        "اپل واچ سری 3 آلومینیوم زرد با بند اسپرت سیلیکون زرد",
+                    img: "/img/apple-watch-3.png",
+                    orderPrice: "103،000،000",
+                    orderPriceOff: "323،000",
+                    count: 1
+                },
+                {
+                    id: 8,
+                    title:
+                        "اپل واچ سری 3 آلومینیوم زرد با بند اسپرت سیلیکون زرد",
+                    img: "/img/apple-watch-3.png",
+                    orderPrice: "103،000،000",
+                    orderPriceOff: "323،000",
+                    count: 1
+                },
+                {
+                    id: 9,
+                    title:
+                        "اپل واچ سری 3 آلومینیوم زرد با بند اسپرت سیلیکون زرد",
+                    img: "/img/apple-watch-3.png",
+                    orderPrice: "103،000،000",
+                    orderPriceOff: "323،000",
+                    count: 1
+                },
+                {
+                    id: 10,
+                    title:
+                        "اپل واچ سری 3 آلومینیوم زرد با بند اسپرت سیلیکون زرد",
+                    img: "/img/apple-watch-3.png",
+                    orderPrice: "103،000،000",
+                    orderPriceOff: "323،000",
+                    count: 1
+                },
             ],
-            currentOrders: {}
+            currentOrders        : {},
+            detailPrice          : {
+              price               : 12000,
+              totalDiscount       : 142250,
+              submitDeliveryPrice : 'رایگان',
+              totalPrice          : 2587000,
+            }
         };
     },
+
+    mounted() {
+      // پس ار اتصال به بک این قسمت باید بعد از برگشت اطلاعات از سمت بک صدا زده شود //
+      this.addCama();
+    },
+
     methods: {
         goBack() {
             this.$router.push("/");
@@ -110,7 +188,24 @@ export default {
                     content.count--;
                 }
             });
-        }
+        },
+
+        addCama(){
+          const getDetailPrice       = this.detailPrice;
+          const setUpdateDetailPrice = {
+          }
+
+          for (let key in getDetailPrice) {
+            setUpdateDetailPrice[key] = getDetailPrice[key];
+
+            if (getDetailPrice[key] != 'رایگان') {
+               setUpdateDetailPrice[key] = addCamaPrice(getDetailPrice[key]);
+            }
+          }
+
+          this.detailPrice = setUpdateDetailPrice;
+        },
+
     }
 };
 </script>
@@ -167,7 +262,23 @@ export default {
 .mobile-screen__holder {
     display: none;
 }
+
+
+
+@media (max-width: 1400px) {
+  .user-cart__orders-container {
+    width: 62%;
+    margin-left: 2.2%
+  }
+  .cart-detail__container{
+    width: 35%;
+  }
+}
+
 @media (max-width: 960px) {
+    .cart-detail__container{
+      width: 100%;
+    }
     .user-cart__container {
         padding: 47px 0 0 0;
         margin-bottom: 60px;
