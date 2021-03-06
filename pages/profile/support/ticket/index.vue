@@ -148,6 +148,7 @@ import contentTickets from "~/components/Profile/Support/Ticket/contentTickets.v
 import modalDeleteTicket from "~/components/Profile/Support/Ticket/modalDeleteTicket.vue";
 
 export default {
+     middleware: "authentication",
     components: {
         TheProfileSideBar,
         contentTickets,

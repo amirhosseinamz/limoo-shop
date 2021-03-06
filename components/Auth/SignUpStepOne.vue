@@ -165,11 +165,12 @@ export default {
                 //     value: true
                 // });
                 // this.$router.push("/users/register/confirm");
-                this.$emit("onSubmit",this.phone);
+                this.$emit("onSubmit", this.phone);
             }
         },
         closePage() {
             this.$router.push("/");
+            this.$store.commit("PhoneNumber", { value: "" });
         }
     }
 };

@@ -19,6 +19,15 @@
                         کد منقضی شد، لطفا کد جدید درخواست کنید!
                     </p>
                 </div>
+                <div
+                    class="alert-message "
+                    :class="{ 'alert-message-animation': confirmCode }"
+                >
+                    <img class="alert-icon " src="/icons/alarm.svg" />
+                    <p dir="rtl" class="alert-txt">
+                        کد وارد شده صحیح نمی باشد.
+                    </p>
+                </div>
             </div>
             <div class="card-body">
                 <form @submit.prevent="pressed">
@@ -44,6 +53,8 @@
                                     v-model="verifyCode"
                                     maxlength="4"
                                     required
+                                    oninvalid="this.setCustomValidity('لطفا کد تایید را وارد کنید')"
+                                    oninput="setCustomValidity('')"
                                 />
                             </div>
                         </div>
@@ -91,6 +102,9 @@
 
 <script>
 export default {
+    props: {
+        confirmCode: Boolean
+    },
     data() {
         return {
             verifyCode: "",
@@ -157,7 +171,7 @@ export default {
                     mm--;
                 }
                 if (this.Tcounter == 0) {
-                    console.log("TimerPassed");
+                    // console.log("TimerPassed");
                     this.animateTimerPassed();
                     clearInterval(interval);
                     this.timerZero = true;

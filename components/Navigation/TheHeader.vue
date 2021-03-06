@@ -10,7 +10,11 @@
             />
         </div>
         <!--  -->
-        <header class="the-header" :class="{ 'navbar--hidden': !showNavbar }">
+        <header
+            :key="authUpdated"
+            class="the-header"
+            :class="{ 'navbar--hidden': !showNavbar }"
+        >
             <div class="the-header__items">
                 <div class="logo">
                     <NuxtLink to="/">
@@ -60,7 +64,10 @@
                 >
                     <span class="navigation-item__profile-person"></span>
                     <button class="navigation-item__profile-btn">
-                        ورود <span style="color: #e0e0e0">|</span> عضویت
+                        <span v-show="!userIsAuth">
+                            ورود <span style="color: #e0e0e0">|</span> عضویت
+                        </span>
+                        <span v-show="userIsAuth">حساب کاربری</span>
                     </button>
                 </div>
                 <div class="navigation-item navigation-item__call">
@@ -101,10 +108,20 @@ export default {
             showNavbar: true,
             lastScrollPosition: 0,
             showModalAuth: false,
-            showModalWellcome: false
+            showModalWellcome: false,
+            userIsAuth: false,
+            authUpdated: 0
         };
     },
+
     mounted() {
+        // this.userIsAuth = this.$store.getters.userIsAuth;
+        // if (this.userIsAuth) {
+        //     this.authUpdated++;
+        // } else if (!this.userIsAuth) {
+        //     this.authUpdated++;
+        // }
+        // console.log(this.userIsAuth);
         window.addEventListener("scroll", this.onScroll);
         // setInterval(() => {
         //     this.showModalWellcome = this.$store.getters.stateShowModalWellcome;
@@ -126,6 +143,9 @@ export default {
     computed: {
         stateShowModalWellcome() {
             return (this.showModalWellcome = this.$store.getters.stateShowModalWellcome); // return the state value in `stateShowModalWellcome`
+        },
+        userIsAuthChanged() {
+            return (this.userIsAuth = this.$store.getters.userIsAuth);
         }
     },
     watch: {
@@ -136,7 +156,8 @@ export default {
             //     "showModalWellcome in header is",
             //     this.showModalWellcome
             // );
-        }
+        },
+        userIsAuthChanged() {}
     },
     beforeDestroy() {
         window.removeEventListener("scroll", this.onScroll);
@@ -144,7 +165,11 @@ export default {
     methods: {
         showAuthModal() {
             // console.log("hi");
-            this.showModalAuth = true;
+            if (!this.userIsAuth) {
+                this.showModalAuth = true;
+            } else if (this.userIsAuth) {
+                this.$router.push("/profile");
+            }
         },
         showWellcomeModal() {
             this.showModalAuth = false;

@@ -38,6 +38,7 @@ import contentComments from "~/components/Profile/Comments/contentComments.vue";
 import modalDeleteComment from "~/components/Profile/Comments/modalDeleteComment.vue";
 
 export default {
+     middleware: "authentication",
     components: {
         TheProfileSideBar,
         contentComments,

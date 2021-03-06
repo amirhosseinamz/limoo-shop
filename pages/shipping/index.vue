@@ -14,102 +14,220 @@
                 <div class="user-cart__shipping-container">
                     <div class="d-fleX w-100 justify-content-space-between">
                         <span class="user-shipping__title">انتخاب آدرس</span>
-                        <span class="user-shipping__address-btn"
+                        <span
+                            v-show="userAddressData !== 0"
+                            @click="addAddress"
+                            class="user-shipping__address-btn"
                             >افزودن آدرس جدید</span
                         >
                     </div>
                     <span class="user-cart__shipping-line"></span>
-                    <!-- <span class="card-shape__circle">
-                        <span class="card-shape__circle-inner"></span>
-                    </span> -->
+
                     <The-shipping-address
+                        ref="TheShippingAddress"
                         @event-show-modal-delete-order="
                             eventShowModalDeleteOrder
                         "
                         @add-more-order-to-card="addMoreOrderToCard"
                         @minus-order-from-card="minusOrderFromCart"
-                        :orders-data="ordersData"
+                        :address-data="addressData"
+                        :all-province="allProvince"
+                        :all-citys="allCitys"
+                        :form-data="formData"
+                        :profile-phone-number="profilePhoneNumber"
+                        @selected-province="selectedProvince"
+                        @selected-city="selectedCity"
+                        @submit-address-add="submitAddressAdd"
                     ></The-shipping-address>
-                    <span class="user-shipping__address-btn__mobile"
+                    <span
+                        v-show="userAddressData !== 0"
+                        @click="addAddress"
+                        class="user-shipping__address-btn__mobile"
                         >افزودن آدرس جدید</span
+                    >
+                    <span
+                        class="user-shipping__address-btn__empty"
+                        v-show="userAddressData == 0"
+                        @click="addAddress"
+                        ><span class="desktop-btn__empty"
+                            >افزودن آدرس جدید</span
+                        >
+                        <span class="mobile-btn__empty"
+                            >ثبت آدرس جدید</span
+                        ></span
                     >
                 </div>
                 <The-cart-shipping-detail></The-cart-shipping-detail>
             </div>
         </div>
         <nuxt-link to="/" class="user-cart__go-back">بازگشت</nuxt-link>
-        <TheModalDeleteUserOrders
-            :active.sync="showModalDeleteOrder"
-            :current-orders="currentOrders"
-            @btn-delete-order="btnDeleteOrder"
+        <modalDeleteAddress
+            :active.sync="showModalDeleteAddress"
+            :current-address="currentAddress"
+            @btn-delete-modal="btnDeleteAddress"
         />
     </div>
 </template>
 <script>
 import TheCartShippingDetail from "~/components/Shipping/TheShippingPayDetail.vue";
 import TheShippingAddress from "~/components/Shipping/TheShippingAddress.vue";
-import TheModalDeleteUserOrders from "~/components/Cart/TheModalDeleteUserOrders.vue";
+import modalDeleteAddress from "~/components/Shipping/modalDeleteAddress.vue";
 export default {
     components: {
         TheCartShippingDetail,
         TheShippingAddress,
-        TheModalDeleteUserOrders
+        modalDeleteAddress
     },
     data() {
         return {
-            showModalDeleteOrder: false,
-            ordersData: [
+            showModalDeleteAddress: false,
+            userAddressData: -1,
+            addressData: [
                 {
                     id: 1,
-                    title: "تهران خیابان ولی عصر 1 تقاطع مطهری، کوچه حسینی راد"
+                    address: "تهران ، خیابان ولیعصر ، تقاطع کوچه حسینی راد 1",
+                    province: "تهران",
+                    city: "جنت آباد",
+                    codePoste: "90",
+                    nameReceiver: "شروین پیکارجو",
+                    numberReceiver: "09190894025",
+                    defultAddress: true
                 },
                 {
                     id: 2,
-                    title: "تهران خیابان ولی عصر 2 تقاطع مطهری، کوچه حسینی راد"
+                    address: "تهران ، خیابان ولیعصر ، تقاطع کوچه حسینی راد 2",
+                    province: "قم",
+                    city: "قم",
+                    codePoste: "2",
+                    nameReceiver: "خشایار سُلگی",
+                    numberReceiver: "09180151023",
+                    defultAddress: false
                 },
                 {
                     id: 3,
-                    title: "تهران خیابان ولی عصر 3 تقاطع مطهری، کوچه حسینی راد"
+                    address: "تهران ، خیابان ولیعصر ، تقاطع کوچه حسینی راد 3",
+                    province: "قم",
+                    city: "قم",
+                    codePoste: "3",
+                    nameReceiver: "مهدی دادور",
+                    numberReceiver: "09180877923",
+                    defultAddress: false
                 }
             ],
-            currentOrders: {}
+            currentAddress: {},
+            allProvince: [
+                {
+                    id: 1,
+                    title: "تهران",
+                    selected: false
+                },
+                {
+                    id: 2,
+                    title: "قم",
+                    selected: false
+                }
+            ],
+            allCitys: [
+                {
+                    id: 1,
+                    parent_id: 2,
+                    title: "قم",
+                    selected: false
+                },
+                {
+                    id: 2,
+                    parent_id: 1,
+                    title: "جنت آباد",
+                    selected: false
+                }
+            ],
+            formData: {
+                province: "",
+                city: "",
+                codePoste: "",
+                nameReceiver: "",
+                numberReceiver: "",
+                address: "",
+                defultAddress: true
+            },
+            updateAddress: 0,
+            profilePhoneNumber: "09198814783"
         };
     },
+    created() {
+        this.userAddressData = Object.values(this.addressData).length;
+    },
     methods: {
+        submitAddressAdd(data, state) {
+            this.updateAddress++;
+            let findIndex = 0;
+            this.addressData.map((content, i) => {
+                if (content.id !== data.id) {
+                    content.defultAddress = false;
+                }
+            });
+            const faceUpdatePage = () => {
+                this.addressData.map((content, i) => {
+                    if (content.id == data.id) {
+                        this.addressData[i] = data;
+                    }
+                });
+            };
+
+            // بعد از اتصال به بک این قسمت حذف شود //
+            if (state == "edit") {
+                faceUpdatePage();
+            } else {
+                data.id = 20 + this.updateAddress;
+                this.addressData.unshift(data);
+            }
+
+            // send data server //
+        },
+        selectedProvince(data) {
+            // console.log(data,'selectedProvince');
+        },
+
+        selectedCity(data) {
+            // console.log(data,'selectedCitys');
+        },
+        addAddress() {
+            this.$refs.TheShippingAddress.addAddress();
+        },
         goBack() {
             this.$router.push("/cart");
         },
         eventShowModalDeleteOrder(data) {
-            this.showModalDeleteOrder = true;
-            this.currentOrders = data;
+            this.showModalDeleteAddress = true;
+            this.currentAddress = data;
         },
-        btnDeleteOrder(data) {
+        btnDeleteAddress(data) {
             const removeOrder = () => {
                 let indexDeleteOrderData = -1;
 
-                this.ordersData.map((content, index) => {
+                this.addressData.map((content, index) => {
                     if (content.id == data.id) {
                         indexDeleteOrderData = index;
                     }
                 });
 
-                this.ordersData.splice(indexDeleteOrderData, 1);
+                this.addressData.splice(indexDeleteOrderData, 1);
             };
 
             removeOrder();
-            this.showModalDeleteOrder = false;
+            this.showModalDeleteAddress = false;
 
             // request //
         },
         addMoreOrderToCard(data) {
-            this.ordersData.map(content => {
+            this.addressData.map(content => {
                 if (content.id == data.id) {
                     content.count++;
                 }
             });
         },
         minusOrderFromCart(data) {
-            this.ordersData.map(content => {
+            this.addressData.map(content => {
                 if (content.id == data.id) {
                     content.count--;
                 }
@@ -119,23 +237,6 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
-.card-shape__circle {
-    @include display-flex();
-    justify-content: center;
-    align-items: center;
-    width: 19px;
-    height: 19px;
-    border-radius: 50%;
-    background-color: $yellow;
-    /* background-color: $light-gray; */
-}
-.card-shape__circle-inner {
-    width: 9.5px;
-    height: 9.5px;
-    border-radius: 50%;
-    background-color: $white;
-}
-/*  */
 .cart-container {
     margin: 0 auto;
     width: 100%;
@@ -150,6 +251,33 @@ export default {
     @include display-flex();
     flex-direction: column;
     /* border: 1px solid red; */
+}
+.user-shipping__address-btn__empty {
+    @include display-flex();
+    justify-content: center;
+    align-items: center;
+    width: 270px;
+    height: 57px;
+    margin: 0 auto;
+    font-size: 16px;
+    line-height: 140.62%;
+    text-align: center;
+    color: $yellow;
+    border: 2px solid $yellow;
+    box-sizing: border-box;
+    border-radius: 10px;
+    cursor: pointer;
+    margin-top: 24px;
+}
+.user-shipping__address-btn__empty:hover {
+    color: $white;
+    background-color: $yellow;
+}
+.mobile-btn__empty {
+    display: none;
+}
+.desktop-btn__empty {
+    display: block;
 }
 .user-cart__shipping-holder {
     @include display-flex();
@@ -171,9 +299,9 @@ export default {
     margin-left: 30px;
     background-color: $white;
     border-radius: 10px;
-    min-height: 192px;
+    min-height: 193px;
     height: fit-content;
-    padding: 0 24px;
+    padding: 0 24px 30px 24px;
 }
 .user-shipping__title {
     font-family: inherit;
@@ -199,9 +327,11 @@ export default {
     content: "\e821";
     color: $yellow;
     font-size: 24px;
-    margin-left: 23px;
     margin-right: 8px;
     vertical-align: middle;
+}
+.user-shipping__address-btn__mobile::after {
+    margin-left: 23px;
 }
 .user-shipping__address-btn__mobile {
     display: none;
@@ -231,6 +361,17 @@ export default {
     display: none;
 }
 @media (max-width: 960px) {
+    .user-shipping__address-btn__empty {
+        width: 259px;
+        height: 47px;
+        margin-top: 8px;
+    }
+    .desktop-btn__empty {
+        display: none;
+    }
+    .mobile-btn__empty {
+        display: block;
+    }
     .user-shipping__address-btn {
         display: none;
     }
@@ -267,6 +408,7 @@ export default {
     .user-cart__shipping-container {
         width: 100%;
         /* border: 1px solid blue; */
+        min-height: 145px;
         margin-left: 0;
         padding: 0 11px;
     }
@@ -299,6 +441,11 @@ export default {
         font-weight: bold;
         /* margin-right: 4px;
         margin-left: 8px; */
+    }
+}
+@media (max-width: 280px) {
+    .user-cart__shipping-container {
+        padding: 0 3px;
     }
 }
 </style>

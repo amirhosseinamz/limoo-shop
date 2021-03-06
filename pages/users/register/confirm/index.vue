@@ -3,7 +3,10 @@
         <!-- <div id="overlay" v-if="showModalWellcome">
             <wellcome-sign-up></wellcome-sign-up>
         </div> -->
-        <sign-up-step-two @onConfirm="onConfirm"></sign-up-step-two>
+        <sign-up-step-two
+            :confirm-code="confirmCodeIsWrong"
+            @onConfirm="onConfirm"
+        ></sign-up-step-two>
     </div>
 </template>
 
@@ -12,6 +15,7 @@ import SignUpStepTwo from "~/components/Auth/SignUpStepTwo";
 import WellcomeSignUp from "~/components/Auth/WellcomeSignUp.vue";
 export default {
     layout: "signinup",
+    middleware: "confirmPageGuard",
     components: {
         SignUpStepTwo,
         WellcomeSignUp
@@ -19,7 +23,8 @@ export default {
     data() {
         return {
             showModalWellcome: false,
-            userPhoneNumber: ""
+            userPhoneNumber: "",
+            confirmCodeIsWrong: false
         };
     },
     mounted() {
@@ -47,6 +52,11 @@ export default {
                         });
                         this.$router.replace("/");
                         this.$store.commit("PhoneNumber", { value: "" });
+                    } else if (!Boolean(token)) {
+                        this.confirmCodeIsWrong = true;
+                        setTimeout(() => {
+                            this.confirmCodeIsWrong = false;
+                        }, 5000);
                     }
                 });
         }

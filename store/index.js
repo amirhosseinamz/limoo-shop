@@ -57,5 +57,8 @@ export const getters = {
     },
     stateShowModalWellcome(state) {
         return state.showModalWellcome;
+    },
+    userIsAuth(state) {
+        return state.userAuth;
     }
 };

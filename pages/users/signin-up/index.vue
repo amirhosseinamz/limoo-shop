@@ -8,6 +8,7 @@
 import SignUpStepOne from "~/components/Auth/SignUpStepOne";
 export default {
     layout: "signinup",
+    middleware: "signUpPageGuard",
     components: {
         SignUpStepOne
     },

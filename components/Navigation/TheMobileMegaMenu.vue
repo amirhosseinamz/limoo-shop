@@ -87,7 +87,11 @@ export default {
         const curentRoute = this.$route.path;
         if (curentRoute.search("/profile") == 0) {
             this.profileIsActive = true;
-        } else if (curentRoute == "/cart") {
+        } else if (
+            curentRoute == "/cart" ||
+            curentRoute == "/shipping" ||
+            curentRoute == "/payment"
+        ) {
             this.basketIsActive = true;
         } else if (curentRoute == "/") {
             this.homeIsActive = true;
