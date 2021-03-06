@@ -2,7 +2,7 @@
     <div class="orders-content__main">
         <transition moda="in-out">
             <div id="overlay" v-if="passChangeIsActive">
-                <add-address-modal
+                <shipping-add-address-modal
                     :all-province="allProvince"
                     :all-citys="allCitys"
                     :form-data-original="formData"
@@ -105,7 +105,7 @@
     </div>
 </template>
 <script>
-import addAddressModal from "./addAddressModal.vue";
+import shippingAddAddressModal from "./shippingAddAddressModal.vue";
 export default {
     props: {
         allProvince: { type: [Object, Array], default: [] },
@@ -115,7 +115,7 @@ export default {
         profilePhoneNumber: { type: [Number, String], default: "" }
     },
     components: {
-        addAddressModal
+        shippingAddAddressModal
     },
     data() {
         return {
