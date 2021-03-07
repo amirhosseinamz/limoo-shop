@@ -84,7 +84,11 @@
                                 <!--  -->
                             </div>
                         </div>
-                        <div class="user-cart__order-time__container"></div>
+                        <div class="user-cart__order-time__container">
+                            <the-time-shipping
+                                :time-data="timeData"
+                            ></the-time-shipping>
+                        </div>
                     </div>
                 </div>
                 <The-cart-shipping-detail
@@ -104,14 +108,15 @@
 import TheCartShippingDetail from "~/components/Shipping/TheShippingPayDetail.vue";
 import TheShippingAddress from "~/components/Shipping/TheShippingAddress.vue";
 import modalDeleteAddress from "~/components/Shipping/modalDeleteAddress.vue";
-import TheModalDeleteUserOrders from "~/components/Cart/TheModalDeleteUserOrders.vue";
+import TheTimeShipping from "~/components/Shipping/TheTimeShipping.vue";
 import addCamaPrice from "~/modules/addCamaPrice.js";
 
 export default {
     components: {
         TheCartShippingDetail,
         TheShippingAddress,
-        modalDeleteAddress
+        modalDeleteAddress,
+        TheTimeShipping
     },
     data() {
         return {
@@ -224,7 +229,38 @@ export default {
             },
             updateAddress: 0,
             profilePhoneNumber: "09198814783",
-            currentAddress: {}
+            currentAddress: {},
+            timeData: [
+                {
+                    id: 1,
+                    shippingLimoo: "limoo",
+                    shippingPost: "post",
+                    orders: [
+                        { id: 1, img: "/img/apple-watch-1.png" },
+                        { id: 2, img: "/img/apple-watch-1.png" },
+                        { id: 3, img: "/img/apple-watch-1.png" }
+                    ]
+                },
+                {
+                    id: 2,
+                    shipping: "heavy",
+                    orders: [{ id: 1, img: "/img/apple-watch-2.png" }]
+                },
+                {
+                    id: 3,
+                    shippingSeller: "seller",
+                    shippingLimoo: "limoo",
+                    orders: [
+                        { id: 1, img: "/img/apple-watch-3.png" },
+                        { id: 2, img: "/img/apple-watch-3.png" }
+                    ]
+                },
+                {
+                    id: 4,
+                    shipping: "seller",
+                    orders: [{ id: 1, img: "/img/apple-watch-1.png" }]
+                }
+            ]
         };
     },
 
@@ -429,10 +465,11 @@ export default {
 }
 .user-cart__order-time__container {
     width: 100%;
-    height: 500px;
+    height: fit-content;
     background-color: $white;
     box-shadow: 0px 8px 16px $box__shadow;
     border-radius: 0px 0px 10px 10px;
+    padding-top: 14px;
 }
 .user-cart__time-nav__holder {
     @include display-flex();
@@ -447,6 +484,7 @@ export default {
     @include display-flex();
     flex-direction: column;
     justify-content: space-between;
+    margin-left: 50px;
 }
 .user-cart__time-nav__items a {
     color: $gray;
@@ -573,8 +611,8 @@ export default {
         border-top: 1px solid $gray-border;
     }
     .user-cart__time-nav__holder {
-        justify-content: space-between;
-        padding: 15px 37px 0 37px;
+        /* justify-content: space-between; */
+        padding: 15px 30px 0 30px;
         height: 51px;
         /* border: 1px solid red; */
     }
@@ -649,6 +687,15 @@ export default {
         font-weight: bold;
         /* margin-right: 4px;
         margin-left: 8px; */
+    }
+}
+@media (max-width: 540px) {
+    .user-cart__time-nav__holder {
+        justify-content: space-between;
+        padding: 15px 37px 0 37px;
+    }
+    .user-cart__time-nav__items {
+        margin-left: 0;
     }
 }
 @media (max-width: 280px) {

@@ -56,6 +56,9 @@
 .icon-search:before { content: '\e869'; } /* '' */
 .icon-setting:before { content: '\e86a'; } /* '' */
 .icon-plus-circle:before { content: '\e86b'; } /* '' */
+.icon-state-bold:before { content: '\e876'; } /* '' */
+.icon-delivery:before { content: '\e878'; } /* '' */
+/* .icon-post-(2):before { content: '\e879'; } */
 .icon-factor-reg:before { content: '\e896'; } /* '' */
 .icon-coin-reg:before { content: '\e897'; } /* '' */
 .icon-state:before { content: '\e898'; } /* '' */
