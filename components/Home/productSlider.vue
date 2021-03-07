@@ -271,7 +271,7 @@ export default {
   padding-right: 24px;
   padding-left: 24px;
   align-items: flex-start;
-  margin-bottom: 31px;
+  margin-bottom: 22px;
 }
 .productContent__sliderMore{
   align-items: flex-start;
