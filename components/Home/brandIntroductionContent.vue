@@ -55,6 +55,7 @@ export default {
   flex-wrap: wrap;
   box-shadow: 0px 8px 16px rgba(17, 17, 17, 0.03);
   border-radius: 10px;
+  overflow: hidden;
 }
 .productContent__items{
   align-items: flex-start;

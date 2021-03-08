@@ -212,7 +212,7 @@ export default {
   flex-wrap: wrap;
   @include display-flex();
   cursor: pointer;
-  min-height: 170px;
+  height: 170px;
   border-bottom: solid 1px $gray-border;
   padding-right: 14px;
   padding-left: 14px;
