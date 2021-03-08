@@ -110,6 +110,7 @@ import TheShippingAddress from "~/components/Shipping/TheShippingAddress.vue";
 import modalDeleteAddress from "~/components/Shipping/modalDeleteAddress.vue";
 import TheTimeShipping from "~/components/Shipping/TheTimeShipping.vue";
 import addCamaPrice from "~/modules/addCamaPrice.js";
+import "~/assets/styles/_slider_shipping.scss";
 
 export default {
     components: {
@@ -239,12 +240,172 @@ export default {
                         { id: 1, img: "/img/apple-watch-1.png" },
                         { id: 2, img: "/img/apple-watch-1.png" },
                         { id: 3, img: "/img/apple-watch-1.png" }
+                    ],
+                    timeTable: [
+                        {
+                            id: 1,
+                            dayTime: "شنبه 23 بهمن 99",
+                            timeInDayTable: [
+                                {
+                                    id: 1,
+                                    time: "بین 8:00 تا 12:00",
+                                    disable: true
+                                },
+                                { id: 2, time: "بین 12:00 تا 16:00" },
+                                { id: 3, time: "بین 16:00 تا 20:00" },
+                                { id: 4, time: "بین 20:00 تا 00:00" }
+                            ]
+                        },
+                        {
+                            id: 2,
+                            dayTime: "یک شنبه 24 بهمن 99",
+                            timeInDayTable: [
+                                { id: 1, time: "بین 8:00 تا 12:00" },
+                                { id: 2, time: "بین 12:00 تا 16:00" },
+                                { id: 3, time: "بین 16:00 تا 20:00" },
+                                { id: 4, time: "بین 20:00 تا 00:00" }
+                            ]
+                        },
+                        {
+                            id: 3,
+                            dayTime: "دو شنبه 25 بهمن 99",
+                            timeInDayTable: [
+                                { id: 1, time: "بین 8:00 تا 12:00" },
+                                { id: 2, time: "بین 12:00 تا 16:00" },
+                                { id: 3, time: "بین 16:00 تا 20:00" },
+                                { id: 4, time: "بین 20:00 تا 00:00" }
+                            ]
+                        },
+                        {
+                            id: 4,
+                            dayTime: "سه شنبه 26 بهمن 99",
+                            timeInDayTable: [
+                                { id: 1, time: "بین 8:00 تا 12:00" },
+                                { id: 2, time: "بین 12:00 تا 16:00" },
+                                { id: 3, time: "بین 16:00 تا 20:00" },
+                                { id: 4, time: "بین 20:00 تا 00:00" }
+                            ]
+                        },
+                        {
+                            id: 5,
+                            dayTime: "چهار شنبه 27 بهمن 99",
+                            timeInDayTable: [
+                                { id: 1, time: "بین 8:00 تا 12:00" },
+                                { id: 2, time: "بین 12:00 تا 16:00" },
+                                { id: 3, time: "بین 16:00 تا 20:00" },
+                                { id: 4, time: "بین 20:00 تا 00:00" }
+                            ]
+                        },
+                        {
+                            id: 6,
+                            dayTime: "پنچ شنبه 28 بهمن 99",
+                            timeInDayTable: [
+                                { id: 1, time: "بین 8:00 تا 12:00" },
+                                { id: 2, time: "بین 12:00 تا 16:00" },
+                                { id: 3, time: "بین 16:00 تا 20:00" },
+                                { id: 4, time: "بین 20:00 تا 00:00" }
+                            ]
+                        },
+                        {
+                            id: 7,
+                            dayTime: "جمعه 29 بهمن 99",
+                            timeInDayTable: [
+                                { id: 1, time: "بین 8:00 تا 12:00" },
+                                { id: 2, time: "بین 12:00 تا 16:00" },
+                                { id: 3, time: "بین 16:00 تا 20:00" },
+                                { id: 4, time: "بین 20:00 تا 00:00" }
+                            ]
+                        }
                     ]
                 },
                 {
                     id: 2,
                     shipping: "heavy",
-                    orders: [{ id: 1, img: "/img/apple-watch-2.png" }]
+                    orders: [{ id: 1, img: "/img/apple-watch-2.png" }],
+                    timeTable: [
+                        {
+                            id: 1,
+                            dayTime: "شنبه 23 بهمن 99",
+                            timeInDayTable: [
+                                {
+                                    id: 1,
+                                    time: "بین 8:00 تا 12:00",
+                                    disable: true
+                                },
+                                { id: 2, time: "بین 12:00 تا 16:00" },
+                                {
+                                    id: 3,
+                                    time: "بین 16:00 تا 20:00",
+                                    disable: true
+                                },
+                                {
+                                    id: 4,
+                                    time: "بین 20:00 تا 00:00",
+                                    disable: true
+                                }
+                            ]
+                        },
+                        {
+                            id: 2,
+                            dayTime: "یک شنبه 24 بهمن 99",
+                            timeInDayTable: [
+                                { id: 1, time: "بین 8:00 تا 12:00" },
+                                { id: 2, time: "بین 12:00 تا 16:00" },
+                                { id: 3, time: "بین 16:00 تا 20:00" },
+                                { id: 4, time: "بین 20:00 تا 00:00" }
+                            ]
+                        },
+                        {
+                            id: 3,
+                            dayTime: "دو شنبه 25 بهمن 99",
+                            timeInDayTable: [
+                                { id: 1, time: "بین 8:00 تا 12:00" },
+                                { id: 2, time: "بین 12:00 تا 16:00" },
+                                { id: 3, time: "بین 16:00 تا 20:00" },
+                                { id: 4, time: "بین 20:00 تا 00:00" }
+                            ]
+                        },
+                        {
+                            id: 4,
+                            dayTime: "سه شنبه 26 بهمن 99",
+                            timeInDayTable: [
+                                { id: 1, time: "بین 8:00 تا 12:00" },
+                                { id: 2, time: "بین 12:00 تا 16:00" },
+                                { id: 3, time: "بین 16:00 تا 20:00" },
+                                { id: 4, time: "بین 20:00 تا 00:00" }
+                            ]
+                        },
+                        {
+                            id: 5,
+                            dayTime: "چهار شنبه 27 بهمن 99",
+                            timeInDayTable: [
+                                { id: 1, time: "بین 8:00 تا 12:00" },
+                                { id: 2, time: "بین 12:00 تا 16:00" },
+                                { id: 3, time: "بین 16:00 تا 20:00" },
+                                { id: 4, time: "بین 20:00 تا 00:00" }
+                            ]
+                        },
+                        {
+                            id: 6,
+                            dayTime: "پنچ شنبه 28 بهمن 99",
+                            timeInDayTable: [
+                                { id: 1, time: "بین 8:00 تا 12:00" },
+                                { id: 2, time: "بین 12:00 تا 16:00" },
+                                { id: 3, time: "بین 16:00 تا 20:00" },
+                                { id: 4, time: "بین 20:00 تا 00:00" }
+                            ]
+                        },
+                        {
+                            id: 7,
+                            dayTime: "جمعه 29 بهمن 99",
+                            timeInDayTable: [
+                                { id: 1, time: "بین 8:00 تا 12:00" },
+                                { id: 2, time: "بین 12:00 تا 16:00" },
+                                { id: 3, time: "بین 16:00 تا 20:00" },
+                                { id: 4, time: "بین 20:00 تا 00:00" }
+                            ]
+                        }
+                    ]
                 },
                 {
                     id: 3,
@@ -253,12 +414,184 @@ export default {
                     orders: [
                         { id: 1, img: "/img/apple-watch-3.png" },
                         { id: 2, img: "/img/apple-watch-3.png" }
+                    ],
+                    timeTable: [
+                        {
+                            id: 1,
+                            dayTime: "شنبه 23 بهمن 99",
+                            timeInDayTable: [
+                                {
+                                    id: 1,
+                                    time: "بین 8:00 تا 12:00",
+                                    disable: true
+                                },
+                                { id: 2, time: "بین 12:00 تا 16:00" },
+                                {
+                                    id: 3,
+                                    time: "بین 16:00 تا 20:00",
+                                    disable: true
+                                },
+                                {
+                                    id: 4,
+                                    time: "بین 20:00 تا 00:00",
+                                    disable: true
+                                }
+                            ]
+                        },
+                        {
+                            id: 2,
+                            dayTime: "یک شنبه 24 بهمن 99",
+                            timeInDayTable: [
+                                { id: 1, time: "بین 8:00 تا 12:00" },
+                                {
+                                    id: 2,
+                                    time: "بین 12:00 تا 16:00",
+                                    disable: true
+                                },
+                                { id: 3, time: "بین 16:00 تا 20:00" },
+                                { id: 4, time: "بین 20:00 تا 00:00" }
+                            ]
+                        },
+                        {
+                            id: 3,
+                            dayTime: "دو شنبه 25 بهمن 99",
+                            timeInDayTable: [
+                                { id: 1, time: "بین 8:00 تا 12:00" },
+                                { id: 2, time: "بین 12:00 تا 16:00" },
+                                { id: 3, time: "بین 16:00 تا 20:00" },
+                                { id: 4, time: "بین 20:00 تا 00:00" }
+                            ]
+                        },
+                        {
+                            id: 4,
+                            dayTime: "سه شنبه 26 بهمن 99",
+                            timeInDayTable: [
+                                { id: 1, time: "بین 8:00 تا 12:00" },
+                                { id: 2, time: "بین 12:00 تا 16:00" },
+                                { id: 3, time: "بین 16:00 تا 20:00" },
+                                { id: 4, time: "بین 20:00 تا 00:00" }
+                            ]
+                        },
+                        {
+                            id: 5,
+                            dayTime: "چهار شنبه 27 بهمن 99",
+                            timeInDayTable: [
+                                { id: 1, time: "بین 8:00 تا 12:00" },
+                                { id: 2, time: "بین 12:00 تا 16:00" },
+                                { id: 3, time: "بین 16:00 تا 20:00" },
+                                { id: 4, time: "بین 20:00 تا 00:00" }
+                            ]
+                        },
+                        {
+                            id: 6,
+                            dayTime: "پنچ شنبه 28 بهمن 99",
+                            timeInDayTable: [
+                                { id: 1, time: "بین 8:00 تا 12:00" },
+                                { id: 2, time: "بین 12:00 تا 16:00" },
+                                { id: 3, time: "بین 16:00 تا 20:00" },
+                                { id: 4, time: "بین 20:00 تا 00:00" }
+                            ]
+                        },
+                        {
+                            id: 7,
+                            dayTime: "جمعه 29 بهمن 99",
+                            timeInDayTable: [
+                                { id: 1, time: "بین 8:00 تا 12:00" },
+                                { id: 2, time: "بین 12:00 تا 16:00" },
+                                { id: 3, time: "بین 16:00 تا 20:00" },
+                                { id: 4, time: "بین 20:00 تا 00:00" }
+                            ]
+                        }
                     ]
                 },
                 {
                     id: 4,
                     shipping: "seller",
-                    orders: [{ id: 1, img: "/img/apple-watch-1.png" }]
+                    orders: [{ id: 1, img: "/img/apple-watch-1.png" }],
+                    timeTable: [
+                        {
+                            id: 1,
+                            dayTime: "شنبه 23 بهمن 99",
+                            timeInDayTable: [
+                                {
+                                    id: 1,
+                                    time: "بین 8:00 تا 12:00",
+                                    disable: true
+                                },
+                                { id: 2, time: "بین 12:00 تا 16:00" },
+                                {
+                                    id: 3,
+                                    time: "بین 16:00 تا 20:00",
+                                    disable: true
+                                },
+                                {
+                                    id: 4,
+                                    time: "بین 20:00 تا 00:00",
+                                    disable: true
+                                }
+                            ]
+                        },
+                        {
+                            id: 2,
+                            dayTime: "یک شنبه 24 بهمن 99",
+                            timeInDayTable: [
+                                { id: 1, time: "بین 8:00 تا 12:00" },
+                                { id: 2, time: "بین 12:00 تا 16:00" },
+                                { id: 3, time: "بین 16:00 تا 20:00" },
+                                { id: 4, time: "بین 20:00 تا 00:00" }
+                            ]
+                        },
+                        {
+                            id: 3,
+                            dayTime: "دو شنبه 25 بهمن 99",
+                            timeInDayTable: [
+                                { id: 1, time: "بین 8:00 تا 12:00" },
+                                { id: 2, time: "بین 12:00 تا 16:00" },
+                                { id: 3, time: "بین 16:00 تا 20:00" },
+                                { id: 4, time: "بین 20:00 تا 00:00" }
+                            ]
+                        },
+                        {
+                            id: 4,
+                            dayTime: "سه شنبه 26 بهمن 99",
+                            timeInDayTable: [
+                                { id: 1, time: "بین 8:00 تا 12:00" },
+                                { id: 2, time: "بین 12:00 تا 16:00" },
+                                { id: 3, time: "بین 16:00 تا 20:00" },
+                                { id: 4, time: "بین 20:00 تا 00:00" }
+                            ]
+                        },
+                        {
+                            id: 5,
+                            dayTime: "چهار شنبه 27 بهمن 99",
+                            timeInDayTable: [
+                                { id: 1, time: "بین 8:00 تا 12:00" },
+                                { id: 2, time: "بین 12:00 تا 16:00" },
+                                { id: 3, time: "بین 16:00 تا 20:00" },
+                                { id: 4, time: "بین 20:00 تا 00:00" }
+                            ]
+                        },
+                        {
+                            id: 6,
+                            dayTime: "پنچ شنبه 28 بهمن 99",
+                            timeInDayTable: [
+                                { id: 1, time: "بین 8:00 تا 12:00" },
+                                { id: 2, time: "بین 12:00 تا 16:00" },
+                                { id: 3, time: "بین 16:00 تا 20:00" },
+                                { id: 4, time: "بین 20:00 تا 00:00" }
+                            ]
+                        },
+                        {
+                            id: 7,
+                            dayTime: "جمعه 29 بهمن 99",
+                            timeInDayTable: [
+                                { id: 1, time: "بین 8:00 تا 12:00" },
+                                { id: 2, time: "بین 12:00 تا 16:00" },
+                                { id: 3, time: "بین 16:00 تا 20:00" },
+                                { id: 4, time: "بین 20:00 تا 00:00" }
+                            ]
+                        }
+                    ]
                 }
             ]
         };

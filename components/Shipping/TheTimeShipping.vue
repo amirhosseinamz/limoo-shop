@@ -119,15 +119,53 @@
                         />
                     </div>
                 </div>
+                <div
+                    class="shipping-time__slider-holder"
+                    :class="{
+                        'show-time__slider__active': data.sliderNotShow
+                    }"
+                >
+                    <the-time-cart
+                        class="show-time__slider"
+                        :time-table="data.timeTable"
+                        :time-data="data"
+                    ></the-time-cart>
+                </div>
+                <div
+                    :class="{
+                        'show-time__slider__active': !data.sliderNotShow
+                    }"
+                >
+                    <div class="post-shipping__time-holder">
+                        <div class="post-shipping__time-container">
+                            <span class="post-shipping__time-title"
+                                >تاریخ تحویل بسته:</span
+                            >
+                            <span class="post-shipping__time-day"
+                                >25 آذر 1399</span
+                            >
+                        </div>
+                        <div class="d-fleX">
+                            <span class="post-shipping__time-hour-title"
+                                >ساعت:</span
+                            >
+                            <span class="post-shipping__time-hour"
+                                >15 الی 21</span
+                            >
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 </template>
 <script>
+import TheTimeCart from "./TheTimeCart.vue";
 export default {
     props: {
         timeData: { type: [Object, Array], default: {} }
     },
+    components: { TheTimeCart },
     data() {
         return {
             updateSelected: 0
@@ -140,6 +178,7 @@ export default {
                     content.limooSelected = false;
                     content.sellerSelected = false;
                     content.postSelected = !content.postSelected;
+                    content.sliderNotShow = true;
                 }
             });
             this.updateSelected++;
@@ -149,6 +188,7 @@ export default {
                 if (content.id == data.id) {
                     content.postSelected = false;
                     content.sellerSelected = false;
+                    content.sliderNotShow = false;
                     content.limooSelected = !content.limooSelected;
                 }
             });
@@ -159,6 +199,7 @@ export default {
                 if (content.id == data.id) {
                     content.postSelected = false;
                     content.limooSelected = false;
+                    content.sliderNotShow = false;
                     content.sellerSelected = !content.sellerSelected;
                 }
             });
@@ -281,7 +322,88 @@ export default {
 .order-product-img__item {
     padding: 0 8px;
 }
+.shipping-time__slider-holder {
+    width: 100%;
+    height: 212px;
+    /* border: 1px solid red; */
+    margin: 16px 0 42px 0;
+    padding-right: 24px;
+    padding-left: 8px;
+}
+.show-time__slider__active {
+    display: none;
+}
+.show-time__slider__active .show-time__slider {
+    display: none;
+}
+.post-shipping__time-holder {
+    @include display-flex();
+    flex-direction: column;
+    margin: 16px 24px 42px 0;
+    /* border: 1px solid red; */
+}
+.post-shipping__time-title {
+    font-size: 16px;
+    line-height: 140.62%;
+    color: $gray;
+}
+.post-shipping__time-title::before {
+    @include font-icon__limoo();
+    content: "\e804";
+    color: $gray;
+    font-size: 18px;
+    margin-left: 8px;
+}
+.post-shipping__time-day {
+    font-size: 16px;
+    line-height: 140.62%;
+    color: $black-topic;
+    margin-right: 5px;
+}
+.post-shipping__time-container {
+    margin-bottom: 7px;
+}
+.post-shipping__time-hour-title {
+    font-size: 14px;
+    line-height: 140.62%;
+    color: $gray;
+    display: none;
+}
+.post-shipping__time-hour-title::before {
+    @include font-icon__limoo();
+    content: "\e82c";
+    color: $gray;
+    font-size: 16px;
+    margin-left: 8px;
+    vertical-align: -10%;
+}
+.post-shipping__time-hour {
+    font-size: 14px;
+    line-height: 140.62%;
+    color: $black-topic;
+    margin-right: 5px;
+    display: none;
+}
 @media (max-width: 960px) {
+    .post-shipping__time-holder {
+        margin: 16px 10px 24px 0;
+    }
+    .shipping-time__slider-holder {
+        display: none;
+    }
+    .post-shipping__time-hour-title,
+    .post-shipping__time-hour {
+        display: block;
+    }
+    .post-shipping__time-title {
+        font-size: 14px;
+    }
+    .post-shipping__time-title::before {
+        font-size: 16px;
+    }
+    .post-shipping__time-day {
+        font-size: 14px;
+    }
     .order-content-item__time-receive {
         min-height: 301px;
     }
