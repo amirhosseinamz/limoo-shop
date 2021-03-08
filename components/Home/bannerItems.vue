@@ -58,8 +58,7 @@ export default {
     @include display-flex();
     align-items: flex-start;
     flex-wrap: wrap;
-    margin-top: 36px;
-    margin-bottom: 28px;
+    margin-top: 40px;
   }
   .bannerItems__item{
     margin-left: 1.1%;
@@ -85,14 +84,10 @@ export default {
   }
 
   @media (max-width: 960px) {
-
+    
   }
 
   @media (max-width: 485px) {
-      .bannerItems{
-        margin-top: 8px;
-        margin-bottom: 8px;
-      }
       .bannerItems__item{
         display: none;
         width: 100%;
@@ -104,7 +99,7 @@ export default {
       }
       .bannerItems{
         margin-top: 8px;
-        margin-bottom: 0px;
+        margin-bottom: 8px;
       }
   }
 

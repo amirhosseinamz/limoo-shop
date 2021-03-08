@@ -5,7 +5,7 @@
             <div class="productContent__left">
 
                   <div class="w-100 product__vertical-main">
-                        <product-vertical2 :products="products" :title="title"></product-vertical2>
+                        <product-vertical2 :description-show="descriptionShow" :products="products" :title="title"></product-vertical2>
                   </div>
 
                   <div class="w-100">
@@ -33,8 +33,9 @@ export default {
     },
 
     props: {
-      products   : { type: [Object,Array], default: [] },
-      title      : { type: Object, default: {} },
+      products           : { type: [Object,Array], default: [] },
+      title              : { type: Object, default: {} },
+      descriptionShow    : { type: Boolean, default: false },
     },
 
     data() {

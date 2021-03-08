@@ -130,9 +130,6 @@ export default {
 }
 
 @media (max-width: 960px) {
-  .productContent{
-    margin-top: 8px;
-  }
   .productContent__right{
     width: 100%;
     padding-right: 11px;

@@ -46,7 +46,26 @@
 
             <banner-2-items></banner-2-items>
 
+            <div class="w-100 product__vertical-main">
+                <div class="product__vertical-right">
+                  <product-vertical-2-content
+                  :products="allProductMultiVertical"
+                  :description-show="false"
+                  :title="{title:'موبایل اندرویدی' , href:'verticalAll' , titleVisit:'تجهیزات پخت و پز ایرانی 1',sliderItemHref:'category' , sliderItemHref:'product-vertical'}"
+                  ></product-vertical-2-content>
+                </div>
+
+                <div class="product__vertical-left">
+                  <product-vertical-2-content
+                  :products="allProductMultiVertical"
+                  :description-show="false"
+                  :title="{title:'موبایل اندرویدی' , href:'verticalAll' , titleVisit:'تجهیزات پخت و پز ایرانی 2',sliderItemHref:'category' , sliderItemHref:'product-vertical'}"
+                  ></product-vertical-2-content>
+                </div>
+            </div>
+
             <banner-3-items></banner-3-items>
+
 
             <product-content
             :products="products"
@@ -70,25 +89,27 @@
             :title="{title:'برند های لیمویی' ,  href:'#' ,titleVisit:'لیست برتر برند های در لیمو',sliderItemHref:'brand'}"
             ></product-cat>
 
-            <question-content
-            :all-question="allQuestion"
-            ></question-content>
-
-            <div class="w-100 product__vertical-main">
+            <div class="w-100 product__vertical-main product__vertical-desktop">
                 <div class="product__vertical-right">
                     <product-vertical-2-content
-                    :products="allProductMultiVertical"
-                    :title="{title:'موبایل اندرویدی' , href:'verticalAll' , titleVisit:'تجهیزات پخت و پز ایرانی',sliderItemHref:'category' , sliderItemHref:'product-vertical'}"
+                    :products="allProductVerticalDescription"
+                    :description-show="true"
+                    :title="{title:'موبایل اندرویدی' , href:'verticalAll' , titleVisit:'تجهیزات پخت و پز ایرانی 1',sliderItemHref:'category' , sliderItemHref:'product-vertical'}"
                     ></product-vertical-2-content>
                 </div>
 
                 <div class="product__vertical-left">
                   <product-vertical-2-content
-                  :products="allProductMultiVertical"
-                  :title="{title:'موبایل اندرویدی' , href:'verticalAll' , titleVisit:'تجهیزات پخت و پز ایرانی',sliderItemHref:'category' , sliderItemHref:'product-vertical'}"
+                  :products="allProductVerticalDescription"
+                  :description-show="true"
+                  :title="{title:'موبایل اندرویدی' , href:'verticalAll' , titleVisit:'تجهیزات پخت و پز ایرانی 2',sliderItemHref:'category' , sliderItemHref:'product-vertical'}"
                   ></product-vertical-2-content>
                 </div>
             </div>
+
+            <question-content
+            :all-question="allQuestion"
+            ></question-content>
 
 
             <brand-introduction-content :products="brandIntroduction"></brand-introduction-content>
@@ -116,15 +137,17 @@ import productVertical2Content from './productVertical2Content';
 
 export default {
     props: {
-      products                 : { type: [Object,Array], default: [] },
-      allCategory              : { type: [Object,Array], default: [] },
-      allProductVertical       : { type: [Object,Array], default: [] },
-      allBrand                 : { type: [Object,Array], default: [] },
-      brandIntroduction        : { type: [Object,Array], default: [] },
-      allQuestion              : { type: [Object,Array], default: [] },
-      allBlogProduct           : { type: [Object,Array], default: [] },
-      introductionProduct      : { type: [Object,Array], default: [] },
-      allProductMultiVertical  : { type: [Object,Array], default: [] },
+      products                       : { type: [Object,Array], default: [] },
+      allCategory                    : { type: [Object,Array], default: [] },
+      allProductVertical             : { type: [Object,Array], default: [] },
+      allBrand                       : { type: [Object,Array], default: [] },
+      brandIntroduction              : { type: [Object,Array], default: [] },
+      allQuestion                    : { type: [Object,Array], default: [] },
+      allBlogProduct                 : { type: [Object,Array], default: [] },
+      introductionProduct            : { type: [Object,Array], default: [] },
+      allProductMultiVertical        : { type: [Object,Array], default: [] },
+      allProductVerticalDescription  : { type: [Object,Array], default: [] },
+
     },
 
     components: {
@@ -181,6 +204,12 @@ export default {
 
   @media (max-width: 1024px) {
 
+  }
+
+  @media (max-width: 985px) {
+    .product__vertical-desktop{
+      display: none;
+    }
   }
 
   @media (max-width: 960px) {

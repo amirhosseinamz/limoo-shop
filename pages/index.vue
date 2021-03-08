@@ -24,6 +24,8 @@
         :all-blog-product="allBlogProduct"
         :introduction-product="introductionProduct"
         :all-product-multi-vertical="allProductMultiVertical"
+        :all-product-vertical-description="allProductVerticalDescription"
+
 
 
 
@@ -44,7 +46,7 @@ export default {
 
     data() {
         return {
-          products                 : [
+          products                       : [
             {
               id        : 1,
               title     : 'حافظه SSD وسترن دیجیتال مدل GREEN WDS480G2G0A ظرفیت 480 گیگابایت',
@@ -88,7 +90,7 @@ export default {
               image     : '/img/phoneAndroid.svg',
             }
           ],
-          allCategory              : [
+          allCategory                    : [
             {
               id    : 1,
               title : 'موبایل و تبلت',
@@ -139,22 +141,20 @@ export default {
             },
 
           ],
-          allProductVertical       : [
+          allProductVertical             : [
             {
               id               : 1,
               title            : 'اپ واچ سری قرمز آلومینیوم آبی با بند اسپرت سیلیکون آبی ویژه سایز 42 و 44',
               realPrice        : '50000',
               image            : '/img/sony_pic_1.svg',
-              discount         : '2000',
-              precentDiscount  : '30',
+              discount         : '20000',
             },
             {
               id               : 2,
               title            : 'اپ واچ سری قرمز آلومینیوم آبی با بند اسپرت سیلیکون آبی ویژه سایز 42 و 44',
               realPrice        : '10',
               image            : '/img/sony_pic_1.svg',
-              discount         : '30',
-              precentDiscount  : '30',
+              discount         : '6000',
             },
             {
               id               : 3,
@@ -162,7 +162,6 @@ export default {
               realPrice        : '5',
               image            : '/img/sony_pic_3.svg',
               discount         : '30',
-              precentDiscount  : '30',
             },
             {
               id               : 4,
@@ -170,7 +169,6 @@ export default {
               realPrice        : '20',
               image            : '/img/sony_pic_1.svg',
               discount         : '30',
-              precentDiscount  : '30',
             },
             {
               id               : 5,
@@ -178,7 +176,6 @@ export default {
               realPrice        : '10',
               image            : '/img/sony_pic_1.svg',
               discount         : '30',
-              precentDiscount  : '30',
             },
             {
               id               : 6,
@@ -186,7 +183,6 @@ export default {
               realPrice        : '50000',
               image            : '/img/sony_pic_1.svg',
               discount         : '30',
-              precentDiscount  : '30',
             },
             {
               id               : 7,
@@ -194,7 +190,6 @@ export default {
               realPrice        : '50000',
               image            : '/img/sony_pic_1.svg',
               discount         : '30',
-              precentDiscount  : '12000',
             },
             {
               id               : 8,
@@ -202,11 +197,10 @@ export default {
               realPrice        : '50000',
               image            : '/img/sony_pic_1.svg',
               discount         : '36000',
-              precentDiscount  : '12000',
             },
 
           ],
-          allBrand                 : [
+          allBrand                       : [
             {
               id    : 1,
               title : 'موبایل و تبلت',
@@ -258,7 +252,7 @@ export default {
             },
 
           ],
-          brandIntroduction        : [
+          brandIntroduction              : [
             {
               id         : 1,
               title      : 'تضمین کیفیت',
@@ -285,7 +279,7 @@ export default {
             },
 
           ],
-          allQuestion              : [
+          allQuestion                    : [
             {
               id         : 111,
               title      : 'آیا می توانم از کیف پول برای خرید استفاده کنم?',
@@ -307,7 +301,7 @@ export default {
               active     : false,
             },
           ],
-          allBlogProduct           : [
+          allBlogProduct                 : [
             {
               id          : 1,
               title       : 'حافظه SSD وسترن دیجیتال مدل GREEN WDS480G2G0A ظرفیت 480 گیگابایت',
@@ -363,7 +357,7 @@ export default {
 
             }
           ],
-          introductionProduct      : [
+          introductionProduct            : [
             {
               id        : 1,
               title     : 'حافظه SSD وسترن دیجیتال مدل GREEN WDS480G2G0A ظرفیت 480 گیگابایت',
@@ -393,8 +387,8 @@ export default {
               image     : '/img/apple-watch-series-4-hermes-double1.svg',
             },
           ],
-          updateProduct            : 0,
-          allProductMultiVertical  : [
+          updateProduct                  : 0,
+          allProductMultiVertical        : [
             {
               id               : 1,
               title            : 'اپ واچ سری قرمز آلومینیوم آبی با بند اسپرت سیلیکون آبی ویژه سایز 42 و 44',
@@ -429,6 +423,46 @@ export default {
             },
 
           ],
+          allProductVerticalDescription  : [
+            {
+              id               : 1,
+              title            : 'اپ واچ سری قرمز آلومینیوم آبی با بند اسپرت سیلیکون آبی ویژه سایز 42 و 44',
+              realPrice        : '50000',
+              image            : '/img/sony_pic_1.svg',
+              discount         : '',
+              precentDiscount  : '30',
+              description      :  'مهدی تستی تستی ',
+            },
+            {
+              id               : 2,
+              title            : 'اپ واچ سری قرمز آلومینیوم آبی با بند اسپرت سیلیکون آبی ویژه سایز 42 و 44',
+              realPrice        : '50000',
+              image            : '/img/sony_pic_3.svg',
+              discount         : '15000',
+              precentDiscount  : '30',
+              description      : ' لحضاتی پیش اپل با رونمایی از لبتاب سری آلمنیوم با بند اسپرت نسل جدید تحولی عظیم برای تولیدات قطعات ام وان ایجاد کرد که',
+            },
+            {
+              id               : 3,
+              title            : 'اپ واچ سری قرمز آلومینیوم آبی با بند اسپرت سیلیکون آبی ویژه سایز 42 و 44',
+              realPrice        : '50000',
+              image            : '/img/sony_pic_1.svg',
+              discount         : '45000',
+              precentDiscount  : '60',
+              description      : ' لحضاتی پیش اپل با رونمایی از لبتاب سری آلمنیوم با بند اسپرت نسل جدید تحولی عظیم برای تولیدات قطعات ام وان ایجاد کرد که',
+            },
+            {
+              id               : 4,
+              title            : 'اپ واچ سری قرمز آلومینیوم آبی با بند اسپرت سیلیکون آبی ویژه سایز 42 و 44',
+              realPrice        : '50000',
+              image            : '/img/sony_pic_1.svg',
+              discount         : '',
+              precentDiscount  : '50',
+              description      :  'dsadasیشخیخشسنسیشمینشسمنیسمشنیسشمنیمنسشمین',
+            },
+
+          ],
+
         };
     },
 
@@ -451,10 +485,17 @@ export default {
 
       // add circle blog //
       if (485 < width) {
-        this.checkAddCircleBlogPorduct('desktop')
+        this.checkAddCircleBlogPorduct('desktop');
       }
       else {
         this.checkAddCircleBlogPorduct('mobile')
+      }
+
+      if (1300 == width) {
+        this.checkAddCircleVerticalProductDescription('desktop',50);
+      }
+      else {
+        this.checkAddCircleVerticalProductDescription('desktop',118);
       }
 
     },
@@ -485,15 +526,21 @@ export default {
         })
       },
 
-      checkAddCircleBlogPorduct(stateChangeNumberLimit){
+      addCircleText(
+        stateChangeNumberLimit,
+        data,
+        numberCircleDesktopLimited,
+        nameObjectFindCircle
+      ){
         let NUMBERLIMIT     = -1;
+        NUMBERLIMIT         = numberCircleDesktopLimited;
 
         if (stateChangeNumberLimit == 'mobile') {
           // mobile limit //
           NUMBERLIMIT  = 94;
         }
         else {
-          NUMBERLIMIT   = 135;
+          NUMBERLIMIT   = numberCircleDesktopLimited;
           //  desktop limit //
         }
 
@@ -508,8 +555,8 @@ export default {
         }
 
 
-        this.allBlogProduct.map((content,index)=>{
-          const description         = content.description;
+        data.map((content,index)=>{
+          const description         = content[nameObjectFindCircle];
           const checkLenDescription = description.length;
           const splitDescription    = description.split('');
 
@@ -527,6 +574,14 @@ export default {
 
       },
 
+      checkAddCircleBlogPorduct(stateChangeNumberLimit){
+        this.addCircleText(stateChangeNumberLimit,this.allBlogProduct,135,'description');
+      },
+
+      checkAddCircleVerticalProductDescription(stateChangeNumberLimit,numberLimited){
+        this.addCircleText(stateChangeNumberLimit,this.allProductVerticalDescription,numberLimited,'description');
+      },
+
       detectedResizeBrowser(){
         window.addEventListener("resize", ()=>{
             const width   = window.innerWidth;
@@ -536,6 +591,13 @@ export default {
             }
             else {
               this.checkAddCircleBlogPorduct('desktop')
+            }
+
+            if (1300 >= width) {
+              this.checkAddCircleVerticalProductDescription('desktop',50);
+            }
+            else {
+              this.checkAddCircleVerticalProductDescription('desktop',118);
             }
 
           }, true);

@@ -1,5 +1,5 @@
 <template>
-  <div class="w-100 productContent__sliderWrapper">
+  <div  :class="{'product--description':descriptionShow}" class="w-100 productContent__sliderWrapper">
 
         <div class="w-100 productContent__catTop">
             <div class="productContent__topRight">
@@ -10,15 +10,15 @@
         </div>
 
         <div class="main-carousel w-100 productContent__vertical productContent__mainSlider">
-              <div v-for="data in allDesktopSplitTwice" :key="data.id" class="carousel-cell productContent__carousel ">
+              <div  v-for="data in allDesktopSplitTwice" :key="data.id" class="carousel-cell productContent__carousel ">
                   <div @click="switchLink($event,contentChildren)" v-if="contentChildren.mobileShow" v-for="contentChildren in data.children" :key="contentChildren.id" class="productContent__carouselContent w-100">
-                      <NuxtLink
+                      <!-- <NuxtLink
                       class="w-100 productContent__carousel-link"
                       :to=" '/' + title.sliderItemHref + '/' + contentChildren.id "
                       target="_blank"
                       :data-id="contentChildren.id"
                       >
-                    </NuxtLink>
+                    </NuxtLink> -->
 
                         <div class="productContent__carouselRight">
                           <img class="productContent__carouselImgItem" :src="contentChildren.image" alt="">
@@ -33,32 +33,44 @@
                                       </h3>
                                     </div>
 
-                                    <div class="w-100 productContent__carouselPriceMain" :class="{'productContent__haveDiscount':contentChildren.discount != ''}">
-                                      <div class="productContent__discount">
+                                      <div class="w-100 productContent__carouselPriceMain" :class="{'productContent__haveDiscount':contentChildren.discount != ''}">
+                                            <div class="productContent__discount">
 
-                                          <div class="product__discount-content">
-                                                <div class="productContent__pricePercent">
-                                                  <h3 class="productContent__percentTitle">{{contentChildren.precentDiscount}}%</h3>
+                                                  <div class="product__discount-content">
+                                                        <div class="productContent__pricePercent">
+                                                          <h3 class="productContent__percentTitle">{{contentChildren.precentDiscount}}%</h3>
+                                                        </div>
+
+                                                        <div class="productContent__priceDiscount">
+                                                          <h3 class="productContent__discountTitle">
+                                                            {{contentChildren.addCamaDiscount}}
+                                                            <span class="productContent__discountLine"></span>
+                                                          </h3>
+                                                        </div>
+                                                  </div>
+
+                                                <div class="productContent__priceMain">
+                                                    <h3 class="productContent__priceTitle">
+                                                      {{contentChildren.addCamaRealPrice}}
+                                                      <span>تومان</span>
+                                                    </h3>
                                                 </div>
 
-                                                <div class="productContent__priceDiscount">
-                                                  <h3 class="productContent__discountTitle">
-                                                    {{contentChildren.addCamaDiscount}}
-                                                    <span class="productContent__discountLine"></span>
-                                                  </h3>
-                                                </div>
-                                          </div>
+                                            </div>
 
-                                        <div class="productContent__priceMain">
-                                            <h3 class="productContent__priceTitle">
-                                              {{contentChildren.addCamaRealPrice}}
-                                              <span>تومان</span>
-                                            </h3>
-                                        </div>
+                                            <div class="product__descrption-main w-100">
+                                                <span class="product__descrption-title" v-if="contentChildren.showLimitDescription">{{contentChildren.description}}</span>
+                                                <span v-else class="product__descrption-title">
+                                                  {{contentChildren.limitedDescription}}
+                                                  <span class="productContent__circle">
+                                                    ...
+                                                  </span>
+                                                </span>
+                                            </div>
+
 
                                       </div>
 
-                                    </div>
                                   </div>
                           </div>
 
@@ -87,8 +99,9 @@ export default {
     },
 
     props: {
-      products   : { type: [Object,Array], default: [] },
-      title      : { type: Object, default: [] },
+      products          : { type: [Object,Array], default: [] },
+      title             : { type: Object, default: [] },
+      descriptionShow   : { type: Boolean, default: false },
     },
 
     data() {
@@ -103,6 +116,7 @@ export default {
       const width      = window.innerWidth;
       this.allProducts = this.products;
       this.itemCategorySplitTwice();
+      this.detectedResizeBrowser()
     },
 
     computed: {
@@ -110,34 +124,6 @@ export default {
     },
 
     methods: {
-      flickityOptions(){
-        let Flickity       = require("flickity")
-        let sliderOptions  = new Flickity( '.productContent__vertical', {
-          accessibility   : true,
-          adaptiveHeight  : true,
-          rightToLeft     : true,
-          cellAlign       : 'right',
-          imagesLoaded    : true,
-          wrapAround      : false,
-          contain         : true,
-          prevNextButtons : true,
-          // autoPlay        : true, // advance cells every 3 seconds
-          // autoPlay: 1500 // {Number}
-          freeScroll      : false,
-          pageDots        : false,
-          groupCells      : true,
-          fade            : false,
-        });
-        this.flkty         = sliderOptions;
-
-        sliderOptions.on( 'staticClick', ( event, pointer, cellElement, cellIndex ) =>{
-          const currentId    = parseInt(event.target.getAttribute('data-id'));
-          this.$router.push(`/${this.title.sliderItemHref}/${currentId}`);
-        });
-
-
-      },
-
       itemCategorySplitTwice(){
         let counterTwice          = 0;
         let contentTwiceSplit     = [];
@@ -146,10 +132,12 @@ export default {
         let productLimited        = [];
         this.allDesktopSplitTwice = [];
 
+
         // دوتا دوتا جدا سازی آیتم ها در موبایل //
         this.products.map((content,index)=>{
             counterTwice++;
 
+            // محدود کردن تعداد نمایش محصولات //
           if (485 >= width) {
               if (index <= 3) {
                 content.mobileShow = true;
@@ -159,7 +147,12 @@ export default {
               }
           }
           else {
-            content.mobileShow = true;
+            if (index < 3) {
+              content.mobileShow = true;
+            }
+            else {
+              content.mobileShow = false;
+            }
           }
 
           if (counterTwice <= 2) {
@@ -175,31 +168,18 @@ export default {
 
         });
 
-
-
         // پیدا کردن آیتم ای که در جدا سازی دوتایی آیتم ها اضافه آماده است //
         if (this.products.length != levelSplit) {
           const lastFindCatOutSideTwice = this.products[levelSplit];
           this.allDesktopSplitTwice.push( { children: [lastFindCatOutSideTwice] } );
         }
 
-
       },
 
       detectedResizeBrowser(){
-        // در سایز موبایل اسلایدر غیرفغال شده و در سایز دسکتاپ دوباره اسلایدر فعال می شود //
+        // آپدیت محدود کردن تعداد نمایش در موبایل و دیسکتاپ //
         window.addEventListener("resize", ()=>{
-          const width   = window.innerWidth;
-            if (485 < width) {
-              this.itemCategorySplitTwice();
-              this.flickityOptions();
-            }
-            else {
-              if (typeof(this.flkty.fadeIndex) != 'undefined') {
-                this.itemCategorySplitTwice();
-                this.flkty.destroy()
-              }
-            }
+            this.itemCategorySplitTwice();
           }, true);
       },
 
@@ -232,7 +212,7 @@ export default {
   flex-wrap: wrap;
   @include display-flex();
   cursor: pointer;
-  height: 170px;
+  min-height: 170px;
   border-bottom: solid 1px $gray-border;
   padding-right: 14px;
   padding-left: 14px;
@@ -460,6 +440,29 @@ export default {
 .productContent__topLeft{
   justify-content:center;
   margin-top: 18px;
+}
+.product__descrption-title{
+  font-size: 14px;
+  color: $gray;
+  line-height: 2.4em;
+}
+.product--description .product__descrption-main{
+  @include display-flex();
+}
+.product__descrption-main{
+  display: none;
+}
+.product--description .productContent__discount{
+  display: none;
+}
+.product--description .productContent__carouselPriceMain{
+  margin-top: 9px;
+}
+.product--description .productContent__catTop{
+  margin-bottom: 21px;
+}
+.productContent__circle{
+  display: inline-flex;
 }
 
 
