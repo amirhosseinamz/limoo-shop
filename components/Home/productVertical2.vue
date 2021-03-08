@@ -335,9 +335,9 @@ export default {
 .productContent__priceMain{
   margin-right: 0px;
 }
-.productContent__haveDiscount .productContent__priceTitle{
-  color: $red-color;
-}
+// .productContent__haveDiscount .productContent__priceTitle{
+//   color: $red-color;
+// }
 .productContent__haveDiscount .productContent__priceMain{
   margin-right: 23px;
 }

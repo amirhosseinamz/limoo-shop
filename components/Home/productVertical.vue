@@ -380,9 +380,9 @@ export default {
 .productContent__priceMain{
   margin-right: 11px;
 }
-.productContent__haveDiscount .productContent__priceTitle{
-  color: $red-color;
-}
+// .productContent__haveDiscount .productContent__priceTitle{
+//   color: $red-color;
+// }
 .productContent__catRight{
   justify-content: flex-start;
   @include display-flex();
