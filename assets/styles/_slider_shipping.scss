@@ -70,7 +70,14 @@
         right: 24px;
         z-index: 1;
     }
-
+    @media (max-width: 960px) {
+        .flickity-prev-next-button:hover {
+            background: $gray;
+        }
+        .flickity-prev-next-button:hover .flickity-button-icon {
+            fill: $white;
+        }
+    }
     @media (max-width: 540px) {
         .flickity-button {
             display: none;
