@@ -74,6 +74,7 @@ export default {
                 cellAlign: "right",
                 imagesLoaded: true,
                 wrapAround: false,
+                freeScroll: true,
                 contain: true,
                 prevNextButtons: true,
                 pageDots: false,
@@ -190,5 +191,8 @@ button[disabled] {
     border-radius: 50%;
     border: 5px solid $yellow;
     margin-left: 9px;
+}
+.user-selected-time-in-days .timeContent__topic-day {
+    color: $code;
 }
 </style>

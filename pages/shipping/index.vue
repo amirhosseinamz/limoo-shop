@@ -42,12 +42,14 @@
                             @selected-city="selectedCity"
                             @submit-address-add="submitAddressAdd"
                         ></The-shipping-address>
-                        <span
-                            v-show="userAddressData !== 0"
-                            @click="addAddress"
-                            class="user-shipping__address-btn__mobile"
-                            >افزودن آدرس جدید</span
-                        >
+                        <div class="address-btn__mobile-holder">
+                            <span
+                                v-show="userAddressData !== 0"
+                                @click="addAddress"
+                                class="user-shipping__address-btn__mobile"
+                                >افزودن آدرس جدید</span
+                            >
+                        </div>
                         <span
                             class="user-shipping__address-btn__empty"
                             v-show="userAddressData == 0"
@@ -859,6 +861,12 @@ export default {
     margin: 24px 0 24px 0;
     color: $gray;
     cursor: pointer;
+}
+
+.address-btn__mobile-holder {
+    @include display-flex();
+    flex-direction: row;
+    justify-content: flex-end;
 }
 .user-shipping__address-btn::after,
 .user-shipping__address-btn__mobile::after {

@@ -388,9 +388,6 @@ export default {
     .post-shipping__time-holder {
         margin: 16px 10px 24px 0;
     }
-    .shipping-time__slider-holder {
-        display: none;
-    }
     .post-shipping__time-hour-title,
     .post-shipping__time-hour {
         display: block;
@@ -450,7 +447,11 @@ export default {
         padding: 0 4px;
     }
 }
+
 @media (max-width: 540px) {
+    .shipping-time__slider-holder {
+        display: none;
+    }
     .shipping-btn__holder {
         justify-content: space-between;
     }
