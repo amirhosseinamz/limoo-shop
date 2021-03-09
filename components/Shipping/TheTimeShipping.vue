@@ -1,20 +1,16 @@
 <template>
     <div class="orders-content__main">
-        <!-- <transition moda="in-out">
-            <div id="overlay" v-if="passChangeIsActive">
-                <shipping-add-address-modal
-                    :all-province="allProvince"
-                    :all-citys="allCitys"
-                    :form-data-original="formData"
-                    :data-edit-address="dataEditAddress"
-                    :profile-phone-number="profilePhoneNumber"
-                    @selected-province="selectedProvince"
-                    @selected-city="selectedCity"
-                    @submit-address-add="submitAddressAdd"
+        <transition moda="in-out">
+            <div id="overlay" v-if="timeModalIsActive">
+                <shipping-add-time-modal
                     @close-modal="closeModal"
+                    :time-data="dataTimeTable"
                 />
+                <!-- 
+                    @submit-time-add="submitAddressAdd"
+                     -->
             </div>
-        </transition> -->
+        </transition>
         <div class="w-100 flex-wrap" :key="updateSelected">
             <div
                 v-for="data in timeData"
@@ -155,6 +151,22 @@
                         </div>
                     </div>
                 </div>
+                <div
+                    class="post-shipping__btn-notif__holder"
+                    :class="{
+                        'post-shipping__btn-notif__notactive': data.postSelected
+                    }"
+                >
+                    <span class="post-shipping__alert-txt-mobile"
+                        >زمان ارسال را انتخاب نکرده اید!</span
+                    >
+                    <button
+                        class="post-shipping__btn-mobile"
+                        @click="showModalTimePicker(data.timeTable)"
+                    >
+                        انتخاب زمان ارسال
+                    </button>
+                </div>
             </div>
         </div>
     </div>
@@ -168,16 +180,35 @@ export default {
     components: { TheTimeCart },
     data() {
         return {
-            updateSelected: 0
+            updateSelected: 0,
+            timeModalIsActive: false,
+            dataTimeTable: []
         };
     },
+    mounted() {
+        this.timeData.map((content, index) => {
+            content.limooSelected = true;
+            if (content.shipping == "seller" || content.shipping == "heavy") {
+                content.limooSelected = false;
+            }
+        });
+        this.updateSelected++;
+    },
     methods: {
+        showModalTimePicker(dataTime) {
+            this.dataTimeTable = dataTime;
+            // console.log(this.dataTimeTable);
+            this.timeModalIsActive = true;
+        },
+        closeModal() {
+            this.timeModalIsActive = false;
+        },
         selectSendByPost(data) {
             this.timeData.map((content, index) => {
                 if (content.id == data.id) {
                     content.limooSelected = false;
                     content.sellerSelected = false;
-                    content.postSelected = !content.postSelected;
+                    content.postSelected = true;
                     content.sliderNotShow = true;
                 }
             });
@@ -189,7 +220,7 @@ export default {
                     content.postSelected = false;
                     content.sellerSelected = false;
                     content.sliderNotShow = false;
-                    content.limooSelected = !content.limooSelected;
+                    content.limooSelected = true;
                 }
             });
             this.updateSelected++;
@@ -200,7 +231,7 @@ export default {
                     content.postSelected = false;
                     content.limooSelected = false;
                     content.sliderNotShow = false;
-                    content.sellerSelected = !content.sellerSelected;
+                    content.sellerSelected = true;
                 }
             });
             this.updateSelected++;
@@ -209,6 +240,41 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
+#overlay {
+    position: fixed; /* Sit on top of the page content */
+    @include display-flex();
+    justify-content: center;
+    align-items: center;
+    width: 100%; /* Full width (cover the whole page) */
+    height: 100%; /* Full height (cover the whole page) */
+    /* transition: opacity 200ms ease-out; */
+    /* top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0; */
+    z-index: 20;
+    background: $white;
+    top: 0;
+    right: 0;
+}
+/* .v-enter-from {
+    opacity: 0;
+}
+.v-enter-active {
+    transition: opacity 300ms ease-in;
+}
+.v-enter-to {
+    opacity: 1;
+} */
+.v-leave-from {
+    opacity: 0.5;
+}
+.v-leave-active {
+    transition: all 300ms ease-in;
+}
+.v-leave-to {
+    opacity: 0;
+}
 .order-content-item__time-receive {
     @include display-flex();
     flex-direction: column;
@@ -384,6 +450,9 @@ export default {
     margin-right: 5px;
     display: none;
 }
+.post-shipping__btn-notif__holder {
+    display: none;
+}
 @media (max-width: 960px) {
     .post-shipping__time-holder {
         margin: 16px 10px 24px 0;
@@ -448,7 +517,28 @@ export default {
     }
 }
 
-@media (max-width: 540px) {
+@media (max-width: 545px) {
+    .shipping-order__heavy,
+    .shipping-sendby__seller {
+        margin-right: 10px;
+    }
+    .shipping-txt__item {
+        text-align: justify;
+    }
+    .order-content-item__time-receive {
+        min-height: 270px;
+    }
+    .post-shipping__btn-notif__holder {
+        @include display-flex();
+        justify-content: space-between;
+        align-items: center;
+        flex-direction: row;
+        margin: 16px 0 24px 0;
+        padding: 0 11px;
+    }
+    .post-shipping__btn-notif__notactive {
+        display: none;
+    }
     .shipping-time__slider-holder {
         display: none;
     }
@@ -465,6 +555,92 @@ export default {
     .order-product-img__holder {
         padding: 0 2px;
         flex-wrap: wrap;
+    }
+    .post-shipping__btn-mobile {
+        height: 36px;
+        width: 136px;
+        background-color: $yellow;
+        box-sizing: border-box;
+        box-shadow: 0px 4px 6px $box__shadow2;
+        border-radius: 10px;
+        border: none;
+        font-family: inherit;
+        font-size: 13px;
+        color: $white;
+        padding: 9px 10px;
+    }
+    .post-shipping__alert-txt-mobile {
+        font-size: 11px;
+        font-family: inherit;
+        line-height: 140.62%;
+        text-align: right;
+        color: $red-color;
+    }
+    .post-shipping__alert-txt-mobile::before {
+        @include font-icon__limoo();
+        content: "\e80f";
+        color: $red-color;
+        font-size: 16px;
+        margin-left: 4px;
+        vertical-align: -13%;
+        line-height: 140.62%;
+    }
+}
+@media (max-width: 321px) {
+    .shipping-btn__limoo {
+        padding: 5px;
+    }
+    .post-shipping__btn-mobile {
+        height: 36px;
+        width: 110px;
+        font-size: 12px;
+        padding: 9px 5px;
+    }
+    .post-shipping__alert-txt-mobile::before {
+        font-size: 14px;
+    }
+    .shipping-btn__seller-title {
+        font-size: 13px;
+    }
+    .shipping-btn__limoo-title::before,
+    .shipping-btn__seller-title::before,
+    .shipping-btn__post-title::before,
+    .shipping-sendby__seller::before,
+    .shipping-order__heavy::before {
+        font-size: 12px;
+        margin-left: 3px;
+    }
+    .shipping-btn__limoo-title::before {
+        margin-right: 3px;
+    }
+    .shipping-order__heavy,
+    .shipping-sendby__seller {
+        margin-right: 5px;
+    }
+}
+@media (max-width: 281px) {
+    .shipping-btn__seller-title {
+        font-size: 11px;
+    }
+    .shipping-btn__limoo {
+        padding: 2px;
+    }
+    .post-shipping__btn-notif__holder {
+        flex-direction: column;
+        margin: 16px 0 14px 0;
+    }
+    .post-shipping__btn-mobile {
+        @include display-flex();
+        align-self: flex-end;
+        height: 36px;
+        width: 110px;
+        font-size: 12px;
+        padding: 9px 5px;
+    }
+    .post-shipping__alert-txt-mobile {
+        @include display-flex();
+        align-self: flex-start;
+        margin-bottom: 5px;
     }
 }
 </style>

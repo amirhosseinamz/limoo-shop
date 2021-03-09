@@ -247,6 +247,8 @@ export default {
                         {
                             id: 1,
                             dayTime: "شنبه 23 بهمن 99",
+                            weekday: "شنبه",
+                            weekcal: "23 بهمن 99",
                             timeInDayTable: [
                                 {
                                     id: 1,
@@ -261,6 +263,8 @@ export default {
                         {
                             id: 2,
                             dayTime: "یک شنبه 24 بهمن 99",
+                            weekday: "یک شنبه",
+                            weekcal: "24 بهمن 99",
                             timeInDayTable: [
                                 { id: 1, time: "بین 8:00 تا 12:00" },
                                 { id: 2, time: "بین 12:00 تا 16:00" },
@@ -271,6 +275,8 @@ export default {
                         {
                             id: 3,
                             dayTime: "دو شنبه 25 بهمن 99",
+                            weekday: "دو شنبه",
+                            weekcal: "25 بهمن 99",
                             timeInDayTable: [
                                 { id: 1, time: "بین 8:00 تا 12:00" },
                                 { id: 2, time: "بین 12:00 تا 16:00" },
@@ -281,6 +287,8 @@ export default {
                         {
                             id: 4,
                             dayTime: "سه شنبه 26 بهمن 99",
+                            weekday: "سه شنبه",
+                            weekcal: "26 بهمن 99",
                             timeInDayTable: [
                                 { id: 1, time: "بین 8:00 تا 12:00" },
                                 { id: 2, time: "بین 12:00 تا 16:00" },
@@ -291,6 +299,8 @@ export default {
                         {
                             id: 5,
                             dayTime: "چهار شنبه 27 بهمن 99",
+                            weekday: "چهار شنبه",
+                            weekcal: "27 بهمن 99",
                             timeInDayTable: [
                                 { id: 1, time: "بین 8:00 تا 12:00" },
                                 { id: 2, time: "بین 12:00 تا 16:00" },
@@ -301,6 +311,8 @@ export default {
                         {
                             id: 6,
                             dayTime: "پنچ شنبه 28 بهمن 99",
+                            weekday: "پنج شنبه",
+                            weekcal: "28 بهمن 99",
                             timeInDayTable: [
                                 { id: 1, time: "بین 8:00 تا 12:00" },
                                 { id: 2, time: "بین 12:00 تا 16:00" },
@@ -311,6 +323,8 @@ export default {
                         {
                             id: 7,
                             dayTime: "جمعه 29 بهمن 99",
+                            weekday: "جمعه",
+                            weekcal: "29 بهمن 99",
                             timeInDayTable: [
                                 { id: 1, time: "بین 8:00 تا 12:00" },
                                 { id: 2, time: "بین 12:00 تا 16:00" },
@@ -328,6 +342,8 @@ export default {
                         {
                             id: 1,
                             dayTime: "شنبه 23 بهمن 99",
+                            weekday: "شنبه",
+                            weekcal: "23 بهمن 99",
                             timeInDayTable: [
                                 {
                                     id: 1,
@@ -350,6 +366,8 @@ export default {
                         {
                             id: 2,
                             dayTime: "یک شنبه 24 بهمن 99",
+                            weekday: "یک شنبه",
+                            weekcal: "24 بهمن 99",
                             timeInDayTable: [
                                 { id: 1, time: "بین 8:00 تا 12:00" },
                                 { id: 2, time: "بین 12:00 تا 16:00" },
@@ -360,6 +378,8 @@ export default {
                         {
                             id: 3,
                             dayTime: "دو شنبه 25 بهمن 99",
+                            weekday: "دو شنبه",
+                            weekcal: "25 بهمن 99",
                             timeInDayTable: [
                                 { id: 1, time: "بین 8:00 تا 12:00" },
                                 { id: 2, time: "بین 12:00 تا 16:00" },
@@ -370,6 +390,8 @@ export default {
                         {
                             id: 4,
                             dayTime: "سه شنبه 26 بهمن 99",
+                            weekday: "سه شنبه",
+                            weekcal: "26 بهمن 99",
                             timeInDayTable: [
                                 { id: 1, time: "بین 8:00 تا 12:00" },
                                 { id: 2, time: "بین 12:00 تا 16:00" },
@@ -380,6 +402,8 @@ export default {
                         {
                             id: 5,
                             dayTime: "چهار شنبه 27 بهمن 99",
+                            weekday: "چهار شنبه",
+                            weekcal: "27 بهمن 99",
                             timeInDayTable: [
                                 { id: 1, time: "بین 8:00 تا 12:00" },
                                 { id: 2, time: "بین 12:00 تا 16:00" },
@@ -390,6 +414,8 @@ export default {
                         {
                             id: 6,
                             dayTime: "پنچ شنبه 28 بهمن 99",
+                            weekday: "پنج شنبه",
+                            weekcal: "28 بهمن 99",
                             timeInDayTable: [
                                 { id: 1, time: "بین 8:00 تا 12:00" },
                                 { id: 2, time: "بین 12:00 تا 16:00" },
@@ -400,6 +426,8 @@ export default {
                         {
                             id: 7,
                             dayTime: "جمعه 29 بهمن 99",
+                            weekday: "جمعه",
+                            weekcal: "29 بهمن 99",
                             timeInDayTable: [
                                 { id: 1, time: "بین 8:00 تا 12:00" },
                                 { id: 2, time: "بین 12:00 تا 16:00" },
@@ -421,6 +449,8 @@ export default {
                         {
                             id: 1,
                             dayTime: "شنبه 23 بهمن 99",
+                            weekday: "شنبه",
+                            weekcal: "23 بهمن 99",
                             timeInDayTable: [
                                 {
                                     id: 1,
@@ -443,6 +473,8 @@ export default {
                         {
                             id: 2,
                             dayTime: "یک شنبه 24 بهمن 99",
+                            weekday: "یک شنبه",
+                            weekcal: "24 بهمن 99",
                             timeInDayTable: [
                                 { id: 1, time: "بین 8:00 تا 12:00" },
                                 {
@@ -457,6 +489,8 @@ export default {
                         {
                             id: 3,
                             dayTime: "دو شنبه 25 بهمن 99",
+                            weekday: "دو شنبه",
+                            weekcal: "25 بهمن 99",
                             timeInDayTable: [
                                 { id: 1, time: "بین 8:00 تا 12:00" },
                                 { id: 2, time: "بین 12:00 تا 16:00" },
@@ -467,6 +501,8 @@ export default {
                         {
                             id: 4,
                             dayTime: "سه شنبه 26 بهمن 99",
+                            weekday: "سه شنبه",
+                            weekcal: "26 بهمن 99",
                             timeInDayTable: [
                                 { id: 1, time: "بین 8:00 تا 12:00" },
                                 { id: 2, time: "بین 12:00 تا 16:00" },
@@ -477,6 +513,8 @@ export default {
                         {
                             id: 5,
                             dayTime: "چهار شنبه 27 بهمن 99",
+                            weekday: "چهار شنبه",
+                            weekcal: "27 بهمن 99",
                             timeInDayTable: [
                                 { id: 1, time: "بین 8:00 تا 12:00" },
                                 { id: 2, time: "بین 12:00 تا 16:00" },
@@ -487,6 +525,8 @@ export default {
                         {
                             id: 6,
                             dayTime: "پنچ شنبه 28 بهمن 99",
+                            weekday: "پنج شنبه",
+                            weekcal: "28 بهمن 99",
                             timeInDayTable: [
                                 { id: 1, time: "بین 8:00 تا 12:00" },
                                 { id: 2, time: "بین 12:00 تا 16:00" },
@@ -497,6 +537,8 @@ export default {
                         {
                             id: 7,
                             dayTime: "جمعه 29 بهمن 99",
+                            weekday: "جمعه",
+                            weekcal: "29 بهمن 99",
                             timeInDayTable: [
                                 { id: 1, time: "بین 8:00 تا 12:00" },
                                 { id: 2, time: "بین 12:00 تا 16:00" },
@@ -514,6 +556,8 @@ export default {
                         {
                             id: 1,
                             dayTime: "شنبه 23 بهمن 99",
+                            weekday: "شنبه",
+                            weekcal: "23 بهمن 99",
                             timeInDayTable: [
                                 {
                                     id: 1,
@@ -536,6 +580,8 @@ export default {
                         {
                             id: 2,
                             dayTime: "یک شنبه 24 بهمن 99",
+                            weekday: "یک شنبه",
+                            weekcal: "24 بهمن 99",
                             timeInDayTable: [
                                 { id: 1, time: "بین 8:00 تا 12:00" },
                                 { id: 2, time: "بین 12:00 تا 16:00" },
@@ -546,6 +592,8 @@ export default {
                         {
                             id: 3,
                             dayTime: "دو شنبه 25 بهمن 99",
+                            weekday: "دو شنبه",
+                            weekcal: "25 بهمن 99",
                             timeInDayTable: [
                                 { id: 1, time: "بین 8:00 تا 12:00" },
                                 { id: 2, time: "بین 12:00 تا 16:00" },
@@ -556,6 +604,8 @@ export default {
                         {
                             id: 4,
                             dayTime: "سه شنبه 26 بهمن 99",
+                            weekday: "سه شنبه",
+                            weekcal: "26 بهمن 99",
                             timeInDayTable: [
                                 { id: 1, time: "بین 8:00 تا 12:00" },
                                 { id: 2, time: "بین 12:00 تا 16:00" },
@@ -566,6 +616,8 @@ export default {
                         {
                             id: 5,
                             dayTime: "چهار شنبه 27 بهمن 99",
+                            weekday: "چهار شنبه",
+                            weekcal: "27 بهمن 99",
                             timeInDayTable: [
                                 { id: 1, time: "بین 8:00 تا 12:00" },
                                 { id: 2, time: "بین 12:00 تا 16:00" },
@@ -576,6 +628,8 @@ export default {
                         {
                             id: 6,
                             dayTime: "پنچ شنبه 28 بهمن 99",
+                            weekday: "پنج شنبه",
+                            weekcal: "28 بهمن 99",
                             timeInDayTable: [
                                 { id: 1, time: "بین 8:00 تا 12:00" },
                                 { id: 2, time: "بین 12:00 تا 16:00" },
@@ -586,6 +640,8 @@ export default {
                         {
                             id: 7,
                             dayTime: "جمعه 29 بهمن 99",
+                            weekday: "جمعه",
+                            weekcal: "29 بهمن 99",
                             timeInDayTable: [
                                 { id: 1, time: "بین 8:00 تا 12:00" },
                                 { id: 2, time: "بین 12:00 تا 16:00" },
