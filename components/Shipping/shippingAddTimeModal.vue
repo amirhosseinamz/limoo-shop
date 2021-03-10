@@ -72,11 +72,24 @@ export default {
         };
     },
     mounted() {
+        // when modal opened for first time
         this.timeData.map(content => {
             if (content.id == 1) {
                 content.daySelected = true;
                 this.timeInDayTable = content.timeInDayTable;
-                // console.log(content);
+            }
+        });
+        // when modal opened for editting -> previously selected a time
+        this.timeData.map(content => {
+            if (content.id !== 1) {
+                if (content.daySelected) {
+                    this.timeInDayTable = content.timeInDayTable;
+                    this.timeData.map(content => {
+                        if (content.id == 1) {
+                            content.daySelected = false;
+                        }
+                    });
+                }
             }
         });
         this.updateSelected++;

@@ -89,6 +89,7 @@
                         <div class="user-cart__order-time__container">
                             <the-time-shipping
                                 :time-data="timeData"
+                                @submit-times-add="submitTimesAdd"
                             ></the-time-shipping>
                         </div>
                     </div>
@@ -123,6 +124,7 @@ export default {
     },
     data() {
         return {
+            allOrdersHasTimed: { item: false },
             showModalDeleteAddress: false,
             userAddressData: -1,
             sendTime: true,
@@ -655,7 +657,11 @@ export default {
             ]
         };
     },
-
+    provide() {
+        return {
+            allOrdersHasTimed: this.allOrdersHasTimed
+        };
+    },
     created() {
         this.userAddressData = Object.values(this.addressData).length;
     },
@@ -665,6 +671,9 @@ export default {
     },
 
     methods: {
+        submitTimesAdd() {
+            this.allOrdersHasTimed.item = true;
+        },
         submitAddressAdd(data, state) {
             this.updateAddress++;
             let findIndex = 0;

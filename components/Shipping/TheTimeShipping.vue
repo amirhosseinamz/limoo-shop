@@ -123,6 +123,7 @@
                 >
                     <the-time-cart
                         class="show-time__slider"
+                        @submit-times-add="submitTimeAdd"
                         :time-table="data.timeTable"
                         :time-data="data"
                     ></the-time-cart>
@@ -157,7 +158,12 @@
                         'mobile-shipping__time-detail-active': timeIsAddInModal
                     }"
                 >
-                    <div class="post-shipping__time-holder">
+                    <div
+                        class="post-shipping__time-holder"
+                        :class="{
+                            'show-time__slider__active': data.sliderNotShow
+                        }"
+                    >
                         <div class="post-shipping__time-container">
                             <span class="post-shipping__time-title"
                                 >تاریخ تحویل بسته:</span
@@ -177,36 +183,43 @@
                     </div>
                 </div>
                 <div
-                    class="post-shipping__btn-notif__holder"
                     :class="{
-                        'post-shipping__btn-notif__notactive': data.postSelected
+                        'show-time__slider__active': data.sliderNotShow
                     }"
                 >
-                    <button
-                        class="post-shipping__btn-mobile"
+                    <div
+                        class="post-shipping__btn-notif__holder"
                         :class="{
-                            'post-shipping__btn-mobile-notactive': timeIsAddInModal
+                            'post-shipping__btn-notif__notactive':
+                                data.postSelected
                         }"
-                        @click="showModalTimePicker(data.timeTable)"
                     >
-                        انتخاب زمان ارسال
-                    </button>
-                    <span
-                        class="post-shipping__alert-txt-mobile"
-                        :class="{
-                            'post-shipping__alert-txt-mobile-notactive': timeIsAddInModal
-                        }"
-                        >زمان ارسال را انتخاب نکرده اید!</span
-                    >
-                    <button
-                        class="afterPickTime-shipping__btn-mobile"
-                        :class="{
-                            'afterPickTime-shipping__btn-mobile-active': timeIsAddInModal
-                        }"
-                        @click="showModalTimePicker(data.timeTable)"
-                    >
-                        تغییر زمان ارسال
-                    </button>
+                        <button
+                            class="post-shipping__btn-mobile"
+                            :class="{
+                                'post-shipping__btn-mobile-notactive': timeIsAddInModal
+                            }"
+                            @click="showModalTimePicker(data.timeTable)"
+                        >
+                            انتخاب زمان ارسال
+                        </button>
+                        <span
+                            class="post-shipping__alert-txt-mobile"
+                            :class="{
+                                'post-shipping__alert-txt-mobile-notactive': timeIsAddInModal
+                            }"
+                            >زمان ارسال را انتخاب نکرده اید!</span
+                        >
+                        <button
+                            class="afterPickTime-shipping__btn-mobile"
+                            :class="{
+                                'afterPickTime-shipping__btn-mobile-active': timeIsAddInModal
+                            }"
+                            @click="showModalTimePicker(data.timeTable)"
+                        >
+                            تغییر زمان ارسال
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -251,6 +264,7 @@ export default {
         submitTimeAdd() {
             this.timeModalIsActive = false;
             this.timeIsAddInModal = true;
+            this.$emit("submit-times-add");
         },
         selectSendByPost(data) {
             this.timeData.map((content, index) => {
@@ -502,10 +516,10 @@ export default {
 .post-shipping__btn-notif__holder {
     display: none;
 }
+.mobile-shipping__time-detail-holder {
+    display: none;
+}
 @media (max-width: 960px) {
-    .mobile-shipping__time-detail-holder {
-        display: none;
-    }
     .mobile-shipping__time-detail-active {
         display: block;
     }
@@ -701,6 +715,9 @@ export default {
     .shipping-sendby__seller {
         margin-right: 5px;
     }
+    .post-shipping__alert-txt-mobile-notactive {
+        display: none;
+    }
 }
 @media (max-width: 281px) {
     .shipping-btn__seller-title {
@@ -725,6 +742,13 @@ export default {
         @include display-flex();
         align-self: flex-start;
         margin-bottom: 5px;
+        order: -1;
+    }
+    .post-shipping__alert-txt-mobile-notactive {
+        display: none;
+    }
+    .post-shipping__btn-mobile-notactive {
+        display: none;
     }
 }
 </style>

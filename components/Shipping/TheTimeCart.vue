@@ -85,6 +85,7 @@ export default {
         selectedTimeInDay(dayData, data) {
             // console.log(dayData);
             // console.log(data);
+             this.$emit("submit-times-add");
             this.timeTable.map(timeInDay => {
                 timeInDay.timeInDayTable.map(timeIn => {
                     timeIn.selectedtime = false;
