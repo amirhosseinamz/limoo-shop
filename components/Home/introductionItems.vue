@@ -182,28 +182,27 @@ export default {
 
           }
 
-
-          if (1380 >= getWindowWidth) {
+          if (1380 <= getWindowWidth) {
             getImg(915,460,'extraLarg');
             updateImg('extraLarg');
           }
 
 
-          // if (1400 < getWindowWidth) {
+          if (1400 < getWindowWidth) {
               if (1380 >= getWindowWidth) {
                 getImg(866,477,'larg');
                 updateImg('larg');
               }
-          // }
+          }
 
 
 
-          // if (1200 < getWindowWidth) {
+          if (1200 < getWindowWidth) {
               if (1300 >= getWindowWidth) {
                 getImg(826,477,'medium');
                 updateImg('medium');
               }
-          // }
+          }
 
 
           if (1200 >= getWindowWidth) {
