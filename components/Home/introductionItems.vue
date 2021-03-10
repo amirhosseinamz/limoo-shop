@@ -4,7 +4,7 @@
         <div class="w-100 page__home__introduction-item-slider-content home__item">
           <img ref="imgCheckHieghtSlider" class="page__home__introduction__slider-pic img--display" :src="introductionProduct[0].image" alt="">
 
-              <div :key="updateSlider"  class="page__home__introduction-slider-main main-carousel w-100">
+              <div  class="page__home__introduction-slider-main main-carousel w-100">
                       <div :style="heightSliderImg" @click="switchLink($event,data)" v-for="data in introductionProduct" :key="data.id" class="carousel-cell w-100">
                                 <div class="page__home__introduction__slider w-100">
                                     <NuxtLink
@@ -48,9 +48,26 @@ export default {
 
     data() {
       return {
-        slider          : {},
-        heightSliderImg : {height:''},
-        updateSlider    : 0,
+        slider              : {},
+        heightSliderImg     : {height:''},
+        updateSlider        : 0,
+        sliderLastUpdateImg : [
+          {
+            extraLarg      : '',
+            larg           : '',
+            medium         : '',
+            small          : '',
+            exteraSmall    : '',
+          },
+          {
+            extraLarg      : '',
+            larg           : '',
+            medium         : '',
+            small          : '',
+            exteraSmall    : '',
+          },
+        ],
+
       }
     },
 
@@ -66,6 +83,7 @@ export default {
       });
 
       this.detectedResizeBrowser();
+      this.updateSliderImg()
 
       if (this.introductionProduct.length != 0) {
         setTimeout( () =>{
@@ -109,23 +127,95 @@ export default {
         window.addEventListener("resize", ()=>{
             const width                 = window.innerWidth;
 
-            if (485 >= width) {
-            }
-            else {
-            }
-
+            this.updateSliderImg();
             this.updateHightSlider()
           }, true);
       },
 
       updateHightSlider(){
-        const imgSlider             = this.$refs.imgCheckHieghtSlider.clientHeight;
+        const imgCheckHieghtSlider  = this.$refs.imgCheckHieghtSlider.clientHeight;
         const imgCarouselCellSlider = this.$refs.imgCarouselCellSlider;
 
-        this.heightSliderImg.height = `${imgSlider}px`;
+        this.heightSliderImg.height = `${imgCheckHieghtSlider}px`;
         this.slider.resize();
-        console.log(imgSlider);
       },
+
+      updateSliderImg(){
+          const getWindowWidth = window.innerWidth;
+
+
+          const getImg    = (width,height,getSizeUpdate) => {
+              this.sliderLastUpdateImg.map((content,index)=>{
+
+                if (content[getSizeUpdate] == '') {
+                    for (let key in content) {
+                        if (key == getSizeUpdate) {
+                          // فقط یک بار اجرا شده و پس از گرفتن عکس مورد نظر اجرا نخواهد شد //
+
+                          if (index == 0) {
+                            const url    = `https://statics-develop.diver.ir/1/fill/${width}/${height}/sm/true/plain/s3://limoo/product/picTest1.jpg`;
+                            content[key] = url;
+                          }
+
+                          if (index == 1) {
+                            const url      = `https://statics-develop.diver.ir/1/fill/${width}/${height}/sm/true/plain/s3://limoo/product/picTest1.jpg`;
+                            content[key]   = url;
+                          }
+
+                        }
+                    }
+                }
+
+
+              })
+          }
+
+          const updateImg = (getSizeUpdate) => {
+            this.sliderLastUpdateImg.map((contentLastGetImg,indexGetImg)=>{
+                const getCurrentSizeImg = contentLastGetImg[getSizeUpdate];
+                this.introductionProduct.map((contentSlider,indexSlider)=>{
+                  contentSlider.image = getCurrentSizeImg;
+                })
+            })
+
+          }
+
+
+          if (1380 >= getWindowWidth) {
+            getImg(915,460,'extraLarg');
+            updateImg('extraLarg');
+          }
+
+
+          if (1400 < getWindowWidth) {
+              if (1380 >= getWindowWidth) {
+                getImg(866,477,'larg');
+                updateImg('larg');
+              }
+          }
+
+
+
+          if (1200 < getWindowWidth) {
+              if (1300 >= getWindowWidth) {
+                getImg(826,477,'medium');
+                updateImg('medium');
+              }
+          }
+
+
+          if (1200 >= getWindowWidth) {
+            getImg(760,477,'small');
+            updateImg('small');
+          }
+
+          if (960 >= getWindowWidth) {
+            getImg(960,300,'exteraSmall');
+            updateImg('exteraSmall');
+          }
+
+
+      }
 
     },
 
@@ -230,6 +320,14 @@ export default {
     }
   }
 
+
+  @media (max-width: 1100px) {
+    .page__home__introduction__slider-pic{
+      width: 100%;
+      height: 100%;
+    }
+  }
+
   @media (max-width: 1024px) {
 
     // .introduction__leftitem2{
@@ -245,7 +343,7 @@ export default {
       width: 100%;
     }
     .page__home__introduction__slider-pic{
-      height: auto;
+      // height: auto;
       width: 100%;
     }
     .introduction--link{
@@ -267,6 +365,7 @@ export default {
     .img--display{
       height: auto;
     }
+
   }
 
   @media (max-width: 600px) {
