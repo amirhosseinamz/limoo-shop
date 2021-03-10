@@ -238,6 +238,7 @@ export default {
                     id: 1,
                     shippingLimoo: "limoo",
                     shippingPost: "post",
+
                     orders: [
                         { id: 1, img: "/img/apple-watch-1.png" },
                         { id: 2, img: "/img/apple-watch-1.png" },

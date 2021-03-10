@@ -4,11 +4,10 @@
             <div id="overlay" v-if="timeModalIsActive">
                 <shipping-add-time-modal
                     @close-modal="closeModal"
+                    @submit-time-add="submitTimeAdd"
                     :time-data="dataTimeTable"
+                    ref="shippingAddTimeModal"
                 />
-                <!-- 
-                    @submit-time-add="submitAddressAdd"
-                     -->
             </div>
         </transition>
         <div class="w-100 flex-wrap" :key="updateSelected">
@@ -29,18 +28,6 @@
                         >ارسال توسط فروشنده</span
                     >
                     <button
-                        class="shipping-btn__items shipping-btn__seller"
-                        :class="{
-                            'shipping-btn__seller-active': data.sellerSelected
-                        }"
-                        v-show="data.shippingSeller == 'seller'"
-                        @click="selectSendBySeller(data)"
-                    >
-                        <span class="shipping-btn__seller-title"
-                            >ارسال توسط فروشنده</span
-                        >
-                    </button>
-                    <button
                         class="shipping-btn__items shipping-btn__limoo"
                         :class="{
                             'shipping-btn__limoo-active': data.limooSelected
@@ -52,6 +39,19 @@
                             >ارسال توسط لیمو</span
                         >
                     </button>
+                    <button
+                        class="shipping-btn__items shipping-btn__seller"
+                        :class="{
+                            'shipping-btn__seller-active': data.sellerSelected
+                        }"
+                        v-show="data.shippingSeller == 'seller'"
+                        @click="selectSendBySeller(data)"
+                    >
+                        <span class="shipping-btn__seller-title"
+                            >ارسال توسط فروشنده</span
+                        >
+                    </button>
+
                     <button
                         class="shipping-btn__items shipping-btn__post"
                         :class="{
@@ -152,19 +152,60 @@
                     </div>
                 </div>
                 <div
+                    class="mobile-shipping__time-detail-holder"
+                    :class="{
+                        'mobile-shipping__time-detail-active': timeIsAddInModal
+                    }"
+                >
+                    <div class="post-shipping__time-holder">
+                        <div class="post-shipping__time-container">
+                            <span class="post-shipping__time-title"
+                                >تاریخ تحویل بسته:</span
+                            >
+                            <span class="post-shipping__time-day"
+                                >25 آذر 1399</span
+                            >
+                        </div>
+                        <div class="d-fleX">
+                            <span class="post-shipping__time-hour-title"
+                                >ساعت:</span
+                            >
+                            <span class="post-shipping__time-hour"
+                                >15 الی 21</span
+                            >
+                        </div>
+                    </div>
+                </div>
+                <div
                     class="post-shipping__btn-notif__holder"
                     :class="{
                         'post-shipping__btn-notif__notactive': data.postSelected
                     }"
                 >
-                    <span class="post-shipping__alert-txt-mobile"
-                        >زمان ارسال را انتخاب نکرده اید!</span
-                    >
                     <button
                         class="post-shipping__btn-mobile"
+                        :class="{
+                            'post-shipping__btn-mobile-notactive': timeIsAddInModal
+                        }"
                         @click="showModalTimePicker(data.timeTable)"
                     >
                         انتخاب زمان ارسال
+                    </button>
+                    <span
+                        class="post-shipping__alert-txt-mobile"
+                        :class="{
+                            'post-shipping__alert-txt-mobile-notactive': timeIsAddInModal
+                        }"
+                        >زمان ارسال را انتخاب نکرده اید!</span
+                    >
+                    <button
+                        class="afterPickTime-shipping__btn-mobile"
+                        :class="{
+                            'afterPickTime-shipping__btn-mobile-active': timeIsAddInModal
+                        }"
+                        @click="showModalTimePicker(data.timeTable)"
+                    >
+                        تغییر زمان ارسال
                     </button>
                 </div>
             </div>
@@ -173,15 +214,17 @@
 </template>
 <script>
 import TheTimeCart from "./TheTimeCart.vue";
+import shippingAddTimeModal from "./shippingAddTimeModal.vue";
 export default {
     props: {
         timeData: { type: [Object, Array], default: {} }
     },
-    components: { TheTimeCart },
+    components: { TheTimeCart, shippingAddTimeModal },
     data() {
         return {
             updateSelected: 0,
             timeModalIsActive: false,
+            timeIsAddInModal: false,
             dataTimeTable: []
         };
     },
@@ -197,11 +240,17 @@ export default {
     methods: {
         showModalTimePicker(dataTime) {
             this.dataTimeTable = dataTime;
-            // console.log(this.dataTimeTable);
             this.timeModalIsActive = true;
+            // this.$refs.shippingAddTimeModal.firstLoad();
+
+            // console.log(this.dataTimeTable);
         },
         closeModal() {
             this.timeModalIsActive = false;
+        },
+        submitTimeAdd() {
+            this.timeModalIsActive = false;
+            this.timeIsAddInModal = true;
         },
         selectSendByPost(data) {
             this.timeData.map((content, index) => {
@@ -454,6 +503,12 @@ export default {
     display: none;
 }
 @media (max-width: 960px) {
+    .mobile-shipping__time-detail-holder {
+        display: none;
+    }
+    .mobile-shipping__time-detail-active {
+        display: block;
+    }
     .post-shipping__time-holder {
         margin: 16px 10px 24px 0;
     }
@@ -532,7 +587,7 @@ export default {
         @include display-flex();
         justify-content: space-between;
         align-items: center;
-        flex-direction: row;
+        flex-direction: row-reverse;
         margin: 16px 0 24px 0;
         padding: 0 11px;
     }
@@ -568,6 +623,31 @@ export default {
         font-size: 13px;
         color: $white;
         padding: 9px 10px;
+        display: block;
+    }
+    .post-shipping__btn-mobile-notactive {
+        display: none;
+    }
+    .afterPickTime-shipping__btn-mobile {
+        font-size: 13px;
+        line-height: 140.62%;
+        font-family: inherit;
+        color: $gray;
+        background-color: transparent;
+        border: none;
+        display: none;
+    }
+    .afterPickTime-shipping__btn-mobile-active {
+        display: block;
+    }
+    .afterPickTime-shipping__btn-mobile::after {
+        @include font-icon__limoo();
+        content: "\e800";
+        color: $yellow;
+        font-size: 20px;
+        margin-left: 4px;
+        vertical-align: -13%;
+        line-height: 140.62%;
     }
     .post-shipping__alert-txt-mobile {
         font-size: 11px;
@@ -575,6 +655,7 @@ export default {
         line-height: 140.62%;
         text-align: right;
         color: $red-color;
+        display: block;
     }
     .post-shipping__alert-txt-mobile::before {
         @include font-icon__limoo();
@@ -584,6 +665,9 @@ export default {
         margin-left: 4px;
         vertical-align: -13%;
         line-height: 140.62%;
+    }
+    .post-shipping__alert-txt-mobile-notactive {
+        display: none;
     }
 }
 @media (max-width: 321px) {
