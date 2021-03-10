@@ -2,9 +2,9 @@
   <div class="w-100 page__home-introduction-items">
 
         <div class="w-100 page__home__introduction-item-slider-content home__item">
-          <img ref="imgCheckHieghtSlider" class="page__home__introduction__slider-pic img--display" :src="introductionProduct[0].image" alt="">
+          <img  ref="imgCheckHieghtSlider" class="page__home__introduction__slider-pic img--display" :src="introductionProduct[0].image" alt="">
 
-              <div  class="page__home__introduction-slider-main main-carousel w-100">
+              <div :style="heightSliderImg" class="page__home__introduction-slider-main main-carousel w-100">
                       <div :style="heightSliderImg" @click="switchLink($event,data)" v-for="data in introductionProduct" :key="data.id" class="carousel-cell w-100">
                                 <div class="page__home__introduction__slider w-100">
                                     <NuxtLink
@@ -131,6 +131,12 @@ export default {
 
             this.updateSliderImg();
             this.updateHightSlider()
+
+            setTimeout( () =>{
+              this.updateSliderImg();
+              this.updateHightSlider()
+            }, 1000);
+
           }, true);
       },
 
@@ -188,12 +194,12 @@ export default {
           }
 
 
-          if (1400 < getWindowWidth) {
+          // if (1400 < getWindowWidth) {
               if (1380 >= getWindowWidth) {
                 getImg(866,477,'larg');
                 updateImg('larg');
               }
-          }
+          // }
 
 
 
