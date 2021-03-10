@@ -58,6 +58,7 @@ export default {
             medium         : '',
             small          : '',
             exteraSmall    : '',
+            mobile         : '',
           },
           {
             extraLarg      : '',
@@ -65,6 +66,7 @@ export default {
             medium         : '',
             small          : '',
             exteraSmall    : '',
+            mobile         : '',
           },
         ],
 
@@ -187,21 +189,21 @@ export default {
           }
 
 
-          if (1400 < getWindowWidth) {
+          // if (1400 < getWindowWidth) {
               if (1380 >= getWindowWidth) {
                 getImg(866,477,'larg');
                 updateImg('larg');
               }
-          }
+          // }
 
 
 
-          if (1200 < getWindowWidth) {
+          // if (1200 < getWindowWidth) {
               if (1300 >= getWindowWidth) {
                 getImg(826,477,'medium');
                 updateImg('medium');
               }
-          }
+          // }
 
 
           if (1200 >= getWindowWidth) {
@@ -212,6 +214,11 @@ export default {
           if (960 >= getWindowWidth) {
             getImg(960,300,'exteraSmall');
             updateImg('exteraSmall');
+          }
+
+          if (485 >= getWindowWidth) {
+            getImg(485,200,'mobile');
+            updateImg('mobile');
           }
 
 
