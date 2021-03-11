@@ -9,70 +9,56 @@
             </div>
 
             <div class="w-100 payment-content">
-                <div class="user-cart__shipping-holder">
-                    <div class="user-cart__shipping-container">
-                        <div class="w-100">
-                            <div class="payment__header">
-                                <span class="user-shipping__title"
-                                    >انتخاب درگاه پرداخت</span
-                                >
-                                <span class="payment__line"></span>
-                                <payment-gateway
-                                    :key="updatePaymentGateway"
-                                    :payment-gateway="paymentGateway"
-                                    @selected-getway="selectedGetway"
-                                ></payment-gateway>
-                            </div>
-
-                            <div
-                                class="w-100 payment__address-main payment--desktop"
-                            >
-                                <div class="w-100">
-                                    <span class="payment__address-text"
-                                        >ارسال کالا به این آدرس</span
-                                    >
+                    <div class="user-cart__shipping-holder">
+                        <div class="user-cart__shipping-container">
+                            <div class="w-100">
+                                <div class="payment__header">
+                                  <span class="user-shipping__title">انتخاب درگاه پرداخت</span>
+                                  <span class="payment__line"></span>
+                                  <payment-gateway :key="updatePaymentGateway" :payment-gateway="paymentGateway" @selected-getway="selectedGetway"></payment-gateway>
                                 </div>
-                                <div class="w-100 payment__address-item">
-                                    <span class="payment__address-place"></span>
-                                    <h3 class="payment__address-title">
-                                        تهران ، خیابان ولیعصر ، تقاطق مطهری ،
-                                        کوچه حسینی راد
-                                    </h3>
+
+                                <div class="w-100 payment__address-main payment--desktop">
+                                        <div class="w-100">
+                                            <span class="payment__address-text">ارسال کالا به این آدرس</span>
+                                        </div>
+                                        <div class="w-100 payment__address-item">
+                                          <span class="payment__address-place"></span>
+                                          <h3 class="payment__address-title">تهران ، خیابان ولیعصر ، تقاطق مطهری ، کوچه حسینی راد</h3>
+                                        </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
 
-                    <The-cart-shipping-detail
-                        :detail-price="detailPrice"
-                    ></The-cart-shipping-detail>
+                        <The-cart-shipping-detail :detail-price="detailPrice" ></The-cart-shipping-detail>
 
-                    <div class="w-100 payment__address-main payment--mobile">
-                        <div class="w-100 payment__address-content">
-                            <div class="w-100 payment__address-line">
-                                <span class="payment__address-text"
-                                    >ارسال کالا به این آدرس</span
-                                >
-                            </div>
-                            <div class="w-100 payment__address-item">
-                                <span class="payment__address-place"></span>
-                                <h3 class="payment__address-title">
-                                    تهران ، خیابان ولیعصر ، تقاطق مطهری ، کوچه
-                                    حسینی راد
-                                </h3>
-                            </div>
+                        <div class="w-100 payment__address-main payment--mobile">
+                                <div class="w-100 payment__address-content">
+                                      <div class="w-100 payment__address-line">
+                                        <span class="payment__address-text">ارسال کالا به این آدرس</span>
+                                      </div>
+                                      <div class="w-100 payment__address-item">
+                                        <span class="payment__address-place"></span>
+                                        <h3 class="payment__address-title">تهران ، خیابان ولیعصر ، تقاطق مطهری ، کوچه حسینی راد</h3>
+                                      </div>
+                                </div>
                         </div>
+
                     </div>
-                </div>
+
+
             </div>
+
         </div>
         <nuxt-link to="/shipping" class="user-cart__go-back">بازگشت</nuxt-link>
+
     </div>
 </template>
 <script>
 import TheCartShippingDetail from "~/components/Payment/TheShippingPayDetail.vue";
 import addCamaPrice from "~/modules/addCamaPrice.js";
 import paymentGateway from "~/components/Payment/paymentGateway.vue";
+
 
 export default {
     components: {
@@ -81,32 +67,32 @@ export default {
     },
     data() {
         return {
-            detailPrice: {
-                price: 12000,
-                totalDiscount: 142250,
-                submitDeliveryPrice: "رایگان",
-                totalPrice: 2587000
+            detailPrice  : {
+              price               : 12000,
+              totalDiscount       : 142250,
+              submitDeliveryPrice : 'رایگان',
+              totalPrice          : 2587000,
             },
-            paymentGateway: [
+            paymentGateway : [
                 {
-                    id: 1,
-                    title: "آسان پرداخت"
+                  id    : 1,
+                  title : 'آسان پرداخت',
                 },
                 {
-                    id: 2,
-                    title: "کیف پول دایور"
+                  id    : 2,
+                  title : 'کیف پول دایور',
                 },
                 {
-                    id: 3,
-                    title: "بانک ملت"
-                }
+                  id    : 3,
+                  title : 'بانک ملت',
+                },
             ],
-            updatePaymentGateway: 0
+            updatePaymentGateway : 0,
         };
     },
 
     mounted() {
-        this.addCama();
+      this.addCama();
     },
 
     methods: {
@@ -114,33 +100,34 @@ export default {
             this.$router.push("/shipping");
         },
 
-        addCama() {
-            const getDetailPrice = this.detailPrice;
-            const setUpdateDetailPrice = {};
+        addCama(){
+          const getDetailPrice       = this.detailPrice;
+          const setUpdateDetailPrice = {
+          }
 
-            for (let key in getDetailPrice) {
-                setUpdateDetailPrice[key] = getDetailPrice[key];
+          for (let key in getDetailPrice) {
+            setUpdateDetailPrice[key] = getDetailPrice[key];
 
-                if (getDetailPrice[key] != "رایگان") {
-                    setUpdateDetailPrice[key] = addCamaPrice(
-                        getDetailPrice[key]
-                    );
-                }
+            if (getDetailPrice[key] != 'رایگان') {
+               setUpdateDetailPrice[key] = addCamaPrice(getDetailPrice[key]);
             }
+          }
 
-            this.detailPrice = setUpdateDetailPrice;
+          this.detailPrice = setUpdateDetailPrice;
         },
 
-        selectedGetway(data) {
-            this.paymentGateway.map(content => {
-                if (data.id == content.id) {
-                    content.selected = true;
-                } else {
-                    content.selected = false;
-                }
-            });
-            this.updatePaymentGateway++;
+        selectedGetway(data){
+          this.paymentGateway.map((content)=>{
+              if (data.id == content.id) {
+                content.selected = true;
+              }
+              else {
+                content.selected = false;
+              }
+          })
+          this.updatePaymentGateway++;
         }
+
     }
 };
 </script>
@@ -255,109 +242,111 @@ export default {
 .user-cart__shipping-line {
     display: none;
 }
-.payment__line {
-    width: 100%;
-    height: 1px;
-    background: $light-gray;
-    @include display-flex();
+.payment__line{
+  width: 100%;
+  height: 1px;
+  background: $light-gray;
+  @include display-flex();
 }
-.payment__header {
-    @include display-flex();
-    flex-wrap: wrap;
-    align-items: flex-start;
-    background: $white;
+.payment__header{
+  @include display-flex();
+  flex-wrap: wrap;
+  align-items: flex-start;
+  background: $white;
 }
-.payment-content {
-    @include display-flex();
-    align-items: flex-start;
-    flex-wrap: wrap;
+.payment-content{
+  @include display-flex();
+  align-items: flex-start;
+  flex-wrap: wrap;
 }
-.payment__address-main {
-    background: $white;
-    width: 100%;
-    min-height: 134px;
-    padding-right: 24px;
-    padding-left: 24px;
-    padding-top: 24px;
-    padding-bottom: 24px;
-    margin-top: 16px;
-    border-radius: 10px;
+.payment__address-main{
+  background: $white;
+  width: 100%;
+  min-height: 134px;
+  padding-right: 24px;
+  padding-left: 24px;
+  padding-top: 24px;
+  padding-bottom: 24px;
+  margin-top: 16px;
+  border-radius: 10px;
 }
-.payment__address-place::after {
-    color: $gray;
-    content: "\e817";
-    @include font-icon__limoo();
-    font-size: 21px;
+.payment__address-place::after{
+  color: $gray;
+  content: "\e817";
+  @include font-icon__limoo();
+  font-size: 21px;
 }
-.payment__address-place {
-    margin-left: 11px;
+.payment__address-place{
+  margin-left: 11px;
 }
-.payment__address-title {
-    font-size: 16px;
-    color: $color-price;
-    font-weight: 400;
-    width: 91%;
+.payment__address-title{
+  font-size: 16px;
+  color: $color-price;
+  font-weight: 400;
+  width: 91%;
 }
-.payment__address-item {
-    margin-top: 25px;
-    @include display-flex();
-    align-items: flex-start;
-    flex-wrap: wrap;
+.payment__address-item{
+  margin-top: 25px;
+  @include display-flex();
+  align-items: flex-start;
+  flex-wrap: wrap;
 }
-.payment__address-text {
-    font-size: 18px;
-    font-weight: 400;
+.payment__address-text{
+  font-size: 18px;
+  font-weight: 400;
 }
-.payment--mobile {
-    display: none;
+.payment--mobile{
+  display: none;
 }
-.payment__address-line {
-    border-bottom: solid 1px $gray-border;
-    width: 100%;
-    padding-bottom: 16px;
+.payment__address-line{
+  border-bottom:solid 1px $gray-border;
+  width: 100%;
+  padding-bottom: 16px;
 }
 
+
+
 @media (max-width: 1400px) {
-    .user-cart__shipping-container {
-        width: 62.9%;
-        margin-left: 2.1%;
-    }
+  .user-cart__shipping-container{
+    width: 62.9%;
+    margin-left: 2.1%;
+  }
 }
 
 @media (max-width: 960px) {
     .user-shipping__address-btn {
         display: none;
     }
-    .payment--desktop {
-        display: none;
+    .payment--desktop{
+      display: none;
     }
-    .user-cart__shipping-container {
-        min-height: auto;
+    .user-cart__shipping-container{
+      min-height: auto;
     }
-    .payment__address-main {
-        margin-top: 0;
-        padding-right: 0px;
-        padding-left: 0px;
-        min-height: 109px;
+    .payment__address-main{
+      margin-top: 0;
+      padding-right: 0px;
+      padding-left: 0px;
+      min-height: 109px;
     }
-    .payment__header {
-        border-radius: 0;
-        border-top-right-radius: 10px;
-        border-top-left-radius: 10px;
+    .payment__header{
+      border-radius: 0;
+      border-top-right-radius: 10px;
+      border-top-left-radius: 10px;
     }
-    .payment__address-text {
-        font-size: 14px;
-        margin-right: 11px;
+    .payment__address-text{
+      font-size: 14px;
+      margin-right: 11px;
     }
-    .payment__address-title {
-        font-size: 14px;
-        width: 90%;
+    .payment__address-title{
+      font-size: 14px;
+      width: 90%;
     }
-    .payment__address-place {
-        margin-left: 11px;
+    .payment__address-place{
+      margin-left: 11px;
     }
-    .payment__address-place::after {
-        font-size: 16px;
+    .payment__address-place::after{
+      font-size: 16px;
     }
     .user-shipping__address-btn__mobile {
         display: block;
@@ -424,22 +413,23 @@ export default {
         /* margin-right: 4px;
         margin-left: 8px; */
     }
-    .payment__line {
-        display: none;
+    .payment__line{
+      display: none;
     }
-    .payment--mobile {
-        display: flex;
-        flex-wrap: wrap;
-        margin-top: 8px;
+    .payment--mobile{
+      display: flex;
+      flex-wrap: wrap;
+      margin-top: 8px;
     }
-    .payment__address-main {
-        padding-bottom: 16px;
-        padding-top: 16px;
+    .payment__address-main{
+      padding-bottom: 16px;
+      padding-top: 16px;
     }
-    .payment__address-item {
-        margin-top: 18px;
-        padding-left: 11px;
-        padding-right: 11px;
+    .payment__address-item{
+      margin-top: 18px;
+      padding-left: 11px;
+      padding-right: 11px;
     }
+  
 }
 </style>

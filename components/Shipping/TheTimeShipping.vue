@@ -153,32 +153,38 @@
                     </div>
                 </div>
                 <div
-                    class="mobile-shipping__time-detail-holder"
                     :class="{
-                        'mobile-shipping__time-detail-active': timeIsAddInModal
+                        'post-shipping__btn-notif__notactive': data.postSelected
                     }"
                 >
                     <div
-                        class="post-shipping__time-holder"
+                        class="mobile-shipping__time-detail-holder"
                         :class="{
-                            'show-time__slider__active': data.sliderNotShow
+                            'mobile-shipping__time-detail-active': timeIsAddInModal
                         }"
                     >
-                        <div class="post-shipping__time-container">
-                            <span class="post-shipping__time-title"
-                                >تاریخ تحویل بسته:</span
-                            >
-                            <span class="post-shipping__time-day"
-                                >25 آذر 1399</span
-                            >
-                        </div>
-                        <div class="d-fleX">
-                            <span class="post-shipping__time-hour-title"
-                                >ساعت:</span
-                            >
-                            <span class="post-shipping__time-hour"
-                                >15 الی 21</span
-                            >
+                        <div
+                            class="post-shipping__time-holder"
+                            :class="{
+                                'show-time__slider__active': data.sliderNotShow
+                            }"
+                        >
+                            <div class="post-shipping__time-container">
+                                <span class="post-shipping__time-title"
+                                    >تاریخ تحویل بسته:</span
+                                >
+                                <span class="post-shipping__time-day"
+                                    >25 آذر 1399</span
+                                >
+                            </div>
+                            <div class="d-fleX">
+                                <span class="post-shipping__time-hour-title"
+                                    >ساعت:</span
+                                >
+                                <span class="post-shipping__time-hour"
+                                    >15 الی 21</span
+                                >
+                            </div>
                         </div>
                     </div>
                 </div>

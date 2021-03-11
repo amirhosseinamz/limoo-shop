@@ -26,7 +26,10 @@
                             data.weekcal
                         }}</span>
                     </div>
-                    <span class="time-modal__line"></span>
+                    <span
+                        class="time-modal__line"
+                        :id="'line' + data.id"
+                    ></span>
                 </div>
             </div>
             <div class="time-modal__days-container">
@@ -84,6 +87,8 @@ export default {
             if (content.id !== 1) {
                 if (content.daySelected) {
                     this.timeInDayTable = content.timeInDayTable;
+                    let elmnt = document.getElementById("line" + content.id);
+                    elmnt.scrollIntoView();
                     this.timeData.map(content => {
                         if (content.id == 1) {
                             content.daySelected = false;
