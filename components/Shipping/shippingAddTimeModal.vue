@@ -88,7 +88,14 @@ export default {
                 if (content.daySelected) {
                     this.timeInDayTable = content.timeInDayTable;
                     let elmnt = document.getElementById("line" + content.id);
-                    elmnt.scrollIntoView();
+                    // elmnt.scrollIntoView();
+                    elmnt.scrollIntoView({
+                        behavior: "smooth",
+                        block: "end",
+                        inline: "center"
+                    });
+                    // for more information
+                    // https://developer.mozilla.org/en-US/docs/Web/API/Element/scrollIntoView
                     this.timeData.map(content => {
                         if (content.id == 1) {
                             content.daySelected = false;
