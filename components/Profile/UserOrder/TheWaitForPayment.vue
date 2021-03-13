@@ -1,15 +1,15 @@
 <template>
     <div>
         <div
-            class="user-delivered__empty-container"
-            v-show="userDelivered == 0"
+            class="user-inprogress__empty-container"
+            v-show="userInprogress == 0"
         >
             <img
-                src="/empty-pages/empty-delivered.svg"
-                alt=" هیچ سفارش تحویل داده شده ای ندارید."
+                src="/empty-pages/empty-inprogress.svg"
+                alt="فعلا هیچ سفارش در انتظار پرداختی ندارید."
             />
-            <span class="user-delivered__empty d-rtl">
-                هیچ سفارش تحویل داده شده ای ندارید.</span
+            <span class="user-inprogress__empty d-rtl"
+                >فعلا هیچ سفارش در انتظار پرداختی ندارید.</span
             >
         </div>
         <div
@@ -53,7 +53,8 @@
                 </div>
                 <NuxtLink
                     :to="
-                        '/profile/my-orders/delivered/detail/' + data.orderCode
+                        '/profile/my-orders/wait-for-payment/detail/' +
+                            data.orderCode
                     "
                     class="btn-mobile__order-detail"
                     >مشاهده جزئیات
@@ -85,7 +86,8 @@
                 </div>
                 <NuxtLink
                     :to="
-                        '/profile/my-orders/delivered/detail/' + data.orderCode
+                        '/profile/my-orders/wait-for-payment/detail/' +
+                            data.orderCode
                     "
                     class="p-history-product-btn-link"
                 >
@@ -104,14 +106,14 @@ export default {
     data() {
         return {
             // paidOrderData:0
-            userDelivered: -1
+            userInprogress: -1
         };
     },
     props: {
         userOrderData: { type: [Object, Array], default: {} }
     },
     created() {
-        this.userDelivered = Object.values(this.userOrderData).length;
+        this.userInprogress = Object.values(this.userOrderData).length;
     },
     mounted() {
         // console.log(this.userOrderData);
@@ -119,7 +121,7 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
-.user-delivered__empty-container {
+.user-inprogress__empty-container {
     @include display-flex();
     flex-direction: column;
     justify-content: flex-start;
@@ -129,11 +131,11 @@ export default {
     border-radius: 10px;
     box-shadow: 0px 8px 16px $box__shadow;
 }
-.user-delivered__empty-container img {
+.user-inprogress__empty-container img {
     margin-top: 38px;
     opacity: 1;
 }
-.user-delivered__empty {
+.user-inprogress__empty {
     font-size: 18px;
     line-height: 140.62%;
     text-align: center;
@@ -153,8 +155,8 @@ export default {
     background: $white;
     height: max-content;
     border-radius: 10px;
-    /* border: 1px solid red; */
 }
+
 .paid-order {
     @include display-flex();
     flex-direction: row;
@@ -313,12 +315,10 @@ export default {
     text-decoration: none;
     margin: 41px auto 19px auto;
 }
-
 .btn-mobile__order-detail,
 .p-history-product-line {
     display: none;
 }
-
 @media (max-width: 1220px) {
     .paid-detail {
         width: 320px;
@@ -355,7 +355,7 @@ export default {
     }
 }
 @media (max-width: 960px) {
-    .user-delivered__empty-container {
+    .user-inprogress__empty-container {
         display: none;
     }
     .paid-progress {
@@ -377,8 +377,8 @@ export default {
         @include display-flex();
         flex-direction: row;
         justify-content: space-between;
-        padding: 0 15px 0 8px;
         /* border: 1px solid blue; */
+        padding: 0 15px 0 8px;
     }
     .paid-detail {
         @include display-flex();

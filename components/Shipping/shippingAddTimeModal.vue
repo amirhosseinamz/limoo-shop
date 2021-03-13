@@ -87,7 +87,7 @@ export default {
             if (content.id !== 1) {
                 if (content.daySelected) {
                     this.timeInDayTable = content.timeInDayTable;
-                    let elmnt = document.getElementById("line" + content.id);
+                    const elmnt = document.getElementById("line" + content.id);
                     // elmnt.scrollIntoView();
                     elmnt.scrollIntoView({
                         behavior: "smooth",

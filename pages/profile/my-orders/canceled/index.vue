@@ -16,7 +16,18 @@
             <div class="user-profile">
                 <div class="desktop-nav">
                     <span class="user-profile__topic">لیست سفارشات شما</span>
-                    <div class="order-nav desktop-screen d-rtl">
+                    <div class="order-nav d-rtl">
+                        <div
+                            @click="goToOrder('waitForPayment')"
+                            :class="{ 'item-active': waitForPayment }"
+                            class="order-nav__items"
+                        >
+                            <div class="order-nav__items-holder">
+                                <NuxtLink to=""> در انتظار پرداخت</NuxtLink
+                                ><span class="order-counter">2</span>
+                            </div>
+                            <span class="bottomLine"></span>
+                        </div>
                         <div
                             @click="goToOrder('paidInProgress')"
                             :class="{ 'item-active': paidInProgress }"
@@ -44,6 +55,7 @@
                         <div
                             @click="goToOrder('canceled')"
                             :class="{ 'item-active': canceled }"
+                            id="item-canceled"
                             class="order-nav__items "
                         >
                             <NuxtLink to="">لغو شده</NuxtLink>
@@ -66,43 +78,6 @@
                 </div>
                 <!--  -->
                 <div class="order-holder">
-                    <div
-                        @click="goToOrder('paidInProgress')"
-                        class="mobile-nav__order-inprogress d-rtl"
-                    >
-                        <span class="mobile-inprogress__count">2</span>
-                        <span class="mobile-inprogress__title"
-                            >در حال پردازش</span
-                        >
-                        <span class="mobile-inprogress__arrow"></span>
-                    </div>
-
-                    <div
-                        @click="goToOrder('delivered')"
-                        class="mobile-nav__order-delivered d-rtl"
-                    >
-                        <span class="mobile-delivered__count">1</span>
-                        <span class="mobile-delivered__title"
-                            >تحویل داده شده</span
-                        >
-                        <span class="mobile-delivered__arrow"></span>
-                    </div>
-                    <div
-                        @click="goToOrder('returned')"
-                        class="mobile-nav__order-returned d-rtl"
-                    >
-                        <span class="mobile-returned__count">2</span>
-                        <span class="mobile-returned__title">مرجوع شده</span>
-                        <span class="mobile-returned__arrow"></span>
-                    </div>
-                    <div
-                        @click="goToOrder('canceled')"
-                        class="mobile-nav__order-canceled d-rtl"
-                    >
-                        <span class="mobile-canceled__count">2</span>
-                        <span class="mobile-canceled__title">لغو شده</span>
-                        <span class="mobile-canceled__arrow"></span>
-                    </div>
                     <the-canceled
                         :user-order-data="userOrderData"
                     ></the-canceled>
@@ -132,93 +107,93 @@ export default {
             canceled: false,
             userOrders: -1,
             userOrderData: [
-                // {
-                //     id: 1,
-                //     orderCode: "6861457M",
-                //     orderPrice: "850,000",
-                //     orderData: "1399/04/05",
-                //     orderSituation: "لغو شده",
-                //     orders: [
-                //         {
-                //             id: 1,
-                //             title:
-                //                 " اپل واچ سری 1 آلومینیوم آبی اپل واچ سری 1 آلومینیوم",
-                //             img: "/img/apple-watch-1.png"
-                //         },
-                //         {
-                //             id: 2,
-                //             title:
-                //                 " اپل واچ سری 2 آلومینیوم آبی اپل واچ سری 2 آلومینیوم",
-                //             img: "/img/apple-watch-2.png"
-                //         },
-                //         {
-                //             id: 3,
-                //             title:
-                //                 " اپل واچ سری 3 آلومینیوم آبی اپل واچ سری 3 آلومینیوم",
-                //             img: "/img/apple-watch-3.png"
-                //         },
-                //         {
-                //             id: 4,
-                //             title:
-                //                 " اپل واچ سری 4 آلومینیوم آبی اپل واچ سری 4 آلومینیوم",
-                //             img: "/img/apple-watch-4.png"
-                //         }
-                //     ]
-                // },
-                // {
-                //     id: 2,
-                //     orderCode: "6861457L",
-                //     orderPrice: "450,000",
-                //     orderData: "1399/04/06",
-                //     orderSituation: "لغو شده",
-                //     orders: [
-                //         {
-                //             id: 3,
-                //             title:
-                //                 " اپل واچ سری 3 آلومینیوم آبی اپل واچ سری 3 آلومینیوم",
-                //             img: "/img/apple-watch-3.png"
-                //         },
-                //         {
-                //             id: 4,
-                //             title:
-                //                 " اپل واچ سری 4 آلومینیوم آبی اپل واچ سری 4 آلومینیوم",
-                //             img: "/img/apple-watch-4.png"
-                //         }
-                //     ]
-                // },
-                // {
-                //     id: 3,
-                //     orderCode: "6861457M",
-                //     orderPrice: "850,000",
-                //     orderData: "1399/04/05",
-                //     orderSituation: "لغو شده",
-                //     orders: [
-                //         {
-                //             id: 1,
-                //             title:
-                //                 " اپل واچ سری 1 آلومینیوم آبی اپل واچ سری 1 آلومینیوم",
-                //             img: "/img/apple-watch-1.png"
-                //         },
-                //         {
-                //             id: 2,
-                //             title:
-                //                 " اپل واچ سری 2 آلومینیوم آبی اپل واچ سری 2 آلومینیوم",
-                //             img: "/img/apple-watch-2.png"
-                //         },
-                //         {
-                //             id: 3,
-                //             title:
-                //                 " اپل واچ سری 3 آلومینیوم آبی اپل واچ سری 3 آلومینیوم",
-                //             img: "/img/apple-watch-3.png"
-                //         },
-                //         {
-                //             id: 4,
-                //             title:
-                //                 " اپل واچ سری 4 آلومینیوم آبی اپل واچ سری 4 آلومینیوم",
-                //             img: "/img/apple-watch-4.png"
-                //         }
-                //     ]
-                // }
+                {
+                    id: 1,
+                    orderCode: "6861457M",
+                    orderPrice: "850,000",
+                    orderData: "1399/04/05",
+                    orderSituation: "لغو شده",
+                    orders: [
+                        {
+                            id: 1,
+                            title:
+                                " اپل واچ سری 1 آلومینیوم آبی اپل واچ سری 1 آلومینیوم",
+                            img: "/img/apple-watch-1.png"
+                        },
+                        {
+                            id: 2,
+                            title:
+                                " اپل واچ سری 2 آلومینیوم آبی اپل واچ سری 2 آلومینیوم",
+                            img: "/img/apple-watch-2.png"
+                        },
+                        {
+                            id: 3,
+                            title:
+                                " اپل واچ سری 3 آلومینیوم آبی اپل واچ سری 3 آلومینیوم",
+                            img: "/img/apple-watch-3.png"
+                        },
+                        {
+                            id: 4,
+                            title:
+                                " اپل واچ سری 4 آلومینیوم آبی اپل واچ سری 4 آلومینیوم",
+                            img: "/img/apple-watch-4.png"
+                        }
+                    ]
+                },
+                {
+                    id: 2,
+                    orderCode: "6861457L",
+                    orderPrice: "450,000",
+                    orderData: "1399/04/06",
+                    orderSituation: "لغو شده",
+                    orders: [
+                        {
+                            id: 3,
+                            title:
+                                " اپل واچ سری 3 آلومینیوم آبی اپل واچ سری 3 آلومینیوم",
+                            img: "/img/apple-watch-3.png"
+                        },
+                        {
+                            id: 4,
+                            title:
+                                " اپل واچ سری 4 آلومینیوم آبی اپل واچ سری 4 آلومینیوم",
+                            img: "/img/apple-watch-4.png"
+                        }
+                    ]
+                },
+                {
+                    id: 3,
+                    orderCode: "6861457M",
+                    orderPrice: "850,000",
+                    orderData: "1399/04/05",
+                    orderSituation: "لغو شده",
+                    orders: [
+                        {
+                            id: 1,
+                            title:
+                                " اپل واچ سری 1 آلومینیوم آبی اپل واچ سری 1 آلومینیوم",
+                            img: "/img/apple-watch-1.png"
+                        },
+                        {
+                            id: 2,
+                            title:
+                                " اپل واچ سری 2 آلومینیوم آبی اپل واچ سری 2 آلومینیوم",
+                            img: "/img/apple-watch-2.png"
+                        },
+                        {
+                            id: 3,
+                            title:
+                                " اپل واچ سری 3 آلومینیوم آبی اپل واچ سری 3 آلومینیوم",
+                            img: "/img/apple-watch-3.png"
+                        },
+                        {
+                            id: 4,
+                            title:
+                                " اپل واچ سری 4 آلومینیوم آبی اپل واچ سری 4 آلومینیوم",
+                            img: "/img/apple-watch-4.png"
+                        }
+                    ]
+                }
             ],
             currentOrder: {}
         };
@@ -235,6 +210,13 @@ export default {
             // this.returned = false;
             // this.canceled = false;
         }
+        const elmnt = document.getElementById("item-canceled");
+        // elmnt.scrollIntoView();
+        elmnt.scrollIntoView({
+            behavior: "auto",
+            block: "end",
+            inline: "center"
+        });
     },
 
     methods: {
@@ -254,6 +236,9 @@ export default {
             } else if (page == "canceled") {
                 this.$router.push("/profile/my-orders/canceled");
                 this.canceled = true;
+            } else if (page == "waitForPayment") {
+                this.$router.push("/profile/my-orders/wait-for-payment");
+                this.waitForPayment = true;
             }
         }
         // request //
@@ -267,6 +252,12 @@ export default {
 }
 .mobile-screen {
     display: none;
+}
+.order-nav__items-holder {
+    @include display-flex();
+    flex-direction: row;
+    align-items: center;
+    width: fit-content;
 }
 .profile-container {
     margin: 0 auto;
@@ -356,12 +347,6 @@ export default {
     border-radius: 10px;
     /* border: 1px solid blue; */
 }
-.mobile-nav__order-inprogress,
-.mobile-nav__order-delivered,
-.mobile-nav__order-returned,
-.mobile-nav__order-canceled {
-    display: none;
-}
 @media (max-width: 1450px) {
 }
 @media (max-width: 1220px) {
@@ -438,109 +423,66 @@ export default {
             display: none;
         }
     }
-
-    .mobile-nav__order-inprogress,
-    .mobile-nav__order-delivered,
-    .mobile-nav__order-returned,
-    .mobile-nav__order-canceled {
-        @include display-flex();
-        flex-direction: row;
-        align-items: center;
-        height: 62px;
-        padding: 0 10px;
-        background: $white;
-        border-radius: 10px;
-        /* border-bottom: 1px solid $gray-border; */
-        /* border: 1px solid red; */
-    }
-    .mobile-nav__order-delivered,
-    .mobile-nav__order-returned,
-    .mobile-nav__order-canceled {
-        background: $white;
-        margin-top: 8px;
-        box-shadow: 0px 8px 16px $box__shadow;
-        border-radius: 10px;
-    }
-
-    .mobile-nav__order-canceled {
-        border-bottom-left-radius: 0;
-        border-bottom-right-radius: 0;
-    }
-    .mobile-inprogress__title,
-    .mobile-delivered__title,
-    .mobile-returned__title,
-    .mobile-canceled__title {
-        font-size: 16px;
-        line-height: 140.62%;
-        color: $black-topic;
-        margin-right: 8px;
-    }
-    .mobile-inprogress__arrow,
-    .mobile-delivered__arrow,
-    .mobile-returned__arrow,
-    .mobile-canceled__arrow {
-        @include display-flex();
-        /* border: 1px solid red; */
-        margin-right: auto;
-    }
-    .mobile-inprogress__arrow::after,
-    .mobile-delivered__arrow::after,
-    .mobile-returned__arrow::after,
-    .mobile-canceled__arrow::after {
-        content: "\e801";
-        @include font-icon__limoo();
-        font-size: 12px;
-        color: $input-border;
-        margin-left: 11px;
-        transform: rotate(90deg);
-    }
-    .mobile-delivered__arrow::after,
-    .mobile-returned__arrow::after,
-    .mobile-inprogress__arrow::after {
-        transform: rotate(-90deg);
-    }
-    .mobile-inprogress__count,
-    .mobile-delivered__count,
-    .mobile-returned__count,
-    .mobile-canceled__count {
-        background-color: $notif-inprogress__bg;
-        margin-right: 11px;
-        padding-top: 4px;
-        font-size: 16px;
-        line-height: 140.62%;
-        color: $yellow;
-        width: 30px;
-        height: 30px;
-        border: 1px solid transparent;
-        box-sizing: border-box;
-        /* box-shadow: 0px 4px 4px rgba(255, 204, 64, 0.49); */
-        border-radius: 50%;
-    }
-    .mobile-delivered__count {
-        background-color: $notif-delivered__bg;
-        color: $code-request;
-        border: 1px solid transparent;
-    }
-    .mobile-returned__count {
-        background-color: $notif-returned__bg;
-        color: $red-logout;
-        border: 1px solid transparent;
-    }
-    .mobile-canceled__count {
-        background-color: $notif-canceled__bg;
-        color: $gray;
-        border: 1px solid transparent;
-    }
 }
 @media (max-width: 700px) {
+    .order-counter {
+        width: 14px;
+        height: 14px;
+        border-radius: 50%;
+        color: $red-color;
+        background-color: $bg-libht__red;
+        margin-right: 3px;
+        font-size: 11px;
+    }
     .user-profile__holder {
+        margin: 0;
+        padding: 0;
+        border-top: 1px solid $light-gray;
+    }
+    .desktop-nav {
+        @include display-flex();
+        flex-direction: column;
+        width: 100%;
+        background-color: $white;
+        border-radius: 0;
+        margin-bottom: 8px;
+    }
+    .order-holder {
         padding: 0 5px;
     }
-    .mobile-nav__order-inprogress,
-    .mobile-nav__order-delivered,
-    .mobile-nav__order-returned,
-    .mobile-nav__order-canceled {
-        padding: 0;
+    .order-nav__items a {
+        font-size: 13px;
+        white-space: nowrap;
+    }
+    .order-nav__items {
+        margin-left: 24px;
+    }
+    .order-nav__items:last-of-type {
+        padding-left: 16px;
+    }
+    .order-nav {
+        @include display-flex();
+        /* flex-direction: row; */
+        flex-flow: row;
+        overflow: auto;
+        justify-content: space-between;
+        margin-top: 0;
+        height: 51px;
+        width: 100%;
+        /* border: 1px solid blue; */
+        padding: 16px 16px 0 16px;
+        .item-active {
+            & a {
+                color: $code;
+            }
+            .bottomLine {
+                height: 4px;
+                width: 110%;
+                margin-top: 12px;
+                border-top-left-radius: 15px;
+                border-top-right-radius: 15px;
+            }
+        }
     }
 }
 
