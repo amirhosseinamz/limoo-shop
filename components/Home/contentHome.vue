@@ -4,6 +4,7 @@
             <introduction-items
              :introduction-product="introductionProduct"
              :title="{sliderItemHref:'category' }"
+             :left-slider-header-img="leftSliderHeaderImg"
 
              ></introduction-items>
 
@@ -26,7 +27,9 @@
              :title="{title:'موبایل اندرویدی' , href:'verticalAll' , titleVisit:'',sliderItemHref:'category' , sliderItemHref:'product-vertical'}"
               ></product-vertical-content>
 
-            <banner-items></banner-items>
+            <banner-items
+            :banner-category="bannerCategory"
+            ></banner-items>
 
             <product-content
             :products="products"
@@ -44,7 +47,7 @@
             :title="{title:'تستی 3',href:'test',titleVisit:'پر فروش ترین محصولات' , sliderItemHref:'product3'}"
             ></product-content>
 
-            <banner-2-items></banner-2-items>
+            <banner-2-items :banner-category2="bannerCategory2"></banner-2-items>
 
             <div class="w-100 product__vertical-main">
                 <div class="product__vertical-right">
@@ -64,7 +67,7 @@
                 </div>
             </div>
 
-            <banner-3-items></banner-3-items>
+            <banner-3-items :banner-blog="bannerBlog"></banner-3-items>
 
 
             <product-content
@@ -147,7 +150,10 @@ export default {
       introductionProduct            : { type: [Object,Array], default: [] },
       allProductMultiVertical        : { type: [Object,Array], default: [] },
       allProductVerticalDescription  : { type: [Object,Array], default: [] },
-
+      leftSliderHeaderImg            : { type: [Object,Array], default: [] },
+      bannerCategory                 : { type: [Object,Array], default: [] },
+      bannerCategory2                : { type: [Object,Array], default: [] },
+      bannerBlog                     : { type: [Object,Array], default: [] },
     },
 
     components: {

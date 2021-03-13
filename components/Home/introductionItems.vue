@@ -1,5 +1,5 @@
 <template>
-  <div class="w-100 page__home-introduction-items">
+  <div class=" page__home-introduction-items">
 
         <div class="w-100 page__home__introduction-item-slider-content home__item">
           <img  ref="imgCheckHieghtSlider" class="page__home__introduction__slider-pic img--display" :src="introductionProduct[0].image" alt="">
@@ -20,17 +20,13 @@
         </div>
 
         <NuxtLink class="w-100 h-100 introduction--link" to="/profile"  >
-          <img class="introduction__leftimg h-100" src="/img/apple-watch-series-3-gps-cellurar1.svg" alt="">
+          <img class="introduction__leftimg h-100" :src="leftSliderHeaderImg[0].image" alt="">
         </NuxtLink>
         <NuxtLink class="w-100 h-100 introduction--link" to="/profile"  >
-          <img class="introduction__leftimg h-100" src="/img/apple-watch-series-6-desktop-min1.svg" alt="">
+          <img class="introduction__leftimg h-100" :src="leftSliderHeaderImg[1].image" alt="">
         </NuxtLink>
-        <!-- <div class="introduction__left home__item">
-            <div class="introduction__leftitem w-100 ">
-            </div>
-            <div class="introduction__leftitem2 w-100">
-            </div>
-        </div> -->
+
+
   </div>
 </template>
 
@@ -44,6 +40,7 @@ export default {
     props: {
       introductionProduct    : { type: [Object,Array], default: [] },
       title                  : { type: Object, default: {} },
+      leftSliderHeaderImg    : { type: [Object,Array], default: [] },
     },
 
     data() {
@@ -69,6 +66,26 @@ export default {
             mobile         : '',
           },
         ],
+        coverLeftLastUpdateImg   : [
+              {
+                extraLarg      : '',
+                larg           : '',
+                medium         : '',
+                small          : '',
+                exteraSmall    : '',
+                mobile         : '',
+                id             : 1,
+              },
+              {
+                extraLarg      : '',
+                larg           : '',
+                medium         : '',
+                small          : '',
+                exteraSmall    : '',
+                mobile         : '',
+                id             : 2,
+              }
+          ]
 
       }
     },
@@ -85,7 +102,8 @@ export default {
       });
 
       this.detectedResizeBrowser();
-      this.updateSliderImg()
+      this.updateSliderImg();
+      this.updateSliderLeftTopImg();
 
       if (this.introductionProduct.length != 0) {
         setTimeout( () =>{
@@ -130,11 +148,13 @@ export default {
             const width                 = window.innerWidth;
 
             this.updateSliderImg();
-            this.updateHightSlider()
+            this.updateHightSlider();
+            this.updateSliderLeftTopImg();
 
             setTimeout( () =>{
               this.updateSliderImg();
-              this.updateHightSlider()
+              this.updateHightSlider();
+              this.updateSliderLeftTopImg()
             }, 1000);
 
           }, true);
@@ -203,31 +223,136 @@ export default {
 
 
 
-          if (1200 < getWindowWidth) {
-              if (1300 >= getWindowWidth) {
-                getImg(826,477,'medium');
+          // if (1200 < getWindowWidth) {
+              if (1330 >= getWindowWidth) {
+                getImg(754,457,'medium');
                 updateImg('medium');
               }
-          }
+          // }
 
 
-          if (1200 >= getWindowWidth) {
-            getImg(760,477,'small');
+          if (1220 >= getWindowWidth) {
+            getImg(634,336,'small');
             updateImg('small');
           }
 
-          if (960 >= getWindowWidth) {
-            getImg(960,300,'exteraSmall');
-            updateImg('exteraSmall');
+
+          //
+          // if (960 >= getWindowWidth) {
+          //   getImg(960,300,'exteraSmall');
+          //   updateImg('exteraSmall');
+          // }
+          //
+          // if (485 >= getWindowWidth) {
+          //   getImg(485,200,'mobile');
+          //   updateImg('mobile');
+          // }
+
+
+      },
+
+      updateSliderLeftTopImg(){
+        const getWindowWidth = window.innerWidth;
+
+
+        const getImg    = (getSizeImg,getSizeUpdate) => {
+            this.coverLeftLastUpdateImg.map((content,index)=>{
+              if (content[getSizeUpdate] == '') {
+                  for (let key in content) {
+                      if (key == getSizeUpdate) {
+                        // فقط یک بار اجرا شده و پس از گرفتن عکس مورد نظر اجرا نخواهد شد //
+
+                        if (index == 0) {
+                          const pic1Size   = getSizeImg.pic1;
+                          const url        = `https://statics-develop.diver.ir/1/fill/${pic1Size.width}/${pic1Size.height}/sm/true/plain/s3://limoo/product/wp2559551-full-hd-wallpaper-downlord.jpg`;
+                          content[key]     = url;
+                        }
+
+                        if (index == 1) {
+                          const pic2Size   = getSizeImg.pic2;
+                          const width      = pic2Size.width;
+                          const height     = pic2Size.height;
+
+                          const url      = `https://statics-develop.diver.ir/1/fill/${width}/${height}/sm/true/plain/s3://limoo/product/new-baner-web4.jpg`;
+                          content[key]     = url;
+                        }
+
+
+                      }
+                  }
+              }
+
+
+            })
+        }
+
+        const updateImg = (getSizeUpdate) => {
+          this.coverLeftLastUpdateImg.map((contentLastGetImg)=>{
+              const getCurrentSizeImg = contentLastGetImg[getSizeUpdate];
+              this.leftSliderHeaderImg.map((contentOriginal)=>{
+                if (contentOriginal.id == contentLastGetImg.id) {
+
+                  contentOriginal.image = getCurrentSizeImg;
+                }
+              })
+          })
+
+        }
+
+        if (1380 <= getWindowWidth) {
+          const sizeImg = {
+            pic1 : {
+              width  : 449,
+              height : 150,
+            },
+            pic2 : {
+              width  : 449,
+              height : 294,
+            },
           }
 
-          if (485 >= getWindowWidth) {
-            getImg(485,200,'mobile');
-            updateImg('mobile');
+          getImg(sizeImg,'extraLarg');
+          updateImg('extraLarg');
+        }
+
+
+        if (1330 >= getWindowWidth) {
+          // getImg(866,477,'larg');
+
+          const sizeImg = {
+            pic1 : {
+              width  : 360,
+              height : 150,
+            },
+            pic2 : {
+              width  : 369,
+              height : 230,
+            },
           }
 
+          getImg(sizeImg,'larg');
+          updateImg('larg');
+        }
 
-      }
+        // if (1200 >= getWindowWidth) {
+        //   const sizeImg = {
+        //     pic1 : {
+        //       width  : 326,
+        //       height : 150,
+        //     },
+        //     pic2 : {
+        //       width  : 326,
+        //       height : 150,
+        //     },
+        //   }
+        //
+        //   getImg(sizeImg,'larg');
+        //   updateImg('larg');
+        // }
+
+
+
+      },
 
     },
 
@@ -246,6 +371,7 @@ export default {
     grid-template-rows: repeat(1,1fr);
     grid-template-columns: 1fr 1fr 1fr;
     position: relative;
+    width: 100%;
   }
   .page__home__introduction__slider{
     border-radius: 12px;
@@ -283,8 +409,10 @@ export default {
   }
   .introduction__leftimg{
     border-radius: 12px;
-    height: 100%;
+    height: auto;
     width: 100%;
+    // object-position: 50% 50%;
+    // object-fit: cover;
   }
   .carousel-cell {
     width: 100%;
@@ -297,6 +425,7 @@ export default {
   .introduction--link{
     @include display-flex();
     position: relative;
+    align-items: flex-start;
   }
   .img--display{
     opacity: 0;
@@ -310,35 +439,57 @@ export default {
     width: 100%;
   }
 
-
-
-
-
-  @media (max-width: 1328px) {
+  @media (max-width: 1330px) {
+    .page__home-introduction-items{
+      max-width: 1140px;
+      margin-right: auto;
+      margin-left: auto;
+      height: 401px;
+    }
+    .page__home__introduction-item-slider-content{
+      height: 401px;
+    }
 
   }
 
   @media (max-width: 1220px) {
-    // .introduction__leftitem2{
-    //   height: 267px;
+    .page__home-introduction-items{
+      max-width: 960px;
+      height: 336px;
+    }
+    .page__home__introduction-item-slider-content{
+      height: 336px;
+    }
+
+  }
+
+  @media (max-width: 960px) {
+    // .page__home-introduction-items{
+    //   max-width: 720px;
+    //   height: 248px;
     // }
-    // .page__home__introduction__slider-pic{
-    //   height: 431px;
+    // .page__home__introduction-item-slider-content{
+    //   height: 248px;
     // }
 
-    .introduction__leftimg{
-      object-position: 50% 50%;
-      object-fit: cover;
+    .page__home-introduction-items{
+      max-width: auto;
+      height: auto;
     }
+    .page__home__introduction-item-slider-content{
+      max-width: auto;
+      height: auto;
+    }
+
   }
 
 
-  @media (max-width: 1100px) {
-    .page__home__introduction__slider-pic{
-      width: 100%;
-      height: 100%;
-    }
-  }
+  // @media (max-width: 1100px) {
+  //   .page__home__introduction__slider-pic{
+  //     width: 100%;
+  //     height: 100%;
+  //   }
+  // }
 
   @media (max-width: 1024px) {
 
@@ -355,7 +506,7 @@ export default {
       width: 100%;
     }
     .page__home__introduction__slider-pic{
-      // height: auto;
+      height: 100%;
       width: 100%;
     }
     .introduction--link{

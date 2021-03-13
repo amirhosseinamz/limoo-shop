@@ -25,6 +25,14 @@
         :introduction-product="introductionProduct"
         :all-product-multi-vertical="allProductMultiVertical"
         :all-product-vertical-description="allProductVerticalDescription"
+        :left-slider-header-img="leftSliderHeaderImg"
+        :banner-category="bannerCategory"
+        :banner-category2="bannerCategory2"
+        :banner-blog="bannerBlog"
+
+
+
+
 
 
 
@@ -462,6 +470,52 @@ export default {
             },
 
           ],
+          leftSliderHeaderImg            : [
+              {
+                image : '',
+                id    : 1,
+              },
+              {
+                image : '',
+                id    : 2,
+              },
+          ],
+          bannerCategory  : [
+              {
+                image : '',
+                id    : 1,
+              },
+              {
+                image : '',
+                id    : 2,
+              },
+              {
+                image : '',
+                id    : 3,
+              },
+          ],
+          bannerCategory2  : [
+              {
+                image : '',
+                id    : 1,
+              },
+              {
+                image : '',
+                id    : 2,
+              },
+              {
+                image : '',
+                id    : 3,
+              },
+          ],
+          bannerBlog  : [
+              {
+                image : '',
+                id    : 1,
+              }
+          ],
+
+
 
         };
     },
