@@ -441,7 +441,6 @@ export default {
 
   @media (max-width: 1330px) {
     .page__home-introduction-items{
-      max-width: 1140px;
       margin-right: auto;
       margin-left: auto;
       height: 401px;
@@ -454,7 +453,6 @@ export default {
 
   @media (max-width: 1220px) {
     .page__home-introduction-items{
-      max-width: 960px;
       height: 336px;
     }
     .page__home__introduction-item-slider-content{
@@ -464,14 +462,6 @@ export default {
   }
 
   @media (max-width: 960px) {
-    // .page__home-introduction-items{
-    //   max-width: 720px;
-    //   height: 248px;
-    // }
-    // .page__home__introduction-item-slider-content{
-    //   height: 248px;
-    // }
-
     .page__home-introduction-items{
       max-width: auto;
       height: auto;
@@ -484,18 +474,8 @@ export default {
   }
 
 
-  // @media (max-width: 1100px) {
-  //   .page__home__introduction__slider-pic{
-  //     width: 100%;
-  //     height: 100%;
-  //   }
-  // }
-
   @media (max-width: 1024px) {
 
-    // .introduction__leftitem2{
-    //   height: 248px;
-    // }
   }
 
   @media (max-width: 960px) {

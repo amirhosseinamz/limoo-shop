@@ -153,6 +153,26 @@ export default {
           updateImg('extraLarg');
         }
 
+        if (1366 <= getWindowWidth) {
+          const sizeImg = {
+            pic1 : {
+              width  : 427,
+              height : 244,
+            },
+            pic2 : {
+              width  : 427,
+              height : 244,
+            },
+            pic3 : {
+              width  : 427,
+              height : 244,
+            },
+          }
+
+          getImg(sizeImg,'extraLarg');
+          updateImg('extraLarg');
+        }
+
 
         if (1024 >= getWindowWidth) {
           const sizeImg = {

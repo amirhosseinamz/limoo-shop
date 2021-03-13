@@ -128,7 +128,7 @@ export default {
 
         }
 
-        if (1380 <= getWindowWidth) {
+        if (1300 <= getWindowWidth) {
           const sizeImg = {
             pic1 : {
               width  : 675,
