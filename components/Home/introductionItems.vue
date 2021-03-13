@@ -208,32 +208,21 @@ export default {
 
           }
 
-          if (1380 <= getWindowWidth) {
+          if (1300 <= getWindowWidth) {
             getImg(915,460,'extraLarg');
             updateImg('extraLarg');
           }
 
 
-          // if (1400 < getWindowWidth) {
-              if (1380 >= getWindowWidth) {
-                getImg(866,477,'larg');
-                updateImg('larg');
-              }
-          // }
-
-
-
-          // if (1200 < getWindowWidth) {
-              if (1330 >= getWindowWidth) {
-                getImg(754,457,'medium');
-                updateImg('medium');
-              }
-          // }
-
 
           if (1220 >= getWindowWidth) {
-            getImg(634,336,'small');
+            getImg(772,336,'small');
             updateImg('small');
+          }
+
+          if (1024 >= getWindowWidth) {
+            getImg(642,336,'exteraSmall');
+            updateImg('exteraSmall');
           }
 
 
@@ -334,21 +323,39 @@ export default {
           updateImg('larg');
         }
 
-        // if (1200 >= getWindowWidth) {
-        //   const sizeImg = {
-        //     pic1 : {
-        //       width  : 326,
-        //       height : 150,
-        //     },
-        //     pic2 : {
-        //       width  : 326,
-        //       height : 150,
-        //     },
-        //   }
-        //
-        //   getImg(sizeImg,'larg');
-        //   updateImg('larg');
-        // }
+        if (1220 >= getWindowWidth) {
+          const sizeImg = {
+            pic1 : {
+              width  : 326,
+              height : 120,
+            },
+            pic2 : {
+              width  : 326,
+              height : 150,
+            },
+          }
+
+          getImg(sizeImg,'medium');
+          updateImg('medium');
+        }
+
+        if (1024 >= getWindowWidth) {
+          // getImg(866,477,'larg');
+
+          const sizeImg = {
+            pic1 : {
+              width  : 360,
+              height : 150,
+            },
+            pic2 : {
+              width  : 369,
+              height : 220,
+            },
+          }
+
+          getImg(sizeImg,'small');
+          updateImg('small');
+        }
 
 
 
@@ -440,14 +447,6 @@ export default {
   }
 
   @media (max-width: 1330px) {
-    .page__home-introduction-items{
-      margin-right: auto;
-      margin-left: auto;
-      height: 401px;
-    }
-    .page__home__introduction-item-slider-content{
-      height: 401px;
-    }
 
   }
 
