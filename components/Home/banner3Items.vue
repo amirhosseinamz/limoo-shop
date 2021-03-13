@@ -111,26 +111,6 @@ export default {
           updateImg('larg');
         }
 
-        // if (960 >= getWindowWidth) {
-        //   const sizeImg = {
-        //     pic1 : {
-        //       width  : 445,
-        //       height : 233,
-        //     },
-        //     pic2 : {
-        //       width  : 445,
-        //       height : 233,
-        //     },
-        //     pic3 : {
-        //       width  : 445,
-        //       height : 233,
-        //     },
-        //   }
-        //
-        //   getImg(sizeImg,'medium');
-        //   updateImg('medium');
-        // }
-
         if (768 >= getWindowWidth) {
           const sizeImg = {
             pic1 : {
@@ -142,21 +122,6 @@ export default {
           getImg(sizeImg,'small');
           updateImg('small');
         }
-
-        if (485 >= getWindowWidth) {
-          const sizeImg = {
-            pic1 : {
-              width  : 465,
-              height : 317,
-            },
-          }
-
-          getImg(sizeImg,'exteraSmall');
-          updateImg('exteraSmall');
-        }
-
-
-
 
 
       },
@@ -204,6 +169,12 @@ export default {
     .bannerItems{
       margin-bottom:40px;
       margin-top: 40px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .bannerItems{
+      display: none;
     }
   }
 
