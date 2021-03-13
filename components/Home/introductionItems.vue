@@ -384,10 +384,10 @@ export default {
     border-radius: 12px;
     width: 100%;
     cursor: pointer;
-    height: 457px;
+    min-height: 457px;
   }
   .page__home__introduction__slider-pic{
-    // height: 457px;
+    height: 100%;
     border-radius: 12px;
     pointer-events: none;
     object-position: 50% 50%;
@@ -416,7 +416,7 @@ export default {
   }
   .introduction__leftimg{
     border-radius: 12px;
-    height: auto;
+    height: 100%;
     width: 100%;
     // object-position: 50% 50%;
     // object-fit: cover;
@@ -457,7 +457,9 @@ export default {
     .page__home__introduction-item-slider-content{
       height: 336px;
     }
-
+    .page__home-introduction-items{
+      grid-template-columns: 1fr 1fr 1fr;
+    }
   }
 
   @media (max-width: 960px) {
@@ -472,10 +474,6 @@ export default {
 
   }
 
-
-  @media (max-width: 1024px) {
-
-  }
 
   @media (max-width: 960px) {
     .introduction__left{

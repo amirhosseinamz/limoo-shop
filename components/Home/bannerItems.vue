@@ -184,8 +184,8 @@ export default {
               height : 206,
             },
             pic3 : {
-              width  : 380,
-              height : 206,
+              width  : 427,
+              height : 244,
             },
           }
 
