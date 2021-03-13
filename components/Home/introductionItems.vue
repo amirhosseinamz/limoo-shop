@@ -208,11 +208,10 @@ export default {
 
           }
 
-          if (1300 <= getWindowWidth) {
+          if (1221 <= getWindowWidth) {
             getImg(915,460,'extraLarg');
             updateImg('extraLarg');
           }
-
 
 
           if (1220 >= getWindowWidth) {
