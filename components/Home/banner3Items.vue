@@ -61,7 +61,7 @@ export default {
                           const width      = pic2Size.width;
                           const height     = pic2Size.height;
 
-                          const url        = `https://statics-develop.diver.ir/1/fill/${width}/${height}/sm/true/plain/s3://limoo/product/WHM_Books_LP_Banner.jpg`;
+                          const url        = `https://statics-develop.diver.ir/1/fill/${width}/${height}/sm/true/plain/s3://limoo/product/92afb0f51f4fc434ae230b5457b14622a397abcb_1615636191.jpg`;
                           content[key]     = url;
                         }
 
@@ -86,17 +86,27 @@ export default {
 
         }
 
-        if (1380 <= getWindowWidth) {
           const sizeImg = {
             pic1 : {
-              width  : 1380,
+              width  : 1500,
               height : 200,
             },
           }
 
           getImg(sizeImg,'extraLarg');
           updateImg('extraLarg');
-        }
+
+          if (1366 >= getWindowWidth) {
+            const sizeImg = {
+              pic1 : {
+                width  : 1314,
+                height : 200,
+              },
+            }
+
+            getImg(sizeImg,'larg');
+            updateImg('larg');
+          }
 
 
         if (1024 >= getWindowWidth) {
@@ -107,8 +117,8 @@ export default {
             },
           }
 
-          getImg(sizeImg,'larg');
-          updateImg('larg');
+          getImg(sizeImg,'medium');
+          updateImg('medium');
         }
 
         if (768 >= getWindowWidth) {
@@ -163,6 +173,14 @@ export default {
     height: 100%;
     border-radius: 14px;
 
+  }
+
+
+
+  @media (max-width: 1200px) {
+    .bannerItems__item{
+      height: auto;
+    }
   }
 
   @media (max-width: 960px) {
