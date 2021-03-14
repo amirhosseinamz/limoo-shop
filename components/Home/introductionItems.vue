@@ -213,10 +213,10 @@ export default {
 
           }
 
-          if (1300 <= getWindowWidth) {
+          // if (1300 <= getWindowWidth) {
             getImg(915,460,'extraLarg');
             updateImg('extraLarg');
-          }
+          // }
 
 
 
@@ -461,6 +461,9 @@ export default {
       height: 336px;
     }
     .page__home__introduction-item-slider-content{
+      height: 336px;
+    }
+    .page__home__introduction__slider{
       height: 336px;
     }
     .page__home-introduction-items{
