@@ -103,6 +103,7 @@ import TheReturned from "~/components/Profile/UserOrder/TheReturned.vue";
 
 export default {
     middleware: "authentication",
+    layout      : "removeFooterMobile",
     components: {
         TheProfileSideBar,
         TheReturned

@@ -103,7 +103,8 @@ import TheProfileSideBar from "~/components/Profile/TheProfileSideBar.vue";
 import TheInProgress from "~/components/Profile/UserOrder/TheInProgress.vue";
 
 export default {
-    middleware: "authentication",
+    middleware  : "authentication",
+    layout      : "removeFooterMobile",
     components: {
         TheProfileSideBar,
         TheInProgress

@@ -44,6 +44,7 @@ import TheModalDeleteUserHistory from "~/components/Profile/UserHistory/TheModal
 
 export default {
     middleware: "authentication",
+    layout      : "removeFooterMobile",
     components: {
         TheProfileSideBar,
         TheUserHistory,

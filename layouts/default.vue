@@ -4,9 +4,9 @@
               <the-header />
               <Nuxt />
               <the-mobile-mega-menu />
-              <div :class="{'remove--footer':removeFooter}" class="w-100">
-                <theFooter ></theFooter>
-              </div>
+
+              <theFooter ></theFooter>
+
           </div>
 
           <div class="w-100 modal-content">
@@ -41,10 +41,11 @@ export default {
     },
     data() {
       return {
-        activeModal      : false,
-        activeModalSort  : false,
-        activeBlur       : false,
-        removeFooter     : false,
+        activeModal         : false,
+        activeModalSort     : false,
+        activeBlur          : false,
+        removeFooter        : false,
+        removeSpecialFooter : false,
       }
     },
 
@@ -74,20 +75,17 @@ export default {
         }
       },
 
+      '$route' (to, from){
+          this.removeFooterProfile();
+       }
+
     },
 
     mounted() {
-
-      if (this.$route.name == 'profile') {
-        this.removeFooter = true;
-      }
-      else {
-        this.removeFooter = false;
-      }
-
     },
 
     methods: {
+
       statusShowModal(data) {
         // this.$store.state.category.showModal         = data;
         this.$store.commit('category/updateStateModals',{showModal:data})
@@ -114,13 +112,6 @@ body {
   filter: blur(2px);
   overflow: hidden;
 }
-
-@media (max-width: 960px) {
-  .remove--footer{
-    display: none;
-  }
-}
-
 
 
 </style>

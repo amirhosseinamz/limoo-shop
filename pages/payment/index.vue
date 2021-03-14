@@ -61,6 +61,7 @@ import paymentGateway from "~/components/Payment/paymentGateway.vue";
 
 
 export default {
+  layout      : "removeFooterCart",
     components: {
         TheCartShippingDetail,
         paymentGateway
@@ -430,6 +431,6 @@ export default {
       padding-left: 11px;
       padding-right: 11px;
     }
-  
+
 }
 </style>

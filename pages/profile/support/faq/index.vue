@@ -152,6 +152,7 @@ import TheProfileSideBar from "~/components/Profile/TheProfileSideBar.vue";
 
 export default {
      middleware: "authentication",
+     layout      : "removeFooterMobile",
     components: {
         TheProfileSideBar
         // contentTickets,

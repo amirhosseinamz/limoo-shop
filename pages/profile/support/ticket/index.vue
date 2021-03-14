@@ -149,6 +149,7 @@ import modalDeleteTicket from "~/components/Profile/Support/Ticket/modalDeleteTi
 
 export default {
      middleware: "authentication",
+     layout      : "removeFooterMobile",
     components: {
         TheProfileSideBar,
         contentTickets,

@@ -46,7 +46,8 @@ import contentAdresses from "~/components/Profile/Adresses/contentAdresses.vue";
 import modalDeleteAdress from "~/components/Profile/Adresses/modalDeleteAdress.vue";
 
 export default {
-     middleware: "authentication",
+     middleware  : "authentication",
+     layout      : "removeFooterMobile",
     components: {
         TheProfileSideBar,
         contentAdresses,
