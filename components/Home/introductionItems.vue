@@ -56,6 +56,7 @@ export default {
             small          : '',
             exteraSmall    : '',
             mobile         : '',
+            id             : 1,
           },
           {
             extraLarg      : '',
@@ -64,6 +65,7 @@ export default {
             small          : '',
             exteraSmall    : '',
             mobile         : '',
+            id             : 2,
           },
         ],
         coverLeftLastUpdateImg   : [
@@ -186,7 +188,7 @@ export default {
                           }
 
                           if (index == 1) {
-                            const url      = `https://statics-develop.diver.ir/1/fill/${width}/${height}/sm/true/plain/s3://limoo/product/picTest1.jpg`;
+                            const url      = `https://statics-develop.diver.ir/1/fill/${width}/${height}/sm/true/plain/s3://limoo/product/apple-watch-series-6-gps-cellurar2%20.png`;
                             content[key]   = url;
                           }
 
@@ -202,7 +204,9 @@ export default {
             this.sliderLastUpdateImg.map((contentLastGetImg,indexGetImg)=>{
                 const getCurrentSizeImg = contentLastGetImg[getSizeUpdate];
                 this.introductionProduct.map((contentSlider,indexSlider)=>{
-                  contentSlider.image = getCurrentSizeImg;
+                  if (contentLastGetImg.id == contentSlider.id ) {
+                    contentSlider.image = getCurrentSizeImg;
+                  }
                 })
             })
 
@@ -385,6 +389,7 @@ export default {
     width: 100%;
     cursor: pointer;
     min-height: 457px;
+    height: 100%;
   }
   .page__home__introduction__slider-pic{
     height: 100%;
