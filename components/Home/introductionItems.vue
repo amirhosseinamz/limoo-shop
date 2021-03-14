@@ -389,8 +389,8 @@ export default {
     border-radius: 12px;
     width: 100%;
     cursor: pointer;
-    min-height: 457px;
-    height: 100%;
+    height: 457px;
+    // height: 100%;
   }
   .page__home__introduction__slider-pic{
     height: 100%;
