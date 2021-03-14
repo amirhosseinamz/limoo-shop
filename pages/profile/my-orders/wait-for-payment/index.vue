@@ -162,6 +162,10 @@ export default {
             // this.returned = false;
             // this.canceled = false;
         }
+        const pageContent = Object.values(this.userOrderData).length;
+        if (pageContent == 0) {
+            this.$router.push("/profile/my-orders/in-progress");
+        }
     },
 
     methods: {

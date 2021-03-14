@@ -341,11 +341,20 @@ export default {
 }
 .order-holder {
     width: 100%;
-    /* background: $white; */
     height: max-content;
-    /* padding-bottom: 70px; */
     border-radius: 10px;
-    /* border: 1px solid blue; */
+}
+.order-counter {
+    @include display-flex();
+    justify-content: center;
+    align-items: center;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    color: $red-color;
+    background-color: $bg-libht__red;
+    margin-right: 5px;
+    font-size: 16px;
 }
 @media (max-width: 1450px) {
 }

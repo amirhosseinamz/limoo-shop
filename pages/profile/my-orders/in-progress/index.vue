@@ -170,6 +170,10 @@ export default {
             block: "end",
             inline: "center"
         });
+        const pageContent = Object.values(this.userOrderData).length;
+        if (pageContent == 0) {
+            this.$router.push("/profile/my-orders/delivered");
+        }
     },
 
     methods: {

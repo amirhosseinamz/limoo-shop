@@ -27,7 +27,7 @@
                         </div>
                     </div>
                     <NuxtLink
-                        to="/profile/my-orders/in-progress"
+                        to="/profile/my-orders/wait-for-payment"
                         class="user-profile__back-btn"
                     ></NuxtLink>
                 </div>
