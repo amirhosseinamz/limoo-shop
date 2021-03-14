@@ -258,7 +258,7 @@ export default {
 
                         if (index == 0) {
                           const pic1Size   = getSizeImg.pic1;
-                          const url        = `https://statics-develop.diver.ir/1/fill/${pic1Size.width}/${pic1Size.height}/sm/true/plain/s3://limoo/product/wp2559551-full-hd-wallpaper-downlord.jpg`;
+                          const url        = `https://statics-develop.diver.ir/1/fill/${pic1Size.width}/${pic1Size.height}/sm/true/plain/s3://limoo/product/bahare web.jpg`;
                           content[key]     = url;
                         }
 
