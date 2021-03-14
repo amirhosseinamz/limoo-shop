@@ -109,17 +109,17 @@ export default {
           }
 
 
-        if (1024 >= getWindowWidth) {
-          const sizeImg = {
-            pic1 : {
-              width  : 876,
-              height : 200,
-            },
-          }
-
-          getImg(sizeImg,'medium');
-          updateImg('medium');
-        }
+        // if (1024 >= getWindowWidth) {
+        //   const sizeImg = {
+        //     pic1 : {
+        //       width  : 876,
+        //       height : 200,
+        //     },
+        //   }
+        //
+        //   getImg(sizeImg,'medium');
+        //   updateImg('medium');
+        // }
 
         if (768 >= getWindowWidth) {
           const sizeImg = {
