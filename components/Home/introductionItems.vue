@@ -208,10 +208,11 @@ export default {
 
           }
 
-          if (1221 <= getWindowWidth) {
+          if (1300 <= getWindowWidth) {
             getImg(915,460,'extraLarg');
             updateImg('extraLarg');
           }
+
 
 
           if (1220 >= getWindowWidth) {
@@ -287,7 +288,7 @@ export default {
 
         }
 
-        if (1380 <= getWindowWidth) {
+        // if (1380 <= getWindowWidth) {
           const sizeImg = {
             pic1 : {
               width  : 449,
@@ -301,7 +302,7 @@ export default {
 
           getImg(sizeImg,'extraLarg');
           updateImg('extraLarg');
-        }
+        // }
 
 
         if (1330 >= getWindowWidth) {
