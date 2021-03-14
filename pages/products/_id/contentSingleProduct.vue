@@ -1,0 +1,142 @@
+<template>
+    <div class="product__single w-100">
+        <div class="product__single-category w-100">
+
+        </div>
+
+        <div class="product__single-content w-100">
+
+              <div class="product__single-right">
+                  <div class="product--single__right-content">
+                    <productPic></productPic>
+                  </div>
+              </div>
+
+              <div class="product__single-left">
+
+                    <div class="product__data-content w-100">
+                          <div class="product__single-top w-100">
+                            <h3 class="product__top-title">مک بوک پرو 16 اینچ با تاچ بار مدل 9102 مک بوک پرو 16 اینچ رتینا با تاچ بار مدل 2019 طرح جدید</h3>
+                            <h3 class="product__top-brand">Apple AirPods Max- Sliver - MGYJ3</h3>
+                          </div>
+
+                          <!-- <productTools></productTools> -->
+
+                          <productDetail></productDetail>
+
+                          <span class="product__line"></span>
+                    </div>
+
+
+              </div>
+
+        </div>
+
+    </div>
+
+</template>
+<script>
+import productPic from "./productPic";
+import productDetail from './productDetail';
+import productTools from './productTools';
+
+
+export default {
+    components: {
+      productPic,
+      productDetail,
+      productTools,
+    },
+
+    data() {
+        return {
+
+        };
+    },
+
+    watch: {
+
+    },
+
+    created() {
+
+    },
+
+    mounted() {
+    },
+
+    methods: {
+
+    }
+};
+</script>
+
+<style lang="scss" scoped>
+  .product__single{
+    margin-top: 160px;
+  }
+  .product__single-category{
+    @include display-flex();
+    align-items: flex-start;
+  }
+  .product__single-content{
+    @include display-flex();
+    align-items: flex-start;
+    background: $white;
+    padding-bottom: 22px;
+    padding-top: 22px;
+    margin-bottom: 19px;
+    flex-wrap: wrap;
+  }
+  .product__single-right{
+    width: 40%;
+    height: 701px;
+    @include display-flex();
+    align-items: flex-start;
+  }
+  .product__single-left{
+    width: 60%;
+    @include display-flex();
+    align-items: flex-start;
+  }
+  .product__top-title{
+    margin-bottom: 8px;
+    font-size: 24px;
+    line-height:42.75px;
+    color: $black;
+    font-weight: 400;
+    width: 80%;
+  }
+  .product__top-brand{
+    color: $gray;
+    font-weight: 400;
+    font-size: 13px;
+  }
+  .product__data-content {
+    @include display-flex();
+    align-items: flex-start;
+    flex-wrap: wrap;
+    margin-bottom: 30px;
+    padding-right: 24px;
+    padding-left: 24px;
+  }
+  .product__single-top{
+    width: 766px;
+  }
+  .product--single__right-content{
+    margin-right: 16px;
+    width: 100%;
+    border:solid 1px $gray-border;
+    border-radius: 10px;
+    height: 754px;
+    padding-right: 16px;
+    padding-left: 16px;
+  }
+  .product__line{
+    width: 100%;
+    height: 1px;
+    background: $gray-border;
+  }
+
+
+</style>
