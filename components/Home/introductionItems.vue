@@ -206,6 +206,7 @@ export default {
                 this.introductionProduct.map((contentSlider,indexSlider)=>{
                   if (contentLastGetImg.id == contentSlider.id ) {
                     contentSlider.image = getCurrentSizeImg;
+
                   }
                 })
             })
