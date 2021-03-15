@@ -93,7 +93,7 @@ export default {
     margin-left: 8px;
   }
   .product__pic-item{
-    width: 514px;
+    width: 100%;
     height: 514px;
     border-radius: 15px;
     @include display-flex();
@@ -105,6 +105,7 @@ export default {
     padding-bottom: 16px;
     padding-right: 16px;
     padding-left: 16px;
+    justify-content: center;
   }
   .product__pic-box{
     border:solid 1px $gray-border;
