@@ -75,7 +75,7 @@
                     </div>
                 </div>
                 <div class="order-detail order-date">
-                    <span class="order-date__title">تاریخ ثبت:</span>
+                    <span class="order-date__title">تاریخ سفارش:</span>
                     <span class="order-date__jalali">{{ data.orderData }}</span>
                 </div>
                 <div class="order-detail order-situation">

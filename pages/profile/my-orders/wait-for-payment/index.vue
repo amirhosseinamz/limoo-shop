@@ -48,7 +48,6 @@
                             @click="goToOrder('returned')"
                             :class="{ 'item-active': returned }"
                             class="order-nav__items "
-                            id="item-returned"
                         >
                             <NuxtLink to="">مرجوع شده</NuxtLink>
                             <span class="bottomLine"></span>
@@ -64,9 +63,10 @@
                     </div>
                 </div>
                 <div class="order-holder">
-                    <the-returned
+                    <!--  -->
+                    <The-wait-for-payment
                         :user-order-data="userOrderData"
-                    ></the-returned>
+                    ></The-wait-for-payment>
                 </div>
             </div>
         </div>
@@ -74,17 +74,18 @@
 </template>
 <script>
 import TheProfileSideBar from "~/components/Profile/TheProfileSideBar.vue";
-import TheReturned from "~/components/Profile/UserOrder/TheReturned.vue";
+import TheWaitForPayment from "~/components/Profile/UserOrder/TheWaitForPayment.vue";
 
 export default {
     middleware: "authentication",
     components: {
         TheProfileSideBar,
-        TheReturned
+        TheWaitForPayment
     },
 
     data() {
         return {
+            waitForPayment: false,
             paidInProgress: false,
             delivered: false,
             returned: false,
@@ -95,7 +96,7 @@ export default {
                     orderCode: "6861457M",
                     orderPrice: "850,000",
                     orderData: "1399/04/05",
-                    orderSituation: "مرجوع شده",
+                    orderSituation: "در انتظار پرداخت",
                     orders: [
                         {
                             id: 1,
@@ -128,7 +129,7 @@ export default {
                     orderCode: "6861457L",
                     orderPrice: "450,000",
                     orderData: "1399/04/06",
-                    orderSituation: "مرجوع شده",
+                    orderSituation: "در انتظار پرداخت",
                     orders: [
                         {
                             id: 3,
@@ -145,6 +146,7 @@ export default {
                     ]
                 }
             ],
+
             currentOrder: {}
         };
     },
@@ -154,19 +156,16 @@ export default {
     mounted() {
         const curentRoute = this.$route.path;
         // const activeTab = this.$route.query.activeTab;
-        if (curentRoute == "/profile/my-orders/returned") {
-            this.returned = true;
+        if (curentRoute == "/profile/my-orders/wait-for-payment") {
+            this.waitForPayment = true;
             // this.delivered = false;
             // this.returned = false;
             // this.canceled = false;
         }
-        const elmnt = document.getElementById("item-returned");
-        // elmnt.scrollIntoView();
-        elmnt.scrollIntoView({
-            behavior: "auto",
-            block: "end",
-            inline: "center"
-        });
+        const pageContent = Object.values(this.userOrderData).length;
+        if (pageContent == 0) {
+            this.$router.push("/profile/my-orders/in-progress");
+        }
     },
 
     methods: {
@@ -214,19 +213,20 @@ export default {
     display: flex;
     flex-direction: row-reverse;
 }
+
+.user-profile__holder {
+    margin: 166px 0 50px 17px;
+    width: 100%;
+    min-height: fit-content;
+    height: max-content;
+    /* border: 1px solid #2f0404; */
+}
 .desktop-nav {
     @include display-flex();
     flex-direction: column;
     width: 100%;
     background-color: $white;
     border-radius: 10px;
-}
-.user-profile__holder {
-    margin: 166px 0 50px 17px;
-    width: 100%;
-    min-height: fit-content;
-    height: max-content;
-    /* border: 5px solid #2f0404; */
 }
 .user-profile {
     width: 100%;
@@ -270,6 +270,7 @@ export default {
         text-decoration: none;
         font-size: 18px;
         line-height: 140.62%;
+        width: fit-content;
     }
     .item-active {
         & a {
@@ -279,7 +280,7 @@ export default {
             align-self: center;
             background-color: $yellow;
             height: 5px;
-            width: 125%;
+            width: 110%;
             margin-top: 20px;
             border-top-left-radius: 15px;
             border-top-right-radius: 15px;
@@ -354,6 +355,8 @@ export default {
     }
     .user-profile {
         height: 62px;
+        border-bottom-left-radius: 0;
+        border-bottom-right-radius: 0;
         &__topic {
             display: none;
         }

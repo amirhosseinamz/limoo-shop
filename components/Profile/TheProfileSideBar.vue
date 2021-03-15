@@ -20,7 +20,7 @@
                     <NuxtLink
                         class="profile-sidebar__order-icon"
                         :class="{ 'link-item__activated': OrdersIsActive }"
-                        to="/profile/my-orders/in-progress"
+                        to="/profile/my-orders/wait-for-payment"
                     >
                         سفارش های من</NuxtLink
                     >

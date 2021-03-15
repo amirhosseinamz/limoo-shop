@@ -1,0 +1,104 @@
+@import "_colors.scss";
+
+.page__home__introduction-slider-main {
+    .flickity-page-dots {
+        bottom: 12px;
+    }
+    .flickity-page-dots .dot {
+        border: 1.5px solid $dot-bg;
+        opacity: 1;
+        position: relative;
+        background: $white;
+        width: 10px;
+        height: 10px;
+    }
+    .flickity-page-dots .dot::before {
+        content: "";
+        width: 6px;
+        height: 6px;
+        background: $white;
+        border-radius: 10000px;
+        position: absolute;
+        top: 0;
+        right: 0;
+        left: 0;
+        z-index: 1;
+        margin: auto;
+    }
+    @-moz-document url-prefix() {
+        .flickity-page-dots .dot::before {
+            top: 1px;
+        }
+    }
+    .flickity-page-dots .dot.is-selected::before {
+        background: $gray;
+    }
+    .flickity-viewport {
+        border-radius: 16px;
+    }
+}
+
+.main-carousel {
+    .flickity-prev-next-button {
+        background: $gray;
+        width: 40px;
+        height: 40px;
+    }
+    .flickity-prev-next-button:hover {
+        background: $light-gray;
+    }
+    .flickity-prev-next-button .flickity-button-icon {
+        margin-right: auto;
+        margin-left: auto;
+        top: 10px;
+        right: 0;
+        left: 0;
+        height: 19px;
+        fill: $white;
+    }
+    .flickity-prev-next-button:hover .flickity-button-icon {
+        fill: $gray;
+    }
+    .flickity-button:disabled {
+        display: none;
+    }
+    .flickity-prev-next-button.next {
+        left: 24px;
+        z-index: 1;
+    }
+    .flickity-prev-next-button.previous {
+        right: 24px;
+        z-index: 1;
+    }
+    @media (max-width: 960px) {
+        .flickity-prev-next-button:hover {
+            background: $gray;
+        }
+        .flickity-prev-next-button:hover .flickity-button-icon {
+            fill: $white;
+        }
+    }
+    @media (max-width: 540px) {
+        .flickity-button {
+            display: none;
+        }
+    }
+}
+
+.productContent__mainCat {
+    .flickity-viewport {
+        width: 100%;
+    }
+
+    @media (max-width: 485px) {
+        .flickity-prev-next-button {
+            display: none;
+        }
+    }
+}
+
+// .productContent__vertical{
+//   .flickity-button:disabled{
+//     display: none;
+//   }
+// }

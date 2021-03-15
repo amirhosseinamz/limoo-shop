@@ -50,7 +50,7 @@
             </div>
 
         </div>
-        <nuxt-link to="/" class="user-cart__go-back">بازگشت</nuxt-link>
+        <nuxt-link to="/shipping" class="user-cart__go-back">بازگشت</nuxt-link>
 
     </div>
 </template>
@@ -97,7 +97,7 @@ export default {
 
     methods: {
         goBack() {
-            this.$router.push("/cart");
+            this.$router.push("/shipping");
         },
 
         addCama(){

@@ -12,55 +12,94 @@
             >
             <div class="user-cart__shipping-holder">
                 <div class="user-cart__shipping-container">
-                    <div class="d-fleX w-100 justify-content-space-between">
-                        <span class="user-shipping__title">انتخاب آدرس</span>
+                    <div class="user-cart__shipping-address">
+                        <div class="d-fleX w-100 justify-content-space-between">
+                            <span class="user-shipping__title"
+                                >انتخاب آدرس</span
+                            >
+                            <span
+                                v-show="userAddressData !== 0"
+                                @click="addAddress"
+                                class="user-shipping__address-btn"
+                                >افزودن آدرس جدید</span
+                            >
+                        </div>
+                        <span class="user-cart__shipping-line"></span>
+
+                        <The-shipping-address
+                            ref="TheShippingAddress"
+                            @event-show-modal-delete-order="
+                                eventShowModalDeleteOrder
+                            "
+                            @add-more-order-to-card="addMoreOrderToCard"
+                            @minus-order-from-card="minusOrderFromCart"
+                            :address-data="addressData"
+                            :all-province="allProvince"
+                            :all-citys="allCitys"
+                            :form-data="formData"
+                            :profile-phone-number="profilePhoneNumber"
+                            @selected-province="selectedProvince"
+                            @selected-city="selectedCity"
+                            @submit-address-add="submitAddressAdd"
+                        ></The-shipping-address>
+                        <div class="address-btn__mobile-holder">
+                            <span
+                                v-show="userAddressData !== 0"
+                                @click="addAddress"
+                                class="user-shipping__address-btn__mobile"
+                                >افزودن آدرس جدید</span
+                            >
+                        </div>
                         <span
-                            v-show="userAddressData !== 0"
+                            class="user-shipping__address-btn__empty"
+                            v-show="userAddressData == 0"
                             @click="addAddress"
-                            class="user-shipping__address-btn"
-                            >افزودن آدرس جدید</span
+                            ><span class="desktop-btn__empty"
+                                >افزودن آدرس جدید</span
+                            >
+                            <span class="mobile-btn__empty"
+                                >ثبت آدرس جدید</span
+                            ></span
                         >
                     </div>
-                    <span class="user-cart__shipping-line"></span>
-
-                    <The-shipping-address
-                        ref="TheShippingAddress"
-                        @event-show-modal-delete-order="
-                            eventShowModalDeleteOrder
-                        "
-                        @add-more-order-to-card="addMoreOrderToCard"
-                        @minus-order-from-card="minusOrderFromCart"
-                        :address-data="addressData"
-                        :all-province="allProvince"
-                        :all-citys="allCitys"
-                        :form-data="formData"
-                        :profile-phone-number="profilePhoneNumber"
-                        @selected-province="selectedProvince"
-                        @selected-city="selectedCity"
-                        @submit-address-add="submitAddressAdd"
-                    ></The-shipping-address>
-                    <span
-                        v-show="userAddressData !== 0"
-                        @click="addAddress"
-                        class="user-shipping__address-btn__mobile"
-                        >افزودن آدرس جدید</span
-                    >
-                    <span
-                        class="user-shipping__address-btn__empty"
-                        v-show="userAddressData == 0"
-                        @click="addAddress"
-                        ><span class="desktop-btn__empty"
-                            >افزودن آدرس جدید</span
-                        >
-                        <span class="mobile-btn__empty"
-                            >ثبت آدرس جدید</span
-                        ></span
-                    >
+                    <div class="user-cart__shipping-time__container">
+                        <div class="user-cart__time-topic__holder">
+                            <span class="user-cart__time-title"
+                                >نحوه و زمان ارسال کالا</span
+                            >
+                            <div class="user-cart__time-nav__holder d-rtl">
+                                <!--  -->
+                                <!-- :class="{ 'item-active': sendTime }" -->
+                                <div
+                                    class="user-cart__time-nav__items"
+                                    :class="{ 'item-active': sendTime }"
+                                >
+                                    <NuxtLink to="">ارسال پیشنهادی</NuxtLink>
+                                    <span class="bottomLine"></span>
+                                </div>
+                                <div
+                                    class="user-cart__time-nav__items user-cart__time-nav__urgent"
+                                >
+                                    <NuxtLink to="">ارسال فوری</NuxtLink>
+                                    <span class="bottomLine"></span>
+                                </div>
+                                <!--  -->
+                            </div>
+                        </div>
+                        <div class="user-cart__order-time__container">
+                            <the-time-shipping
+                                :time-data="timeData"
+                                @submit-times-add="submitTimesAdd"
+                            ></the-time-shipping>
+                        </div>
+                    </div>
                 </div>
-                <The-cart-shipping-detail :detail-price="detailPrice"></The-cart-shipping-detail>
+                <The-cart-shipping-detail
+                    :detail-price="detailPrice"
+                ></The-cart-shipping-detail>
             </div>
         </div>
-        <nuxt-link to="/" class="user-cart__go-back">بازگشت</nuxt-link>
+        <nuxt-link to="/cart" class="user-cart__go-back">بازگشت</nuxt-link>
         <modalDeleteAddress
             :active.sync="showModalDeleteAddress"
             :current-address="currentAddress"
@@ -72,20 +111,23 @@
 import TheCartShippingDetail from "~/components/Shipping/TheShippingPayDetail.vue";
 import TheShippingAddress from "~/components/Shipping/TheShippingAddress.vue";
 import modalDeleteAddress from "~/components/Shipping/modalDeleteAddress.vue";
-import TheModalDeleteUserOrders from "~/components/Cart/TheModalDeleteUserOrders.vue";
+import TheTimeShipping from "~/components/Shipping/TheTimeShipping.vue";
 import addCamaPrice from "~/modules/addCamaPrice.js";
-
+import "~/assets/styles/_slider_shipping.scss";
 
 export default {
     components: {
         TheCartShippingDetail,
         TheShippingAddress,
-        modalDeleteAddress
+        modalDeleteAddress,
+        TheTimeShipping
     },
     data() {
         return {
+            allOrdersHasTimed: { item: false },
             showModalDeleteAddress: false,
             userAddressData: -1,
+            sendTime: true,
             addressData: [
                 {
                     id: 1,
@@ -107,19 +149,18 @@ export default {
                     numberReceiver: "09180151023",
                     defultAddress: false
                 },
-                  {
+                {
                     id: 3,
-                    address: "تهران ، خیابان ولیعصر ، تقاطع کوچه حسینی راد 2",
+                    address: "تهران ، خیابان ولیعصر ، تقاطع کوچه حسینی راد 3",
                     province: "قم",
                     city: "قم",
                     codePoste: "2",
-                    nameReceiver: "خشایار سُلگی",
+                    nameReceiver: "مهدی دادور",
                     numberReceiver: "09180151023",
                     defultAddress: false
-                },
-
+                }
             ],
-           ordersData: [
+            ordersData: [
                 {
                     id: 1,
                     title: "تهران خیابان ولی عصر 1 تقاطع مطهری، کوچه حسینی راد"
@@ -147,14 +188,14 @@ export default {
                 {
                     id: 7,
                     title: "تهران خیابان ولی عصر 3 تقاطع مطهری، کوچه حسینی راد"
-                },
+                }
             ],
             currentOrders: {},
-            detailPrice  : {
-              price               : 12000,
-              totalDiscount       : 142250,
-              submitDeliveryPrice : 'رایگان',
-              totalPrice          : 2587000,
+            detailPrice: {
+                price: 12000,
+                totalDiscount: 142250,
+                submitDeliveryPrice: "رایگان",
+                totalPrice: 2587000
             },
             allProvince: [
                 {
@@ -194,18 +235,445 @@ export default {
             updateAddress: 0,
             profilePhoneNumber: "09198814783",
             currentAddress: {},
+            timeData: [
+                {
+                    id: 1,
+                    shippingLimoo: "limoo",
+                    shippingPost: "post",
+
+                    orders: [
+                        { id: 1, img: "/img/apple-watch-1.png" },
+                        { id: 2, img: "/img/apple-watch-1.png" },
+                        { id: 3, img: "/img/apple-watch-1.png" }
+                    ],
+                    timeTable: [
+                        {
+                            id: 1,
+                            dayTime: "شنبه 23 بهمن 99",
+                            weekday: "شنبه",
+                            weekcal: "23 بهمن 99",
+                            timeInDayTable: [
+                                {
+                                    id: 1,
+                                    time: "بین 8:00 تا 12:00",
+                                    disable: true
+                                },
+                                { id: 2, time: "بین 12:00 تا 16:00" },
+                                { id: 3, time: "بین 16:00 تا 20:00" },
+                                { id: 4, time: "بین 20:00 تا 00:00" }
+                            ]
+                        },
+                        {
+                            id: 2,
+                            dayTime: "یک شنبه 24 بهمن 99",
+                            weekday: "یک شنبه",
+                            weekcal: "24 بهمن 99",
+                            timeInDayTable: [
+                                { id: 1, time: "بین 8:00 تا 12:00" },
+                                { id: 2, time: "بین 12:00 تا 16:00" },
+                                { id: 3, time: "بین 16:00 تا 20:00" },
+                                { id: 4, time: "بین 20:00 تا 00:00" }
+                            ]
+                        },
+                        {
+                            id: 3,
+                            dayTime: "دو شنبه 25 بهمن 99",
+                            weekday: "دو شنبه",
+                            weekcal: "25 بهمن 99",
+                            timeInDayTable: [
+                                { id: 1, time: "بین 8:00 تا 12:00" },
+                                { id: 2, time: "بین 12:00 تا 16:00" },
+                                { id: 3, time: "بین 16:00 تا 20:00" },
+                                { id: 4, time: "بین 20:00 تا 00:00" }
+                            ]
+                        },
+                        {
+                            id: 4,
+                            dayTime: "سه شنبه 26 بهمن 99",
+                            weekday: "سه شنبه",
+                            weekcal: "26 بهمن 99",
+                            timeInDayTable: [
+                                { id: 1, time: "بین 8:00 تا 12:00" },
+                                { id: 2, time: "بین 12:00 تا 16:00" },
+                                { id: 3, time: "بین 16:00 تا 20:00" },
+                                { id: 4, time: "بین 20:00 تا 00:00" }
+                            ]
+                        },
+                        {
+                            id: 5,
+                            dayTime: "چهار شنبه 27 بهمن 99",
+                            weekday: "چهار شنبه",
+                            weekcal: "27 بهمن 99",
+                            timeInDayTable: [
+                                { id: 1, time: "بین 8:00 تا 12:00" },
+                                { id: 2, time: "بین 12:00 تا 16:00" },
+                                { id: 3, time: "بین 16:00 تا 20:00" },
+                                { id: 4, time: "بین 20:00 تا 00:00" }
+                            ]
+                        },
+                        {
+                            id: 6,
+                            dayTime: "پنچ شنبه 28 بهمن 99",
+                            weekday: "پنج شنبه",
+                            weekcal: "28 بهمن 99",
+                            timeInDayTable: [
+                                { id: 1, time: "بین 8:00 تا 12:00" },
+                                { id: 2, time: "بین 12:00 تا 16:00" },
+                                { id: 3, time: "بین 16:00 تا 20:00" },
+                                { id: 4, time: "بین 20:00 تا 00:00" }
+                            ]
+                        },
+                        {
+                            id: 7,
+                            dayTime: "جمعه 29 بهمن 99",
+                            weekday: "جمعه",
+                            weekcal: "29 بهمن 99",
+                            timeInDayTable: [
+                                { id: 1, time: "بین 8:00 تا 12:00" },
+                                { id: 2, time: "بین 12:00 تا 16:00" },
+                                { id: 3, time: "بین 16:00 تا 20:00" },
+                                { id: 4, time: "بین 20:00 تا 00:00" }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    id: 2,
+                    shipping: "heavy",
+                    orders: [{ id: 1, img: "/img/apple-watch-2.png" }],
+                    timeTable: [
+                        {
+                            id: 1,
+                            dayTime: "شنبه 23 بهمن 99",
+                            weekday: "شنبه",
+                            weekcal: "23 بهمن 99",
+                            timeInDayTable: [
+                                {
+                                    id: 1,
+                                    time: "بین 8:00 تا 12:00",
+                                    disable: true
+                                },
+                                { id: 2, time: "بین 12:00 تا 16:00" },
+                                {
+                                    id: 3,
+                                    time: "بین 16:00 تا 20:00",
+                                    disable: true
+                                },
+                                {
+                                    id: 4,
+                                    time: "بین 20:00 تا 00:00",
+                                    disable: true
+                                }
+                            ]
+                        },
+                        {
+                            id: 2,
+                            dayTime: "یک شنبه 24 بهمن 99",
+                            weekday: "یک شنبه",
+                            weekcal: "24 بهمن 99",
+                            timeInDayTable: [
+                                { id: 1, time: "بین 8:00 تا 12:00" },
+                                { id: 2, time: "بین 12:00 تا 16:00" },
+                                { id: 3, time: "بین 16:00 تا 20:00" },
+                                { id: 4, time: "بین 20:00 تا 00:00" }
+                            ]
+                        },
+                        {
+                            id: 3,
+                            dayTime: "دو شنبه 25 بهمن 99",
+                            weekday: "دو شنبه",
+                            weekcal: "25 بهمن 99",
+                            timeInDayTable: [
+                                { id: 1, time: "بین 8:00 تا 12:00" },
+                                { id: 2, time: "بین 12:00 تا 16:00" },
+                                { id: 3, time: "بین 16:00 تا 20:00" },
+                                { id: 4, time: "بین 20:00 تا 00:00" }
+                            ]
+                        },
+                        {
+                            id: 4,
+                            dayTime: "سه شنبه 26 بهمن 99",
+                            weekday: "سه شنبه",
+                            weekcal: "26 بهمن 99",
+                            timeInDayTable: [
+                                { id: 1, time: "بین 8:00 تا 12:00" },
+                                { id: 2, time: "بین 12:00 تا 16:00" },
+                                { id: 3, time: "بین 16:00 تا 20:00" },
+                                { id: 4, time: "بین 20:00 تا 00:00" }
+                            ]
+                        },
+                        {
+                            id: 5,
+                            dayTime: "چهار شنبه 27 بهمن 99",
+                            weekday: "چهار شنبه",
+                            weekcal: "27 بهمن 99",
+                            timeInDayTable: [
+                                { id: 1, time: "بین 8:00 تا 12:00" },
+                                { id: 2, time: "بین 12:00 تا 16:00" },
+                                { id: 3, time: "بین 16:00 تا 20:00" },
+                                { id: 4, time: "بین 20:00 تا 00:00" }
+                            ]
+                        },
+                        {
+                            id: 6,
+                            dayTime: "پنچ شنبه 28 بهمن 99",
+                            weekday: "پنج شنبه",
+                            weekcal: "28 بهمن 99",
+                            timeInDayTable: [
+                                { id: 1, time: "بین 8:00 تا 12:00" },
+                                { id: 2, time: "بین 12:00 تا 16:00" },
+                                { id: 3, time: "بین 16:00 تا 20:00" },
+                                { id: 4, time: "بین 20:00 تا 00:00" }
+                            ]
+                        },
+                        {
+                            id: 7,
+                            dayTime: "جمعه 29 بهمن 99",
+                            weekday: "جمعه",
+                            weekcal: "29 بهمن 99",
+                            timeInDayTable: [
+                                { id: 1, time: "بین 8:00 تا 12:00" },
+                                { id: 2, time: "بین 12:00 تا 16:00" },
+                                { id: 3, time: "بین 16:00 تا 20:00" },
+                                { id: 4, time: "بین 20:00 تا 00:00" }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    id: 3,
+                    shippingSeller: "seller",
+                    shippingLimoo: "limoo",
+                    orders: [
+                        { id: 1, img: "/img/apple-watch-3.png" },
+                        { id: 2, img: "/img/apple-watch-3.png" }
+                    ],
+                    timeTable: [
+                        {
+                            id: 1,
+                            dayTime: "شنبه 23 بهمن 99",
+                            weekday: "شنبه",
+                            weekcal: "23 بهمن 99",
+                            timeInDayTable: [
+                                {
+                                    id: 1,
+                                    time: "بین 8:00 تا 12:00",
+                                    disable: true
+                                },
+                                { id: 2, time: "بین 12:00 تا 16:00" },
+                                {
+                                    id: 3,
+                                    time: "بین 16:00 تا 20:00",
+                                    disable: true
+                                },
+                                {
+                                    id: 4,
+                                    time: "بین 20:00 تا 00:00",
+                                    disable: true
+                                }
+                            ]
+                        },
+                        {
+                            id: 2,
+                            dayTime: "یک شنبه 24 بهمن 99",
+                            weekday: "یک شنبه",
+                            weekcal: "24 بهمن 99",
+                            timeInDayTable: [
+                                { id: 1, time: "بین 8:00 تا 12:00" },
+                                {
+                                    id: 2,
+                                    time: "بین 12:00 تا 16:00",
+                                    disable: true
+                                },
+                                { id: 3, time: "بین 16:00 تا 20:00" },
+                                { id: 4, time: "بین 20:00 تا 00:00" }
+                            ]
+                        },
+                        {
+                            id: 3,
+                            dayTime: "دو شنبه 25 بهمن 99",
+                            weekday: "دو شنبه",
+                            weekcal: "25 بهمن 99",
+                            timeInDayTable: [
+                                { id: 1, time: "بین 8:00 تا 12:00" },
+                                { id: 2, time: "بین 12:00 تا 16:00" },
+                                { id: 3, time: "بین 16:00 تا 20:00" },
+                                { id: 4, time: "بین 20:00 تا 00:00" }
+                            ]
+                        },
+                        {
+                            id: 4,
+                            dayTime: "سه شنبه 26 بهمن 99",
+                            weekday: "سه شنبه",
+                            weekcal: "26 بهمن 99",
+                            timeInDayTable: [
+                                { id: 1, time: "بین 8:00 تا 12:00" },
+                                { id: 2, time: "بین 12:00 تا 16:00" },
+                                { id: 3, time: "بین 16:00 تا 20:00" },
+                                { id: 4, time: "بین 20:00 تا 00:00" }
+                            ]
+                        },
+                        {
+                            id: 5,
+                            dayTime: "چهار شنبه 27 بهمن 99",
+                            weekday: "چهار شنبه",
+                            weekcal: "27 بهمن 99",
+                            timeInDayTable: [
+                                { id: 1, time: "بین 8:00 تا 12:00" },
+                                { id: 2, time: "بین 12:00 تا 16:00" },
+                                { id: 3, time: "بین 16:00 تا 20:00" },
+                                { id: 4, time: "بین 20:00 تا 00:00" }
+                            ]
+                        },
+                        {
+                            id: 6,
+                            dayTime: "پنچ شنبه 28 بهمن 99",
+                            weekday: "پنج شنبه",
+                            weekcal: "28 بهمن 99",
+                            timeInDayTable: [
+                                { id: 1, time: "بین 8:00 تا 12:00" },
+                                { id: 2, time: "بین 12:00 تا 16:00" },
+                                { id: 3, time: "بین 16:00 تا 20:00" },
+                                { id: 4, time: "بین 20:00 تا 00:00" }
+                            ]
+                        },
+                        {
+                            id: 7,
+                            dayTime: "جمعه 29 بهمن 99",
+                            weekday: "جمعه",
+                            weekcal: "29 بهمن 99",
+                            timeInDayTable: [
+                                { id: 1, time: "بین 8:00 تا 12:00" },
+                                { id: 2, time: "بین 12:00 تا 16:00" },
+                                { id: 3, time: "بین 16:00 تا 20:00" },
+                                { id: 4, time: "بین 20:00 تا 00:00" }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    id: 4,
+                    shipping: "seller",
+                    orders: [{ id: 1, img: "/img/apple-watch-1.png" }],
+                    timeTable: [
+                        {
+                            id: 1,
+                            dayTime: "شنبه 23 بهمن 99",
+                            weekday: "شنبه",
+                            weekcal: "23 بهمن 99",
+                            timeInDayTable: [
+                                {
+                                    id: 1,
+                                    time: "بین 8:00 تا 12:00",
+                                    disable: true
+                                },
+                                { id: 2, time: "بین 12:00 تا 16:00" },
+                                {
+                                    id: 3,
+                                    time: "بین 16:00 تا 20:00",
+                                    disable: true
+                                },
+                                {
+                                    id: 4,
+                                    time: "بین 20:00 تا 00:00",
+                                    disable: true
+                                }
+                            ]
+                        },
+                        {
+                            id: 2,
+                            dayTime: "یک شنبه 24 بهمن 99",
+                            weekday: "یک شنبه",
+                            weekcal: "24 بهمن 99",
+                            timeInDayTable: [
+                                { id: 1, time: "بین 8:00 تا 12:00" },
+                                { id: 2, time: "بین 12:00 تا 16:00" },
+                                { id: 3, time: "بین 16:00 تا 20:00" },
+                                { id: 4, time: "بین 20:00 تا 00:00" }
+                            ]
+                        },
+                        {
+                            id: 3,
+                            dayTime: "دو شنبه 25 بهمن 99",
+                            weekday: "دو شنبه",
+                            weekcal: "25 بهمن 99",
+                            timeInDayTable: [
+                                { id: 1, time: "بین 8:00 تا 12:00" },
+                                { id: 2, time: "بین 12:00 تا 16:00" },
+                                { id: 3, time: "بین 16:00 تا 20:00" },
+                                { id: 4, time: "بین 20:00 تا 00:00" }
+                            ]
+                        },
+                        {
+                            id: 4,
+                            dayTime: "سه شنبه 26 بهمن 99",
+                            weekday: "سه شنبه",
+                            weekcal: "26 بهمن 99",
+                            timeInDayTable: [
+                                { id: 1, time: "بین 8:00 تا 12:00" },
+                                { id: 2, time: "بین 12:00 تا 16:00" },
+                                { id: 3, time: "بین 16:00 تا 20:00" },
+                                { id: 4, time: "بین 20:00 تا 00:00" }
+                            ]
+                        },
+                        {
+                            id: 5,
+                            dayTime: "چهار شنبه 27 بهمن 99",
+                            weekday: "چهار شنبه",
+                            weekcal: "27 بهمن 99",
+                            timeInDayTable: [
+                                { id: 1, time: "بین 8:00 تا 12:00" },
+                                { id: 2, time: "بین 12:00 تا 16:00" },
+                                { id: 3, time: "بین 16:00 تا 20:00" },
+                                { id: 4, time: "بین 20:00 تا 00:00" }
+                            ]
+                        },
+                        {
+                            id: 6,
+                            dayTime: "پنچ شنبه 28 بهمن 99",
+                            weekday: "پنج شنبه",
+                            weekcal: "28 بهمن 99",
+                            timeInDayTable: [
+                                { id: 1, time: "بین 8:00 تا 12:00" },
+                                { id: 2, time: "بین 12:00 تا 16:00" },
+                                { id: 3, time: "بین 16:00 تا 20:00" },
+                                { id: 4, time: "بین 20:00 تا 00:00" }
+                            ]
+                        },
+                        {
+                            id: 7,
+                            dayTime: "جمعه 29 بهمن 99",
+                            weekday: "جمعه",
+                            weekcal: "29 بهمن 99",
+                            timeInDayTable: [
+                                { id: 1, time: "بین 8:00 تا 12:00" },
+                                { id: 2, time: "بین 12:00 تا 16:00" },
+                                { id: 3, time: "بین 16:00 تا 20:00" },
+                                { id: 4, time: "بین 20:00 تا 00:00" }
+                            ]
+                        }
+                    ]
+                }
+            ]
         };
     },
-
-     created() {
+    provide() {
+        return {
+            allOrdersHasTimed: this.allOrdersHasTimed
+        };
+    },
+    created() {
         this.userAddressData = Object.values(this.addressData).length;
     },
 
     mounted() {
-      this.addCama();
+        this.addCama();
     },
 
     methods: {
+        submitTimesAdd() {
+            this.allOrdersHasTimed.item = true;
+        },
         submitAddressAdd(data, state) {
             this.updateAddress++;
             let findIndex = 0;
@@ -282,22 +750,22 @@ export default {
             });
         },
 
-        addCama(){
-          const getDetailPrice       = this.detailPrice;
-          const setUpdateDetailPrice = {
-          }
+        addCama() {
+            const getDetailPrice = this.detailPrice;
+            const setUpdateDetailPrice = {};
 
-          for (let key in getDetailPrice) {
-            setUpdateDetailPrice[key] = getDetailPrice[key];
+            for (let key in getDetailPrice) {
+                setUpdateDetailPrice[key] = getDetailPrice[key];
 
-            if (getDetailPrice[key] != 'رایگان') {
-               setUpdateDetailPrice[key] = addCamaPrice(getDetailPrice[key]);
+                if (getDetailPrice[key] != "رایگان") {
+                    setUpdateDetailPrice[key] = addCamaPrice(
+                        getDetailPrice[key]
+                    );
+                }
             }
-          }
 
-          this.detailPrice = setUpdateDetailPrice;
-        },
-
+            this.detailPrice = setUpdateDetailPrice;
+        }
     }
 };
 </script>
@@ -362,11 +830,85 @@ export default {
     width: 70%;
     /* border: 1px solid blue; */
     margin-left: 30px;
-    background-color: $white;
+    /* background-color: $white; */
     border-radius: 10px;
     min-height: 193px;
     height: fit-content;
+}
+.user-cart__shipping-address {
+    @include display-flex();
+    flex-direction: column;
+    background-color: $white;
+    border-radius: 10px;
     padding: 0 24px 30px 24px;
+    margin-bottom: 16px;
+}
+.user-cart__shipping-time__container {
+    @include display-flex();
+    flex-direction: column;
+}
+.user-cart__time-topic__holder {
+    @include display-flex();
+    flex-direction: column;
+    background-color: $white;
+    width: 100%;
+    height: 142px;
+    z-index: 1;
+    box-shadow: 0px 8px 16px $box__shadow;
+    border-radius: 10px 10px 0px 0px;
+}
+.user-cart__time-title {
+    font-size: 18px;
+    line-height: 140.62%;
+    color: $black-topic;
+    text-align: right;
+    margin: 27px 38px 30px 0;
+}
+.user-cart__order-time__container {
+    width: 100%;
+    height: fit-content;
+    background-color: $white;
+    box-shadow: 0px 8px 16px $box__shadow;
+    border-radius: 0px 0px 10px 10px;
+    padding-top: 14px;
+}
+.user-cart__time-nav__holder {
+    @include display-flex();
+    flex-direction: row;
+    /* box-shadow: 0px 8px 16px $box__shadow; */
+
+    padding: 0 38px;
+    width: 100%;
+    height: 60px;
+}
+.user-cart__time-nav__items {
+    @include display-flex();
+    flex-direction: column;
+    justify-content: space-between;
+    margin-left: 50px;
+}
+.user-cart__time-nav__items a {
+    color: $gray;
+    text-decoration: none;
+    font-size: 18px;
+    line-height: 140.62%;
+}
+.user-cart__time-nav__urgent a {
+    margin-right: 64px;
+}
+.item-active {
+    & a {
+        color: $black-topic;
+    }
+    .bottomLine {
+        align-self: center;
+        background-color: $yellow;
+        height: 5px;
+        width: 115%;
+        margin-top: 20px;
+        border-top-left-radius: 15px;
+        border-top-right-radius: 15px;
+    }
 }
 .user-shipping__title {
     font-family: inherit;
@@ -385,6 +927,12 @@ export default {
     margin: 24px 0 24px 0;
     color: $gray;
     cursor: pointer;
+}
+
+.address-btn__mobile-holder {
+    @include display-flex();
+    flex-direction: row;
+    justify-content: flex-end;
 }
 .user-shipping__address-btn::after,
 .user-shipping__address-btn__mobile::after {
@@ -426,13 +974,11 @@ export default {
     display: none;
 }
 
-
-
 @media (max-width: 1400px) {
-  .user-cart__shipping-container{
-    width: 62%;
-    margin-left: 2.2%;
-  }
+    .user-cart__shipping-container {
+        width: 62%;
+        margin-left: 2.2%;
+    }
 }
 
 @media (max-width: 960px) {
@@ -471,6 +1017,35 @@ export default {
         width: 100%;
         border-top: 1px solid $gray-border;
     }
+    .user-cart__time-nav__holder {
+        /* justify-content: space-between; */
+        padding: 15px 30px 0 30px;
+        height: 51px;
+        /* border: 1px solid red; */
+    }
+    .user-cart__time-nav__items a {
+        font-size: 13px;
+    }
+    .user-cart__time-nav__urgent a {
+        margin-right: 0;
+    }
+    .item-active {
+        & a {
+            color: $code;
+        }
+        .bottomLine {
+            height: 4px;
+            width: 115%;
+            margin-top: 10px;
+        }
+    }
+    .user-cart__time-topic__holder {
+        height: 102px;
+    }
+    .user-cart__time-title {
+        font-size: 14px;
+        margin: 16px 11px 16px 0;
+    }
     .user-cart__container {
         padding: 47px 0 0 0;
         margin-bottom: 60px;
@@ -485,7 +1060,10 @@ export default {
         /* border: 1px solid blue; */
         min-height: 145px;
         margin-left: 0;
+    }
+    .user-cart__shipping-address {
         padding: 0 11px;
+        margin-bottom: 8px;
     }
     .user-cart__go-back {
         display: none;
@@ -518,9 +1096,21 @@ export default {
         margin-left: 8px; */
     }
 }
+@media (max-width: 540px) {
+    .user-cart__time-nav__holder {
+        justify-content: space-between;
+        padding: 15px 37px 0 37px;
+    }
+    .user-cart__time-nav__items {
+        margin-left: 0;
+    }
+}
 @media (max-width: 280px) {
-    .user-cart__shipping-container {
+    .user-cart__shipping-address {
         padding: 0 3px;
+    }
+    .user-cart__time-nav__holder {
+        padding: 15px 17px 0 17px;
     }
 }
 </style>
