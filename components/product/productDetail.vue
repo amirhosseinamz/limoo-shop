@@ -106,8 +106,8 @@ export default {
     align-items: flex-start;
     flex-flow: column;
     border-left: solid 1px $gray-border;
-    padding-right: 14px;
-    padding-left: 14px;
+    padding-right: 28px;
+    padding-left: 28px;
     // width: 33%;
     padding-top: 11px;
     padding-bottom: 11px;
@@ -156,9 +156,16 @@ export default {
     .product__property-detail{
       font-size: 13px;
     }
+    .product__property-item{
+      padding-right: 14px;
+      padding-left: 14px;
+    }
+
   }
 
-  @media (max-width: 1100px) {
+
+
+  @media (max-width: 760px) {
     .product__property{
       display: none;
     }

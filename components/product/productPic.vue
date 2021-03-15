@@ -137,5 +137,22 @@ export default {
   }
 
 
+  @media (max-width: 1300px) {
+    .product__pic-item{
+      height: auto;
+      width: 100%;
+    }
+    .product__pic-box{
+      width: auto;
+      height: auto;
+    }
+    .product__pic-main{
+      width: auto;
+      height: auto;
+    }
+  }
+
+
+
 
 </style>

@@ -70,25 +70,8 @@
                     "Code": "os_type",
                     "AttributeID": 3,
                     "AttributeValue": "trun on "
-                  },
-                  {
-                    "Label": "باتری",
-                    "Code": "os_type",
-                    "AttributeID": 4,
-                    "AttributeValue": "100 وات "
-                  },
-                  {
-                    "Label": "حافظه",
-                    "Code": "os_type",
-                    "AttributeID": 5,
-                    "AttributeValue": "1 ترابایت "
-                  },
-                  {
-                    "Label": "سیستم عامل",
-                    "Code": "os_type",
-                    "AttributeID": 6,
-                    "AttributeValue": "مک اواس "
                   }
+
                 ]
               },
               "seller_detail": {

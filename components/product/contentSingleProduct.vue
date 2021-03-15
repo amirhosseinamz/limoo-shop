@@ -135,10 +135,15 @@ export default {
     .product__top-title{
       font-size: 17px;
     }
+    .product__single-right{
+      width:30%;
+    }
+    .product__single-left{
+      width: 70%;
+    }
   }
 
-  @media (max-width: 1100px) {
-
+  @media (max-width: 1200px) {
   }
 
   @media (max-width: 960px) {
