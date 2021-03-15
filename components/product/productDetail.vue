@@ -106,8 +106,9 @@ export default {
     align-items: flex-start;
     flex-flow: column;
     border-left: solid 1px $gray-border;
-    padding-right: 28px;
-    width: 33%;
+    padding-right: 14px;
+    padding-left: 14px;
+    // width: 33%;
     padding-top: 11px;
     padding-bottom: 11px;
   }
