@@ -76,7 +76,6 @@ export default {
       },
 
       '$route' (to, from){
-          this.removeFooterProfile();
        }
 
     },

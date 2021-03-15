@@ -22,9 +22,7 @@
 
                           <!-- <productTools></productTools> -->
 
-                          <productDetail></productDetail>
-
-                          <span class="product__line"></span>
+                          <productDetail :product-data="productData"></productDetail>
                     </div>
 
 
@@ -42,6 +40,10 @@ import productTools from './productTools';
 
 
 export default {
+    props: {
+      productData   : { type: [Object,Array], default: [] },
+    },
+
     components: {
       productPic,
       productDetail,
@@ -129,14 +131,31 @@ export default {
     border:solid 1px $gray-border;
     border-radius: 10px;
     height: 754px;
-    padding-right: 16px;
-    padding-left: 16px;
   }
-  .product__line{
-    width: 100%;
-    height: 1px;
-    background: $gray-border;
+
+  @media (max-width: 1300px) {
+    .product__top-title{
+      font-size: 17px;
+    }
   }
+
+  @media (max-width: 1100px) {
+
+  }
+
+  @media (max-width: 960px) {
+    .product__single{
+      margin-top: 8px;
+    }
+    .product__top-title{
+      font-size: 14px;
+      width: 94%;
+    }
+  }
+
+
+
+
 
 
 </style>

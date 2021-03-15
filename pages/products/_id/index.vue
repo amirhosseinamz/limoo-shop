@@ -13,13 +13,14 @@
           </div>
       </div>
 
-      <contentSingleProduct></contentSingleProduct>
+
+      <contentSingleProduct :product-data="productData"></contentSingleProduct>
 
     </div>
 </template>
 <script>
-import contentSingleProduct from "./contentSingleProduct.vue";
-
+import contentSingleProduct from "~/components/product/contentSingleProduct.vue";
+import productData from "~/modules/single_product_data.json";
 
 export default {
     components: {
@@ -28,7 +29,7 @@ export default {
 
     data() {
         return {
-
+          productData : [],
         };
     },
 
@@ -37,11 +38,10 @@ export default {
     },
 
     created() {
-
     },
 
     mounted() {
-      // this.updateProduct++;
+      this.productData = productData;
     },
 
     methods: {
