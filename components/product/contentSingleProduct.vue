@@ -89,10 +89,10 @@ export default {
     padding-top: 22px;
     margin-bottom: 19px;
     flex-wrap: wrap;
+    padding-right: 16px;
   }
   .product__single-right{
-    width: 40%;
-    height: 701px;
+    width: 39.6%;
     @include display-flex();
     align-items: flex-start;
   }
@@ -126,11 +126,9 @@ export default {
     width: 766px;
   }
   .product--single__right-content{
-    margin-right: 16px;
     width: 100%;
     border:solid 1px $gray-border;
     border-radius: 10px;
-    height: 754px;
   }
 
   @media (max-width: 1300px) {
