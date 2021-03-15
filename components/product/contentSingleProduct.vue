@@ -8,7 +8,7 @@
 
               <div class="product__single-right">
                   <div class="product--single__right-content">
-                    <productPic></productPic>
+                      <productPic :product-slider="productSlider"></productPic>
                   </div>
               </div>
 
@@ -41,7 +41,8 @@ import productTools from './productTools';
 
 export default {
     props: {
-      productData   : { type: [Object,Array], default: [] },
+      productData     : { type: [Object,Array], default: [] },
+      productSlider   : { type: [Object,Array], default: [] },
     },
 
     components: {
@@ -52,7 +53,6 @@ export default {
 
     data() {
         return {
-
         };
     },
 

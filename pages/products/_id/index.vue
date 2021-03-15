@@ -14,7 +14,12 @@
       </div>
 
 
-      <contentSingleProduct :product-data="productData"></contentSingleProduct>
+      <contentSingleProduct
+       :product-data="productData"
+       :product-slider="productSlider"
+
+
+       ></contentSingleProduct>
 
     </div>
 </template>
@@ -29,7 +34,41 @@ export default {
 
     data() {
         return {
-          productData : [],
+          productData   : [],
+          productSlider : [
+            {
+              id    : 1,
+              image : '/img/slider_img_bottom.jpg',
+            },
+            {
+              id    : 2,
+              image : '/img/slider_img_bottom.jpg',
+            },
+            {
+              id    : 3,
+              image : '/img/slider_img_bottom.jpg',
+            },
+            {
+              id    : 4,
+              image : '/img/slider_img_bottom.jpg',
+            },
+            {
+              id    : 5,
+              image : '/img/slider_img_bottom.jpg',
+            },
+            {
+              id    : 6,
+              image : '/img/slider_img_bottom.jpg',
+            },
+            {
+              id    : 7,
+              image : '/img/slider_img_bottom.jpg',
+            },
+            {
+              id    : 79,
+              image : '/img/slider_img_bottom.jpg',
+            },
+          ],
         };
     },
 

@@ -7,50 +7,36 @@
       <span class="product__line"></span>
 
       <div class="product__pic-content w-100">
-            <div class="product__pic-items">
+            <div @click="showModal(data)" v-for="data in productLimitedShow" :key="data.id" class="product__pic-items">
                 <div class="product__pic-box">
-                  <img class="product__pic-data" src="/img/slider_img_bottom.jpg" alt="">
-                </div>
-                <span class="product--pic_data-line"></span>
-            </div>
-
-            <div class="product__pic-items">
-                <div class="product__pic-box">
-                  <img class="product__pic-data" src="/img/slider_img_bottom.jpg" alt="">
-                </div>
-                <span class="product--pic_data-line"></span>
-            </div>
-
-            <div class="product__pic-items">
-                <div class="product__pic-box">
-                  <img class="product__pic-data" src="/img/slider_img_bottom.jpg" alt="">
-                </div>
-                <span class="product--pic_data-line"></span>
-            </div>
-
-            <div class="product__pic-items">
-                <div class="product__pic-box">
-                  <img class="product__pic-data" src="/img/slider_img_bottom.jpg" alt="">
+                  <img class="product__pic-data" :src="data.image" alt="">
                 </div>
                 <span class="product--pic_data-line"></span>
             </div>
 
       </div>
 
+      <modal-pic-product
+      :active.sync="showModalPicProduct"
+      ></modal-pic-product>
+
   </div>
 </template>
 <script>
-// import contentHome from "~/components/Home/contentHome.vue";
+import modalPicProduct from "./modalPicProduct";
 
 
 export default {
-    components: {
-      // contentHome,
+    props: {
+      productSlider   : { type: [Object,Array], default: [] },
     },
-
+    components: {
+      modalPicProduct,
+    },
     data() {
         return {
-
+          showModalPicProduct : false,
+          productLimitedShow  : [],
         };
     },
 
@@ -63,9 +49,22 @@ export default {
     },
 
     mounted() {
+      this.limitedProduct();
     },
 
     methods: {
+      limitedProduct(){
+          this.productSlider.map((content,index)=>{
+              if (index <= 3) {
+                this.productLimitedShow = [...this.productLimitedShow,content];
+              }
+          })
+      },
+
+      showModal(data){
+        this.showModalPicProduct = true;
+      },
+
 
     }
 };
@@ -114,6 +113,7 @@ export default {
     border-radius: 10px;
     @include display-flex();
     align-items: flex-start;
+    cursor: pointer;
   }
   .product__pic-data{
     width: 100%;
@@ -124,16 +124,25 @@ export default {
     margin-right: 4.5px;
     background: $gray-border;
     border-radius: 8px;
-    height: 83px;
     width: 1px;
     @include display-flex();
+    right: -9px;
+    position: absolute;
+    top: 16%;
+    height: 74%;
   }
   .product__pic-items{
     @include display-flex();
     align-items: center;
+    position: relative;
+    margin-left: 9px;
   }
-  .product__pic-items:last-of-type .product--pic_data-line{
-    display: none;
+  .product__pic-items:last-of-type{
+    margin-left: 0;
+  }
+  .product__pic-items:nth-child(1) .product--pic_data-line{
+    opacity: 0;
+    pointer-events: none;
   }
 
 

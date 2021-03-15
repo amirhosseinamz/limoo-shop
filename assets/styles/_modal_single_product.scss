@@ -1,0 +1,19 @@
+@import "_colors.scss";
+.product--single__modal{
+  .modal-backdrop{
+    background: rgba(81, 81, 81, .6) !important;
+  }
+  .modal-dialog{
+    max-width: 100% !important;
+  }
+  .modal-content{
+    padding-right: 24px;
+    padding-left: 24px;
+    min-height: 754px;
+  }
+}
+
+
+@media (max-width: 485px) {
+
+}
