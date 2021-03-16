@@ -22,8 +22,8 @@
 
             <div class="w-100 product--modal_pic-all">
               <div class=" main-carousel w-100 product_modal-main">
-                      <div :class="{'active':data.active}" @click="activePicSelected(data)" v-for="data in productSlider" :key="data.id" class="carousel-cell ">
-                        <img class="carousel-pic" :src="data.image" alt="">
+                      <div :class="{'active':data.active}" v-for="data in productSlider" :key="data.id" class="carousel-cell ">
+                        <img :data-id="data.id" class="carousel-pic" :src="data.image" alt="">
                     </div>
               </div>
             </div>
@@ -103,6 +103,17 @@ export default {
             pageDots        : false,
             groupCells      : true,
             fade            : false,
+          });
+
+          sliderOptions.on( 'staticClick', ( event, pointer, cellElement, cellIndex ) =>{
+            const getIdCurrentImg = event.target.getAttribute('data-id');
+
+            this.productSlider.map((content)=>{
+              if (content.id == getIdCurrentImg) {
+                this.activePicSelected(content)
+              }
+            })
+
           });
 
         },

@@ -1,5 +1,5 @@
 <template>
-  <div class=" page__home-introduction-items ">
+  <div id="singleProduct--slider" class=" page__home-introduction-items ">
           <img  ref="imgCheckHieghtSlider" class="page__home__introduction__slider-pic img--display" :src="products[0].image" alt="">
 
               <div :style="heightSliderImg" class="page__home__introduction-slider-main main-carousel w-100">
@@ -70,13 +70,6 @@ export default {
     mounted() {
       this.getOptionSLider();
 
-      this.slider.on( 'staticClick', ( event, pointer, cellElement, cellIndex ) =>{
-          this.products.map((content,indexSlider)=>{
-              if (indexSlider == cellIndex) {
-                  // this.$router.push(`/${this.title.sliderItemHref}/${content.id}`);
-              }
-          })
-      });
 
       this.detectedResizeBrowser();
       this.updateSliderImg();
@@ -349,9 +342,7 @@ export default {
       margin-right: auto;
       margin-left: auto;
     }
-    .page__home__introduction-slider-main .flickity-page-dots{
-      bottom: -24px;
-    }
+
   }
 
   @media (max-width: 600px) {

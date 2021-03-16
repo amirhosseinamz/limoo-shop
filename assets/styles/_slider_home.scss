@@ -74,6 +74,13 @@
 
 }
 
+#singleProduct--slider{
+  .flickity-page-dots{
+    bottom: -24px;
+  }
+}
+
+
 .productContent__mainCat{
   .flickity-viewport{
     width: 100%;
@@ -87,7 +94,7 @@
 
 }
 
-// 
+//
 // .carousel-cell {
 // 	width: 100%;
 // 	height: auto;
