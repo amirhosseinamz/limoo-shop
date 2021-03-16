@@ -6,10 +6,16 @@
 
       <span class="product__line"></span>
 
-      <div class="product__pic-content w-100">
-            <div @click="showModal(data)" v-for="data in productLimitedShow" :key="data.id" class="product__pic-items">
+      <div class="product__pic-content w-100" :key="updateLimitedProduct">
+            <div @click="showModal(data)" :class="{'active--pic':data.lastItemLimitedProduct}" v-if="data.show" v-for="data in productSlider" :key="data.id" class="product__pic-items">
                 <div class="product__pic-box">
                   <img class="product__pic-data" :src="data.image" alt="">
+
+                  <div class="w-100 product--pic__circle-main">
+                    <span class="product__pic-circle"></span>
+                    <span class="product__pic-circle"></span>
+                    <span class="product__pic-circle"></span>
+                  </div>
                 </div>
                 <span class="product--pic_data-line"></span>
             </div>
@@ -18,7 +24,12 @@
 
       <modal-pic-product
       :active.sync="showModalPicProduct"
+      :product-slider="productSlider"
+      :image-selected="imageSelected"
+
+      @active-item-slider-nav="activeItemSliderNav"
       ></modal-pic-product>
+      
 
   </div>
 </template>
@@ -35,8 +46,10 @@ export default {
     },
     data() {
         return {
-          showModalPicProduct : false,
-          productLimitedShow  : [],
+          showModalPicProduct   : false,
+          productLimitedShow    : [],
+          imageSelected         : {},
+          updateLimitedProduct  : 0,
         };
     },
 
@@ -55,15 +68,30 @@ export default {
     methods: {
       limitedProduct(){
           this.productSlider.map((content,index)=>{
+            content.show                   = false;
+            content.lastItemLimitedProduct = false;
+
               if (index <= 3) {
-                this.productLimitedShow = [...this.productLimitedShow,content];
+                content.show = true;
+              }
+
+              if (index == 3) {
+                content.lastItemLimitedProduct = true;
               }
           })
+
+          this.updateLimitedProduct++;
       },
 
       showModal(data){
+        this.imageSelected       = data;
         this.showModalPicProduct = true;
       },
+
+      activeItemSliderNav(data){
+        this.imageSelected       = data;
+        this.$emit('active-item-slider-nav',data)
+      }
 
 
     }
@@ -107,16 +135,24 @@ export default {
     justify-content: center;
   }
   .product__pic-box{
-    border:solid 1px $gray-border;
+    border:solid 1px $white;
     width: 122px;
     height: 122px;
     border-radius: 10px;
     @include display-flex();
     align-items: flex-start;
     cursor: pointer;
+    position: relative;
+  }
+  .active--pic .product__pic-box{
+    border-color:$gray-border;
+  }
+  .active--pic .product__pic-data{
+    filter: blur(4px);
   }
   .product__pic-data{
     width: 100%;
+    height: 120px;
     padding: 4px;
   }
   .product--pic_data-line{
@@ -144,6 +180,29 @@ export default {
     opacity: 0;
     pointer-events: none;
   }
+  .product--pic__circle-main{
+    position: absolute;
+    top:0;
+    right: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    align-items: center;
+    justify-content: center;
+    display: none;
+  }
+  .product__pic-circle{
+    width: 7px;
+    height: 7px;
+    background: $white;
+    @include display-flex();
+    border-radius: 1000px;
+    margin-left: 7px;
+  }
+  .active--pic .product--pic__circle-main{
+    @include display-flex();
+  }
 
 
   @media (max-width: 1300px) {
@@ -157,6 +216,9 @@ export default {
     }
     .product__pic-main{
       width: auto;
+      height: auto;
+    }
+    .product__pic-data{
       height: auto;
     }
   }

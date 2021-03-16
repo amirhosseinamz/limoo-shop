@@ -13,13 +13,22 @@
               <span class="product__modal-line"></span>
         </div>
 
-        <div class="w-100 product__modal-pic">
+        <div class="w-100 product__modal-container">
+            <div class="w-100 product__modal-pic">
+              <div class="product__modal-item w-100">
+                 <img class="product--modal_pic-item" :src="imageSelected.image" alt="">
+              </div>
+            </div>
 
+            <div class="w-100 product--modal_pic-all">
+              <div class=" main-carousel w-100 product_modal-main">
+                      <div :class="{'active':data.active}" @click="activePicSelected(data)" v-for="data in productSlider" :key="data.id" class="carousel-cell ">
+                        <img class="carousel-pic" :src="data.image" alt="">
+                    </div>
+              </div>
+            </div>
         </div>
 
-        <div class="w-100 product--modal_pic-all">
-
-        </div>
 
 
 
@@ -33,11 +42,19 @@ import '~/assets/styles/_modal_single_product.scss'
 
 export default {
     props: {
-        active: { type: [Boolean, Number], default: false },
-        // currentOrders: { type: Object, default: {} }
+        active          : { type: [Boolean, Number], default: false },
+        productSlider   : { type: [Object,Array], default: [] },
+        imageSelected   : { type: Object, default: {} },
     },
 
     components: {},
+
+    data() {
+      return {
+        productSliderData : [],
+      }
+
+    },
 
     computed: {
         show: {
@@ -50,14 +67,50 @@ export default {
         }
     },
 
-    methods: {
-        DeleteOrder() {
-            this.$emit("btn-delete-order", this.currentOrders);
-        },
+    watch: {
+      active(showModal) {
+        if (showModal) {
+          setTimeout( () =>{
+            this.flickityOptions();
+          }, 10);
+          this.activePicSelected(this.imageSelected);
+        }
+      },
+    },
 
+    mounted() {
+    },
+
+    methods: {
         modalClose() {
             this.show = false;
+        },
+
+        flickityOptions(){
+          let Flickity       = require("flickity")
+          let sliderOptions  = new Flickity('.main-carousel', {
+            accessibility   : true,
+            adaptiveHeight  : true,
+            rightToLeft     : true,
+            cellAlign       : 'right',
+            imagesLoaded    : true,
+            wrapAround      : false,
+            contain         : true,
+            // prevNextButtons : false,
+            // autoPlay        : true, // advance cells every 3 seconds
+            // autoPlay: 1500 // {Number}
+            // freeScroll      : true,
+            pageDots        : false,
+            groupCells      : true,
+            fade            : false,
+          });
+
+        },
+
+        activePicSelected(data){
+          this.$emit('active-item-slider-nav',data)
         }
+
     }
 };
 </script>
@@ -108,6 +161,46 @@ export default {
   .product__modal-top{
     @include display-flex();
     align-items: flex-start;
+  }
+  .product__modal-item{
+    @include display-flex();
+    align-content: center;
+    border:solid 1px $light-gray;
+    border-radius: 10px;
+  }
+  .product__modal-container{
+    padding-right:50px;
+    padding-left: 50px;
+    width: 100%;
+    @include display-flex();
+    align-items: flex-start;
+    flex-wrap: wrap;
+  }
+  .product--modal_pic-item{
+    width: 514px;
+    height: 514px;
+    margin-right: auto;
+    margin-left: auto;
+    padding: 11px;
+  }
+  .carousel-cell{
+    width: 87px;
+    height: 87px;
+    border:solid 1px $light-gray;
+    margin-left: 7px;
+    border-radius: 10px;
+    cursor: pointer;
+  }
+  .carousel-pic{
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+  }
+  .product_modal-main{
+    padding-top: 24px;
+  }
+  .active{
+    border-color: $black-topic;
   }
 
 

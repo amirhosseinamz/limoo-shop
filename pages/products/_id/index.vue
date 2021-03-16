@@ -17,8 +17,9 @@
       <contentSingleProduct
        :product-data="productData"
        :product-slider="productSlider"
+       :product-slider-mobile="productSliderMobile"
 
-
+       @active-item-slider-nav="activeItemSliderNav"
        ></contentSingleProduct>
 
     </div>
@@ -38,37 +39,86 @@ export default {
           productSlider : [
             {
               id    : 1,
-              image : '/img/slider_img_bottom.jpg',
+              image : 'https://statics-develop.diver.ir/1/fill/512/512/sm/true/plain/s3://limoo/product/picTest1.jpg',
             },
             {
               id    : 2,
-              image : '/img/slider_img_bottom.jpg',
+              image : 'https://statics-develop.diver.ir/1/fill/512/512/sm/true/plain/s3://limoo/product/new-baner-web4.jpg',
             },
             {
               id    : 3,
-              image : '/img/slider_img_bottom.jpg',
+              image : 'https://statics-develop.diver.ir/1/fill/512/512/sm/true/plain/s3://limoo/product/single_pic_slider.jpg',
             },
             {
               id    : 4,
-              image : '/img/slider_img_bottom.jpg',
+              image : 'https://statics-develop.diver.ir/1/fill/512/512/sm/true/plain/s3://limoo/product/single_pic_slider.jpg',
             },
             {
               id    : 5,
-              image : '/img/slider_img_bottom.jpg',
+              image : 'https://statics-develop.diver.ir/1/fill/512/512/sm/true/plain/s3://limoo/product/single_pic_slider.jpg',
             },
             {
               id    : 6,
-              image : '/img/slider_img_bottom.jpg',
+              image : 'https://statics-develop.diver.ir/1/fill/512/512/sm/true/plain/s3://limoo/product/single_pic_slider.jpg',
             },
             {
               id    : 7,
-              image : '/img/slider_img_bottom.jpg',
+              image : 'https://statics-develop.diver.ir/1/fill/512/512/sm/true/plain/s3://limoo/product/single_pic_slider.jpg',
             },
             {
-              id    : 79,
-              image : '/img/slider_img_bottom.jpg',
+              id    : 8,
+              image : 'https://statics-develop.diver.ir/1/fill/512/512/sm/true/plain/s3://limoo/product/single_pic_slider.jpg',
+            },
+            {
+              id    : 9,
+              image : 'https://statics-develop.diver.ir/1/fill/512/512/sm/true/plain/s3://limoo/product/single_pic_slider.jpg',
+            },
+            {
+              id    : 10,
+              image : 'https://statics-develop.diver.ir/1/fill/512/512/sm/true/plain/s3://limoo/product/single_pic_slider.jpg',
+            },
+            {
+              id    : 11,
+              image : 'https://statics-develop.diver.ir/1/fill/512/512/sm/true/plain/s3://limoo/product/single_pic_slider.jpg',
+            },
+            {
+              id    : 12,
+              image : 'https://statics-develop.diver.ir/1/fill/512/512/sm/true/plain/s3://limoo/product/single_pic_slider.jpg',
+            },
+            {
+              id    : 13,
+              image : 'https://statics-develop.diver.ir/1/fill/512/512/sm/true/plain/s3://limoo/product/single_pic_slider.jpg',
+            },
+            {
+              id    : 14,
+              image : 'https://statics-develop.diver.ir/1/fill/512/512/sm/true/plain/s3://limoo/product/single_pic_slider.jpg',
+            },
+            {
+              id    : 15,
+              image : 'https://statics-develop.diver.ir/1/fill/512/512/sm/true/plain/s3://limoo/product/single_pic_slider.jpg',
+            },
+            {
+              id    : 16,
+              image : 'https://statics-develop.diver.ir/1/fill/512/512/sm/true/plain/s3://limoo/product/single_pic_slider.jpg',
             },
           ],
+
+          productSliderMobile : [
+            {
+              id    : 1,
+              image : 'https://statics-develop.diver.ir/1/fill/328/328/sm/true/plain/s3://limoo/product/single_product_img2.jpg',
+            },
+            {
+              id    : 2,
+              image : 'https://statics-develop.diver.ir/1/fill/328/328/sm/true/plain/s3://limoo/product/new-baner-web4.jpg',
+            },
+            {
+              id    : 3,
+              image : 'https://statics-develop.diver.ir/1/fill/328/328/sm/true/plain/s3://limoo/product/picTest1.jpg',
+            },
+          ],
+
+
         };
     },
 
@@ -84,6 +134,18 @@ export default {
     },
 
     methods: {
+      activeItemSliderNav(data){
+          let updateSlider = [];
+          this.productSlider.map((content,index)=>{
+             content.active = false
+              if (content.id == data.id) {
+                content.active = true
+              }
+              updateSlider = [...updateSlider,content];
+          })
+
+          this.productSlider = updateSlider;
+      },
 
     }
 };

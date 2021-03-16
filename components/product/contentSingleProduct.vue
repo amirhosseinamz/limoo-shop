@@ -8,7 +8,7 @@
 
               <div class="product__single-right">
                   <div class="product--single__right-content">
-                      <productPic :product-slider="productSlider"></productPic>
+                      <productPic @active-item-slider-nav="activeItemSliderNav" :product-slider="productSlider"></productPic>
                   </div>
               </div>
 
@@ -20,9 +20,12 @@
                             <h3 class="product__top-brand">Apple AirPods Max- Sliver - MGYJ3</h3>
                           </div>
 
+                          <sliderSingleProduct :products="productSliderMobile"></sliderSingleProduct>
+
                           <!-- <productTools></productTools> -->
 
                           <productDetail :product-data="productData"></productDetail>
+
                     </div>
 
 
@@ -37,18 +40,21 @@
 import productPic from "./productPic";
 import productDetail from './productDetail';
 import productTools from './productTools';
+import sliderSingleProduct from './sliderSingleProduct';
 
 
 export default {
     props: {
-      productData     : { type: [Object,Array], default: [] },
-      productSlider   : { type: [Object,Array], default: [] },
+      productData             : { type: [Object,Array], default: [] },
+      productSliderMobile     : { type: [Object,Array], default: [] },
+      productSlider           : { type: [Object,Array], default: [] },
     },
 
     components: {
       productPic,
       productDetail,
       productTools,
+      sliderSingleProduct,
     },
 
     data() {
@@ -68,6 +74,9 @@ export default {
     },
 
     methods: {
+      activeItemSliderNav(data){
+        this.$emit('active-item-slider-nav',data)
+      },
 
     }
 };
@@ -155,6 +164,30 @@ export default {
       width: 94%;
     }
   }
+
+  @media (max-width: 760px) {
+    .product__single-right{
+      display: none;
+    }
+    .product__single-left{
+      width: 100%;
+    }
+    .product__data-content{
+      padding-right: 0;
+      padding-left: 0;
+    }
+    .product__single-content{
+      padding-right: 11px;
+      padding-left: 11px;
+      padding-top: 8px;
+      padding-bottom: 8px;
+    }
+    .product__top-title{
+      line-height: 28px;
+      margin-bottom: 2px;
+    }
+  }
+
 
 
 
