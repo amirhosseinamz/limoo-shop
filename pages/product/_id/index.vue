@@ -51,7 +51,7 @@ export default {
             },
             {
               id    : 4,
-              image : 'https://statics-develop.diver.ir/1/fill/512/512/sm/true/plain/s3://limoo/product/single_pic_slider.jpg',
+              image : 'https://statics-develop.diver.ir/1/fill/512/512/sm/true/plain/s3://limoo/product/picTest1.jpg',
             },
             {
               id    : 5,

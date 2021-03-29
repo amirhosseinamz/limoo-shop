@@ -2,7 +2,7 @@
   <div class=" page__home-introduction-items">
 
         <div class="w-100 page__home__introduction-item-slider-content home__item">
-          <img  ref="imgCheckHieghtSlider" class="page__home__introduction__slider-pic img--display" :src="introductionProduct[0].image" alt="">
+          <img @load="complateLoadedImg()"  ref="imgCheckHieghtSlider" class="page__home__introduction__slider-pic img--display" :src="introductionProduct[0].image" alt="">
 
               <div :style="heightSliderImg" class="page__home__introduction-slider-main main-carousel w-100">
                       <div :style="heightSliderImg" @click="switchLink($event,data)" v-for="data in introductionProduct" :key="data.id" class="carousel-cell w-100">
@@ -45,28 +45,19 @@ export default {
 
     data() {
       return {
-        slider              : {},
-        heightSliderImg     : {height:''},
-        updateSlider        : 0,
-        sliderLastUpdateImg : [
-          {
+        slider                   : {},
+        heightSliderImg          : {height:''},
+        updateSlider             : 0,
+        sizeImg                  : {  
             extraLarg      : '',
             larg           : '',
             medium         : '',
             small          : '',
             exteraSmall    : '',
             mobile         : '',
-            id             : 1,
-          },
-          {
-            extraLarg      : '',
-            larg           : '',
-            medium         : '',
-            small          : '',
-            exteraSmall    : '',
-            mobile         : '',
-            id             : 2,
-          },
+         },
+        sliderLastUpdateImg      : [
+        
         ],
         coverLeftLastUpdateImg   : [
               {
@@ -93,6 +84,7 @@ export default {
     },
 
     mounted() {
+      this.createSizeImg();
       this.getOptionSLider();
 
       this.slider.on( 'staticClick', ( event, pointer, cellElement, cellIndex ) =>{
@@ -103,15 +95,15 @@ export default {
           })
       });
 
-      this.detectedResizeBrowser();
-      this.updateSliderImg();
-      this.updateSliderLeftTopImg();
-
-      if (this.introductionProduct.length != 0) {
-        setTimeout( () =>{
-          this.updateHightSlider();
-        }, 1000);
-      }
+      // this.detectedResizeBrowser();
+      // this.updateSliderImg();
+      // this.updateSliderLeftTopImg();
+      //
+      // if (this.introductionProduct.length != 0) {
+      //   setTimeout( () =>{
+      //     this.updateHightSlider();
+      //   }, 1000);
+      // }
     },
 
     watch: {
@@ -125,6 +117,19 @@ export default {
     },
 
     methods: {
+     createSizeImg(){
+        this.introductionProduct.map((content)=>{
+          this.sliderLastUpdateImg = [...this.sliderLastUpdateImg,content];
+        });
+
+        this.sliderLastUpdateImg.map((content)=>{
+          for (let key in this.sizeImg) {
+             content[key] = this.sizeImg[key];
+          } 
+        });
+        
+      },
+
       getOptionSLider(){
         let Flickity       = require("flickity-fade")
         let sliderOptions  = new Flickity( '.page__home__introduction-slider-main', {
@@ -205,8 +210,7 @@ export default {
                 const getCurrentSizeImg = contentLastGetImg[getSizeUpdate];
                 this.introductionProduct.map((contentSlider,indexSlider)=>{
                   if (contentLastGetImg.id == contentSlider.id ) {
-                    contentSlider.image = getCurrentSizeImg;
-
+                      contentSlider.image = getCurrentSizeImg;
                   }
                 })
             })
@@ -366,6 +370,18 @@ export default {
 
       },
 
+      complateLoadedImg(){
+        this.detectedResizeBrowser();
+        this.updateSliderImg();
+        this.updateSliderLeftTopImg();
+
+        if (this.introductionProduct.length != 0) {
+          setTimeout( () =>{
+            this.updateHightSlider();
+          }, 1000);
+        }
+      }
+
     },
 
 };
@@ -518,33 +534,21 @@ export default {
   }
 
   @media (max-width: 600px) {
-    // .page__home__introduction__slider-pic{
-    //   height: 220px;
-    // }
+    
   }
 
   @media (max-width: 460px) {
-    // .page__home__introduction__slider-pic{
-    //   height: 180px;
-    // }
-    // .page__home__introduction__slider-pic{
-    //   height: 200px;
-    // }
     .page__home__introduction__slider{
       height: auto;
     }
   }
 
   @media (max-width: 420px) {
-    // .page__home__introduction__slider-pic{
-    //   max-height: 185px;
-    // }
+    
   }
 
   @media (max-width: 280px) {
-    // .page__home__introduction__slider-pic{
-    //   height: 141px;
-    // }
+    
   }
 
 

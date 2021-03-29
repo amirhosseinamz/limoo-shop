@@ -13,7 +13,7 @@
               :status-show-counter-down="true"
               name-element-find-slider="productContent__mainSlider1"
               remove-margin-top=""
-              :title="{title:'',href:'',titleVisit:'',sliderItemHref:'content'}"
+              :title="{title:'',href:'',titleVisit:'',sliderItemHref:'product'}"
              ></product-content>
 
             <product-cat
@@ -47,7 +47,7 @@
             :title="{title:'تستی 3',href:'test',titleVisit:'پر فروش ترین محصولات' , sliderItemHref:'product3'}"
             ></product-content>
 
-            <banner-2-items :banner-category2="bannerCategory2"></banner-2-items>
+            <banner-2-items :banner-vertical-product="bannerVerticalProduct"></banner-2-items>
 
             <div class="w-100 product__vertical-main">
                 <div class="product__vertical-right">
@@ -152,7 +152,7 @@ export default {
       allProductVerticalDescription  : { type: [Object,Array], default: [] },
       leftSliderHeaderImg            : { type: [Object,Array], default: [] },
       bannerCategory                 : { type: [Object,Array], default: [] },
-      bannerCategory2                : { type: [Object,Array], default: [] },
+      bannerVerticalProduct          : { type: [Object,Array], default: [] },
       bannerBlog                     : { type: [Object,Array], default: [] },
     },
 

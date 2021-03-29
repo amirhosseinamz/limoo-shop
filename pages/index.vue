@@ -27,7 +27,7 @@
         :all-product-vertical-description="allProductVerticalDescription"
         :left-slider-header-img="leftSliderHeaderImg"
         :banner-category="bannerCategory"
-        :banner-category2="bannerCategory2"
+        :banner-vertical-product="bannerVerticalProduct"
         :banner-blog="bannerBlog"
 
 
@@ -480,7 +480,7 @@ export default {
                 id    : 2,
               },
           ],
-          bannerCategory  : [
+          bannerCategory                 : [
               {
                 image : '',
                 id    : 1,
@@ -494,7 +494,7 @@ export default {
                 id    : 3,
               },
           ],
-          bannerCategory2  : [
+          bannerVerticalProduct          : [
               {
                 image : '',
                 id    : 1,
@@ -508,7 +508,7 @@ export default {
                 id    : 3,
               },
           ],
-          bannerBlog  : [
+          bannerBlog                     : [
               {
                 image : '',
                 id    : 1,

@@ -2,12 +2,12 @@
   <div class="w-100 bannerItems">
       <div class="bannerItems__item">
         <NuxtLink class="w-100 h-100  d-flex" to="/profile"  >
-          <img class="bannerItems__itemPic h-100" :src="bannerCategory2[0].image" alt="">
+          <img class="bannerItems__itemPic h-100" :src="bannerVerticalProduct[0].image" alt="">
         </NuxtLink class="w-100 h-100" to="/profile"  >
       </div>
       <div class="bannerItems__item">
         <NuxtLink class="w-100 h-100 d-flex" to="/profile"  >
-          <img class="bannerItems__itemPic h-100" :src="bannerCategory2[1].image" alt="">
+          <img class="bannerItems__itemPic h-100" :src="bannerVerticalProduct[1].image" alt="">
         </NuxtLink class="w-100 h-100" to="/profile"  >
       </div>
   </div>
@@ -21,44 +21,28 @@ export default {
     },
 
     props: {
-      bannerCategory2      : { type: [Object,Array], default: [] },
+      bannerVerticalProduct      : { type: [Object,Array], default: [] },
     },
 
     data() {
       return {
-        banners   : [
-              {
-                extraLarg      : '',
-                larg           : '',
-                medium         : '',
-                small          : '',
-                exteraSmall    : '',
-                mobile         : '',
-                id             : 1,
-              },
-              {
-                extraLarg      : '',
-                larg           : '',
-                medium         : '',
-                small          : '',
-                exteraSmall    : '',
-                mobile         : '',
-                id             : 2,
-              },
-              {
-                extraLarg      : '',
-                larg           : '',
-                medium         : '',
-                small          : '',
-                exteraSmall    : '',
-                mobile         : '',
-                id             : 3,
-              }
-          ]
+        sizeImgBanner : {  
+            extraLarg      : '',
+            larg           : '',
+            medium         : '',
+            small          : '',
+            exteraSmall    : '',
+            mobile         : '',
+          },
+        banners : [
+
+        ]
+
       }
     },
 
     mounted() {
+      this.createSizeImg();
       this.updateSizeImg();
       this.detectedResizeBrowser();
     },
@@ -68,6 +52,22 @@ export default {
     },
 
     methods: {
+      createSizeImg(){
+        let createId = 0;
+        this.bannerVerticalProduct.map((content)=>{
+          createId++;
+          content.id   = createId;
+          this.banners = [...this.banners,content];
+        });
+
+        this.banners.map((content)=>{
+          for (let key in this.sizeImgBanner) {
+             content[key] = this.sizeImgBanner[key];
+          } 
+        });
+
+      },
+
       updateSizeImg(){
         const getWindowWidth = window.innerWidth;
 
@@ -116,16 +116,14 @@ export default {
         }
 
         const updateImg = (getSizeUpdate) => {
-          this.banners.map((contentLastGetImg)=>{
-              const getCurrentSizeImg = contentLastGetImg[getSizeUpdate];
-              this.bannerCategory2.map((contentOriginal)=>{
-                if (contentOriginal.id == contentLastGetImg.id) {
-
-                  contentOriginal.image = getCurrentSizeImg;
-                }
-              })
-          })
-
+            this.banners.map((contentLastGetImg)=>{
+                  const getCurrentSizeImg = contentLastGetImg[getSizeUpdate];
+                  this.bannerVerticalProduct.map((contentOriginal)=>{
+                      if (contentOriginal.id == contentLastGetImg.id) {
+                          contentOriginal.image = getCurrentSizeImg;
+                      }
+                  })
+            })
         }
 
         if (1300 <= getWindowWidth) {
