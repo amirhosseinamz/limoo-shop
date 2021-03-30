@@ -34,7 +34,7 @@
                             {{data.title}}
                           </h3>
                         </div>
-                        <div class="w-100 productContent__carouselDescription w-100" >
+                        <div :key="updateShowCircle" class="w-100 productContent__carouselDescription w-100" >
                           <p class="productContent__carouselText">
                             <span v-if="data.showLimitDescription">{{data.description}}</span>
                             <span v-else class="h-100 d-flex">
@@ -85,11 +85,13 @@ export default {
 
     data() {
       return {
+        updateShowCircle : 0,
       }
     },
 
     mounted() {
       this.flickityOptions();
+      this.updateShowCircle++;
     },
 
     computed: {

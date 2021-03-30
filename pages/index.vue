@@ -525,6 +525,10 @@ export default {
     },
 
     created() {
+
+    },
+
+    mounted() {
       // پس از اتصال به سرور فانکشن مورد نظر بعد رسپانس ریکوئست صدا زده شود //
       const width     = window.innerWidth;
 
@@ -553,9 +557,6 @@ export default {
       }
 
 
-    },
-
-    mounted() {
     },
 
     methods: {

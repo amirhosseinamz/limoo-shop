@@ -41,7 +41,7 @@
                                         {{data.title}}
                                       </h3>
                                   </div>
-                                  <div class="w-100 productContent__carouselPriceMain" :class="{'productContent__noneDiscount':data.discount == ''}">
+                                  <div :key="updateAddCirclePrice" class="w-100 productContent__carouselPriceMain" :class="{'productContent__noneDiscount':data.discount == ''}">
                                       <div class="productContent__discount">
                                         <div class="productContent__pricePercent">
                                           <h3 class="productContent__percentTitle">30%</h3>
@@ -84,11 +84,13 @@ export default {
 
     data() {
       return {
+        updateAddCirclePrice : 0,
       }
     },
 
     mounted() {
       this.flickityOptions();
+      this.updateAddCirclePrice++;
     },
 
     computed: {
