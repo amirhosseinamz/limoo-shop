@@ -371,14 +371,14 @@ export default {
               title     : 'حافظه SSD وسترن دیجیتال مدل GREEN WDS480G2G0A ظرفیت 480 گیگابایت',
               discount  : '10000',
               realPrice : '50000',
-              image     : '/img/picTest1.jpg',
+              image     : 'https://statics-develop.diver.ir/1/fill/915/460/sm/true/plain/s3://limoo/product/picTest1.jpg',
             },
             {
               id        : 2,
               title     : 'اپ واچ سری قرمز آلومینیوم آبی با بند اسپرت سیلیکون آبی ویژه سایز 42 و 44',
               discount  : '',
               realPrice : '10000',
-              image     : '/img/ArEJJ7Elmy2iAF1okIadw53iJdxCqisTJVkXwh1R.jpeg',
+              image     : 'https://statics-develop.diver.ir/1/fill/915/460/sm/true/plain/s3://limoo/product/apple-watch-series-6-gps-cellurar2%20.png',
             },
             // {
             //   id        : 3,

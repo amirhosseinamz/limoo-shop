@@ -7,6 +7,7 @@
               <div :style="heightSliderImg" class="page__home__introduction-slider-main main-carousel w-100">
                       <div :style="heightSliderImg" @click="switchLink($event,data)" v-for="data in introductionProduct" :key="data.id" class="carousel-cell w-100">
                                 <div class="page__home__introduction__slider w-100">
+                                  <!-- برای دیدن لینک ها توسط کاربر گذاشته شده و در صورتی که کاربر نیاز به تغییر تب به واسطه آدرس آیتم باشد می تواند تب خود را تغییر دهد -->
                                     <NuxtLink
                                     class="w-100 pageHome__Slider-link"
                                     :to=" '/' + title.sliderItemHref + '/' + data.id"
@@ -15,6 +16,15 @@
                                       <img  ref="imgCarouselCellSlider" class="page__home__introduction__slider-pic " :src="data.image" alt="">
                                     </NuxtLink>
                                 </div>
+
+                                <!-- دلیل ساخت دوتا لینک فهم گوگل برای سئو  هستش -->
+
+                                <NuxtLink
+                                class="w-100 d-none"
+                                :to=" '/' + title.sliderItemHref + '/' + data.id"
+                                :id="'link--introduction' + data.id"
+                                >
+                                </NuxtLink>
                       </div>
               </div>
         </div>
@@ -48,7 +58,7 @@ export default {
         slider                   : {},
         heightSliderImg          : {height:''},
         updateSlider             : 0,
-        sizeImg                  : {  
+        sizeImg                  : {
             extraLarg      : '',
             larg           : '',
             medium         : '',
@@ -57,7 +67,7 @@ export default {
             mobile         : '',
          },
         sliderLastUpdateImg      : [
-        
+
         ],
         coverLeftLastUpdateImg   : [
               {
@@ -90,7 +100,9 @@ export default {
       this.slider.on( 'staticClick', ( event, pointer, cellElement, cellIndex ) =>{
           this.introductionProduct.map((content,indexSlider)=>{
               if (indexSlider == cellIndex) {
-                  this.$router.push(`/${this.title.sliderItemHref}/${content.id}`);
+                  const linkCurrentItem = document.getElementById(`link--introduction${content.id}`);
+                  linkCurrentItem.click();
+                  // دلیل تغییر این قسمت به خاطر فهم گوگل برای سئو هستش //
               }
           })
       });
@@ -125,9 +137,9 @@ export default {
         this.sliderLastUpdateImg.map((content)=>{
           for (let key in this.sizeImg) {
              content[key] = this.sizeImg[key];
-          } 
+          }
         });
-        
+
       },
 
       getOptionSLider(){
@@ -534,7 +546,7 @@ export default {
   }
 
   @media (max-width: 600px) {
-    
+
   }
 
   @media (max-width: 460px) {
@@ -544,11 +556,11 @@ export default {
   }
 
   @media (max-width: 420px) {
-    
+
   }
 
   @media (max-width: 280px) {
-    
+
   }
 
 
