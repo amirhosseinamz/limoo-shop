@@ -26,23 +26,25 @@
                                       </div>
 
                                         <div class="modal-filter__box-renge" :key="updateRenge">
-                                              <vue-slider
-                                              v-model="value"
-                                              :max="minMax.max"
-                                              :min="minMax.min"
-                                              ref="slider"
-                                              @change="changeSliderRenge"
-                                              height="23px"
-                                              width="99%"
-                                              dotSize="24"
-                                              direction="rtl"
-                                              padding="7px 0px"
+                                            <client-only>
+                                                  <vue-slider
+                                                      v-model="value"
+                                                      :max="minMax.max"
+                                                      :min="minMax.min"
+                                                      ref="slider"
+                                                      @change="changeSliderRenge"
+                                                      height="9px"
+                                                      width="99%"
+                                                      dotSize="24"
+                                                      direction="rtl"
+                                                      padding="7px 0px"
 
-                                              >
-                                              <template v-slot:dot="{ value, focus }">
-                                                <img src="/icons/renge-circle.svg" :class="['renge-circle custom-dot', { focus }]"></img>
-                                              </template>
-                                            </vue-slider>
+                                                      >
+                                                        <template v-slot:dot="{ value, focus }">
+                                                          <img src="/icons/renge-circle.svg" :class="['renge-circle custom-dot', { focus }]"></img>
+                                                        </template>
+                                                    </vue-slider>
+                                              </client-only>
                                         </div>
 
                                       </div>
@@ -54,7 +56,6 @@
 </template>
 
 <script>
-import VueSlider from 'vue-slider-component'
 import 'vue-slider-component/theme/antd.css'
 import '~/assets/styles/_slider_range_price.scss'
 import addCamaPrice from "~/modules/addCamaPrice.js";
@@ -70,7 +71,6 @@ export default {
   },
 
   components: {
-    VueSlider,
   },
 
   data() {

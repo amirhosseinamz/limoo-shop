@@ -119,8 +119,8 @@ export default {
         sliderOptions.on( 'staticClick', ( event, pointer, cellElement, cellIndex ) =>{
             this.products.map((content,index)=>{
               if (index == cellIndex) {
-                // const linkCurrentItem = document.getElementById(this.nameElementFindSlider + content.id);
-                // linkCurrentItem.click();
+                const linkCurrentItem = document.getElementById(this.nameElementFindSlider + content.id);
+                linkCurrentItem.click();
                 // دلیل تغییر این قسمت به خاطر فهم گوگل برای سئو هستش //
               }
             })

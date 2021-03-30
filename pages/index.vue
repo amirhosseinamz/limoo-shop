@@ -552,10 +552,10 @@ export default {
         this.checkAddCircleVerticalProductDescription('desktop',118);
       }
 
+
     },
 
     mounted() {
-      // this.updateProduct++;
     },
 
     methods: {
