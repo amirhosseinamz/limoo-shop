@@ -14,6 +14,7 @@
               name-element-find-slider="productContent__mainSlider1"
               remove-margin-top=""
               :title="{title:'',href:'',titleVisit:'',sliderItemHref:'product'}"
+              :resource-data="resourceData"
              ></product-content>
 
             <product-cat
@@ -124,6 +125,7 @@
 </template>
 
 <script>
+import resource from "~/modules/resource.js";
 import introductionItems from './introductionItems';
 import bannerItems from './bannerItems';
 import banner2Items from './banner2Items';
@@ -173,17 +175,17 @@ export default {
 
     data() {
       return {
+        resourceData : [],
       }
+    }, 
+    
+    created(){
+      this.resourceData  = resource;
     },
 
-    components: {
-
+    mounted(){
     },
-
-    computed: {
-
-    },
-
+  
     methods: {
 
     },

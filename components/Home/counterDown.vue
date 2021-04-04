@@ -77,7 +77,7 @@ export default {
     },
 
     props: {
-      // allProvince           : { type: [Object,Array], default: [] },
+      resourceData    : { type: [Object,Array], default: null },
     },
 
     data() {
