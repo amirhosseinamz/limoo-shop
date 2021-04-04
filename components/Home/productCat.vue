@@ -52,6 +52,7 @@ export default {
   @include display-flex();
   align-items: flex-start;
   flex-wrap: wrap;
+  overflow: hidden;
 }
 .productContent__items{
   align-items: flex-start;

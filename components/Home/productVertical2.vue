@@ -1,31 +1,24 @@
 <template>
-  <div class="w-100 productContent__sliderWrapper">
+  <div  :class="{'product--description':descriptionShow}" class="w-100 productContent__sliderWrapper">
 
         <div class="w-100 productContent__catTop">
             <div class="productContent__topRight">
                 <h3 class="w-100 productContent__catTitle">موبایل اندرویدی</h3>
-            </div>
-
-            <div class=" productContent__sliderMore productContent__topLeft">
-                <nuxt-link class="productContent__moreItem" to="/">
-                  لیست کامل محصولات
-                  <span class=" productContent__moreIcon mobile-inprogress__arrow"></span>
-                </nuxt-link>
+                <h3 class="productContent__titleVisit w-100">{{title.titleVisit}}</h3>
             </div>
 
         </div>
 
         <div class="main-carousel w-100 productContent__vertical productContent__mainSlider">
-
-            <div v-for="data in allDesktopSplitTwice" :key="data.id" class="carousel-cell productContent__carousel ">
+              <div  v-for="data in allDesktopSplitTwice" :key="data.id" class="carousel-cell productContent__carousel ">
                   <div @click="switchLink($event,contentChildren)" v-if="contentChildren.mobileShow" v-for="contentChildren in data.children" :key="contentChildren.id" class="productContent__carouselContent w-100">
-                      <NuxtLink
+                      <!-- <NuxtLink
                       class="w-100 productContent__carousel-link"
                       :to=" '/' + title.sliderItemHref + '/' + contentChildren.id "
                       target="_blank"
                       :data-id="contentChildren.id"
                       >
-                    </NuxtLink>
+                    </NuxtLink> -->
 
                         <div class="productContent__carouselRight">
                           <img class="productContent__carouselImgItem" :src="contentChildren.image" alt="">
@@ -40,35 +33,61 @@
                                       </h3>
                                     </div>
 
-                                    <div class="w-100 productContent__carouselPriceMain" :class="{'productContent__haveDiscount':contentChildren.discount != ''}">
-                                      <div class="productContent__discount">
-                                        <div class="productContent__priceDiscount">
-                                          <h3 class="productContent__discountTitle">
-                                            {{contentChildren.addCamaDiscount}}
-                                            <span class="productContent__discountLine"></span>
-                                          </h3>
-                                        </div>
+                                      <div class="w-100 productContent__carouselPriceMain" :class="{'productContent__haveDiscount':contentChildren.discount != ''}">
+                                            <div class="productContent__discount">
 
-                                        <div class="productContent__priceMain">
-                                          <h3 class="productContent__priceTitle">
-                                            {{contentChildren.addCamaRealPrice}}
-                                            <span>تومان</span>
-                                          </h3>
-                                        </div>
+                                                  <div class="product__discount-content">
+                                                        <div class="productContent__pricePercent">
+                                                          <h3 class="productContent__percentTitle">{{contentChildren.precentDiscount}}%</h3>
+                                                        </div>
+
+                                                        <div class="productContent__priceDiscount">
+                                                          <h3 class="productContent__discountTitle">
+                                                            {{contentChildren.addCamaDiscount}}
+                                                            <span class="productContent__discountLine"></span>
+                                                          </h3>
+                                                        </div>
+                                                  </div>
+
+                                                <div class="productContent__priceMain">
+                                                    <h3 class="productContent__priceTitle">
+                                                      {{contentChildren.addCamaRealPrice}}
+                                                      <span>تومان</span>
+                                                    </h3>
+                                                </div>
+
+                                            </div>
+
+                                            <div class="product__descrption-main w-100">
+                                                <span class="product__descrption-title" v-if="contentChildren.showLimitDescription">{{contentChildren.description}}</span>
+                                                <span v-else class="product__descrption-title">
+                                                  {{contentChildren.limitedDescription}}
+                                                  <span class="productContent__circle">
+                                                    ...
+                                                  </span>
+                                                </span>
+                                            </div>
+
+
                                       </div>
 
-                                    </div>
                                   </div>
                           </div>
 
                 </div>
-
-        <!-- </nuxt-link> -->
-  </div>
-
-
-
+              </div>
         </div>
+
+        <div class=" productContent__sliderMore productContent__topLeft w-100">
+          <nuxt-link class="productContent__moreItem" to="/">
+            لیست کامل محصولات
+            <span class=" productContent__moreIcon mobile-inprogress__arrow"></span>
+          </nuxt-link>
+        </div>
+
+
+
+
   </div>
 </template>
 
@@ -80,8 +99,9 @@ export default {
     },
 
     props: {
-      products   : { type: [Object,Array], default: [] },
-      title      : { type: Object, default: [] },
+      products          : { type: [Object,Array], default: [] },
+      title             : { type: Object, default: [] },
+      descriptionShow   : { type: Boolean, default: false },
     },
 
     data() {
@@ -95,16 +115,8 @@ export default {
     mounted() {
       const width      = window.innerWidth;
       this.allProducts = this.products;
-
       this.itemCategorySplitTwice();
-      this.detectedResizeBrowser();
-
-      if (485 < width) {
-        setTimeout( () =>{
-          this.flickityOptions();
-        });
-      }
-
+      this.detectedResizeBrowser()
     },
 
     computed: {
@@ -112,34 +124,6 @@ export default {
     },
 
     methods: {
-      flickityOptions(){
-        let Flickity       = require("flickity")
-        let sliderOptions  = new Flickity( '.productContent__vertical', {
-          accessibility   : true,
-          adaptiveHeight  : true,
-          rightToLeft     : true,
-          cellAlign       : 'right',
-          imagesLoaded    : true,
-          wrapAround      : false,
-          contain         : true,
-          prevNextButtons : true,
-          // autoPlay        : true, // advance cells every 3 seconds
-          // autoPlay: 1500 // {Number}
-          freeScroll      : false,
-          pageDots        : false,
-          groupCells      : true,
-          fade            : false,
-        });
-        this.flkty         = sliderOptions;
-
-        sliderOptions.on( 'staticClick', ( event, pointer, cellElement, cellIndex ) =>{
-          const currentId    = parseInt(event.target.getAttribute('data-id'));
-          this.$router.push(`/${this.title.sliderItemHref}/${currentId}`);
-        });
-
-
-      },
-
       itemCategorySplitTwice(){
         let counterTwice          = 0;
         let contentTwiceSplit     = [];
@@ -148,10 +132,12 @@ export default {
         let productLimited        = [];
         this.allDesktopSplitTwice = [];
 
+
         // دوتا دوتا جدا سازی آیتم ها در موبایل //
         this.products.map((content,index)=>{
             counterTwice++;
 
+            // محدود کردن تعداد نمایش محصولات //
           if (485 >= width) {
               if (index <= 3) {
                 content.mobileShow = true;
@@ -161,7 +147,12 @@ export default {
               }
           }
           else {
-            content.mobileShow = true;
+            if (index < 3) {
+              content.mobileShow = true;
+            }
+            else {
+              content.mobileShow = false;
+            }
           }
 
           if (counterTwice <= 2) {
@@ -177,31 +168,18 @@ export default {
 
         });
 
-
-
         // پیدا کردن آیتم ای که در جدا سازی دوتایی آیتم ها اضافه آماده است //
         if (this.products.length != levelSplit) {
           const lastFindCatOutSideTwice = this.products[levelSplit];
           this.allDesktopSplitTwice.push( { children: [lastFindCatOutSideTwice] } );
         }
 
-
       },
 
       detectedResizeBrowser(){
-        // در سایز موبایل اسلایدر غیرفغال شده و در سایز دسکتاپ دوباره اسلایدر فعال می شود //
+        // آپدیت محدود کردن تعداد نمایش در موبایل و دیسکتاپ //
         window.addEventListener("resize", ()=>{
-          const width   = window.innerWidth;
-            if (485 < width) {
-              this.itemCategorySplitTwice();
-              this.flickityOptions();
-            }
-            else {
-              if (typeof(this.flkty.fadeIndex) != 'undefined') {
-                this.itemCategorySplitTwice();
-                this.flkty.destroy()
-              }
-            }
+            this.itemCategorySplitTwice();
           }, true);
       },
 
@@ -222,49 +200,25 @@ export default {
 
 <style lang="scss" scoped>
 .productContent__carousel{
-  width: 460.5px;
+  width: 100%;
   background: $white;
-  height: 283px;
+  height: auto;
 }
-.productContent__mainSlider{
-  // position: relative;
-  // align-items: flex-start;
-  // flex-wrap: wrap;
-  // @include display-flex();
+.carousel-cell:last-of-type .productContent__carouselContent:last-of-type{
+  border-bottom: none;
 }
 .productContent__carouselContent{
   align-items:center;
   flex-wrap: wrap;
   @include display-flex();
   cursor: pointer;
-  // border-left: solid 1px $gray-border;
-  height: 145px;
+  height: 170px;
   border-bottom: solid 1px $gray-border;
   padding-right: 14px;
-  align-items: flex-start;
+  padding-left: 14px;
+  align-items: center;
   position: relative;
 }
-// .productContent__carousel:nth-child(3n) .productContent__carouselContent{
-//   border-left: none;
-// }
-// .productContent__carousel:nth-child(3n+1) .productContent__carouselContent{
-//   padding-right: 24px;
-// }
-// .productContent__carousel:nth-child(n+4) .productContent__carouselContent{
-//   border-bottom: none;
-//   padding-top: 28px;
-// }
-
-.productContent__carousel:nth-child(n+2) .productContent__carouselContent:nth-child(2){
-  padding-top: 28px;
-}
-.productContent__carousel:nth-child(3n+1) .productContent__carouselContent:nth-child(2){
-  padding-right: 24px;
-}
-.productContent__carousel:nth-child(1) .productContent__carouselContent:nth-child(2){
-  padding-top: 28px;
-}
-
 .productContent__carouselDataTitle{
   font-size: 16px;
   line-height: 2.2em;
@@ -344,6 +298,7 @@ export default {
   right: 0;
   border-radius: 8px;
   top: 0;
+  display: none;
 }
 .productContent__priceUnit{
   align-items: flex-start;
@@ -367,7 +322,7 @@ export default {
   position:relative;
 }
 .productContent__carouselLeft{
-  width: 275px;
+  width: 69%;
   padding-right: 9px;
 }
 .productContent__carouselRight{
@@ -378,11 +333,14 @@ export default {
   justify-content: center;
 }
 .productContent__priceMain{
-  margin-right: 11px;
+  margin-right: 0px;
 }
 // .productContent__haveDiscount .productContent__priceTitle{
 //   color: $red-color;
 // }
+.productContent__haveDiscount .productContent__priceMain{
+  margin-right: 23px;
+}
 .productContent__catRight{
   justify-content: flex-start;
   @include display-flex();
@@ -404,8 +362,8 @@ export default {
   flex-wrap: wrap;
   padding-right: 24px;
   padding-left: 24px;
-  align-items: center;
-  margin-bottom: 38px;
+  align-items: flex-start;
+  margin-bottom: 4px;
 }
 .productContent__sliderMore{
   align-items: flex-start;
@@ -435,6 +393,7 @@ export default {
 .productContent__topRight{
   flex-grow: 1;
   @include display-flex();
+  flex-wrap: wrap;
 }
 .productContent__link{
   flex-wrap: wrap;
@@ -449,9 +408,75 @@ export default {
   width: 100%;
   height: 100%;
 }
+.productContent__titleVisit{
+  margin-top: 13px;
+  color: $gray;
+  font-size: 17px;
+  font-weight: 300;
+}
+.productContent__percentTitle{
+  font-family: inherit;
+  font-size: 14px;
+  color: $color_discount;
+  width: 44px;
+  height: 29px;
+  background: $yellow;
+  border-radius: 15px;
+  @include display-flex();
+  align-items: center;
+  justify-content: center;
+  font-weight: 400;
+}
+.productContent__priceDiscount{
+  margin-right: 8px;
+}
+.product__discount-content{
+  align-items: center;
+  display: none;
+}
+.productContent__haveDiscount .product__discount-content{
+  @include display-flex();
+}
+.productContent__topLeft{
+  justify-content:center;
+  margin-top: 18px;
+}
+.product__descrption-title{
+  font-size: 14px;
+  color: $gray;
+  line-height: 2.4em;
+}
+.product--description .product__descrption-main{
+  @include display-flex();
+}
+.product__descrption-main{
+  display: none;
+}
+.product--description .productContent__discount{
+  display: none;
+}
+.product--description .productContent__carouselPriceMain{
+  margin-top: 9px;
+}
+.product--description .productContent__catTop{
+  margin-bottom: 21px;
+}
+.productContent__circle{
+  display: inline-flex;
+}
 
+
+
+@media (max-width: 1200px) {
+  .productContent__sliderMore{
+    width: 100%;
+  }
+}
 
 @media (max-width: 960px) {
+  .productContent__sliderMore{
+    justify-content: flex-end;
+  }
 }
 
 @media (max-width: 860px) {
@@ -472,25 +497,15 @@ export default {
     justify-content: flex-end;
     width: 100%;
   }
+  .productContent__titleVisit{
+    font-size: 15px;
+  }
 }
 
 
 @media (max-width: 485px) {
   .productContent__catTitle{
     font-size: 14px;
-  }
-  .productContent__carousel:nth-child(n+2) .productContent__carouselContent:nth-child(2){
-    padding-top: 16px;
-  }
-  .productContent__carousel:nth-child(3n+1) .productContent__carouselContent:nth-child(2){
-    padding-right: 11px;
-    padding-left: 11px;
-  }
-  .productContent__carousel:nth-child(1) .productContent__carouselContent:nth-child(2){
-    padding-top: 16px;
-  }
-  .productContent__carousel:last-of-type .productContent__carouselContent:nth-child(2){
-    border-bottom: none;
   }
   .productContent__carousel{
     width: 100%;
@@ -504,9 +519,9 @@ export default {
   }
   .productContent__carouselContent{
     border-left: none;
-    padding-bottom: 0;
     height: 113px;
     padding-top: 16px;
+    padding-bottom: 16px;
     border-bottom: solid 1px $border-gray-bg;
     padding-right: 11px;
     padding-left: 11px;
@@ -544,6 +559,15 @@ export default {
   }
   .productContent__sliderMore{
     display: none;
+  }
+  .productContent__titleVisit{
+    font-size: 13px;
+  }
+  .productContent__pricePercent{
+    display: none;
+  }
+  .productContent__haveDiscount .productContent__priceMain{
+    margin-right: 15px;
   }
 
 

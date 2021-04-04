@@ -2,7 +2,7 @@
   <div class="w-100 bannerItems">
       <div class="bannerItems__item">
         <NuxtLink class="w-100 h-100 d-flex" to="/profile"  >
-          <img class="bannerItems__itemPic h-100" src="/img/09e2e4e3ba102806e2a9ce0bb750c149484c2015_1611135172.jpg" alt="">
+          <img class="bannerItems__itemPic h-100" :src="bannerBlog[0].image" alt="">
         </NuxtLink>
       </div>
   </div>
@@ -16,16 +16,28 @@ export default {
     },
 
     props: {
-      // allProvince           : { type: [Object,Array], default: [] },
+      bannerBlog           : { type: [Object,Array], default: [] },
     },
 
     data() {
       return {
+        banners   : [
+              {
+                extraLarg      : '',
+                larg           : '',
+                medium         : '',
+                small          : '',
+                exteraSmall    : '',
+                mobile         : '',
+                id             : 1,
+              },
+          ]
       }
     },
 
     mounted() {
-
+      this.updateSizeImg();
+      this.detectedResizeBrowser();
     },
 
     computed: {
@@ -33,7 +45,108 @@ export default {
     },
 
     methods: {
+      updateSizeImg(){
+        const getWindowWidth = window.innerWidth;
 
+
+        const getImg    = (getSizeImg,getSizeUpdate) => {
+            this.banners.map((content,index)=>{
+              if (content[getSizeUpdate] == '') {
+                  for (let key in content) {
+                      if (key == getSizeUpdate) {
+                        // فقط یک بار اجرا شده و پس از گرفتن عکس مورد نظر اجرا نخواهد شد //
+
+                        if (index == 0) {
+                          const pic2Size   = getSizeImg.pic1;
+                          const width      = pic2Size.width;
+                          const height     = pic2Size.height;
+
+                          const url        = `https://statics-develop.diver.ir/1/fill/${width}/${height}/sm/true/plain/s3://limoo/product/92afb0f51f4fc434ae230b5457b14622a397abcb_1615636191.jpg`;
+                          content[key]     = url;
+                        }
+
+                      }
+                  }
+              }
+
+
+            })
+        }
+
+        const updateImg = (getSizeUpdate) => {
+          this.banners.map((contentLastGetImg)=>{
+              const getCurrentSizeImg = contentLastGetImg[getSizeUpdate];
+              this.bannerBlog.map((contentOriginal)=>{
+                if (contentOriginal.id == contentLastGetImg.id) {
+
+                  contentOriginal.image = getCurrentSizeImg;
+                }
+              })
+          })
+
+        }
+
+          const sizeImg = {
+            pic1 : {
+              width  : 1500,
+              height : 200,
+            },
+          }
+
+          getImg(sizeImg,'extraLarg');
+          updateImg('extraLarg');
+
+          if (1366 >= getWindowWidth) {
+            const sizeImg = {
+              pic1 : {
+                width  : 1314,
+                height : 200,
+              },
+            }
+
+            getImg(sizeImg,'larg');
+            updateImg('larg');
+          }
+
+
+        // if (1024 >= getWindowWidth) {
+        //   const sizeImg = {
+        //     pic1 : {
+        //       width  : 876,
+        //       height : 200,
+        //     },
+        //   }
+        //
+        //   getImg(sizeImg,'medium');
+        //   updateImg('medium');
+        // }
+
+        if (768 >= getWindowWidth) {
+          const sizeImg = {
+            pic1 : {
+              width  : 736,
+              height : 200,
+            },
+          }
+
+          getImg(sizeImg,'small');
+          updateImg('small');
+        }
+
+
+      },
+
+      detectedResizeBrowser(){
+        window.addEventListener("resize", ()=>{
+            const width                 = window.innerWidth;
+
+            this.updateSizeImg();
+           setTimeout( () =>{
+              this.updateSizeImg()
+            }, 1000);
+
+          }, true);
+      },
     },
 
 };
@@ -48,7 +161,6 @@ export default {
     @include display-flex();
     align-items: flex-start;
     flex-wrap: wrap;
-    margin-top: 36px;
     margin-bottom: 36px;
   }
   .bannerItems__item{
@@ -60,16 +172,34 @@ export default {
     width: 100%;
     height: 100%;
     border-radius: 14px;
+
+  }
+
+
+
+  @media (max-width: 1200px) {
+    .bannerItems__item{
+      height: auto;
+    }
   }
 
   @media (max-width: 960px) {
+    .bannerItems{
+      margin-bottom:40px;
+      margin-top: 40px;
+    }
+  }
 
+  @media (max-width: 768px) {
+    .bannerItems{
+      display: none;
+    }
   }
 
   @media (max-width: 485px) {
     .bannerItems{
       margin-bottom: 0;
-      margin-top: 8px;
+      margin-top: 0;
     }
     .bannerItems{
       display: none;

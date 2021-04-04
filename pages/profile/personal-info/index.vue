@@ -150,6 +150,7 @@ import TheProfilePassModal from "~/components/Profile/PersonalInfo/TheProfilePas
 import TheDateDropdown from "~/components/Profile/PersonalInfo/TheDateDropdown.vue";
 export default {
     middleware: "authentication",
+    layout      : "removeFooterMobile",
     components: {
         TheProfileSideBar,
         TheProfilePassModal,

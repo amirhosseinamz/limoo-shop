@@ -34,7 +34,8 @@ import addCamaPrice from "~/modules/addCamaPrice.js";
 
 
 export default {
-    components: {
+    layout      : "removeFooterCart",
+    components : {
         TheCartPayDetail,
         TheCartOrders,
         TheModalDeleteUserOrders

@@ -1,0 +1,217 @@
+{
+  "response_code": 1,
+  "response_message": "عملیات با موفقیت انجام شد.",
+  "response_value": [
+    {
+      "ProductID": 20,
+      "Label": "new product",
+      "ParentID": 125,
+      "values": {
+        "attribute_groups": [
+          {
+            "group_id": "33",
+            "group_code": "top_detail",
+            "group_attribute": {
+              "variant": {
+                "label": "رنگ",
+                "data": [
+                  {
+                    "Label": "رنگ",
+                    "Code": "color",
+                    "AttributeID": 87,
+                    "AttributeValue": [
+                      {
+                        "data": "آبی",
+                        "ref": "20"
+                      },
+                      {
+                        "data": "مشکی",
+                        "ref": "21"
+                      }
+                    ]
+                  }
+                ]
+              },
+              "top": {
+                "label": "ویژگی های کالا",
+                "data": [
+                  {
+                    "Label": "حافظه داخلی",
+                    "Code": "internal_storage",
+                    "AttributeID": 87,
+                    "AttributeValue": "64 گیگابایت"
+                  },
+                  {
+                    "Label": "شبکه های ارتباطی ",
+                    "Code": "network_type",
+                    "AttributeID": 88,
+                    "AttributeValue": " 4G، 3G، 2G "
+                  },
+                  {
+                    "Label": "دوربین‌های پشت گوشی ",
+                    "Code": "camera_type",
+                    "AttributeID": 90,
+                    "AttributeValue": "  4 ماژول دوربین "
+                  },
+                  {
+                    "Label": "سیستم عامل ",
+                    "Code": "os_type",
+                    "AttributeID": 1,
+                    "AttributeValue": "Android "
+                  },
+                  {
+                    "Label": "تراشه",
+                    "Code": "os_type",
+                    "AttributeID": 2,
+                    "AttributeValue": "intel "
+                  },
+                  {
+                    "Label": "صفحه نمایش",
+                    "Code": "os_type",
+                    "AttributeID": 3,
+                    "AttributeValue": "trun on "
+                  }
+
+                ]
+              },
+              "seller_detail": {
+                "label": "فروشنده",
+                "data": [
+                  {
+                    "Label": "موبایل تک",
+                    "Code": "seller_name",
+                    "AttributeID": 102,
+                    "AttributeValue": "64 گیگابایت"
+                  },
+                  {
+                    "Label": "گارانتی ",
+                    "Code": "varanty_type",
+                    "AttributeID": 118,
+                    "AttributeValue": "گارانتی ۱۸ ماهه سی تلکام "
+                  },
+                  {
+                    "Label": "دوربین‌های پشت گوشی",
+                    "Code": "camera_type",
+                    "AttributeID": 90,
+                    "AttributeValue": "  4 ماژول دوربین "
+                  },
+                  {
+                    "Label": "سیستم عامل ",
+                    "Code": "os_type",
+                    "AttributeID": 91,
+                    "AttributeValue": "Android "
+                  }
+                ]
+              },
+              "total_detail": {
+                "label": "مشخصات کلی کالا",
+                "data": [
+                  {
+                    "Label": "حافظه داخلی",
+                    "Code": "internal_storage",
+                    "AttributeID": 87,
+                    "AttributeValue": "64 گیگابایت"
+                  },
+                  {
+                    "Label": "شبکه های ارتباطی ",
+                    "Code": "network_type",
+                    "AttributeID": 88,
+                    "AttributeValue": " 4G، 3G، 2G "
+                  },
+                  {
+                    "Label": "دوربین‌های پشت گوشی",
+                    "Code": "camera_type",
+                    "AttributeID": 90,
+                    "AttributeValue": "  4 ماژول دوربین "
+                  },
+                  {
+                    "Label": "سیستم عامل ",
+                    "Code": "os_type",
+                    "AttributeID": 91,
+                    "AttributeValue": "Android "
+                  }
+                ]
+              },
+              "storage_detail": {
+                "label": "حافظه",
+                "data": [
+                  {
+                    "Label": "حافظه داخلی",
+                    "Code": "internal_storage",
+                    "AttributeID": 87,
+                    "AttributeValue": " 64 گیگابایت "
+                  },
+                  {
+                    "Label": "مقدار RAM",
+                    "Code": "network_type",
+                    "AttributeID": 88,
+                    "AttributeValue": " 4 گیگابایت  "
+                  },
+                  {
+                    "Label": "پشتیبانی از کارت حافظه جانبی",
+                    "Code": "camera_type",
+                    "AttributeID": 90,
+                    "AttributeValue": "   microSD  "
+                  },
+                  {
+                    "Label": "استاندارد کارت حافظه",
+                    "Code": "os_type",
+                    "AttributeID": 91,
+                    "AttributeValue": " eMMC 5.1  "
+                  }
+                ]
+              },
+              "screen_detail": {
+                "label": "صفحه نمایش",
+                "data": [
+                  {
+                    "Label": "صفحه نمایش رنگی",
+                    "Code": "screen_color",
+                    "AttributeID": 87,
+                    "AttributeValue": " false "
+                  },
+                  {
+                    "Label": "صفحه نمایش لمسی",
+                    "Code": "touchable_screen",
+                    "AttributeID": 88,
+                    "AttributeValue": "true"
+                  },
+                  {
+                    "Label": "فناوری صفحه‌نمایش",
+                    "Code": "tech_screen",
+                    "AttributeID": 90,
+                    "AttributeValue": "    PLS TFT   "
+                  },
+                  {
+                    "Label": "بازه‌ی اندازه صفحه نمایش",
+                    "Code": "os_type",
+                    "AttributeID": 91,
+                    "AttributeValue": "  6.0 اینچ و بزرگتر  "
+                  }
+                ]
+              },
+              "intro": {
+                "label": "نقد ",
+                "data": [
+                  {
+                    "Label": "نقد اجمالی",
+                    "Code": "short_introduction",
+                    "AttributeID": 87,
+                    "AttributeValue": "  گوشی A21S یکی دیگر از میان رده‌های شرکت سامسونگ است که در تاریخ 15 می 2020 معرفی شد. شرکت سامسونگ برای این محصول خود از یک صفحه‌نمایش 6.5 اینچی با رزولوشن 1600 در 720 پیکسل، استفاده کرده است. این صفحه‌نمایش در هر اینچ 270 پیکسل را نشان می‌دهد که از جزئیات و وضوح تصویر خوبی برخوردار است. تراشه‌ این محصول Exynos 850675 از تراشه‌های 8 نانومتری سامسونگ است که با پردازنده مرکزی هشت هسته‌ای Cortex-A55 و پردازنده گرافیکی Mali-G52 همراه شده است. این تراشه برای بازکردن چندین برنامه به‌صورت هم‌زمان و تماشای ویدئو کاملاً مناسب است. این گوشی با 4 گیگابایت رم و 64 گیگابایت حافظه داخلی عرضه شده است و با استفاده از یک کارت حافظه‌ی جانبی قادر خواهید بود حافظه داخلی را تا 512 گیگابایت دیگر هم افزایش دهید. بر روی قاب پشتی A21S یک دوربین چهارگانه قرار گرفته است. یک لنز عریض با رزولوشن 48 مگاپیکسل، یک لنز فوق عریض با رزولوشن 8 مگاپیکسل، یک لنز ماکرو با رزولوشن 2 مگاپیکسل و یک حسگر عمق 2 مگاپیکسلی مجموعه دوربین A21S را تشکیل می‌دهد. برای دوربین سلفی هم یک لنز 12 مگاپیکسلی از نوع عریض انتخاب شده است که در گوشه بالای صفحه‌نمایش قرار گرفته است. حسگر شتاب سنج، مجاورت، ژیروسکوپ، قطب‌نما و اثر انگشت از جمله حسگرهای به کار گرفته شده در این گوشی هوشمند است که حسگر اثرانگشت آن بر روی قاب پشت قرار گرفته است. منبع انرژی گوشی A21S یک باتری لیتیوم-پلیمری با ظرفیت 5000 میلی‌آمپرساعت است که از فناوری شارژ سریع  "
+                  },
+                  {
+                    "Label": "نقد و بررسی تخصصی",
+                    "Code": "detailed_introduction",
+                    "AttributeID": 88,
+                    "AttributeValue": "شرکت سامسونگ یکی دیگر از گوشی‌های میان رده خود را با نام « A21S » معرفی کرد. گوشی A21S ازجدیدترین گوشی میان رده شرکت سامسونگ است که در ماه می سال 2020 معرفی شد. این گوشی در واقع جانشینی برای گوشی A21 است که تنها در حدود یک ماه قبل از آن معرفی شده بود. اگرچه گوشی A21s شباهت زیادی به گوشی A20 دارد اما با بهبودهایی هم همراه شده است؛ شرکت سامسونگ در این محصول خود، چیدمان دوربین‌های اصلی قاب پشتی را تغییر داده و از لنزها با رزولوشن بالاتری هم استفاده کرده است. میزان باتری و رم گوشی هم به نسبت نسخه قبل افزایش یافته است. گوشی A21S  یکی از ارزان‌ترین تلفن‌های هوشمند از سری A شرکت سامسونگ است. گوشی A21S را به دو دلیل می‌توان یک گوشی خاص به‌حساب آورد؛ این گوشی به یک باتری پر قدرت با ظرفیت 5000 میلی‌آمپر ساعت مجهز شده و از چیپست Exynos 850 بهره می‌برد.  اکسینوس  850 از جمله چیپست های ارزان‌قیمت 8 نانومتری است که شرکت سامسونگ تولید کرده است. استفاده از باتری 5000 میلی‌آمپری در کنار این چیپست کار هوشمندانه‌ای به نظر می‌رسد."
+                  }
+                ]
+              }
+            }
+          },
+          {}
+        ]
+      }
+    }
+  ]
+}

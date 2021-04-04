@@ -92,6 +92,7 @@ import TheCanceled from "~/components/Profile/UserOrder/TheCanceled.vue";
 
 export default {
     middleware: "authentication",
+    layout      : "removeFooterMobile",
     components: {
         TheProfileSideBar,
         TheCanceled

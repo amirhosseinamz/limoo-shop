@@ -35,7 +35,9 @@
   }
   .flickity-viewport{
     border-radius: 16px;
+    height: 100% !important;
   }
+
 }
 
 .productContent__mainSlider{
@@ -74,6 +76,13 @@
 
 }
 
+#singleProduct--slider{
+  .flickity-page-dots{
+    bottom: -24px;
+  }
+}
+
+
 .productContent__mainCat{
   .flickity-viewport{
     width: 100%;
@@ -87,8 +96,21 @@
 
 }
 
-// .productContent__vertical{
-//   .flickity-button:disabled{
-//     display: none;
-//   }
+//
+// .carousel-cell {
+// 	width: 100%;
+// 	height: auto;
+// }
+//
+// .carousel-cell-img {
+// 	width: 100%;
+// 	height: auto;
+// }
+//
+// .flickity-viewport {
+// 	height: 100%;
+//   padding-top:56.25%;
+// }
+// .flickity-slider{
+//   margin-top:-56.25%;
 // }

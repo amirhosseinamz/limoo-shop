@@ -78,6 +78,7 @@ import TheDelivered from "~/components/Profile/UserOrder/TheDelivered.vue";
 
 export default {
     middleware: "authentication",
+    layout      : "removeFooterMobile",
     components: {
         TheProfileSideBar,
         TheDelivered

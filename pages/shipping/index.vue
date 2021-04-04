@@ -116,6 +116,7 @@ import addCamaPrice from "~/modules/addCamaPrice.js";
 import "~/assets/styles/_slider_shipping.scss";
 
 export default {
+  layout      : "removeFooterCart",
     components: {
         TheCartShippingDetail,
         TheShippingAddress,

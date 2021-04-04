@@ -1,28 +1,41 @@
 <template>
-  <div  class="w-100 productContent ">
+  <div class="w-100 productContent">
 
-      <div class="productContent__items w-100 ">
-          <brand-introduction :products="products"></brand-introduction>
+      <div class="productContent__items w-100">
+            <div class="productContent__left">
+
+                  <div class="w-100 product__vertical-main">
+                        <product-vertical2 :description-show="descriptionShow" :products="products" :title="title"></product-vertical2>
+                  </div>
+
+                  <div class="w-100">
+                      <div class="w-100 productContent__sliderMore">
+                        <nuxt-link class="productContent__moreItem" :to="title.href">
+                          لیست کامل محصولات
+                          <span class=" productContent__moreIcon mobile-inprogress__arrow"></span>
+                        </nuxt-link>
+                      </div>
+                  </div>
+
+            </div>
       </div>
 
   </div>
 </template>
 
 <script>
-import brandIntroduction from './brandIntroduction';
+import productVertical2 from './productVertical2';
 
 
 export default {
     components: {
-      brandIntroduction,
+      productVertical2,
     },
 
     props: {
-      products                : { type: [Object,Array], default: [] },
-      // statusShowCounterDown   : { type: Boolean, default: true },
-      // nameElementFindSlider   : { type: String, default: '' },
-      // title                   : { type: Object, default: {} },
-      // removeMarginTop         : { type: String, default: '' },
+      products           : { type: [Object,Array], default: [] },
+      title              : { type: Object, default: {} },
+      descriptionShow    : { type: Boolean, default: false },
     },
 
     data() {
@@ -46,16 +59,14 @@ export default {
 
 <style lang="scss" scoped>
 .productContent{
-  margin-top: 40px;
-  margin-bottom: 40px;
   background: $white;
   border-radius: 12px;
+  // height: 401px;
   @include display-flex();
   align-items: flex-start;
   flex-wrap: wrap;
-  box-shadow: 0px 8px 16px rgba(17, 17, 17, 0.03);
-  border-radius: 10px;
-  overflow: hidden;
+  margin-bottom: 40px;
+
 }
 .productContent__items{
   align-items: flex-start;
@@ -106,26 +117,10 @@ export default {
 .productContent__mobile{
   display: none;
 }
-.productContent__updateMargin .productContent__left{
-  margin-top: 0;
+.product__vertical-left .productContent{
+  margin-bottom: 0 !important;
+  margin-top: 0 !important;
 }
-.productContent__updateMargin .productContent__items{
-  padding-top: 24px;
-  padding-bottom: 31px;
-}
-.productContent__updateMargin {
-  height: 451px;
-}
-
-
-
-
-
-
-
-
-
-
 
 @media (max-width: 1450px) {
 
@@ -143,7 +138,6 @@ export default {
   }
   .productContent__left{
     width: 100%;
-    margin-top: 24px;
   }
   .productContent__desktop{
     display: none;
@@ -155,22 +149,18 @@ export default {
     height: auto;
   }
   .productContent__sliderMore{
-    margin-top: 34px;
-  }
-
-  .productContent__updateMargin .productContent__items{
-    padding-top: 16px;
-    padding-bottom: 16px;
+    margin-top: 25px;
   }
   .productContent__items{
     padding-top: 16px;
     padding-bottom: 16px;
   }
 
+
+
 }
 
-@media (max-width: 600px) {
-
+@media (max-width: 860px) {
 }
 
 @media (max-width: 485px) {
@@ -178,9 +168,10 @@ export default {
     display: flex;
   }
   .productContent{
+    margin-bottom: 8px;
     margin-top: 8px;
-    margin-bottom: 0px;
   }
+
 }
 
 @media (max-width: 350px) {

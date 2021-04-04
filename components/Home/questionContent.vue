@@ -133,7 +133,9 @@ export default {
     padding-top: 16px;
     padding-bottom: 16px;
   }
-
+  .productContent{
+    margin-top: 40px;
+  }
 
 
 }

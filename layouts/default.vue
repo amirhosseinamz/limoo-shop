@@ -4,7 +4,9 @@
               <the-header />
               <Nuxt />
               <the-mobile-mega-menu />
-              <theFooter></theFooter>
+
+              <theFooter ></theFooter>
+
           </div>
 
           <div class="w-100 modal-content">
@@ -39,9 +41,11 @@ export default {
     },
     data() {
       return {
-        activeModal      : false,
-        activeModalSort  : false,
-        activeBlur       : false,
+        activeModal         : false,
+        activeModalSort     : false,
+        activeBlur          : false,
+        removeFooter        : false,
+        removeSpecialFooter : false,
       }
     },
 
@@ -71,9 +75,16 @@ export default {
         }
       },
 
+      '$route' (to, from){
+       }
+
+    },
+
+    mounted() {
     },
 
     methods: {
+
       statusShowModal(data) {
         // this.$store.state.category.showModal         = data;
         this.$store.commit('category/updateStateModals',{showModal:data})
@@ -100,5 +111,6 @@ body {
   filter: blur(2px);
   overflow: hidden;
 }
+
 
 </style>
