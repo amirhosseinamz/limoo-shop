@@ -1,10 +1,10 @@
 <template>
             <div  class="tabs__content">
-                <div v-for="data in productDetail" class="tabs__content-data">
+                <div v-for="(data,indexParent) in productDetail" :key="indexParent" class="tabs__content-data">
                     <h3 class="tabs__content-title">{{data.label}}</h3>
                  
                     <div class="tabs__content-items">
-                            <div  v-for="childContent in data.data" class="tabs__content-item">
+                            <div v-for="childContent in data.data" :key="childContent.id" class="tabs__content-item">
                                     <div class="tab__content-wrapper w-100">
                                         <div class="tabs__content-right">
                                             <h3 class="tabs__content-text">{{childContent.Label}}</h3>
