@@ -132,6 +132,73 @@
                   }
                 ]
               },
+
+              "detailTechnical": [
+                  {
+                      "total_detail": {
+                              "label": "مشخصات کلی کالا",
+                              "data": [
+                                {
+                                  "Label": "حافظه داخلی",
+                                  "Code": "internal_storage",
+                                  "AttributeID": 87,
+                                  "AttributeValue": "64 گیگابایت"
+                                },
+                                {
+                                  "Label": "شبکه های ارتباطی ",
+                                  "Code": "network_type",
+                                  "AttributeID": 88,
+                                  "AttributeValue": " 4G، 3G، 2G "
+                                },
+                                {
+                                  "Label": "دوربین‌های پشت گوشی",
+                                  "Code": "camera_type",
+                                  "AttributeID": 90,
+                                  "AttributeValue": "  4 ماژول دوربین "
+                                },
+                                {
+                                  "Label": "سیستم عامل ",
+                                  "Code": "os_type",
+                                  "AttributeID": 91,
+                                  "AttributeValue": "Android "
+                                }
+                              ]
+                        }
+                  },
+                  {
+                      "screen_detail": {
+                        "label": "صفحه نمایش",
+                        "data": [
+                          {
+                            "Label": "صفحه نمایش رنگی",
+                            "Code": "screen_color",
+                            "AttributeID": 87,
+                            "AttributeValue": " false "
+                          },
+                          {
+                            "Label": "صفحه نمایش لمسی",
+                            "Code": "touchable_screen",
+                            "AttributeID": 88,
+                            "AttributeValue": "true"
+                          },
+                          {
+                            "Label": "فناوری صفحه‌نمایش",
+                            "Code": "tech_screen",
+                            "AttributeID": 90,
+                            "AttributeValue": "    PLS TFT   "
+                          },
+                          {
+                            "Label": "بازه‌ی اندازه صفحه نمایش",
+                            "Code": "os_type",
+                            "AttributeID": 91,
+                            "AttributeValue": "  6.0 اینچ و بزرگتر  "
+                          }
+                        ]
+                      }
+                  }
+
+              ],
+                  
               "storage_detail": {
                 "label": "حافظه",
                 "data": [

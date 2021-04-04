@@ -18,6 +18,7 @@
        :product-data="productData"
        :product-slider="productSlider"
        :product-slider-mobile="productSliderMobile"
+       :product-tab="productTab"
 
        @active-item-slider-nav="activeItemSliderNav"
        ></contentSingleProduct>
@@ -28,6 +29,7 @@
 import contentSingleProduct from "~/components/product/contentSingleProduct.vue";
 import productData from "~/modules/single_product_data.json";
 
+
 export default {
     components: {
       contentSingleProduct,
@@ -36,7 +38,8 @@ export default {
     data() {
         return {
           productData   : [],
-          productSlider : [
+         
+         productSlider : [
             {
               id    : 1,
               image : 'https://statics-develop.diver.ir/1/fill/512/512/sm/true/plain/s3://limoo/product/picTest1.jpg',
@@ -102,8 +105,8 @@ export default {
               image : 'https://statics-develop.diver.ir/1/fill/512/512/sm/true/plain/s3://limoo/product/single_pic_slider.jpg',
             },
           ],
-
-          productSliderMobile : [
+         
+         productSliderMobile : [
             {
               id    : 1,
               image : 'https://statics-develop.diver.ir/1/fill/328/328/sm/true/plain/s3://limoo/product/single_product_img2.jpg',
@@ -116,6 +119,21 @@ export default {
               id    : 3,
               image : 'https://statics-develop.diver.ir/1/fill/328/328/sm/true/plain/s3://limoo/product/picTest1.jpg',
             },
+          ],
+        
+          productTab    : [
+            {
+              id     : 1,
+              title  : 'معرفی کامل محصول',
+              active : true,
+              type   : 'fullIntroduction',
+            },
+             {
+              id     : 2,
+              title  : "مشخصات فنی محصول",
+              active : false,
+              type   : 'detailTechnical',
+            }
           ],
 
 
@@ -130,7 +148,7 @@ export default {
     },
 
     mounted() {
-      this.productData = productData;
+       this.productData = productData;
     },
 
     methods: {

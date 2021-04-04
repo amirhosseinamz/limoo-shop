@@ -28,10 +28,15 @@
 
                     </div>
 
-
               </div>
 
         </div>
+
+          <div class="tab--content product__single-content w-100">
+               <product-tab :product-tab="productTab" :product-data="productData"></product-tab>
+           </div>
+
+
 
     </div>
 
@@ -41,6 +46,7 @@ import productPic from "./productPic";
 import productDetail from './productDetail';
 import productTools from './productTools';
 import sliderSingleProduct from './sliderSingleProduct';
+import productTab from './productTab';
 
 
 export default {
@@ -48,6 +54,8 @@ export default {
       productData             : { type: [Object,Array], default: [] },
       productSliderMobile     : { type: [Object,Array], default: [] },
       productSlider           : { type: [Object,Array], default: [] },
+      productTab              : { type: [Object,Array], default: [] },
+
     },
 
     components: {
@@ -55,6 +63,7 @@ export default {
       productDetail,
       productTools,
       sliderSingleProduct,
+      productTab,
     },
 
     data() {
@@ -99,6 +108,7 @@ export default {
     margin-bottom: 19px;
     flex-wrap: wrap;
     padding-right: 16px;
+    border-radius: 10px;
   }
   .product__single-right{
     width: 39.6%;
@@ -139,6 +149,14 @@ export default {
     border:solid 1px $gray-border;
     border-radius: 10px;
   }
+  .tab--content{
+    padding-right:0;
+    padding-left:0;
+    padding-bottom:24px;
+    padding-top:24px;
+  }
+
+
 
   @media (max-width: 1300px) {
     .product__top-title{
