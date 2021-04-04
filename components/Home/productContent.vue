@@ -3,7 +3,7 @@
 
       <div class="productContent__items w-100">
             <div v-if="statusShowCounterDown" class="productContent__right">
-                  <counter-down></counter-down>
+                  <counter-down :resource-data="resourceData"></counter-down>
             </div>
 
             <div class="productContent__left">
@@ -24,7 +24,6 @@
 import counterDown from './counterDown';
 import productSlider from './productSlider';
 
-
 export default {
     components: {
       counterDown,
@@ -37,6 +36,8 @@ export default {
       nameElementFindSlider   : { type: String, default: '' },
       title                   : { type: Object, default: {} },
       removeMarginTop         : { type: String, default: '' },
+      resourceData            : { type: [Object,Array], default: null },
+
     },
 
     data() {
