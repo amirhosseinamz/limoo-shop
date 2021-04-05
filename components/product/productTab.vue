@@ -126,6 +126,13 @@ export default {
         position: static;
     }
 
+    
+    @media (max-width: 760px) {
+        .tabs__main{
+            display: none;
+        }
+    }
+
 
 
 </style>

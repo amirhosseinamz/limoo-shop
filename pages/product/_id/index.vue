@@ -1,5 +1,5 @@
 <template>
-    <div class="page-home w-100 d-rtl flex-column">
+    <div class="page-wrapper w-100 d-rtl flex-column">
       <div class="mobile-screen w-100">
           <div class="mobile-screen__holder">
               <div class="w-100 screen__holder-data">
@@ -186,7 +186,7 @@ export default {
   @include display-flex();
   align-items: flex-start;
 }
-.page-home{
+.page-wrapper{
   @include display-flex();
   align-items: flex-start;
   width: 1381px;
@@ -211,14 +211,10 @@ export default {
 
 
 @media (max-width: 1450px) {
-  .page-home{
+  .page-wrapper{
     padding-right: 26px;
     padding-left: 26px;
     width: 100%;
-  }
-  .page__home-wrapper-main{
-    padding-right: 26px;
-    padding-left: 26px;
   }
 
 }
@@ -277,9 +273,9 @@ export default {
 }
 
 @media (max-width: 485px) {
-  .page__home-wrapper-main{
-    padding-right: 10px;
-    padding-left: 10px;
+  .page-wrapper{
+    padding-right:11px;
+    padding-left:11px;
   }
 }
 

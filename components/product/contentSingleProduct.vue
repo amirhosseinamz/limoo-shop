@@ -199,10 +199,18 @@ export default {
       padding-left: 11px;
       padding-top: 8px;
       padding-bottom: 8px;
+      margin-bottom:0;
     }
     .product__top-title{
       line-height: 28px;
       margin-bottom: 2px;
+    }
+    .tab--content{
+      padding-top:0;
+      padding-bottom:0;
+      padding-right:8px;
+      padding-left:8px;
+      margin-bottom:0;
     }
   }
 
