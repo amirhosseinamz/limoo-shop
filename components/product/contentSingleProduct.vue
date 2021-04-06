@@ -33,8 +33,14 @@
         </div>
 
           <div class="tab--content product__single-content w-100">
-               <product-tab :product-tab="productTab" :product-data="productData"></product-tab>
+               <product-tab :product-tab="introductionAndDetailTechnicalTab" :product-data="productData"></product-tab>
            </div>
+
+           
+          <div class="tab--content product__single-content w-100">
+               <comment-question-main :product-tab="commentAndAnswerQuestionTabName" :product-data="productData"></comment-question-main>
+           </div>
+
 
 
 
@@ -47,14 +53,16 @@ import productDetail from './productDetail';
 import productTools from './productTools';
 import sliderSingleProduct from './sliderSingleProduct';
 import productTab from './productTab';
+import commentQuestionMain from './commentQuestionMain';
 
 
 export default {
     props: {
-      productData             : { type: [Object,Array], default: [] },
-      productSliderMobile     : { type: [Object,Array], default: [] },
-      productSlider           : { type: [Object,Array], default: [] },
-      productTab              : { type: [Object,Array], default: [] },
+      productData                       : { type: [Object,Array], default: [] },
+      productSliderMobile               : { type: [Object,Array], default: [] },
+      productSlider                     : { type: [Object,Array], default: [] },
+      introductionAndDetailTechnicalTab : { type: [Object,Array], default: [] },
+      commentAndAnswerQuestionTabName   : { type: [Object,Array], default: [] },
 
     },
 
@@ -64,6 +72,7 @@ export default {
       productTools,
       sliderSingleProduct,
       productTab,
+      commentQuestionMain,
     },
 
     data() {

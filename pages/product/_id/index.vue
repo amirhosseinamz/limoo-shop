@@ -18,7 +18,8 @@
        :product-data="productData"
        :product-slider="productSlider"
        :product-slider-mobile="productSliderMobile"
-       :product-tab="productTab"
+       :introduction-and-detail-technical-tab="introductionAndDetailTechnicalTab"
+       :comment-and-answer-question-tab-name="commentAnswerQuestionTabName"
 
        @active-item-slider-nav="activeItemSliderNav"
        ></contentSingleProduct>
@@ -39,7 +40,7 @@ export default {
         return {
           productData   : [],
          
-         productSlider : [
+          productSlider : [
             {
               id    : 1,
               image : 'https://statics-develop.diver.ir/1/fill/512/512/sm/true/plain/s3://limoo/product/picTest1.jpg',
@@ -121,7 +122,7 @@ export default {
             },
           ],
         
-          productTab    : [
+          introductionAndDetailTechnicalTab    : [
             {
               id     : 1,
               title  : 'معرفی کامل محصول',
@@ -135,6 +136,20 @@ export default {
               type   : 'detailTechnical',
             }
           ],
+
+          commentAnswerQuestionTabName    : [
+            {
+              id     : 1,
+              title  : 'نظر مشتریان محصول',
+              active : true,
+            },
+             {
+              id     : 2,
+              title  : "پرسش و پاسخ",
+              active : false,
+            }
+          ],
+
 
 
         };
