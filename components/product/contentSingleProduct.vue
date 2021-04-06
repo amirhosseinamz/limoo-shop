@@ -33,7 +33,7 @@
         </div>
 
           <div class="tab--content product__single-content w-100">
-               <product-tab :product-tab="introductionAndDetailTechnicalTab" :product-data="productData"></product-tab>
+               <product-tab :product-tab="introductionAndDetailTechnicalTab" :product-data="productDetailTechnical"></product-tab>
            </div>
 
            
@@ -63,6 +63,7 @@ export default {
       productSlider                     : { type: [Object,Array], default: [] },
       introductionAndDetailTechnicalTab : { type: [Object,Array], default: [] },
       commentAndAnswerQuestionTabName   : { type: [Object,Array], default: [] },
+      productDetailTechnical            : { type: [Object,Array], default: [] },
 
     },
 

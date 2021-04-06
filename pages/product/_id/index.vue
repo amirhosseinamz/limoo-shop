@@ -1,4 +1,5 @@
 <template>
+
     <div class="page-wrapper w-100 d-rtl flex-column">
       <div class="mobile-screen w-100">
           <div class="mobile-screen__holder">
@@ -17,12 +18,15 @@
       <contentSingleProduct
        :product-data="productData"
        :product-slider="productSlider"
+       :product-detail-technical="detailTechnical"
        :product-slider-mobile="productSliderMobile"
        :introduction-and-detail-technical-tab="introductionAndDetailTechnicalTab"
        :comment-and-answer-question-tab-name="commentAnswerQuestionTabName"
 
        @active-item-slider-nav="activeItemSliderNav"
        ></contentSingleProduct>
+
+
 
     </div>
 </template>
@@ -32,6 +36,23 @@ import productData from "~/modules/single_product_data.json";
 
 
 export default {
+    async asyncData({ params }) {
+        const detailTechnicalData = () => {
+              const detailTechnical = productData.response_value[0].values.attribute_groups[0].group_attribute.detailTechnical;
+              return detailTechnical.map(content => {
+                      for (const key in content) {
+                          return content[key];
+                      }
+                  }
+              )
+        }
+
+        return { 
+          detailTechnical :detailTechnicalData(),
+        }
+
+    },
+
     components: {
       contentSingleProduct,
     },

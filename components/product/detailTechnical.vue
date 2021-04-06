@@ -1,7 +1,7 @@
 <template>
      <div  class="tabs__content">
                 <div class="w-100">
-                        <div v-for="(data,indexParent) in productDetail" :key="indexParent" class="tabs__content-data">
+                        <div v-for="(data,indexParent) in productData" :key="indexParent" class="tabs__content-data">
                             <h3 class="tabs__content-title">{{data.label}}</h3>
                         
                             <div class="tabs__content-items">
@@ -30,7 +30,7 @@
 
             <modal-detail-technical
              :active.sync="showModalDetail"
-             :product-data="productDetail"
+             :product-data="productData"
             ></modal-detail-technical>
      </div>
 </template>
@@ -49,24 +49,11 @@ export default {
 
     data() {
         return {
-            productDetail   : [],
             showModalDetail : false,
         };
     },
 
     watch: {
-        productData(data){
-             const productDetail = data.response_value[0].values.attribute_groups[0].group_attribute.detailTechnical;
-            
-            productDetail.map((content)=>{
-                for (const key in content) {
-                    const allDetail     = content[key];
-                    this.productDetail  = [...this.productDetail,allDetail];
-                }
-            })
-
-
-        }
     },
 
     created() {
