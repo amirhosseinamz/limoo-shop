@@ -195,7 +195,101 @@
                           }
                         ]
                       }
+                  },
+                  {
+                    "screen_detail": {
+                      "label": "صفحه نمایش2",
+                      "data": [
+                        {
+                          "Label": "صفحه نمایش رنگی",
+                          "Code": "screen_color",
+                          "AttributeID": 87,
+                          "AttributeValue": " false "
+                        },
+                        {
+                          "Label": "صفحه نمایش لمسی",
+                          "Code": "touchable_screen",
+                          "AttributeID": 88,
+                          "AttributeValue": "true"
+                        },
+                        {
+                          "Label": "فناوری صفحه‌نمایش",
+                          "Code": "tech_screen",
+                          "AttributeID": 90,
+                          "AttributeValue": "    PLS TFT   "
+                        },
+                        {
+                          "Label": "بازه‌ی اندازه صفحه نمایش",
+                          "Code": "os_type",
+                          "AttributeID": 91,
+                          "AttributeValue": "  6.0 اینچ و بزرگتر  "
+                        }
+                      ]
+                    }
+                },
+                {
+                  "screen_detail": {
+                    "label": "صفحه نمایش2",
+                    "data": [
+                      {
+                        "Label": "صفحه نمایش رنگی",
+                        "Code": "screen_color",
+                        "AttributeID": 87,
+                        "AttributeValue": " false "
+                      },
+                      {
+                        "Label": "صفحه نمایش لمسی",
+                        "Code": "touchable_screen",
+                        "AttributeID": 88,
+                        "AttributeValue": "true"
+                      },
+                      {
+                        "Label": "فناوری صفحه‌نمایش",
+                        "Code": "tech_screen",
+                        "AttributeID": 90,
+                        "AttributeValue": "    PLS TFT   "
+                      },
+                      {
+                        "Label": "بازه‌ی اندازه صفحه نمایش",
+                        "Code": "os_type",
+                        "AttributeID": 91,
+                        "AttributeValue": "  6.0 اینچ و بزرگتر  "
+                      }
+                    ]
                   }
+              },
+              {
+                "screen_detail": {
+                  "label": "صفحه نمایش2",
+                  "data": [
+                    {
+                      "Label": "صفحه نمایش رنگی",
+                      "Code": "screen_color",
+                      "AttributeID": 87,
+                      "AttributeValue": " false "
+                    },
+                    {
+                      "Label": "صفحه نمایش لمسی",
+                      "Code": "touchable_screen",
+                      "AttributeID": 88,
+                      "AttributeValue": "true"
+                    },
+                    {
+                      "Label": "فناوری صفحه‌نمایش",
+                      "Code": "tech_screen",
+                      "AttributeID": 90,
+                      "AttributeValue": "    PLS TFT   "
+                    },
+                    {
+                      "Label": "بازه‌ی اندازه صفحه نمایش",
+                      "Code": "os_type",
+                      "AttributeID": 91,
+                      "AttributeValue": "  6.0 اینچ و بزرگتر  "
+                    }
+                  ]
+                }
+            }
+                
 
               ],
                   

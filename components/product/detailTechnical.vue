@@ -73,12 +73,32 @@ export default {
     },
 
     mounted() {
+        // بسته شدن مودال در سایز های تبلت //
+        const width   = window.innerWidth;
+        if (760 < width) {
+           this.showModalDetail = false;
+        }
+
+        this.detectedResizeBrowser();
     },
 
     methods: {
         eventShowModalDetailTechnical(){
             this.showModalDetail = true;
         },
+
+        detectedResizeBrowser(){
+            window.addEventListener("resize", ()=>{
+               const width   = window.innerWidth;
+                if (760 < width) {
+                   this.showModalDetail = false;
+                }
+                else {
+                
+                }
+            }, true);
+        },
+
     }
 };
 </script>

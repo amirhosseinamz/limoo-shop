@@ -76,7 +76,9 @@ export default {
     },
 
     watch: {
-      
+      show(status){
+         this.$store.commit('singleProduct/showHidenBodyScroll',status)
+      }
     },
 
     mounted() {

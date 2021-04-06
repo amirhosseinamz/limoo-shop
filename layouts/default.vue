@@ -76,7 +76,16 @@ export default {
       },
 
       '$route' (to, from){
-       }
+       },
+
+       '$store.state.singleProduct.hidenBodyScroll'(status){
+          if (status) {
+             document.body.style.overflow =  'hidden';
+          }
+          else {
+             document.body.style.overflow =  '';
+          }
+       },
 
     },
 
