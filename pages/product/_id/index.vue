@@ -22,9 +22,13 @@
        :product-slider-mobile="productSliderMobile"
        :introduction-and-detail-technical-tab="introductionAndDetailTechnicalTab"
        :comment-and-answer-question-tab-name="commentAnswerQuestionTabName"
+       :comment-data="getComments"
 
        @active-item-slider-nav="activeItemSliderNav"
+       @more-comment="moreComment"
        ></contentSingleProduct>
+
+      
 
 
 
@@ -33,22 +37,45 @@
 <script>
 import contentSingleProduct from "~/components/product/contentSingleProduct.vue";
 import productData from "~/modules/single_product_data.json";
+const moment = require('moment-jalaali')
+moment.loadPersian({usePersianDigits: true})
 
 
 export default {
     async asyncData({ params }) {
-        const detailTechnicalData = () => {
-              const detailTechnical = productData.response_value[0].values.attribute_groups[0].group_attribute.detailTechnical;
-              return detailTechnical.map(content => {
-                      for (const key in content) {
-                          return content[key];
-                      }
-                  }
-              )
-        }
+         const dataProduct = productData.response_value[0].values;
+
+          const detailTechnicalData = () => {
+                const detailTechnical = dataProduct.attribute_groups[0].group_attribute.detailTechnical;
+                return detailTechnical.map(content => {
+                        for (const key in content) {
+                            return content[key];
+                        }
+                    }
+                )
+          }
+
+          const getComments = () => {
+            const comments                = dataProduct.Comments;
+            let limitedCommentData        = [];
+
+            comments.map((content,index)=>{
+              const convertTimeJalali       = moment(content.Date,'YYYYMMDDHHmmss').format('jDD jMMMM jYYYY')
+              content.dateConvert           = convertTimeJalali;
+              // پس از اتصال به سرور این قسمت پاک شود //
+              if (index < 3) {
+                  limitedCommentData = [...limitedCommentData,content];
+              }
+            })
+
+            return limitedCommentData;
+          }
+
+
 
         return { 
-          detailTechnical :detailTechnicalData(),
+          detailTechnical : detailTechnicalData(),
+          getComments     : getComments(),
         }
 
     },
@@ -171,6 +198,55 @@ export default {
             }
           ],
 
+          commentsData: [
+                {
+                    id: 1,
+                    commentTitle:
+                        "این سری از اپل واچ از سری قبلش خیلی بهتر شده!",
+                    state: "accepted",
+                    idea: "good",
+                    productTitle:
+                        "اپل واچ سری 6 آتومینیوم آبی بند اسپرت سیلیکون آبی1",
+                    img: "/img/apple-watch-1.png",
+                    description:
+                        "این کالا به شدت قوی و با کیفیت هست و پیشنهاد میکنم در این رنج قیمت، حتما این کالارو خریداری کنید! این کالا به شدت قوی و با کیفیت هست و پیشنهاد میکنم در این رنج قیمت حتما این کالا رو خریداری کنید.",
+                    commentTime: "1 ساعت پیش",
+                    rate: 4.5,
+
+                    "Date": "20210406051422",
+                    "Firstname": "محمد ",
+                    "Lastname": "احمدی",
+                    "Title": "آیفون بی نظیر ",
+                    "Body": "یه گوشی فوق العاده عالی اپل جواب خودش رو پس داده گوشی خیلی خوب و روونیه بخاطر پردازنده قویش کلا اپل فوق العادست تنها ایرادش باتریشه که روزی یک و نیم بار تقریبا باید شارژ بشه",
+                    "Rate": 3.2,
+                    "Suggest": 1
+                },
+                {
+                    id: 2,
+                    commentTitle:
+                        "واقعا نمیدونم چرا ایده جدید ندارن روی این محصول!",
+                    state: "acceptting",
+                    idea: "bad",
+                    productTitle:
+                        "اپل واچ سری 6 آتومینیوم آبی بند اسپرت سیلیکون آبی2",
+                    img: "/img/apple-watch-2.png",
+                    description:
+                        "این کالا به شدت قوی و با کیفیت هست و پیشنهاد میکنم در این رنج قیمت، حتما این کالارو خریداری کنید! این کالا به شدت قوی و با کیفیت هست و پیشنهاد میکنم در این رنج قیمت حتما این کالا رو خریداری کنید.",
+                    commentTime: "1 روز پیش",
+                    rate: 3.6,
+
+                    "Date": "20210406051422",
+                    "Firstname": "مهدی",
+                    "Lastname": "دادور",
+                    "Title": "آیفون بی نظیر ",
+                    "Body": "یه گوشی فوق العاده عالی اپل جواب خودش رو پس داده گوشی خیلی خوب و روونیه بخاطر پردازنده قویش کلا اپل فوق العادست تنها ایرادش باتریشه که روزی یک و نیم بار تقریبا باید شارژ بشه",
+                    "Rate": 3.2,
+                    "Suggest": 1
+                }
+           ],
+           
+          pageMoreComment : 1,
+
 
 
         };
@@ -199,6 +275,42 @@ export default {
           })
 
           this.productSlider = updateSlider;
+      },
+
+      moreComment(){
+        this.pageMoreComment++;
+        
+        const facePushData = () => {
+                const newComment =  [
+                     {
+                       "Date": "20210406051422",
+                       "Firstname": "محمد ",
+                       "Lastname": "احمدی",
+                       "Title": "آیفون بی نظیر ",
+                       "Body": "یه گوشی فوق العاده عالی اپل جواب خودش رو پس داده گوشی خیلی خوب و روونیه بخاطر پردازنده قویش کلا اپل فوق العادست تنها ایرادش باتریشه که روزی یک و نیم بار تقریبا باید شارژ بشه",
+                         "Rate": 4.2,
+                         "Suggest": 1
+                   },
+                         {
+                       "Date": "20210406051422",
+                       "Firstname": "محمد60 ",
+                       "Lastname": "احمدی",
+                       "Title": "آیفون بی نظیر ",
+                       "Body": "یه گوشی فوق العاده عالی اپل جواب خودش رو پس داده گوشی خیلی خوب و روونیه بخاطر پردازنده قویش کلا اپل فوق العادست تنها ایرادش باتریشه که روزی یک و نیم بار تقریبا باید شارژ بشه",
+                       "Rate": 5,
+                       "Suggest": 2
+                   },
+                ];
+
+                newComment.map((content)=>{
+                  this.getComments = [...this.getComments,content]
+                })
+
+             }
+
+            // پس از اتصال به بک این قسمت از سرور گرفته می شود و قسمت های هارد کد شده این قسمت پاک شود //
+          facePushData();
+
       },
 
     }

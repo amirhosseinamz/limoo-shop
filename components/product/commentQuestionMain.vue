@@ -10,7 +10,11 @@
             </div>
 
             <div class="w-100 ">
-                 <comment-user :class="{'show--tab':currentTab == 'commentUser'}" ></comment-user>
+                 <comment-user 
+                     :class="{'show--tab':currentTab == 'commentUser'}" 
+                     :comments-data="commentData"
+                     @more-comment="moreComment"
+                  ></comment-user>
                  <answer-question :class="{'show--tab':currentTab == 'answerQuestion'}" :product-data="productData"  ></answer-question>
             </div>
 
@@ -26,6 +30,7 @@ export default {
    props: {
       productTab   : { type: [Object,Array], default: [] },
       productData  : { type: [Object,Array], default: [] },
+      commentData  : { type: [Object,Array], default: [] },
     },
 
     components: {
@@ -69,7 +74,12 @@ export default {
                 }
             })
 
-        }
+        },
+
+        moreComment(){
+            this.$emit('more-comment');
+        },
+
     }
 };
 </script>

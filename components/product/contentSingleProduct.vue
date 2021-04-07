@@ -38,7 +38,13 @@
 
            
           <div class="tab--content product__single-content w-100">
-               <comment-question-main :product-tab="commentAndAnswerQuestionTabName" :product-data="productData"></comment-question-main>
+               <comment-question-main 
+                 :comment-data="commentData"
+                 :product-data="productData"
+                 :product-tab="commentAndAnswerQuestionTabName"
+                 @more-comment="moreComment"
+
+                 ></comment-question-main>
            </div>
 
 
@@ -64,6 +70,7 @@ export default {
       introductionAndDetailTechnicalTab : { type: [Object,Array], default: [] },
       commentAndAnswerQuestionTabName   : { type: [Object,Array], default: [] },
       productDetailTechnical            : { type: [Object,Array], default: [] },
+      commentData                       : { type: [Object,Array], default: [] },
 
     },
 
@@ -96,6 +103,10 @@ export default {
       activeItemSliderNav(data){
         this.$emit('active-item-slider-nav',data)
       },
+
+      moreComment(){
+        this.$emit('more-comment')
+      }
 
     }
 };
