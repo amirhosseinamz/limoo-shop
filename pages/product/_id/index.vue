@@ -74,9 +74,14 @@ export default {
 
                 switch (splitTime[1]) {
                   case 'days':
-                    moment.loadPersian({usePersianDigits: true})
-                    const convertTimeJalali       = moment(content.Date,'YYYYMMDDHHmmss').format('jDD jMMMM jYYYY')
-                    content.dateConvert           = convertTimeJalali;
+                    if (splitTime[0] < 7) {
+                         content.dateConvert  = `${splitTime[0]} روز پیش`;
+                      }
+                    else{
+                      moment.loadPersian({usePersianDigits: true})
+                      const convertTimeJalali       = moment(content.Date,'YYYYMMDDHHmmss').format('jDD jMMMM jYYYY')
+                      content.dateConvert           = convertTimeJalali;
+                    }
                  break;
 
                   case 'day':
