@@ -64,7 +64,20 @@
                                     >
                                     <div class="p-comments__state-mobile">
                                         <div
-                                            v-show="data.state == 'accepted'"
+                                                v-show="typeof(data.confirmLeave) == 'undefined' "
+                                                    class="p-comments__state-accepted"
+                                            >
+                                            <span
+                                                        class="p-comments__state-accepted__icon"
+                                                ></span>
+                                                <span
+                                                            class="p-comments__state-accepted__title" >
+                                                            {{data.dateConvert}}
+                                                </span >
+                                            </div>
+
+                                        <div
+                                            v-show="data.confirmLeave == 1"
                                             class="p-comments__state-accepted"
                                         >
                                             <span
@@ -75,8 +88,9 @@
                                                 >تایید شده</span
                                             >
                                         </div>
+
                                         <div
-                                            v-show="data.state == 'acceptting'"
+                                            v-show="data.confirmLeave == 2"
                                             class="p-comments__state-acceptting"
                                         >
                                             <span
@@ -92,8 +106,21 @@
                             </div>
 
                             <div class="p-comments__state-desktop">
+                                   <div
+                                        v-show="typeof(data.confirmLeave) == 'undefined' "
+                                            class="p-comments__state-accepted"
+                                    >
+                                       <span
+                                                class="p-comments__state-accepted__icon"
+                                        ></span>
+                                         <span
+                                                    class="p-comments__state-accepted__title" >
+                                                      {{data.dateConvert}}
+                                          </span >
+                                     </div>
+
                                 <div
-                                    v-show="data.state == 'accepted'"
+                                    v-show="data.confirmLeave == 1"
                                     class="p-comments__state-accepted"
                                 >
                                     <span
@@ -105,7 +132,7 @@
                                     >
                                 </div>
                                 <div
-                                    v-show="data.state == 'acceptting'"
+                                    v-show="data.confirmLeave == 2"
                                     class="p-comments__state-acceptting"
                                 >
                                     <span
@@ -418,6 +445,7 @@ export default {
     border: 3px solid $light__blue;
     background-color: $code-request;
     margin-left: 11px;
+    display: none;
 }
 .p-comments__state-accepted__icon::before {
     margin: auto;
@@ -435,6 +463,7 @@ export default {
     border: 3px solid $border__yellow;
     background-color: $yellow;
     margin-left: 11px;
+    display: none;
 }
 /* =========================== */
 .p-favorite-product-item-icon-delete::before {
@@ -574,6 +603,14 @@ export default {
     .tab__more-icon{
         margin-right:7px;
     }
+      
+    .p-commented-product-img::before {
+        @include font-icon__limoo();
+        font-size: 29px;
+        content: "\e823";
+        color:$gray;
+    }
+
 
 @media (max-width: 1220px) {
     .p-comments-content-header-item {
@@ -700,6 +737,7 @@ export default {
     }
     .p-product-content-data {
         margin-top: 7px;
+        margin-right:8px;
     }
     .p-product-content-text-data {
         font-size: 14px;
@@ -757,6 +795,13 @@ export default {
     }
     .p-comment-content-item:last-of-type {
         margin-bottom: 0;
+    }
+    .p-commented-product-img{
+        width:46px;
+        height:46px;
+    }
+    .p-commented-product-img::before{
+        font-size: 22px;
     }
 }
 @media (max-width: 280px) {

@@ -37,8 +37,10 @@
 <script>
 import contentSingleProduct from "~/components/product/contentSingleProduct.vue";
 import productData from "~/modules/single_product_data.json";
+// import TimeAgo from 'javascript-time-ago'
 const moment = require('moment-jalaali')
 moment.loadPersian({usePersianDigits: true})
+import timeSince from "~/plugins/calcTimeAgo.js";
 
 
 export default {
@@ -60,16 +62,48 @@ export default {
             let limitedCommentData        = [];
 
             comments.map((content,index)=>{
-              const convertTimeJalali       = moment(content.Date,'YYYYMMDDHHmmss').format('jDD jMMMM jYYYY')
-              content.dateConvert           = convertTimeJalali;
+              
+              // در صورتی که وضعیتی برای نمایش برای کاربر نبود زمان برای کاربر نمایش داده می شود //
+              if (typeof(content.confirmLeave) == 'undefined') {
+                moment.loadPersian({usePersianDigits: false})
+                const getDateTimeEnglish = moment(content.Date,'YYYYMMDDHHmmss').format("YYYY-MM-DDTHH:mm:ss");
+                const calcTimeAgo        = timeSince(getDateTimeEnglish);
+                const splitTime          = calcTimeAgo.split(' ');
+                content.dateConvert      = calcTimeAgo;
+                
+
+                switch (splitTime[1]) {
+                  case 'days':
+                    moment.loadPersian({usePersianDigits: true})
+                    const convertTimeJalali       = moment(content.Date,'YYYYMMDDHHmmss').format('jDD jMMMM jYYYY')
+                    content.dateConvert           = convertTimeJalali;
+                 break;
+
+                  case 'day':
+                    content.dateConvert  = `دیروز`;
+                  break;
+
+                  case 'hours':
+                    content.dateConvert  = `${splitTime[0]} ساعت پیش`;
+                  break;
+
+                }
+                console.log(splitTime);
+
+
+              }
+              else{
+                const convertTimeJalali       = moment(content.Date,'YYYYMMDDHHmmss').format('jDD jMMMM jYYYY')
+                content.dateConvert           = convertTimeJalali;
+              }
+              
               // پس از اتصال به سرور این قسمت پاک شود //
               if (index < 3) {
                   limitedCommentData = [...limitedCommentData,content];
               }
             })
-
             return limitedCommentData;
-          }
+           }  
 
 
 
@@ -288,8 +322,9 @@ export default {
                        "Lastname": "احمدی",
                        "Title": "آیفون بی نظیر ",
                        "Body": "یه گوشی فوق العاده عالی اپل جواب خودش رو پس داده گوشی خیلی خوب و روونیه بخاطر پردازنده قویش کلا اپل فوق العادست تنها ایرادش باتریشه که روزی یک و نیم بار تقریبا باید شارژ بشه",
-                         "Rate": 4.2,
-                         "Suggest": 1
+                        "Rate": 4.2,
+                        "Suggest": 1,
+                        "confirmLeave" : 2,
                    },
                          {
                        "Date": "20210406051422",
@@ -298,7 +333,8 @@ export default {
                        "Title": "آیفون بی نظیر ",
                        "Body": "یه گوشی فوق العاده عالی اپل جواب خودش رو پس داده گوشی خیلی خوب و روونیه بخاطر پردازنده قویش کلا اپل فوق العادست تنها ایرادش باتریشه که روزی یک و نیم بار تقریبا باید شارژ بشه",
                        "Rate": 5,
-                       "Suggest": 2
+                       "Suggest": 2,
+                        "confirmLeave" : 2,
                    },
                 ];
 
