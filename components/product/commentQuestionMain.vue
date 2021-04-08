@@ -94,7 +94,9 @@ export default {
         width:100%;
         @include display-flex();
         align-items:flex-start;
-        border-bottom:solid 1px $gray-border;
+        // border-bottom:solid 1px $gray-border;
+        box-shadow: 0px 8px 16px rgba(17, 17, 17, 0.03);
+        border:none;
     }
     .tabs__item{
       margin-left:70px;

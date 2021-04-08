@@ -28,7 +28,7 @@
         >
             <div
                 v-for="(data,index) in commentsData"
-                :key="index"
+                :key="data.id"
                 class="w-100 flex-wrap p-comment-content-item"
             >
 
@@ -40,12 +40,11 @@
                             class="w-100 flex-wrap  p-comments-content-header "
                         >
                             <div class="p-comments__header-holder">
-                                <NuxtLink
+                                <div
                                     class="p-comments__title"
-                                    :to="'/product/' + index"
                                 >
                                     {{ data.Title }}
-                                </NuxtLink>
+                                </div>
                                 <div class="p-comments-idea__title">
                                     <span
                                         v-show="data.Suggest == 1"
@@ -519,7 +518,7 @@ export default {
     margin-top: 16px;
 }
 .p-commentedproduct-description {
-    color: $black-topic;
+    color: $dark_gray;
     font-family: inherit;
     text-align: right;
     font-size: 16px;
@@ -709,8 +708,11 @@ export default {
     .show-more-description {
         @include display-flex();
         /* align-self: flex-start; */
-        margin-right: 93%;
+        // margin-right: 93%;
         margin-bottom: 10px;
+        justify-content: flex-end;
+        margin-left:12px;
+        margin-bottom:22px;
     }
     .show-more-description::before {
         @include display-flex();
