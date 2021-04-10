@@ -637,7 +637,6 @@ export default {
         @include font-icon__limoo();
         font-size: 13px;
         margin-right:8px;
-        transform: rotate(-87deg);
          color:$gray;
     }
     .comment_more{
@@ -654,7 +653,8 @@ export default {
     }
     .comment-more__icon{
         position: relative;
-        top:-2px;
+        top:-5px;
+        transform: rotate(-85deg);
     }
     .comment_main{
        @include display-flex();
