@@ -14,6 +14,7 @@
                      :class="{'show--tab':currentTab == 'commentUser'}" 
                      :comments-data="commentData"
                      @more-comment="moreComment"
+                     @more-comment-mobile="moreCommentMobile"
                   ></comment-user>
                  <answer-question :class="{'show--tab':currentTab == 'answerQuestion'}" :product-data="productData"  ></answer-question>
             </div>
@@ -76,8 +77,12 @@ export default {
 
         },
 
-        moreComment(){
-            this.$emit('more-comment');
+        moreComment(page){
+            this.$emit('more-comment',page);
+        },
+
+        moreCommentMobile(){
+            this.$emit('more-comment-mobile');
         },
 
     }

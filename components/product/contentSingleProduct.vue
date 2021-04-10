@@ -43,6 +43,7 @@
                  :product-data="productData"
                  :product-tab="commentAndAnswerQuestionTabName"
                  @more-comment="moreComment"
+                 @more-comment-mobile="moreCommentMobile"
 
                  ></comment-question-main>
            </div>
@@ -104,9 +105,13 @@ export default {
         this.$emit('active-item-slider-nav',data)
       },
 
-      moreComment(){
-        this.$emit('more-comment')
-      }
+      moreComment(page){
+        this.$emit('more-comment',page)
+      },
+
+      moreCommentMobile(){
+        this.$emit('more-comment-mobile')
+      },
 
     }
 };

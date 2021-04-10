@@ -54,7 +54,7 @@
                                     <span
                                         v-show="data.idea == 'bad'"
                                         class="ideas-title idea-bad"
-                                        >از خرید این محصول راضی نیستم</span
+                                        >تجربه کافی نداشتم</span
                                     >
                                     <span
                                         v-show="data.idea == 'mid'"

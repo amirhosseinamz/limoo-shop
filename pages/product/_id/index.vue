@@ -26,6 +26,7 @@
 
        @active-item-slider-nav="activeItemSliderNav"
        @more-comment="moreComment"
+       @more-comment-mobile="moreCommentMobile"
        ></contentSingleProduct>
 
       
@@ -62,9 +63,10 @@ export default {
             let limitedCommentData        = [];
 
             comments.map((content,index)=>{
-              
+                content.selected = false;
+
               // در صورتی که وضعیتی برای نمایش برای کاربر نبود زمان برای کاربر نمایش داده می شود //
-              if (typeof(content.confirmLeave) == 'undefined') {
+              if (typeof(content.confirmLeave) == 'undefined') {  
                 moment.loadPersian({usePersianDigits: false})
                 const getDateTimeEnglish = moment(content.Date,'YYYYMMDDHHmmss').format("YYYY-MM-DDTHH:mm:ss");
                 const calcTimeAgo        = timeSince(getDateTimeEnglish);
@@ -93,8 +95,6 @@ export default {
                   break;
 
                 }
-                console.log(splitTime);
-
 
               }
               else{
@@ -107,6 +107,7 @@ export default {
                   limitedCommentData = [...limitedCommentData,content];
               }
             })
+
             return limitedCommentData;
            }  
 
@@ -316,44 +317,15 @@ export default {
           this.productSlider = updateSlider;
       },
 
-      moreComment(){
+      moreComment(page){
+        // request server get comments //
+      },
+
+      moreCommentMobile(){
         this.pageMoreComment++;
-        
-        const facePushData = () => {
-                const newComment =  [
-                     {
-                       "Date": "20210406051422",
-                       "Firstname": "محمد ",
-                       "Lastname": "احمدی",
-                       "Title": "آیفون بی نظیر ",
-                       "Body": "یه گوشی فوق العاده عالی اپل جواب خودش رو پس داده گوشی خیلی خوب و روونیه بخاطر پردازنده قویش کلا اپل فوق العادست تنها ایرادش باتریشه که روزی یک و نیم بار تقریبا باید شارژ بشه",
-                        "Rate": 4.2,
-                        "Suggest": 1,
-                        "confirmLeave" : 2,
-                        "id"           : 11,
-                   },
-                         {
-                       "Date": "20210406051422",
-                       "Firstname": "محمد60 ",
-                       "Lastname": "احمدی",
-                       "Title": "آیفون بی نظیر ",
-                       "Body": "یه گوشی فوق العاده عالی اپل جواب خودش رو پس داده گوشی خیلی خوب و روونیه بخاطر پردازنده قویش کلا اپل فوق العادست تنها ایرادش باتریشه که روزی یک و نیم بار تقریبا باید شارژ بشه",
-                       "Rate": 5,
-                       "Suggest": 2,
-                        "confirmLeave" : 1,
-                        "id"           :12,
-                   },
-                ];
-
-                newComment.map((content)=>{
-                  this.getComments = [...this.getComments,content]
-                })
-
-             }
-
-            // پس از اتصال به بک این قسمت از سرور گرفته می شود و قسمت های هارد کد شده این قسمت پاک شود //
-          facePushData();
-
+        // پس از دریافت رسپانس مقدار صفحه اضافه شود //
+        // در صورت مواجه شدن با ارور مقدار مورد نظر اضافه نشود //
+        console.log(this.pageMoreComment,'this.pageMoreComment');
       },
 
     }

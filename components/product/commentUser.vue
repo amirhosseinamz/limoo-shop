@@ -1,18 +1,5 @@
 <template>
     <div class="p-comments-content-main w-100 flex-column flex-wrap  d-rtl tabs__content">
-        <transition moda="in-out">
-            <div id="overlay" v-if="passChangeIsActive">
-                <!-- <add-address-modal
-                    :form-data-original="formData"
-                    :data-edit-address="dataEditAddress"
-                    :profile-phone-number="profilePhoneNumber"
-                    @selected-province="selectedProvince"
-                    @selected-city="selectedCity"
-                    @submit-address-add="submitAddressAdd"
-                    @close-modal="closeModal"
-                /> -->
-            </div>
-        </transition>
         <div class="user-comments__empty-container" v-show="userComments == 0">
             <img
                 src="/empty-pages/empty-comment-list.svg"
@@ -54,7 +41,7 @@
                                     <span
                                         v-show="data.Suggest == 2"
                                         class="ideas-title idea-bad"
-                                        >از خرید این محصول راضی نیستم</span
+                                        >تجربه کافی نداشتم</span
                                     >
                                     <span
                                         v-show="data.Suggest == 3"
@@ -193,10 +180,11 @@
                                 <div class="p-commentedproduct-description">
                                     {{ data.Body }}
                                 </div>
-                                <span
+                                <!-- <span
                                     @click="showMoreDescription(data)"
                                     class="show-more-description"
-                                ></span>
+                                ></span> -->
+                                   <img  @click="showMoreDescription(data)" src="/icons/arrow-down.svg" alt="" class="more__arrow-icon"/>
                             </div>
                          
 
@@ -204,22 +192,30 @@
                     </div>
                 </div>
             </div>
-                  <div class="tab__more-main">
-                         <div @click="moreComment" class="tab__more" >
-                                مشاهده همه نظرات
-                               <span class="tab__more-icon mobile--arrow"></span>
-                         </div>
+
+                <div @click="moreCommentMobile" class="comment_more" style="">
+                    <div class="comment_main">
+                        <h3 class="comment__more-title">مشاهده بیشتر</h3>
+                        <span  class="comment-more__icon"></span>
                     </div>
+                </div>
+                <paganation @last-update-page="lastUpdatePage"></paganation>
         </div>
     </div>
 </template>
 
+
 <script>
+import paganation from './paganation';
+
+
 export default {
     props: {
         commentsData: { type: [Object, Array], default: {} }
     },
-    components: {},
+    components: {
+        paganation,
+    },
     data() {
         return {
             passChangeIsActive: false,
@@ -244,7 +240,7 @@ export default {
                     //     content.selected = false;
                 }
             });
-            this.updateSelected++;
+            // this.updateSelected++;
         },
 
         showModalDeleteProduct(data) {
@@ -255,10 +251,14 @@ export default {
             this.dataEditAddress = {};
             this.passChangeIsActive = false;
         },
-
-        moreComment(){
-            this.$emit('more-comment')
+   
+        lastUpdatePage(data){
+            this.$emit('more-comment',data)
         },
+
+        moreCommentMobile(){
+            this.$emit('more-comment-mobile',1)
+        }
 
     }
 };
@@ -526,7 +526,10 @@ export default {
     line-height: 2.3em;
     max-width: 880px;
     min-height:80px;
-
+    display: -webkit-box;
+    -webkit-line-clamp: 5;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
 }
 .p-commentedproduct-main {
     @include display-flex();
@@ -609,6 +612,53 @@ export default {
         content: "\e823";
         color:$gray;
     }
+    .more__arrow-icon{
+        width: 22px;
+        height:22px;
+        @include display-flex();
+        justify-content: flex-end;
+        margin-right: auto;
+        margin-left:18px;
+        margin-bottom:24px;
+        cursor: pointer;
+        transition: all 0.3s ease-in-out;
+    }
+    .full-description__active .more__arrow-icon {
+        transform: rotate(-180deg);
+        transition: all 0.3s ease-in-out;
+    }
+    .full-description__active .p-commentedproduct-description{
+        height:auto;
+        -webkit-line-clamp : inherit;
+        max-height:inherit;
+    }
+     .comment-more__icon::after {
+        content: "\e801";
+        @include font-icon__limoo();
+        font-size: 13px;
+        margin-right:8px;
+        transform: rotate(-87deg);
+         color:$gray;
+    }
+    .comment_more{
+      display: none;
+      justify-content: flex-end;
+      margin-top:20px;
+      margin-bottom:20px;
+    }
+    .comment__more-title{
+        font-size: 13px;
+        color:$dark_gray;
+        font-weight: 300;
+        color:$gray;
+    }
+    .comment-more__icon{
+        position: relative;
+        top:-2px;
+    }
+    .comment_main{
+       @include display-flex();
+    }
 
 
 @media (max-width: 1220px) {
@@ -617,6 +667,9 @@ export default {
     }
     .p-comments-content-header-item:last-of-type {
         margin-left: 0;
+    }
+    .p-commentedproduct-description{
+      -webkit-line-clamp: 4;
     }
 }
 
@@ -643,6 +696,9 @@ export default {
 }
 
 @media (max-width: 600px) {
+    .comment_more{
+      @include display-flex();
+    }
     .user-comments__empty-container {
         height: 252px;
         padding-top: 24px;
@@ -693,18 +749,19 @@ export default {
         font-size: 13px;
         /* border: 1px solid red; */
         margin: 16px 11px 0 37px;
-        height: 30px;
+        // height: 30px;
         overflow: hidden;
         text-overflow: ellipsis;
-        white-space: nowrap;
         text-align: justify;
         text-justify: inter-word;
+        -webkit-line-clamp: 3;
+
     }
-    .full-description__active .p-commentedproduct-description {
-        white-space: normal;
-        overflow: visible;
-        height: fit-content;
-    }
+    // .full-description__active .p-commentedproduct-description {
+    //     white-space: normal;
+    //     // overflow: visible;
+    //     // height: fit-content;
+    // }
     .show-more-description {
         @include display-flex();
         /* align-self: flex-start; */
@@ -714,20 +771,20 @@ export default {
         margin-left:12px;
         margin-bottom:22px;
     }
-    .show-more-description::before {
-        @include display-flex();
-        content: "\e801";
-        @include font-icon__limoo();
-        font-size: 12px;
-        color: $input-border;
-        /* position: absolute; */
-        transform: rotate(-90deg);
-        /* margin-right: 4px; */
-        /* border: 1px solid red; */
-    }
-    .full-description__active .show-more-description::before {
-        transform: rotate(90deg);
-    }
+    // .show-more-description::before {
+    //     @include display-flex();
+    //     content: "\e801";
+    //     @include font-icon__limoo();
+    //     font-size: 12px;
+    //     color: $input-border;
+    //     /* position: absolute; */
+    //     transform: rotate(-90deg);
+    //     /* margin-right: 4px; */
+    //     /* border: 1px solid red; */
+    // }
+    // .full-description__active .show-more-description::before {
+    //     transform: rotate(90deg);
+    // }
     /* 00000000000000000000000000 */
     .p-comments-content-header-item {
         margin-left: 0;
@@ -805,6 +862,7 @@ export default {
     .p-commented-product-img::before{
         font-size: 22px;
     }
+
 }
 @media (max-width: 280px) {
     .p-comments__title,
