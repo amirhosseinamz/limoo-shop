@@ -1,0 +1,21 @@
+ .star {
+  color: #E0E0E0;
+ }
+
+ .star path{
+  fill:#E0E0E0;
+}
+
+ .star.active {
+  color: red;
+ }
+ .list, .list.disabled {
+  &:hover {
+    .star {
+      color: red !important;
+    }
+    .star.active {
+      color: red;
+    }
+  }
+}

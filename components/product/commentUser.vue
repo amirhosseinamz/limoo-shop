@@ -1,213 +1,227 @@
 <template>
     <div class="p-comments-content-main w-100 flex-column flex-wrap  d-rtl tabs__content">
-        <div class="user-comments__empty-container" v-show="userComments == 0">
-            <img
-                src="/empty-pages/empty-comment-list.svg"
-                alt="هنوز هیچ نقد و نظری ثبت نکرده اید"
-            />
-            <span class="user-comments__empty"
-                >هنوز هیچ نقد و نظری ثبت نکرده اید.</span
-            >
+        <div class="w-100">
+            <button @click="showModalAddComment" class="btn-change comments-add__comment">ارسال و ثبت نظر</button>
         </div>
-        <div
-            class="w-100 flex-wrap p-comment-content-items"
-            :key="updateSelected"
-        >
-            <div
-                v-for="(data,index) in commentsData"
-                :key="data.id"
-                class="w-100 flex-wrap p-comment-content-item"
-            >
-
-                <div
-                    class="flex-wrap w-100 p-comment-content-wrapper align-items-start"
+      
+        <div class="w-100">
+            <div class="user-comments__empty-container" v-show="userComments == 0">
+                <img
+                    src="/empty-pages/empty-comment-list.svg"
+                    alt="هنوز هیچ نقد و نظری ثبت نکرده اید"
+                />
+                <span class="user-comments__empty"
+                    >هنوز هیچ نقد و نظری ثبت نکرده اید.</span
                 >
-                    <div class="d-flex align-items-start w-100">
-                        <div
-                            class="w-100 flex-wrap  p-comments-content-header "
-                        >
-                            <div class="p-comments__header-holder">
-                                <div
-                                    class="p-comments__title"
-                                >
-                                    {{ data.Title }}
-                                </div>
-                                <div class="p-comments-idea__title">
-                                    <span
-                                        v-show="data.Suggest == 1"
-                                        class="ideas-title idea-good"
-                                        >پیشنهاد میکنم خریداری کنید</span
+            </div>
+            <div
+                class="w-100 flex-wrap p-comment-content-items"
+                :key="updateSelected"
+            >
+                <div
+                    v-for="(data,index) in commentsData"
+                    :key="data.id"
+                    class="w-100 flex-wrap p-comment-content-item"
+                >
+
+                    <div
+                        class="flex-wrap w-100 p-comment-content-wrapper align-items-start"
+                    >
+                        <div class="d-flex align-items-start w-100">
+                            <div
+                                class="w-100 flex-wrap  p-comments-content-header "
+                            >
+                                <div class="p-comments__header-holder">
+                                    <div
+                                        class="p-comments__title"
                                     >
-                                    <span
-                                        v-show="data.Suggest == 2"
-                                        class="ideas-title idea-bad"
-                                        >تجربه کافی نداشتم</span
-                                    >
-                                    <span
-                                        v-show="data.Suggest == 3"
-                                        class="ideas-title idea-mid"
-                                        >فعلا تجربه کافی نداشتم</span
-                                    >
-                                    <div class="p-comments__state-mobile">
-                                        <div
-                                                v-show="typeof(data.confirmLeave) == 'undefined' "
-                                                    class="p-comments__state-accepted"
+                                        {{ data.Title }}
+                                    </div>
+                                    <div class="p-comments-idea__title">
+                                        <span
+                                            v-show="data.Suggest == 1"
+                                            class="ideas-title idea-good"
+                                            >پیشنهاد میکنم خریداری کنید</span
+                                        >
+                                        <span
+                                            v-show="data.Suggest == 2"
+                                            class="ideas-title idea-bad"
+                                            >تجربه کافی نداشتم</span
+                                        >
+                                        <span
+                                            v-show="data.Suggest == 3"
+                                            class="ideas-title idea-mid"
+                                            >فعلا تجربه کافی نداشتم</span
+                                        >
+                                        <div class="p-comments__state-mobile">
+                                            <div
+                                                    v-show="typeof(data.confirmLeave) == 'undefined' "
+                                                        class="p-comments__state-accepted"
+                                                >
+                                                <span
+                                                            class="p-comments__state-accepted__icon"
+                                                    ></span>
+                                                    <span
+                                                                class="p-comments__state-accepted__title" >
+                                                                {{data.dateConvert}}
+                                                    </span >
+                                                </div>
+
+                                            <div
+                                                v-show="data.confirmLeave == 1"
+                                                class="p-comments__state-accepted"
                                             >
-                                            <span
-                                                        class="p-comments__state-accepted__icon"
+                                                <span
+                                                    class="p-comments__state-accepted__icon"
                                                 ></span>
                                                 <span
-                                                            class="p-comments__state-accepted__title" >
-                                                            {{data.dateConvert}}
-                                                </span >
+                                                    class="p-comments__state-accepted__title"
+                                                    >تایید شده</span
+                                                >
                                             </div>
 
-                                        <div
-                                            v-show="data.confirmLeave == 1"
-                                            class="p-comments__state-accepted"
-                                        >
-                                            <span
-                                                class="p-comments__state-accepted__icon"
-                                            ></span>
-                                            <span
-                                                class="p-comments__state-accepted__title"
-                                                >تایید شده</span
-                                            >
-                                        </div>
-
-                                        <div
-                                            v-show="data.confirmLeave == 2"
-                                            class="p-comments__state-acceptting"
-                                        >
-                                            <span
-                                                class="p-comments__state-acceptting__icon"
-                                            ></span>
-                                            <span
-                                                class="p-comments__state-acceptting__title"
-                                                >در انتظار تایید</span
-                                            >
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="p-comments__state-desktop">
-                                   <div
-                                        v-show="typeof(data.confirmLeave) == 'undefined' "
-                                            class="p-comments__state-accepted"
-                                    >
-                                       <span
-                                                class="p-comments__state-accepted__icon"
-                                        ></span>
-                                         <span
-                                                    class="p-comments__state-accepted__title" >
-                                                      {{data.dateConvert}}
-                                          </span >
-                                     </div>
-
-                                <div
-                                    v-show="data.confirmLeave == 1"
-                                    class="p-comments__state-accepted"
-                                >
-                                    <span
-                                        class="p-comments__state-accepted__icon"
-                                    ></span>
-                                    <span
-                                        class="p-comments__state-accepted__title"
-                                        >تایید شده</span
-                                    >
-                                </div>
-                                <div
-                                    v-show="data.confirmLeave == 2"
-                                    class="p-comments__state-acceptting"
-                                >
-                                    <span
-                                        class="p-comments__state-acceptting__icon"
-                                    ></span>
-                                    <span
-                                        class="p-comments__state-acceptting__title"
-                                        >در انتظار تایید</span
-                                    >
-                                </div>
-                            </div>
-                        </div>
-                        <!-- ==================================================================================== -->
-                        <div
-                            class="w-100 flex-column p-comment-content-data-main"
-                        >
-                            <div
-                                class="w-100 p-commentedproduct-main text-right"
-                            >
-                                <div class="p-commented-default-main">
-                                    <!-- <img
-                                        :src="data.img"
-                                        class="p-commented-product-img"
-                                        alt=""
-                                    /> -->
-                                    <div class="p-commented-default-pic p-commented-product-img">
-                                        
-                                    </div>
-                                </div>
-                                <div class="p-product-content-data">
-                                    <span class="p-product-content-text-data ">
-                                        {{ data.Firstname }}
-                                        {{ data.Lastname }}
-                                    </span>
-                                    <div class="p-product-content-rating-data ">
-                                        <div class="stars-outer">
                                             <div
-                                                class="stars-inner"
-                                                :style="{
-                                                    width:
-                                                        (data.Rate * 100) / 5 +
-                                                        '%'
-                                                }"
-                                            ></div>
+                                                v-show="data.confirmLeave == 2"
+                                                class="p-comments__state-acceptting"
+                                            >
+                                                <span
+                                                    class="p-comments__state-acceptting__icon"
+                                                ></span>
+                                                <span
+                                                    class="p-comments__state-acceptting__title"
+                                                    >در انتظار تایید</span
+                                                >
+                                            </div>
                                         </div>
-                                        <span class="rate-counter">
-                                            {{ data.Rate }}</span
-                                        >
-                                        <span class="rate-count">از 5</span>
                                     </div>
-                                    <!-- ====================== -->
                                 </div>
-                            </div>
-                            <div
-                                :class="{
-                                    'full-description__active': data.selected
-                                }"
-                            >
-                                <div ref="test" class="p-commentedproduct-description">
-                                    {{data.Body}}
-                                </div>
-                             
-                                <!-- <span
-                                    @click="showMoreDescription(data)"
-                                    class="show-more-description"
-                                ></span> -->
-                                   <img v-if="data.showCircle"  @click="showMoreDescription(data)" src="/icons/arrow-down.svg" alt="" class="more__arrow-icon"/>
-                            </div>
-                         
 
+                                <div class="p-comments__state-desktop">
+                                    <div
+                                            v-show="typeof(data.confirmLeave) == 'undefined' "
+                                                class="p-comments__state-accepted"
+                                        >
+                                        <span
+                                                    class="p-comments__state-accepted__icon"
+                                            ></span>
+                                            <span
+                                                        class="p-comments__state-accepted__title" >
+                                                        {{data.dateConvert}}
+                                            </span >
+                                        </div>
+
+                                    <div
+                                        v-show="data.confirmLeave == 1"
+                                        class="p-comments__state-accepted"
+                                    >
+                                        <span
+                                            class="p-comments__state-accepted__icon"
+                                        ></span>
+                                        <span
+                                            class="p-comments__state-accepted__title"
+                                            >تایید شده</span
+                                        >
+                                    </div>
+                                    <div
+                                        v-show="data.confirmLeave == 2"
+                                        class="p-comments__state-acceptting"
+                                    >
+                                        <span
+                                            class="p-comments__state-acceptting__icon"
+                                        ></span>
+                                        <span
+                                            class="p-comments__state-acceptting__title"
+                                            >در انتظار تایید</span
+                                        >
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- ==================================================================================== -->
+                            <div
+                                class="w-100 flex-column p-comment-content-data-main"
+                            >
+                                <div
+                                    class="w-100 p-commentedproduct-main text-right"
+                                >
+                                    <div class="p-commented-default-main">
+                                        <!-- <img
+                                            :src="data.img"
+                                            class="p-commented-product-img"
+                                            alt=""
+                                        /> -->
+                                        <div class="p-commented-default-pic p-commented-product-img">
+                                            
+                                        </div>
+                                    </div>
+                                    <div class="p-product-content-data">
+                                        <span class="p-product-content-text-data ">
+                                            {{ data.Firstname }}
+                                            {{ data.Lastname }}
+                                        </span>
+                                        <div class="p-product-content-rating-data ">
+                                            <div @click="activeStar($event,data)" class="stars-outer">
+                                                <div
+                                                    class="stars-inner"
+                                                    :style="{
+                                                        width:
+                                                            (data.Rate * 100) / 5 +
+                                                            '%'
+                                                    }"
+                                                    
+                                                ></div>
+                                            </div>
+                                            <span class="rate-counter">
+                                                {{ data.Rate }}</span
+                                            >
+                                            <span class="rate-count">از 5</span>
+                                        </div>
+                                        <!-- ====================== -->
+                                    </div>
+                                </div>
+                                <div
+                                    :class="{
+                                        'full-description__active': data.selected
+                                    }"
+                                >
+                                    <div ref="test" class="p-commentedproduct-description">
+                                        {{data.Body}}
+                                    </div>
+                                
+                                    <!-- <span
+                                        @click="showMoreDescription(data)"
+                                        class="show-more-description"
+                                    ></span> -->
+                                    <img v-if="data.showCircle"  @click="showMoreDescription(data)" src="/icons/arrow-down.svg" alt="" class="more__arrow-icon"/>
+                                </div>
+                            
+
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
 
-                <div @click="moreCommentMobile" class="comment_more" style="">
-                    <div class="comment_main">
-                        <h3 class="comment__more-title">مشاهده بیشتر</h3>
-                        <span  class="comment-more__icon"></span>
+                    <div @click="moreCommentMobile" class="comment_more" style="">
+                        <div class="comment_main">
+                            <h3 class="comment__more-title">مشاهده بیشتر</h3>
+                            <span  class="comment-more__icon"></span>
+                        </div>
                     </div>
-                </div>
-                <paganation @last-update-page="lastUpdatePage"></paganation>
+                    <paganation @last-update-page="lastUpdatePage"></paganation>
+            </div>
         </div>
+        
+        <modal-add-comment 
+         class="comment__modal--data"
+         :active.sync="statusShowModalAddComment"
+        ></modal-add-comment>
+        
     </div>
 </template>
 
 
 <script>
 import paganation from './paganation';
+import modalAddComment from './modalAddComment';
 
 
 export default {
@@ -217,14 +231,16 @@ export default {
 
     components: {
         paganation,
+        modalAddComment,
     },
 
     data() {
         return {
-            passChangeIsActive: false,
-            dataEditAddress   : {},
-            updateSelected    : 0,
-            userComments      : -1,
+            passChangeIsActive        : false,
+            dataEditAddress           : {},
+            updateSelected            : 0,
+            userComments              : -1,
+            statusShowModalAddComment : false,
         };
     },
 
@@ -284,6 +300,15 @@ export default {
 
          isEllipsisActive(e) {
           return (e.offsetWidth < e.scrollWidth);
+        },
+
+        showModalAddComment(){
+            this.statusShowModalAddComment = true;
+            console.log('dsad');
+        },
+
+        activeStar($event,data){
+            console.log($event.target)
         }
 
     }
@@ -698,6 +723,13 @@ export default {
     }
     .full-description__active .p-comment__limit{
         display: none;
+    }
+    .comments-add__comment{
+        border:solid 2px $yellow;
+        background:$white;
+        font-size:16px;
+        color:$yellow;
+        margin-bottom:42px;
     }
 
 
