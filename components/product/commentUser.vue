@@ -177,14 +177,15 @@
                                     'full-description__active': data.selected
                                 }"
                             >
-                                <div class="p-commentedproduct-description">
-                                    {{ data.Body }}
+                                <div ref="test" class="p-commentedproduct-description">
+                                    {{data.Body}}
                                 </div>
+                             
                                 <!-- <span
                                     @click="showMoreDescription(data)"
                                     class="show-more-description"
                                 ></span> -->
-                                   <img  @click="showMoreDescription(data)" src="/icons/arrow-down.svg" alt="" class="more__arrow-icon"/>
+                                   <img v-if="data.showCircle"  @click="showMoreDescription(data)" src="/icons/arrow-down.svg" alt="" class="more__arrow-icon"/>
                             </div>
                          
 
@@ -213,9 +214,11 @@ export default {
     props: {
         commentsData: { type: [Object, Array], default: {} }
     },
+
     components: {
         paganation,
     },
+
     data() {
         return {
             passChangeIsActive: false,
@@ -224,20 +227,39 @@ export default {
             userComments      : -1,
         };
     },
+
+    watch: {
+        commentsData(data){
+            console.log('dasds');
+        }
+    },
+
     created() {
         this.userComments = Object.values(this.commentsData).length;
     },
-    components: {},
-    computed: {},
+
+    mounted(){
+         setTimeout(() => {
+             const el  = document.querySelectorAll('.p-commentedproduct-description');
+                var elementList = el
+                for(var idx=0; idx < elementList.length; idx++) {
+                    if ( this.isEllipsisActive(elementList.item(idx)) ) {
+                        elementList.item(idx).className = elementList.item(idx).className + " ellipsis-active"
+                        elementList.item(idx).title = elementList.item(idx).innerHTML;
+                        console.log(elementList.item(idx), elementList.item(idx).className);
+                    }
+                }
+
+
+         },100);
+    },
 
     methods: {
         showMoreDescription(data) {
             this.commentsData.map(content => {
                 if (content.id == data.id) {
                     content.selected = !content.selected;
-                    // if we want open one paragraph in time
-                    // } else {
-                    //     content.selected = false;
+                
                 }
             });
             // this.updateSelected++;
@@ -258,6 +280,10 @@ export default {
 
         moreCommentMobile(){
             this.$emit('more-comment-mobile',1)
+        },
+
+         isEllipsisActive(e) {
+          return (e.offsetWidth < e.scrollWidth);
         }
 
     }
@@ -530,6 +556,8 @@ export default {
     -webkit-line-clamp: 5;
     -webkit-box-orient: vertical;
     overflow: hidden;
+    	// white-space: nowrap;
+
 }
 .p-commentedproduct-main {
     @include display-flex();
@@ -641,7 +669,7 @@ export default {
     }
     .comment_more{
       display: none;
-      justify-content: flex-end;
+      justify-content: center;
       margin-top:20px;
       margin-bottom:20px;
     }
@@ -659,6 +687,18 @@ export default {
     .comment_main{
        @include display-flex();
     }
+    .p-comment__circle{
+        position: relative;
+    }
+    .p-comment__full{
+        display: none;
+    }
+    .full-description__active .p-comment__full{
+        @include display-flex();
+    }
+    .full-description__active .p-comment__limit{
+        display: none;
+    }
 
 
 @media (max-width: 1220px) {
@@ -671,6 +711,9 @@ export default {
     .p-commentedproduct-description{
       -webkit-line-clamp: 4;
     }
+    // .p-commentedproduct-description{
+    //     max-height: 133px;
+    // }
 }
 
 @media (max-width: 1024px) {
@@ -688,7 +731,7 @@ export default {
         margin-left: 10%;
     }
     .p-comments-content-main {
-        padding: 0;
+        
     }
     .p-commentedproduct-description {
         font-size: 14px;
@@ -752,7 +795,7 @@ export default {
         // height: 30px;
         overflow: hidden;
         text-overflow: ellipsis;
-        text-align: justify;
+        // text-align: justify;
         text-justify: inter-word;
         -webkit-line-clamp: 3;
 
@@ -862,6 +905,9 @@ export default {
     .p-commented-product-img::before{
         font-size: 22px;
     }
+    //  .p-commentedproduct-description{
+    //     max-height: 78px;
+    // }
 
 }
 @media (max-width: 280px) {

@@ -63,8 +63,12 @@ export default {
             let limitedCommentData        = [];
 
             comments.map((content,index)=>{
-                content.selected = false;
+                content.selected       = false;
+                content.showCircle     = false;
+                content.limitBodyText  = '';
 
+          
+                
               // در صورتی که وضعیتی برای نمایش برای کاربر نبود زمان برای کاربر نمایش داده می شود //
               if (typeof(content.confirmLeave) == 'undefined') {  
                 moment.loadPersian({usePersianDigits: false})
@@ -301,6 +305,8 @@ export default {
 
     mounted() {
        this.productData = productData;
+       this.checkAddCircleComment();
+       this.detectedResizeBrowser()
     },
 
     methods: {
@@ -323,9 +329,82 @@ export default {
 
       moreCommentMobile(){
         this.pageMoreComment++;
-        // پس از دریافت رسپانس مقدار صفحه اضافه شود //
-        // در صورت مواجه شدن با ارور مقدار مورد نظر اضافه نشود //
-        console.log(this.pageMoreComment,'this.pageMoreComment');
+          // پس از دریافت رسپانس مقدار صفحه اضافه شود //
+          // در صورت مواجه شدن با ارور مقدار مورد نظر اضافه نشود //
+
+        const newComment = {   
+            "Date": "20210406051422",
+            "Firstname": "محمد ",
+            "Lastname": "احمدی",
+            "Title": "آیفون بی نظیر ",
+            "Body": "یه گوشی فوق العاده عالی اپل جواب خودش رو پس داده گوشی خیلی خوب و روونیه بخاطر پردازنده قویش کلا اپل فوق العادست تنها ایرادش باتریشه که روزی یک و نیم بار تقریبا باید شارژ بشه",
+            "Rate": 3.2,
+            "Suggest": 1,
+            "id"       : this.pageMoreComment * 2,
+            "selected" : false,
+          }
+
+          this.getComments = [...this.getComments,newComment]
+      },
+
+      checkAddCircleComment(){
+        const getWindowWidth = window.innerWidth;
+
+        const concatStrCommentBody = (data,countConcat) => {
+             let concatStr = '';
+             data.map((contentOneByOne,indexOneByOne)=>{
+                if (indexOneByOne <= countConcat) {
+                    concatStr += contentOneByOne;
+                   }
+               })  
+               return concatStr;
+        }
+
+        this.getComments.map((content,index)=>{
+          const body             = content.Body;
+          const lenTextBody      = body.length;
+
+          const splitTextBody    = body.split('');
+          const countSplitText   = splitTextBody.length;
+
+          content.showCircle     = false;
+          content.limitBodyText  = '';
+
+
+
+
+
+          if (1220 < getWindowWidth) {
+            if (lenTextBody >= 580) {
+                content.showCircle     = true
+                // content.limitBodyText  = concatStrCommentBody(splitTextBody,580)
+            }
+          }
+
+          if (600 < getWindowWidth) {
+            if (1220 >= getWindowWidth) {
+               if (lenTextBody >= 400) {
+                  content.showCircle = true
+                  // content.limitBodyText  = concatStrCommentBody(splitTextBody,400)
+               }
+             }
+         }
+
+         if (600 >= getWindowWidth) {
+            if (lenTextBody >=200) {
+              content.showCircle = true
+              // content.limitBodyText  = concatStrCommentBody(splitTextBody,200)
+            }
+         }
+
+
+        })
+      },
+
+      detectedResizeBrowser(){
+        window.addEventListener("resize", ()=>{
+            this.checkAddCircleComment();
+          }, true);
       },
 
     }
