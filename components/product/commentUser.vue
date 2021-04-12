@@ -159,7 +159,7 @@
                                             {{ data.Lastname }}
                                         </span>
                                         <div class="p-product-content-rating-data ">
-                                            <div @click="activeStar($event,data)" class="stars-outer">
+                                            <div  class="stars-outer">
                                                 <div
                                                     class="stars-inner"
                                                     :style="{
@@ -212,6 +212,8 @@
 
         <modal-add-comment
          class="comment__modal--data"
+         @submit-data="submitData"
+
          :radio-btn-data="radioBtnData"
          :comments-data="commentsData"
          :active.sync="statusShowModalAddComment"
@@ -310,8 +312,8 @@ export default {
             console.log('dsad');
         },
 
-        activeStar($event,data){
-            console.log($event.target)
+        submitData(data){
+          this.$emit('submit-data',data);
         }
 
     }

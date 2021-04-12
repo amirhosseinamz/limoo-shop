@@ -17,6 +17,7 @@
 
                      @more-comment="moreComment"
                      @more-comment-mobile="moreCommentMobile"
+                     @submit-data="submitData"
                   ></comment-user>
                  <answer-question :class="{'show--tab':currentTab == 'answerQuestion'}" :product-data="productData"  ></answer-question>
             </div>
@@ -87,6 +88,10 @@ export default {
 
         moreCommentMobile(){
             this.$emit('more-comment-mobile');
+        },
+
+        submitData(data){
+          this.$emit('submit-data',data);
         },
 
     }

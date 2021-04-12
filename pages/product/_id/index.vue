@@ -28,6 +28,7 @@
        @active-item-slider-nav="activeItemSliderNav"
        @more-comment="moreComment"
        @more-comment-mobile="moreCommentMobile"
+       @submit-data="submitData"
        ></contentSingleProduct>
 
 
@@ -44,6 +45,62 @@ const moment = require('moment-jalaali')
 moment.loadPersian({usePersianDigits: true})
 import timeSince from "~/plugins/calcTimeAgo.js";
 
+const getComments = (dataProduct) => {
+    const comments                = dataProduct.Comments;
+    let limitedCommentData        = [];
+
+    comments.map((content,index)=>{
+        content.selected       = false;
+        content.showCircle     = false;
+        content.limitBodyText  = '';
+
+
+
+      // در صورتی که وضعیتی برای نمایش برای کاربر نبود زمان برای کاربر نمایش داده می شود //
+      if (typeof(content.confirmLeave) == 'undefined') {
+        moment.loadPersian({usePersianDigits: false})
+        const getDateTimeEnglish = moment(content.Date,'YYYYMMDDHHmmss').format("YYYY-MM-DDTHH:mm:ss");
+        const calcTimeAgo        = timeSince(getDateTimeEnglish);
+        const splitTime          = calcTimeAgo.split(' ');
+        content.dateConvert      = calcTimeAgo;
+
+
+        switch (splitTime[1]) {
+          case 'days':
+            if (splitTime[0] < 7) {
+                 content.dateConvert  = `${splitTime[0]} روز پیش`;
+              }
+            else{
+              moment.loadPersian({usePersianDigits: true})
+              const convertTimeJalali       = moment(content.Date,'YYYYMMDDHHmmss').format('jDD jMMMM jYYYY')
+              content.dateConvert           = convertTimeJalali;
+            }
+         break;
+
+          case 'day':
+            content.dateConvert  = `دیروز`;
+          break;
+
+          case 'hours':
+            content.dateConvert  = `${splitTime[0]} ساعت پیش`;
+          break;
+
+        }
+
+      }
+      else{
+        const convertTimeJalali       = moment(content.Date,'YYYYMMDDHHmmss').format('jDD jMMMM jYYYY')
+        content.dateConvert           = convertTimeJalali;
+      }
+
+      // پس از اتصال به سرور این قسمت پاک شود //
+      if (index < 3) {
+          limitedCommentData = [...limitedCommentData,content];
+      }
+    })
+
+    return limitedCommentData;
+ }
 
 export default {
     async asyncData({ params }) {
@@ -59,68 +116,10 @@ export default {
                 )
           }
 
-          const getComments = () => {
-            const comments                = dataProduct.Comments;
-            let limitedCommentData        = [];
-
-            comments.map((content,index)=>{
-                content.selected       = false;
-                content.showCircle     = false;
-                content.limitBodyText  = '';
-
-
-
-              // در صورتی که وضعیتی برای نمایش برای کاربر نبود زمان برای کاربر نمایش داده می شود //
-              if (typeof(content.confirmLeave) == 'undefined') {
-                moment.loadPersian({usePersianDigits: false})
-                const getDateTimeEnglish = moment(content.Date,'YYYYMMDDHHmmss').format("YYYY-MM-DDTHH:mm:ss");
-                const calcTimeAgo        = timeSince(getDateTimeEnglish);
-                const splitTime          = calcTimeAgo.split(' ');
-                content.dateConvert      = calcTimeAgo;
-
-
-                switch (splitTime[1]) {
-                  case 'days':
-                    if (splitTime[0] < 7) {
-                         content.dateConvert  = `${splitTime[0]} روز پیش`;
-                      }
-                    else{
-                      moment.loadPersian({usePersianDigits: true})
-                      const convertTimeJalali       = moment(content.Date,'YYYYMMDDHHmmss').format('jDD jMMMM jYYYY')
-                      content.dateConvert           = convertTimeJalali;
-                    }
-                 break;
-
-                  case 'day':
-                    content.dateConvert  = `دیروز`;
-                  break;
-
-                  case 'hours':
-                    content.dateConvert  = `${splitTime[0]} ساعت پیش`;
-                  break;
-
-                }
-
-              }
-              else{
-                const convertTimeJalali       = moment(content.Date,'YYYYMMDDHHmmss').format('jDD jMMMM jYYYY')
-                content.dateConvert           = convertTimeJalali;
-              }
-
-              // پس از اتصال به سرور این قسمت پاک شود //
-              if (index < 3) {
-                  limitedCommentData = [...limitedCommentData,content];
-              }
-            })
-
-            return limitedCommentData;
-           }
-
-
 
         return {
           detailTechnical : detailTechnicalData(),
-          getComments     : getComments(),
+          getComments     : getComments(dataProduct),
         }
 
     },
@@ -297,16 +296,19 @@ export default {
                 id      : 1,
                 title   : 'پیشنهاد می کنم',
                 checked : true,
+                value   : 1,
               },
               {
                 id      : 2,
                 title   : 'پیشنهاد نمی کنم',
                 checked : false,
+                value   : 2,
               },
               {
                 id      : 3,
                 title   : 'نظری ندارم',
                 checked : false,
+                value   : 3,
               },
           ],
 
@@ -425,6 +427,17 @@ export default {
             this.checkAddCircleComment();
           }, true);
       },
+
+      submitData(data){
+          data.id          = 10;
+          this.getComments = [...this.getComments,data];
+
+          const comments      = {
+            Comments : this.getComments,
+          }
+
+          getComments(comments)
+      }
 
     }
 };

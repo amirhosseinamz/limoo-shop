@@ -31,7 +31,7 @@
                               <vue-slider
                               v-model="valueRengeSlider"
                               :max="5"
-                              :min="1"
+                              :min="0"
                               ref="slider"
                               @change="changeSliderRenge"
                               height="9px"
@@ -48,7 +48,15 @@
                   </div>
             </div>
 
-            <comment-form :radio-btn-data="radioBtnData" :comments-data="commentsData" ></comment-form>
+            <comment-form
+              @submit-data="submitData"
+
+              :radio-btn-data="radioBtnData"
+              :comments-data="commentsData"
+              :value-renge-slider="valueRengeSlider"
+              :comment-star="commentStar"
+
+               ></comment-form>
 
         </div>
 
@@ -82,11 +90,11 @@ export default {
           commentStar       : [
               {
                   id     : 1,
-                  active : true,
+                  active : false,
               },
                {
                   id     : 2,
-                  active : true,
+                  active : false,
               },
                {
                   id     : 3,
@@ -121,12 +129,11 @@ export default {
     },
 
     mounted() {
-      this.activeDefaultRengeSlider();
+      // this.activeDefaultRengeSlider();
     },
 
     watch: {
       show(status){
-        //  this.$store.commit('singleProduct/showHidenBodyScroll',status)
       }
     },
 
@@ -166,6 +173,10 @@ export default {
               }
           });
           this.valueRengeSlider  = findCountLastActiveStar;
+        },
+
+        submitData(data){
+          this.$emit('submit-data',data);
         },
 
     }

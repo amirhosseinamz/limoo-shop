@@ -42,10 +42,11 @@
                  :comment-data="commentData"
                  :product-data="productData"
                  :product-tab="commentAndAnswerQuestionTabName"
-                 @more-comment="moreComment"
-                 @more-comment-mobile="moreCommentMobile"
                  :radio-btn-data="radioBtnData"
 
+                 @more-comment="moreComment"
+                 @more-comment-mobile="moreCommentMobile"
+                 @submit-data="submitData"
                  ></comment-question-main>
            </div>
 
@@ -114,6 +115,10 @@ export default {
       moreCommentMobile(){
         this.$emit('more-comment-mobile')
       },
+
+      submitData(data){
+        this.$emit('submit-data',data)
+      }
 
     }
 };

@@ -4,12 +4,12 @@
           <div class="w-100">
             <div :class="{'p-modal-show_error':false}" class="w-100 comment__form-item ">
               <h3 class="comment__form-title">عنوان نظر شما:</h3>
-              <input maxlength="65"  type="text" class="p-modal-address-input p-input-style__default ">
+              <input v-model="formData.Title" maxlength="65"  type="text" class="p-modal-address-input p-input-style__default ">
               <span  class="pass__alert "></span>
             </div>
             <div :class="{'p-modal-show_error':false}" class="w-100 comment__form-item ">
               <h3 class="comment__form-title">متن نظر شما:</h3>
-              <textarea   class="comment__textara-item p-input-style__default p-modal-address-input"  rows="8" cols="80"></textarea>
+              <textarea v-model="formData.Body"   class="comment__textara-item p-input-style__default p-modal-address-input"  rows="8" cols="80"></textarea>
               <span  class="pass__alert "></span>
             </div>
           </div>
@@ -43,12 +43,15 @@
 
 <script>
 import '~/assets/styles/_radio_btn_style.scss'
+const moment = require('moment-jalaali')
 
 
 export default {
     props: {
-      radioBtnData      : { type: [Object, Array], default: {} },
-      commentsData      : { type: [Object, Array], default: {} },
+      radioBtnData          : { type: [Object, Array], default: {} },
+      commentsData          : { type: [Object, Array], default: {} },
+      valueRengeSlider      : { type: Number, default: 0 },
+      commentStar           : { type: [Object, Array], default: {} },
     },
 
     components: {
@@ -58,24 +61,25 @@ export default {
       return {
          currentActiveRadio : {},
          formData           : {
-           "Date"        : "",
-           "Firstname"   : "",
-           "Lastname"    : "",
-           "Title"       : "",
-           "Body"        : "",
-           "Rate"        : "",
-           "Suggest"     : 1,
+           "Date"         : "",
+           "Firstname"    : "",
+           "Lastname"     : "",
+           "Title"        : "",
+           "Body"         : "",
+           "Rate"         : "",
+           "Suggest"      : 1,
+           "confirmLeave" : "2",
          },
       }
 
     },
 
-    computed: {
+    watch : {
 
     },
 
     mounted() {
-
+      this.defaultUpdateFormData();
     },
 
     methods: {
@@ -89,12 +93,40 @@ export default {
           }
         })
 
-        this.currentActiveRadio = data;
+        this.formData.Suggest = data.value;
       },
 
       submitData(e){
         e.preventDefault();
-        console.log(this.radioBtnData);
+
+        this.defaultUpdateFormData();
+
+        this.$emit('submit-data',this.formData);
+      },
+
+      defaultUpdateFormData(){
+        const updateDefaultRadioBtn = () => {
+            this.radioBtnData.map((content)=>{
+              if (content.active) {
+                this.formData.Suggest = content.value;
+              }
+            })
+        }
+
+        const updateRate  = () => {
+          this.formData.Rate = this.valueRengeSlider;
+        }
+
+        updateDefaultRadioBtn();
+        updateRate();
+        this.addCurrentTimeForm();
+      },
+
+      addCurrentTimeForm(){
+        const currentDate      = new Date();
+        const createFormtDate  =  moment(currentDate).format("YYYYMMDDHHmmss");
+
+        this.formData.Date     = createFormtDate;
       },
 
     }
