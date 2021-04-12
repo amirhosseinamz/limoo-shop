@@ -308,8 +308,7 @@ export default {
         },
 
         showModalAddComment(){
-            this.statusShowModalAddComment = true;
-            console.log('dsad');
+          this.statusShowModalAddComment = true;
         },
 
         submitData(data){

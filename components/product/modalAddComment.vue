@@ -8,7 +8,7 @@
               <div class="w-100 product__modal-top">
                 <h3 class="product__modal-title">مشخصات فنی</h3>
                 <!-- <span class="product__modal-close"></span> -->
-                <span @click="modalClose" class="product__modal-arrow"></span>
+                <span @click="closeModal" class="product__modal-arrow"></span>
               </div>
               <span class="product__modal-line"></span>
         </div>
@@ -50,6 +50,7 @@
 
             <comment-form
               @submit-data="submitData"
+              @close-modal="closeModal"
 
               :radio-btn-data="radioBtnData"
               :comments-data="commentsData"
@@ -134,12 +135,13 @@ export default {
 
     watch: {
       show(status){
+        this.$store.commit('singleProduct/showHidenBodyScroll',status)
       }
     },
 
 
     methods: {
-        modalClose() {
+        closeModal() {
             this.show = false;
         },
 
@@ -260,8 +262,85 @@ export default {
       height: 35px;
     }
 
+    // این قسمت به علت تکرار جدا شود  //
+    .product__modal-close::after{
+      @include display-flex();
+      content: "\e801";
+      @include font-icon__limoo();
+      font-size: 12px;
+    }
+    .product__modal-close{
+      width: 30px;
+      height: 30px;
+      cursor: pointer;
+    }
+    .product__modal-title{
+      font-size: 14px;
+      color:$black;
+      font-weight: 400;
+      flex-grow: 1;
+      min-height: 18px;
+      color:$black-topic;
+    }
+    .product__modal-top{
+      @include display-flex();
+      align-items: flex-start;
+      padding-right: 16px;
+      padding-left:16px;
+    }
+    .product__modal-line{
+      margin-bottom: 15px;
+      margin-top: 15px;
+    }
+    .product__modal-line{
+      background: $gray-border;
+      width: 100%;
+      height: 1px;
+      @include display-flex();
+    }
+    .product__modal-text{
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    .product__modal-arrow::after {
+      content: "\e801";
+      @include font-icon__limoo();
+      font-size: 17px;
+      cursor: pointer;
+      color:$gray;
+    }
+
 
   @media (max-width: 760px) {
+    .comment--mobile{
+      @include display-flex();
+    }
+    .comment--desktop{
+      display: none;
+    }
+    .comment--modal__top{
+      width: 74%;
+    }
+    .comment__rating-title{
+      font-size: 14px;
+      color: $gray;
+      margin-bottom: 24px;
+    }
+    .comment__star::before{
+      font-size: 22px;
+    }
+    .comment__stars{
+      justify-content: center;
+    }
+    .comment__star{
+      margin-left: 12px;
+    }
+    .comment__star:last-of-type{
+      margin-left: 0;
+    }
+    .comment--slider__main{
+      margin-top: 14px;
+    }
 
   }
 

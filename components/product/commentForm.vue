@@ -31,7 +31,7 @@
             <button type="submit" name="button" class="p-product-btn  p-favorite-product-btn-modal-delete cursor-pointer  ">
                       ثبت
               </button>
-            <button type="button" name="button" class="p-product-btn  cursor-pointer p-favorite-product-btn-modal-cancel ">
+            <button @click="closeModal" type="button" name="button" class="p-product-btn  cursor-pointer p-favorite-product-btn-modal-cancel ">
                 انصراف
             </button>
           </div>
@@ -119,14 +119,18 @@ export default {
 
         updateDefaultRadioBtn();
         updateRate();
-        this.addCurrentTimeForm();
+        // this.addCurrentTimeForm();
       },
 
-      addCurrentTimeForm(){
-        const currentDate      = new Date();
-        const createFormtDate  =  moment(currentDate).format("YYYYMMDDHHmmss");
+      // addCurrentTimeForm(){
+      //   const currentDate      = new Date();
+      //   const createFormtDate  =  moment(currentDate).format("YYYYMMDDHHmmss");
+      //
+      //   this.formData.Date     = createFormtDate;
+      // },
 
-        this.formData.Date     = createFormtDate;
+      closeModal(){
+        this.$emit('close-modal')
       },
 
     }
@@ -205,7 +209,51 @@ export default {
     }
 
   @media (max-width: 760px) {
-
+    .comment__form-title{
+      font-size: 14px;
+    }
+    .comment__form-main{
+      width: 100%;
+      padding-right: 19px;
+      padding-left: 19px;
+    }
+    .p-modal-address-input{
+      height: 46px;
+    }
+    .comment__textara-item{
+      height: 101px;
+    }
+    .comment__suggest-title{
+      font-size: 14px;
+      margin-bottom: 18px;
+    }
+    .comment__suggest-text{
+      font-size: 14px;
+    }
+    .comment__suggest-data{
+      flex-flow: column;
+    }
+    .comment__suggest-main{
+      margin-top: 24px;
+    }
+    .comment__suggest-item{
+      margin-bottom: 26px;
+    }
+    .comment__suggest-item:last-of-type{
+      margin-bottom: 0;
+    }
+    .radio--btn .checkmark{
+      padding: 3px;
+    }
+    .comment__suggest-btns{
+      margin-top: 38px;
+      margin-bottom: 19px;
+      justify-content: inherit;
+    }
+    .p-product-btn{
+      height: 47px;
+      width: 149px;
+    }
   }
 
 
