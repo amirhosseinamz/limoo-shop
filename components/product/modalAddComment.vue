@@ -12,19 +12,44 @@
               </div>
               <span class="product__modal-line"></span>
         </div>
-        
+
         <div class="comment--close__main comment--desktop">
             <span class="comment__close"></span>
         </div>
 
         <div class="w-100 comment__modal-container">
-                <div class="comment__modal-rating">
-                        <h3 class="comment__rating-title">به این محصول چه امتیازی می دهید؟</h3>
-                        <div class="comment__stars">
+            <div class="w-100 comment--modal__top">
+                    <div class="comment__modal-rating">
+                          <h3 class="comment__rating-title">به این محصول چه امتیازی می دهید؟</h3>
+                          <div class="comment__stars">
                             <span :class="{'active--star':data.active}" @click="activeStr(data)" :key="data.id" v-for="data in commentStar" class="comment__star"></span>
-                        </div>
-                </div>
-                
+                          </div>
+                    </div>
+
+                    <div class="comment--slider__main">
+                          <client-only>
+                              <vue-slider
+                              v-model="valueRengeSlider"
+                              :max="5"
+                              :min="1"
+                              ref="slider"
+                              @change="changeSliderRenge"
+                              height="9px"
+                              width="99%"
+                              dotSize="35"
+                              direction="rtl"
+                              padding="7px 0px"
+                              >
+                                <template v-slot:dot="{ value, focus }">
+                                  <img src="/icons/renge-circle.svg" :class="['renge-circle custom-dot', { focus }]"></img>
+                                </template>
+                            </vue-slider>
+                        </client-only>
+                  </div>
+            </div>
+
+            <comment-form :radio-btn-data="radioBtnData" :comments-data="commentsData" ></comment-form>
+
         </div>
 
 
@@ -37,21 +62,24 @@
 
 <script>
 import '~/assets/styles/_modal_add_comment.scss'
-// import '~/assets/styles/_modal_add_comment_star.scss'
+import '~/assets/styles/_slider_range_price.scss'
+import commentForm from './commentForm';
 
 
 export default {
     props: {
-        active          : { type: [Boolean, Number], default: false },
-        // productData     : { type: [Object,Array], default: [] },
+        active           : { type: [Boolean, Number], default: false },
+        radioBtnData     : { type: [Object,Array], default: [] },
+        commentsData     : { type: [Object, Array], default: {} },
     },
 
     components: {
+      commentForm,
     },
 
     data() {
       return {
-          commentStar : [
+          commentStar       : [
               {
                   id     : 1,
                   active : true,
@@ -74,6 +102,8 @@ export default {
               },
           ],
           currentStarActive : {},
+          valueRengeSlider  : 0,
+
 
       }
 
@@ -91,7 +121,7 @@ export default {
     },
 
     mounted() {
-
+      this.activeDefaultRengeSlider();
     },
 
     watch: {
@@ -115,8 +145,28 @@ export default {
                     content.active = false;
                 }
             });
-            this.currentStarActive = data;
-        }
+            this.activeDefaultRengeSlider();
+        },
+
+        changeSliderRenge(currentRenge){
+          const currentStarActive = {
+            id     : currentRenge,
+            active : false,
+          }
+
+          this.activeStr(currentStarActive)
+        },
+
+        activeDefaultRengeSlider(){
+          // پیدا کردن مقدار پیشفرض ستاره ها //
+          let findCountLastActiveStar = -1;
+          this.commentStar.map((content)=>{
+              if (content.active) {
+                findCountLastActiveStar = content.id;
+              }
+          });
+          this.valueRengeSlider  = findCountLastActiveStar;
+        },
 
     }
 };
@@ -167,18 +217,41 @@ export default {
        @include display-flex();
     }
     .comment__stars{
-        width: 372px;
+        width: 100%;
         @include display-flex();
         justify-content: space-between;
     }
     .active--star::before{
         color:#FFD35A;
     }
-
+    .comment--modal__top{
+      @include display-flex();
+      flex-wrap: wrap;
+      align-items: flex-start;
+      width:372px;
+      flex-flow: column;
+      margin-right: auto;
+      margin-left: auto;
+    }
+    .comment__modal-container{
+      flex-wrap: wrap;
+      @include display-flex();
+      width:100%;
+      flex-flow: column;
+      align-items: flex-start;
+    }
+    .comment--slider__main{
+      width:100%;
+      margin-top: 27px;
+    }
+    .renge-circle{
+      width:35px;
+      height: 35px;
+    }
 
 
   @media (max-width: 760px) {
-  
+
   }
 
 

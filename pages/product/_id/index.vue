@@ -23,13 +23,14 @@
        :introduction-and-detail-technical-tab="introductionAndDetailTechnicalTab"
        :comment-and-answer-question-tab-name="commentAnswerQuestionTabName"
        :comment-data="getComments"
+       :radio-btn-data="radioBtnData"
 
        @active-item-slider-nav="activeItemSliderNav"
        @more-comment="moreComment"
        @more-comment-mobile="moreCommentMobile"
        ></contentSingleProduct>
 
-      
+
 
 
 
@@ -67,16 +68,16 @@ export default {
                 content.showCircle     = false;
                 content.limitBodyText  = '';
 
-          
-                
+
+
               // در صورتی که وضعیتی برای نمایش برای کاربر نبود زمان برای کاربر نمایش داده می شود //
-              if (typeof(content.confirmLeave) == 'undefined') {  
+              if (typeof(content.confirmLeave) == 'undefined') {
                 moment.loadPersian({usePersianDigits: false})
                 const getDateTimeEnglish = moment(content.Date,'YYYYMMDDHHmmss').format("YYYY-MM-DDTHH:mm:ss");
                 const calcTimeAgo        = timeSince(getDateTimeEnglish);
                 const splitTime          = calcTimeAgo.split(' ');
                 content.dateConvert      = calcTimeAgo;
-                
+
 
                 switch (splitTime[1]) {
                   case 'days':
@@ -105,7 +106,7 @@ export default {
                 const convertTimeJalali       = moment(content.Date,'YYYYMMDDHHmmss').format('jDD jMMMM jYYYY')
                 content.dateConvert           = convertTimeJalali;
               }
-              
+
               // پس از اتصال به سرور این قسمت پاک شود //
               if (index < 3) {
                   limitedCommentData = [...limitedCommentData,content];
@@ -113,11 +114,11 @@ export default {
             })
 
             return limitedCommentData;
-           }  
+           }
 
 
 
-        return { 
+        return {
           detailTechnical : detailTechnicalData(),
           getComments     : getComments(),
         }
@@ -130,9 +131,9 @@ export default {
 
     data() {
         return {
-          productData   : [],
-         
-          productSlider : [
+          productData                          : [],
+
+          productSlider                        : [
             {
               id    : 1,
               image : 'https://statics-develop.diver.ir/1/fill/512/512/sm/true/plain/s3://limoo/product/picTest1.jpg',
@@ -198,8 +199,8 @@ export default {
               image : 'https://statics-develop.diver.ir/1/fill/512/512/sm/true/plain/s3://limoo/product/single_pic_slider.jpg',
             },
           ],
-         
-         productSliderMobile : [
+
+          productSliderMobile                  : [
             {
               id    : 1,
               image : 'https://statics-develop.diver.ir/1/fill/328/328/sm/true/plain/s3://limoo/product/single_product_img2.jpg',
@@ -213,7 +214,7 @@ export default {
               image : 'https://statics-develop.diver.ir/1/fill/328/328/sm/true/plain/s3://limoo/product/picTest1.jpg',
             },
           ],
-        
+
           introductionAndDetailTechnicalTab    : [
             {
               id     : 1,
@@ -229,7 +230,7 @@ export default {
             }
           ],
 
-          commentAnswerQuestionTabName    : [
+          commentAnswerQuestionTabName         : [
             {
               id     : 1,
               title  : 'نظر مشتریان محصول',
@@ -242,7 +243,7 @@ export default {
             }
           ],
 
-          commentsData: [
+          commentsData                         : [
                 {
                     id: 1,
                     commentTitle:
@@ -288,8 +289,26 @@ export default {
                     "Suggest": 1
                 }
            ],
-           
-          pageMoreComment : 1,
+
+          pageMoreComment                      : 1,
+
+          radioBtnData                         : [
+              {
+                id      : 1,
+                title   : 'پیشنهاد می کنم',
+                checked : true,
+              },
+              {
+                id      : 2,
+                title   : 'پیشنهاد نمی کنم',
+                checked : false,
+              },
+              {
+                id      : 3,
+                title   : 'نظری ندارم',
+                checked : false,
+              },
+          ],
 
 
 
@@ -332,7 +351,7 @@ export default {
           // پس از دریافت رسپانس مقدار صفحه اضافه شود //
           // در صورت مواجه شدن با ارور مقدار مورد نظر اضافه نشود //
 
-        const newComment = {   
+        const newComment = {
             "Date": "20210406051422",
             "Firstname": "محمد ",
             "Lastname": "احمدی",
@@ -356,7 +375,7 @@ export default {
                 if (indexOneByOne <= countConcat) {
                     concatStr += contentOneByOne;
                    }
-               })  
+               })
                return concatStr;
         }
 

@@ -3,7 +3,7 @@
         <div class="w-100">
             <button @click="showModalAddComment" class="btn-change comments-add__comment">ارسال و ثبت نظر</button>
         </div>
-      
+
         <div class="w-100">
             <div class="user-comments__empty-container" v-show="userComments == 0">
                 <img
@@ -150,7 +150,7 @@
                                             alt=""
                                         /> -->
                                         <div class="p-commented-default-pic p-commented-product-img">
-                                            
+
                                         </div>
                                     </div>
                                     <div class="p-product-content-data">
@@ -167,7 +167,7 @@
                                                             (data.Rate * 100) / 5 +
                                                             '%'
                                                     }"
-                                                    
+
                                                 ></div>
                                             </div>
                                             <span class="rate-counter">
@@ -186,14 +186,14 @@
                                     <div ref="test" class="p-commentedproduct-description">
                                         {{data.Body}}
                                     </div>
-                                
+
                                     <!-- <span
                                         @click="showMoreDescription(data)"
                                         class="show-more-description"
                                     ></span> -->
                                     <img v-if="data.showCircle"  @click="showMoreDescription(data)" src="/icons/arrow-down.svg" alt="" class="more__arrow-icon"/>
                                 </div>
-                            
+
 
                             </div>
                         </div>
@@ -209,12 +209,14 @@
                     <paganation @last-update-page="lastUpdatePage"></paganation>
             </div>
         </div>
-        
-        <modal-add-comment 
+
+        <modal-add-comment
          class="comment__modal--data"
+         :radio-btn-data="radioBtnData"
+         :comments-data="commentsData"
          :active.sync="statusShowModalAddComment"
         ></modal-add-comment>
-        
+
     </div>
 </template>
 
@@ -226,7 +228,8 @@ import modalAddComment from './modalAddComment';
 
 export default {
     props: {
-        commentsData: { type: [Object, Array], default: {} }
+        commentsData: { type: [Object, Array], default: {} },
+        radioBtnData: { type: [Object, Array], default: [] },
     },
 
     components: {
@@ -275,7 +278,7 @@ export default {
             this.commentsData.map(content => {
                 if (content.id == data.id) {
                     content.selected = !content.selected;
-                
+
                 }
             });
             // this.updateSelected++;
@@ -289,7 +292,7 @@ export default {
             this.dataEditAddress = {};
             this.passChangeIsActive = false;
         },
-   
+
         lastUpdatePage(data){
             this.$emit('more-comment',data)
         },
@@ -658,7 +661,7 @@ export default {
     .tab__more-icon{
         margin-right:7px;
     }
-      
+
     .p-commented-product-img::before {
         @include font-icon__limoo();
         font-size: 29px;
@@ -763,7 +766,7 @@ export default {
         margin-left: 10%;
     }
     .p-comments-content-main {
-        
+
     }
     .p-commentedproduct-description {
         font-size: 14px;

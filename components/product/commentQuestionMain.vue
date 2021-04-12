@@ -4,15 +4,17 @@
                 <div class="tab__main-wrapper">
                       <div :class="{'tab--active':data.active}" @click="activeTab(data)" v-for="data in productTab" :key="data.id" class="tabs__item">
                             <h3 class="tabs__item-title">{{data.title}}</h3>
-                            <span class="tabs__item-line"></span>    
-                        </div>  
+                            <span class="tabs__item-line"></span>
+                        </div>
                 </div>
             </div>
 
             <div class="w-100 ">
-                 <comment-user 
-                     :class="{'show--tab':currentTab == 'commentUser'}" 
+                 <comment-user
+                     :class="{'show--tab':currentTab == 'commentUser'}"
                      :comments-data="commentData"
+                     :radio-btn-data="radioBtnData"
+
                      @more-comment="moreComment"
                      @more-comment-mobile="moreCommentMobile"
                   ></comment-user>
@@ -32,6 +34,8 @@ export default {
       productTab   : { type: [Object,Array], default: [] },
       productData  : { type: [Object,Array], default: [] },
       commentData  : { type: [Object,Array], default: [] },
+      radioBtnData : { type: [Object,Array], default: [] },
+
     },
 
     components: {
@@ -143,7 +147,7 @@ export default {
         position: static;
     }
 
-    
+
     @media (max-width: 760px) {
         .tabs__main{
             display: none;

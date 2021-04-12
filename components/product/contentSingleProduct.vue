@@ -36,14 +36,15 @@
                <product-tab :product-tab="introductionAndDetailTechnicalTab" :product-data="productDetailTechnical"></product-tab>
            </div>
 
-           
+
           <div class="tab--content product__single-content w-100">
-               <comment-question-main 
+               <comment-question-main
                  :comment-data="commentData"
                  :product-data="productData"
                  :product-tab="commentAndAnswerQuestionTabName"
                  @more-comment="moreComment"
                  @more-comment-mobile="moreCommentMobile"
+                 :radio-btn-data="radioBtnData"
 
                  ></comment-question-main>
            </div>
@@ -72,6 +73,7 @@ export default {
       commentAndAnswerQuestionTabName   : { type: [Object,Array], default: [] },
       productDetailTechnical            : { type: [Object,Array], default: [] },
       commentData                       : { type: [Object,Array], default: [] },
+      radioBtnData                      : { type: [Object,Array], default: [] },
 
     },
 
