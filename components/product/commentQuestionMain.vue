@@ -3,7 +3,8 @@
             <div class="tabs__main">
                 <div class="tab__main-wrapper">
                       <div :class="{'tab--active':data.active}" @click="activeTab(data)" v-for="data in productTab" :key="data.id" class="tabs__item">
-                            <h3 class="tabs__item-title">{{data.title}}</h3>
+                            <h3 class="tabs__item-title tab--desktop">{{data.title}}</h3>
+                            <h3 class="tabs__item-title tab--mobile">{{data.titleMobile}}</h3>
                             <span class="tabs__item-line"></span>
                         </div>
                 </div>
@@ -14,6 +15,7 @@
                      :class="{'show--tab':currentTab == 'commentUser'}"
                      :comments-data="commentData"
                      :radio-btn-data="radioBtnData"
+                     :close-modal-add-comment="closeModalAddComment"
 
                      @more-comment="moreComment"
                      @more-comment-mobile="moreCommentMobile"
@@ -32,10 +34,11 @@ import answerQuestion  from './answerQuestion' ;
 
 export default {
    props: {
-      productTab   : { type: [Object,Array], default: [] },
-      productData  : { type: [Object,Array], default: [] },
-      commentData  : { type: [Object,Array], default: [] },
-      radioBtnData : { type: [Object,Array], default: [] },
+      productTab               : { type: [Object,Array], default: [] },
+      productData              : { type: [Object,Array], default: [] },
+      commentData              : { type: [Object,Array], default: [] },
+      radioBtnData             : { type: [Object,Array], default: [] },
+      closeModalAddComment     : { type: Number, default: 0 },
 
     },
 
@@ -116,6 +119,9 @@ export default {
       margin-left:70px;
       cursor: pointer;
     }
+    .tabs__item:last-of-type{
+      margin-left: 0;
+    }
     .tabs__item-title{
         font-size:18px;
         color: $gray;
@@ -151,13 +157,38 @@ export default {
         visibility: visible;
         position: static;
     }
+    .tab--mobile{
+      display: none;
+    }
 
 
     @media (max-width: 760px) {
-        .tabs__main{
-            display: none;
-        }
+      .tabs__item-title{
+        font-size: 14px;
+      }
+      .tab__main-wrapper{
+        padding-top: 14px;
+        padding-right: 16px;
+        padding-left: 16px;
+      }
+      .tabs__item-line{
+        margin-top: 18px;
+        height: 4px;
+      }
+      .tab--desktop{
+        display: none;
+      }
+      .tab--mobile{
+        @include display-flex();
+      }
     }
+
+    @media (max-width: 285px) {
+      .tabs__item{
+        margin-left: 60px;
+      }
+    }
+
 
 
 

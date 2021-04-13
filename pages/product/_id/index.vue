@@ -24,6 +24,7 @@
        :comment-and-answer-question-tab-name="commentAnswerQuestionTabName"
        :comment-data="getComments"
        :radio-btn-data="radioBtnData"
+       :close-modal-add-comment="closeModalAddComment"
 
        @active-item-slider-nav="activeItemSliderNav"
        @more-comment="moreComment"
@@ -231,14 +232,16 @@ export default {
 
           commentAnswerQuestionTabName         : [
             {
-              id     : 1,
-              title  : 'نظر مشتریان محصول',
-              active : true,
+              id          : 1,
+              title       : 'نظر مشتریان محصول',
+              titleMobile : 'نظر مشتریان',
+              active      : true,
             },
              {
-              id     : 2,
-              title  : "پرسش و پاسخ",
-              active : false,
+              id          : 2,
+              title       : "پرسش و پاسخ",
+              titleMobile : "پرسش و پاسخ",
+              active      : false,
             }
           ],
 
@@ -311,6 +314,8 @@ export default {
                 value   : 3,
               },
           ],
+
+          closeModalAddComment                : 0,
 
 
 
@@ -436,7 +441,11 @@ export default {
             Comments : this.getComments,
           }
 
-          getComments(comments)
+          getComments(comments);
+
+          // در صورت نداشتن ارور مقدار مورد نظر ذر صدا زده می شود //
+          // و باعث بسته شدن مودال می شود //
+          this.closeModalAddComment++;
       }
 
     }

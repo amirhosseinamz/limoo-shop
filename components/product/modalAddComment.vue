@@ -36,7 +36,7 @@
                               @change="changeSliderRenge"
                               height="9px"
                               width="99%"
-                              dotSize="35"
+                              :dotSize="dotSize"
                               direction="rtl"
                               padding="7px 0px"
                               >
@@ -112,6 +112,7 @@ export default {
           ],
           currentStarActive : {},
           valueRengeSlider  : 0,
+          dotSize           : 35,
 
 
       }
@@ -131,11 +132,25 @@ export default {
 
     mounted() {
       // this.activeDefaultRengeSlider();
+      const width   = window.innerWidth;
+
+      if (760 >= width) {
+        this.dotSize = 26;
+      }
+
+      this.detectedResizeBrowser();
     },
 
     watch: {
       show(status){
-        this.$store.commit('singleProduct/showHidenBodyScroll',status)
+        this.$store.commit('singleProduct/showHidenBodyScroll',status);
+        if (!status) {
+          // پاک کردن دیتا هایی که قبلا در مودال نوشته شده بود //
+          this.valueRengeSlider = 0;
+          this.commentStar.map((content)=>{
+            content.active = false;
+          })
+        }
       }
     },
 
@@ -180,6 +195,21 @@ export default {
         submitData(data){
           this.$emit('submit-data',data);
         },
+
+        detectedResizeBrowser(){
+          window.addEventListener("resize", ()=>{
+              const width   = window.innerWidth;
+
+              if (760 >= width) {
+                this.dotSize = 26;
+              }
+              else {
+                this.dotSize = 35;
+              }
+
+            }, true);
+        },
+
 
     }
 };
@@ -325,9 +355,10 @@ export default {
       font-size: 14px;
       color: $gray;
       margin-bottom: 24px;
+      margin-top: 24px;
     }
     .comment__star::before{
-      font-size: 22px;
+      font-size: 21px;
     }
     .comment__stars{
       justify-content: center;
@@ -341,6 +372,14 @@ export default {
     .comment--slider__main{
       margin-top: 14px;
     }
+    .product__modal-line{
+      margin-bottom: 0px;
+    }
+    .renge-circle{
+      width:26px;
+      height: 26px;
+    }
+
 
   }
 

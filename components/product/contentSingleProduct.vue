@@ -37,12 +37,13 @@
            </div>
 
 
-          <div class="tab--content product__single-content w-100">
+          <div class="tab--content product__single-content w-100 tab--comment">
                <comment-question-main
                  :comment-data="commentData"
                  :product-data="productData"
                  :product-tab="commentAndAnswerQuestionTabName"
                  :radio-btn-data="radioBtnData"
+                 :close-modal-add-comment="closeModalAddComment"
 
                  @more-comment="moreComment"
                  @more-comment-mobile="moreCommentMobile"
@@ -75,6 +76,7 @@ export default {
       productDetailTechnical            : { type: [Object,Array], default: [] },
       commentData                       : { type: [Object,Array], default: [] },
       radioBtnData                      : { type: [Object,Array], default: [] },
+      closeModalAddComment              : { type: Number, default: 0 },
 
     },
 
@@ -243,7 +245,14 @@ export default {
       padding-bottom:0;
       padding-right:8px;
       padding-left:8px;
-      margin-bottom:0;
+      margin-bottom:8px;
+    }
+    .tab--content:last-of-type{
+      margin-bottom: 0;
+    }
+    .tab--comment{
+      padding-right: 0;
+      padding-left: 0;
     }
   }
 

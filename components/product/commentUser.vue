@@ -230,8 +230,9 @@ import modalAddComment from './modalAddComment';
 
 export default {
     props: {
-        commentsData: { type: [Object, Array], default: {} },
-        radioBtnData: { type: [Object, Array], default: [] },
+        commentsData             : { type: [Object, Array], default: {} },
+        radioBtnData             : { type: [Object, Array], default: [] },
+        closeModalAddComment     : { type: Number, default: 0 },
     },
 
     components: {
@@ -250,8 +251,8 @@ export default {
     },
 
     watch: {
-        commentsData(data){
-            console.log('dasds');
+        closeModalAddComment(status){
+          this.statusShowModalAddComment = false;
         }
     },
 
@@ -309,6 +310,7 @@ export default {
 
         showModalAddComment(){
           this.statusShowModalAddComment = true;
+
         },
 
         submitData(data){
@@ -734,6 +736,7 @@ export default {
         font-size:16px;
         color:$yellow;
         margin-bottom:42px;
+        height: 57px;
     }
 
 
@@ -772,6 +775,27 @@ export default {
     .p-commentedproduct-description {
         font-size: 14px;
     }
+}
+
+@media (max-width: 760px) {
+  .p-comments-content-main{
+    padding-right: 11px;
+    padding-left: 11px;
+  }
+  .comments-add__comment{
+    width: 259px;
+    margin-right: auto;
+    margin-left: auto;
+    @include display-flex();
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 24px;
+    margin-top: 24px;
+    height: 47px;
+  }
+  .tabs__content{
+    padding-top: 0 !important;
+  }
 }
 
 @media (max-width: 600px) {
@@ -944,8 +968,15 @@ export default {
     //  .p-commentedproduct-description{
     //     max-height: 78px;
     // }
-
 }
+
+
+@media (max-width: 485px) {
+  .comments-add__comment{
+    width: 72%;
+  }
+}
+
 @media (max-width: 280px) {
     .p-comments__title,
     .ideas-title {

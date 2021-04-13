@@ -2,15 +2,15 @@
   <div class="comment__form-main">
     <form @submit="submitData" ref="form" class="w-100" >
           <div class="w-100">
-            <div :class="{'p-modal-show_error':false}" class="w-100 comment__form-item ">
+            <div :class="{'show--error':showErrorCommentTitle}" class="w-100 comment__form-item ">
               <h3 class="comment__form-title">عنوان نظر شما:</h3>
-              <input v-model="formData.Title" maxlength="65"  type="text" class="p-modal-address-input p-input-style__default ">
-              <span  class="pass__alert "></span>
+              <input @keyup="checkErrorCommentTitle" v-model="formData.Title" maxlength="20"  type="text" class="p-modal-address-input p-input-style__default ">
+              <span  class="pass__alert ">{{errorCommentTitle}}</span>
             </div>
-            <div :class="{'p-modal-show_error':false}" class="w-100 comment__form-item ">
+            <div :class="{'show--error':showErrorCommentText}"  class="w-100 comment__form-item ">
               <h3 class="comment__form-title">متن نظر شما:</h3>
-              <textarea v-model="formData.Body"   class="comment__textara-item p-input-style__default p-modal-address-input"  rows="8" cols="80"></textarea>
-              <span  class="pass__alert "></span>
+              <textarea maxlength="65" @keyup="checkErrorCommentText" v-model="formData.Body"   class="comment__textara-item p-input-style__default p-modal-address-input"  rows="8" cols="80"></textarea>
+              <span  class="pass__alert ">{{errorCommentText}}</span>
             </div>
           </div>
 
@@ -70,6 +70,11 @@ export default {
            "Suggest"      : 1,
            "confirmLeave" : "2",
          },
+         showErrorCommentText     : false,
+         errorCommentText         : '',
+
+         showErrorCommentTitle    : false,
+         errorCommentTitle        : '',
       }
 
     },
@@ -97,11 +102,34 @@ export default {
       },
 
       submitData(e){
+        let checkVerifiSubmitForm = true;
+
         e.preventDefault();
 
-        this.defaultUpdateFormData();
+        if (this.formData.Body == '') {
+          this.showErrorCommentText  = true;
+          this.errorCommentText      = 'معتبر نیست';
+        }
 
-        this.$emit('submit-data',this.formData);
+        if (this.formData.Title == '') {
+          this.showErrorCommentTitle  = true;
+          this.errorCommentTitle      = 'معتبر نیست';
+        }
+
+        // در صورت داشتن ارور اجرا می شود //
+        if (
+          this.showErrorCommentTitle ||
+          this.showErrorCommentText
+        )
+        {
+          checkVerifiSubmitForm = false;
+        }
+
+        if (checkVerifiSubmitForm) {
+          this.defaultUpdateFormData();
+          this.$emit('submit-data',this.formData);
+        }
+
       },
 
       defaultUpdateFormData(){
@@ -131,6 +159,51 @@ export default {
 
       closeModal(){
         this.$emit('close-modal')
+      },
+
+      isNotEmpty (str) {
+          var pattern =/\S+/;
+          return pattern.test(str);  // returns a boolean
+      },
+
+      checkErrorCommentText(e,submitValue){
+        const value = e.target.value;
+
+        if (value != '') {
+            if (this.isNotEmpty(value)) {
+              this.showErrorCommentText  = false;
+            }
+
+            if (value.length == 65) {
+              this.showErrorCommentText   = true;
+              this.errorCommentText = 'بیش از حد مجاز';
+            }
+
+        }
+        else {
+            this.showErrorCommentText = false;
+        }
+
+      },
+
+      checkErrorCommentTitle(e,submitValue){
+        const value = e.target.value;
+
+        if (value != '') {
+            if (this.isNotEmpty(value)) {
+              this.showErrorCommentTitle  = false;
+            }
+
+            if (value.length == 20) {
+              this.showErrorCommentTitle   = true;
+              this.errorCommentTitle = 'بیش از حد مجاز';
+            }
+
+        }
+        else {
+            this.showErrorCommentTitle = false;
+        }
+
       },
 
     }
@@ -207,6 +280,23 @@ export default {
     .p-product-btn  {
       width: 130px;
     }
+    .pass__alert {
+      color: $alert-red;
+      text-align: right;
+      font-size: 14px;
+      line-height: 140.62%;
+      @include display-flex();
+      width: 100%;
+      text-align: right;
+      visibility: hidden;
+      margin-top: 4px;
+    }
+    .show--error .p-input-style__default{
+      border:solid 1px red;
+    }
+    .show--error .pass__alert {
+      visibility: visible;
+    }
 
   @media (max-width: 760px) {
     .comment__form-title{
@@ -216,6 +306,7 @@ export default {
       width: 100%;
       padding-right: 19px;
       padding-left: 19px;
+      padding-top: 27px;
     }
     .p-modal-address-input{
       height: 46px;
@@ -248,7 +339,6 @@ export default {
     .comment__suggest-btns{
       margin-top: 38px;
       margin-bottom: 19px;
-      justify-content: inherit;
     }
     .p-product-btn{
       height: 47px;
