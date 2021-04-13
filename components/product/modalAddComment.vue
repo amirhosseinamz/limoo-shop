@@ -290,6 +290,7 @@ export default {
     .renge-circle{
       width:35px;
       height: 35px;
+      pointer-events: none;
     }
 
     // این قسمت به علت تکرار جدا شود  //
