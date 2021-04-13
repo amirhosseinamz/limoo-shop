@@ -312,6 +312,30 @@ export default {
       color: $alert-red;
     }
 
+    @media (max-width: 1600px) {
+    .comment__suggest-title{
+      margin-bottom: 17px;
+    }
+    .comment__suggest-btns{
+      margin-top: 17px;
+    }
+    .comment__form-title{
+      margin-bottom: 9px;
+    }
+    .comment__form-main{
+      padding-top: 25px;
+    }
+    .comment__suggest-main{
+      margin-top:25px;
+    }
+    .comment__textara-item{
+      height:100px;
+    }
+    .comment__form-item{
+      margin-bottom: 20px;
+    }
+  }
+
   @media (max-width: 760px) {
     .comment__form-title{
       font-size: 14px;

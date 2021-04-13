@@ -19,6 +19,14 @@
 }
 
 
+@media (max-width: 1600px) {
+  #add--comment{
+    .modal-dialog{
+        min-height: auto;
+    }
+  }
+}
+
 @media (max-width: 760px) {
     #add--comment{
       .modal-dialog{

@@ -341,6 +341,13 @@ export default {
       color:$gray;
     }
 
+    
+    @media (max-width: 1600px) {
+      .comment__rating-title{
+        margin-bottom: 16px;
+      }
+     
+    }
 
   @media (max-width: 760px) {
     .comment--mobile{
