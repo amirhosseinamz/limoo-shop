@@ -3,12 +3,18 @@
     <form @submit="submitData" ref="form" class="w-100" >
           <div class="w-100">
             <div :class="{'show--error':showErrorCommentTitle}" class="w-100 comment__form-item ">
-              <h3 class="comment__form-title">عنوان نظر شما:</h3>
-              <input @keyup="checkErrorCommentTitle" v-model="formData.Title" maxlength="20"  type="text" class="p-modal-address-input p-input-style__default ">
-              <span  class="pass__alert ">{{errorCommentTitle}}</span>
+                <div class="comment__form-data">
+                  <h3 class="comment__form-title">عنوان نظر شما:</h3>
+                  <span class="comment__form-star">*</span>
+                </div>
+                <input @keyup="checkErrorCommentTitle" v-model="formData.Title" maxlength="20"  type="text" class="p-modal-address-input p-input-style__default ">
+                <span  class="pass__alert ">{{errorCommentTitle}}</span>
             </div>
             <div :class="{'show--error':showErrorCommentText}"  class="w-100 comment__form-item ">
-              <h3 class="comment__form-title">متن نظر شما:</h3>
+              <div class="comment__form-data">
+                <h3 class="comment__form-title">متن نظر شما:</h3>
+                <span class="comment__form-star">*</span>
+              </div>
               <textarea maxlength="65" @keyup="checkErrorCommentText" v-model="formData.Body"   class="comment__textara-item p-input-style__default p-modal-address-input"  rows="8" cols="80"></textarea>
               <span  class="pass__alert ">{{errorCommentText}}</span>
             </div>
@@ -296,6 +302,14 @@ export default {
     }
     .show--error .pass__alert {
       visibility: visible;
+    }
+    .comment__form-data{
+      @include display-flex();
+    }
+    .comment__form-star{
+      margin-right: 3px;
+      font-size: 16px;
+      color: $alert-red;
     }
 
   @media (max-width: 760px) {
