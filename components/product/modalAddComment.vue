@@ -14,7 +14,7 @@
         </div>
 
         <div class="comment--close__main comment--desktop">
-            <span class="comment__close"></span>
+            <span @click="closeModal" class="comment__close"></span>
         </div>
 
         <div class="w-100 comment__modal-container">
