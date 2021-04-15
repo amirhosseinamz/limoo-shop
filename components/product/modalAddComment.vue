@@ -31,7 +31,7 @@
                               <vue-slider
                               v-model="valueRengeSlider"
                               :max="5"
-                              :min="0"
+                              :min="1"
                               ref="slider"
                               @change="changeSliderRenge"
                               height="9px"
@@ -91,7 +91,7 @@ export default {
           commentStar       : [
               {
                   id     : 1,
-                  active : false,
+                  active : true,
               },
                {
                   id     : 2,
@@ -111,7 +111,7 @@ export default {
               },
           ],
           currentStarActive : {},
-          valueRengeSlider  : 0,
+          valueRengeSlider  : 1,
           dotSize           : 35,
 
 
@@ -146,7 +146,7 @@ export default {
         this.$store.commit('singleProduct/showHidenBodyScroll',status);
         if (!status) {
           // پاک کردن دیتا هایی که قبلا در مودال نوشته شده بود //
-          this.valueRengeSlider = 0;
+          this.valueRengeSlider = 1;
           this.commentStar.map((content)=>{
             content.active = false;
           })
@@ -341,12 +341,12 @@ export default {
       color:$gray;
     }
 
-    
+
     @media (max-width: 1600px) {
       .comment__rating-title{
         margin-bottom: 16px;
       }
-     
+
     }
 
   @media (max-width: 760px) {
