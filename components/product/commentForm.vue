@@ -15,7 +15,7 @@
                 <h3 class="comment__form-title">متن نظر شما:</h3>
                 <span class="comment__form-star">*</span>
               </div>
-              <textarea maxlength="65" @keyup="checkErrorCommentText" v-model="formData.Body"   class="comment__textara-item p-input-style__default p-modal-address-input"  rows="8" cols="80"></textarea>
+              <textarea maxlength="450" @keyup="checkErrorCommentText" v-model="formData.Body"   class="comment__textara-item p-input-style__default p-modal-address-input"  rows="8" cols="80"></textarea>
               <span  class="pass__alert ">{{errorCommentText}}</span>
             </div>
           </div>
@@ -180,7 +180,7 @@ export default {
               this.showErrorCommentText  = false;
             }
 
-            if (value.length == 65) {
+            if (value.length == 450) {
               this.showErrorCommentText   = true;
               this.errorCommentText = 'بیش از حد مجاز';
             }
