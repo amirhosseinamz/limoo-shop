@@ -315,7 +315,7 @@ export default {
               },
           ],
 
-          closeModalAddComment                : 0,
+          closeModalAddComment                 : 0,
 
 
 

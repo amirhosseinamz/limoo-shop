@@ -1,6 +1,7 @@
 <template>
   <div class="w-100 page__home-wrapper-main">
         <div class="page__home-introduction-main w-100">
+
             <introduction-items
              :introduction-product="introductionProduct"
              :title="{sliderItemHref:'category' }"
@@ -116,7 +117,7 @@
             ></question-content>
 
 
-            <brand-introduction-content :products="brandIntroduction"></brand-introduction-content>
+            <brand-introduction-content :products="brandIntroduction" :resource-data="resourceData"></brand-introduction-content>
 
 
 
@@ -180,7 +181,7 @@ export default {
     }, 
     
     created(){
-      this.resourceData  = resource;
+      this.resourceData   = resource('home');
     },
 
     mounted(){

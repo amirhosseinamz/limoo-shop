@@ -9,9 +9,27 @@
                             </div>
                             <div class="productContent__carouselData">
                             <div class="w-100">
-                              <h3 class="productContent__carouselDataTitle">
+
+                              <h3 v-if="data.id == 1" class="productContent__carouselDataTitle">
                                 {{data.title}}
                               </h3>
+
+                               <h3 v-if="data.id == 2" class="productContent__carouselDataTitle">
+                                {{data.title}}
+                              </h3>
+
+
+                              <h3 v-if="data.id == 3" class="productContent__carouselDataTitle">
+                                {{data.title}}
+                              </h3>
+
+
+                              <h3 v-if="data.id == 4" class="productContent__carouselDataTitle">
+                                {{data.title}}
+                              </h3>
+
+
+                              <h3>dasd</h3>
                             </div>
                         </div>
                     </div>
@@ -22,6 +40,8 @@
 </template>
 
 <script>
+import splitPartJsonResource from "~/modules/splitPartJsonResource.js";
+
 
 
 export default {
@@ -29,12 +49,27 @@ export default {
     },
 
     props: {
-      products   : { type: [Object,Array], default: [] },
+      products       : { type: [Object,Array], default: [] },
+      resourceData   : { type: [Object,Array], default: [] },
+
     },
 
     data() {
       return {
+        qualityGuarantee     : {},
+        immediateSending     : {},
+        GourSupport          : {},
+        sevenDaysWarranty    : {},
       }
+    },
+
+    created(){
+      const language          = this.$store.state.language;
+
+    	this.qualityGuarantee   =  splitPartJsonResource(this.resourceData,'home_festival_seconds',language);
+    	this.immediateSending   =  splitPartJsonResource(this.resourceData,'home_festival_seconds',language);
+    	this.GourSupport        =  splitPartJsonResource(this.resourceData,'home_festival_seconds',language);
+    	this.sevenDaysWarranty  =  splitPartJsonResource(this.resourceData,'home_festival_seconds',language);
     },
 
     mounted() {

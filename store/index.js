@@ -8,8 +8,9 @@ export const state = () => ({
     // signIn: "stepOne",
     phone: "",
     // password: "",
-    userAuth: false,
-    showModalWellcome: false
+    userAuth          : false,
+    showModalWellcome : false,
+    language          : 'fa-IR',
 });
 
 export const mutations = {
