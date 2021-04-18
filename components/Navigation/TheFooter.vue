@@ -13,10 +13,7 @@
 
                 <div class="theFooter-introductionContent w-100">
                   <h3 class="theFooter-introductionTitle">
-                    لیمو نام بازاری است که در آن می توانید بی واسطه با تولید کننده ها
-                    یا فروشندگان مکالمه کنید، نظرات دیگران را بخوانید، محصول دلخواه تان را
-                    بخرید و بفروشید. در لیمو می توانید بی واسطه با تولید کننده یا فروشنده گان
-                    مکالمه کنید. نظرات دیگران را بخوانید.
+                    {{langFooterTitle}}
                   </h3>
                 </div>
 
@@ -36,92 +33,93 @@
               <span class="theFooter-Line"></span>
             </div>
 
+
             <div class="theFooter-left">
               <ul class="theFooter-leftItems w-100">
                 <div class="theFooter-itemRight">
-                  <h3 class="theFooter-itemText">دسترسی سریع</h3>
+                  <h3 class="theFooter-itemText">{{langFooterQuickAccess}}</h3>
                   <li class="theFooter-leftItem w-100">
                     <NuxtLink
                     to="/"
                     class="theFooter-itemLink"
                     >
-                    <h3 class="theFooter-itemTitle">صفحه اصلی </h3>
+                    <h3 class="theFooter-itemTitle">{{langFooterMainPage}}</h3>
                   </NuxtLink>
                 </li>
                 <li class="theFooter-leftItem w-100">
-                  <h3 class="theFooter-itemTitle">قوانین و مقررات</h3>
+                  <h3 class="theFooter-itemTitle">{{langFooterRules}}</h3>
                 </li>
                 <li class="theFooter-leftItem w-100">
-                  <h3 class="theFooter-itemTitle">روند مرجوعی کالا </h3>
+                  <h3 class="theFooter-itemTitle">{{langFooterReturn}}</h3>
                 </li>
                 <li class="theFooter-leftItem w-100">
-                  <h3 class="theFooter-itemTitle">ساخت فروشگاه در لیمو</h3>
+                  <h3 class="theFooter-itemTitle">{{langFooterCreateShop}}</h3>
                 </li>
                 <li  class="theFooter-leftItem w-100">
-                  <h3 @click="goQuestions" class="theFooter-itemTitle">سوالات متداول </h3>
+                  <h3 @click="goQuestions" class="theFooter-itemTitle">{{langFooterAskQuestion}}</h3>
                 </li>
                 <li class="theFooter-leftItem w-100">
-                  <h3 class="theFooter-itemTitle">حریم شخصی </h3>
+                  <h3 class="theFooter-itemTitle">{{langFooterPrivacy}} </h3>
                 </li>
                 <li class="theFooter-leftItem w-100">
-                  <h3 class="theFooter-itemTitle">بازیابی حساب کاربری </h3>
+                  <h3 class="theFooter-itemTitle">{{langFooterAccountRecovery}} </h3>
                 </li>
               </div>
               <div class="theFooter-itemRight">
-                <h3 class="theFooter-itemText">شبکه اجتماعی</h3>
+                <h3 class="theFooter-itemText">{{langFooterSocialNetwork}}</h3>
                 <li class="theFooter-leftItem w-100">
                   <a href="#" class="theFooter-itemLink">
                     <span class="theFooter__LeftIcon icon-instagram"></span>
-                    <h3 class="theFooter-itemTitle">اینستاگرام </h3>
+                    <h3 class="theFooter-itemTitle">{{langFooterInstagram}}</h3>
                   </a>
                 </li>
                 <li class="theFooter-leftItem w-100">
                   <a href="#" class="theFooter-itemLink">
                     <span class="theFooter__LeftIcon icon-telegram"></span>
-                    <h3 class="theFooter-itemTitle">کانال تلگرام</h3>
+                    <h3 class="theFooter-itemTitle">{{langFooterTelegram}}</h3>
                   </a>
                 </li>
                 <li class="theFooter-leftItem w-100">
                   <a href="#" class="theFooter-itemLink">
                     <span class="theFooter__LeftIcon icon-play"></span>
-                    <h3 class="theFooter-itemTitle">سرویس ویدیو </h3>
+                    <h3 class="theFooter-itemTitle">{{langFooterVideoService}} </h3>
                   </a>
                 </li>
                 <li class="theFooter-leftItem w-100">
                   <a href="https://twitter.com/home" class="theFooter-itemLink">
                     <span class="theFooter__LeftIcon icon-twitter"></span>
-                    <h3 class="theFooter-itemTitle">توییتر</h3>
+                    <h3 class="theFooter-itemTitle">{{langFooterTwitter}}</h3>
                   </a>
                 </li>
                 <li class="theFooter-leftItem w-100">
                   <a href="https://www.aparat.com/" class="theFooter-itemLink">
                     <span class="theFooter__LeftIcon icon-telegram"></span>
-                    <h3 class="theFooter-itemTitle">آپارات</h3>
+                    <h3 class="theFooter-itemTitle">{{langFooterAparat}}</h3>
                   </a>
                 </li>
               </div>
               <div class="theFooter-itemRight">
-                <h3 class="theFooter-itemText">پشتیبانی</h3>
+                <h3 class="theFooter-itemText">{{langFooterSupport}}</h3>
                 <li class="theFooter-leftItem w-100 theFooter-phoneNumberMain">
                   <div class=" theFooter-leftPhone">
-                    <h3 class="theFooter-itemTitle w-auto theFooter-titlePhone">تلفن تماس :</h3>
-                    <h3 class="theFooter-itemTitle w-auto theFooter-titlePhone">021-85860000 </h3>
+                    <h3 class="theFooter-itemTitle w-auto theFooter-titlePhone">{{langFooterSupportPhone}} :</h3>
+                    <h3 class="theFooter-itemTitle w-auto theFooter-titlePhone">{{langFooterSupportNumber}} </h3>
                   </div>
                 </li>
                 <li class="theFooter-leftItem w-100">
-                  <h3 class="theFooter-itemTitle">ارسال تیکت فوری</h3>
+                  <h3 class="theFooter-itemTitle">{{langFooterSupportTicket}}</h3>
                 </li>
                 <li class="theFooter-leftItem w-100">
-                  <h3 class="theFooter-itemTitle">پنل فروشندگان  </h3>
+                  <h3 class="theFooter-itemTitle">{{langFooterSupportSellerPanel}} </h3>
                 </li>
                 <li class="theFooter-leftItem w-100">
-                  <h3 class="theFooter-itemTitle">اطلاعات تماس</h3>
+                  <h3 class="theFooter-itemTitle">{{langFootersupportInfoNumber}}</h3>
                 </li>
                 <li class="theFooter-leftItem w-100">
-                  <h3 class="theFooter-itemTitle">فرصت های شغلی  </h3>
+                  <h3 class="theFooter-itemTitle">{{langFooterjobOpportunity}}  </h3>
                 </li>
                 <li class="theFooter-leftItem w-100">
-                  <h3 class="theFooter-itemTitle">مراجعی حضوری  </h3>
+                  <h3 class="theFooter-itemTitle">{{langFooterPersonVisit}} </h3>
                 </li>
               </div>
             </ul>
@@ -132,14 +130,14 @@
           <div class="w-100 theFooter-about">
             <div class="theFooter-aboutBottomWrapper">
               <div class="theFooter-aboutRight">
-                <h3 class="theFooter-aboutTitle">کلیه حقوق این سایت(فروشگاه لیمو) متعلق به شرکت پارس دیتا می باشد.</h3>
+                <h3 class="theFooter-aboutTitle">{{ langFooterLicenceCompany}}</h3>
               </div>
 
               <div class="theFooter-aboutLeft">
                 <div class="theFooter-aboutWallet">
-                  <h3 class="theFooter-aboutTitle">کیف پول دایور</h3>
+                  <h3 class="theFooter-aboutTitle">{{langFooterLicenceWallet}}</h3>
                   <span class="theFooter-aboutLine"></span>
-                  <h3 class="theFooter-aboutTitle">پارس دیتا</h3>
+                  <h3 class="theFooter-aboutTitle">{{langFooterLicence}}</h3>
                 </div>
               </div>
             </div>
@@ -228,7 +226,7 @@
             <div class="theFooter-itemRight">
               <div class="theFooter-itemRightTitle">
                 <span class="theFooter-iconAccess" alt=""></span>
-                <h3 class="theFooter-itemText">دسترسی سریع</h3>
+                <h3 class="theFooter-itemText">{{langFooterQuickAccess}}</h3>
               </div>
 
             <li class="theFooter-leftItem w-100">
@@ -313,6 +311,11 @@
 </template>
 
 <script>
+import resource from "~/modules/resource.js";
+import splitPartJsonResource from "~/modules/splitPartJsonResource.js";
+
+
+
 export default {
   name: "theFooter",
   components: {
@@ -322,6 +325,42 @@ export default {
     return {
       limitedShow : false,
     };
+  },
+
+  created(){
+    const language                 = this.$store.state.language;
+    const footerData               = resource('footer');
+
+    this.langFooterTitle                =  splitPartJsonResource(footerData,'footer_about_text',language).languageData.text;
+    this.langFooterQuickAccess          =  splitPartJsonResource(footerData,'footer_text_quick_access',language).languageData.text;
+    this.langFooterMainPage             =  splitPartJsonResource(footerData,'footer_main_page_text',language).languageData.text;
+    this.langFooterRules                =  splitPartJsonResource(footerData,'footer_rules_text',language).languageData.text;
+    this.langFooterReturn               =  splitPartJsonResource(footerData,'footer_return_text',language).languageData.text;
+    this.langFooterCreateShop           =  splitPartJsonResource(footerData,'footer_create_shop_text',language).languageData.text;
+    this.langFooterAskQuestion          =  splitPartJsonResource(footerData,'footer_ask_question_text',language).languageData.text;
+    this.langFooterPrivacy              =  splitPartJsonResource(footerData,'footer_privacy',language).languageData.text;
+    this.langFooterAccountRecovery      =  splitPartJsonResource(footerData,'footer_account_recovery',language).languageData.text;
+
+
+    this.langFooterSocialNetwork        =  splitPartJsonResource(footerData,'footer_social_network',language).languageData.text;
+    this.langFooterInstagram            =  splitPartJsonResource(footerData,'footer_social_instagram',language).languageData.text;
+    this.langFooterTelegram             =  splitPartJsonResource(footerData,'footer_social_telegram',language).languageData.text;
+    this.langFooterVideoService         =  splitPartJsonResource(footerData,'footer_video_service',language).languageData.text;
+    this.langFooterTwitter              =  splitPartJsonResource(footerData,'footer_social_twitter',language).languageData.text;
+    this.langFooterAparat               =  splitPartJsonResource(footerData,'footer_social_aparat',language).languageData.text;
+    this.langFooterSupport              =  splitPartJsonResource(footerData,'footer_support',language).languageData.text;
+
+    this.langFooterSupportPhone         =  splitPartJsonResource(footerData,'footer_support_phone',language).languageData.text;
+    this.langFooterSupportNumber        =  splitPartJsonResource(footerData,'footer_support_number',language).languageData.text;
+    this.langFooterSupportTicket        =  splitPartJsonResource(footerData,'footer_support_send_ticket',language).languageData.text;
+    this.langFooterSupportSellerPanel   =  splitPartJsonResource(footerData,'footer_support_seller_panel',language).languageData.text;
+    this.langFootersupportInfoNumber    =  splitPartJsonResource(footerData,'footer_support_info_number',language).languageData.text;
+    this.langFooterjobOpportunity       =  splitPartJsonResource(footerData,'footer_job_opportunity',language).languageData.text;
+    this.langFooterPersonVisit          =  splitPartJsonResource(footerData,'footer_person_visit',language).languageData.text;
+    this.langFooterLicence              =  splitPartJsonResource(footerData,'footer_licence',language).languageData.text;
+    this.langFooterLicenceCompany       =  splitPartJsonResource(footerData,'footer_licence_company',language).languageData.text;
+    this.langFooterLicenceWallet        =  splitPartJsonResource(footerData,'footer_licence_wallet',language).languageData.text;
+
   },
 
   mounted() {
