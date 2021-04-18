@@ -8,7 +8,7 @@
 
           <div class=" productContent__sliderMore productContent__topLeft">
               <nuxt-link class="productContent__moreItem" :to="title.href">
-                مطالب بیشتر
+                {{moreText}}
                 <span class=" productContent__moreIcon mobile-inprogress__arrow"></span>
               </nuxt-link>
           </div>
@@ -55,7 +55,7 @@
                                       :to=" '/' + title.sliderItemHref + '/' + data.id "
                                       >
                                       <img src="/icons/arrow-blog.svg" alt="">
-                                      <h3 class="productContent__moreSingle">ادامه...</h3>
+                                      <h3 class="productContent__moreSingle">{{moreSingleItemText}}...</h3>
                                     </NuxtLink>
 
 
@@ -81,6 +81,8 @@ export default {
       products                 : { type: [Object,Array], default: [] },
       nameElementFindSlider    : { type: String, default: '' },
       title                    : { type: Object, default: {} },
+      moreText                 : { type: String, default: '' },
+      moreSingleItemText       : { type: String, default: '' },
     },
 
     data() {

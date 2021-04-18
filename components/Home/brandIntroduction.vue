@@ -28,8 +28,6 @@
                                 {{data.content.text}}
                               </h3>
 
-
-                              <h3>dasd</h3>
                             </div>
                         </div>
                     </div>
@@ -56,7 +54,7 @@ export default {
 
     data() {
       return {
-        
+
       }
     },
 
