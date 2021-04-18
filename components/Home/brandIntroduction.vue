@@ -11,21 +11,21 @@
                             <div class="w-100">
 
                               <h3 v-if="data.id == 1" class="productContent__carouselDataTitle">
-                                {{data.title}}
+                                {{data.content.text}}
                               </h3>
 
                                <h3 v-if="data.id == 2" class="productContent__carouselDataTitle">
-                                {{data.title}}
+                                 {{data.content.text}}
                               </h3>
 
 
                               <h3 v-if="data.id == 3" class="productContent__carouselDataTitle">
-                                {{data.title}}
+                                {{data.content.text}}
                               </h3>
 
 
                               <h3 v-if="data.id == 4" class="productContent__carouselDataTitle">
-                                {{data.title}}
+                                {{data.content.text}}
                               </h3>
 
 
@@ -56,20 +56,31 @@ export default {
 
     data() {
       return {
-        qualityGuarantee     : {},
-        immediateSending     : {},
-        GourSupport          : {},
-        sevenDaysWarranty    : {},
+        
       }
     },
 
     created(){
       const language          = this.$store.state.language;
 
-    	this.qualityGuarantee   =  splitPartJsonResource(this.resourceData,'home_festival_seconds',language);
-    	this.immediateSending   =  splitPartJsonResource(this.resourceData,'home_festival_seconds',language);
-    	this.GourSupport        =  splitPartJsonResource(this.resourceData,'home_festival_seconds',language);
-    	this.sevenDaysWarranty  =  splitPartJsonResource(this.resourceData,'home_festival_seconds',language);
+      this.products.map((content)=>{
+        if (content.id == 1) {
+          content.content = splitPartJsonResource(this.resourceData,'home_quality_guarantee',language).languageData;
+        }
+
+        if (content.id == 2) {
+          content.content = splitPartJsonResource(this.resourceData,'home_immediate_sending',language).languageData;
+        }
+
+        if (content.id == 3) {
+          content.content = splitPartJsonResource(this.resourceData,'home_24_hour_support',language).languageData;
+        }
+
+        if (content.id == 4) {
+          content.content = splitPartJsonResource(this.resourceData,'home_7_days_warranty',language).languageData;
+        }
+      })
+
     },
 
     mounted() {

@@ -6,11 +6,11 @@
 export const state = () => ({
     // signUp: "stepOne",
     // signIn: "stepOne",
-    phone: "",
+    phone             : "",
     // password: "",
     userAuth          : false,
     showModalWellcome : false,
-    language          : 'fa-IR',
+    language          : '',
 });
 
 export const mutations = {
@@ -32,7 +32,13 @@ export const mutations = {
     stateShowModalWellcome(state, payload) {
         state.showModalWellcome = payload.value;
         // console.log("showModalWellcome in store is", payload.value);
-    }
+    },
+
+    currentLanguage(state, payload) {
+      state.language = payload
+    },
+
+
 };
 export const actions = {
     userIsAuth(context, payload) {

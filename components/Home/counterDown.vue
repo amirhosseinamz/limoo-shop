@@ -62,7 +62,7 @@
           </div>
           <div class="w-100 productContent-timerBtn">
             <button class="productContent-moreFestival" type="button" name="button">
-              مشاهده همه
+              {{festivalBtn.languageData.text}}
             </button>
           </div>
       </div>
@@ -86,20 +86,16 @@ export default {
         counterDownHours   : [],
         counterDownMinutes : [],
         counterDownSecond  : [],
-
-
-		  textMinutes        : {},
-		  textHour           : {},
-		  textSeconds        : {},
       }
     },
-    
- 
+
+
     created(){
         const language      = this.$store.state.language;
     	  this.textMinutes    =  splitPartJsonResource(this.resourceData,'home_festival_minutes',language);
 		    this.textHour       =  splitPartJsonResource(this.resourceData,'home_festival_hour',language);
     	  this.textSeconds    =  splitPartJsonResource(this.resourceData,'home_festival_seconds',language);
+        this.festivalBtn    =  splitPartJsonResource(this.resourceData,'home_festival_btn_text',language);
     },
 
     mounted() {

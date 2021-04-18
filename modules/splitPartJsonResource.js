@@ -1,7 +1,6 @@
-
 const resultSplit = (data,text,findLanguage) => {
     let resultFilterPwa = {};
-    
+
     data.find((content)=>{
               const splitTextKey     = content.text_key.split('.')
               if (splitTextKey[1] == text) {
@@ -15,6 +14,7 @@ const resultSplit = (data,text,findLanguage) => {
         }
     })
 
+
     return resultFilterPwa;
 }
 
@@ -22,5 +22,3 @@ const resultSplit = (data,text,findLanguage) => {
 
 
 export default resultSplit;
-
-

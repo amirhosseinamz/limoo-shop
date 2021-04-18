@@ -18,10 +18,13 @@
               :resource-data="resourceData"
              ></product-content>
 
+
+
             <product-cat
              :all-category="allCategory"
              name-element-find-slider="productContent__mainCat1"
-             :title="{title:'دسته بندی محصولات' , href:'catHref' , titleVisit:'',sliderItemHref:'category' , sliderItemHref:'product1'}"
+             :more-text="langCatMoreAll.languageData.text"
+             :title="{title:langCatTitle.languageData.text , href:'catHref' , titleVisit:'',sliderItemHref:'category' , sliderItemHref:'product1'}"
              ></product-cat>
 
             <product-vertical-content
@@ -139,6 +142,7 @@ import questionContent from './questionContent';
 import brandIntroductionContent from './brandIntroductionContent';
 import blogContent from './blogContent';
 import productVertical2Content from './productVertical2Content';
+import splitPartJsonResource from "~/modules/splitPartJsonResource.js";
 
 
 export default {
@@ -176,17 +180,21 @@ export default {
 
     data() {
       return {
-        resourceData : [],
+        resourceData    : [],
       }
-    }, 
-    
+    },
+
     created(){
-      this.resourceData   = resource('home');
+      const language           = this.$store.state.language;
+      this.resourceData        = resource('home');
+
+      this.langCatMoreAll      =  splitPartJsonResource(this.resourceData,'home_category_all',language);
+      this.langCatTitle        =  splitPartJsonResource(this.resourceData,'home_category_title',language);
     },
 
     mounted(){
     },
-  
+
     methods: {
 
     },

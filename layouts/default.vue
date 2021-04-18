@@ -89,6 +89,11 @@ export default {
 
     },
 
+    created() {
+      // تعیین زبان صفحه //
+      this.currentLanguage();
+    },
+
     mounted() {
     },
 
@@ -103,6 +108,11 @@ export default {
         // this.$store.state.category.showModalSort     = data;
         this.$store.commit('category/updateStateModals',{showModalSort:data})
       },
+
+      currentLanguage(){
+        const language = 'fa-IR';
+        this.$store.commit("currentLanguage", language);
+      }
 
     },
 
