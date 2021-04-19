@@ -21,9 +21,15 @@ export default {
         TheMobileMegaMenu,
         theFooter,
     },
+
     data() {
       return {
       }
+    },
+
+    created() {
+      // تعیین زبان صفحه //
+      this.currentLanguage();
     },
 
     watch: {
@@ -31,6 +37,10 @@ export default {
     },
 
     methods: {
+      currentLanguage(){
+        const language = 'fa-IR';
+        this.$store.commit("currentLanguage", language);
+      }
 
     },
 
