@@ -20144,6 +20144,170 @@
                         "title": ""
                     }
                 ]
+            },
+            {
+                "text_id": 48648,
+                "text_key": "lpwa.orders_empty",
+                "status": 1,
+                "content": [
+                    {
+                        "culture": "fa-IR",
+                        "text": "هیچ سفارش تحویل داده شده ای ندارید.",
+                        "title": ""
+                    }
+                ]
+            },
+            {
+                "text_id": 48660,
+                "text_key": "lpwa.orders_tab_waiting_for_payment",
+                "status": 1,
+                "content": [
+                    {
+                        "culture": "fa-IR",
+                        "text": "در انتظار پرداخت",
+                        "title": ""
+                    }
+                ]
+            },
+            {
+                "text_id": 48662,
+                "text_key": "lpwa.orders_tab_processing",
+                "status": 1,
+                "content": [
+                    {
+                        "culture": "fa-IR",
+                        "text": "در حال پردازش",
+                        "title": ""
+                    }
+                ]
+            },
+            {
+                "text_id": 48664,
+                "text_key": "lpwa.orders_tab_delivered",
+                "status": 1,
+                "content": [
+                    {
+                        "culture": "fa-IR",
+                        "text": "تحویل داده شده"
+                    }
+                ]
+            },
+            {
+                "text_id": 48666,
+                "text_key": "lpwa.orders_tab_referred",
+                "status": 1,
+                "content": [
+                    {
+                        "culture": "fa-IR",
+                        "text": "مرجوع شده",
+                        "title": ""
+                    }
+                ]
+            },
+            {
+                "text_id": 48668,
+                "text_key": "lpwa.orders_tab_canceled",
+                "status": 1,
+                "content": [
+                    {
+                        "culture": "fa-IR",
+                        "text": "لغو شده",
+                        "title": ""
+                    }
+                ]
+            },
+            {
+                "text_id": 48680,
+                "text_key": "lpwa.orders_see_product",
+                "status": 1,
+                "content": [
+                    {
+                        "culture": "fa-IR",
+                        "text": "مشاهده سفارش",
+                        "title": ""
+                    }
+                ]
+            },
+            {
+                "text_id": 48682,
+                "text_key": "lpwa.orders_code_order",
+                "status": 1,
+                "content": [
+                    {
+                        "culture": "fa-IR",
+                        "text": "کد سفارش:",
+                        "title": ""
+                    }
+                ]
+            },
+            {
+                "text_id": 48684,
+                "text_key": "lpwa.orders_order_price",
+                "status": 1,
+                "content": [
+                    {
+                        "culture": "fa-IR",
+                        "text": "قیمت:"
+                    }
+                ]
+            },
+            {
+                "text_id": 48686,
+                "text_key": "lpwa.orders_order_date",
+                "status": 1,
+                "content": [
+                    {
+                        "culture": "fa-IR",
+                        "text": "تاریخ سفارش",
+                        "title": ""
+                    }
+                ]
+            },
+            {
+                "text_id": 48688,
+                "text_key": "lpwa.orders_order_status",
+                "status": 1,
+                "content": [
+                    {
+                        "culture": "fa-IR",
+                        "text": "وضعیت:",
+                        "title": ""
+                    }
+                ]
+            },
+            {
+                "text_id": 48800,
+                "text_key": "lpwa.public_unit",
+                "status": 1,
+                "content": [
+                    {
+                        "culture": "fa-IR",
+                        "text": "تومان"
+                    }
+                ]
+            },
+            {
+                "text_id": 48802,
+                "text_key": "lpwa.orders_order_list_text",
+                "status": 1,
+                "content": [
+                    {
+                        "culture": "fa-IR",
+                        "text": "لیست سفارشات شما",
+                        "title": ""
+                    }
+                ]
+            },
+            {
+                "text_id": 48804,
+                "text_key": "lpwa.orders_order_my",
+                "status": 1,
+                "content": [
+                    {
+                        "culture": "fa-IR",
+                        "text": "سفارش های من"
+                    }
+                ]
             }
         ]
     },
