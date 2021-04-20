@@ -130,14 +130,14 @@
           <div class="w-100 theFooter-about">
             <div class="theFooter-aboutBottomWrapper">
               <div class="theFooter-aboutRight">
-                <h3 class="theFooter-aboutTitle">{{ langFooterLicenceCompany}}</h3>
+                <h3 class="theFooter-aboutTitle">{{langFooterLicence}}</h3>
               </div>
 
               <div class="theFooter-aboutLeft">
                 <div class="theFooter-aboutWallet">
                   <h3 class="theFooter-aboutTitle">{{langFooterLicenceWallet}}</h3>
                   <span class="theFooter-aboutLine"></span>
-                  <h3 class="theFooter-aboutTitle">{{langFooterLicence}}</h3>
+                  <h3 class="theFooter-aboutTitle">{{langFooterLicenceCompany}}</h3>
                 </div>
               </div>
             </div>

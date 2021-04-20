@@ -47,8 +47,8 @@
 
                  <no-ssr >
                    <infinite-loading @infinite="infiniteHandler">
-                     <div slot="no-more">پایان </div>
-                     <div slot="no-results">نتیجه ای یافت نشد</div>
+                     <div slot="no-more">{{staticDataLanguage.categoryFinishProduct}}</div>
+                     <div slot="no-results">{{staticDataLanguage.categoryNoResultsFound}}</div>
                    </infinite-loading>
                  </no-ssr >
         </div>
@@ -99,8 +99,8 @@
 
                  <no-ssr >
                     <infinite-loading @infinite="infiniteHandler">
-                      <div slot="no-more">پایان </div>
-                      <div slot="no-results">نتیجه ای یافت نشد</div>
+                      <div slot="no-more">{{staticDataLanguage.categoryFinishProduct}}</div>
+                      <div slot="no-results">{{staticDataLanguage.categoryNoResultsFound}}</div>
                     </infinite-loading>
                   </no-ssr>
         </div>
@@ -120,14 +120,15 @@ export default {
     props: {
       categoryProducts        : { type: [Object,Array], default: [] },
       categoryProductMobile   : { type: [Object,Array], default: [] },
+      staticDataLanguage      : { type: Object, default: {} },
     },
 
     data() {
       return {
-        page                  : 0,
-        list                  : [],
-        scrollDataCategoryProduct              : [],
-        infiniteStartDetected : 0,
+        page                      : 0,
+        list                      : [],
+        scrollDataCategoryProduct : [],
+        infiniteStartDetected     : 0,
       }
     },
 

@@ -11,6 +11,7 @@ const state = () => ({
     showModalSort       : false,
     submitSortModal     : false,
     lastUpdateSortModal : [],
+    staticDataLanguage  : {},
 });
 
 const getters = {
@@ -39,6 +40,10 @@ const mutations = {
     updateSliderRenge(state, data) {
       state.submitDataFilterModal.lastUpdateSliderRenge = data;
     },
+
+    staticDataLanguage(state, data){
+      state.staticDataLanguage = data;
+    }
 
 
 
