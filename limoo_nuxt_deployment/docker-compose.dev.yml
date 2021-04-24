@@ -1,0 +1,16 @@
+version: '3.6'
+
+services:
+  limoo_nuxt:
+    image: dev-registry.parsdata.net/dev_limoo_nuxt
+    container_name: limoo_nuxt
+    restart: always
+    environment:
+     - TZ=Asia/Tehran
+    ports:
+     - "127.0.0.1:3000:3000"
+
+networks:
+  default:
+    external:
+      name: internal_net

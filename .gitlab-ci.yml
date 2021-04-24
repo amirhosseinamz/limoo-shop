@@ -1,0 +1,42 @@
+stages:
+  - build
+  - push
+  - deploy
+  
+variables:
+  GIT_STRATEGY: none
+
+build-for-develop:
+  stage: build
+  script:
+    - cd /var/services/limoo/nuxt
+    - git reset --hard HEAD
+    - git pull origin stage
+    - docker build -f limoo_nuxt_deployment/Dockerfile.dev -t dev_limoo_nuxt .
+  only:
+    - stage
+  tags:
+    - dev-registry-runner
+
+push-to-dev-registry:
+  stage: push
+  script:
+    - docker tag dev_diver_nuxt dev-registry.parsdata.net/dev_limoo_nuxt
+    - docker push dev-registry.parsdata.net/dev_limoo_nuxt
+  only:
+    - stage
+  tags:
+    - dev-registry-runner
+
+deploy-to-develop:
+  stage: deploy
+  script:
+    - cd /opt/services/limoo/nuxt
+    - git reset --hard HEAD
+    - git pull origin stage
+    - docker pull dev-registry.parsdata.net/dev_limoo_nuxt
+    - docker-compose -f limoo_nuxt_deployment/docker-compose.dev.yml up -d
+  only:
+    - stage
+  tags:
+    - dev-ship-limoo-runner
