@@ -2,6 +2,10 @@ export default {
     // Global page headers (https://go.nuxtjs.dev/config-head)
     ssr: false,
 
+    publicRuntimeConfig: {
+
+    },
+
     head: {
         titleTemplate: "limoo | لیمو",
         meta: [
