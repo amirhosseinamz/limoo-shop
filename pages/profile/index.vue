@@ -81,6 +81,7 @@ import TheModalDeleteUserHistory from "~/components/Profile/UserHistory/TheModal
 import favoriteProduct from "~/components/Profile/Favorites/favoriteProduct.vue";
 import modalDeleteFav from "~/components/Profile/Favorites/modalDeleteFav.vue";
 import TheLastOrdersList from "~/components/Profile/TheLastOrdersList.vue";
+
 export default {
     middleware  : "authentication",
     layout      : "removeFooterMobile",

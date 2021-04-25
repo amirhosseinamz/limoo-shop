@@ -3,6 +3,8 @@
         <div id="overlay" v-if="MobileCategoryIsActive">
             <The-mobile-category />
         </div>
+
+
         <div class="mobile-mega-menu">
             <div
                 @click="goToProfile"
@@ -16,7 +18,7 @@
                     class="mobile-mega-menu__profile-btn"
                     :class="{ 'menu-item__activated': profileIsActive }"
                 >
-                    پروفایل من
+                    {{langProfile}}
                 </button>
             </div>
             <div
@@ -31,7 +33,7 @@
                     class="mobile-mega-menu__cart-btn"
                     :class="{ 'menu-item__activated': basketIsActive }"
                 >
-                    سبد خرید
+                    {{langBasket}}
                 </button>
             </div>
 
@@ -47,7 +49,7 @@
                     class="mobile-mega-menu__category-btn"
                     :class="{ 'menu-item__activated': MobileCategoryIsActive }"
                 >
-                    دسته بندی
+                    {{langCat}}
                 </button>
             </div>
             <div
@@ -62,7 +64,7 @@
                     class="mobile-mega-menu__home-btn"
                     :class="{ 'menu-item__activated': homeIsActive }"
                 >
-                    صفحه اصلی
+                    {{langMainPage}}
                 </button>
             </div>
         </div>
@@ -70,6 +72,11 @@
 </template>
 <script>
 import TheMobileCategory from "~/components/Category/TheMobileCategory.vue";
+import resource from "~/modules/resource.js";
+import splitPartJsonResource from "~/modules/splitPartJsonResource.js";
+
+
+
 export default {
     data() {
         return {
@@ -96,8 +103,22 @@ export default {
         } else if (curentRoute == "/") {
             this.homeIsActive = true;
         }
+
+        const footerData   = resource('footer');
+        const headerDta    = resource('header');
+
+        this.setLanguageData(footerData,headerDta);
     },
     methods: {
+        setLanguageData(footerData,headerDta){
+          const language         = this.$store.state.language;
+
+          this.langMainPage      =  splitPartJsonResource(footerData,'footer_main_page_text',language).languageData.text;
+          this.langCat           =  splitPartJsonResource(footerData,'footer_mobile_category',language).languageData.text;
+          this.langBasket        =  splitPartJsonResource(headerDta,'header_basket',language).languageData.text;
+          this.langProfile       =  splitPartJsonResource(footerData,'footer_mobile_profile',language).languageData.text;
+        },
+
         showCategory() {
             this.homeIsActive = false;
             this.basketIsActive = false;

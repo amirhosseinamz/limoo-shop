@@ -8,7 +8,7 @@
 
             <div class=" productContent__sliderMore productContent__topLeft">
                 <nuxt-link class="productContent__moreItem" to="/">
-                  لیست کامل محصولات
+                  {{moreText}}
                   <span class=" productContent__moreIcon mobile-inprogress__arrow"></span>
                 </nuxt-link>
             </div>
@@ -27,9 +27,9 @@
                       >
                     </NuxtLink>
 
-                        <div class="productContent__carouselRight">
-                          <img class="productContent__carouselImgItem" :src="contentChildren.image" alt="">
-                        </div>
+                          <div class="productContent__carouselRight">
+                            <img class="productContent__carouselImgItem" :src="contentChildren.image" alt="">
+                         </div>
 
                           <div class="productContent__carouselLeft">
                               <span class="productContent__carouselLine"></span>
@@ -82,6 +82,7 @@ export default {
     props: {
       products   : { type: [Object,Array], default: [] },
       title      : { type: Object, default: [] },
+      moreText   : { type: String, default: '' },
     },
 
     data() {

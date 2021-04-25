@@ -2,7 +2,7 @@
   <div :class="changeStyle" class="w-100 productContent">
 
       <div class="productContent__items w-100">
-        <product-cat-content :all-category="allCategory" :name-element-find-slider="nameElementFindSlider" :title="title"></product-cat-content>
+        <product-cat-content :all-category="allCategory" :name-element-find-slider="nameElementFindSlider" :title="title" :more-text="moreText"></product-cat-content>
       </div>
 
   </div>
@@ -22,6 +22,7 @@ export default {
       nameElementFindSlider   : { type: String, default: '' },
       changeStyle             : { type: String, default: '' },
       title                   : { type: Object, default: {} },
+      moreText                : { type: String, default: '' },
     },
 
     data() {

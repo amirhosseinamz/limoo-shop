@@ -45,7 +45,7 @@
                                 <span
                                     class="p-history-product-content-price-title price-unit"
                                 >
-                                    تومان
+                                    {{staticDataLanguage.public_unit}}
                                 </span>
                             </div>
                         </div>
@@ -56,29 +56,29 @@
                         '/profile/my-orders/delivered/detail/' + data.orderCode
                     "
                     class="btn-mobile__order-detail"
-                    >مشاهده جزئیات
+                    >{{staticDataLanguage.lang_orders_see_product}}
                 </NuxtLink>
             </div>
             <div class="paid-detail">
                 <div class="order-detail order-code">
-                    <span class="order-code__title">کد سفارش:</span>
+                    <span class="order-code__title">{{staticDataLanguage.lang_orders_code_order}}</span>
                     <span class="order-code__value">{{ data.orderCode }}</span>
                 </div>
                 <div class=" order-detail order-price">
-                    <span class="order-price__title">قیمت:</span>
+                    <span class="order-price__title">{{staticDataLanguage.lang_orders_order_price}}</span>
                     <div class="order-price__value-holder">
                         <span class="order-price__value">
                             {{ data.orderPrice }}</span
                         >
-                        <span class="order-price__toman"> تومان</span>
+                        <span class="order-price__toman"> {{staticDataLanguage.public_unit}}</span>
                     </div>
                 </div>
                 <div class="order-detail order-date">
-                    <span class="order-date__title">تاریخ سفارش:</span>
+                    <span class="order-date__title">{{staticDataLanguage.lang_orders_order_date}}</span>
                     <span class="order-date__jalali">{{ data.orderData }}</span>
                 </div>
                 <div class="order-detail order-situation">
-                    <span class="order-situation__title">وضعیت:</span>
+                    <span class="order-date__title">{{staticDataLanguage.lang_orders_order_status}}</span>
                     <span class="order-situation__value">{{
                         data.orderSituation
                     }}</span>
@@ -108,7 +108,8 @@ export default {
         };
     },
     props: {
-        userOrderData: { type: [Object, Array], default: {} }
+        userOrderData        : { type: [Object, Array], default: {} },
+        staticDataLanguage   : { type: [Object, Array], default: {} },
     },
     created() {
         this.userDelivered = Object.values(this.userOrderData).length;

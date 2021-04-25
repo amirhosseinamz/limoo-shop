@@ -1,6 +1,7 @@
 <template>
   <div class="w-100 page__home-wrapper-main">
         <div class="page__home-introduction-main w-100">
+
             <introduction-items
              :introduction-product="introductionProduct"
              :title="{sliderItemHref:'category' }"
@@ -13,18 +14,23 @@
               :status-show-counter-down="true"
               name-element-find-slider="productContent__mainSlider1"
               remove-margin-top=""
+              :more-text="langCatMoreAll"
               :title="{title:'',href:'',titleVisit:'',sliderItemHref:'product'}"
               :resource-data="resourceData"
              ></product-content>
 
+
+
             <product-cat
              :all-category="allCategory"
              name-element-find-slider="productContent__mainCat1"
-             :title="{title:'دسته بندی محصولات' , href:'catHref' , titleVisit:'',sliderItemHref:'category' , sliderItemHref:'product1'}"
+             :more-text="langCatMoreAll"
+             :title="{title:langCatTitle , href:'catHref' , titleVisit:'',sliderItemHref:'category' , sliderItemHref:'product1'}"
              ></product-cat>
 
             <product-vertical-content
              :products="allProductVertical"
+             :more-text="langProductMoreAll"
              :title="{title:'موبایل اندرویدی' , href:'verticalAll' , titleVisit:'',sliderItemHref:'category' , sliderItemHref:'product-vertical'}"
               ></product-vertical-content>
 
@@ -37,6 +43,7 @@
             :status-show-counter-down="false"
             name-element-find-slider="productContent__mainSlider2"
             remove-margin-top="productContent__updateMargin"
+            :more-text="langProductMoreAll"
             :title="{title:'موبایل تستی 2',href:'test',titleVisit:'پر فروش ترین محصولات' , sliderItemHref:'product2'}"
             ></product-content>
 
@@ -45,6 +52,7 @@
             :status-show-counter-down="false"
             name-element-find-slider="productContent__mainSlider3"
             remove-margin-top="productContent__updateMargin"
+            :more-text="langProductMoreAll"
             :title="{title:'تستی 3',href:'test',titleVisit:'پر فروش ترین محصولات' , sliderItemHref:'product3'}"
             ></product-content>
 
@@ -55,6 +63,7 @@
                   <product-vertical-2-content
                   :products="allProductMultiVertical"
                   :description-show="false"
+                  :more-text="langProductMoreAll"
                   :title="{title:'موبایل اندرویدی' , href:'verticalAll' , titleVisit:'تجهیزات پخت و پز ایرانی 1',sliderItemHref:'category' , sliderItemHref:'product-vertical'}"
                   ></product-vertical-2-content>
                 </div>
@@ -63,6 +72,7 @@
                   <product-vertical-2-content
                   :products="allProductMultiVertical"
                   :description-show="false"
+                  :more-text="langProductMoreAll"
                   :title="{title:'موبایل اندرویدی' , href:'verticalAll' , titleVisit:'تجهیزات پخت و پز ایرانی 2',sliderItemHref:'category' , sliderItemHref:'product-vertical'}"
                   ></product-vertical-2-content>
                 </div>
@@ -76,27 +86,37 @@
             :status-show-counter-down="false"
             name-element-find-slider="productContent__mainSlider10"
             remove-margin-top="productContent__updateMargin"
+            :more-text="langProductMoreAll"
             :title="{title:'موبایل تستی 2',href:'test',titleVisit:'پر فروش ترین محصولات' , sliderItemHref:'product2'}"
             ></product-content>
+
+
 
             <blog-content
             :products="allBlogProduct"
             :status-show-counter-down="false"
+            :more-text="langBlogMoreAll"
+            :more-single-item-text="langBlogSingleMore"
             name-element-find-slider="productContent__mainSliderBlog"
-            :title="{title:'بلاگ لیمو',href:'test',titleVisit:'آخرین رویداد های اپل' , sliderItemHref:'blog'}"
+            :title="{title:langBlogTitle,href:'test',titleVisit:langBlogDescription, sliderItemHref:'blog'}"
             ></blog-content>
 
+            <!-- the brand slider -->
             <product-cat
              :all-category="allBrand"
              name-element-find-slider="productContent__mainCat2"
              change-style            ="productContent__catChangeStyle"
-            :title="{title:'برند های لیمویی' ,  href:'#' ,titleVisit:'لیست برتر برند های در لیمو',sliderItemHref:'brand'}"
+             :more-text="langBrandMoreAll"
+            :title="{title:langBrandTitle ,  href:'#' , titleVisit:langBrandDescription , sliderItemHref:'brand'}"
             ></product-cat>
+
+
 
             <div class="w-100 product__vertical-main product__vertical-desktop">
                 <div class="product__vertical-right">
                     <product-vertical-2-content
                     :products="allProductVerticalDescription"
+                    :more-text="langProductMoreAll"
                     :description-show="true"
                     :title="{title:'موبایل اندرویدی' , href:'verticalAll' , titleVisit:'تجهیزات پخت و پز ایرانی 1',sliderItemHref:'category' , sliderItemHref:'product-vertical'}"
                     ></product-vertical-2-content>
@@ -105,6 +125,7 @@
                 <div class="product__vertical-left">
                   <product-vertical-2-content
                   :products="allProductVerticalDescription"
+                  :more-text="langProductMoreAll"
                   :description-show="true"
                   :title="{title:'موبایل اندرویدی' , href:'verticalAll' , titleVisit:'تجهیزات پخت و پز ایرانی 2',sliderItemHref:'category' , sliderItemHref:'product-vertical'}"
                   ></product-vertical-2-content>
@@ -112,11 +133,15 @@
             </div>
 
             <question-content
+            :more-text="langQuestionMoreAll"
+            :title   = "langQuestionTitle"
             :all-question="allQuestion"
             ></question-content>
 
 
-            <brand-introduction-content :products="brandIntroduction"></brand-introduction-content>
+
+
+            <brand-introduction-content :products="brandIntroduction" :resource-data="resourceData"></brand-introduction-content>
 
 
 
@@ -138,6 +163,7 @@ import questionContent from './questionContent';
 import brandIntroductionContent from './brandIntroductionContent';
 import blogContent from './blogContent';
 import productVertical2Content from './productVertical2Content';
+import splitPartJsonResource from "~/modules/splitPartJsonResource.js";
 
 
 export default {
@@ -175,17 +201,36 @@ export default {
 
     data() {
       return {
-        resourceData : [],
+        resourceData    : [],
       }
-    }, 
-    
+    },
+
     created(){
-      this.resourceData  = resource;
+      const language           = this.$store.state.language;
+      this.resourceData        = resource('home');
+
+
+      this.langCatMoreAll            =  splitPartJsonResource(this.resourceData,'home_category_all',language).languageData.text;
+      this.langCatTitle              =  splitPartJsonResource(this.resourceData,'home_category_title',language).languageData.text;
+      this.langProductMoreAll        =  splitPartJsonResource(this.resourceData,'home_complete_list_products',language).languageData.text;
+      this.langBlogMoreAll           =  splitPartJsonResource(this.resourceData,'home_blog_all',language).languageData.text;
+
+      this.langBlogTitle             =  splitPartJsonResource(this.resourceData,'home_blog_title',language).languageData.text;
+      this.langBlogDescription       =  splitPartJsonResource(this.resourceData,'home_blog_description',language).languageData.text;
+      this.langBlogSingleMore        =  splitPartJsonResource(this.resourceData,'home_blog_single_more',language).languageData.text;
+
+      this.langBrandTitle            =  splitPartJsonResource(this.resourceData,'home_brand_title',language).languageData.text;
+      this.langBrandDescription      =  splitPartJsonResource(this.resourceData,'home_brand_description',language).languageData.text;
+      this.langBrandMoreAll          =  splitPartJsonResource(this.resourceData,'home_brand_all',language).languageData.text;
+
+      this.langQuestionTitle         =  splitPartJsonResource(this.resourceData,'home_question_title',language).languageData.text;
+      this.langQuestionMoreAll       =  splitPartJsonResource(this.resourceData,'home_question_all',language).languageData.text;
+
     },
 
     mounted(){
     },
-  
+
     methods: {
 
     },

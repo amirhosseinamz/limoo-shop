@@ -66,6 +66,7 @@
                 <div class="order-holder">
                     <the-returned
                         :user-order-data="userOrderData"
+                        :static-data-language="staticDataLanguage"
                     ></the-returned>
                 </div>
             </div>
@@ -75,6 +76,8 @@
 <script>
 import TheProfileSideBar from "~/components/Profile/TheProfileSideBar.vue";
 import TheReturned from "~/components/Profile/UserOrder/TheReturned.vue";
+import resource from "~/modules/resource.js";
+import splitPartJsonResource from "~/modules/splitPartJsonResource.js";
 
 export default {
     middleware: "authentication",
@@ -90,6 +93,7 @@ export default {
             delivered: false,
             returned: false,
             canceled: false,
+            waitForPayment  : false,
             userOrderData: [
                 {
                     id: 1,
@@ -152,6 +156,14 @@ export default {
 
     watch: {},
 
+    created() {
+      const resourceOrders   = resource('orders');
+      const resourcePublic   = resource('public');
+
+      this.setLangData(resourceOrders,resourcePublic);
+    },
+
+
     mounted() {
         const curentRoute = this.$route.path;
         // const activeTab = this.$route.query.activeTab;
@@ -171,6 +183,29 @@ export default {
     },
 
     methods: {
+      setLangData(orders,resourcePublic){
+          const language           = this.$store.state.language;
+          const staticDataLanguage = {
+             'lang_orders_order_my'                   :  splitPartJsonResource(orders,'orders_order_my',language).languageData.text,
+             'lang_orders_order_status'               :  splitPartJsonResource(orders,'orders_order_status',language).languageData.text,
+             'lang_orders_order_price'                :  splitPartJsonResource(orders,'orders_order_price',language).languageData.text,
+             'lang_orders_order_date'                 :  splitPartJsonResource(orders,'orders_order_date',language).languageData.text,
+             'lang_orders_code_order'                 :  splitPartJsonResource(orders,'orders_code_order',language).languageData.text,
+             'lang_orders_see_product'                :  splitPartJsonResource(orders,'orders_see_product',language).languageData.text,
+             'lang_orders_tab_canceled'               :  splitPartJsonResource(orders,'orders_tab_canceled',language).languageData.text,
+             'lang_orders_tab_referred'               :  splitPartJsonResource(orders,'orders_tab_referred',language).languageData.text,
+             'lang_orders_tab_delivered'              :  splitPartJsonResource(orders,'orders_tab_delivered',language).languageData.text,
+             'lang_orders_tab_processing'             :  splitPartJsonResource(orders,'orders_tab_processing',language).languageData.text,
+             'lang_orders_tab_waiting_for_payment'    :  splitPartJsonResource(orders,'orders_tab_waiting_for_payment',language).languageData.text,
+             'lang_orders_empty'                      :  splitPartJsonResource(orders,'orders_empty',language).languageData.text,
+             'lang_orders_order_list_text'            :  splitPartJsonResource(orders,'orders_order_list_text',language).languageData.text,
+
+        };
+
+          staticDataLanguage.public_unit  =  splitPartJsonResource(resourcePublic,'public_unit',language).languageData.text;
+          this.staticDataLanguage         = staticDataLanguage;
+        },
+        
         goToProfile() {
             this.$router.push("/profile");
         },

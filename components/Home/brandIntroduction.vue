@@ -9,9 +9,25 @@
                             </div>
                             <div class="productContent__carouselData">
                             <div class="w-100">
-                              <h3 class="productContent__carouselDataTitle">
-                                {{data.title}}
+
+                              <h3 v-if="data.id == 1" class="productContent__carouselDataTitle">
+                                {{data.content.text}}
                               </h3>
+
+                               <h3 v-if="data.id == 2" class="productContent__carouselDataTitle">
+                                 {{data.content.text}}
+                              </h3>
+
+
+                              <h3 v-if="data.id == 3" class="productContent__carouselDataTitle">
+                                {{data.content.text}}
+                              </h3>
+
+
+                              <h3 v-if="data.id == 4" class="productContent__carouselDataTitle">
+                                {{data.content.text}}
+                              </h3>
+
                             </div>
                         </div>
                     </div>
@@ -22,6 +38,8 @@
 </template>
 
 <script>
+import splitPartJsonResource from "~/modules/splitPartJsonResource.js";
+
 
 
 export default {
@@ -29,12 +47,38 @@ export default {
     },
 
     props: {
-      products   : { type: [Object,Array], default: [] },
+      products       : { type: [Object,Array], default: [] },
+      resourceData   : { type: [Object,Array], default: [] },
+
     },
 
     data() {
       return {
+
       }
+    },
+
+    created(){
+      const language          = this.$store.state.language;
+
+      this.products.map((content)=>{
+        if (content.id == 1) {
+          content.content = splitPartJsonResource(this.resourceData,'home_quality_guarantee',language).languageData;
+        }
+
+        if (content.id == 2) {
+          content.content = splitPartJsonResource(this.resourceData,'home_immediate_sending',language).languageData;
+        }
+
+        if (content.id == 3) {
+          content.content = splitPartJsonResource(this.resourceData,'home_24_hour_support',language).languageData;
+        }
+
+        if (content.id == 4) {
+          content.content = splitPartJsonResource(this.resourceData,'home_7_days_warranty',language).languageData;
+        }
+      })
+
     },
 
     mounted() {

@@ -41,20 +41,21 @@
                             class="search-section__input"
                             type="text"
                             dir="rtl"
-                            placeholder="جستجوی محصول..."
+                            :placeholder="langSearchProduct"
                         />
                         <button class="search-section__btn"></button>
                     </div>
                 </div>
             </div>
             <!-- <div class="spacer"></div> -->
+
             <div class="navigation-items">
                 <div
                     class="navigation-item navigation-item__cart"
                     @click="goToBasket"
                 >
                     <button class="navigation-item__cart-btn">
-                        سبد خرید
+                        {{langBasket}}
                     </button>
                     <span class="navigation-item__cart-basket"></span>
                 </div>
@@ -65,21 +66,21 @@
                     <span class="navigation-item__profile-person"></span>
                     <button class="navigation-item__profile-btn">
                         <span v-show="!userIsAuth">
-                            ورود <span style="color: #e0e0e0">|</span> عضویت
+                            {{langLogin}} <span style="color: #e0e0e0">|</span>{{langMemberShip}}
                         </span>
-                        <span v-show="userIsAuth">حساب کاربری</span>
+                        <span v-show="userIsAuth">{{langAccount}}</span>
                     </button>
                 </div>
                 <div class="navigation-item navigation-item__call">
                     <span class="navigation-item__call-person"></span>
                     <button class="navigation-item__call-btn">
-                        پشتیبانی
+                        {{langSupport}}
                     </button>
                 </div>
                 <div class="navigation-item navigation-item__sell">
                     <span class="navigation-item__sell-person"></span>
                     <button class="navigation-item__sell-btn">
-                        شروع فروش کالا
+                        {{langSalesProduct}}
                     </button>
                 </div>
             </div>
@@ -96,6 +97,9 @@
 import TheMegaMenu from "~/components/Navigation/TheMegaMenu.vue";
 import WellcomeSignUp from "~/components/Auth/WellcomeSignUp.vue";
 import modalAuth from "~/components/Auth/AuthModals/modalAuth.vue";
+import resource from "~/modules/resource.js";
+import splitPartJsonResource from "~/modules/splitPartJsonResource.js";
+
 export default {
     name: "TheHeader",
     components: {
@@ -112,6 +116,13 @@ export default {
             userIsAuth: false,
             authUpdated: 0
         };
+    },
+
+    created() {
+      const headerData   = resource('header');
+      const footerData   = resource('footer');
+
+      this.setLanguageData(headerData,footerData);
     },
 
     mounted() {
@@ -163,6 +174,21 @@ export default {
         window.removeEventListener("scroll", this.onScroll);
     },
     methods: {
+      setLanguageData(headerData,footerData){
+        const language         = this.$store.state.language;
+
+        this.langBasket        =  splitPartJsonResource(headerData,'header_basket',language).languageData.text;
+        this.langAccount       =  splitPartJsonResource(headerData,'header_account',language).languageData.text;
+        this.langSalesProduct  =  splitPartJsonResource(headerData,'header_start_sales_product',language).languageData.text;
+        this.langFindProduct   =  splitPartJsonResource(headerData,'header_find_product',language).languageData.text;
+        this.langSupport       =  splitPartJsonResource(footerData,'footer_support',language).languageData.text;
+        this.langSearchProduct =  splitPartJsonResource(headerData,'header_find_product',language).languageData.text;
+        this.langMemberShip    =  splitPartJsonResource(headerData,'header_membership',language).languageData.text;
+        this.langLogin        =  splitPartJsonResource(headerData,'header_login',language).languageData.text;
+
+      },
+
+
         showAuthModal() {
             // console.log("hi");
             if (!this.userIsAuth) {
@@ -171,6 +197,7 @@ export default {
                 this.$router.push("/profile");
             }
         },
+
         showWellcomeModal() {
             this.showModalAuth = false;
             this.$store.dispatch({

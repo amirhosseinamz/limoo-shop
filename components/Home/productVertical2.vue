@@ -80,7 +80,7 @@
 
         <div class=" productContent__sliderMore productContent__topLeft w-100">
           <nuxt-link class="productContent__moreItem" to="/">
-            لیست کامل محصولات
+            {{moreText}}
             <span class=" productContent__moreIcon mobile-inprogress__arrow"></span>
           </nuxt-link>
         </div>
@@ -102,6 +102,8 @@ export default {
       products          : { type: [Object,Array], default: [] },
       title             : { type: Object, default: [] },
       descriptionShow   : { type: Boolean, default: false },
+      moreText          : { type: String, default: '' },
+
     },
 
     data() {

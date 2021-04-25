@@ -1,0 +1,172 @@
+{
+  "response_code": 1,
+  "response_message": "عملیات با موفقیت انجام شد.",
+  "response_value": [
+    {
+      "ProductID": 20,
+      "Label": "گوشی موبایل اپل مدل iPhone SE 2020 A2275 ظرفیت 128 گیگابایت ",
+      "Price": "123000000",
+      "DiscountPrice": "120000000",
+      "DiscountPercent": "23",
+      "ParentID": 125,
+      "Values": {
+        "Variant": {
+          "Code": "color",
+          "AttributeID": 23,
+          "Label": "رنگ",
+          "AttributeValue": "red",
+          "AttributeRef": [
+            {
+              "Label": "آبی",
+              "RefID": 7568321
+            },
+            {
+              "Label": "مشکی",
+              "RefID": 7934512
+            }
+          ]
+        },
+        "AttributeGroups": [
+          {
+            "GroupID": "33",
+            "GroupCode": "top_detail",
+            "Group": [
+              {
+                "Code": "total_detail",
+                "Label": "مشخصات کلی کالا",
+                "Data": [
+                  {
+                    "Label": "ابعاد",
+                    "Code": "internal_storage",
+                    "AttributeID": 87,
+                    "IsTop": 1,
+                    "AttributeValue": " 138.4x67.3x7.3 میلی  متر "
+                  },
+                  {
+                    "Label": "شبکه های ارتباطی ",
+                    "Code": "network_type",
+                    "AttributeID": 88,
+                    "IsTop": 0,
+                    "AttributeValue": " 4G، 3G، 2G "
+                  },
+                  {
+                    "Label": "دوربین‌های پشت گوشی: ",
+                    "Code": "camera_type",
+                    "AttributeID": 90,
+                    "IsTop": 1,
+                    "AttributeValue": "  4 ماژول دوربین "
+                  },
+                  {
+                    "Label": "سیستم عامل ",
+                    "Code": "os_type",
+                    "AttributeID": 91,
+                    "IsTop": 0,
+                    "AttributeValue": "Android "
+                  }
+                ]
+              },
+              {
+                "Code": "screen_detail",
+                "Label": "مشخصات صفحه نمایش",
+                "Data": [
+                  {
+                    "Label": "ابعاد",
+                    "Code": "internal_storage",
+                    "AttributeID": 87,
+                    "IsTop": 1,
+                    "AttributeValue": " 138.4x67.3x7.3 میلی  متر "
+                  },
+                  {
+                    "Label": "شبکه های ارتباطی ",
+                    "Code": "network_type",
+                    "AttributeID": 88,
+                    "IsTop": 0,
+                    "AttributeValue": " 4G، 3G، 2G "
+                  },
+                  {
+                    "Label": "دوربین‌های پشت گوشی: ",
+                    "Code": "camera_type",
+                    "AttributeID": 90,
+                    "IsTop": 1,
+                    "AttributeValue": "  4 ماژول دوربین "
+                  },
+                  {
+                    "Label": "سیستم عامل ",
+                    "Code": "os_type",
+                    "AttributeID": 91,
+                    "IsTop": 0,
+                    "AttributeValue": "Android "
+                  }
+                ]
+              },
+              {
+                "Code": "storage_detail",
+                "Label": "مشخصات صفحه نمایش",
+                "Data": [
+                  {
+                    "Label": "ابعاد",
+                    "Code": "internal_storage",
+                    "AttributeID": 87,
+                    "IsTop": 1,
+                    "AttributeValue": " 138.4x67.3x7.3 میلی  متر "
+                  },
+                  {
+                    "Label": "شبکه های ارتباطی ",
+                    "Code": "network_type",
+                    "AttributeID": 88,
+                    "IsTop": 0,
+                    "AttributeValue": " 4G، 3G، 2G "
+                  },
+                  {
+                    "Label": "دوربین‌های پشت گوشی: ",
+                    "Code": "camera_type",
+                    "AttributeID": 90,
+                    "IsTop": 1,
+                    "AttributeValue": "  4 ماژول دوربین "
+                  },
+                  {
+                    "Label": "سیستم عامل ",
+                    "Code": "os_type",
+                    "AttributeID": 91,
+                    "IsTop": 0,
+                    "AttributeValue": "Android "
+                  }
+                ]
+              }
+            ]
+          },
+          {}
+        ],
+        "Comments": [
+          {
+            "Date": "20210406051422",
+            "Firstname": "محمد ",
+            "Lastname": "احمدی",
+            "Title": "آیفون بی نظیر ",
+            "Body": "یه گوشی فوق العاده عالی اپل جواب خودش رو پس داده گوشی خیلی خوب و روونیه بخاطر پردازنده قویش کلا اپل فوق العادست تنها ایرادش باتریشه که روزی یک و نیم بار تقریبا باید شارژ بشه",
+            "Rate": 3.2,
+            "Suggest": 1
+          },
+          {
+            "Date": "20210406051422",
+            "Firstname": "محمد ",
+            "Lastname": "احمدی",
+            "Title": "آیفون بی نظیر ",
+            "Body": "یه گوشی فوق العاده عالی اپل جواب خودش رو پس داده گوشی خیلی خوب و روونیه بخاطر پردازنده قویش کلا اپل فوق العادست تنها ایرادش باتریشه که روزی یک و نیم بار تقریبا باید شارژ بشه",
+            "Rate": 3.2,
+            "Suggest": 1
+          },
+          {
+            "Date": "20210406051422",
+            "Firstname": "محمد ",
+            "Lastname": "احمدی",
+            "Title": "آیفون بی نظیر ",
+            "Body": "یه گوشی فوق العاده عالی اپل جواب خودش رو پس داده گوشی خیلی خوب و روونیه بخاطر پردازنده قویش کلا اپل فوق العادست تنها ایرادش باتریشه که روزی یک و نیم بار تقریبا باید شارژ بشه",
+            "Rate": 3.2,
+            "Suggest": 1
+          }
+        ]
+      }
+    }
+  ]
+}

@@ -2,10 +2,10 @@
   <div class="w-100 productContent">
 
       <div class="productContent__items w-100">
-              <blog-product-slider :name-element-find-slider="nameElementFindSlider" :products="products" :title="title"></blog-product-slider>
+              <blog-product-slider :name-element-find-slider="nameElementFindSlider" :products="products" :title="title" :more-text="moreText" :more-single-item-text="moreSingleItemText"></blog-product-slider>
               <div class="w-100 productContent__sliderMore">
                   <nuxt-link class="productContent__moreItem" to="/">
-                    مطالب بیشتر
+                    {{moreText}}
                     <span class=" productContent__moreIcon mobile-inprogress__arrow"></span>
                   </nuxt-link>
               </div>
@@ -29,6 +29,8 @@ export default {
       nameElementFindSlider   : { type: String, default: '' },
       title                   : { type: Object, default: {} },
       removeMarginTop         : { type: String, default: '' },
+      moreText                : { type: String, default: '' },
+      moreSingleItemText      : { type: String, default: '' },
     },
 
     data() {

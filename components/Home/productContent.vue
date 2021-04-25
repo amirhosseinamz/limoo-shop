@@ -7,10 +7,10 @@
             </div>
 
             <div class="productContent__left">
-              <product-slider :name-element-find-slider="nameElementFindSlider" :products="products" :title="title"></product-slider>
+              <product-slider :name-element-find-slider="nameElementFindSlider" :products="products" :title="title" :more-text="moreText"></product-slider>
               <div class="w-100 productContent__sliderMore">
                   <nuxt-link class="productContent__moreItem" to="/">
-                    لیست کامل محصولات
+                    {{moreText}}
                     <span class=" productContent__moreIcon mobile-inprogress__arrow"></span>
                   </nuxt-link>
               </div>
@@ -37,6 +37,7 @@ export default {
       title                   : { type: Object, default: {} },
       removeMarginTop         : { type: String, default: '' },
       resourceData            : { type: [Object,Array], default: null },
+      moreText                : { type: String, default: '' },
 
     },
 
@@ -150,7 +151,7 @@ export default {
 }
 
 @media (max-width: 960px) {
-  
+
   .productContent__right{
     width: 100%;
     padding-right: 11px;

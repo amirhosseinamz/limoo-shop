@@ -1,6 +1,6 @@
 @import "_colors.scss";
 
-.modal-filter__box-slider{
+.modal-filter__box-slider,.comment--slider__main{
     .vue-slider-dot-tooltip{
       display: none;
     }
@@ -33,6 +33,10 @@
     //   // box-shadow: 0px 8px 16px rgba(17, 17, 17, 0.03);
     // }
 }
+.comment--slider__main .vue-slider-rail{
+  height: 9px;
+}
+
 
 @media (max-width: 420px) {
   .vue-slider{

@@ -21,7 +21,7 @@
                         <span class="productContent-circle">:</span>
                       </div>
                       <div class="w-100 d-flex">
-                        <h3 class="productContent-timeLabel">ساعت</h3>
+                        <h3 class="productContent-timeLabel">{{textHour.languageData.text}}</h3>
                       </div>
                     </div>
 
@@ -36,7 +36,7 @@
                         <span class="productContent-circle">:</span>
                       </div>
                       <div class="w-100 d-flex">
-                        <h3 class="productContent-timeLabel">دقیقه</h3>
+                        <h3 class="productContent-timeLabel">{{textMinutes.languageData.text}}</h3>
                       </div>
                     </div>
 
@@ -50,7 +50,7 @@
                         </div>
                       </div>
                       <div class="w-100 d-flex">
-                        <h3 class="productContent-timeLabel">ثانیه</h3>
+                        <h3 class="productContent-timeLabel">{{textSeconds.languageData.text}}</h3>
                       </div>
                     </div>
                 </div>
@@ -62,7 +62,7 @@
           </div>
           <div class="w-100 productContent-timerBtn">
             <button class="productContent-moreFestival" type="button" name="button">
-              مشاهده همه
+              {{festivalBtn.languageData.text}}
             </button>
           </div>
       </div>
@@ -70,6 +70,7 @@
 </template>
 
 <script>
+import splitPartJsonResource from "~/modules/splitPartJsonResource.js";
 
 
 export default {
@@ -88,12 +89,17 @@ export default {
       }
     },
 
-    mounted() {
-      this.countdownFestival(25,21,16);
+
+    created(){
+        const language      = this.$store.state.language;
+    	  this.textMinutes    =  splitPartJsonResource(this.resourceData,'home_festival_minutes',language);
+		    this.textHour       =  splitPartJsonResource(this.resourceData,'home_festival_hour',language);
+    	  this.textSeconds    =  splitPartJsonResource(this.resourceData,'home_festival_seconds',language);
+        this.festivalBtn    =  splitPartJsonResource(this.resourceData,'home_festival_btn_text',language);
     },
 
-    watch: {
-
+    mounted() {
+      this.countdownFestival(25,21,16);
     },
 
     methods: {

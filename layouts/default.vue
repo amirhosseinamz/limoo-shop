@@ -12,11 +12,13 @@
           <div class="w-100 modal-content">
             <modal-filter
             :active.sync="activeModal"
+            :static-data-language="staticDataLanguage"
             @status-show-modal="statusShowModal"
             ></modal-filter>
 
             <modal-sort
             :active.sync="activeModalSort"
+            :static-data-language="staticDataLanguage"
             @status-show-modal="showSort"
             ></modal-sort>
           </div>
@@ -46,6 +48,7 @@ export default {
         activeBlur          : false,
         removeFooter        : false,
         removeSpecialFooter : false,
+        staticDataLanguage  : {},
       }
     },
 
@@ -76,8 +79,26 @@ export default {
       },
 
       '$route' (to, from){
+       },
+
+       '$store.state.singleProduct.hidenBodyScroll'(status){
+          if (status) {
+             document.body.style.overflow =  'hidden';
+          }
+          else {
+             document.body.style.overflow =  '';
+          }
+       },
+
+       '$store.state.category.staticDataLanguage'(data){
+         this.staticDataLanguage = data;
        }
 
+    },
+
+    created() {
+      // تعیین زبان صفحه //
+      this.currentLanguage();
     },
 
     mounted() {
@@ -94,6 +115,11 @@ export default {
         // this.$store.state.category.showModalSort     = data;
         this.$store.commit('category/updateStateModals',{showModalSort:data})
       },
+
+      currentLanguage(){
+        const language = 'fa-IR';
+        this.$store.commit("currentLanguage", language);
+      }
 
     },
 

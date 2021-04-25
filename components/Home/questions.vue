@@ -2,12 +2,13 @@
   <div class="w-100 productContent__sliderWrapper">
       <div class="w-100 productContent__catTop">
           <div class="productContent__topRight ">
-              <h3 class="w-100 productContent__catTitle">سوالات متداول </h3>
+              <h3 class="w-100 productContent__catTitle">{{title}}</h3>
           </div>
+
 
           <div class=" productContent__sliderMore productContent__topLeft">
               <nuxt-link class="productContent__moreItem" to="/test">
-                لیست کامل سوالات
+                {{moreText}}
                 <span class=" productContent__moreIcon mobile-inprogress__arrow"></span>
               </nuxt-link>
           </div>
@@ -45,6 +46,8 @@ export default {
 
     props: {
       allQuestion   : { type: [Object,Array], default: [] },
+      title         : { type: String, default: '' },
+      moreText      : { type: String, default: '' },
     },
 
     data() {

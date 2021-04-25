@@ -8,6 +8,7 @@
           :category-products="categoryProducts"
           :category-product-mobile="categoryProductMobile"
           :check-box-data="checkBoxData"
+          :static-data-language="staticDataLanguage"
 
           @active-cat-suggestion="activeCatSuggestion"
           @update-infinite-cat-mobile="updateInfiniteCatMobile"
@@ -19,6 +20,8 @@
 <script>
 import contentCategory from "~/components/Category/contentCategory.vue";
 import addCamaPrice from "~/modules/addCamaPrice.js";
+import resource from "~/modules/resource.js";
+import splitPartJsonResource from "~/modules/splitPartJsonResource.js";
 
 
 export default {
@@ -325,6 +328,7 @@ export default {
               title : 'ارزان ترین '
             },
           ],
+          staticDataLanguage                : {},
 
 
         };
@@ -361,6 +365,9 @@ export default {
     },
 
     created() {
+      const resourceData       = resource('category');
+
+      this.setLangData(resourceData)
       this.addCamaProduct();
     },
 
@@ -371,6 +378,28 @@ export default {
     },
 
     methods: {
+      setLangData(data) {
+         const language                 = this.$store.state.language;
+         const staticDataLanguage      = {
+            categoryFilterText          : splitPartJsonResource(data,'category_filter_text',language).languageData.text,
+            categoryBtnNew              : splitPartJsonResource(data,'category_btn_new',language).languageData.text,
+            categoryFinishProduct       : splitPartJsonResource(data,'category_finish_product',language).languageData.text,
+            categoryNoResultsFound      : splitPartJsonResource(data,'category_no_results_found',language).languageData.text,
+            categorySubmitCancelle      : splitPartJsonResource(data,'category_submit_cancelle',language).languageData.text,
+            categoryBtnSubmitChange     : splitPartJsonResource(data,'category_btn_submit_change',language).languageData.text,
+            categoryPriceRangeText      : splitPartJsonResource(data,'category_price_range_text',language).languageData.text,
+            categoryReady               : splitPartJsonResource(data,'category_ready',language).languageData.text,
+            categoryFreeDelivery        : splitPartJsonResource(data,'category_free_delivery',language).languageData.text,
+            categoryAvailableProduct    : splitPartJsonResource(data,'category_available_product',language).languageData.text,
+            categoryAdvancedSearch      : splitPartJsonResource(data,'category_advanced_search',language).languageData.text,
+            categoryFilterText          : splitPartJsonResource(data,'category_filter_text',language).languageData.text,
+            categorySortTitle           : splitPartJsonResource(data,'category_sort_title',language).languageData.text,
+          };
+
+          this.staticDataLanguage    = staticDataLanguage;
+          this.$store.commit('category/staticDataLanguage',staticDataLanguage)
+      },
+
       addCamaProduct(){
         this.categoryProducts.map((content)=>{
           content.addCamaRealPrice = addCamaPrice(content.realPrice);
