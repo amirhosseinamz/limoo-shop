@@ -28,7 +28,7 @@
 <script>
 import TheHeader from "~/components/Navigation/TheHeader.vue";
 import TheMobileMegaMenu from "~/components/Navigation/TheMobileMegaMenu.vue";
-import theFooter from "~/components/Navigation/theFooter.vue";
+import theFooter from "~/components/Navigation/TheFooter.vue";
 import modalFilter from '~/components/Category/modalFilter';
 import modalSort from '~/components/Category/modalSort';
 

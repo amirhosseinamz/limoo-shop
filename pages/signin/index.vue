@@ -8,7 +8,7 @@
 import stepOne from "~/components/Auth/SignInStepOne";
 import stepTwo from "~/components/Auth/SignInStepTwo";
 import recyclePass from "~/components/Auth/RecyclePass";
-import recyclePassStepTwo from "~/components/Auth/RecyclePassStepTwo";
+import recyclePassStepTwo from "~/components/Auth/RecyclePassSteptwo";
 import PassChange from "~/components/Auth/PassChange";
 
 export default {
