@@ -21,7 +21,7 @@ build-for-develop:
 push-to-dev-registry:
   stage: push
   script:
-    - docker tag dev_diver_nuxt dev-registry.parsdata.net/dev_limoo_nuxt
+    - docker tag dev_limoo_nuxt dev-registry.parsdata.net/dev_limoo_nuxt
     - docker push dev-registry.parsdata.net/dev_limoo_nuxt
   only:
     - stage
