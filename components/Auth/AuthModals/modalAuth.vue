@@ -54,7 +54,7 @@ import modalSignUpStepTwo from "~/components/Auth/AuthModals/modalSignUpStepTwo"
 import modalSignInStepOne from "~/components/Auth/AuthModals/modalSignInStepOne";
 import modalSignInStepTwo from "~/components/Auth/AuthModals/modalSignInStepTwo";
 import modalRecyclePass from "~/components/Auth/AuthModals/modalRecyclePass";
-import modalRecyclePassStepTwo from "~/components/Auth/AuthModals/modalRecyclePassStepTwo";
+import modalRecyclePassStepTwo from "~/components/Auth/AuthModals/modalRecyclePassSteptwo";
 import modalPassChange from "~/components/Auth/AuthModals/modalPassChange";
 export default {
     props: {
