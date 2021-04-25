@@ -25,8 +25,16 @@ export default {
 
     },
 
-    methods: {
+    created() {
+      // تعیین زبان صفحه //
+      this.currentLanguage();
+    },
 
+    methods: {
+      currentLanguage(){
+        const language = 'fa-IR';
+        this.$store.commit("currentLanguage", language);
+      }
     },
 
 };

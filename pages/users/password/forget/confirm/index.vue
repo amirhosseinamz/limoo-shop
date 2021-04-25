@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import RecyclePassStepTwo from "~/components/Auth/RecyclePassStepTwo";
+import RecyclePassStepTwo from "~/components/Auth/RecyclePassSteptwo";
 export default {
     layout: "signinup",
     components: {

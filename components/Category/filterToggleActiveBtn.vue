@@ -1,7 +1,7 @@
 <template>
   <div class="w-100  modal-filter__filter-btn">
         <div class="w-100 modal-filter__item ">
-          <h3 class="modal-filter__item-title tools--title">کالا های موجود</h3>
+          <h3 class="modal-filter__item-title tools--title">{{staticDataLanguage.categoryAvailableProduct}}</h3>
           <div class="modal-filter__btn">
             <div class="switch">
               <input id="switch-1" type="checkbox" class="switch-input" />
@@ -12,7 +12,7 @@
         </div>
 
         <div class="w-100 modal-filter__item ">
-          <h3 class="modal-filter__item-title tools--title">ارسال رایگان</h3>
+          <h3 class="modal-filter__item-title tools--title">{{staticDataLanguage.categoryFreeDelivery}}</h3>
           <div class="modal-filter__btn">
             <div class="switch">
               <input id="switch-2" type="checkbox" class="switch-input" />
@@ -23,7 +23,7 @@
         </div>
 
         <div class="w-100 modal-filter__item ">
-          <h3 class="modal-filter__item-title tools--title">آماده است</h3>
+          <h3 class="modal-filter__item-title tools--title">{{staticDataLanguage.categoryReady}}</h3>
           <div class="modal-filter__btn">
             <div class="switch">
               <input id="switch-3" type="checkbox" class="switch-input" />
@@ -40,7 +40,7 @@
 
 export default {
   props: {
-    // categorySuggestion  : { type: [Object,Array], default: [] },
+    staticDataLanguage : { type: Object, default: {} },
   },
 
   components: {

@@ -1,5 +1,6 @@
 <template>
-    <div class="page-home w-100 d-rtl flex-column">
+
+    <div class="page-wrapper w-100 d-rtl flex-column">
       <div class="mobile-screen w-100">
           <div class="mobile-screen__holder">
               <div class="w-100 screen__holder-data">
@@ -17,26 +18,122 @@
       <contentSingleProduct
        :product-data="productData"
        :product-slider="productSlider"
+       :product-detail-technical="detailTechnical"
        :product-slider-mobile="productSliderMobile"
+       :introduction-and-detail-technical-tab="introductionAndDetailTechnicalTab"
+       :comment-and-answer-question-tab-name="commentAnswerQuestionTabName"
+       :comment-data="getComments"
+       :radio-btn-data="radioBtnData"
+       :close-modal-add-comment="closeModalAddComment"
 
        @active-item-slider-nav="activeItemSliderNav"
+       @more-comment="moreComment"
+       @more-comment-mobile="moreCommentMobile"
+       @submit-data="submitData"
        ></contentSingleProduct>
+
+
+
+
 
     </div>
 </template>
 <script>
 import contentSingleProduct from "~/components/product/contentSingleProduct.vue";
 import productData from "~/modules/single_product_data.json";
+// import TimeAgo from 'javascript-time-ago'
+const moment = require('moment-jalaali')
+moment.loadPersian({usePersianDigits: true})
+import timeSince from "~/plugins/calcTimeAgo.js";
+
+const getComments = (dataProduct) => {
+    const comments                = dataProduct.Comments;
+    let limitedCommentData        = [];
+
+    comments.map((content,index)=>{
+        content.selected       = false;
+        content.showCircle     = false;
+        content.limitBodyText  = '';
+
+
+
+      // در صورتی که وضعیتی برای نمایش برای کاربر نبود زمان برای کاربر نمایش داده می شود //
+      if (typeof(content.confirmLeave) == 'undefined') {
+        moment.loadPersian({usePersianDigits: false})
+        const getDateTimeEnglish = moment(content.Date,'YYYYMMDDHHmmss').format("YYYY-MM-DDTHH:mm:ss");
+        const calcTimeAgo        = timeSince(getDateTimeEnglish);
+        const splitTime          = calcTimeAgo.split(' ');
+        content.dateConvert      = calcTimeAgo;
+
+
+        switch (splitTime[1]) {
+          case 'days':
+            if (splitTime[0] < 7) {
+                 content.dateConvert  = `${splitTime[0]} روز پیش`;
+              }
+            else{
+              moment.loadPersian({usePersianDigits: true})
+              const convertTimeJalali       = moment(content.Date,'YYYYMMDDHHmmss').format('jDD jMMMM jYYYY')
+              content.dateConvert           = convertTimeJalali;
+            }
+         break;
+
+          case 'day':
+            content.dateConvert  = `دیروز`;
+          break;
+
+          case 'hours':
+            content.dateConvert  = `${splitTime[0]} ساعت پیش`;
+          break;
+
+        }
+
+      }
+      else{
+        const convertTimeJalali       = moment(content.Date,'YYYYMMDDHHmmss').format('jDD jMMMM jYYYY')
+        content.dateConvert           = convertTimeJalali;
+      }
+
+      // پس از اتصال به سرور این قسمت پاک شود //
+      if (index < 3) {
+          limitedCommentData = [...limitedCommentData,content];
+      }
+    })
+
+    return limitedCommentData;
+ }
 
 export default {
+    async asyncData({ params }) {
+         const dataProduct = productData.response_value[0].values;
+
+          const detailTechnicalData = () => {
+                const detailTechnical = dataProduct.attribute_groups[0].group_attribute.detailTechnical;
+                return detailTechnical.map(content => {
+                        for (const key in content) {
+                            return content[key];
+                        }
+                    }
+                )
+          }
+
+
+        return {
+          detailTechnical : detailTechnicalData(),
+          getComments     : getComments(dataProduct),
+        }
+
+    },
+
     components: {
       contentSingleProduct,
     },
 
     data() {
         return {
-          productData   : [],
-          productSlider : [
+          productData                          : [],
+
+          productSlider                        : [
             {
               id    : 1,
               image : 'https://statics-develop.diver.ir/1/fill/512/512/sm/true/plain/s3://limoo/product/picTest1.jpg',
@@ -103,7 +200,7 @@ export default {
             },
           ],
 
-          productSliderMobile : [
+          productSliderMobile                  : [
             {
               id    : 1,
               image : 'https://statics-develop.diver.ir/1/fill/328/328/sm/true/plain/s3://limoo/product/single_product_img2.jpg',
@@ -118,6 +215,109 @@ export default {
             },
           ],
 
+          introductionAndDetailTechnicalTab    : [
+            {
+              id     : 1,
+              title  : 'معرفی کامل محصول',
+              active : true,
+              type   : 'fullIntroduction',
+            },
+             {
+              id     : 2,
+              title  : "مشخصات فنی محصول",
+              active : false,
+              type   : 'detailTechnical',
+            }
+          ],
+
+          commentAnswerQuestionTabName         : [
+            {
+              id          : 1,
+              title       : 'نظر مشتریان محصول',
+              titleMobile : 'نظر مشتریان',
+              active      : true,
+            },
+             {
+              id          : 2,
+              title       : "پرسش و پاسخ",
+              titleMobile : "پرسش و پاسخ",
+              active      : false,
+            }
+          ],
+
+          commentsData                         : [
+                {
+                    id: 1,
+                    commentTitle:
+                        "این سری از اپل واچ از سری قبلش خیلی بهتر شده!",
+                    state: "accepted",
+                    idea: "good",
+                    productTitle:
+                        "اپل واچ سری 6 آتومینیوم آبی بند اسپرت سیلیکون آبی1",
+                    img: "/img/apple-watch-1.png",
+                    description:
+                        "این کالا به شدت قوی و با کیفیت هست و پیشنهاد میکنم در این رنج قیمت، حتما این کالارو خریداری کنید! این کالا به شدت قوی و با کیفیت هست و پیشنهاد میکنم در این رنج قیمت حتما این کالا رو خریداری کنید.",
+                    commentTime: "1 ساعت پیش",
+                    rate: 4.5,
+
+                    "Date": "20210406051422",
+                    "Firstname": "محمد ",
+                    "Lastname": "احمدی",
+                    "Title": "آیفون بی نظیر ",
+                    "Body": "یه گوشی فوق العاده عالی اپل جواب خودش رو پس داده گوشی خیلی خوب و روونیه بخاطر پردازنده قویش کلا اپل فوق العادست تنها ایرادش باتریشه که روزی یک و نیم بار تقریبا باید شارژ بشه",
+                    "Rate": 3.2,
+                    "Suggest": 1
+                },
+                {
+                    id: 2,
+                    commentTitle:
+                        "واقعا نمیدونم چرا ایده جدید ندارن روی این محصول!",
+                    state: "acceptting",
+                    idea: "bad",
+                    productTitle:
+                        "اپل واچ سری 6 آتومینیوم آبی بند اسپرت سیلیکون آبی2",
+                    img: "/img/apple-watch-2.png",
+                    description:
+                        "این کالا به شدت قوی و با کیفیت هست و پیشنهاد میکنم در این رنج قیمت، حتما این کالارو خریداری کنید! این کالا به شدت قوی و با کیفیت هست و پیشنهاد میکنم در این رنج قیمت حتما این کالا رو خریداری کنید.",
+                    commentTime: "1 روز پیش",
+                    rate: 3.6,
+
+                    "Date": "20210406051422",
+                    "Firstname": "مهدی",
+                    "Lastname": "دادور",
+                    "Title": "آیفون بی نظیر ",
+                    "Body": "یه گوشی فوق العاده عالی اپل جواب خودش رو پس داده گوشی خیلی خوب و روونیه بخاطر پردازنده قویش کلا اپل فوق العادست تنها ایرادش باتریشه که روزی یک و نیم بار تقریبا باید شارژ بشه",
+                    "Rate": 3.2,
+                    "Suggest": 1
+                }
+           ],
+
+          pageMoreComment                      : 1,
+
+          radioBtnData                         : [
+              {
+                id      : 1,
+                title   : 'پیشنهاد می کنم',
+                checked : true,
+                value   : 1,
+              },
+              {
+                id      : 2,
+                title   : 'پیشنهاد نمی کنم',
+                checked : false,
+                value   : 2,
+              },
+              {
+                id      : 3,
+                title   : 'نظری ندارم',
+                checked : false,
+                value   : 3,
+              },
+          ],
+
+          closeModalAddComment                 : 0,
+
+
 
         };
     },
@@ -130,7 +330,9 @@ export default {
     },
 
     mounted() {
-      this.productData = productData;
+       this.productData = productData;
+       this.checkAddCircleComment();
+       this.detectedResizeBrowser()
     },
 
     methods: {
@@ -146,6 +348,105 @@ export default {
 
           this.productSlider = updateSlider;
       },
+
+      moreComment(page){
+        // request server get comments //
+      },
+
+      moreCommentMobile(){
+        this.pageMoreComment++;
+          // پس از دریافت رسپانس مقدار صفحه اضافه شود //
+          // در صورت مواجه شدن با ارور مقدار مورد نظر اضافه نشود //
+
+        const newComment = {
+            "Date": "20210406051422",
+            "Firstname": "محمد ",
+            "Lastname": "احمدی",
+            "Title": "آیفون بی نظیر ",
+            "Body": "یه گوشی فوق العاده عالی اپل جواب خودش رو پس داده گوشی خیلی خوب و روونیه بخاطر پردازنده قویش کلا اپل فوق العادست تنها ایرادش باتریشه که روزی یک و نیم بار تقریبا باید شارژ بشه",
+            "Rate": 3.2,
+            "Suggest": 1,
+            "id"       : this.pageMoreComment * 2,
+            "selected" : false,
+          }
+
+          this.getComments = [...this.getComments,newComment]
+      },
+
+      checkAddCircleComment(){
+        const getWindowWidth = window.innerWidth;
+
+        const concatStrCommentBody = (data,countConcat) => {
+             let concatStr = '';
+             data.map((contentOneByOne,indexOneByOne)=>{
+                if (indexOneByOne <= countConcat) {
+                    concatStr += contentOneByOne;
+                   }
+               })
+               return concatStr;
+        }
+
+        this.getComments.map((content,index)=>{
+          const body             = content.Body;
+          const lenTextBody      = body.length;
+
+          const splitTextBody    = body.split('');
+          const countSplitText   = splitTextBody.length;
+
+          content.showCircle     = false;
+          content.limitBodyText  = '';
+
+
+
+
+
+          if (1220 < getWindowWidth) {
+            if (lenTextBody >= 580) {
+                content.showCircle     = true
+                // content.limitBodyText  = concatStrCommentBody(splitTextBody,580)
+            }
+          }
+
+          if (600 < getWindowWidth) {
+            if (1220 >= getWindowWidth) {
+               if (lenTextBody >= 400) {
+                  content.showCircle = true
+                  // content.limitBodyText  = concatStrCommentBody(splitTextBody,400)
+               }
+             }
+         }
+
+         if (600 >= getWindowWidth) {
+            if (lenTextBody >=200) {
+              content.showCircle = true
+              // content.limitBodyText  = concatStrCommentBody(splitTextBody,200)
+            }
+         }
+
+
+        })
+      },
+
+      detectedResizeBrowser(){
+        window.addEventListener("resize", ()=>{
+            this.checkAddCircleComment();
+          }, true);
+      },
+
+      submitData(data){
+          data.id          = 10;
+          this.getComments = [...this.getComments,data];
+
+          const comments      = {
+            Comments : this.getComments,
+          }
+
+          getComments(comments);
+
+          // در صورت نداشتن ارور مقدار مورد نظر ذر صدا زده می شود //
+          // و باعث بسته شدن مودال می شود //
+          this.closeModalAddComment++;
+      }
 
     }
 };
@@ -168,7 +469,7 @@ export default {
   @include display-flex();
   align-items: flex-start;
 }
-.page-home{
+.page-wrapper{
   @include display-flex();
   align-items: flex-start;
   width: 1381px;
@@ -193,14 +494,10 @@ export default {
 
 
 @media (max-width: 1450px) {
-  .page-home{
+  .page-wrapper{
     padding-right: 26px;
     padding-left: 26px;
     width: 100%;
-  }
-  .page__home-wrapper-main{
-    padding-right: 26px;
-    padding-left: 26px;
   }
 
 }
@@ -259,9 +556,9 @@ export default {
 }
 
 @media (max-width: 485px) {
-  .page__home-wrapper-main{
-    padding-right: 10px;
-    padding-left: 10px;
+  .page-wrapper{
+    padding-right:11px;
+    padding-left:11px;
   }
 }
 

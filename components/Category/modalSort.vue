@@ -9,7 +9,7 @@
         <div class="modal-sort__main">
                       <div class="modal-sort__close-item w-100">
                             <div class="w-100 modal-filter__item ">
-                                <h3 class="modal-filter__item-title">مرتب سازی بر اساس:</h3>
+                                <h3 class="modal-filter__item-title">{{staticDataLanguage.categorySortTitle}}</h3>
                                 <div @click="modalClose" class="modal-filter__item-left">
                                   <span class="modal-filter__item-close"></span>
                                 </div>
@@ -24,10 +24,10 @@
                       <div class="w-100 modal-filter__btn">
                             <div class="modal-filter__line"></div>
                             <button @click="submitModal" type="button" name="button" class="p-product-btn    ">
-                              ثبت تغییرات
+                              {{staticDataLanguage.categoryBtnSubmitChange}}
                             </button>
                              <button @click="modalClose" type="button" name="button" class="modal-cancel">
-                              انصراف
+                              {{staticDataLanguage.categorySubmitCancelle}}
                             </button>
                       </div>
         </div>
@@ -42,7 +42,8 @@ import sortBox from './sortBox';
 
 export default {
     props: {
-        active    : { type: [Boolean, Number], default: false },
+        active                : { type: [Boolean, Number], default: false },
+        staticDataLanguage    : { type: Object, default: {} },
     },
 
     components: {

@@ -7,16 +7,18 @@
                       <category-top
                       :category-suggestion="categorySuggestion"
                       :default-selected-suggestion="defaultSelectedSuggestion"
+                      :static-data-language="staticDataLanguage"
                       @active-cat-suggestion="activeCatSuggestion"
                       @show-box-filter="showBoxFilter"
                       @show-modal-sort="showModalSort"
 
                       ></category-top>
-
                       <div class="content__bg w-100">
+
                           <category-products
                             :category-product-mobile="categoryProductMobile"
                             :category-products="categoryProducts"
+                            :static-data-language="staticDataLanguage"
                             @update-infinite-cat-mobile="updateInfiniteCatMobile"
                             ></category-products>
                           <paganation-cat></paganation-cat>
@@ -44,6 +46,7 @@ export default {
       defaultSelectedSuggestion  : { type: Object, default: {} },
       categoryProducts           : { type: [Object,Array], default: [] },
       categoryProductMobile      : { type: [Object,Array], default: [] },
+      staticDataLanguage         : { type: Object, default: {} },
     },
 
     components: {

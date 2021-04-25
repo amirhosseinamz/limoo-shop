@@ -14,3 +14,4 @@ Vue.component('vue-slider', VueSlider);
 
 // plugins //
 Vue.use(VueStickyKit)
+

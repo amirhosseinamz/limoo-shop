@@ -2,7 +2,7 @@
   <div  class="w-100 productContent ">
 
       <div class="productContent__items w-100 ">
-          <brand-introduction :products="products"></brand-introduction>
+          <brand-introduction :products="products" :resource-data="resourceData"></brand-introduction>
       </div>
 
   </div>
@@ -18,11 +18,8 @@ export default {
     },
 
     props: {
-      products                : { type: [Object,Array], default: [] },
-      // statusShowCounterDown   : { type: Boolean, default: true },
-      // nameElementFindSlider   : { type: String, default: '' },
-      // title                   : { type: Object, default: {} },
-      // removeMarginTop         : { type: String, default: '' },
+      products       : { type: [Object,Array], default: [] },
+      resourceData   : { type: [Object,Array], default: [] },
     },
 
     data() {

@@ -11,11 +11,11 @@
             <div class="products__filter-btns w-100 ">
               <button @click="showBoxFilter" class="products__filter-btn" type="button">
                 <img class="products__filter-icon" src="/icons/filter_search_icon.svg" alt="">
-                <h3 class="products__filter-text">فیلتر جستجو</h3>
+                <h3 class="products__filter-text">{{staticDataLanguage.categoryFilterText}}</h3>
               </button>
               <button @click="showModalSort" class="products__filter-btn btn--filter-gray" type="button">
                 <img class="products__filter-icon" src="/icons/arrow-filter.svg" alt="">
-                <h3 class="products__filter-text">جدید ترین ها</h3>
+                <h3 class="products__filter-text">{{staticDataLanguage.categoryBtnNew}}</h3>
               </button>
             </div>
 
@@ -41,6 +41,7 @@ export default {
   props: {
     categorySuggestion         : { type: [Object,Array], default: [] },
     defaultSelectedSuggestion  : { type: Object, default: {} },
+    staticDataLanguage         : { type: Object, default: {} },
   },
 
   components: {

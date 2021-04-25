@@ -12,7 +12,7 @@
 
                             <div class="modal-filter__close-item w-100">
                                 <div class="w-100 modal-filter__item ">
-                                    <h3 class="modal-filter__item-title">جستجوی پیشرفته</h3>
+                                    <h3 class="modal-filter__item-title">{{staticDataLanguage.categoryAdvancedSearch}}</h3>
                                     <div @click="modalClose" class="modal-filter__item-left">
                                       <span class="modal-filter__item-close"></span>
                                     </div>
@@ -20,11 +20,11 @@
                                 </div>
                           </div>
 
-                            <filter-toggle-active-btn></filter-toggle-active-btn>
+                            <filter-toggle-active-btn :static-data-language="staticDataLanguage"></filter-toggle-active-btn>
 
                             <filter-price
                              :open-default-box="true"
-                             :title="'حدود قیمت'"
+                             :title="staticDataLanguage.categoryPriceRangeText"
                              :minMax="{min:0,max:100000}"
                              :from-to-renge="rengeFromTo"
                              @last-update-slider-renge="lastUpdateSliderRenge"
@@ -44,10 +44,10 @@
                       <div class="w-100 modal-filter__btn">
                             <div class="modal-filter__line"></div>
                             <button @click="submitFliterModal" type="button" name="button" class="p-product-btn    ">
-                              ثبت تغییرات
+                              {{staticDataLanguage.categoryBtnSubmitChange}}
                             </button>
                              <button @click="modalClose" type="button" name="button" class="modal-cancel">
-                              انصراف
+                              {{staticDataLanguage.categorySubmitCancelle}}
                             </button>
                       </div>
         </div>
@@ -64,7 +64,8 @@ import filterStore from './filterStore';
 
 export default {
     props: {
-        active: { type: [Boolean, Number], default: false },
+        active             : { type: [Boolean, Number], default: false },
+        staticDataLanguage : { type: Object, default: {} },
     },
 
     components: {
@@ -138,7 +139,7 @@ export default {
           const getDataFilterModal = this.$store.state.category.submitDataFilterModal;
           const getCheckBox        = getDataFilterModal.lastUpdateCheckBox;
           for (let key in getCheckBox) {
-             this.checkBoxData[key]  = getCheckBox[key]
+             this.checkBoxData[key]  = getCheckBox[key];
           }
         }
 

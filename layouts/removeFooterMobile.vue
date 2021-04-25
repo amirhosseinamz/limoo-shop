@@ -12,7 +12,7 @@
 <script>
 import TheHeader from "~/components/Navigation/TheHeader.vue";
 import TheMobileMegaMenu from "~/components/Navigation/TheMobileMegaMenu.vue";
-import theFooter from "~/components/Navigation/theFooter.vue";
+import theFooter from "~/components/Navigation/TheFooter.vue";
 
 
 export default {
@@ -21,9 +21,15 @@ export default {
         TheMobileMegaMenu,
         theFooter,
     },
+
     data() {
       return {
       }
+    },
+
+    created() {
+      // تعیین زبان صفحه //
+      this.currentLanguage();
     },
 
     watch: {
@@ -31,6 +37,10 @@ export default {
     },
 
     methods: {
+      currentLanguage(){
+        const language = 'fa-IR';
+        this.$store.commit("currentLanguage", language);
+      }
 
     },
 

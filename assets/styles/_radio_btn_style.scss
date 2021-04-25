@@ -1,0 +1,52 @@
+// check box style //
+
+.radio--btn{
+  .container {
+    display: block;
+    position: relative;
+    cursor: pointer;
+    font-size: 22px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
+  .container input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+  }
+  .checkmark {
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 18px;
+    width: 18px;
+    border:solid 1px $color-gray;
+    border-radius: 5px;
+  }
+  .container input:checked ~ .checkmark {
+    background-color: $yellow;
+    border-color: $yellow;
+  }
+  .checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+  }
+  .container input:checked ~ .checkmark:after {
+    display: block;
+  }
+
+  .container .checkmark:after {
+    left: 4px;
+    top: 5px;
+    content: "\e82b";
+    @include font-icon__limoo();
+    font-size: 6px;
+    color: $white;
+  }
+
+}

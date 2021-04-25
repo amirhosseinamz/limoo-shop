@@ -5,13 +5,13 @@
             <div class="productContent__left">
 
                   <div class="w-100 product__vertical-main">
-                        <product-vertical2 :description-show="descriptionShow" :products="products" :title="title"></product-vertical2>
+                        <product-vertical2 :description-show="descriptionShow" :products="products" :title="title" :more-text="moreText"></product-vertical2>
                   </div>
 
                   <div class="w-100">
                       <div class="w-100 productContent__sliderMore">
                         <nuxt-link class="productContent__moreItem" :to="title.href">
-                          لیست کامل محصولات
+                          {{moreText}}
                           <span class=" productContent__moreIcon mobile-inprogress__arrow"></span>
                         </nuxt-link>
                       </div>
@@ -36,6 +36,7 @@ export default {
       products           : { type: [Object,Array], default: [] },
       title              : { type: Object, default: {} },
       descriptionShow    : { type: Boolean, default: false },
+      moreText           : { type: String, default: '' },
     },
 
     data() {

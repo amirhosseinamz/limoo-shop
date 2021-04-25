@@ -28,10 +28,31 @@
 
                     </div>
 
-
               </div>
 
         </div>
+
+          <div class="tab--content product__single-content w-100">
+               <product-tab :product-tab="introductionAndDetailTechnicalTab" :product-data="productDetailTechnical"></product-tab>
+           </div>
+
+
+          <div class="tab--content product__single-content w-100 tab--comment">
+               <comment-question-main
+                 :comment-data="commentData"
+                 :product-data="productData"
+                 :product-tab="commentAndAnswerQuestionTabName"
+                 :radio-btn-data="radioBtnData"
+                 :close-modal-add-comment="closeModalAddComment"
+
+                 @more-comment="moreComment"
+                 @more-comment-mobile="moreCommentMobile"
+                 @submit-data="submitData"
+                 ></comment-question-main>
+           </div>
+
+
+
 
     </div>
 
@@ -41,13 +62,22 @@ import productPic from "./productPic";
 import productDetail from './productDetail';
 import productTools from './productTools';
 import sliderSingleProduct from './sliderSingleProduct';
+import productTab from './productTab';
+import commentQuestionMain from './commentQuestionMain';
 
 
 export default {
     props: {
-      productData             : { type: [Object,Array], default: [] },
-      productSliderMobile     : { type: [Object,Array], default: [] },
-      productSlider           : { type: [Object,Array], default: [] },
+      productData                       : { type: [Object,Array], default: [] },
+      productSliderMobile               : { type: [Object,Array], default: [] },
+      productSlider                     : { type: [Object,Array], default: [] },
+      introductionAndDetailTechnicalTab : { type: [Object,Array], default: [] },
+      commentAndAnswerQuestionTabName   : { type: [Object,Array], default: [] },
+      productDetailTechnical            : { type: [Object,Array], default: [] },
+      commentData                       : { type: [Object,Array], default: [] },
+      radioBtnData                      : { type: [Object,Array], default: [] },
+      closeModalAddComment              : { type: Number, default: 0 },
+
     },
 
     components: {
@@ -55,6 +85,8 @@ export default {
       productDetail,
       productTools,
       sliderSingleProduct,
+      productTab,
+      commentQuestionMain,
     },
 
     data() {
@@ -78,6 +110,18 @@ export default {
         this.$emit('active-item-slider-nav',data)
       },
 
+      moreComment(page){
+        this.$emit('more-comment',page)
+      },
+
+      moreCommentMobile(){
+        this.$emit('more-comment-mobile')
+      },
+
+      submitData(data){
+        this.$emit('submit-data',data)
+      }
+
     }
 };
 </script>
@@ -99,6 +143,7 @@ export default {
     margin-bottom: 19px;
     flex-wrap: wrap;
     padding-right: 16px;
+    border-radius: 10px;
   }
   .product__single-right{
     width: 39.6%;
@@ -139,6 +184,14 @@ export default {
     border:solid 1px $gray-border;
     border-radius: 10px;
   }
+  .tab--content{
+    padding-right:0;
+    padding-left:0;
+    padding-bottom:24px;
+    padding-top:24px;
+  }
+
+
 
   @media (max-width: 1300px) {
     .product__top-title{
@@ -181,10 +234,25 @@ export default {
       padding-left: 11px;
       padding-top: 8px;
       padding-bottom: 8px;
+      margin-bottom:0;
     }
     .product__top-title{
       line-height: 28px;
       margin-bottom: 2px;
+    }
+    .tab--content{
+      padding-top:0;
+      padding-bottom:0;
+      padding-right:8px;
+      padding-left:8px;
+      margin-bottom:8px;
+    }
+    .tab--content:last-of-type{
+      margin-bottom: 0;
+    }
+    .tab--comment{
+      padding-right: 0;
+      padding-left: 0;
     }
   }
 
