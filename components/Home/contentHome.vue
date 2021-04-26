@@ -8,7 +8,7 @@
         :left-slider-header-img="leftSliderHeaderImg"
 
       ></introduction-items>
-
+    
       <product-content
         :products="products"
         :status-show-counter-down="true"
@@ -16,7 +16,6 @@
         remove-margin-top=""
         :more-text="getTextByTextKey('home_category_all')"
         :title="{title:'',href:'',titleVisit:'',sliderItemHref:'product'}"
-        :resource-data="resourceData"
       ></product-content>
 
 
@@ -48,13 +47,13 @@
 
       <product-content
         :products="products"
-        :status-show-counter-down="false"
+        :status-show-counter-down="false" 
         name-element-find-slider="productContent__mainSlider3"
         remove-margin-top="productContent__updateMargin"
         :more-text="getTextByTextKey('home_complete_list_products')"
         :title="{title:'تستی 3',href:'test',titleVisit:'پر فروش ترین محصولات' , sliderItemHref:'product3'}"
       ></product-content>
-
+   
       <banner-2-items :banner-vertical-product="bannerVerticalProduct"></banner-2-items>
 
       <div class="w-100 product__vertical-main">
@@ -136,8 +135,9 @@
       ></question-content>
 
 
-      <brand-introduction-content :products="brandIntroduction"
-                                  :resource-data="resourceData"></brand-introduction-content>
+      <brand-introduction-content 
+         :products="brandIntroduction"
+        ></brand-introduction-content>
 
 
     </div>
@@ -145,7 +145,6 @@
 </template>
 
 <script>
-import resource from "~/modules/resource.js";
 import introductionItems from "./introductionItems";
 import bannerItems from "./bannerItems";
 import banner2Items from "./banner2Items";
@@ -158,7 +157,6 @@ import questionContent from "./questionContent";
 import brandIntroductionContent from "./brandIntroductionContent";
 import blogContent from "./blogContent";
 import productVertical2Content from "./productVertical2Content";
-import splitPartJsonResource from "~/modules/splitPartJsonResource.js";
 import { getTextByTextKey } from "~/modules/splitPartJsonResource.js";
 
 
@@ -197,12 +195,10 @@ export default {
 
   data() {
     return {
-      resourceData: [],
     };
   },
 
   created() {
-    this.resourceData = resource("home");
   },
 
   mounted() {

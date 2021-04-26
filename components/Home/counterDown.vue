@@ -21,7 +21,7 @@
                         <span class="productContent-circle">:</span>
                       </div>
                       <div class="w-100 d-flex">
-                        <h3 class="productContent-timeLabel">{{textHour.languageData.text}}</h3>
+                        <h3 class="productContent-timeLabel">{{getTextByTextKey('home_festival_hour')}}</h3>
                       </div>
                     </div>
 
@@ -36,7 +36,7 @@
                         <span class="productContent-circle">:</span>
                       </div>
                       <div class="w-100 d-flex">
-                        <h3 class="productContent-timeLabel">{{textMinutes.languageData.text}}</h3>
+                        <h3 class="productContent-timeLabel">{{getTextByTextKey('home_festival_minutes')}}</h3>
                       </div>
                     </div>
 
@@ -50,7 +50,7 @@
                         </div>
                       </div>
                       <div class="w-100 d-flex">
-                        <h3 class="productContent-timeLabel">{{textSeconds.languageData.text}}</h3>
+                        <h3 class="productContent-timeLabel">{{getTextByTextKey('home_festival_seconds')}}</h3>
                       </div>
                     </div>
                 </div>
@@ -62,7 +62,7 @@
           </div>
           <div class="w-100 productContent-timerBtn">
             <button class="productContent-moreFestival" type="button" name="button">
-              {{festivalBtn.languageData.text}}
+              {{getTextByTextKey('home_festival_btn_text')}}
             </button>
           </div>
       </div>
@@ -70,7 +70,7 @@
 </template>
 
 <script>
-import splitPartJsonResource from "~/modules/splitPartJsonResource.js";
+import { getTextByTextKey } from "~/modules/splitPartJsonResource.js";
 
 
 export default {
@@ -78,7 +78,6 @@ export default {
     },
 
     props: {
-      resourceData    : { type: [Object,Array], default: null },
     },
 
     data() {
@@ -91,11 +90,6 @@ export default {
 
 
     created(){
-        const language      = this.$store.state.language;
-    	  this.textMinutes    =  splitPartJsonResource(this.resourceData,'home_festival_minutes',language);
-		    this.textHour       =  splitPartJsonResource(this.resourceData,'home_festival_hour',language);
-    	  this.textSeconds    =  splitPartJsonResource(this.resourceData,'home_festival_seconds',language);
-        this.festivalBtn    =  splitPartJsonResource(this.resourceData,'home_festival_btn_text',language);
     },
 
     mounted() {
@@ -129,6 +123,9 @@ export default {
           this.counterDownSecond  = ss.toString().split('');
         },1000)
       },
+
+      getTextByTextKey,
+
 
 
     },
