@@ -4,7 +4,7 @@
 
         <div class="mobile-screen">
             <div class="mobile-screen__holder">
-                <span class="mobile-screen__holder-txt">سفارش های من</span>
+                <span class="mobile-screen__holder-txt">{{staticDataLanguage.lang_orders_order_my}}</span>
                 <span
                     @click="goToProfile"
                     class="mobile-screen__holder-arrow"
@@ -15,7 +15,7 @@
         <div class="user-profile__holder">
             <div class="user-profile">
                 <div class="desktop-nav">
-                    <span class="user-profile__topic">لیست سفارشات شما</span>
+                    <span class="user-profile__topic">{{staticDataLanguage.lang_orders_order_list_text}}</span>
                     <div class="order-nav d-rtl">
                         <div
                             @click="goToOrder('waitForPayment')"
@@ -23,7 +23,7 @@
                             class="order-nav__items"
                         >
                             <div class="order-nav__items-holder">
-                                <NuxtLink to=""> در انتظار پرداخت</NuxtLink
+                                <NuxtLink to="">{{staticDataLanguage.lang_orders_tab_waiting_for_payment}}</NuxtLink
                                 ><span class="order-counter">2</span>
                             </div>
                             <span class="bottomLine"></span>
@@ -34,7 +34,7 @@
                             id="item-inprogress"
                             class="order-nav__items"
                         >
-                            <NuxtLink to="">در حال پردازش</NuxtLink>
+                            <NuxtLink to="">{{staticDataLanguage.lang_orders_tab_processing}}</NuxtLink>
                             <span class="bottomLine"></span>
                         </div>
                         <div
@@ -42,7 +42,7 @@
                             :class="{ 'item-active': delivered }"
                             class="order-nav__items "
                         >
-                            <NuxtLink to="">تحویل داده شده</NuxtLink>
+                            <NuxtLink to="">{{staticDataLanguage.lang_orders_tab_delivered}}</NuxtLink>
                             <span class="bottomLine"></span>
                         </div>
                         <div
@@ -50,7 +50,7 @@
                             :class="{ 'item-active': returned }"
                             class="order-nav__items "
                         >
-                            <NuxtLink to="">مرجوع شده</NuxtLink>
+                            <NuxtLink to="">{{staticDataLanguage.lang_orders_tab_referred}}</NuxtLink>
                             <span class="bottomLine"></span>
                         </div>
                         <div
@@ -58,7 +58,7 @@
                             :class="{ 'item-active': canceled }"
                             class="order-nav__items "
                         >
-                            <NuxtLink to="">لغو شده</NuxtLink>
+                            <NuxtLink to="">{{staticDataLanguage.lang_orders_tab_canceled}}</NuxtLink>
                             <span class="bottomLine"></span>
                         </div>
                     </div>
@@ -67,6 +67,7 @@
                     <!--  -->
                     <the-in-progress
                         :user-order-data="userOrderData"
+                        :static-data-language="staticDataLanguage"
                     ></the-in-progress>
                 </div>
             </div>
@@ -76,6 +77,9 @@
 <script>
 import TheProfileSideBar from "~/components/Profile/TheProfileSideBar.vue";
 import TheInProgress from "~/components/Profile/UserOrder/TheInProgress.vue";
+import resource from "~/modules/resource.js";
+import splitPartJsonResource from "~/modules/splitPartJsonResource.js";
+
 
 export default {
     middleware  : "authentication",
@@ -155,6 +159,13 @@ export default {
 
     watch: {},
 
+    created() {
+      const resourceOrders   = resource('orders');
+      const resourcePublic   = resource('public');
+
+      this.setLangData(resourceOrders,resourcePublic);
+    },
+
     mounted() {
         const curentRoute = this.$route.path;
         // const activeTab = this.$route.query.activeTab;
@@ -178,6 +189,29 @@ export default {
     },
 
     methods: {
+       setLangData(orders,resourcePublic){
+          const language           = this.$store.state.language;
+          const staticDataLanguage = {
+             'lang_orders_order_my'                   :  splitPartJsonResource(orders,'orders_order_my',language).languageData.text,
+             'lang_orders_order_status'               :  splitPartJsonResource(orders,'orders_order_status',language).languageData.text,
+             'lang_orders_order_price'                :  splitPartJsonResource(orders,'orders_order_price',language).languageData.text,
+             'lang_orders_order_date'                 :  splitPartJsonResource(orders,'orders_order_date',language).languageData.text,
+             'lang_orders_code_order'                 :  splitPartJsonResource(orders,'orders_code_order',language).languageData.text,
+             'lang_orders_see_product'                :  splitPartJsonResource(orders,'orders_see_product',language).languageData.text,
+             'lang_orders_tab_canceled'               :  splitPartJsonResource(orders,'orders_tab_canceled',language).languageData.text,
+             'lang_orders_tab_referred'               :  splitPartJsonResource(orders,'orders_tab_referred',language).languageData.text,
+             'lang_orders_tab_delivered'              :  splitPartJsonResource(orders,'orders_tab_delivered',language).languageData.text,
+             'lang_orders_tab_processing'             :  splitPartJsonResource(orders,'orders_tab_processing',language).languageData.text,
+             'lang_orders_tab_waiting_for_payment'    :  splitPartJsonResource(orders,'orders_tab_waiting_for_payment',language).languageData.text,
+             'lang_orders_empty'                      :  splitPartJsonResource(orders,'orders_empty',language).languageData.text,
+             'lang_orders_order_list_text'            :  splitPartJsonResource(orders,'orders_order_list_text',language).languageData.text,
+
+        };
+
+          staticDataLanguage.public_unit  =  splitPartJsonResource(resourcePublic,'public_unit',language).languageData.text;
+          this.staticDataLanguage         = staticDataLanguage;
+        },
+
         goToProfile() {
             this.$router.push("/profile");
         },

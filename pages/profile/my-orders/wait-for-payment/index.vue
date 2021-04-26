@@ -4,7 +4,7 @@
 
         <div class="mobile-screen">
             <div class="mobile-screen__holder">
-                <span class="mobile-screen__holder-txt">سفارش های من</span>
+                <span class="mobile-screen__holder-txt">{{staticDataLanguage.lang_orders_order_my}}</span>
                 <span
                     @click="goToProfile"
                     class="mobile-screen__holder-arrow"
@@ -15,7 +15,7 @@
         <div class="user-profile__holder">
             <div class="user-profile">
                 <div class="desktop-nav">
-                    <span class="user-profile__topic">لیست سفارشات شما</span>
+                    <span class="user-profile__topic">{{staticDataLanguage.lang_orders_order_list_text}}</span>
                     <div class="order-nav d-rtl">
                         <div
                             @click="goToOrder('waitForPayment')"
@@ -23,7 +23,7 @@
                             class="order-nav__items"
                         >
                             <div class="order-nav__items-holder">
-                                <NuxtLink to=""> در انتظار پرداخت</NuxtLink
+                                <NuxtLink to="">{{staticDataLanguage.lang_orders_tab_waiting_for_payment}}</NuxtLink
                                 ><span class="order-counter">2</span>
                             </div>
                             <span class="bottomLine"></span>
@@ -33,7 +33,7 @@
                             :class="{ 'item-active': paidInProgress }"
                             class="order-nav__items"
                         >
-                            <NuxtLink to="">در حال پردازش</NuxtLink>
+                            <NuxtLink to="">{{staticDataLanguage.lang_orders_tab_processing}}</NuxtLink>
                             <span class="bottomLine"></span>
                         </div>
                         <div
@@ -41,7 +41,7 @@
                             :class="{ 'item-active': delivered }"
                             class="order-nav__items "
                         >
-                            <NuxtLink to="">تحویل داده شده</NuxtLink>
+                            <NuxtLink to="">{{staticDataLanguage.lang_orders_tab_delivered}}</NuxtLink>
                             <span class="bottomLine"></span>
                         </div>
                         <div
@@ -49,7 +49,7 @@
                             :class="{ 'item-active': returned }"
                             class="order-nav__items "
                         >
-                            <NuxtLink to="">مرجوع شده</NuxtLink>
+                            <NuxtLink to="">{{staticDataLanguage.lang_orders_tab_referred}}</NuxtLink>
                             <span class="bottomLine"></span>
                         </div>
                         <div
@@ -57,7 +57,7 @@
                             :class="{ 'item-active': canceled }"
                             class="order-nav__items "
                         >
-                            <NuxtLink to="">لغو شده</NuxtLink>
+                            <NuxtLink to="">{{staticDataLanguage.lang_orders_tab_canceled}}</NuxtLink>
                             <span class="bottomLine"></span>
                         </div>
                     </div>
@@ -66,6 +66,7 @@
                     <!--  -->
                     <The-wait-for-payment
                         :user-order-data="userOrderData"
+                        :static-data-language="staticDataLanguage"
                     ></The-wait-for-payment>
                 </div>
             </div>
@@ -149,8 +150,8 @@ export default {
                     ]
                 }
             ],
-
-            currentOrder: {}
+            currentOrder: {},
+            staticDataLanguage : {},
         };
     },
 
@@ -192,10 +193,12 @@ export default {
              'lang_orders_tab_processing'             :  splitPartJsonResource(orders,'orders_tab_processing',language).languageData.text,
              'lang_orders_tab_waiting_for_payment'    :  splitPartJsonResource(orders,'orders_tab_waiting_for_payment',language).languageData.text,
              'lang_orders_empty'                      :  splitPartJsonResource(orders,'orders_empty',language).languageData.text,
-          };
+             'lang_orders_order_list_text'            :  splitPartJsonResource(orders,'orders_order_list_text',language).languageData.text,
+
+        };
 
           staticDataLanguage.public_unit  =  splitPartJsonResource(resourcePublic,'public_unit',language).languageData.text;
-
+          this.staticDataLanguage         = staticDataLanguage;
         },
 
         goToProfile() {
