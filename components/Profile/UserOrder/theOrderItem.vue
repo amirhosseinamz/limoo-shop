@@ -1,13 +1,8 @@
 <template>
   <div>
     <div class="user-inprogress__empty-container" v-show="userInprogress == 0">
-      <img
-        src="/empty-pages/empty-inprogress.svg"
-        alt="فعلا هیچ سفارش در انتظار پرداختی ندارید."
-      />
-      <span class="user-inprogress__empty d-rtl"
-        >فعلا هیچ سفارش در انتظار پرداختی ندارید.</span
-      >
+      <img src="/empty-pages/empty-inprogress.svg" :alt="textError" />
+      <span class="user-inprogress__empty d-rtl">{{ textError }} </span>
     </div>
     <div
       class="paid-progress d-rtl"
@@ -37,7 +32,7 @@
           </div>
         </div>
         <NuxtLink
-          :to="'/profile/my-orders/wait-for-payment/detail/' + data.orderCode"
+          :to="`/profile/my-orders/${currentUrl}/detail/` + data.orderCode"
           class="btn-mobile__order-detail"
         >
           {{ getTextByTextKey("orders_see_product") }}
@@ -74,7 +69,7 @@
           <span class="order-situation__value">{{ data.orderSituation }}</span>
         </div>
         <NuxtLink
-          :to="'/profile/my-orders/wait-for-payment/detail/' + data.orderCode"
+          :to="`/profile/my-orders/${currentUrl}/detail/` + data.orderCode"
           class="p-history-product-btn-link"
         >
           {{ getTextByTextKey("orders_see_product") }}
@@ -94,6 +89,8 @@ export default {
   components: {},
   props: {
     userOrderData: { type: [Object, Array], default: {} },
+    textError: { type: String, default: "" },
+    currentUrl: { type: String, default: "" },
   },
   data() {
     return {
