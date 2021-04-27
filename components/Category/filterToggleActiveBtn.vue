@@ -1,88 +1,84 @@
 <template>
   <div class="w-100  modal-filter__filter-btn">
-        <div class="w-100 modal-filter__item ">
-          <h3 class="modal-filter__item-title tools--title">{{staticDataLanguage.categoryAvailableProduct}}</h3>
-          <div class="modal-filter__btn">
-            <div class="switch">
-              <input id="switch-1" type="checkbox" class="switch-input" />
-              <label for="switch-1" class="switch-label"></label>
-            </div>
-          </div>
-          <span class="modal-filter__line"></span>
+    <div class="w-100 modal-filter__item ">
+      <h3 class="modal-filter__item-title tools--title">
+        {{ getTextByTextKey("category_available_product") }}
+      </h3>
+      <div class="modal-filter__btn">
+        <div class="switch">
+          <input id="switch-1" type="checkbox" class="switch-input" />
+          <label for="switch-1" class="switch-label"></label>
         </div>
+      </div>
+      <span class="modal-filter__line"></span>
+    </div>
 
-        <div class="w-100 modal-filter__item ">
-          <h3 class="modal-filter__item-title tools--title">{{staticDataLanguage.categoryFreeDelivery}}</h3>
-          <div class="modal-filter__btn">
-            <div class="switch">
-              <input id="switch-2" type="checkbox" class="switch-input" />
-              <label for="switch-2" class="switch-label"></label>
-            </div>
-          </div>
-          <span class="modal-filter__line"></span>
+    <div class="w-100 modal-filter__item ">
+      <h3 class="modal-filter__item-title tools--title">
+        {{ getTextByTextKey("category_free_delivery") }}
+      </h3>
+      <div class="modal-filter__btn">
+        <div class="switch">
+          <input id="switch-2" type="checkbox" class="switch-input" />
+          <label for="switch-2" class="switch-label"></label>
         </div>
+      </div>
+      <span class="modal-filter__line"></span>
+    </div>
 
-        <div class="w-100 modal-filter__item ">
-          <h3 class="modal-filter__item-title tools--title">{{staticDataLanguage.categoryReady}}</h3>
-          <div class="modal-filter__btn">
-            <div class="switch">
-              <input id="switch-3" type="checkbox" class="switch-input" />
-              <label for="switch-3" class="switch-label"></label>
-            </div>
-          </div>
-          <span class="modal-filter__line"></span>
+    <div class="w-100 modal-filter__item ">
+      <h3 class="modal-filter__item-title tools--title">
+        {{ getTextByTextKey("category_ready") }}
+      </h3>
+      <div class="modal-filter__btn">
+        <div class="switch">
+          <input id="switch-3" type="checkbox" class="switch-input" />
+          <label for="switch-3" class="switch-label"></label>
         </div>
+      </div>
+      <span class="modal-filter__line"></span>
+    </div>
   </div>
 </template>
 
 <script>
-
+import { getTextByTextKey } from "~/modules/splitPartJsonResource.js";
 
 export default {
-  props: {
-    staticDataLanguage : { type: Object, default: {} },
-  },
+  props: {},
 
-  components: {
-  },
+  components: {},
 
   data() {
-    return {
-    }
+    return {};
   },
 
-  watch: {
+  watch: {},
 
-  },
-
-  mounted() {
-
-  },
+  mounted() {},
 
   methods: {
-
-
+    getTextByTextKey,
   },
-
 };
 </script>
 
 <style lang="scss" scoped>
-.modal-filter__item{
+.modal-filter__item {
   width: 100%;
   @include display-flex();
   flex-wrap: wrap;
   align-items: center;
 }
-.modal-filter__item-title{
+.modal-filter__item-title {
   font-size: 16px;
   color: $dark_gray;
   font-weight: 300;
 }
-.tools--title{
+.tools--title {
   font-size: 16px;
 }
-.modal-filter__btn{
+.modal-filter__btn {
   flex-grow: 1;
   @include display-flex();
   justify-content: flex-end;
@@ -134,9 +130,8 @@ export default {
   .switch-input:checked + .switch-label::after {
     left: 27px;
   }
-
 }
-.modal-filter__line{
+.modal-filter__line {
   height: 1px;
   width: 100%;
   @include display-flex();
@@ -145,23 +140,17 @@ export default {
   background: $flash_white;
 }
 
-
-
-
 @media (max-width: 485px) {
-    .modal-filter__item{
-      align-items: flex-start;
-    }
-    .tools--title{
-      font-size: 14px;
-      margin-top: 1px;
-    }
-    .modal-filter__line{
-      margin-top: 18px;
-      margin-bottom: 18px;
-    }
-
+  .modal-filter__item {
+    align-items: flex-start;
+  }
+  .tools--title {
+    font-size: 14px;
+    margin-top: 1px;
+  }
+  .modal-filter__line {
+    margin-top: 18px;
+    margin-bottom: 18px;
+  }
 }
-
-
 </style>
