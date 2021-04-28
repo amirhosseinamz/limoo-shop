@@ -1,7 +1,7 @@
 <template>
   <div class="w-100">
     <order-items
-      text-error="فعلا هیچ سفارش در انتظار پرداختی ندارید."
+      :text-error="getTextByTextKey('orders_empty_wait_pay')"
       :user-order-data="userOrderData"
       current-url="wait-for-payment"
     ></order-items>
