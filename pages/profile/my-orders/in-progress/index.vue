@@ -26,7 +26,7 @@ export default {
           orderCode: "6861457M",
           orderPrice: "850,000",
           orderData: "1399/04/05",
-          orderSituation: "در انتظار پرداخت",
+          orderSituation: "در حال پردازش",
           orders: [
             {
               id: 1,
