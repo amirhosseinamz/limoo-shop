@@ -38,13 +38,25 @@
                   <label for="name">
                     {{ getTextByTextKey("personal_info_name") }}
                   </label>
-                  <input type="text" id="name" placeholder="کیمیا خانوم" />
+                  <input
+                    type="text"
+                    id="name"
+                    :placeholder="
+                      getTextByTextKey('personal_info_place_holder_name')
+                    "
+                  />
                 </section>
                 <section>
                   <label for="family">
                     {{ getTextByTextKey("personal_info_family") }}
                   </label>
-                  <input type="text" id="family" placeholder="طلایی مطلق" />
+                  <input
+                    type="text"
+                    id="family"
+                    :placeholder="
+                      getTextByTextKey('personal_info_place_holder_family')
+                    "
+                  />
                 </section>
               </div>
               <!--/// email section is ignored in version alpha ///-->
@@ -83,7 +95,9 @@
                   type="text"
                   id="nationalcode"
                   maxlength="10"
-                  placeholder="0475749590"
+                  :placeholder="
+                    getTextByTextKey('personal_info_place_holder_national')
+                  "
                   v-model="nationalcode"
                   required
                 />
