@@ -1,8 +1,10 @@
 <template>
   <div class="p-history-product-items w-100 flex-column flex-wrap">
     <div class="user-history__empty-container" v-show="userHistory == 0">
-      <img src="/empty-pages/empty-last-seen.svg"
-      :alt="getTextByTextKey("profile_order_still_product")" />
+      <img
+        src="/empty-pages/empty-last-seen.svg"
+        :alt="getTextByTextKey('profile_order_still_product')"
+      />
       <span class="user-history__empty">
         {{ getTextByTextKey("profile_order_still_product") }}
       </span>
