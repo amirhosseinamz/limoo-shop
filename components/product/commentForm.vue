@@ -82,7 +82,7 @@
     </form>
   </div>
 </template>
-   
+
 <script>
 import "~/assets/styles/_radio_btn_style.scss";
 const moment = require("moment-jalaali");
@@ -151,12 +151,12 @@ export default {
 
       if (this.formData.Body == "") {
         this.showErrorCommentText = true;
-        this.errorCommentText = "معتبر نیست";
+        this.errorCommentText = this.getTextByTextKey("address_not_valid");
       }
 
       if (this.formData.Title == "") {
         this.showErrorCommentTitle = true;
-        this.errorCommentTitle = "معتبر نیست";
+        this.errorCommentTitle = this.getTextByTextKey("address_not_valid");
       }
 
       // در صورت داشتن ارور اجرا می شود //
@@ -214,7 +214,9 @@ export default {
 
         if (value.length == 450) {
           this.showErrorCommentText = true;
-          this.errorCommentText = "بیش از حد مجاز";
+          this.errorCommentText = this.getTextByTextKey(
+            "address_validation_over_limit"
+          );
         }
       } else {
         this.showErrorCommentText = false;
@@ -231,7 +233,9 @@ export default {
 
         if (value.length == 20) {
           this.showErrorCommentTitle = true;
-          this.errorCommentTitle = "بیش از حد مجاز";
+          this.errorCommentTitle = this.getTextByTextKey(
+            "address_validation_over_limit"
+          );
         }
       } else {
         this.showErrorCommentTitle = false;

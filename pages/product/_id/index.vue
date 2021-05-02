@@ -37,6 +37,7 @@ import productData from "~/modules/single_product_data.json";
 const moment = require("moment-jalaali");
 moment.loadPersian({ usePersianDigits: true });
 import timeSince from "~/plugins/calcTimeAgo.js";
+import { getTextByTextKey } from "~/modules/splitPartJsonResource.js";
 
 const getComments = (dataProduct) => {
   const comments = dataProduct.Comments;
@@ -337,6 +338,7 @@ export default {
   },
 
   methods: {
+    getTextByTextKey,
     activeItemSliderNav(data) {
       let updateSlider = [];
       this.productSlider.map((content, index) => {
