@@ -1,10 +1,13 @@
 @mixin display-flex() {
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: -webkit-flex;
-    display: -moz-flex;
-    display: flex;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: -moz-flex;
+  display: flex;
 }
 @mixin font-icon__limoo() {
-    font-family: "limoo";
+  font-family: "limoo";
+}
+@mixin font-icon__arrow() {
+  font-family: "arrow-down";
 }

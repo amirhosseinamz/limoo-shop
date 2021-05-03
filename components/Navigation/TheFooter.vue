@@ -148,10 +148,10 @@
                 <li class="theFooter-leftItem w-100 theFooter-phoneNumberMain">
                   <div class="theFooter-leftPhone">
                     <h3 class="theFooter-itemTitle w-auto theFooter-titlePhone">
-                      {{ getTextByTextKey("footer_support_phone") }} :
+                      {{ getTextByTextKey("footer_support_phone") }}
                     </h3>
                     <h3 class="theFooter-itemTitle w-auto theFooter-titlePhone">
-                      {{ getTextByTextKey("footer_support_number") }} :
+                      {{ getTextByTextKey("footer_support_number") }}
                     </h3>
                   </div>
                 </li>
@@ -397,7 +397,7 @@
                 <li class="theFooter-leftItem w-100 theFooter-phoneNumberMain">
                   <div class="theFooter-leftPhone">
                     <h3 class="theFooter-itemTitle w-auto theFooter-titlePhone">
-                      {{ getTextByTextKey("footer_support_phone") }} :
+                      {{ getTextByTextKey("footer_support_phone") }}
                     </h3>
                     <h3 class="theFooter-itemTitle w-auto theFooter-titlePhone">
                       {{ getTextByTextKey("footer_support_number") }}
