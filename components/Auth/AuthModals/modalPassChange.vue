@@ -9,7 +9,7 @@
         >
           <img class="success-icon" src="/icons/success.svg" />
           <p dir="rtl" class="success-txt">
-            رمز با موفقیت تغییر کرد!
+            {{ getTextByTextKey("auth_success_password") }}
           </p>
         </div>
       </div>
@@ -17,9 +17,11 @@
       <div class="card-body">
         <form @submit.prevent="pressed">
           <div class="form-group">
-            <p class="txt-header">تغییر رمز عبور</p>
+            <p class="txt-header">
+              {{ getTextByTextKey("auth_change_password") }}
+            </p>
             <p dir="rtl" class="txt-content">
-              رمز عبور جدید
+              {{ getTextByTextKey("auth_new_passowrd") }}
             </p>
             <div class="input-section">
               <div
@@ -34,7 +36,9 @@
                   @click="[(passIsActive = true)]"
                   class="signup-input form-control"
                   :type="passwordFieldType"
-                  placeholder="کلمه عبور..."
+                  :placeholder="
+                    getTextByTextKey('auth_forget_passwrord_circle')
+                  "
                   v-model="password"
                   maxlength="32"
                   required
@@ -65,7 +69,7 @@
               </div>
             </div>
             <p dir="rtl" class="txt-content">
-              تکرار رمز عبور جدید
+              {{ getTextByTextKey("auth_repeat_new_password") }}
             </p>
             <div class="input-section">
               <div
@@ -80,7 +84,9 @@
                   @click="[(verifyPassIsActive = true)]"
                   class="signup-input form-control"
                   :type="passwordFieldTypeVerify"
-                  placeholder="کلمه عبور..."
+                  :placeholder="
+                    getTextByTextKey('auth_forget_passwrord_circle')
+                  "
                   v-model="passwordVerify"
                   maxlength="32"
                   required
@@ -119,10 +125,14 @@
               type="submit"
               dir="rtl"
             >
-              {{ passChenged ? "با موفقیت تغییر کرد..." : "ادامه" }}
+              {{
+                passChenged
+                  ? getTextByTextKey("home_blog_single_more")
+                  : getTextByTextKey("auth_success_change")
+              }}
             </button>
             <button class="signup-btn min-display" type="submit">
-              ادامه
+              {{ getTextByTextKey("home_blog_single_more") }}
             </button>
           </div>
         </form>
@@ -132,6 +142,8 @@
 </template>
 
 <script>
+import { getTextByTextKey } from "~/modules/splitPartJsonResource.js";
+
 export default {
   data() {
     return {
@@ -145,6 +157,7 @@ export default {
     };
   },
   methods: {
+    getTextByTextKey,
     pressed() {
       // this.$store.commit("passHolder", { value: this.password });
       // console.log(this.password);

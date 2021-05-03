@@ -27,7 +27,7 @@
         >
           <img class="alert-icon " src="/icons/alarm.svg" />
           <p dir="rtl" class="alert-txt">
-            {{ getTextByTextKey("aignup_code_incorrect") }}
+            {{ getTextByTextKey("auth_aignup_code_incorrect") }}
           </p>
         </div>
       </div>
@@ -53,6 +53,17 @@
                     : 'border:1px solid #bdbdbd'
                 "
               >
+                <!-- <input
+                  @click="[(isActive = true)]"
+                  class="signup-input form-control"
+                  type="text"
+                  v-model="verifyCode"
+                  maxlength="4"
+                  required
+                  oninvalid="setCustomValidity()"
+                  oninput="setCustomValidity('')"
+                /> -->
+
                 <input
                   @click="[(isActive = true)]"
                   class="signup-input form-control"
@@ -61,9 +72,7 @@
                   maxlength="4"
                   required
                   :oninvalid="
-                    this.setCustomValidity(
-                      this.getTextByTextKey('auth_aignup_enter_code_please')
-                    )
+                    this.getTextByTextKey('auth_aignup_enter_code_please')
                   "
                   oninput="setCustomValidity('')"
                 />

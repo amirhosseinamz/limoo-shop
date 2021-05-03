@@ -19,7 +19,7 @@
           :class="{ 'alert-message-animation': timerPassed }"
         >
           <img class="alert-icon " src="/icons/alarm.svg" />
-          <p dir="rtl" class="alert-txt">
+          <p class="alert-txt">
             {{ getTextByTextKey("auth_aignup_code_agin") }}
           </p>
         </div>
