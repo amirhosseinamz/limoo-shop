@@ -45,11 +45,10 @@
             </h3>
           </div>
           <div class="p-modal-header-close ">
-            <img
+            <span
               @click="closeModalDesktop"
-              class="modal__close-cross p-modal-header-close-icon"
-              src="/icons/close_modal_address.svg"
-            />
+              class=" p-modal-header-close-icon"
+            ></span>
           </div>
         </div>
         <span class="splicer-line p-modal-header-line"></span>
@@ -690,7 +689,6 @@ export default {
 .p-modal-header-top {
   flex-grow: 1;
   @include display-flex();
-  padding-top: 32px;
 }
 .p-modal-header-icon-location {
   width: 24px;
@@ -728,9 +726,9 @@ export default {
 }
 .p-modal-header-top-main {
   @include display-flex();
-}
-.p-modal-header-top {
-  padding-top: 11px;
+  align-items: center;
+  padding-top: 20px;
+  padding-bottom: 11px;
 }
 .p-modal-btns {
   padding-top: 49px;
@@ -755,6 +753,13 @@ export default {
 }
 .p-input-style__default:focus {
   border: solid 1px $black;
+}
+.p-modal-header-close-icon::after {
+  content: "\e807";
+  @include font-icon__limoo();
+  font-size: 28px;
+  color: $gray;
+  cursor: pointer;
 }
 
 @media (max-width: 960px) {
