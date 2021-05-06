@@ -208,6 +208,19 @@ export default {
 .products__top-mobile {
   display: none;
 }
+// .products__filter-icon::after {
+//   content: "\e801";
+//   @include font-icon__new();
+//   font-size: 30px;
+//   color: $white;
+//   cursor: pointer;
+// }
+// .products__filter-icon {
+//   @include display-flex();
+// }
+// .icon--filter::after {
+//   content: "\b815";
+// }
 
 @media (max-width: 1220px) {
 }

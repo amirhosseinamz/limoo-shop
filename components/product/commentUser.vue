@@ -173,13 +173,13 @@
                                         @click="showMoreDescription(data)"
                                         class="show-more-description"
                                     ></span> -->
-                  <img
+                  <span
                     v-if="data.showCircle"
                     @click="showMoreDescription(data)"
-                    src="/icons/arrow-down.svg"
                     alt=""
                     class="more__arrow-icon"
-                  />
+                  >
+                  </span>
                 </div>
               </div>
             </div>
@@ -667,6 +667,14 @@ export default {
 .full-description__active .more__arrow-icon {
   transform: rotate(-180deg);
   transition: all 0.3s ease-in-out;
+}
+.more__arrow-icon::after {
+  content: "\e800";
+  font-size: 20px;
+  margin-top: 1px;
+  transition: all 0.3s ease-in-out;
+  @include font-icon__arrow();
+  color: $input-border;
 }
 .full-description__active .p-commentedproduct-description {
   height: auto;

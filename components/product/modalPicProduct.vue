@@ -11,13 +11,13 @@
           <h3 class="product__modal-title">
             {{ getTextByTextKey("product_pic_text") }}
           </h3>
-          <!-- <span class="product__modal-close"></span> -->
-          <img
+          <span class="product__modal-close"></span>
+          <!-- <img
             @click="modalClose"
             src="/icons/closeModalProduct.svg"
             class="product__modal-close"
             alt=""
-          />
+          /> -->
         </div>
         <span class="product__modal-line"></span>
       </div>
@@ -152,10 +152,11 @@ export default {
   @include display-flex();
 }
 .product__modal-close::after {
-  @include display-flex();
-  content: "\e801";
+  content: "\e807";
   @include font-icon__limoo();
-  font-size: 12px;
+  font-size: 30px;
+  color: $color-gray;
+  cursor: pointer;
 }
 .product__modal-close {
   width: 30px;

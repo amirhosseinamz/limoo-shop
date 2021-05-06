@@ -43,55 +43,37 @@
               <div
                 class=" p-adresses-content-header-item align-items-center p-adresses-content-item-mobile"
               >
-                <img
-                  class="p-adresses-content-header-icon"
-                  src="/icons/location_adress_yellow.svg"
-                  alt=""
-                />
+                <span class="p-adresses-content-header-icon"></span>
                 <h3 class="p-adresses-content-header-item-title">
                   {{ data.address }}
                 </h3>
               </div>
 
               <div class=" p-adresses-content-header-item align-items-center">
-                <img
-                  class="p-adresses-content-header-icon"
-                  src="/icons/profile_adress.svg"
-                  alt=""
-                />
+                <span class="p-adresses-icon profile--icon"></span>
                 <h3 class="p-adresses-content-header-item-title">
                   شروین پیکارجو
                 </h3>
               </div>
 
               <div class=" p-adresses-content-header-item align-items-center">
-                <img
-                  class="p-adresses-content-header-icon"
-                  src="/icons/location_adress.svg"
-                  alt=""
-                />
+                <span class="p-adresses-icon location--icon"></span>
+
                 <h3 class="p-adresses-content-header-item-title">
                   {{ data.province }}
                 </h3>
               </div>
 
               <div class=" p-adresses-content-header-item align-items-center">
-                <img
-                  class="p-adresses-content-header-icon"
-                  src="/icons/call_adress.svg"
-                  alt=""
-                />
+                <span class="p-adresses-icon phone--icon"></span>
+
                 <h3 class="p-adresses-content-header-item-title">
                   {{ data.numberReceiver }}
                 </h3>
               </div>
 
               <div class=" p-adresses-content-header-item align-items-center">
-                <img
-                  class="p-adresses-content-header-icon"
-                  src="/icons/message.svg"
-                  alt=""
-                />
+                <span class="p-adresses-icon message--icon"></span>
                 <h3 class="p-adresses-content-header-item-title">
                   {{ data.codePoste }}
                 </h3>
@@ -335,6 +317,13 @@ export default {
   width: 23px;
   height: 23px;
 }
+.p-adresses-content-filter-icon::after {
+  content: "\e802";
+  @include font-icon__new();
+  font-size: 28px;
+  color: $color-gray;
+  cursor: pointer;
+}
 .p-adresses-content-header-item {
   @include display-flex();
   margin-left: 85px;
@@ -402,6 +391,28 @@ export default {
 }
 .p-favorite-product-btn-main {
   margin-bottom: 37px;
+}
+.p-adresses-icon::before {
+  content: "\e823";
+  @include font-icon__limoo();
+  font-size: 19px;
+  color: $gray;
+  cursor: pointer;
+}
+.location--icon::before {
+  content: "\e817";
+  font-size: 21px;
+  color: $gray;
+}
+.phone--icon::before {
+  content: "\e81f";
+  font-size: 19px;
+  color: $gray;
+}
+.message--icon::before {
+  content: "\e81a";
+  font-size: 19px;
+  color: $gray;
 }
 
 @media (max-width: 1220px) {
@@ -510,6 +521,18 @@ export default {
   }
   .p-adresses-content-item:last-of-type {
     margin-bottom: 0;
+  }
+  .p-adresses-icon::before {
+    font-size: 15px;
+  }
+  .location--icon::before {
+    font-size: 17px;
+  }
+  .phone--icon::before {
+    font-size: 15px;
+  }
+  .message--icon::before {
+    font-size: 15px;
   }
 }
 </style>
