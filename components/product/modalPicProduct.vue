@@ -11,7 +11,7 @@
           <h3 class="product__modal-title">
             {{ getTextByTextKey("product_pic_text") }}
           </h3>
-          <span class="product__modal-close"></span>
+          <span @click="modalClose" class="product__modal-close"></span>
           <!-- <img
             @click="modalClose"
             src="/icons/closeModalProduct.svg"
@@ -150,6 +150,7 @@ export default {
   flex-wrap: wrap;
   align-items: flex-start;
   @include display-flex();
+  padding-bottom: 38px;
 }
 .product__modal-close::after {
   content: "\e807";
@@ -231,6 +232,12 @@ export default {
 }
 .active {
   border-color: $black-topic;
+}
+
+@media (max-width: 1366px) {
+  .product--modal_pic-item {
+    height: 400px;
+  }
 }
 
 @media (max-width: 768px) {

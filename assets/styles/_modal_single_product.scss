@@ -1,56 +1,53 @@
 @import "_colors.scss";
-.product--single__modal{
-  .modal-backdrop{
-    background: rgba(81, 81, 81, .6) !important;
+.product--single__modal {
+  .modal-backdrop {
+    background: rgba(81, 81, 81, 0.6) !important;
   }
-  .modal-dialog{
+  .modal-dialog {
     max-width: 100% !important;
   }
-  .modal-content{
+  .modal-content {
     padding-right: 24px;
     padding-left: 24px;
-    min-height: 754px;
   }
-  .flickity-prev-next-button.previous{
+  .flickity-prev-next-button.previous {
     right: -59px;
   }
-  .flickity-prev-next-button.next{
+  .flickity-prev-next-button.next {
     left: -59px;
   }
-  .flickity-prev-next-button .flickity-button-icon{
+  .flickity-prev-next-button .flickity-button-icon {
     width: 18px;
     height: 18px;
     top: 44%;
-    fill:$gray;
+    fill: $gray;
   }
-    
+
   @media (max-width: 1100px) {
-    .modal-dialog{
+    .modal-dialog {
       padding-right: 30px;
       padding-left: 30px;
     }
   }
-
 }
 
-#modal--detail{
-    .modal-dialog{
-      padding-right: 0px;
-      padding-left: 0px;
-    }
-    .modal-content{
-      border-radius: 0;
-      padding-right:0;
-      padding-left:0;
-      box-shadow:none;
-    }
-    .modal-dialog{
-      min-height:auto;
-    }
-    
+#modal--detail {
+  .modal-dialog {
+    padding-right: 0px;
+    padding-left: 0px;
+  }
+  .modal-content {
+    border-radius: 0;
+    padding-right: 0;
+    padding-left: 0;
+    box-shadow: none;
+  }
+  .modal-dialog {
+    min-height: auto;
+  }
 }
 
-#modal--detail.modal{
+#modal--detail.modal {
   height: 100vh;
-  background:$white;
+  background: $white;
 }
