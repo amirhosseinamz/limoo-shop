@@ -138,7 +138,7 @@ export default {
         {
           id: 3,
           image:
-            "https://statics-develop.diver.ir/1/fill/512/512/sm/true/plain/s3://limoo/product/single_pic_slider.jpg",
+            "https://statics-develop.diver.ir/1/fill/512/512/sm/true/plain/s3://limoo/product/bahare web.jpg",
         },
         {
           id: 4,
@@ -148,7 +148,7 @@ export default {
         {
           id: 5,
           image:
-            "https://statics-develop.diver.ir/1/fill/512/512/sm/true/plain/s3://limoo/product/single_pic_slider.jpg",
+            "https://statics-develop.diver.ir/1/fill/512/512/sm/true/plain/s3://limoo/product/apple-watch-series-6-gps-cellurar2%20.png",
         },
         {
           id: 6,
