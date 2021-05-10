@@ -60,7 +60,10 @@
             <h3 class="tabs__content-text">{{ childContent.Label }}</h3>
             <span class="tabs__content-line"></span>
           </div>
-          <div class="w-100" :class="`slider-test${indexChild}`">
+          <div
+            class="w-100 detail__slider-item"
+            :class="`slider--detail${indexChild}`"
+          >
             <div
               v-for="(detail, index) in childContent.detail"
               :key="index"
@@ -130,13 +133,11 @@ export default {
       );
     },
     flickityOptions() {
-      let Flickity = require("flickity");
-      require("flickity-imagesloaded");
-      require("flickity-fullscreen");
+      let Flickity = require("flickity-as-nav-for");
 
       this.detailTechnical.map((contentParent) => {
         contentParent.data.map((contentChild, indexChild) => {
-          let sliderOptions = new Flickity(`.slider-test${indexChild}`, {
+          let sliderOptions = new Flickity(`.slider--detail${indexChild}`, {
             accessibility: true,
             adaptiveHeight: true,
             rightToLeft: true,
@@ -151,6 +152,7 @@ export default {
             pageDots: false,
             groupCells: true,
             fade: false,
+            asNavFor: ".slider-comparison",
           });
         });
       });

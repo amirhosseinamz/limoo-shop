@@ -52,12 +52,14 @@ export default {
   },
 
   mounted() {
-    this.flickityOptions();
+    setTimeout(() => {
+      this.flickityOptions();
+    });
   },
 
   methods: {
     flickityOptions() {
-      let Flickity = require("flickity");
+      let Flickity = require("flickity-as-nav-for");
       let sliderOptions = new Flickity(`.slider-comparison`, {
         accessibility: true,
         adaptiveHeight: true,
