@@ -131,9 +131,6 @@ export default {
     },
     flickityOptions() {
       let Flickity = require("flickity");
-      require("flickity-imagesloaded");
-      require("flickity-fullscreen");
-
       this.detailTechnical.map((contentParent) => {
         contentParent.data.map((contentChild, indexChild) => {
           let sliderOptions = new Flickity(`.slider-test${indexChild}`, {
