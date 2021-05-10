@@ -63,7 +63,7 @@ export default {
 .comparison__product-right {
   width: 275px;
   padding-right: 24px;
-  padding-left: 31px;
+  padding-left: 30px;
   @include display-flex();
   flex-wrap: wrap;
   align-items: center;
@@ -78,6 +78,7 @@ export default {
 .comparison__product-left {
   flex-grow: 1;
   @include display-flex();
+  align-items: center;
 }
 .comparison__product-slider {
   flex-grow: 1;

@@ -1,12 +1,14 @@
 <template>
   <div class="page__wrapper w-100 d-rtl flex-column">
-    <main-comparison :products="products"> </main-comparison>
+    <main-comparison :products="products" :detail-technical="detailTechnical">
+    </main-comparison>
   </div>
 </template>
 <script>
 import mainComparison from "~/components/Comparison/mainComparison.vue";
 import addCamaPrice from "~/modules/addCamaPrice.js";
 import products from "~/assets/productsComparison.json";
+import productData from "~/modules/single_product_data.json";
 
 const addCamaProduct = (products) => {
   return products.map((content) => {
@@ -19,8 +21,21 @@ const addCamaProduct = (products) => {
 export default {
   async asyncData({ params }) {
     const getProducts = products.response_value;
+    const dataProduct = productData.response_value[0].values;
+
+    const detailTechnicalData = () => {
+      const detailTechnical =
+        dataProduct.attribute_groups[0].group_attribute.comparisonProduct;
+      return detailTechnical.map((content) => {
+        for (const key in content) {
+          return content[key];
+        }
+      });
+    };
+
     return {
       products: addCamaProduct(getProducts),
+      detailTechnical: detailTechnicalData(),
     };
   },
 

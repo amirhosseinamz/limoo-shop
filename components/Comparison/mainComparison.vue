@@ -13,12 +13,14 @@
             ></category-top> -->
 
           <div class="content__bg w-100">
-            <comparisonProduct :products="products"></comparisonProduct>
+            <comparison-product :products="products"></comparison-product>
           </div>
 
-          <!-- <div class="content__bg w-100">
-            <comparisonProduct></comparisonProduct>
-          </div> -->
+          <div class="content__bg w-100">
+            <detail-technical
+              :detail-technical="detailTechnical"
+            ></detail-technical>
+          </div>
         </div>
       </div>
     </div>
@@ -27,14 +29,17 @@
 
 <script>
 import comparisonProduct from "~/components/Comparison/comparisonProduct.vue";
+import detailTechnical from "~/components/Comparison/detailTechnical.vue";
 
 export default {
   props: {
     products: { type: [Object, Array], default: [] },
+    detailTechnical: { type: [Object, Array], default: [] },
   },
 
   components: {
     comparisonProduct,
+    detailTechnical,
   },
 
   data() {
@@ -42,6 +47,8 @@ export default {
       showModalFilter: false,
     };
   },
+
+  mounted() {},
 
   methods: {},
 };
@@ -53,13 +60,12 @@ export default {
 }
 .content__bg {
   background: $white;
-  margin-bottom: 72px;
   border-bottom-left-radius: 10px;
   border-bottom-right-radius: 10px;
   @include display-flex();
   align-items: flex-start;
   flex-wrap: wrap;
-  margin-top: 34px;
+  margin-bottom: 24px;
 }
 .content__main {
   flex-wrap: wrap;
