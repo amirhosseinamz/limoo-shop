@@ -14,7 +14,7 @@
       </div>
       <div class="comparison__product-add">
         <div class="product__add-main">
-          <div class="product__add-data">
+          <div @click="showAddProductComparison" class="product__add-data">
             <img
               class="product__add-icon"
               src="/img/add-product-comparison.svg"
@@ -25,11 +25,17 @@
         </div>
       </div>
     </div>
+
+    <modal-add-product-comparison
+      :active.sync="showModalAddProduct"
+      :products="products"
+    ></modal-add-product-comparison>
   </div>
 </template>
 
 <script>
 import productSlider from "./productSlider";
+import modalAddProductComparison from "~/components/Comparison/modalAddProductComparison";
 
 export default {
   props: {
@@ -38,15 +44,22 @@ export default {
 
   components: {
     productSlider,
+    modalAddProductComparison,
   },
 
   data() {
-    return {};
+    return {
+      showModalAddProduct: false,
+    };
   },
 
   mounted() {},
 
-  methods: {},
+  methods: {
+    showAddProductComparison() {
+      this.showModalAddProduct = true;
+    },
+  },
 };
 </script>
 

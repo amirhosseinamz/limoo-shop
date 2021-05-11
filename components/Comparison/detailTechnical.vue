@@ -166,15 +166,7 @@ export default {
 .detail_technical {
   padding-top: 24px;
 }
-// .tabs__content-right {
-//   width: 276px;
-// }
-// .tabs__content-item {
-//   display: block;
-//   width: 100%;
-// }
-// .tab__content-wrapper {
-//   display: block;
-//   width: 260px;
-// }
+.tabs__content-data:nth-child(1) {
+  padding-top: 24px;
+}
 </style>
