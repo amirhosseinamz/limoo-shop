@@ -2,7 +2,7 @@
   <div  class="w-100 productContent ">
 
       <div class="productContent__items w-100 ">
-          <brand-introduction :products="products" :resource-data="resourceData"></brand-introduction>
+          <brand-introduction :products="products" ></brand-introduction>
       </div>
 
   </div>
@@ -19,7 +19,6 @@ export default {
 
     props: {
       products       : { type: [Object,Array], default: [] },
-      resourceData   : { type: [Object,Array], default: [] },
     },
 
     data() {
@@ -35,7 +34,7 @@ export default {
     },
 
     methods: {
-
+       
     },
 
 };

@@ -1,0 +1,55 @@
+{
+  "response_code": 1,
+  "response_message": "عملیات با موفقیت انجام شد.",
+  "response_value": [
+    {
+      "id": 1,
+      "title": "حافظه SSD وسترن دیجیتال مدل GREEN WDS480G2G0A ظرفیت 480 گیگابایت",
+      "discount": "10000",
+      "realPrice": "50000",
+      "image": "/img/phoneAndroid.svg"
+    },
+    {
+      "id": 11,
+      "title": "حافظه SSD وسترن دیجیتال مدل GREEN WDS480G2G0A ظرفیت 480 گیگابایت",
+      "discount": "10000",
+      "realPrice": "50000",
+      "image": "/img/phoneAndroid.svg"
+    },
+    {
+      "id": 2,
+      "title": "حافظه SSD وسترن دیجیتال مدل GREEN WDS480G2G0A ظرفیت 480 گیگابایت",
+      "discount": "10000",
+      "realPrice": "50000",
+      "image": "/img/phoneAndroid.svg"
+    },
+    {
+      "id": 3,
+      "title": "حافظه SSD وسترن دیجیتال مدل GREEN WDS480G2G0A ظرفیت 480 گیگابایت",
+      "discount": "10000",
+      "realPrice": "50000",
+      "image": "/img/phoneAndroid.svg"
+    },
+    {
+      "id": 4,
+      "title": "حافظه SSD وسترن دیجیتال مدل GREEN WDS480G2G0A ظرفیت 480 گیگابایت",
+      "discount": "10000",
+      "realPrice": "50000",
+      "image": "/img/phoneAndroid.svg"
+    },
+    {
+      "id": 5,
+      "title": "حافظه SSD وسترن دیجیتال مدل GREEN WDS480G2G0A ظرفیت 480 گیگابایت",
+      "discount": "10000",
+      "realPrice": "50000",
+      "image": "/img/phoneAndroid.svg"
+    },
+    {
+      "id": 6,
+      "title": "حافظه SSD وسترن دیجیتال مدل GREEN WDS480G2G0A ظرفیت 480 گیگابایت",
+      "discount": "10000",
+      "realPrice": "50000",
+      "image": "/img/phoneAndroid.svg"
+    }
+  ]
+}

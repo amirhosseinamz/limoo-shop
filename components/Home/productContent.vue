@@ -3,7 +3,7 @@
 
       <div class="productContent__items w-100">
             <div v-if="statusShowCounterDown" class="productContent__right">
-                  <counter-down :resource-data="resourceData"></counter-down>
+                  <counter-down ></counter-down>
             </div>
 
             <div class="productContent__left">
@@ -13,7 +13,7 @@
                     {{moreText}}
                     <span class=" productContent__moreIcon mobile-inprogress__arrow"></span>
                   </nuxt-link>
-              </div>
+              </div> 
             </div>
       </div>
 

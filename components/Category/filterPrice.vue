@@ -2,8 +2,8 @@
   <div :class="{'active--box':openBox}" class="w-100 modal-filter__box">
         <div @click="toggleBox" class="modal-filter__box-title w-100">
           <h3 class="modal-filter__box-text">{{title}}</h3>
-          <!-- <span class="modal-filter__box-arrow"></span> -->
-          <img class="modal-filter__box-arrow" src="/icons/arrow-down.svg" alt="">
+          <span class="modal-filter__box-arrow"></span>
+          <!-- <img class="modal-filter__box-arrow" src="/icons/arrow-down.svg" alt=""> -->
         </div>
 
         <div class="modal-filter__box-content w-100">
@@ -221,14 +221,14 @@ export default {
   @include display-flex();
 }
 .modal-filter__box-arrow::before {
-  content: "\e801";
-  @include font-icon__limoo();
-  font-size: 13px;
+  content: "\e800";
+  @include font-icon__arrow();
+  font-size: 18px;
   color: $gray;
   cursor: pointer;
 }
 .modal-filter__box-arrow{
-  height:19px;
+  height:18px;
   transition  : all .3s ease-in-out;
   margin-top: 3px;
 }
