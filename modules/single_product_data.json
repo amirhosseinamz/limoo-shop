@@ -71,7 +71,6 @@
                     "AttributeID": 3,
                     "AttributeValue": "trun on "
                   }
-
                 ]
               },
               "seller_detail": {
@@ -134,98 +133,98 @@
               },
 
               "detailTechnical": [
-                  {
-                      "total_detail": {
-                              "label": "مشخصات کلی کالا",
-                              "data": [
-                                {
-                                  "Label": "حافظه داخلی",
-                                  "Code": "internal_storage",
-                                  "AttributeID": 87,
-                                  "AttributeValue": "64 گیگابایت"
-                                },
-                                {
-                                  "Label": "شبکه های ارتباطی ",
-                                  "Code": "network_type",
-                                  "AttributeID": 88,
-                                  "AttributeValue": " 4G، 3G، 2G "
-                                },
-                                {
-                                  "Label": "دوربین‌های پشت گوشی",
-                                  "Code": "camera_type",
-                                  "AttributeID": 90,
-                                  "AttributeValue": "  4 ماژول دوربین "
-                                },
-                                {
-                                  "Label": "سیستم عامل ",
-                                  "Code": "os_type",
-                                  "AttributeID": 91,
-                                  "AttributeValue": "Android "
-                                }
-                              ]
-                        }
-                  },
-                  {
-                      "screen_detail": {
-                        "label": "صفحه نمایش",
-                        "data": [
-                          {
-                            "Label": "صفحه نمایش رنگی",
-                            "Code": "screen_color",
-                            "AttributeID": 87,
-                            "AttributeValue": " false "
-                          },
-                          {
-                            "Label": "صفحه نمایش لمسی",
-                            "Code": "touchable_screen",
-                            "AttributeID": 88,
-                            "AttributeValue": "true"
-                          },
-                          {
-                            "Label": "فناوری صفحه‌نمایش",
-                            "Code": "tech_screen",
-                            "AttributeID": 90,
-                            "AttributeValue": "    PLS TFT   "
-                          },
-                          {
-                            "Label": "بازه‌ی اندازه صفحه نمایش",
-                            "Code": "os_type",
-                            "AttributeID": 91,
-                            "AttributeValue": "  6.0 اینچ و بزرگتر  "
-                          }
-                        ]
+                {
+                  "total_detail": {
+                    "label": "مشخصات کلی کالا",
+                    "data": [
+                      {
+                        "Label": "حافظه داخلی",
+                        "Code": "internal_storage",
+                        "AttributeID": 87,
+                        "AttributeValue": "64 گیگابایت"
+                      },
+                      {
+                        "Label": "شبکه های ارتباطی ",
+                        "Code": "network_type",
+                        "AttributeID": 88,
+                        "AttributeValue": " 4G، 3G، 2G "
+                      },
+                      {
+                        "Label": "دوربین‌های پشت گوشی",
+                        "Code": "camera_type",
+                        "AttributeID": 90,
+                        "AttributeValue": "  4 ماژول دوربین "
+                      },
+                      {
+                        "Label": "سیستم عامل ",
+                        "Code": "os_type",
+                        "AttributeID": 91,
+                        "AttributeValue": "Android "
                       }
-                  },
-                  {
-                    "screen_detail": {
-                      "label": "صفحه نمایش22",
-                      "data": [
-                        {
-                          "Label": "صفحه نمایش رنگی",
-                          "Code": "screen_color",
-                          "AttributeID": 87,
-                          "AttributeValue": " false "
-                        },
-                        {
-                          "Label": "صفحه نمایش لمسی",
-                          "Code": "touchable_screen",
-                          "AttributeID": 88,
-                          "AttributeValue": "true"
-                        },
-                        {
-                          "Label": "فناوری صفحه‌نمایش",
-                          "Code": "tech_screen",
-                          "AttributeID": 90,
-                          "AttributeValue": "    PLS TFT   "
-                        },
-                        {
-                          "Label": "بازه‌ی اندازه صفحه نمایش",
-                          "Code": "os_type",
-                          "AttributeID": 91,
-                          "AttributeValue": "  6.0 اینچ و بزرگتر  "
-                        }
-                      ]
-                    }
+                    ]
+                  }
+                },
+                {
+                  "screen_detail": {
+                    "label": "صفحه نمایش",
+                    "data": [
+                      {
+                        "Label": "صفحه نمایش رنگی",
+                        "Code": "screen_color",
+                        "AttributeID": 87,
+                        "AttributeValue": " false "
+                      },
+                      {
+                        "Label": "صفحه نمایش لمسی",
+                        "Code": "touchable_screen",
+                        "AttributeID": 88,
+                        "AttributeValue": "true"
+                      },
+                      {
+                        "Label": "فناوری صفحه‌نمایش",
+                        "Code": "tech_screen",
+                        "AttributeID": 90,
+                        "AttributeValue": "    PLS TFT   "
+                      },
+                      {
+                        "Label": "بازه‌ی اندازه صفحه نمایش",
+                        "Code": "os_type",
+                        "AttributeID": 91,
+                        "AttributeValue": "  6.0 اینچ و بزرگتر  "
+                      }
+                    ]
+                  }
+                },
+                {
+                  "screen_detail": {
+                    "label": "صفحه نمایش22",
+                    "data": [
+                      {
+                        "Label": "صفحه نمایش رنگی",
+                        "Code": "screen_color",
+                        "AttributeID": 87,
+                        "AttributeValue": " false "
+                      },
+                      {
+                        "Label": "صفحه نمایش لمسی",
+                        "Code": "touchable_screen",
+                        "AttributeID": 88,
+                        "AttributeValue": "true"
+                      },
+                      {
+                        "Label": "فناوری صفحه‌نمایش",
+                        "Code": "tech_screen",
+                        "AttributeID": 90,
+                        "AttributeValue": "    PLS TFT   "
+                      },
+                      {
+                        "Label": "بازه‌ی اندازه صفحه نمایش",
+                        "Code": "os_type",
+                        "AttributeID": 91,
+                        "AttributeValue": "  6.0 اینچ و بزرگتر  "
+                      }
+                    ]
+                  }
                 },
                 {
                   "screen_detail": {
@@ -257,42 +256,84 @@
                       }
                     ]
                   }
-              },
-              {
-                "screen_detail": {
-                  "label": "صفحه نمایش244",
-                  "data": [
-                    {
-                      "Label": "صفحه نمایش رنگی",
-                      "Code": "screen_color",
-                      "AttributeID": 87,
-                      "AttributeValue": " false "
-                    },
-                    {
-                      "Label": "صفحه نمایش لمسی",
-                      "Code": "touchable_screen",
-                      "AttributeID": 88,
-                      "AttributeValue": "true"
-                    },
-                    {
-                      "Label": "فناوری صفحه‌نمایش",
-                      "Code": "tech_screen",
-                      "AttributeID": 90,
-                      "AttributeValue": "    PLS TFT   "
-                    },
-                    {
-                      "Label": "بازه‌ی اندازه صفحه نمایش",
-                      "Code": "os_type",
-                      "AttributeID": 91,
-                      "AttributeValue": "  6.0 اینچ و بزرگتر  "
-                    }
-                  ]
+                },
+                {
+                  "screen_detail": {
+                    "label": "صفحه نمایش244",
+                    "data": [
+                      {
+                        "Label": "صفحه نمایش رنگی",
+                        "Code": "screen_color",
+                        "AttributeID": 87,
+                        "AttributeValue": " false "
+                      },
+                      {
+                        "Label": "صفحه نمایش لمسی",
+                        "Code": "touchable_screen",
+                        "AttributeID": 88,
+                        "AttributeValue": "true"
+                      },
+                      {
+                        "Label": "فناوری صفحه‌نمایش",
+                        "Code": "tech_screen",
+                        "AttributeID": 90,
+                        "AttributeValue": "    PLS TFT   "
+                      },
+                      {
+                        "Label": "بازه‌ی اندازه صفحه نمایش",
+                        "Code": "os_type",
+                        "AttributeID": 91,
+                        "AttributeValue": "  6.0 اینچ و بزرگتر  "
+                      }
+                    ]
+                  }
                 }
-            }
-                
-
               ],
-                  
+
+              "comparisonProduct": [
+                {
+                  "total_detail": {
+                    "label": "مشخصات کلی کالا",
+                    "data": [
+                      {
+                        "Label": "حافظه داخلی",
+                        "detail": [
+                          {
+                            "AttributeValue": "32 بیت"
+                          },
+                          {
+                            "AttributeValue": "68"
+                          },
+                          {
+                            "AttributeValue": "69"
+                          },
+                          {
+                            "AttributeValue": "67"
+                          }
+                        ]
+                      },
+                      {
+                        "Label": "حافظه داخلی 2",
+                        "detail": [
+                          {
+                            "AttributeValue": "65"
+                          },
+                          {
+                            "AttributeValue": "68"
+                          },
+                          {
+                            "AttributeValue": "69"
+                          },
+                          {
+                            "AttributeValue": "67"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                }
+              ],
+
               "storage_detail": {
                 "label": "حافظه",
                 "data": [
@@ -378,10 +419,10 @@
             "Firstname": "محمد ",
             "Lastname": "احمدی1",
             "Title": "آیفون بی نظیر ",
-            "Body" : "Pellentesque Pellentesque Pellentesque Pellentesque Pellentesque Pellentesque Pellentesque Pellentesque Pellentesque Pelleddasdsadasdasdasdsntesque Pellentesque Pellentesque Pellentesque Pellentesque Pellentesque Pellentesque Pellentesque Pellentesque Pellentesque Pellentesque Pellentesque Pellentesque mattis consequat ipsum sed sagittis. Pellentesque consectetur vestibulum odio, aliquet auctor ex elementum sed. Suspendisse porta massa nisl, quis molestie libero auctor varius. Ut erat nibh, fringilla sed ligula ut, iaculis interdum sapien. Ut dictum massa mi, sit amet interdum mi bibendum nec.",
+            "Body": "Pellentesque Pellentesque Pellentesque Pellentesque Pellentesque Pellentesque Pellentesque Pellentesque Pellentesque Pelleddasdsadasdasdasdsntesque Pellentesque Pellentesque Pellentesque Pellentesque Pellentesque Pellentesque Pellentesque Pellentesque Pellentesque Pellentesque Pellentesque Pellentesque mattis consequat ipsum sed sagittis. Pellentesque consectetur vestibulum odio, aliquet auctor ex elementum sed. Suspendisse porta massa nisl, quis molestie libero auctor varius. Ut erat nibh, fringilla sed ligula ut, iaculis interdum sapien. Ut dictum massa mi, sit amet interdum mi bibendum nec.",
             "Rate": 3.2,
             "Suggest": 1,
-            "id"     : 1
+            "id": 1
           },
           {
             "Date": "20210407101422",
@@ -391,7 +432,7 @@
             "Body": "ما می اویشسی یشسیشسی یشسیشسیشسی یشسیشسی یشسیشس شیبشیشسییشسیشسیشسی یه گوشی فوق العاده عالی اپل جواب خودش رو پس داده گوشی خیلی خوب و روونیه بخاطر پردازنده قویش کلا اپل فوق العادست تنها ایرا22دش باتریشه که روزی یک و نیم بار تقریبا باید شارژ بشه",
             "Rate": 3.2,
             "Suggest": 2,
-            "id"     : 2
+            "id": 2
           },
           {
             "Date": "20210406051422",
@@ -401,7 +442,7 @@
             "Body": "یه گوشی فوق العاده عالی اپل جواب خودش رو پس داده گوشی خیلی خوب و روونیه بخاطر پردازنده قویش کلا اپل فوق العادست تنها ایرادش33 باتریشه که روزی یک و نیم بار تقریبا باید شارژ بشه",
             "Rate": 3.2,
             "Suggest": 3,
-            "id"     : 3
+            "id": 3
           },
           {
             "Date": "20210406051422",
@@ -411,8 +452,8 @@
             "Body": "یه گوشی فوق العاده عالی اپل جواب خودش رو پس داده گوشی خیلی خوب و روونیه بخاطر پردازنده قویش کلا اپل فوق العادست تنها ایرادش باتریشه که روزی یک و نیم بار تقریبا باید شارژ بشه",
             "Rate": 3.2,
             "Suggest": 1,
-            "id"     : 4,
-             "confirmLeave"  :2
+            "id": 4,
+            "confirmLeave": 2
           },
           {
             "Date": "20210406051422",
@@ -422,8 +463,8 @@
             "Body": "یه گوشی فوق العاده عالی اپل جواب خودش رو پس داده گوشی خیلی خوب و روونیه بخاطر پردازنده قویش کلا اپل فوق العادست تنها ایرادش باتریشه که روزی یک و نیم بار تقریبا باید شارژ بشه",
             "Rate": 3.2,
             "Suggest": 1,
-            "id"     : 5,
-            "confirmLeave"  :1
+            "id": 5,
+            "confirmLeave": 1
           }
         ]
       }
