@@ -1,13 +1,33 @@
 <template>
   <div class="p-history-product-items w-100 flex-column flex-wrap">
     <text-input
+      class="input__product--item"
       state="standard"
-      maxlength="90"
+      maxlength="65"
       placeholderText=""
-      :msgError="msgError"
+      :msgError="{
+        notValidMsg: 'مجاز نیست',
+      }"
       :checkNumber="false"
       :checkEmail="false"
-      :active-check-phone-number="true"
+      :active-check-phone-number="false"
+      label-text="نشانی پستی دقیق"
+    >
+    </text-input>
+
+    <text-input
+      class="input__product--item"
+      state="standard"
+      maxlength="34"
+      placeholderText=""
+      :msgError="{
+        notValidMsg: 'مجاز نیست',
+      }"
+      :check-number="false"
+      :check-email="false"
+      :active-check-phone-number="false"
+      :only-use-string="true"
+      label-text="نام گیرنده"
     >
     </text-input>
 
@@ -15,7 +35,10 @@
       state="changePassword"
       maxlength="90"
       placeholderText=""
-      :msgError="msgError"
+      :msgError="{
+        notValidMsg: 'مجاز نیست',
+        notValidNumber: 'شماره وارد شده صحیح نیست',
+      }"
       :checkNumber="false"
       :checkEmail="false"
       :active-check-phone-number="true"
@@ -282,6 +305,10 @@ export default {
 .btn-text-mobile {
   display: none;
 }
+.input__product--item {
+  margin-bottom: 24px;
+}
+
 @media (max-width: 768px) {
   .btn-text-desktop {
     display: none;

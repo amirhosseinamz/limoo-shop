@@ -10,25 +10,22 @@
       <button class="search-section__btn"></button>
     </div>
 
-    <div
-      v-if="state == 'standard'"
-      class="search-section__items"
-      :class="{ 'show--error': showError }"
-    >
-      <input
-        class="search-section__input"
-        :placeholder="placeholderText"
-        @keyup="typingInput"
-        type="text"
-        dir="rtl"
-        :maxlength="maxlength"
-      />
-      <span v-if="checkNumber" class="search__section--error ">{{
-        msgError.notValidNumber
-      }}</span>
-      <span v-else class="search__section--error ">{{
-        msgError.notValidMsg
-      }}</span>
+    <div :class="{ 'show--error': showError }" v-if="state == 'standard'">
+      <h3 class="txt-content">
+        {{ labelText }}
+      </h3>
+
+      <div class="search-section__items">
+        <input
+          class="search-section__input"
+          :placeholder="placeholderText"
+          @keyup="typingInput"
+          type="text"
+          dir="rtl"
+          :maxlength="maxlength"
+        />
+        <span class="search__section--error ">{{ msgError.notValidMsg }}</span>
+      </div>
     </div>
 
     <div v-if="state == 'changePassword'" class="card-body">
@@ -147,6 +144,8 @@ export default {
     checkEmail: { type: Boolean, default: false },
     checkNumber: { type: Boolean, default: false },
     activeCheckPhoneNumber: { type: Boolean, default: false },
+    labelText: { type: String, default: "" },
+    onlyUseString: { type: Boolean, default: false },
   },
 
   data() {
@@ -255,6 +254,13 @@ export default {
             this.showError = true;
           }
         }
+
+        // فقط باید مقدار مورد نظر حروف باشد که اجرا شود //
+        if (this.onlyUseString) {
+          if (!this.checkHasString(currentInputValue)) {
+            this.showError = true;
+          }
+        }
       } else {
         this.showError = false;
       }
@@ -337,7 +343,7 @@ export default {
 .show--error .search__section--error {
   visibility: visible;
 }
-.show--error {
+.show--error .search-section__items {
   border-color: $red;
 }
 
