@@ -5,7 +5,18 @@
       maxlength="90"
       placeholderText=""
       :msgError="msgError"
-      :checkNumber="true"
+      :checkNumber="false"
+      :checkEmail="false"
+      :active-check-phone-number="true"
+    >
+    </text-input>
+
+    <text-input
+      state="changePassword"
+      maxlength="90"
+      placeholderText=""
+      :msgError="msgError"
+      :checkNumber="false"
       :checkEmail="false"
       :active-check-phone-number="true"
     >
