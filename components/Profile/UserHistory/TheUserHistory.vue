@@ -1,5 +1,16 @@
 <template>
   <div class="p-history-product-items w-100 flex-column flex-wrap">
+    <text-input
+      state="standard"
+      maxlength="90"
+      placeholderText=""
+      :msgError="msgError"
+      :checkNumber="true"
+      :checkEmail="false"
+      :active-check-phone-number="true"
+    >
+    </text-input>
+
     <div class="user-history__empty-container" v-show="userHistory == 0">
       <img
         src="/empty-pages/empty-last-seen.svg"
@@ -84,17 +95,24 @@
 
 <script>
 import { getTextByTextKey } from "~/modules/splitPartJsonResource.js";
+import textInput from "~/modules/textInput";
 
 export default {
   data() {
     return {
       userHistory: -1,
+      msgError: {
+        notValidMsg: "مجاز نیست",
+        notValidNumber: "شماره وارد شده صحیح نیست",
+      },
     };
   },
   props: {
     historyData: { type: [Object, Array], default: {} },
   },
-  components: {},
+  components: {
+    textInput,
+  },
   created() {
     this.userHistory = Object.values(this.historyData).length;
   },
