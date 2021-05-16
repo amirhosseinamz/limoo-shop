@@ -57,7 +57,9 @@
                 class="signup-input form-control"
                 maxlength="32"
                 @keyup="typingInput"
+                :type="openEye ? 'password' : 'text'"
               />
+
               <button
                 v-if="showIconClearInput"
                 @click="[(typeingShowClearIcon = false)]"
@@ -67,6 +69,24 @@
                 :class="{ 'clear-input': typeingShowClearIcon }"
               >
                 <span aria-hidden="true">&times;</span>
+              </button>
+
+              <button
+                v-if="hidenShowEyeIcon"
+                type="button"
+                aria-label="Close"
+                class="eye--button clear-input"
+              >
+                <span
+                  @click="[(openEye = false)]"
+                  v-if="openEye"
+                  class="signin__close-eye signin-eye "
+                ></span>
+                <span
+                  @click="[(openEye = true)]"
+                  v-else
+                  class="signin__open-eye  signin-eye"
+                ></span>
               </button>
             </div>
             <p class="w-100 form__item--error ">
@@ -98,6 +118,7 @@ export default {
     typeInput: { type: String, default: "" },
     functionMaxLen: { type: String, default: "equalTo" },
     showIconClearInput: { type: Boolean, default: false },
+    showIconEyeInput: { type: Boolean, default: false },
   },
 
   data() {
@@ -106,10 +127,18 @@ export default {
       showError: false,
       typeingShowClearIcon: false,
       clearInput: 0,
+      hidenShowEyeIcon: false,
+      openEye: true,
     };
   },
 
-  created() {},
+  created() {
+    this.hidenShowEyeIcon = this.showIconEyeInput;
+
+    if (!this.showIconEyeInput) {
+      this.openEye = false;
+    }
+  },
 
   watch: {
     typeingShowClearIcon(status) {
@@ -366,6 +395,9 @@ export default {
   font-size: 24px;
   color: $black-icon;
 }
+.signin__close-eye {
+  @include display-flex();
+}
 .signin__close-eye::before {
   content: "\e810";
   @include font-icon__limoo();
@@ -466,5 +498,31 @@ export default {
 }
 .show--error .clear-input span {
   color: red;
+}
+.signin__close-eye::before {
+  content: "\e810";
+  @include font-icon__limoo();
+  font-size: 20px;
+  color: $gray;
+  vertical-align: middle;
+}
+.signin__close-eye,
+.signin__open-eye {
+  margin-bottom: 4px;
+}
+.signin__open-eye::before {
+  content: "\e811";
+  @include font-icon__limoo();
+  font-size: 20px;
+  color: $gray;
+  vertical-align: middle;
+}
+.eye--button {
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+.signin-eye {
+  @include display-flex();
 }
 </style>

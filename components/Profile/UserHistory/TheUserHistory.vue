@@ -69,6 +69,27 @@
     >
     </text-input>
 
+    <text-input
+      state="authStyle"
+      maxlength="11"
+      function-max-len="greaterThan"
+      placeholderText=""
+      :msgError="{
+        notValidMsg: 'مجاز نیست',
+        notValidNumber: 'شماره وارد شده صحیح نیست',
+      }"
+      :check-email="false"
+      :check-number="true"
+      :active-check-phone-number="true"
+      :check-code="false"
+      :only-use-string="false"
+      :show-icon-clear-input="false"
+      :show-icon-eye-input="true"
+      typeInput="text"
+      label-text="لطفا شماره موبایل خود را وارد کنید."
+    >
+    </text-input>
+
     <div class="user-history__empty-container" v-show="userHistory == 0">
       <img
         src="/empty-pages/empty-last-seen.svg"
