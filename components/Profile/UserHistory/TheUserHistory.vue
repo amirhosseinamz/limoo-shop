@@ -79,14 +79,37 @@
         notValidNumber: 'شماره وارد شده صحیح نیست',
       }"
       :check-email="false"
-      :check-number="true"
-      :active-check-phone-number="true"
+      :check-number="false"
+      :active-check-phone-number="false"
       :check-code="false"
       :only-use-string="false"
       :show-icon-clear-input="false"
       :show-icon-eye-input="true"
+      :add-space-number="false"
       typeInput="text"
       label-text="لطفا شماره موبایل خود را وارد کنید."
+    >
+    </text-input>
+
+    <text-input
+      state="authStyle"
+      maxlength="4"
+      function-max-len="greaterThan"
+      placeholderText=""
+      :msgError="{
+        notValidMsg: 'مجاز نیست',
+        notValidNumber: 'شماره وارد شده صحیح نیست',
+      }"
+      :check-email="false"
+      :check-number="false"
+      :active-check-phone-number="false"
+      :check-code="false"
+      :only-use-string="false"
+      :show-icon-clear-input="false"
+      :show-icon-eye-input="false"
+      :status-add-space-number="true"
+      typeInput="text"
+      label-text="لطفا کد تایید را وارد کنید"
     >
     </text-input>
 

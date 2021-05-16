@@ -54,10 +54,13 @@
           >
             <div class="input-holder">
               <input
+                :class="{ 'add--space': statusAddSpaceNumber }"
                 class="signup-input form-control"
-                maxlength="32"
+                :maxlength="maxlength"
                 @keyup="typingInput"
                 :type="openEye ? 'password' : 'text'"
+                v-model="currentValue"
+                required
               />
 
               <button
@@ -119,6 +122,7 @@ export default {
     functionMaxLen: { type: String, default: "equalTo" },
     showIconClearInput: { type: Boolean, default: false },
     showIconEyeInput: { type: Boolean, default: false },
+    statusAddSpaceNumber: { type: Boolean, default: false },
   },
 
   data() {
@@ -129,6 +133,7 @@ export default {
       clearInput: 0,
       hidenShowEyeIcon: false,
       openEye: true,
+      currentValue: "",
     };
   },
 
@@ -148,6 +153,11 @@ export default {
         this.showError = false;
         this.typeingShowClearIcon = false;
       }
+    },
+
+    currentValue(value) {
+      this.currentValue = value;
+      this.typeingAddSpace();
     },
   },
 
@@ -170,6 +180,12 @@ export default {
 
     isSame(str1, str2) {
       return str1 === str2;
+    },
+
+    typeingAddSpace() {
+      if (/\D/.test(this.currentValue)) {
+        this.currentValue = this.currentValue.slice(0, -1);
+      }
     },
 
     checkHasString(value) {
@@ -255,6 +271,11 @@ export default {
           if (!this.checkHasString(currentInputValue)) {
             this.showError = true;
           }
+        }
+
+        // اضافه کردن اسپیس به هنگام نایپ و جلوگیری از وارد کردن جروف //
+        if (this.statusAddSpaceNumber) {
+          this.typeingAddSpace();
         }
       } else {
         this.showError = false;
@@ -524,5 +545,8 @@ export default {
 }
 .signin-eye {
   @include display-flex();
+}
+.add--space {
+  letter-spacing: 0.7em;
 }
 </style>
