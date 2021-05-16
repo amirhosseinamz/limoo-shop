@@ -12,6 +12,7 @@
       :checkEmail="false"
       :active-check-phone-number="false"
       label-text="نشانی پستی دقیق"
+      function-max-len="equalTo"
     >
     </text-input>
 
@@ -28,11 +29,12 @@
       :active-check-phone-number="false"
       :only-use-string="true"
       label-text="نام گیرنده"
+      function-max-len="equalTo"
     >
     </text-input>
 
     <text-input
-      state="changePassword"
+      state="singlePassword"
       maxlength="90"
       placeholderText=""
       :msgError="{
@@ -41,7 +43,29 @@
       }"
       :checkNumber="false"
       :checkEmail="false"
+      :active-check-phone-number="false"
+      label-text="لطفا پسورد را بزنید"
+      typeInput="password"
+    >
+    </text-input>
+
+    <text-input
+      state="authStyle"
+      maxlength="11"
+      function-max-len="greaterThan"
+      placeholderText=""
+      :msgError="{
+        notValidMsg: 'مجاز نیست',
+        notValidNumber: 'شماره وارد شده صحیح نیست',
+      }"
+      :check-email="false"
+      :check-number="true"
       :active-check-phone-number="true"
+      :check-code="false"
+      :only-use-string="false"
+      :show-icon-clear-input="true"
+      typeInput="text"
+      label-text="لطفا شماره موبایل خود را وارد کنید."
     >
     </text-input>
 

@@ -15,114 +15,63 @@
         {{ labelText }}
       </h3>
 
-      <div class="search-section__items">
-        <input
-          class="search-section__input"
-          :placeholder="placeholderText"
-          @keyup="typingInput"
-          type="text"
-          dir="rtl"
-          :maxlength="maxlength"
-        />
+      <div class="w-100">
+        <div class="search-section__items">
+          <input
+            class="search-section__input"
+            :placeholder="placeholderText"
+            @keyup="typingInput"
+            type="text"
+            dir="rtl"
+            :maxlength="maxlength"
+          />
+        </div>
         <span class="search__section--error ">{{ msgError.notValidMsg }}</span>
       </div>
     </div>
 
-    <div v-if="state == 'changePassword'" class="card-body">
+    <div class="card-body">
       <div class="form-group">
-        <p class="txt-header">
+        <!-- <p class="txt-header">
           {{ getTextByTextKey("auth_change_password") }}
-        </p>
-        <p dir="rtl" class="txt-content">
-          {{ getTextByTextKey("auth_new_passowrd") }}
-        </p>
-        <div class="input-section">
+        </p> -->
+        <div
+          v-if="
+            state == 'singlePassword' ||
+              state == 'multiPassword' ||
+              state == 'authStyle'
+          "
+          class="input-section"
+        >
+          <p dir="rtl" class="txt-content">
+            {{ labelText }}
+          </p>
+
           <div
-            class="input-holder"
-            :style="
-              password || passIsActive
-                ? 'border:1px solid #515151'
-                : 'border:1px solid #bdbdbd'
-            "
+            :key="clearInput"
+            :class="{ 'show--error': showError }"
+            class="form__main--item"
           >
-            <input
-              @click="[(passIsActive = true)]"
-              class="signup-input form-control"
-              :type="passwordFieldType"
-              :placeholder="getTextByTextKey('auth_forget_passwrord_circle')"
-              v-model="password"
-              maxlength="32"
-              required
-            />
-            <button
-              @click="switchVisibility"
-              type="button"
-              class="clear-input"
-              aria-label="Close"
-            >
-              <span
-                :style="
-                  passwordFieldType === 'password'
-                    ? 'display: block'
-                    : 'display: none'
-                "
-                class="signin__close-eye"
-              ></span>
-              <span
-                :style="
-                  passwordFieldType === 'text'
-                    ? 'display: block'
-                    : 'display: none'
-                "
-                class="signin__open-eye"
-              ></span>
-            </button>
-          </div>
-        </div>
-        <p dir="rtl" class="txt-content">
-          {{ getTextByTextKey("auth_repeat_new_password") }}
-        </p>
-        <div class="input-section">
-          <div
-            class="input-holder-verify"
-            :style="
-              passwordVerify || verifyPassIsActive
-                ? 'border:1px solid #515151'
-                : 'border:1px solid #bdbdbd'
-            "
-          >
-            <input
-              @click="[(verifyPassIsActive = true)]"
-              class="signup-input form-control"
-              :type="passwordFieldTypeVerify"
-              :placeholder="getTextByTextKey('auth_forget_passwrord_circle')"
-              v-model="passwordVerify"
-              maxlength="32"
-              required
-            />
-            <button
-              @click="switchVisibilityVerify"
-              type="button"
-              class="clear-input"
-              aria-label="Close"
-            >
-              <span
-                :style="
-                  passwordFieldTypeVerify === 'password'
-                    ? 'display: block'
-                    : 'display: none'
-                "
-                class="signin__close-eye"
-              ></span>
-              <span
-                :style="
-                  passwordFieldTypeVerify === 'text'
-                    ? 'display: block'
-                    : 'display: none'
-                "
-                class="signin__open-eye"
-              ></span>
-            </button>
+            <div class="input-holder">
+              <input
+                class="signup-input form-control"
+                maxlength="32"
+                @keyup="typingInput"
+              />
+              <button
+                v-if="showIconClearInput"
+                @click="[(typeingShowClearIcon = false)]"
+                type="button"
+                aria-label="Close"
+                class="clear--button"
+                :class="{ 'clear-input': typeingShowClearIcon }"
+              >
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <p class="w-100 form__item--error ">
+              {{ getTextByTextKey("auth_phone_not_valid") }}
+            </p>
           </div>
         </div>
       </div>
@@ -146,29 +95,32 @@ export default {
     activeCheckPhoneNumber: { type: Boolean, default: false },
     labelText: { type: String, default: "" },
     onlyUseString: { type: Boolean, default: false },
+    typeInput: { type: String, default: "" },
+    functionMaxLen: { type: String, default: "equalTo" },
+    showIconClearInput: { type: Boolean, default: false },
   },
 
   data() {
     return {
       // state global //
       showError: false,
-
-      // state password //
-      passwordFieldType: "password",
-      passwordFieldTypeVerify: "password",
-      password: "",
-      passwordVerify: "",
-      passChenged: false,
-      passIsActive: false,
-      verifyPassIsActive: false,
+      typeingShowClearIcon: false,
+      clearInput: 0,
     };
   },
 
-  computed: {},
+  created() {},
 
-  watch: {},
-
-  mounted() {},
+  watch: {
+    typeingShowClearIcon(status) {
+      // در صورتی که روی آیکن پاک کردن مقدار کلیک شود مقدار وار شده پاک می شود //
+      if (!status) {
+        this.clearInput++;
+        this.showError = false;
+        this.typeingShowClearIcon = false;
+      }
+    },
+  },
 
   methods: {
     getTextByTextKey,
@@ -219,13 +171,19 @@ export default {
 
     typingInput(e, submitValue) {
       const currentInputValue = e.target.value;
+      const maxlength = this.maxlength;
+      const functionMaxLen = this.functionMaxLen;
 
       if (currentInputValue != "") {
         if (this.isNotEmpty(currentInputValue)) {
           this.showError = false;
         }
-        if (currentInputValue.length == this.maxlength) {
-          this.showError = true;
+
+        // وقتی تعداد عدد یا حروف های زده شده برابر با مکس باشد ارور نمایش داده می شود //
+        if (functionMaxLen == "equalTo") {
+          if (currentInputValue.length == this.maxlength) {
+            this.showError = true;
+          }
         }
 
         // بررسی درست وارد کردن ایمیل //
@@ -238,21 +196,29 @@ export default {
 
         // بررسی مقدار وارد شده در صورتی که عدد نباشد ارور نمایش داده می شود //
         if (this.checkNumber) {
-          const checkEmail = this.isNumber(currentInputValue);
-          if (!checkEmail) {
+          const chekNumber = this.isNumber(currentInputValue);
+          if (!chekNumber) {
             this.showError = true;
           }
         }
 
+        // ببرسی شماره تلقن وارد شده //
         if (this.activeCheckPhoneNumber) {
-          // در صورت خالی بودن مقدار به عنوان اشتباه بودن شماره تماس تلغی می شود //
-          const resultCheckPhoneNumber = checkPersianPhoneNumber(
-            currentInputValue
-          );
+          if (currentInputValue.length >= maxlength) {
+            // در صورت خالی بودن مقدار به عنوان اشتباه بودن شماره تماس تلغی می شود //
+            const resultCheckPhoneNumber = checkPersianPhoneNumber(
+              currentInputValue
+            );
 
-          if (resultCheckPhoneNumber.length == 0) {
-            this.showError = true;
+            if (resultCheckPhoneNumber.length == 0) {
+              this.showError = true;
+            }
           }
+        }
+
+        // نمایش آیکن پاک کردن مقدار وارد شده پس از تایپ //
+        if (this.showIconClearInput) {
+          this.typeingShowClearIcon = true;
         }
 
         // فقط باید مقدار مورد نظر حروف باشد که اجرا شود //
@@ -263,18 +229,21 @@ export default {
         }
       } else {
         this.showError = false;
+        this.typeingShowClearIcon = false;
       }
+
+      console.log(this.showError, "showError");
     },
 
-    switchVisibility() {
-      this.passwordFieldType =
-        this.passwordFieldType === "password" ? "text" : "password";
-    },
-
-    switchVisibilityVerify() {
-      this.passwordFieldTypeVerify =
-        this.passwordFieldTypeVerify === "password" ? "text" : "password";
-    },
+    // switchVisibility() {
+    //   this.passwordFieldType =
+    //     this.passwordFieldType === "password" ? "text" : "password";
+    // },
+    //
+    // switchVisibilityVerify() {
+    //   this.passwordFieldTypeVerify =
+    //     this.passwordFieldTypeVerify === "password" ? "text" : "password";
+    // },
   },
 };
 </script>
@@ -347,6 +316,9 @@ export default {
   border-color: $red;
 }
 
+.card-body {
+  width: 100%;
+}
 .pass-container {
   height: 100vh;
   @include display-flex();
@@ -356,7 +328,6 @@ export default {
   text-align: center;
   overflow: hidden;
 }
-
 .card {
   @include display-flex();
   flex-direction: column;
@@ -414,10 +385,11 @@ export default {
   vertical-align: middle;
 }
 .input-holder {
-  margin-bottom: 38px;
+  width: 100%;
 }
 .input-holder-verify {
   margin-bottom: 42px;
+  width: 100%;
 }
 .form-control {
   direction: rtl;
@@ -443,6 +415,7 @@ export default {
   font-weight: 318;
   text-align: right;
   margin-bottom: 24px;
+  width: 100%;
 }
 .signup-btn {
   margin-bottom: 56px;
@@ -453,7 +426,6 @@ export default {
 .signup-input {
   padding-right: 24px;
 }
-
 .min-display {
   display: none;
 }
@@ -462,201 +434,37 @@ export default {
 }
 .input-section {
   direction: ltr;
+  flex-wrap: wrap;
+  width: 100%;
 }
-
-@media screen and (max-width: 600px) {
-  .app-signin-next-btn {
-    visibility: hidden;
-  }
-  .min-display {
-    display: block;
-  }
-  .desk-display {
-    display: none;
-  }
+.form__main--item {
+  width: 100%;
+  @include display-flex();
+  flex-flow: column;
 }
-@media screen and (max-width: 540px) {
-  .success-message {
-    @include display-flex();
-    flex-direction: row-reverse;
-    width: 463px;
-    height: 58px;
-    background-color: $alert-massage__green;
-    margin: 44px 90px 0px 89px;
-    border-radius: 10px;
-    position: absolute;
-    opacity: 0;
-    /* add .message-animation when we want to show them */
-  }
-
-  /* add this animation to messages when we want to show them */
-  .message-animation {
-    animation: cssAnimation 1000ms 2 alternate;
-  }
-  @keyframes cssAnimation {
-    0% {
-      opacity: 0;
-      transform: translate(0%, -100%);
-    }
-    70% {
-      opacity: 1;
-      transform: translate(0%, -20%);
-    }
-    80% {
-      opacity: 1;
-      transform: translate(0%, -20%);
-    }
-    90% {
-      opacity: 1;
-      transform: translate(0%, -20%);
-    }
-    100% {
-      opacity: 1;
-      transform: translate(0%, -20%);
-    }
-  }
-  .card {
-    width: auto;
-    height: 100vh;
-    border-radius: 0;
-    padding-right: 1px;
-  }
-  .success-message {
-    width: 328px;
-    height: 56px;
-    margin: 16px 16px 0px 16px;
-  }
-  .success-txt {
-    font-size: 14px;
-    margin-top: 20px;
-  }
-  .signup-input {
-    margin-right: 16px;
-    margin-left: 16px;
-    padding-right: 0px;
-    width: 328px;
-    height: 60px;
-    margin-bottom: 8px;
-  }
-  .input-holder {
-    margin-right: 16px;
-    margin-left: 16px;
-    padding: 0;
-    width: 328px;
-    height: 60px;
-    margin-bottom: 24px;
-  }
-  .input-holder-verify {
-    margin-right: 16px;
-    margin-left: 16px;
-    padding: 0;
-    width: 328px;
-    height: 60px;
-  }
-  .signup-btn {
-    width: 328px;
-    margin-top: 6px;
-    margin-bottom: 132px;
-  }
-  .txt-header {
-    font-size: 20px;
-    line-height: 140.62%;
-    width: 328px;
-    margin-top: 100px;
-    margin-right: 16px;
-    margin-left: 16px;
-  }
-  .txt-content {
-    width: 328px;
-    font-size: 14px;
-    margin-bottom: 15px;
-    margin-right: 16px;
-    margin-left: 16px;
-  }
-  .signup-limoo-logo {
-    margin-top: 0.5rem;
-  }
+.form__item--error {
+  font-family: inherit;
+  font-size: 13px;
+  text-align: right;
+  color: $alert-red;
+  line-height: 140.62%;
+  margin-bottom: 18px;
+  visibility: hidden;
 }
-@media screen and (max-width: 350px) {
-  .card {
-    padding-right: 0px;
-  }
-  .success-message {
-    width: 280px;
-  }
-  .signup-input {
-    margin-right: 10px;
-    margin-left: 10px;
-    width: 280px;
-    margin-bottom: 42px;
-  }
-  .input-holder {
-    margin-right: 15px;
-    margin-left: 15px;
-    padding: 0;
-    width: 280px;
-    height: 60px;
-    margin-bottom: 8px;
-  }
-  .input-holder-verify {
-    width: 280px;
-  }
-  .signup-btn {
-    width: 280px;
-  }
-  .txt-header {
-    font-size: 20px;
-    line-height: 140.62%;
-    width: 280px;
-    margin: 37px 10px 20px 10px;
-  }
-  .txt-content {
-    width: 280px;
-    margin-right: 20px;
-  }
-  .signup-limoo-logo {
-    margin-top: 0;
-  }
+.show--error .form__item--error {
+  visibility: visible;
 }
-@media screen and (max-width: 280px) {
-  .success-message {
-    width: 270px;
-  }
-  .signup-input {
-    margin-right: 5px;
-    margin-left: 5px;
-    width: 270px;
-    margin-bottom: 42px;
-  }
-  .input-holder {
-    margin-right: 5px;
-    margin-left: 5px;
-    padding: 0 10px 0 0;
-    width: 270px;
-    height: 60px;
-    margin-bottom: 8px;
-  }
-  .input-holder-verify {
-    margin-right: 15px;
-    padding: 0 10px 0 0;
-    margin-left: 15px;
-    width: 270px;
-  }
-  .signup-btn {
-    width: 270px;
-  }
-  .txt-header {
-    font-size: 20px;
-    line-height: 140.62%;
-    width: 270px;
-    margin-right: 10px;
-  }
-  .txt-content {
-    width: 270px;
-    margin-right: 10px;
-  }
-  .signup-limoo-logo {
-    margin-top: 0.2rem;
-  }
+.clear--button {
+  display: none;
+}
+.clear-input {
+  display: block;
+}
+.show--error .input-holder {
+  border-color: red;
+  background: #fff4f5;
+}
+.show--error .clear-input span {
+  color: red;
 }
 </style>
