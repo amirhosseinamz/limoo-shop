@@ -93,6 +93,10 @@
             <p class="w-100 form__item--error ">
               {{ getTextByTextKey("auth_phone_not_valid") }}
             </p>
+
+            <!-- <p class="w-100 form__item--text ">
+              در خواست مجدد
+            </p> -->
           </div>
         </div>
       </div>
@@ -124,6 +128,8 @@ export default {
     checkInitialValidation: { type: Number, default: 0 },
     nameInput: { type: String, default: "" },
     formData: { type: Object, default: {} },
+    checkEmptySubmit: { type: Boolean, default: false },
+    checkRequired: { type: Boolean, default: false },
   },
 
   data() {
@@ -223,7 +229,7 @@ export default {
     },
 
     typingInput(e, submitValue) {
-      this.checkDataValidation();
+      this.checkDataValidation("typeing");
     },
 
     checkDataValidation(stateCheckForm) {
@@ -246,22 +252,44 @@ export default {
         // بررسی درست وارد کردن ایمیل //
         if (this.checkEmail) {
           const checkEmail = this.isEmail(currentInputValue);
-          if (!checkEmail) {
-            this.showError = true;
+
+          if (stateCheckForm == "submit") {
+            if (this.checkRequired) {
+              if (!checkEmail) {
+                this.showError = true;
+              }
+            }
+          }
+
+          if (stateCheckForm == "typeing") {
+            if (!checkEmail) {
+              this.showError = true;
+            }
           }
         }
 
         // بررسی مقدار وارد شده در صورتی که عدد نباشد ارور نمایش داده می شود //
         if (this.checkNumber) {
           const chekNumber = this.isNumber(currentInputValue);
-          if (!chekNumber) {
-            this.showError = true;
+
+          if (stateCheckForm == "submit") {
+            if (this.checkRequired) {
+              if (!chekNumber) {
+                this.showError = true;
+              }
+            }
+          }
+
+          if (stateCheckForm == "typeing") {
+            if (!chekNumber) {
+              this.showError = true;
+            }
           }
         }
 
         // ببرسی شماره تلقن وارد شده //
         if (this.activeCheckPhoneNumber) {
-          if (currentInputValue.length >= maxlength) {
+          const logicCheckPhoneNumber = () => {
             // در صورت خالی بودن مقدار به عنوان اشتباه بودن شماره تماس تلغی می شود //
             const resultCheckPhoneNumber = checkPersianPhoneNumber(
               currentInputValue
@@ -269,6 +297,16 @@ export default {
 
             if (resultCheckPhoneNumber.length == 0) {
               this.showError = true;
+            }
+          };
+
+          if (currentInputValue.length >= maxlength) {
+            logicCheckPhoneNumber();
+          } else {
+            if (stateCheckForm == "submit") {
+              if (this.checkRequired) {
+                logicCheckPhoneNumber();
+              }
             }
           }
         }
@@ -288,6 +326,21 @@ export default {
         // جلوگیری از وارد کرن حروف هنگام تایپ //
         if (this.statusAddSpaceNumber) {
           this.onlyUseNumberStateAddSpace();
+
+          if (stateCheckForm == "submit") {
+            if (this.checkRequired) {
+              // در صورتی که شماره وارد شده کوچک تر از مقدار مکس تعیین شده بود ارور نمایش داده می شود //
+              if (currentInputValue.length < maxlength) {
+                this.showError = true;
+              }
+            }
+          }
+
+          if (stateCheckForm == "typeing") {
+            if (currentInputValue.length < maxlength) {
+              this.showError = true;
+            }
+          }
         }
       };
 
@@ -298,11 +351,16 @@ export default {
         this.typeingShowClearIcon = false;
       }
 
+      // این قسمت مختص به چک کردن داده هایی است که برای تمامی آیتم ها یک سان است //
       if (stateCheckForm == "submit") {
-        if (currentInputValue == "") {
-          this.showError = true;
+        // بررسی خالی بودن مقدار //
+        if (this.checkEmptySubmit) {
+          if (currentInputValue == "") {
+            this.showError = true;
+          }
         }
 
+        functionality();
         this.formData[this.nameInput] = this.showError;
       }
     },

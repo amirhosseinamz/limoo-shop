@@ -14,7 +14,8 @@
       label-text="نشانی پستی دقیق"
       function-max-len="equalTo"
       :formData="formData"
-      :check-initial-validation="checkInitialValidation"
+      :check-initial-validation="checkValidationSubmitForm"
+      nameInput="test"
     >
     </text-input>
 
@@ -33,25 +34,8 @@
       label-text="نام گیرنده"
       function-max-len="equalTo"
       :formData="formData"
-      :check-initial-validation="checkInitialValidation"
-    >
-    </text-input>
-
-    <text-input
-      state="authInput"
-      maxlength="90"
-      placeholderText=""
-      :msgError="{
-        notValidMsg: 'مجاز نیست',
-        notValidNumber: 'شماره وارد شده صحیح نیست',
-      }"
-      :checkNumber="false"
-      :checkEmail="false"
-      :active-check-phone-number="false"
-      label-text="لطفا پسورد را بزنید"
-      typeInput="password"
-      :formData="formData"
-      :check-initial-validation="checkInitialValidation"
+      :check-initial-validation="checkValidationSubmitForm"
+      nameInput="codePoste"
     >
     </text-input>
 
@@ -65,7 +49,7 @@
         notValidNumber: 'شماره وارد شده صحیح نیست',
       }"
       :check-email="false"
-      :check-number="true"
+      :check-number="false"
       :active-check-phone-number="true"
       :check-code="false"
       :only-use-string="false"
@@ -73,31 +57,10 @@
       typeInput="text"
       label-text="لطفا شماره موبایل خود را وارد کنید."
       :formData="formData"
-      :check-initial-validation="checkInitialValidation"
+      :check-initial-validation="checkValidationSubmitForm"
+      nameInput="phoneNumber"
     >
     </text-input>
-
-    <!-- <text-input
-      state="authInput"
-      maxlength="11"
-      function-max-len="greaterThan"
-      placeholderText=""
-      :msgError="{
-        notValidMsg: 'مجاز نیست',
-        notValidNumber: 'شماره وارد شده صحیح نیست',
-      }"
-      :check-email="false"
-      :check-number="true"
-      :active-check-phone-number="true"
-      :check-code="false"
-      :only-use-string="false"
-      :show-icon-clear-input="false"
-      :show-icon-eye-input="true"
-      :add-space-number="false"
-      typeInput="text"
-      label-text="لطفا شماره موبایل خود را وارد کنید."
-    >
-    </text-input> -->
 
     <text-input
       state="authInput"
@@ -116,11 +79,66 @@
       :show-icon-clear-input="false"
       :show-icon-eye-input="false"
       :status-add-space-number="true"
-      typeInput="text"
-      label-text="لطفا کد تایید را وارد کنید"
-      :check-initial-validation="checkInitialValidation"
-      nameInput="code"
+      :check-initial-validation="checkValidationSubmitForm"
       :formData="formData"
+      :check-empty-submit="true"
+      typeInput="text"
+      nameInput="code"
+      label-text="لطفا کد تایید را وارد کنید"
+    >
+    </text-input>
+
+    <text-input
+      state="authInput"
+      maxlength="4"
+      function-max-len="greaterThan"
+      placeholderText=""
+      :msgError="{
+        notValidMsg: 'مجاز نیست',
+        notValidNumber: 'شماره وارد شده صحیح نیست',
+      }"
+      :check-email="false"
+      :check-number="true"
+      :active-check-phone-number="false"
+      :check-code="false"
+      :only-use-string="false"
+      :show-icon-clear-input="false"
+      :show-icon-eye-input="false"
+      :status-add-space-number="false"
+      :check-initial-validation="checkValidationSubmitForm"
+      :formData="formData"
+      :check-empty-submit="false"
+      :check-required="true"
+      typeInput="text"
+      nameInput="codeRequired"
+      label-text="فقط در صورت عدد اجازه ادامه وجود دارد"
+    >
+    </text-input>
+
+    <text-input
+      state="authInput"
+      maxlength="4"
+      function-max-len="greaterThan"
+      placeholderText=""
+      :msgError="{
+        notValidMsg: 'مجاز نیست',
+        notValidNumber: 'شماره وارد شده صحیح نیست',
+      }"
+      :check-email="false"
+      :check-number="false"
+      :active-check-phone-number="false"
+      :check-code="false"
+      :only-use-string="true"
+      :show-icon-clear-input="false"
+      :show-icon-eye-input="false"
+      :status-add-space-number="false"
+      :check-initial-validation="checkValidationSubmitForm"
+      :formData="formData"
+      :check-empty-submit="false"
+      :check-required="false"
+      typeInput="text"
+      nameInput="codeRequired2"
+      label-text="مقدار مورد نظر فقط حروف باشد"
     >
     </text-input>
 
@@ -144,7 +162,7 @@
         :status-add-space-number="false"
         typeInput="text"
         label-text="رمز عبور جدید"
-        :check-initial-validation="checkInitialValidation"
+        :check-initial-validation="checkValidationSubmitForm"
         nameInput="forgetPassword1"
         :formData="formData"
       >
@@ -167,7 +185,7 @@
         :show-icon-clear-input="false"
         :show-icon-eye-input="true"
         :status-add-space-number="false"
-        :check-initial-validation="checkInitialValidation"
+        :check-initial-validation="checkValidationSubmitForm"
         typeInput="text"
         label-text="تکرار رمز عبور جدید"
         nameInput="forgetPassword2"
@@ -281,7 +299,7 @@ export default {
         notValidMsg: "مجاز نیست",
         notValidNumber: "شماره وارد شده صحیح نیست",
       },
-      checkInitialValidation: 0,
+      checkValidationSubmitForm: 0,
       formData: {},
     };
   },
@@ -315,7 +333,7 @@ export default {
     },
 
     submitData() {
-      this.checkInitialValidation++;
+      this.checkValidationSubmitForm++;
 
       // در صورت نداشت ارور فورم مورد نظر ارسال می شود //
       setTimeout(() => {
