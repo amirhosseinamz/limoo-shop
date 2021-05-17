@@ -6,6 +6,7 @@
         :placeholder="placeholderText"
         type="text"
         dir="rtl"
+        v-model="currentValue"
       />
       <button class="search-section__btn"></button>
     </div>
@@ -24,6 +25,7 @@
             type="text"
             dir="rtl"
             :maxlength="maxlength"
+            v-model="currentValue"
           />
         </div>
         <span class="search__section--error ">{{ msgError.notValidMsg }}</span>
@@ -36,11 +38,7 @@
           {{ getTextByTextKey("auth_change_password") }}
         </p> -->
         <div
-          v-if="
-            state == 'singlePassword' ||
-              state == 'multiPassword' ||
-              state == 'authStyle'
-          "
+          v-if="state == 'multiPassword' || state == 'authInput'"
           class="input-section"
         >
           <p dir="rtl" class="txt-content">
@@ -140,9 +138,12 @@ export default {
   created() {
     this.hidenShowEyeIcon = this.showIconEyeInput;
 
+    // در صورتی که اجازه نمایش آیکن چشم داده نشده باشد  ، آیکن چشم نمایش داده نمی شود //
     if (!this.showIconEyeInput) {
       this.openEye = false;
     }
+
+    this.$emit("check-data-submit", this.checkDataValidation);
   },
 
   watch: {
@@ -156,8 +157,10 @@ export default {
     },
 
     currentValue(value) {
-      this.currentValue = value;
-      this.typeingAddSpace();
+      if (this.statusAddSpaceNumber) {
+        this.currentValue = value;
+        this.onlyUseNumberStateAddSpace();
+      }
     },
   },
 
@@ -182,7 +185,7 @@ export default {
       return str1 === str2;
     },
 
-    typeingAddSpace() {
+    onlyUseNumberStateAddSpace() {
       if (/\D/.test(this.currentValue)) {
         this.currentValue = this.currentValue.slice(0, -1);
       }
@@ -215,11 +218,15 @@ export default {
     },
 
     typingInput(e, submitValue) {
-      const currentInputValue = e.target.value;
+      this.checkDataValidation();
+    },
+
+    checkDataValidation(stateCheckForm) {
+      const currentInputValue = this.currentValue;
       const maxlength = this.maxlength;
       const functionMaxLen = this.functionMaxLen;
 
-      if (currentInputValue != "") {
+      const functionality = () => {
         if (this.isNotEmpty(currentInputValue)) {
           this.showError = false;
         }
@@ -273,16 +280,24 @@ export default {
           }
         }
 
-        // اضافه کردن اسپیس به هنگام نایپ و جلوگیری از وارد کردن جروف //
+        // جلوگیری از وارد کرن حروف هنگام تایپ //
         if (this.statusAddSpaceNumber) {
-          this.typeingAddSpace();
+          this.onlyUseNumberStateAddSpace();
         }
+      };
+
+      console.log(this.activeCheckPhoneNumber, "activeCheckPhoneNumber");
+
+      if (stateCheckForm == "submit") {
+        functionality();
+      }
+
+      if (currentInputValue != "") {
+        functionality();
       } else {
         this.showError = false;
         this.typeingShowClearIcon = false;
       }
-
-      console.log(this.showError, "showError");
     },
 
     // switchVisibility() {
@@ -512,6 +527,7 @@ export default {
 }
 .clear-input {
   display: block;
+  cursor: default;
 }
 .show--error .input-holder {
   border-color: red;
@@ -541,10 +557,10 @@ export default {
 .eye--button {
   background: none;
   border: none;
-  cursor: pointer;
 }
 .signin-eye {
   @include display-flex();
+  cursor: pointer;
 }
 .add--space {
   letter-spacing: 0.7em;

@@ -34,7 +34,7 @@
     </text-input>
 
     <text-input
-      state="singlePassword"
+      state="authInput"
       maxlength="90"
       placeholderText=""
       :msgError="{
@@ -50,7 +50,7 @@
     </text-input>
 
     <text-input
-      state="authStyle"
+      state="authInput"
       maxlength="11"
       function-max-len="greaterThan"
       placeholderText=""
@@ -66,11 +66,12 @@
       :show-icon-clear-input="true"
       typeInput="text"
       label-text="لطفا شماره موبایل خود را وارد کنید."
+      @check-data-submit="checkDataSubmit"
     >
     </text-input>
 
     <text-input
-      state="authStyle"
+      state="authInput"
       maxlength="11"
       function-max-len="greaterThan"
       placeholderText=""
@@ -79,8 +80,8 @@
         notValidNumber: 'شماره وارد شده صحیح نیست',
       }"
       :check-email="false"
-      :check-number="false"
-      :active-check-phone-number="false"
+      :check-number="true"
+      :active-check-phone-number="true"
       :check-code="false"
       :only-use-string="false"
       :show-icon-clear-input="false"
@@ -92,7 +93,7 @@
     </text-input>
 
     <text-input
-      state="authStyle"
+      state="authInput"
       maxlength="4"
       function-max-len="greaterThan"
       placeholderText=""
@@ -112,6 +113,63 @@
       label-text="لطفا کد تایید را وارد کنید"
     >
     </text-input>
+
+    <div class="w-100">
+      <text-input
+        state="authInput"
+        maxlength="32"
+        function-max-len="ecoal"
+        placeholderText=""
+        :msgError="{
+          notValidMsg: 'مجاز نیست',
+          notValidNumber: 'شماره وارد شده صحیح نیست',
+        }"
+        :check-email="false"
+        :check-number="false"
+        :active-check-phone-number="false"
+        :check-code="false"
+        :only-use-string="false"
+        :show-icon-clear-input="false"
+        :show-icon-eye-input="true"
+        :status-add-space-number="false"
+        typeInput="text"
+        label-text="رمز عبور جدید"
+      >
+      </text-input>
+
+      <text-input
+        state="authInput"
+        maxlength="32"
+        function-max-len="ecoal"
+        placeholderText=""
+        :msgError="{
+          notValidMsg: 'مجاز نیست',
+          notValidNumber: 'شماره وارد شده صحیح نیست',
+        }"
+        :check-email="false"
+        :check-number="false"
+        :active-check-phone-number="false"
+        :check-code="false"
+        :only-use-string="false"
+        :show-icon-clear-input="false"
+        :show-icon-eye-input="true"
+        :status-add-space-number="false"
+        typeInput="text"
+        label-text="تکرار رمز عبور جدید"
+      >
+      </text-input>
+    </div>
+
+    <button
+      type="button"
+      class="p-product-btn cursor-pointer"
+      name="button"
+      @click="submitData"
+    >
+      <span class="btn-text-desktop">
+        {{ getTextByTextKey("profile_see_single_product") }}
+      </span>
+    </button>
 
     <div class="user-history__empty-container" v-show="userHistory == 0">
       <img
@@ -207,6 +265,7 @@ export default {
         notValidMsg: "مجاز نیست",
         notValidNumber: "شماره وارد شده صحیح نیست",
       },
+      submitCheckFormValidation: {},
     };
   },
   props: {
@@ -236,6 +295,14 @@ export default {
       // setTimeout(() => {
       //     this.userHistory = Object.values(this.historyData).length;
       // }, 1000);
+    },
+
+    checkDataSubmit(func) {
+      this.submitCheckFormValidation = func;
+    },
+
+    submitData() {
+      this.submitCheckFormValidation("submit");
     },
   },
 };
