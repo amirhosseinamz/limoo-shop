@@ -121,6 +121,9 @@ export default {
     showIconClearInput: { type: Boolean, default: false },
     showIconEyeInput: { type: Boolean, default: false },
     statusAddSpaceNumber: { type: Boolean, default: false },
+    checkInitialValidation: { type: Number, default: 0 },
+    nameInput: { type: String, default: "" },
+    formData: { type: Object, default: {} },
   },
 
   data() {
@@ -142,8 +145,6 @@ export default {
     if (!this.showIconEyeInput) {
       this.openEye = false;
     }
-
-    this.$emit("check-data-submit", this.checkDataValidation);
   },
 
   watch: {
@@ -161,6 +162,10 @@ export default {
         this.currentValue = value;
         this.onlyUseNumberStateAddSpace();
       }
+    },
+
+    checkInitialValidation() {
+      this.checkDataValidation("submit");
     },
   },
 
@@ -286,17 +291,19 @@ export default {
         }
       };
 
-      console.log(this.activeCheckPhoneNumber, "activeCheckPhoneNumber");
-
-      if (stateCheckForm == "submit") {
-        functionality();
-      }
-
       if (currentInputValue != "") {
         functionality();
       } else {
         this.showError = false;
         this.typeingShowClearIcon = false;
+      }
+
+      if (stateCheckForm == "submit") {
+        if (currentInputValue == "") {
+          this.showError = true;
+        }
+
+        this.formData[this.nameInput] = this.showError;
       }
     },
 

@@ -13,6 +13,8 @@
       :active-check-phone-number="false"
       label-text="نشانی پستی دقیق"
       function-max-len="equalTo"
+      :formData="formData"
+      :check-initial-validation="checkInitialValidation"
     >
     </text-input>
 
@@ -30,6 +32,8 @@
       :only-use-string="true"
       label-text="نام گیرنده"
       function-max-len="equalTo"
+      :formData="formData"
+      :check-initial-validation="checkInitialValidation"
     >
     </text-input>
 
@@ -46,6 +50,8 @@
       :active-check-phone-number="false"
       label-text="لطفا پسورد را بزنید"
       typeInput="password"
+      :formData="formData"
+      :check-initial-validation="checkInitialValidation"
     >
     </text-input>
 
@@ -66,11 +72,12 @@
       :show-icon-clear-input="true"
       typeInput="text"
       label-text="لطفا شماره موبایل خود را وارد کنید."
-      @check-data-submit="checkDataSubmit"
+      :formData="formData"
+      :check-initial-validation="checkInitialValidation"
     >
     </text-input>
 
-    <text-input
+    <!-- <text-input
       state="authInput"
       maxlength="11"
       function-max-len="greaterThan"
@@ -90,7 +97,7 @@
       typeInput="text"
       label-text="لطفا شماره موبایل خود را وارد کنید."
     >
-    </text-input>
+    </text-input> -->
 
     <text-input
       state="authInput"
@@ -111,6 +118,9 @@
       :status-add-space-number="true"
       typeInput="text"
       label-text="لطفا کد تایید را وارد کنید"
+      :check-initial-validation="checkInitialValidation"
+      nameInput="code"
+      :formData="formData"
     >
     </text-input>
 
@@ -134,6 +144,9 @@
         :status-add-space-number="false"
         typeInput="text"
         label-text="رمز عبور جدید"
+        :check-initial-validation="checkInitialValidation"
+        nameInput="forgetPassword1"
+        :formData="formData"
       >
       </text-input>
 
@@ -154,8 +167,11 @@
         :show-icon-clear-input="false"
         :show-icon-eye-input="true"
         :status-add-space-number="false"
+        :check-initial-validation="checkInitialValidation"
         typeInput="text"
         label-text="تکرار رمز عبور جدید"
+        nameInput="forgetPassword2"
+        :formData="formData"
       >
       </text-input>
     </div>
@@ -265,7 +281,8 @@ export default {
         notValidMsg: "مجاز نیست",
         notValidNumber: "شماره وارد شده صحیح نیست",
       },
-      submitCheckFormValidation: {},
+      checkInitialValidation: 0,
+      formData: {},
     };
   },
   props: {
@@ -297,12 +314,25 @@ export default {
       // }, 1000);
     },
 
-    checkDataSubmit(func) {
-      this.submitCheckFormValidation = func;
-    },
-
     submitData() {
-      this.submitCheckFormValidation("submit");
+      this.checkInitialValidation++;
+
+      // در صورت نداشت ارور فورم مورد نظر ارسال می شود //
+      setTimeout(() => {
+        const formData = this.formData;
+        let checkSubmitForm = "success";
+
+        // چک کردن ارور فورم //
+        for (let key in formData) {
+          if (formData[key]) {
+            checkSubmitForm = "failed";
+          }
+        }
+
+        if (checkSubmitForm == "success") {
+          console.log("send request ");
+        }
+      });
     },
   },
 };
