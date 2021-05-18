@@ -16,6 +16,7 @@
       :formData="formData"
       :check-initial-validation="checkValidationSubmitForm"
       nameInput="test"
+      :check-empty-submit="true"
     >
     </text-input>
 
@@ -58,6 +59,7 @@
       label-text="لطفا شماره موبایل خود را وارد کنید."
       :formData="formData"
       :check-initial-validation="checkValidationSubmitForm"
+      :check-required="false"
       nameInput="phoneNumber"
     >
     </text-input>
@@ -136,6 +138,8 @@
       :formData="formData"
       :check-empty-submit="false"
       :check-required="false"
+      :use-timer="true"
+      timer-start="0:10"
       typeInput="text"
       nameInput="codeRequired2"
       label-text="مقدار مورد نظر فقط حروف باشد"
@@ -342,7 +346,7 @@ export default {
 
         // چک کردن ارور فورم //
         for (let key in formData) {
-          if (formData[key]) {
+          if (formData[key].hasError) {
             checkSubmitForm = "failed";
           }
         }
@@ -350,6 +354,8 @@ export default {
         if (checkSubmitForm == "success") {
           console.log("send request ");
         }
+
+        console.log(formData, "formData");
       });
     },
   },

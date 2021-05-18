@@ -32,15 +32,12 @@
       </div>
     </div>
 
-    <div class="card-body">
+    <div class="card-body d-rtl">
       <div class="form-group">
         <!-- <p class="txt-header">
           {{ getTextByTextKey("auth_change_password") }}
         </p> -->
-        <div
-          v-if="state == 'multiPassword' || state == 'authInput'"
-          class="input-section"
-        >
+        <div v-if="state == 'authInput'" class="input-section">
           <p dir="rtl" class="txt-content">
             {{ labelText }}
           </p>
@@ -90,13 +87,41 @@
                 ></span>
               </button>
             </div>
-            <p class="w-100 form__item--error ">
+
+            <div
+              v-if="useTimer"
+              :class="{ 'active--timer': useTimer }"
+              class="timer-holder"
+            >
+              <p :class="{ 'show-timer': timerZero }" class="timer">
+                <span class="tCounter">
+                  <span class="timer-timeText">0</span>
+                  <h3 class="timer-timeText">
+                    {{ counterDownMinutes[1] }}
+                  </h3>
+                  <span class="timer-timeText">:</span>
+                  <h3 class="timer-timeText">
+                    {{ counterDownSecond[0] }}
+                  </h3>
+
+                  <h3 class="timer-timeText">
+                    {{ counterDownSecond[1] }}
+                  </h3></span
+                >
+                {{ getTextByTextKey("auth_aignup_agin_code_send") }}
+              </p>
+              <p
+                class="code-request"
+                :class="{ 'show-code-request': timerZero }"
+                @click="sendNewRequest"
+              >
+                {{ getTextByTextKey("auth_request_code_resend") }}
+              </p>
+            </div>
+
+            <p v-else class="w-100 form__item--error ">
               {{ getTextByTextKey("auth_phone_not_valid") }}
             </p>
-
-            <!-- <p class="w-100 form__item--text ">
-              در خواست مجدد
-            </p> -->
           </div>
         </div>
       </div>
@@ -130,6 +155,8 @@ export default {
     formData: { type: Object, default: {} },
     checkEmptySubmit: { type: Boolean, default: false },
     checkRequired: { type: Boolean, default: false },
+    useTimer: { type: Boolean, default: false },
+    timerStart: { type: String, default: "" },
   },
 
   data() {
@@ -141,6 +168,11 @@ export default {
       hidenShowEyeIcon: false,
       openEye: true,
       currentValue: "",
+      counterDownHours: [],
+      counterDownMinutes: [],
+      counterDownSecond: [],
+      Tcounter: 178,
+      timerZero: false,
     };
   },
 
@@ -150,6 +182,12 @@ export default {
     // در صورتی که اجازه نمایش آیکن چشم داده نشده باشد  ، آیکن چشم نمایش داده نمی شود //
     if (!this.showIconEyeInput) {
       this.openEye = false;
+    }
+
+    // در صورت فعال بودن آپشن تایمر شروع به اجرا می کند //
+    if (this.useTimer) {
+      const splitTimerStart = this.timerStart.split(":");
+      this.countDownTimer(splitTimerStart[0], splitTimerStart[1]);
     }
   },
 
@@ -359,21 +397,48 @@ export default {
             this.showError = true;
           }
         }
-
         functionality();
-        this.formData[this.nameInput] = this.showError;
       }
+
+      // آپدیت آبجکت فورم برای گرفتن اطاعات وارد شده //
+      this.formData[this.nameInput] = {
+        value: currentInputValue,
+        hasError: this.showError,
+      };
     },
 
-    // switchVisibility() {
-    //   this.passwordFieldType =
-    //     this.passwordFieldType === "password" ? "text" : "password";
-    // },
-    //
-    // switchVisibilityVerify() {
-    //   this.passwordFieldTypeVerify =
-    //     this.passwordFieldTypeVerify === "password" ? "text" : "password";
-    // },
+    countDownTimer(mm, ss) {
+      const interval = setInterval(() => {
+        if (mm == 0 && ss == 1) {
+          clearInterval(interval);
+          this.timerZero = true;
+        }
+        ss--;
+        if (ss == 0) {
+          ss = 59;
+          mm--;
+          if (mm == 0) {
+            mm = 59;
+          }
+        }
+
+        if (mm.toString().length < 2) mm = "0" + mm;
+        if (ss.toString().length < 2) ss = "0" + ss;
+
+        // const mergeAllCounterDown   = hr+" : "+mm+" : "+ss;
+
+        this.counterDownMinutes = mm.toString().split("");
+        this.counterDownSecond = ss.toString().split("");
+      }, 1000);
+    },
+
+    sendNewRequest() {
+      const splitTimerStart = this.timerStart.split(":");
+      this.countDownTimer(splitTimerStart[0], splitTimerStart[1]);
+      setTimeout(() => {
+        this.timerZero = false;
+      }, 1000);
+    },
   },
 };
 </script>
@@ -630,4 +695,51 @@ export default {
 .add--space {
   letter-spacing: 0.7em;
 }
+
+// timer //
+.timer-holder {
+  @include display-flex();
+  justify-content: flex-end;
+  margin-bottom: 18px;
+  visibility: hidden;
+}
+.timer {
+  @include display-flex();
+  flex-direction: row;
+  font-size: 14px;
+  line-height: 140.62%;
+  color: $gray;
+  direction: ltr;
+}
+.show-timer {
+  display: none;
+}
+.tCounter {
+  @include display-flex();
+  flex-direction: row;
+  margin-right: 5px;
+}
+.timer-timeText {
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 140.62%;
+  color: $gray;
+  margin-right: 2px;
+}
+.code-request {
+  font-weight: 500;
+  font-size: 13px;
+  line-height: 140.62%;
+  text-align: right;
+  color: $code-request;
+  cursor: pointer;
+  display: none;
+}
+.show-code-request {
+  display: block;
+}
+.active--timer.timer-holder {
+  visibility: visible;
+}
+// end timer //
 </style>
