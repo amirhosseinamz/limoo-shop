@@ -135,14 +135,46 @@
       :show-icon-eye-input="false"
       :status-add-space-number="false"
       :check-initial-validation="checkValidationSubmitForm"
-      :formData="formData"
+      :form-data="formData"
       :check-empty-submit="false"
       :check-required="false"
       :use-timer="true"
+      tag-html="input"
       timer-start="0:10"
-      typeInput="text"
-      nameInput="codeRequired2"
+      type-input="text"
+      name-input="codeRequired2"
       label-text="مقدار مورد نظر فقط حروف باشد"
+    >
+    </text-input>
+
+    <text-input
+      state="authInput"
+      maxlength="450"
+      function-max-len="equalTo"
+      placeholderText=""
+      :msgError="{
+        notValidMsg: 'مجاز نیست',
+        notValidNumber: 'بیش از حد مجاز',
+      }"
+      :check-email="false"
+      :check-number="false"
+      :active-check-phone-number="false"
+      :check-code="false"
+      :only-use-string="true"
+      :show-icon-clear-input="false"
+      :show-icon-eye-input="false"
+      :status-add-space-number="false"
+      :check-initial-validation="checkValidationSubmitForm"
+      :check-empty-submit="true"
+      :check-required="false"
+      :use-timer="false"
+      :form-data="formData"
+      :show-icon-star="true"
+      tag-html="textarea"
+      timer-start="0:10"
+      type-input="text"
+      name-input="codeRequired2"
+      label-text="متن نظر شما:"
     >
     </text-input>
 

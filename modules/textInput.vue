@@ -40,6 +40,7 @@
         <div v-if="state == 'authInput'" class="input-section">
           <p dir="rtl" class="txt-content">
             {{ labelText }}
+            <span v-if="showIconStar" class="comment__form-star">*</span>
           </p>
 
           <div
@@ -47,7 +48,7 @@
             :class="{ 'show--error': showError }"
             class="form__main--item"
           >
-            <div class="input-holder">
+            <div class="input-holder" v-if="tagHtml == 'input'">
               <input
                 :class="{ 'add--space': statusAddSpaceNumber }"
                 class="signup-input form-control"
@@ -88,6 +89,16 @@
               </button>
             </div>
 
+            <textarea
+              @keyup="typingInput"
+              :maxlength="maxlength"
+              v-model="currentValue"
+              v-else
+              rows="8"
+              cols="80"
+              class="form__textara-item p-input-style__default d-rtl"
+            ></textarea>
+
             <div
               v-if="useTimer"
               :class="{ 'active--timer': useTimer }"
@@ -120,7 +131,7 @@
             </div>
 
             <p v-else class="w-100 form__item--error ">
-              {{ getTextByTextKey("auth_phone_not_valid") }}
+              {{ msgError.notValidMsg }}
             </p>
           </div>
         </div>
@@ -157,6 +168,8 @@ export default {
     checkRequired: { type: Boolean, default: false },
     useTimer: { type: Boolean, default: false },
     timerStart: { type: String, default: "" },
+    tagHtml: { type: String, default: "input" },
+    showIconStar: { type: Boolean, default: false },
   },
 
   data() {
@@ -742,4 +755,24 @@ export default {
   visibility: visible;
 }
 // end timer //
+
+// textarea style //
+.form__textara-item {
+  height: 126px;
+  padding-top: 12px;
+  padding-bottom: 12px;
+  padding-right: 12px;
+  padding-left: 12px;
+  resize: none;
+  text-align: right;
+  width: 100%;
+  margin-bottom: 8px;
+}
+.show--error .form__textara-item {
+  border-color: red;
+}
+.comment__form-star {
+  font-size: 16px;
+  color: $alert-red;
+}
 </style>
