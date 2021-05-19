@@ -4,68 +4,66 @@
   that returns and you store as this does then every new user recives his owen store*/
 
 export const state = () => ({
-    // signUp: "stepOne",
-    // signIn: "stepOne",
-    phone             : "",
-    // password: "",
-    userAuth          : false,
-    showModalWellcome : false,
-    language          : '',
+  // signUp: "stepOne",
+  // signIn: "stepOne",
+  phone: "",
+  // password: "",
+  userAuth: true,
+  showModalWellcome: false,
+  language: "",
 });
 
 export const mutations = {
-    walkInSignUpcomponents(state, payload) {
-        state.signUp = payload.value;
-    },
-    walkInSignIncomponents(state, payload) {
-        state.signIn = payload.value;
-    },
-    PhoneNumber(state, inputPhone) {
-        state.phone = inputPhone.value;
-    },
-    passHolder(state) {
-        return state.password;
-    },
-    userIsAuth(state, payload) {
-        state.userAuth = payload.value;
-    },
-    stateShowModalWellcome(state, payload) {
-        state.showModalWellcome = payload.value;
-        // console.log("showModalWellcome in store is", payload.value);
-    },
+  walkInSignUpcomponents(state, payload) {
+    state.signUp = payload.value;
+  },
+  walkInSignIncomponents(state, payload) {
+    state.signIn = payload.value;
+  },
+  PhoneNumber(state, inputPhone) {
+    state.phone = inputPhone.value;
+  },
+  passHolder(state) {
+    return state.password;
+  },
+  userIsAuth(state, payload) {
+    state.userAuth = payload.value;
+  },
+  stateShowModalWellcome(state, payload) {
+    state.showModalWellcome = payload.value;
+    // console.log("showModalWellcome in store is", payload.value);
+  },
 
-    currentLanguage(state, payload) {
-      state.language = payload
-    },
-
-
+  currentLanguage(state, payload) {
+    state.language = payload;
+  },
 };
 export const actions = {
-    userIsAuth(context, payload) {
-        context.commit("userIsAuth", payload);
-    },
-    stateShowModalWellcome(context, payload) {
-        context.commit("stateShowModalWellcome", payload);
-    }
+  userIsAuth(context, payload) {
+    context.commit("userIsAuth", payload);
+  },
+  stateShowModalWellcome(context, payload) {
+    context.commit("stateShowModalWellcome", payload);
+  },
 };
 
 export const getters = {
-    signUpPicker(state) {
-        return state.signUp;
-    },
-    signInPicker(state) {
-        return state.signIn;
-    },
-    PhoneNumberPicker(state) {
-        return state.phone;
-    },
-    CurentRoute(state) {
-        return state.CurentRoute;
-    },
-    stateShowModalWellcome(state) {
-        return state.showModalWellcome;
-    },
-    userIsAuth(state) {
-        return state.userAuth;
-    }
+  signUpPicker(state) {
+    return state.signUp;
+  },
+  signInPicker(state) {
+    return state.signIn;
+  },
+  PhoneNumberPicker(state) {
+    return state.phone;
+  },
+  CurentRoute(state) {
+    return state.CurentRoute;
+  },
+  stateShowModalWellcome(state) {
+    return state.showModalWellcome;
+  },
+  userIsAuth(state) {
+    return state.userAuth;
+  },
 };

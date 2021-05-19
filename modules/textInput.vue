@@ -1,5 +1,5 @@
 <template>
-  <div :id="accessStyleParentInToChildNameId" class="search-section w-100">
+  <div class="search-section ">
     <div v-if="state == 'search'" class="search-section__items">
       <input
         class="search-section__input"
@@ -16,7 +16,11 @@
       :class="{ 'show--error': showError }"
       v-if="state == 'standard'"
     >
-      <h3 class="txt-content">
+      <!-- <h3  :class="inputNameClass" class="txt-content">
+        {{ labelText }}
+      </h3> -->
+
+      <h3 :class="labelNameClass" class="txt-content">
         {{ labelText }}
       </h3>
 
@@ -175,6 +179,8 @@ export default {
     tagHtml: { type: String, default: "input" },
     showIconStar: { type: Boolean, default: false },
     accessStyleParentInToChildNameId: { type: String, default: "" },
+    inputNameClass: { type: String, default: "" },
+    labelNameClass: { type: String, default: "" },
   },
 
   data() {
@@ -509,6 +515,9 @@ export default {
   width: 100%;
   text-align: right;
   visibility: hidden;
+}
+.search-section__input {
+  width: 100%;
 }
 .search-section__input::placeholder {
   color: $gray_disabled;

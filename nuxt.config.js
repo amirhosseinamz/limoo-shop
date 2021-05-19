@@ -56,7 +56,7 @@ export default {
     SIGN_OUT_API: "https://unison-dev.parsdata.net/auth/signout",
   },
   server: {
-    host: "0.0.0.0",
+    // host: "0.0.0.0",
   },
   // router: {
   //     middleware: ["auth"]
