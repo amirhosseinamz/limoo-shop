@@ -55,9 +55,13 @@
       </div>
     </div>
 
-    <form @submit.prevent="" class="w-100 p-modal_wrapper align-items-start">
+    <form
+      id="form__modal--main"
+      @submit.prevent=""
+      class="w-100 p-modal_wrapper align-items-start"
+    >
       <div class="p-modal-content w-100 align-items-start flex-wrap">
-        <div
+        <!-- <div
           :class="{ 'p-modal-show_error': showErrorValidationAddress }"
           class="w-100 p-modal-address"
         >
@@ -72,7 +76,40 @@
             class="p-modal-address-input p-input-style__default "
           />
           <span class="pass__alert ">{{ errorValidationNumberAddress }}</span>
-        </div>
+        </div> -->
+
+        <text-input
+          class="address__custome--post"
+          state="standard"
+          maxlength="65"
+          function-max-len="equalTo"
+          placeholderText=""
+          :msgError="{
+            notValidMsg: 'مجاز نیست',
+            notValidNumber: 'بیش از حد مجاز',
+          }"
+          :check-email="false"
+          :check-number="false"
+          :active-check-phone-number="false"
+          :check-code="false"
+          :only-use-string="true"
+          :show-icon-clear-input="false"
+          :show-icon-eye-input="false"
+          :status-add-space-number="false"
+          :check-initial-validation="0"
+          :check-empty-submit="true"
+          :check-required="false"
+          :use-timer="false"
+          :show-icon-star="false"
+          :form-data="formData"
+          accessStyleParentInToChildNameId="address__form--data"
+          tag-html="input"
+          timer-start="0:10"
+          type-input="text"
+          name-input="codeRequired2"
+          label-text="نشانی پستی دقیق :"
+        >
+        </text-input>
 
         <div class="w-100 p-modal-content-items flex-wrap">
           <div
@@ -114,7 +151,8 @@
               {{ getTextByTextKey("address_validation_select_city") }}
             </span>
           </div>
-          <div
+
+          <!-- <div
             :class="{ 'p-modal-show_error': showErrorValidationCodePoste }"
             class="p-modal-wrapper-item p-margin-left-0"
           >
@@ -136,8 +174,42 @@
               class="p-modal-item-input p-input-style__default"
             />
             <span class="pass__alert ">{{ validationCodePosteMsg }}</span>
-          </div>
-          <div
+          </div> -->
+
+          <text-input
+            class="input--mine p-margin-left-0"
+            state="standard"
+            maxlength="10"
+            function-max-len="equalTo"
+            placeholderText=""
+            :msgError="{
+              notValidMsg: 'مجاز نیست',
+              notValidNumber: 'بیش از حد مجاز',
+            }"
+            :check-email="false"
+            :check-number="true"
+            :active-check-phone-number="false"
+            :check-code="false"
+            :only-use-string="false"
+            :show-icon-clear-input="false"
+            :show-icon-eye-input="false"
+            :status-add-space-number="false"
+            :check-initial-validation="0"
+            :check-empty-submit="false"
+            :check-required="false"
+            :use-timer="false"
+            :show-icon-star="false"
+            :form-data="formData"
+            accessStyleParentInToChildNameId="address__form--data"
+            tag-html="input"
+            timer-start="0:10"
+            type-input="text"
+            name-input="codePoste"
+            label-text="کد پستی (اختیاری):"
+          >
+          </text-input>
+
+          <!-- <div
             :class="{ 'p-modal-show_error': showErrorValidationNameReceiver }"
             class="p-modal-wrapper-item "
           >
@@ -152,10 +224,42 @@
               class="p-modal-item-input p-input-style__default"
             />
             <span class="pass__alert ">{{ validationNameReceiverMsg }}</span>
-            <!-- <span class="pass__alert  p-modal-validation-mobile">اشتباه است</span> -->
-          </div>
+          </div> -->
 
-          <div
+          <text-input
+            class="input--mine"
+            state="standard"
+            maxlength="34"
+            function-max-len="equalTo"
+            placeholderText=""
+            :msgError="{
+              notValidMsg: 'مجاز نیست',
+              notValidNumber: 'بیش از حد مجاز',
+            }"
+            :check-email="false"
+            :check-number="false"
+            :active-check-phone-number="false"
+            :check-code="false"
+            :only-use-string="true"
+            :show-icon-clear-input="false"
+            :show-icon-eye-input="false"
+            :status-add-space-number="false"
+            :check-initial-validation="0"
+            :check-empty-submit="false"
+            :check-required="false"
+            :use-timer="false"
+            :show-icon-star="false"
+            :form-data="formData"
+            accessStyleParentInToChildNameId="address__form--data"
+            tag-html="input"
+            timer-start="0:10"
+            type-input="text"
+            name-input="reserveName"
+            label-text="نام گیرنده:"
+          >
+          </text-input>
+
+          <!-- <div
             :class="{ 'p-modal-show_error': showErrorValidationNumberReceiver }"
             class="p-modal-wrapper-item"
           >
@@ -172,8 +276,40 @@
             <span class="pass__alert ">{{
               errorValidationNumberReceiverMsg
             }}</span>
-            <!-- <span class="pass__alert  p-modal-validation-mobile">اشتباه است</span> -->
-          </div>
+          </div> -->
+
+          <text-input
+            class="input--mine"
+            state="standard"
+            maxlength="11"
+            function-max-len="greaterThan"
+            placeholderText=""
+            :msgError="{
+              notValidMsg: 'مجاز نیست',
+              notValidNumber: 'بیش از حد مجاز',
+            }"
+            :check-email="false"
+            :check-number="true"
+            :active-check-phone-number="true"
+            :check-code="false"
+            :only-use-string="false"
+            :show-icon-clear-input="true"
+            :show-icon-eye-input="false"
+            :status-add-space-number="false"
+            :check-initial-validation="0"
+            :check-empty-submit="false"
+            :check-required="false"
+            :use-timer="false"
+            :show-icon-star="false"
+            :form-data="formData"
+            accessStyleParentInToChildNameId="address__form--data"
+            tag-html="input"
+            timer-start="0:10"
+            type-input="text"
+            name-input="reservePhoneNumber"
+            label-text="شماره گیرنده:"
+          >
+          </text-input>
         </div>
       </div>
 
@@ -205,6 +341,7 @@
 import customeDropDown from "../../../modules/customeDropDown.vue";
 import "../../../assets/styles/_adresses.scss";
 import { getTextByTextKey } from "~/modules/splitPartJsonResource.js";
+import textInput from "~/modules/textInput";
 
 export default {
   props: {
@@ -216,6 +353,7 @@ export default {
   },
   components: {
     customeDropDown,
+    textInput,
   },
   data() {
     return {
@@ -535,6 +673,39 @@ export default {
   },
 };
 </script>
+<style>
+#address__form--data .form__textara-item {
+  height: 52px;
+}
+#address__form--data .txt-content {
+  margin-bottom: 16px;
+  padding-right: 7px;
+}
+#address__form--data .search-section {
+  width: 100%;
+}
+#address__form--data .search-section__items {
+  border: 1px solid $input-border;
+  box-shadow: 0px 4px 4px $gray-border;
+  border-radius: 15px;
+  height: 52px;
+}
+#address__form--data .search-section__input {
+  padding-right: 10px;
+  padding-left: 10px;
+}
+#address__form--data .search__section--error {
+  margin-bottom: 25px;
+}
+#address__form--data.input--mine {
+  width: 175px;
+  margin-left: 37px;
+  margin-bottom: 11px;
+}
+#address__form--data.p-margin-left-0 {
+  margin-left: 0;
+}
+</style>
 <style lang="scss" scoped>
 .p-modal-header-icon {
   @include display-flex();
@@ -760,6 +931,10 @@ export default {
   font-size: 28px;
   color: $gray;
   cursor: pointer;
+}
+.form__modal--address .card-body .form-group {
+  height: 95px;
+  background: red;
 }
 
 @media (max-width: 960px) {

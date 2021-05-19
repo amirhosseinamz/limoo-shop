@@ -1,5 +1,5 @@
 <template>
-  <div class="search-section">
+  <div :id="accessStyleParentInToChildNameId" class="search-section w-100">
     <div v-if="state == 'search'" class="search-section__items">
       <input
         class="search-section__input"
@@ -11,7 +11,11 @@
       <button class="search-section__btn"></button>
     </div>
 
-    <div :class="{ 'show--error': showError }" v-if="state == 'standard'">
+    <div
+      class="w-100"
+      :class="{ 'show--error': showError }"
+      v-if="state == 'standard'"
+    >
       <h3 class="txt-content">
         {{ labelText }}
       </h3>
@@ -32,7 +36,7 @@
       </div>
     </div>
 
-    <div class="card-body d-rtl">
+    <div v-else class="card-body d-rtl">
       <div class="form-group">
         <!-- <p class="txt-header">
           {{ getTextByTextKey("auth_change_password") }}
@@ -170,6 +174,7 @@ export default {
     timerStart: { type: String, default: "" },
     tagHtml: { type: String, default: "input" },
     showIconStar: { type: Boolean, default: false },
+    accessStyleParentInToChildNameId: { type: String, default: "" },
   },
 
   data() {
@@ -466,7 +471,7 @@ export default {
     display: flex;
     justify-content: flex-end;
     flex-direction: row;
-    width: 492px;
+    width: 100%;
     flex-wrap: wrap;
   }
   &__input {
@@ -521,7 +526,7 @@ export default {
   visibility: visible;
 }
 .show--error .search-section__items {
-  border-color: $red;
+  border-color: $red !important;
 }
 
 .card-body {
