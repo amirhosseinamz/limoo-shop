@@ -36,7 +36,9 @@
             v-model="currentValue"
           />
         </div>
-        <span class="search__section--error ">{{ msgError.notValidMsg }}</span>
+        <span class="search__section--error pass__alert ">{{
+          msgError.notValidMsg
+        }}</span>
       </div>
     </div>
 

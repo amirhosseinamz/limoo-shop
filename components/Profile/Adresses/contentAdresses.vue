@@ -5,7 +5,7 @@
   >
     <transition moda="in-out">
       <div id="overlay" v-if="passChangeIsActive">
-        <add-address-modal
+        <addAddressModal
           :all-province="allProvince"
           :all-citys="allCitys"
           :form-data-original="formData"
@@ -163,7 +163,7 @@
 </template>
 
 <script>
-import addAddressModal from "./addAddressModal.vue";
+import addAddressModal from "~/components/Profile/Adresses/addAddressModal.vue";
 import { getTextByTextKey } from "~/modules/splitPartJsonResource.js";
 
 export default {
@@ -174,12 +174,6 @@ export default {
     formData: { type: [Object, Array], default: {} },
     profilePhoneNumber: { type: [Number, String], default: "" },
   },
-  components: {
-    addAddressModal,
-  },
-  created() {
-    this.userAddress = Object.values(this.adressData).length;
-  },
   data() {
     return {
       passChangeIsActive: false,
@@ -188,9 +182,15 @@ export default {
     };
   },
 
-  components: {},
+  components: {
+    addAddressModal,
+  },
 
   computed: {},
+
+  created() {
+    this.userAddress = Object.values(this.adressData).length;
+  },
 
   methods: {
     getTextByTextKey,
