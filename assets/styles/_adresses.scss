@@ -40,6 +40,7 @@
 #address__form--data .search-section__input {
   padding-right: 10px;
   padding-left: 10px;
+  color: $gray;
 }
 #address__form--data .search__section--error {
   margin-bottom: 0;
@@ -279,6 +280,9 @@
 
 @media (max-width: 960px) {
   #address__form--data {
+    .search-section__input {
+      font-size: 12px;
+    }
     .modal-animation__open {
       animation: modalOpen 600ms linear;
     }

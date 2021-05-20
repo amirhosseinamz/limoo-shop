@@ -98,7 +98,7 @@
           :show-icon-clear-input="false"
           :show-icon-eye-input="false"
           :status-add-space-number="false"
-          :check-initial-validation="0"
+          :check-initial-validation="checkInitialValidation"
           :check-empty-submit="true"
           :check-required="false"
           :use-timer="false"
@@ -198,7 +198,7 @@
             :show-icon-clear-input="false"
             :show-icon-eye-input="false"
             :status-add-space-number="false"
-            :check-initial-validation="0"
+            :check-initial-validation="checkInitialValidation"
             :check-empty-submit="false"
             :check-required="false"
             :use-timer="false"
@@ -250,9 +250,9 @@
             :show-icon-clear-input="false"
             :show-icon-eye-input="false"
             :status-add-space-number="false"
-            :check-initial-validation="0"
-            :check-empty-submit="false"
-            :check-required="false"
+            :check-initial-validation="checkInitialValidation"
+            :check-empty-submit="true"
+            :check-required="true"
             :use-timer="false"
             :show-icon-star="false"
             :form-data="formData"
@@ -304,9 +304,9 @@
             :show-icon-clear-input="true"
             :show-icon-eye-input="false"
             :status-add-space-number="false"
-            :check-initial-validation="0"
-            :check-empty-submit="false"
-            :check-required="false"
+            :check-initial-validation="checkInitialValidation"
+            :check-empty-submit="true"
+            :check-required="true"
             :use-timer="false"
             :show-icon-star="false"
             :form-data="formData"
@@ -382,6 +382,7 @@ export default {
       validationNameReceiverMsg: "معتبر نیست",
       validationCodePosteMsg: "معتبر نیست",
       errorValidationNumberAddress: "عدد مجاز است",
+      checkInitialValidation: 0,
     };
   },
 
@@ -390,25 +391,23 @@ export default {
   },
 
   created() {
-    // پس از کلیک روی ویرایش آدرس کاندیشن زیر اجرا می شود //
-    if (typeof this.dataEditAddress.id != "undefined") {
-      for (let key in this.dataEditAddress) {
-        this.formData[key] = this.dataEditAddress[key];
-      }
-
-      this.initialValueProvince = this.formData.province;
-      this.initialValueCity = this.formData.city;
-    } else {
-      const formDataOriginal = this.formDataOriginal;
-      for (let key in formDataOriginal) {
-        this.formData[key] = formDataOriginal[key];
-      }
-    }
-
-    // پس از اتصال به بک اند بعد از گرفتن پروفایل قسمت مورد آپدیت شود //
-    this.formData.numberReceiver = this.profilePhoneNumber;
-
-    this.setDefaultValidationMsg();
+    console.log(this.test);
+    // // پس از کلیک روی ویرایش آدرس کاندیشن زیر اجرا می شود //
+    // if (typeof this.dataEditAddress.id != "undefined") {
+    //   for (let key in this.dataEditAddress) {
+    //     this.formData[key] = this.dataEditAddress[key];
+    //   }
+    //   this.initialValueProvince = this.formData.province;
+    //   this.initialValueCity = this.formData.city;
+    // } else {
+    //   const formDataOriginal = this.formDataOriginal;
+    //   for (let key in formDataOriginal) {
+    //     this.formData[key] = formDataOriginal[key];
+    //   }
+    // }
+    // // پس از اتصال به بک اند بعد از گرفتن پروفایل قسمت مورد آپدیت شود //
+    // this.formData.numberReceiver = this.profilePhoneNumber;
+    // this.setDefaultValidationMsg();
   },
 
   mounted() {},
@@ -657,12 +656,31 @@ export default {
     },
 
     submitAddressAdd() {
-      const checkVerifiSubmitForm = this.checkErrorForm();
+      // const checkVerifiSubmitForm = this.checkErrorForm();
+      // // در صورتی که اروی برای نمایش نباشد ارسال می شود //
+      // if (checkVerifiSubmitForm) {
+      //   this.$emit("submit-address-add", this.formData);
+      // }
 
-      // در صورتی که اروی برای نمایش نباشد ارسال می شود //
-      if (checkVerifiSubmitForm) {
-        this.$emit("submit-address-add", this.formData);
-      }
+      this.checkInitialValidation++;
+      // در صورت نداشت ارور فورم مورد نظر ارسال می شود //
+      setTimeout(() => {
+        const formData = this.formData;
+        let checkSubmitForm = "success";
+
+        // چک کردن ارور فورم //
+        for (let key in formData) {
+          if (formData[key].hasError) {
+            checkSubmitForm = "failed";
+          }
+        }
+
+        if (checkSubmitForm == "success") {
+          console.log("send request ");
+        }
+
+        console.log(formData, "formData");
+      });
     },
 
     selectedProvince(value, allData) {
