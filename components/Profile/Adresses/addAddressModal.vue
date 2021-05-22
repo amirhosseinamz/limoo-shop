@@ -709,13 +709,13 @@ export default {
   color: $black;
   text-align: right;
   padding-right: 7px;
+  line-height: 140.62%;
 }
 @mixin pass__alert_style() {
   margin-top: 4px;
   color: $alert-red;
   text-align: right;
   font-size: 14px;
-  line-height: 140.62%;
   @include display-flex();
   width: 100%;
   text-align: right;
@@ -850,7 +850,6 @@ export default {
     }
   }
 }
-
 .modal::v-deep {
   .pass__alert {
     @include pass__alert_style();
@@ -940,6 +939,11 @@ export default {
 }
 .p-modal-show_error .pass__alert {
   visibility: inherit;
+}
+.modal::v-deep {
+  .p-modal-show_error .pass__alert {
+    visibility: inherit;
+  }
 }
 .p-modal-show_error .p-modal-item-input {
   border: solid 1px $red !important;
@@ -1046,9 +1050,17 @@ export default {
       width: 91vw;
       margin-bottom: 47px;
     }
-    .pass__alert {
+    @mixin pass__alert() {
       font-size: 13px;
       padding-right: 7px;
+    }
+    .pass__alert {
+      @include pass__alert();
+    }
+    &::v-deep {
+      .pass__alert {
+        @include pass__alert();
+      }
     }
   }
   .clear-input > img {
@@ -1152,11 +1164,19 @@ export default {
     padding-right: 29px;
     padding-left: 29px;
   }
-  .p-modal-wrapper-item {
-    margin-bottom: 6px;
+  @mixin pass__alert() {
+    height: 20px;
   }
   .modal .pass__alert {
-    height: 20px;
+    @include pass__alert();
+  }
+  .modal::v-deep {
+    .pass__alert {
+      @include pass__alert();
+    }
+    .p-modal-wrapper-item {
+      margin-bottom: 0;
+    }
   }
   .splicer-line {
     margin-top: 16px;
@@ -1246,8 +1266,16 @@ export default {
   .splicer-line {
     margin-bottom: 17px;
   }
-  .modal .pass__alert {
+  @mixin pass__alert_style() {
     font-size: 11px;
+  }
+  .modal .pass__alert {
+    @include pass__alert_style();
+  }
+  .modal::v-deep {
+    .pass__alert {
+      @include pass__alert_style();
+    }
   }
 
   .splicer-line {
@@ -1299,8 +1327,16 @@ export default {
   .p-modal-wrapper-item {
     margin-bottom: 6px;
   }
-  .p-modal-wrapper-province_city-title {
+  @mixin p-modal-wrapper-province_city-title() {
     margin-bottom: 16px;
+  }
+  .p-modal-wrapper-province_city-title {
+    @include p-modal-wrapper-province_city-title();
+  }
+  .modal::v-deep {
+    .p-modal-wrapper-province_city-title {
+      @include p-modal-wrapper-province_city-title();
+    }
   }
 }
 </style>

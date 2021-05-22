@@ -512,7 +512,7 @@ export default {
   color: $alert-red;
   text-align: right;
   font-size: 14px;
-  line-height: 140.62%;
+  // line-height: 140.62%;
   @include display-flex();
   width: 100%;
   text-align: right;
