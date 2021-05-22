@@ -122,12 +122,12 @@ export default {
         province: "",
         city: "",
         codePoste: "",
-        nameReceiver: "",
+        nameReceiver: " ",
         numberReceiver: "",
         address: "",
       },
       updateAddress: 0,
-      profilePhoneNumber: "09198814783",
+      profilePhoneNumber: "",
     };
   },
 

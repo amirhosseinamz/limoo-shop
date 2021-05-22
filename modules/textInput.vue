@@ -183,6 +183,7 @@ export default {
     accessStyleParentInToChildNameId: { type: String, default: "" },
     inputNameClass: { type: String, default: "" },
     labelNameClass: { type: String, default: "" },
+    checkTypingSubmit: { type: Boolean, default: false },
   },
 
   data() {
@@ -204,6 +205,7 @@ export default {
 
   created() {
     this.hidenShowEyeIcon = this.showIconEyeInput;
+    const currentValue = this.formData[this.nameInput];
 
     // در صورتی که اجازه نمایش آیکن چشم داده نشده باشد  ، آیکن چشم نمایش داده نمی شود //
     if (!this.showIconEyeInput) {
@@ -215,6 +217,8 @@ export default {
       const splitTimerStart = this.timerStart.split(":");
       this.countDownTimer(splitTimerStart[0], splitTimerStart[1]);
     }
+
+    this.currentValue = currentValue;
   },
 
   watch: {
@@ -337,16 +341,29 @@ export default {
           const chekNumber = this.isNumber(currentInputValue);
 
           if (stateCheckForm == "submit") {
-            if (this.checkRequired) {
-              if (!chekNumber) {
-                this.showError = true;
+            // هنگامی که مقدار سابمت شد مقدار مورد نظر بررسی می شود //
+            if (this.checkTypingSubmit) {
+              if (currentInputValue != "") {
+                if (currentInputValue.length < maxlength) {
+                  this.showError = true;
+                }
+              }
+            } else {
+              if (this.checkRequired) {
+                if (!chekNumber) {
+                  this.showError = true;
+                }
               }
             }
           }
 
           if (stateCheckForm == "typeing") {
-            if (!chekNumber) {
-              this.showError = true;
+            // در صورتی که تایپینگ فعال باشد  مقدار مورد نظر هنگام تایپ بررسی می شود //
+            if (this.checkTypingSubmit) {
+            } else {
+              if (!chekNumber) {
+                this.showError = true;
+              }
             }
           }
         }

@@ -108,7 +108,7 @@
           tag-html="input"
           timer-start="0:10"
           type-input="text"
-          name-input="codeRequired2"
+          name-input="address"
           label-text="نشانی پستی دقیق :"
         >
         </text-input>
@@ -184,7 +184,7 @@
             inputNameClass=""
             state="standard"
             maxlength="10"
-            function-max-len="equalTo"
+            function-max-len="greaterThan"
             placeholderText=""
             :msgError="{
               notValidMsg: 'مجاز نیست',
@@ -201,12 +201,13 @@
             :check-initial-validation="checkInitialValidation"
             :check-empty-submit="false"
             :check-required="false"
+            :check-typing-submit="true"
             :use-timer="false"
             :show-icon-star="false"
             :form-data="formData"
             accessStyleParentInToChildNameId="address__form--data"
             tag-html="input"
-            timer-start="0:10"
+            timer-start=""
             type-input="text"
             name-input="codePoste"
             label-text="کد پستی (اختیاری):"
@@ -260,7 +261,7 @@
             tag-html="input"
             timer-start="0:10"
             type-input="text"
-            name-input="reserveName"
+            name-input="nameReceiver"
             label-text="نام گیرنده:"
           >
           </text-input>
@@ -314,7 +315,7 @@
             tag-html="input"
             timer-start="0:10"
             type-input="text"
-            name-input="reservePhoneNumber"
+            name-input="numberReceiver"
             label-text="شماره گیرنده:"
           >
           </text-input>
@@ -391,23 +392,23 @@ export default {
   },
 
   created() {
-    console.log(this.test);
-    // // پس از کلیک روی ویرایش آدرس کاندیشن زیر اجرا می شود //
-    // if (typeof this.dataEditAddress.id != "undefined") {
-    //   for (let key in this.dataEditAddress) {
-    //     this.formData[key] = this.dataEditAddress[key];
-    //   }
-    //   this.initialValueProvince = this.formData.province;
-    //   this.initialValueCity = this.formData.city;
-    // } else {
-    //   const formDataOriginal = this.formDataOriginal;
-    //   for (let key in formDataOriginal) {
-    //     this.formData[key] = formDataOriginal[key];
-    //   }
-    // }
+    console.log(this.formData, "formData");
+    // پس از کلیک روی ویرایش آدرس کاندیشن زیر اجرا می شود //
+    if (typeof this.dataEditAddress.id != "undefined") {
+      for (let key in this.dataEditAddress) {
+        this.formData[key] = this.dataEditAddress[key];
+      }
+      this.initialValueProvince = this.formData.province;
+      this.initialValueCity = this.formData.city;
+    } else {
+      const formDataOriginal = this.formDataOriginal;
+      for (let key in formDataOriginal) {
+        this.formData[key] = formDataOriginal[key];
+      }
+    }
     // // پس از اتصال به بک اند بعد از گرفتن پروفایل قسمت مورد آپدیت شود //
     // this.formData.numberReceiver = this.profilePhoneNumber;
-    // this.setDefaultValidationMsg();
+    this.setDefaultValidationMsg();
   },
 
   mounted() {},
@@ -428,137 +429,6 @@ export default {
       this.validationNameReceiverMsg = this.notValidMsg;
       this.validationCodePosteMsg = this.notValidMsg;
       this.errorValidationNumberAddress = this.onlyUseNumberMsg;
-    },
-
-    isEmailAddress(str) {
-      var pattern = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-      return pattern.test(str); // returns a boolean
-    },
-
-    isNotEmpty(str) {
-      var pattern = /\S+/;
-      return pattern.test(str); // returns a boolean
-    },
-
-    isNumber(str) {
-      var pattern = /^\d+$/;
-      return pattern.test(str); // returns a boolean
-    },
-
-    isSame(str1, str2) {
-      return str1 === str2;
-    },
-
-    updateCodePoste(e, submitValue) {
-      const value = e.target.value;
-
-      // در صورت خالی نبودن اجرا می شود //
-      if (this.isNotEmpty(value)) {
-        // در صورتی که مقدار نوشته شده عدد بود اجرا می شود //
-        if (this.isNumber(value)) {
-          if (value.length == 11) {
-            this.showErrorValidationCodePoste = true;
-            this.validationCodePosteMsg = this.overLimitMsg;
-          } else {
-            this.validationCodePosteMsg = this.notValidMsg;
-            this.showErrorValidationCodePoste = false;
-          }
-        } else {
-          this.validationCodePosteMsg = this.notValidMsg;
-          this.showErrorValidationCodePoste = true;
-        }
-      } else {
-        this.showErrorValidationCodePoste = false;
-      }
-    },
-
-    checkHasString(value) {
-      let num = value;
-      let digits = num.toString().split("");
-      let realDigits = digits.map(Number);
-      let checkStringNumberStatus = false;
-      let counterCheckLenNumber = -1;
-      let inValid = /\s/;
-
-      realDigits.map((t, i) => {
-        if (isNaN(t)) {
-          counterCheckLenNumber++;
-        }
-      });
-
-      if (realDigits.length - 1 == counterCheckLenNumber) {
-        checkStringNumberStatus = true;
-      }
-
-      // در صورتی که کاربر مقدار نوشته شده اش فاصله داشته باشد اجرا می شود //
-      if (inValid.test(value)) {
-        checkStringNumberStatus = true;
-      }
-
-      return checkStringNumberStatus;
-    },
-
-    updateNameReceiver(e, submitValue) {
-      const value = e.target.value;
-
-      // در صورت خالی نبودن اجرا می شود //
-      if (this.isNotEmpty(value)) {
-        // فقط باید مقدار مورد نظر حروف باشد که اجرا شود //
-        if (this.checkHasString(value)) {
-          this.showErrorValidationNameReceiver = false;
-          if (value.length == 35) {
-            this.validationNameReceiverMsg = this.overLimitMsg;
-            this.showErrorValidationNameReceiver = true;
-          }
-        } else {
-          this.validationNameReceiverMsg = this.notValidMsg;
-          this.showErrorValidationNameReceiver = true;
-        }
-      } else {
-        this.showErrorValidationNameReceiver = false;
-      }
-    },
-
-    UpdateNumberReceiver(e, submitValue) {
-      const value = e.target.value;
-
-      if (this.isNotEmpty(value)) {
-        if (this.isNumber(value)) {
-          if (value.length == 12) {
-            this.errorValidationNumberReceiverMsg = this.overLimitMsg;
-            this.showErrorValidationNumberReceiver = true;
-          } else {
-            this.showErrorValidationNumberReceiver = false;
-          }
-
-          // if (value.length < 11) {
-          //   this.errorValidationNumberReceiverMsg = 'بیش از حد مجاز';
-          //   this.showErrorValidationNumberReceiver  = true;
-          // }
-        } else {
-          this.errorValidationNumberReceiverMsg = this.notValidMsg;
-          this.showErrorValidationNumberReceiver = true;
-        }
-      } else {
-        this.showErrorValidationNumberReceiver = false;
-      }
-    },
-
-    updateAddress(e, submitValue) {
-      const value = e.target.value;
-
-      if (value != "") {
-        if (this.isNotEmpty(value)) {
-          this.showErrorValidationAddress = false;
-        }
-
-        if (value.length == 65) {
-          this.showErrorValidationAddress = true;
-          this.errorValidationNumberAddress = this.overLimitMsg;
-        }
-      } else {
-        this.showErrorValidationAddress = false;
-      }
     },
 
     closeModalMobile() {
@@ -588,98 +458,40 @@ export default {
       }
     },
 
-    checkErrorForm() {
-      let checkVerifiSubmitForm = true;
-
-      const checkEmptyForm = () => {
-        if (this.formData.address == "") {
-          this.showErrorValidationAddress = true;
-          this.errorValidationNumberAddress = this.notValidMsg;
-        }
-
-        // if (this.formData.nameReceiver.length != 11) {
-        //   this.validationNameReceiverMsg       = 'اشتباه است';
-        //   this.showErrorValidationNameReceiver = true;
-        // }
-
-        if (this.formData.nameReceiver == "") {
-          this.showErrorValidationNameReceiver = true;
-          this.validationNameReceiverMsg = this.notValidMsg;
-        }
-
-        if (this.formData.numberReceiver == "") {
-          this.showErrorValidationNumberReceiver = true;
-          this.errorValidationNumberReceiverMsg = this.notValidMsg;
-        }
-
-        if (this.formData.numberReceiver.length != 11) {
-          this.showErrorValidationNumberReceiver = true;
-          this.errorValidationNumberReceiverMsg = this.notValidMsg;
-        }
-
-        if (this.formData.numberReceiver.length > 11) {
-          this.showErrorValidationNumberReceiver = true;
-          this.errorValidationNumberReceiverMsg = this.overLimitMsg;
-        }
-
-        if (this.formData.codePoste != "") {
-          if (this.formData.codePoste.length != 10) {
-            this.showErrorValidationCodePoste = true;
-            this.validationCodePosteMsg = this.notValidMsg;
-          }
-        }
-
-        if (this.formData.codePoste.length == 11) {
-          this.showErrorValidationCodePoste = true;
-          this.validationCodePosteMsg = this.overLimitMsg;
-        }
-
-        this.checkShowErrorCityProvince();
-        // this.updateNameReceiver('',this.formData.nameReceiver);
-      };
-
-      checkEmptyForm();
-
-      // در صورت داشتن ارور اجرا می شود //
-      if (
-        this.showErrorValidationAddress ||
-        this.showErrorValidationNumberReceiver ||
-        this.showErrorValidationNameReceiver ||
-        this.showErrorValidationCodePoste ||
-        this.showErrorValidationCity ||
-        this.showErrorValidationProvince
-      ) {
-        checkVerifiSubmitForm = false;
-      }
-
-      return checkVerifiSubmitForm;
-    },
-
     submitAddressAdd() {
-      // const checkVerifiSubmitForm = this.checkErrorForm();
-      // // در صورتی که اروی برای نمایش نباشد ارسال می شود //
-      // if (checkVerifiSubmitForm) {
-      //   this.$emit("submit-address-add", this.formData);
-      // }
-
       this.checkInitialValidation++;
       // در صورت نداشت ارور فورم مورد نظر ارسال می شود //
       setTimeout(() => {
         const formData = this.formData;
         let checkSubmitForm = "success";
 
+        // check has error city and province //
+        this.checkShowErrorCityProvince();
+
         // چک کردن ارور فورم //
         for (let key in formData) {
+          const value = formData[key].value;
+
           if (formData[key].hasError) {
+            checkSubmitForm = "failed";
+          }
+
+          if (typeof value !== "undefined") {
+            formData[key] = value;
+          }
+
+          // has error city & province run condition //
+          if (
+            this.showErrorValidationCity ||
+            this.showErrorValidationProvince
+          ) {
             checkSubmitForm = "failed";
           }
         }
 
-        if (checkSubmitForm == "success") {
-          console.log("send request ");
+        if (checkSubmitForm === "success") {
+          this.$emit("submit-address-add", this.formData);
         }
-
-        console.log(formData, "formData");
       });
     },
 
