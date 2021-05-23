@@ -210,7 +210,7 @@
             timer-start=""
             type-input="text"
             name-input="codePoste"
-            label-text="کد پستی (اختیاری):"
+            :label-text="textLabelCodePoste"
           >
           </text-input>
 
@@ -373,17 +373,10 @@ export default {
       formData: {},
       initialValueProvince: "",
       initialValueCity: "",
-      showErrorValidationAddress: false,
-      showErrorValidationNumberReceiver: false,
-      showErrorValidationNameReceiver: false,
-      showErrorValidationCodePoste: false,
       showErrorValidationCity: false,
       showErrorValidationProvince: false,
-      errorValidationNumberReceiverMsg: "عدد مجاز است",
-      validationNameReceiverMsg: "معتبر نیست",
-      validationCodePosteMsg: "معتبر نیست",
-      errorValidationNumberAddress: "عدد مجاز است",
       checkInitialValidation: 0,
+      textLabelCodePoste: "کد پستی (اختیاری):",
     };
   },
 
@@ -392,7 +385,7 @@ export default {
   },
 
   created() {
-    console.log(this.formData, "formData");
+    const width = window.innerWidth;
     // پس از کلیک روی ویرایش آدرس کاندیشن زیر اجرا می شود //
     if (typeof this.dataEditAddress.id != "undefined") {
       for (let key in this.dataEditAddress) {
@@ -406,9 +399,15 @@ export default {
         this.formData[key] = formDataOriginal[key];
       }
     }
+
+    if (485 >= width) {
+      this.textLabelCodePoste = "کد پستی";
+    }
+
     // // پس از اتصال به بک اند بعد از گرفتن پروفایل قسمت مورد آپدیت شود //
     // this.formData.numberReceiver = this.profilePhoneNumber;
     this.setDefaultValidationMsg();
+    this.detectedResizeBrowser();
   },
 
   mounted() {},
@@ -441,8 +440,6 @@ export default {
     closeModalDesktop() {
       this.$emit("close-modal");
     },
-
-    checkValidFormData() {},
 
     checkShowErrorCityProvince() {
       if (this.formData.province == "") {
@@ -507,6 +504,22 @@ export default {
       this.formData.selectedCityAllProperty = allData;
       this.showErrorValidationCity = false;
       this.$emit("selected-city", allData);
+    },
+
+    detectedResizeBrowser() {
+      window.addEventListener(
+        "resize",
+        () => {
+          const width = window.innerWidth;
+
+          if (485 >= width) {
+            this.textLabelCodePoste = "کد پستی";
+          } else {
+            this.textLabelCodePoste = "کد پستی (اختیاری):";
+          }
+        },
+        true
+      );
     },
   },
 };
@@ -1136,11 +1149,14 @@ export default {
     margin-top: 17px;
     margin-bottom: 0px;
   }
-  .p-modal-wrapper-item {
-    margin-bottom: 6px;
-  }
   @mixin p-modal-wrapper-province_city-title() {
     margin-bottom: 16px;
+  }
+  @mixin p-modal-wrapper-item() {
+    margin-bottom: 6px;
+  }
+  .p-modal-wrapper-item {
+    margin-bottom: 6px;
   }
   .p-modal-wrapper-province_city-title {
     @include p-modal-wrapper-province_city-title();
@@ -1148,6 +1164,9 @@ export default {
   .modal::v-deep {
     .p-modal-wrapper-province_city-title {
       @include p-modal-wrapper-province_city-title();
+    }
+    .p-modal-wrapper-item {
+      @include p-modal-wrapper-item();
     }
   }
 }
