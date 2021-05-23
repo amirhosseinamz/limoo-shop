@@ -1,5 +1,5 @@
 <template>
-  <div id="test" class="profile-container">
+  <div class="profile-container">
     <transition mode="in-out">
       <div id="overlay" v-if="passChangeIsActive">
         <The-profile-pass-modal />
@@ -34,7 +34,7 @@
           <div class="user-profile__container">
             <div class="user-profile__info" dir="rtl">
               <div class="user-profile__info-name">
-                <!-- <section>
+                <section>
                   <label for="name">
                     {{ getTextByTextKey("personal_info_name") }}
                   </label>
@@ -45,83 +45,8 @@
                       getTextByTextKey('personal_info_place_holder_name')
                     "
                   />
-                </section> -->
-
-                <text-input
-                  class="name"
-                  labelNameClass=""
-                  inputNameClass="w-100"
-                  idInput="name"
-                  state="authInput"
-                  maxlength="10"
-                  function-max-len="greaterThan"
-                  placeholderText=""
-                  :msgError="{
-                    notValidMsg: 'مجاز نیست',
-                    notValidNumber: 'بیش از حد مجاز',
-                  }"
-                  :check-email="false"
-                  :check-number="true"
-                  :active-check-phone-number="false"
-                  :check-code="false"
-                  :only-use-string="false"
-                  :show-icon-clear-input="false"
-                  :show-icon-eye-input="false"
-                  :status-add-space-number="false"
-                  :check-initial-validation="checkInitialValidation"
-                  :check-empty-submit="false"
-                  :check-required="false"
-                  :check-typing-submit="false"
-                  :use-timer="false"
-                  :show-icon-star="false"
-                  :form-data="formData"
-                  accessStyleParentInToChildNameId="address__form--data"
-                  tag-html="input"
-                  timer-start=""
-                  type-input="text"
-                  name-input="codePoste"
-                  label-text="نام"
-                >
-                </text-input>
-
-                <text-input
-                  class="family"
-                  labelNameClass=""
-                  inputNameClass="w-100"
-                  idInput="name"
-                  state="authInput"
-                  maxlength="10"
-                  function-max-len="greaterThan"
-                  placeholderText=""
-                  :msgError="{
-                    notValidMsg: 'مجاز نیست',
-                    notValidNumber: 'بیش از حد مجاز',
-                  }"
-                  :check-email="false"
-                  :check-number="true"
-                  :active-check-phone-number="false"
-                  :check-code="false"
-                  :only-use-string="false"
-                  :show-icon-clear-input="false"
-                  :show-icon-eye-input="false"
-                  :status-add-space-number="false"
-                  :check-initial-validation="checkInitialValidation"
-                  :check-empty-submit="false"
-                  :check-required="false"
-                  :check-typing-submit="false"
-                  :use-timer="false"
-                  :show-icon-star="false"
-                  :form-data="formData"
-                  accessStyleParentInToChildNameId="address__form--data"
-                  tag-html="input"
-                  timer-start=""
-                  type-input="text"
-                  name-input="codePoste"
-                  label-text="نام"
-                >
-                </text-input>
-
-                <!-- <section>
+                </section>
+                <section>
                   <label for="family">
                     {{ getTextByTextKey("personal_info_family") }}
                   </label>
@@ -132,7 +57,7 @@
                       getTextByTextKey('personal_info_place_holder_family')
                     "
                   />
-                </section> -->
+                </section>
               </div>
               <!--/// email section is ignored in version alpha ///-->
               <!-- <div class="user-profile__info-email">ایمیل</div> -->
@@ -161,8 +86,7 @@
                 </client-only>
                 <!-- <the-birthday /> -->
               </div>
-
-              <!-- <div class="user-profile__info-nationalcode">
+              <div class="user-profile__info-nationalcode">
                 <label for="nationalcode">
                   {{ getTextByTextKey("personal_info_code_national") }}
                 </label>
@@ -180,45 +104,9 @@
                 <span class="user-profile__alert" v-if="msg.nationalcode">{{
                   msg.nationalcode
                 }}</span>
-              </div> -->
 
-              <text-input
-                class="user--item"
-                labelNameClass=""
-                inputNameClass="w-100"
-                idInput="name"
-                state="authInput"
-                maxlength="10"
-                function-max-len="greaterThan"
-                placeholderText=""
-                :msgError="{
-                  notValidMsg: 'مجاز نیست',
-                  notValidNumber: 'بیش از حد مجاز',
-                }"
-                :check-email="false"
-                :check-number="true"
-                :active-check-phone-number="false"
-                :check-code="false"
-                :only-use-string="false"
-                :show-icon-clear-input="false"
-                :show-icon-eye-input="false"
-                :status-add-space-number="false"
-                :check-initial-validation="checkInitialValidation"
-                :check-empty-submit="false"
-                :check-required="false"
-                :check-typing-submit="false"
-                :use-timer="false"
-                :show-icon-star="false"
-                :form-data="formData"
-                accessStyleParentInToChildNameId="address__form--data"
-                tag-html="input"
-                timer-start=""
-                type-input="text"
-                name-input="codePoste"
-                label-text="کد ملی:"
-              >
-              </text-input>
-
+                <!-- کد ملی وارد شده صحیح نیست! -->
+              </div>
               <div class="user-profile__info-pass">
                 <label for="pass">
                   {{ getTextByTextKey("personal_info_password") }}
@@ -295,8 +183,6 @@ export default {
       // later we get it from store (in talk with back-end)
       phoneNumber: "09120121023",
       selectedDate: "",
-      checkInitialValidation: 0,
-      formData: {},
     };
   },
   watch: {
@@ -343,11 +229,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.search-section__items::v-deep {
-  background: red !important;
-  color: red;
-}
-
 #overlay {
   position: fixed; /* Sit on top of the page content */
   @include display-flex();
@@ -558,6 +439,12 @@ export default {
       /*background: $alert-red__bg;
             color: $alert-red;  */
     }
+    #name {
+      width: 157px;
+    }
+    #family {
+      width: 208px;
+    }
     /* &-email,
         &-birthday,
         &-pass {
@@ -587,35 +474,6 @@ export default {
     border: none;
   }
 }
-#name {
-  width: 157px;
-}
-#family {
-  width: 208px;
-}
-.user--item {
-  width: 390px;
-}
-.user-profile__container::v-deep {
-  .txt-content {
-    margin-bottom: 16px;
-    line-height: 140.62%;
-  }
-  .input-holder {
-    box-shadow: 0px 4px 4px #f2f2f2;
-    height: 52px;
-    background: $white;
-    border-radius: 15px;
-  }
-}
-
-.name::v-deep {
-  width: 157px;
-}
-.family::v-deep {
-  width: 208px;
-}
-
 .splicer-line {
   display: none;
 }

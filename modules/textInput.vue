@@ -34,6 +34,7 @@
             dir="rtl"
             :maxlength="maxlength"
             v-model="currentValue"
+            :id="idInput"
           />
         </div>
         <span class="search__section--error pass__alert ">{{
@@ -59,8 +60,18 @@
             class="form__main--item"
           >
             <div class="input-holder" v-if="tagHtml == 'input'">
-              <input
+              <!-- <input
                 :class="{ 'add--space': statusAddSpaceNumber }"
+                class="signup-input form-control"
+                :maxlength="maxlength"
+                @keyup="typingInput"
+                :type="openEye ? 'password' : 'text'"
+                v-model="currentValue"
+                required
+              /> -->
+
+              <input
+                :class="inputNameClass"
                 class="signup-input form-control"
                 :maxlength="maxlength"
                 @keyup="typingInput"
@@ -184,6 +195,7 @@ export default {
     inputNameClass: { type: String, default: "" },
     labelNameClass: { type: String, default: "" },
     checkTypingSubmit: { type: Boolean, default: false },
+    idInput: { type: String, default: "" },
   },
 
   data() {
