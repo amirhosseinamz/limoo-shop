@@ -602,13 +602,17 @@ export default {
     line-height: 140.62%;
   }
   .input-holder {
-    box-shadow: 0px 4px 4px #f2f2f2;
+    box-shadow: 0px 4px 4px $flash_white;
     height: 52px;
     background: $white;
     border-radius: 15px;
   }
   .form__item--error {
     margin-bottom: 0;
+  }
+  .signup-input {
+    color: $gray;
+    font-size: 16px;
   }
 }
 
@@ -915,6 +919,9 @@ export default {
     }
     .family {
       width: 135px;
+    }
+    .signup-input {
+      padding: 13px;
     }
   }
 }
