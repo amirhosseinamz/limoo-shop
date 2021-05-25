@@ -649,14 +649,28 @@ export default {
     height: 52px;
     background: $white;
     border-radius: 15px;
+    margin-bottom: 4px;
   }
   .form__item--error {
     margin-bottom: 0;
+    font-size: 14px;
   }
   .signup-input {
     color: $gray;
     font-size: 16px;
     padding: 16px;
+  }
+
+  .form__item--error {
+    display: none;
+    width: 100%;
+    justify-content: flex-end;
+  }
+  .show--error .form__item--error {
+    display: flex;
+  }
+  .card-body {
+    height: 100%;
   }
 }
 
@@ -666,10 +680,10 @@ export default {
 .family::v-deep {
   width: 208px;
 }
-
 .splicer-line {
   display: none;
 }
+
 @media (max-width: 1450px) {
   .user-profile {
     &__info {
