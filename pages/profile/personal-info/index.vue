@@ -183,7 +183,7 @@
               </div> -->
 
               <text-input
-                class="user--item"
+                class="user--item user-profile__info-nationalcode"
                 labelNameClass=""
                 inputNameClass="w-100"
                 idInput="name"
@@ -607,6 +607,9 @@ export default {
     background: $white;
     border-radius: 15px;
   }
+  .form__item--error {
+    margin-bottom: 0;
+  }
 }
 
 .name::v-deep {
@@ -634,11 +637,23 @@ export default {
     &__container {
       padding: 0 50px;
     }
-    #name {
+    @mixin name {
       width: 137px;
     }
-    #family {
+    @mixin family {
       width: 178px;
+    }
+    #name {
+      @include name;
+    }
+    #family {
+      @include family;
+    }
+    .name::v-deep {
+      @include name;
+    }
+    .family::v-deep {
+      @include family;
     }
   }
 }
@@ -795,6 +810,35 @@ export default {
     border: none;
     border-top: 1px solid $gray-border;
   }
+
+  .user-profile__container::v-deep {
+    .txt-content {
+      font-size: 14px;
+    }
+    .input-holder {
+      height: 46px;
+    }
+    .name {
+      width: 208px;
+    }
+    .family {
+      width: 277px;
+    }
+    .signup-input {
+      padding: 14px 16px;
+      font-size: 13px;
+    }
+  }
+
+  // #name,
+  // #family,
+  // &-nationalcode > input,
+  // &-pass > input,
+  // &-phone > input {
+  //   font-size: 13px;
+  //   height: 46px;
+  //   padding: 14px 16px;
+  // }
 }
 @media (max-width: 600px) {
   .user-profile__holder {
@@ -825,6 +869,15 @@ export default {
       width: 220px;
     }
   }
+
+  .user-profile__container::v-deep {
+    .name {
+      width: 170px;
+    }
+    .family {
+      width: 220px;
+    }
+  }
 }
 @media (max-width: 530px) {
   .user-profile {
@@ -832,6 +885,14 @@ export default {
       width: 120px;
     }
     #family {
+      width: 142px;
+    }
+  }
+  .user-profile__container::v-deep {
+    .name {
+      width: 120px;
+    }
+    .family {
       width: 142px;
     }
   }
@@ -847,6 +908,15 @@ export default {
       padding: 13px;
     }
   }
+
+  .user-profile__container::v-deep {
+    .name {
+      width: 110px;
+    }
+    .family {
+      width: 135px;
+    }
+  }
 }
 @media (max-width: 280px) {
   .user-profile {
@@ -857,6 +927,14 @@ export default {
     #family {
       width: 110px;
       padding: 10px;
+    }
+  }
+  .user-profile__container::v-deep {
+    .name {
+      width: 105px;
+    }
+    .family {
+      width: 110px;
     }
   }
 }
