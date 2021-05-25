@@ -56,7 +56,10 @@
 
           <div
             :key="clearInput"
-            :class="{ 'show--error': showError }"
+            :class="{
+              'show--error': showError,
+              'disabled--input': disabledInputDefault,
+            }"
             class="form__main--item"
           >
             <div class="input-holder" v-if="tagHtml == 'input'">
@@ -76,6 +79,7 @@
                 :maxlength="maxlength"
                 @keyup="typingInput"
                 :type="openEye ? 'password' : 'text'"
+                :disabled="disabledInputDefault"
                 v-model="currentValue"
                 required
               />
@@ -151,9 +155,11 @@
               </p>
             </div>
 
-            <p v-else class="w-100 form__item--error ">
-              {{ msgError.notValidMsg }}
-            </p>
+            <div v-else>
+              <p v-if="removeError === false" class="w-100 form__item--error ">
+                {{ msgError.notValidMsg }}
+              </p>
+            </div>
           </div>
         </div>
       </div>
@@ -196,6 +202,8 @@ export default {
     labelNameClass: { type: String, default: "" },
     checkTypingSubmit: { type: Boolean, default: false },
     idInput: { type: String, default: "" },
+    disabledInputDefault: { type: Boolean, default: false },
+    removeError: { type: Boolean, default: false },
   },
 
   data() {
@@ -752,6 +760,12 @@ export default {
 }
 .add--space {
   letter-spacing: 0.7em;
+}
+.disabled--input {
+  .input-holder {
+    background: $disabled_input !important;
+    border-color: #bdbdbd;
+  }
 }
 
 // timer //

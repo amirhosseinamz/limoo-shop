@@ -117,7 +117,7 @@
                   timer-start=""
                   type-input="text"
                   name-input="codePoste"
-                  label-text="نام"
+                  label-text="نام خانوادگی"
                 >
                 </text-input>
 
@@ -137,7 +137,8 @@
               <!--/// email section is ignored in version alpha ///-->
               <!-- <div class="user-profile__info-email">ایمیل</div> -->
               <!-- ================================================ -->
-              <div class="user-profile__info-phone">
+
+              <!-- <div class="">
                 <label for="phoneNumber">
                   {{ getTextByTextKey("personal_info_phone_number") }}
                 </label>
@@ -149,7 +150,47 @@
                   required
                   disabled
                 />
-              </div>
+              </div> -->
+
+              <text-input
+                class="user-profile__info-phone "
+                labelNameClass=""
+                inputNameClass="w-100"
+                idInput="name"
+                state="authInput"
+                maxlength="10"
+                function-max-len="greaterThan"
+                placeholderText=""
+                :msgError="{
+                  notValidMsg: 'مجاز نیست',
+                  notValidNumber: 'بیش از حد مجاز',
+                }"
+                :check-email="false"
+                :check-number="true"
+                :active-check-phone-number="true"
+                :check-code="false"
+                :only-use-string="false"
+                :show-icon-clear-input="false"
+                :show-icon-eye-input="false"
+                :status-add-space-number="false"
+                :check-initial-validation="checkInitialValidation"
+                :check-empty-submit="false"
+                :check-required="false"
+                :check-typing-submit="false"
+                :use-timer="false"
+                :show-icon-star="false"
+                :form-data="formData"
+                :disabled-input-default="true"
+                :remove-error="true"
+                accessStyleParentInToChildNameId="address__form--data"
+                tag-html="input"
+                timer-start=""
+                type-input="text"
+                name-input="phoneNumber"
+                label-text="شماره موبایل"
+              >
+              </text-input>
+
               <div class="user-profile__info-birthday">
                 <client-only>
                   <the-date-dropdown
@@ -296,7 +337,9 @@ export default {
       phoneNumber: "09120121023",
       selectedDate: "",
       checkInitialValidation: 0,
-      formData: {},
+      formData: {
+        phoneNumber: "09120121023",
+      },
     };
   },
   watch: {
@@ -613,6 +656,7 @@ export default {
   .signup-input {
     color: $gray;
     font-size: 16px;
+    padding: 16px;
   }
 }
 
