@@ -74,6 +74,7 @@
               /> -->
 
               <input
+                @click="clickInput"
                 :class="inputNameClass"
                 class="signup-input form-control"
                 :maxlength="maxlength"
@@ -501,6 +502,10 @@ export default {
       setTimeout(() => {
         this.timerZero = false;
       }, 1000);
+    },
+
+    clickInput() {
+      this.$emit("click-input", this.nameInput);
     },
   },
 };

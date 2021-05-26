@@ -12,7 +12,7 @@
     </span>
     <hr class="splicer-line" />
     <form @submit.prevent="">
-      <div class="pass__holder">
+      <!-- <div class="pass__holder">
         <label for="oldPassValidation">
           {{ getTextByTextKey("personal_info_old_password") }}
           <span>*</span></label
@@ -54,8 +54,45 @@
         <span class="pass__alert" v-if="msg.oldPassValidation">{{
           msg.oldPassValidation
         }}</span>
-      </div>
-      <div class="pass__holder">
+      </div> -->
+
+      <text-input
+        class="w-100  pass__repeat"
+        labelNameClass=""
+        inputNameClass="w-100"
+        state="authInput"
+        maxlength="100"
+        function-max-len="greaterThan"
+        placeholderText=""
+        :msgError="{
+          notValidMsg: 'مجاز نیست',
+          notValidNumber: 'بیش از حد مجاز',
+        }"
+        :check-email="false"
+        :check-number="false"
+        :active-check-phone-number="false"
+        :check-code="false"
+        :only-use-string="false"
+        :show-icon-clear-input="false"
+        :show-icon-eye-input="true"
+        :status-add-space-number="false"
+        :check-initial-validation="checkInitialValidation"
+        :check-empty-submit="false"
+        :check-required="false"
+        :check-typing-submit="false"
+        :use-timer="false"
+        :show-icon-star="true"
+        :form-data="formData"
+        accessStyleParentInToChildNameId="address__form--data"
+        tag-html="input"
+        timer-start=""
+        type-input="text"
+        name-input="passwordShowModal"
+        label-text="رمز عبور قدیم:"
+      >
+      </text-input>
+
+      <!-- <div class="pass__holder">
         <label for="newPassVlidation">
           {{ getTextByTextKey("personal_info_new_password") }}
           <span>*</span></label
@@ -97,7 +134,80 @@
         <span class="pass__alert" v-if="msg.newPassVlidation">{{
           msg.newPassVlidation
         }}</span>
-      </div>
+      </div> -->
+
+      <text-input
+        class="w-100  pass__repeat"
+        labelNameClass=""
+        inputNameClass="w-100"
+        state="authInput"
+        maxlength="100"
+        function-max-len="greaterThan"
+        placeholderText=""
+        :msgError="{
+          notValidMsg: 'مجاز نیست',
+          notValidNumber: 'بیش از حد مجاز',
+        }"
+        :check-email="false"
+        :check-number="false"
+        :active-check-phone-number="false"
+        :check-code="false"
+        :only-use-string="false"
+        :show-icon-clear-input="false"
+        :show-icon-eye-input="true"
+        :status-add-space-number="false"
+        :check-initial-validation="checkInitialValidation"
+        :check-empty-submit="false"
+        :check-required="false"
+        :check-typing-submit="false"
+        :use-timer="false"
+        :show-icon-star="true"
+        :form-data="formData"
+        accessStyleParentInToChildNameId="address__form--data"
+        tag-html="input"
+        timer-start=""
+        type-input="text"
+        name-input="passwordShowModal"
+        label-text="رمز عبور جدید:"
+      >
+      </text-input>
+
+      <text-input
+        class="w-100  pass__repeat"
+        labelNameClass=""
+        inputNameClass="w-100"
+        state="authInput"
+        maxlength="32"
+        function-max-len="greaterThan"
+        placeholderText=""
+        :msgError="{
+          notValidMsg: 'مجاز نیست',
+          notValidNumber: 'بیش از حد مجاز',
+        }"
+        :check-email="false"
+        :check-number="false"
+        :active-check-phone-number="false"
+        :check-code="false"
+        :only-use-string="false"
+        :show-icon-clear-input="false"
+        :show-icon-eye-input="true"
+        :status-add-space-number="false"
+        :check-initial-validation="checkInitialValidation"
+        :check-empty-submit="false"
+        :check-required="false"
+        :check-typing-submit="false"
+        :use-timer="false"
+        :show-icon-star="true"
+        :form-data="formData"
+        accessStyleParentInToChildNameId="address__form--data"
+        tag-html="input"
+        timer-start=""
+        type-input="text"
+        name-input="passwordShowModal"
+        label-text="تکرار رمز عبور جدید"
+      >
+      </text-input>
+      <!-- 
       <div class="pass__holder pass__repeat">
         <label for="repeatNewPassVlidation">
           {{ getTextByTextKey("personal_info_repeat_password") }}
@@ -144,7 +254,8 @@
         <span class="pass__alert" v-if="msg.repeatNewPassVlidation">{{
           msg.repeatNewPassVlidation
         }}</span>
-      </div>
+      </div> -->
+
       <button @click="submitChangePass" class="pass__submitbtn">
         {{ getTextByTextKey("personal_info_submit_change") }}
       </button>
@@ -153,9 +264,13 @@
 </template>
 <script>
 import { getTextByTextKey } from "~/modules/splitPartJsonResource.js";
+import textInput from "~/modules/textInput";
 
 export default {
   name: "TheProfilePassModal",
+  components: {
+    textInput,
+  },
   data() {
     return {
       modalClose: false,
@@ -169,6 +284,7 @@ export default {
       oldPassInput: false,
       newPassInput: false,
       repeatnewPassInput: false,
+      formData: {},
     };
   },
   watch: {
@@ -350,6 +466,13 @@ export default {
       }
     }
   }
+  &::v-deep {
+    .pass__repeat {
+      height: 88px;
+      width: 390px;
+      margin-bottom: 35px;
+    }
+  }
   .pass__repeat {
     margin-bottom: 42px;
   }
@@ -432,6 +555,44 @@ export default {
 .splicer-line {
   display: none;
 }
+
+.modal::v-deep {
+  .txt-content {
+    margin-bottom: 16px;
+    line-height: 140.62%;
+  }
+  .input-holder {
+    box-shadow: 0px 4px 4px $flash_white;
+    height: 52px;
+    background: $white;
+    border-radius: 15px;
+    margin-bottom: 4px;
+  }
+  .form__item--error {
+    margin-bottom: 0;
+    font-size: 14px;
+  }
+  .signup-input {
+    color: $gray;
+    font-size: 16px;
+    padding: 16px;
+  }
+  .signin__close-eye::before {
+    font-size: 16px;
+  }
+  .form__item--error {
+    display: none;
+    width: 100%;
+    justify-content: flex-end;
+  }
+  .show--error .form__item--error {
+    display: flex;
+  }
+  .card-body {
+    height: 100%;
+  }
+}
+
 @media (max-width: 960px) {
   .modal-animation__open {
     animation: modalOpen 600ms linear;
@@ -492,6 +653,20 @@ export default {
       margin-bottom: 35px;
       label {
         font-size: 14px;
+      }
+    }
+
+    &::v-deep {
+      .pass__repeat {
+        height: 80px;
+        width: 84vw;
+        margin-bottom: 35px;
+      }
+      .txt-content {
+        font-size: 14px;
+      }
+      .input-holder {
+        height: 46px;
       }
     }
 
@@ -583,6 +758,19 @@ export default {
       width: 91vw;
       margin-bottom: 37px;
       margin-top: 15px;
+    }
+    &::v-deep {
+      .input-holder {
+        height: 40px;
+      }
+      .pass__repeat {
+        height: 70px;
+        width: 84vw;
+        margin-bottom: 25px;
+      }
+      .txt-content {
+        font-size: 13px;
+      }
     }
   }
   .splicer-line {

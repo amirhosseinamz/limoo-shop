@@ -53,7 +53,7 @@
                   inputNameClass="w-100"
                   idInput="name"
                   state="authInput"
-                  maxlength="10"
+                  maxlength="1000"
                   function-max-len="greaterThan"
                   placeholderText=""
                   :msgError="{
@@ -61,7 +61,7 @@
                     notValidNumber: 'بیش از حد مجاز',
                   }"
                   :check-email="false"
-                  :check-number="true"
+                  :check-number="false"
                   :active-check-phone-number="false"
                   :check-code="false"
                   :only-use-string="false"
@@ -79,7 +79,7 @@
                   tag-html="input"
                   timer-start=""
                   type-input="text"
-                  name-input="codePoste"
+                  name-input="name"
                   label-text="نام"
                 >
                 </text-input>
@@ -90,7 +90,7 @@
                   inputNameClass="w-100"
                   idInput="name"
                   state="authInput"
-                  maxlength="10"
+                  maxlength="1000"
                   function-max-len="greaterThan"
                   placeholderText=""
                   :msgError="{
@@ -98,7 +98,7 @@
                     notValidNumber: 'بیش از حد مجاز',
                   }"
                   :check-email="false"
-                  :check-number="true"
+                  :check-number="false"
                   :active-check-phone-number="false"
                   :check-code="false"
                   :only-use-string="false"
@@ -116,7 +116,7 @@
                   tag-html="input"
                   timer-start=""
                   type-input="text"
-                  name-input="codePoste"
+                  name-input="family"
                   label-text="نام خانوادگی"
                 >
                 </text-input>
@@ -178,7 +178,7 @@
                 :check-required="false"
                 :check-typing-submit="false"
                 :use-timer="false"
-                :show-icon-star="false"
+                :show-icon-star="true"
                 :form-data="formData"
                 :disabled-input-default="true"
                 :remove-error="true"
@@ -187,7 +187,7 @@
                 timer-start=""
                 type-input="text"
                 name-input="phoneNumber"
-                label-text="شماره موبایل"
+                label-text="شماره همراه :"
               >
               </text-input>
 
@@ -227,7 +227,6 @@
                 class="user--item user-profile__info-nationalcode"
                 labelNameClass=""
                 inputNameClass="w-100"
-                idInput="name"
                 state="authInput"
                 maxlength="10"
                 function-max-len="greaterThan"
@@ -249,7 +248,7 @@
                 :check-required="false"
                 :check-typing-submit="false"
                 :use-timer="false"
-                :show-icon-star="false"
+                :show-icon-star="true"
                 :form-data="formData"
                 accessStyleParentInToChildNameId="address__form--data"
                 tag-html="input"
@@ -260,43 +259,55 @@
               >
               </text-input>
 
-              <div class="user-profile__info-pass">
+              <text-input
+                class="user--item user-profile__info-pass"
+                labelNameClass=""
+                inputNameClass="w-100"
+                state="authInput"
+                maxlength="100"
+                function-max-len="greaterThan"
+                placeholderText=""
+                :msgError="{
+                  notValidMsg: 'مجاز نیست',
+                  notValidNumber: 'بیش از حد مجاز',
+                }"
+                :check-email="false"
+                :check-number="false"
+                :active-check-phone-number="false"
+                :check-code="false"
+                :only-use-string="false"
+                :show-icon-clear-input="false"
+                :show-icon-eye-input="true"
+                :status-add-space-number="false"
+                :check-initial-validation="checkInitialValidation"
+                :check-empty-submit="false"
+                :check-required="false"
+                :check-typing-submit="false"
+                :use-timer="false"
+                :show-icon-star="true"
+                :form-data="formData"
+                accessStyleParentInToChildNameId="address__form--data"
+                tag-html="input"
+                timer-start=""
+                type-input="text"
+                name-input="passwordShowModal"
+                label-text="رمز عبور:"
+                @click-input="passChange"
+              >
+              </text-input>
+
+              <!-- <div class="user-profile__info-pass">
                 <label for="pass">
                   {{ getTextByTextKey("personal_info_password") }}
                   <span>*</span></label
                 >
-                <!-- <div class="pass-holder"> -->
                 <input
                   @click="passChange"
                   :type="passwordFieldType"
                   value="********"
                   id="pass"
                 />
-                <!-- <button
-                                        @click="switchVisibility"
-                                        type="button"
-                                        class="clear-input"
-                                        aria-label="Close"
-                                    >
-                                        <img
-                                            :style="
-                                                passwordFieldType === 'password'
-                                                    ? 'display: block'
-                                                    : 'display: none'
-                                            "
-                                            src="/icons/eye-profile-close.svg"
-                                        />
-                                        <img
-                                            :style="
-                                                passwordFieldType === 'text'
-                                                    ? 'display: block'
-                                                    : 'display: none'
-                                            "
-                                            src="/icons/eye-profile.svg"
-                                        />
-                                    </button> -->
-                <!-- </div> -->
-              </div>
+              </div> -->
             </div>
             <div class="user-profile__btn-holder">
               <button class="user-profile__btn" type="submit">
@@ -339,6 +350,9 @@ export default {
       checkInitialValidation: 0,
       formData: {
         phoneNumber: "09120121023",
+        passwordShowModal: "AB6565656509",
+        name: "مهدی",
+        family: "دادور",
       },
     };
   },
@@ -660,7 +674,6 @@ export default {
     font-size: 16px;
     padding: 16px;
   }
-
   .form__item--error {
     display: none;
     width: 100%;
@@ -889,6 +902,9 @@ export default {
     .signup-input {
       padding: 14px 16px;
       font-size: 13px;
+    }
+    .signin__close-eye::before {
+      font-size: 16px;
     }
   }
 
