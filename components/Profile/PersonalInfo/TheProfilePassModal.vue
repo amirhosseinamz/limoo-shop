@@ -65,8 +65,7 @@
         function-max-len="greaterThan"
         placeholderText=""
         :msgError="{
-          notValidMsg: 'مجاز نیست',
-          notValidNumber: 'بیش از حد مجاز',
+          notValidMsg: 'رمز عبور باید شامل حداقل 8 (رقم و کاراکتر) باشد!',
         }"
         :check-email="false"
         :check-number="false"
@@ -77,11 +76,12 @@
         :show-icon-eye-input="true"
         :status-add-space-number="false"
         :check-initial-validation="checkInitialValidation"
-        :check-empty-submit="false"
-        :check-required="false"
-        :check-typing-submit="false"
+        :check-empty-submit="true"
+        :check-required="true"
+        :check-typing-submit="true"
         :use-timer="false"
         :show-icon-star="true"
+        :check-password="true"
         :form-data="formData"
         tag-html="input"
         timer-start=""
@@ -144,8 +144,7 @@
         function-max-len="greaterThan"
         placeholderText=""
         :msgError="{
-          notValidMsg: 'مجاز نیست',
-          notValidNumber: 'رمز عبور باید شامل حداقل 8 (رقم و کاراکتر) باشد!',
+          notValidMsg: 'رمز عبور باید شامل حداقل 8 (رقم و کاراکتر) باشد!',
         }"
         :check-email="false"
         :check-number="false"
@@ -155,9 +154,10 @@
         :show-icon-clear-input="false"
         :show-icon-eye-input="true"
         :status-add-space-number="false"
-        :check-empty-submit="false"
-        :check-required="false"
-        :check-typing-submit="false"
+        :check-initial-validation="checkInitialValidation"
+        :check-empty-submit="true"
+        :check-required="true"
+        :check-typing-submit="true"
         :use-timer="false"
         :show-icon-star="true"
         :form-data="formData"
@@ -180,8 +180,7 @@
         function-max-len="greaterThan"
         placeholderText=""
         :msgError="{
-          notValidMsg: 'مجاز نیست',
-          notValidNumber: 'رمز عبور باید شامل حداقل 8 (رقم و کاراکتر) باشد!',
+          notValidMsg: 'رمز عبور باید شامل حداقل 8 (رقم و کاراکتر) باشد!',
         }"
         :check-email="false"
         :check-number="false"
@@ -191,9 +190,10 @@
         :show-icon-clear-input="false"
         :show-icon-eye-input="true"
         :status-add-space-number="false"
-        :check-empty-submit="false"
-        :check-required="false"
-        :check-typing-submit="false"
+        :check-initial-validation="checkInitialValidation"
+        :check-empty-submit="true"
+        :check-required="true"
+        :check-typing-submit="true"
         :use-timer="false"
         :show-icon-star="true"
         :form-data="formData"
@@ -274,51 +274,17 @@ export default {
   data() {
     return {
       modalClose: false,
-      oldPassType: "password",
-      newPassType: "password",
-      newPassRepeatType: "password",
-      msg: [],
-      oldPassValidation: "",
-      newPassVlidation: "",
-      repeatNewPassVlidation: "",
-      oldPassInput: false,
-      newPassInput: false,
-      repeatnewPassInput: false,
-      formData: {},
+      formData: {
+        repeatNewPass: "",
+        oldPass: "",
+        newPass: "",
+      },
       checkInitialValidation: 0,
     };
   },
-  watch: {
-    oldPassValidation(value) {
-      this.oldPassValidation = value;
-      this.validateOldpass(value);
-    },
-    newPassVlidation(value) {
-      this.newPassVlidation = value;
-      this.validateNewPass(value);
-    },
-    repeatNewPassVlidation(value) {
-      this.repeatNewPassVlidation = value;
-      this.validateRepeatNewPass(value);
-    },
-  },
+  watch: {},
   methods: {
     getTextByTextKey,
-    oldPassInputActive() {
-      this.oldPassInput = true;
-      this.newPassInput = false;
-      this.repeatnewPassInput = false;
-    },
-    newPassInputActive() {
-      this.newPassInput = true;
-      this.oldPassInput = false;
-      this.repeatnewPassInput = false;
-    },
-    repeatnewPassInputActive() {
-      this.repeatnewPassInput = true;
-      this.newPassInput = false;
-      this.oldPassInput = false;
-    },
     closeModalMobile() {
       this.modalClose = true;
       setTimeout(() => {
@@ -328,86 +294,38 @@ export default {
     closeModalDesktop() {
       this.$parent.passChange();
     },
-    switchVisibility(type) {
-      if (type == "Oldpass") {
-        this.oldPassType =
-          this.oldPassType === "password" ? "text" : "password";
-      } else if (type == "NewPass") {
-        this.newPassType =
-          this.newPassType === "password" ? "text" : "password";
-      } else if (type == "NewPassRepeat") {
-        this.newPassRepeatType =
-          this.newPassRepeatType === "password" ? "text" : "password";
-      }
-    },
-    // "^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$"
-    validateOldpass(value) {
-      // for oldPass we must get response from back-end
-      // if (value.length == 0) {
-      //     this.msg["oldPassValidation"] = "";
-      // } else if (value.length > 32) {
-      //     this.msg["oldPassValidation"] =
-      //         "رمز عبور نمی تواند بیش از 32 کاراکتر باشد!";
-      // } else if (!/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/.test(value)) {
-      //     this.msg["oldPassValidation"] =
-      //         "رمز عبور باید شامل حداقل 8 (رقم و کاراکتر) باشد!";
-      // } else {
-      //     this.msg["oldPassValidation"] = "";
-      // }
-    },
-    validateNewPass(value) {
-      if (value.length == 0) {
-        this.msg["newPassVlidation"] = "";
-      } else if (value.length > 32) {
-        this.msg["newPassVlidation"] =
-          "رمز عبور نمی تواند بیش از 32 کاراکتر باشد!";
-      } else if (!/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/.test(value)) {
-        this.msg["newPassVlidation"] =
-          "رمز عبور باید شامل حداقل 8 (رقم و کاراکتر) باشد!";
-      } else {
-        this.msg["newPassVlidation"] = "";
-      }
-    },
-    validateRepeatNewPass(value) {
-      let userNewPass = this.newPassVlidation;
-      // console.log("userPass", userPass);
-      // console.log("repeat", value);
-      if (value.length == 0) {
-        this.msg["repeatNewPassVlidation"] = "";
-      } else if (value.length > 32) {
-        this.msg["repeatNewPassVlidation"] =
-          "رمز عبور نمی تواند بیش از 32 کاراکتر باشد!";
-      } else if (!/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/.test(value)) {
-        this.msg["repeatNewPassVlidation"] =
-          "رمز عبور باید شامل حداقل 8 (رقم و کاراکتر) باشد!";
-      } else if (!(userNewPass === value)) {
-        this.msg["repeatNewPassVlidation"] =
-          "لطفا رمز جدید را بصورت صحیح وارد کنید.";
-      } else {
-        this.msg["repeatNewPassVlidation"] = "";
-      }
-    },
     submitChangePass() {
-      this.oldPassInput = false;
-      this.newPassInput = false;
-      this.repeatnewPassInput = false;
-      let userPass = this.newPassVlidation;
-      let repeatUserPass = this.repeatNewPassVlidation;
-      if (
-        userPass === repeatUserPass &&
-        userPass != "" &&
-        repeatUserPass != ""
-      ) {
-        // later we talk to back end
-        if (screen.width < 950) {
-          this.modalClose = true;
-          setTimeout(() => {
-            this.$parent.passChange();
-          }, 280);
-        } else {
-          this.$parent.passChange();
+      this.checkInitialValidation++;
+      // در صورت نداشت ارور فورم مورد نظر ارسال می شود //
+      setTimeout(() => {
+        const formData = this.formData;
+        let checkSubmitForm = "success";
+
+        // چک کردن ارور فورم //
+        for (let key in formData) {
+          const value = formData[key].value;
+
+          if (formData[key].hasError) {
+            checkSubmitForm = "failed";
+          }
+
+          if (typeof value !== "undefined") {
+            formData[key] = value;
+          }
         }
-      }
+
+        if (checkSubmitForm === "success") {
+          // later we talk to back end
+          if (screen.width < 950) {
+            this.modalClose = true;
+            setTimeout(() => {
+              this.$parent.passChange();
+            }, 280);
+          } else {
+            this.$parent.passChange();
+          }
+        }
+      });
     },
   },
 };

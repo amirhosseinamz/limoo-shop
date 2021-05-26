@@ -495,16 +495,34 @@ export default {
             }
           };
 
-          const oldPasswordCheckValue = () => {
-            console.log("dasds");
-          };
+          if (stateCheckForm == "typeing") {
+            console.log(this.nameInput);
 
-          if (this.nameInput == "repeatNewPass") {
-            repeatPasswordCheckValue(currentInputValue);
+            if (this.nameInput == "repeatNewPass") {
+              repeatPasswordCheckValue(currentInputValue);
+            }
+
+            if (this.nameInput == "newPass" || this.nameInput == "oldPass") {
+              newPasswordCheckValue(currentInputValue);
+            }
           }
 
-          if (this.nameInput == "newPass") {
-            newPasswordCheckValue(currentInputValue);
+          if (stateCheckForm == "submit") {
+            if (this.checkTypingSubmit) {
+              if (currentInputValue == "") {
+                this.showError = true;
+              } else {
+                if (this.nameInput == "repeatNewPass") {
+                  repeatPasswordCheckValue(currentInputValue);
+                }
+                if (
+                  this.nameInput == "newPass" ||
+                  this.nameInput == "oldPass"
+                ) {
+                  newPasswordCheckValue(currentInputValue);
+                }
+              }
+            }
           }
         }
       };
