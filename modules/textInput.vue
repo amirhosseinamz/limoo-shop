@@ -205,6 +205,7 @@ export default {
     idInput: { type: String, default: "" },
     disabledInputDefault: { type: Boolean, default: false },
     removeError: { type: Boolean, default: false },
+    checkPassword: { type: Boolean, default: false },
   },
 
   data() {
@@ -442,6 +443,68 @@ export default {
             if (currentInputValue.length < maxlength) {
               this.showError = true;
             }
+          }
+        }
+
+        if (this.checkPassword) {
+          const repeatPasswordCheckValue = (value) => {
+            let newPassValue = this.formData["newPass"];
+
+            if (typeof newPassValue == "undefined") {
+              newPassValue = "";
+            } else {
+              newPassValue = newPassValue.value;
+            }
+
+            if (value.length == 0) {
+              this.msgError.notValidMsg = "";
+              this.showError = false;
+            } else if (value.length > 32) {
+              this.msgError.notValidMsg =
+                "رمز عبور نمی تواند بیش از 32 کاراکتر باشد!";
+              this.showError = true;
+            } else if (!/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/.test(value)) {
+              this.msgError.notValidMsg =
+                "رمز عبور باید شامل حداقل 8 (رقم و کاراکتر) باشد!";
+              this.showError = true;
+            } else if (!(newPassValue === value)) {
+              this.msgError.notValidMsg =
+                "لطفا رمز جدید را بصورت صحیح وارد کنید.";
+              this.showError = true;
+            } else {
+              this.msgError.notValidMsg = "";
+              this.showError = false;
+            }
+          };
+
+          const newPasswordCheckValue = (value) => {
+            if (value.length == 0) {
+              this.msgError.notValidMsg = "";
+              this.showError = false;
+            } else if (value.length > 32) {
+              this.msgError.notValidMsg =
+                "رمز عبور نمی تواند بیش از 32 کاراکتر باشد!";
+              this.showError = true;
+            } else if (!/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/.test(value)) {
+              this.msgError.notValidMsg =
+                "رمز عبور باید شامل حداقل 8 (رقم و کاراکتر) باشد!";
+              this.showError = true;
+            } else {
+              this.showError = false;
+              this.msgError.notValidMsg = "";
+            }
+          };
+
+          const oldPasswordCheckValue = () => {
+            console.log("dasds");
+          };
+
+          if (this.nameInput == "repeatNewPass") {
+            repeatPasswordCheckValue(currentInputValue);
+          }
+
+          if (this.nameInput == "newPass") {
+            newPasswordCheckValue(currentInputValue);
           }
         }
       };
