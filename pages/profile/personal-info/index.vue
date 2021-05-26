@@ -232,8 +232,7 @@
                 function-max-len="greaterThan"
                 placeholderText=""
                 :msgError="{
-                  notValidMsg: 'مجاز نیست',
-                  notValidNumber: 'بیش از حد مجاز',
+                  notValidMsg: 'کد ملی نمی تواند شامل حروف باشد!',
                 }"
                 :check-email="false"
                 :check-number="true"
