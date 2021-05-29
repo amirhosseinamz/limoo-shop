@@ -378,6 +378,24 @@ export default {
   background: $white;
   border-radius: 10px;
   box-shadow: 0px 8px 16px $box__shadow;
+  /* border: 1px solid #f00808; */
+  &__topic {
+    font-size: 18px;
+    line-height: 140.62%;
+    color: $black-topic;
+    align-self: flex-end;
+    margin-top: 23px;
+    margin-right: 25px;
+  }
+  &__userpic {
+    /* border: 1px solid gray; */
+    @include display-flex();
+    flex-direction: column;
+    align-items: center;
+    margin-top: 23px;
+    height: 162px;
+    width: 162px;
+  }
   &__info {
     @include display-flex();
     flex-direction: row;
@@ -407,14 +425,13 @@ export default {
       flex-direction: row;
       justify-content: space-between;
     }
-    &-phone,
-    &-pass,
-    &-name > section,
-    &-nationalcode {
-      background: $white;
-      @include display-flex();
-      flex-direction: column;
-    }
+  }
+  &__alert {
+    margin-top: 4px;
+    color: $alert-red;
+    text-align: right;
+    font-size: 14px;
+    line-height: 140.62%;
   }
   &__btn {
     margin: 0 auto 48px auto;

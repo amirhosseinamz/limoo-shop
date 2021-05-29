@@ -81,6 +81,7 @@
                 @keyup="typingInput"
                 :type="openEye ? 'password' : 'text'"
                 :disabled="disabledInputDefault"
+                :placeholder="placeholderText"
                 v-model="currentValue"
                 required
               />
