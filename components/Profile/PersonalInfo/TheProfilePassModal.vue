@@ -12,50 +12,6 @@
     </span>
     <hr class="splicer-line" />
     <form @submit.prevent="">
-      <!-- <div class="pass__holder">
-        <label for="oldPassValidation">
-          {{ getTextByTextKey("personal_info_old_password") }}
-          <span>*</span></label
-        >
-        <div
-          :style="
-            oldPassInput
-              ? 'border:1px solid #515151'
-              : 'border:1px solid #bdbdbd'
-          "
-          @click="oldPassInputActive"
-          class="pass__old"
-        >
-          <input
-            :type="oldPassType"
-            id="oldPassValidation"
-            v-model="oldPassValidation"
-          />
-          <button
-            @click="switchVisibility('Oldpass')"
-            type="button"
-            class="clear-input"
-            aria-label="Close"
-          >
-            <span
-              :style="
-                oldPassType === 'password' ? 'display: block' : 'display: none'
-              "
-              class="signin__close-eye"
-            ></span>
-            <span
-              :style="
-                oldPassType === 'text' ? 'display: block' : 'display: none'
-              "
-              class="signin__open-eye"
-            ></span>
-          </button>
-        </div>
-        <span class="pass__alert" v-if="msg.oldPassValidation">{{
-          msg.oldPassValidation
-        }}</span>
-      </div> -->
-
       <text-input
         class="w-100  pass__repeat"
         labelNameClass=""
@@ -90,50 +46,6 @@
         label-text="رمز عبور قدیم:"
       >
       </text-input>
-
-      <!-- <div class="pass__holder">
-        <label for="newPassVlidation">
-          {{ getTextByTextKey("personal_info_new_password") }}
-          <span>*</span></label
-        >
-        <div
-          :style="
-            newPassInput
-              ? 'border:1px solid #515151'
-              : 'border:1px solid #bdbdbd'
-          "
-          @click="newPassInputActive"
-          class="pass__new"
-        >
-          <input
-            :type="newPassType"
-            id="newPassVlidation"
-            v-model="newPassVlidation"
-          />
-          <button
-            @click="switchVisibility('NewPass')"
-            type="button"
-            class="clear-input"
-            aria-label="Close"
-          >
-            <span
-              :style="
-                newPassType === 'password' ? 'display: block' : 'display: none'
-              "
-              class="signin__close-eye"
-            ></span>
-            <span
-              :style="
-                newPassType === 'text' ? 'display: block' : 'display: none'
-              "
-              class="signin__open-eye"
-            ></span>
-          </button>
-        </div>
-        <span class="pass__alert" v-if="msg.newPassVlidation">{{
-          msg.newPassVlidation
-        }}</span>
-      </div> -->
 
       <text-input
         class="w-100  pass__repeat"
@@ -206,55 +118,6 @@
         label-text="تکرار رمز عبور جدید"
       >
       </text-input>
-
-      <!-- 
-      <div class="pass__holder pass__repeat">
-        <label for="repeatNewPassVlidation">
-          {{ getTextByTextKey("personal_info_repeat_password") }}
-          <span>*</span></label
-        >
-        <div
-          :style="
-            repeatnewPassInput
-              ? 'border:1px solid #515151'
-              : 'border:1px solid #bdbdbd'
-          "
-          @click="repeatnewPassInputActive"
-          class="pass__new-repeat"
-        >
-          <input
-            :type="newPassRepeatType"
-            id="repeatNewPassVlidation"
-            v-model="repeatNewPassVlidation"
-          />
-          <button
-            @click="switchVisibility('NewPassRepeat')"
-            type="button"
-            class="clear-input"
-            aria-label="Close"
-          >
-            <span
-              :style="
-                newPassRepeatType === 'password'
-                  ? 'display: block'
-                  : 'display: none'
-              "
-              class="signin__close-eye"
-            ></span>
-            <span
-              :style="
-                newPassRepeatType === 'text'
-                  ? 'display: block'
-                  : 'display: none'
-              "
-              class="signin__open-eye"
-            ></span>
-          </button>
-        </div>
-        <span class="pass__alert" v-if="msg.repeatNewPassVlidation">{{
-          msg.repeatNewPassVlidation
-        }}</span>
-      </div> -->
 
       <button @click="submitChangePass" class="pass__submitbtn">
         {{ getTextByTextKey("personal_info_submit_change") }}

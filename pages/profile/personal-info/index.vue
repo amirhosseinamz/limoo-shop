@@ -905,6 +905,9 @@ export default {
     .signin__close-eye::before {
       font-size: 16px;
     }
+    .form__item--error {
+      font-size: 13px;
+    }
   }
 
   // #name,
