@@ -34,19 +34,6 @@
           <div class="user-profile__container">
             <div class="user-profile__info" dir="rtl">
               <div class="user-profile__info-name">
-                <!-- <section>
-                  <label for="name">
-                    {{ getTextByTextKey("personal_info_name") }}
-                  </label>
-                  <input
-                    type="text"
-                    id="name"
-                    :placeholder="
-                      getTextByTextKey('personal_info_place_holder_name')
-                    "
-                  />
-                </section> -->
-
                 <text-input
                   class="name"
                   labelNameClass=""
@@ -120,38 +107,8 @@
                   label-text="نام خانوادگی"
                 >
                 </text-input>
-
-                <!-- <section>
-                  <label for="family">
-                    {{ getTextByTextKey("personal_info_family") }}
-                  </label>
-                  <input
-                    type="text"
-                    id="family"
-                    :placeholder="
-                      getTextByTextKey('personal_info_place_holder_family')
-                    "
-                  />
-                </section> -->
               </div>
               <!--/// email section is ignored in version alpha ///-->
-              <!-- <div class="user-profile__info-email">ایمیل</div> -->
-              <!-- ================================================ -->
-
-              <!-- <div class="">
-                <label for="phoneNumber">
-                  {{ getTextByTextKey("personal_info_phone_number") }}
-                </label>
-                <input
-                  type="text"
-                  id="phoneNumber"
-                  maxlength="11"
-                  v-model="phoneNumber"
-                  required
-                  disabled
-                />
-              </div> -->
-
               <text-input
                 class="user-profile__info-phone "
                 labelNameClass=""
@@ -202,26 +159,6 @@
                 </client-only>
                 <!-- <the-birthday /> -->
               </div>
-
-              <!-- <div class="user-profile__info-nationalcode">
-                <label for="nationalcode">
-                  {{ getTextByTextKey("personal_info_code_national") }}
-                </label>
-                <input
-                  :class="{ err__input: msg.nationalcode }"
-                  type="text"
-                  id="nationalcode"
-                  maxlength="10"
-                  :placeholder="
-                    getTextByTextKey('personal_info_place_holder_national')
-                  "
-                  v-model="nationalcode"
-                  required
-                />
-                <span class="user-profile__alert" v-if="msg.nationalcode">{{
-                  msg.nationalcode
-                }}</span>
-              </div> -->
 
               <text-input
                 class="user--item user-profile__info-nationalcode"
@@ -294,19 +231,6 @@
                 @click-input="passChange"
               >
               </text-input>
-
-              <!-- <div class="user-profile__info-pass">
-                <label for="pass">
-                  {{ getTextByTextKey("personal_info_password") }}
-                  <span>*</span></label
-                >
-                <input
-                  @click="passChange"
-                  :type="passwordFieldType"
-                  value="********"
-                  id="pass"
-                />
-              </div> -->
             </div>
             <div class="user-profile__btn-holder">
               <button class="user-profile__btn" type="submit">
@@ -342,9 +266,7 @@ export default {
       // passFocusIsActive: false,
       passChangeIsActive: false,
       msg: [],
-      nationalcode: "",
       // later we get it from store (in talk with back-end)
-      phoneNumber: "09120121023",
       selectedDate: "",
       checkInitialValidation: 0,
       formData: {
@@ -356,10 +278,6 @@ export default {
     };
   },
   watch: {
-    nationalcode(value) {
-      this.nationalcode = value;
-      this.validateNationalcode(value);
-    },
     selectedDate() {
       console.log(this.selectedDate);
     },
@@ -369,30 +287,9 @@ export default {
     goToProfile() {
       this.$router.push("/profile");
     },
-    // passFocus() {
-    //     this.passFocusIsActive = !this.passFocusIsActive;
-    // },
+
     passChange() {
       this.passChangeIsActive = !this.passChangeIsActive;
-    },
-    switchVisibility() {
-      this.passwordFieldType =
-        this.passwordFieldType === "password" ? "text" : "password";
-    },
-    validateNationalcode(value) {
-      let difference = 10 - value.length;
-      if (/\D/.test(value)) {
-        this.msg["nationalcode"] = "کد ملی نمی تواند شامل حروف باشد!";
-      } else if (value.length == 0) {
-        this.msg["nationalcode"] = "";
-        // } else if (value.length < 10) {
-        //     this.msg["nationalcode"] =
-        //         "کد ملی باید 10 رقم باشد! " +
-        //         difference +
-        //         " رقم باقی مانده.";
-      } else {
-        this.msg["nationalcode"] = "";
-      }
     },
   },
 };
@@ -481,33 +378,6 @@ export default {
   background: $white;
   border-radius: 10px;
   box-shadow: 0px 8px 16px $box__shadow;
-  /* border: 1px solid #f00808; */
-  &__topic {
-    font-size: 18px;
-    line-height: 140.62%;
-    color: $black-topic;
-    align-self: flex-end;
-    margin-top: 23px;
-    margin-right: 25px;
-  }
-  &__userpic {
-    /* border: 1px solid gray; */
-    @include display-flex();
-    flex-direction: column;
-    align-items: center;
-    margin-top: 23px;
-    height: 162px;
-    width: 162px;
-  }
-  &__container {
-    @include display-flex();
-    flex-direction: column;
-    width: 100%;
-    min-height: 500px;
-    height: max-content;
-    /* border: 1px solid rgb(11, 27, 201); */
-    padding: 0 90px;
-  }
   &__info {
     @include display-flex();
     flex-direction: row;
@@ -545,87 +415,6 @@ export default {
       @include display-flex();
       flex-direction: column;
     }
-    &-name > section > label,
-    &-nationalcode > label,
-    &-pass > label,
-    &-phone > label {
-      font-size: 16px;
-      line-height: 140.62%;
-      text-align: right;
-      margin-bottom: 16px;
-    }
-    &-pass > label > span {
-      color: $alert-red;
-      margin-right: 3px;
-    }
-    #name,
-    #family,
-    &-phone > input,
-    &-nationalcode > input {
-      font-family: inherit;
-      font-size: 16px;
-      height: 52px;
-      border: 1px solid $input-border;
-      box-shadow: 0px 4px 4px $gray-border;
-      border-radius: 15px;
-      color: $gray;
-      outline: none;
-      padding: 16px;
-    }
-    /* &-pass > .pass-holder {
-            @include display-flex();
-            flex-direction: row;
-            justify-content: space-between;
-            align-items: center;
-            border: 1px solid $input-border;
-            box-shadow: 0px 4px 4px $gray-border;
-            border-radius: 15px;
-            height: 52px;
-        } */
-    &-pass > input {
-      /* flex-grow: 1; */
-      border: 1px solid $input-border;
-      box-shadow: 0px 4px 4px $gray-border;
-      border-radius: 15px;
-      height: 52px;
-      font-family: inherit;
-      font-size: 16px;
-      height: 52px;
-      /* border: none; */
-      /* background: transparent; */
-      border-radius: 15px;
-      color: $gray;
-      outline: none;
-      padding: 16px;
-    }
-    /* .pass-holder__active {
-            border-color: $black;
-        } */
-    #name:focus,
-    #family:focus,
-    &-pass > input:focus,
-    &-nationalcode > input:focus {
-      border-color: $black;
-    }
-    .err__input {
-      /* we use this class when user input is wrong
-            so in this situation_ !important _is not so much bad */
-      border-color: $alert-red !important;
-      /*background: $alert-red__bg;
-            color: $alert-red;  */
-    }
-    /* &-email,
-        &-birthday,
-        &-pass {
-
-        } */
-  }
-  &__alert {
-    margin-top: 4px;
-    color: $alert-red;
-    text-align: right;
-    font-size: 14px;
-    line-height: 140.62%;
   }
   &__btn {
     margin: 0 auto 48px auto;
