@@ -11,41 +11,9 @@
             <p class="txt-header">
               {{ getTextByTextKey("auth_password_recovery") }}
             </p>
-            <text-input
-              class="user--item user-profile__info-pass"
-              labelNameClass=""
-              inputNameClass="w-100"
-              state="authInput"
-              maxlength="100"
-              function-max-len="greaterThan"
-              placeholderText="*********09"
-              :msgError="{
-                notValidMsg: getTextByTextKey('auth_phone_not_valid'),
-              }"
-              :check-email="false"
-              :check-number="true"
-              :active-check-phone-number="true"
-              :check-code="false"
-              :only-use-string="false"
-              :show-icon-clear-input="true"
-              :show-icon-eye-input="false"
-              :status-add-space-number="false"
-              :check-initial-validation="checkInitialValidation"
-              :check-empty-submit="false"
-              :check-required="true"
-              :check-typing-submit="false"
-              :use-timer="false"
-              :show-icon-star="false"
-              :form-data="formData"
-              :attribute-required="false"
-              accessStyleParentInToChildNameId="address__form--data"
-              tag-html="input"
-              timer-start=""
-              type-input="password"
-              name-input="phone"
-              :label-text="getTextByTextKey('auth_please_enter_number')"
-            >
-            </text-input>
+            <p class="txt-content">
+              {{ getTextByTextKey("auth_please_enter_number") }}
+            </p>
             <div class="input-section">
               <div
                 :style="
@@ -63,9 +31,7 @@
                   maxlength="11"
                   placeholder="*********09"
                   v-model.trim="phone"
-                />
-
-                <button
+                /><button
                   @click="
                     [(wrongInput = false), (phone = ''), (isActive = false)]
                   "
@@ -104,15 +70,11 @@ import textInput from "~/modules/textInput";
 export default {
   data() {
     return {
-      phone: "09198814783",
+      phone: "",
       storePhone: "",
       wrongInput: false,
       isActive: false,
       btnIsDisabled: false,
-      formData: {
-        phone: "",
-      },
-      checkInitialValidation: 0,
     };
   },
   components: {
@@ -147,31 +109,23 @@ export default {
       }
     },
     goToNextStepofRecyclePass() {
-      this.checkInitialValidation++;
-      console.log("dsads");
+      const condition = this.phone.match(/\d/g);
 
-      setTimeout(() => {
-        const formData = this.formData;
-        let checkSubmitForm = "success";
-
-        // چک کردن ارور فورم //
-        for (let key in formData) {
-          const value = formData[key].value;
-
-          if (formData[key].hasError) {
-            checkSubmitForm = "failed";
-          }
-
-          if (typeof value !== "undefined") {
-            formData[key] = value;
-          }
-        }
-
-        if (checkSubmitForm === "success") {
-        }
-
-        console.log(formData);
-      });
+      if (this.phone == "" || condition.length < 11) {
+        this.wrongInput = true;
+      } else if (condition.length === 11) {
+        this.wrongInput = false;
+        this.$store.commit("PhoneNumber", { value: this.phone });
+        // if (this.phone == this.storePhone) {
+        //     this.$store.commit("walkInSignUpcomponents", {
+        //         value: "stepTwo"
+        //     });
+        // }
+      }
+      if (!this.wrongInput) {
+        console.log("go to confirm");
+        this.$router.push("/users/password/forget/confirm");
+      }
     },
     nextPage() {
       this.$router.push("/users/signin");
@@ -258,31 +212,6 @@ export default {
   margin-bottom: 25px;
   margin-right: 90px;
 }
-
-.recycle-container::v-deep {
-  .txt-content {
-    @extend .txt-content;
-  }
-  .input-holder {
-    @extend .input-holder;
-    margin-right: auto;
-    margin-left: auto;
-  }
-  // .input-holder:focus {
-  //   border: 1px solid rgb(81, 81, 81);
-  // }
-  .form__main--item {
-    justify-content: center;
-  }
-  .form__item--error {
-    @extend .err-text;
-  }
-  .show--error .input-holder {
-    border-color: $red;
-    background: $bg_festival_counrer_down;
-  }
-}
-
 @media screen and (max-width: 540px) {
   .card {
     width: auto;

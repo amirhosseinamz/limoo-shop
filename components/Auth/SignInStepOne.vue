@@ -89,12 +89,29 @@ export default {
   methods: {
     getTextByTextKey,
     pressed() {
-      this.$store.commit("passHolder", { value: this.password });
-      console.log(this.password);
-    },
-    switchVisibility() {
-      this.passwordFieldType =
-        this.passwordFieldType === "password" ? "text" : "password";
+      this.checkInitialValidation++;
+
+      setTimeout(() => {
+        const formData = this.formData;
+        let checkSubmitForm = "success";
+
+        // چک کردن ارور فورم //
+        for (let key in formData) {
+          const value = formData[key].value;
+
+          if (formData[key].hasError) {
+            checkSubmitForm = "failed";
+          }
+
+          if (typeof value !== "undefined") {
+            formData[key] = value;
+          }
+        }
+
+        if (checkSubmitForm === "success") {
+          this.$store.commit("passHolder", { value: formData.password });
+        }
+      });
     },
     forgetPass() {
       // send request to disposablePass
@@ -178,8 +195,10 @@ export default {
     @extend .input-holder;
     margin-right: auto;
     margin-left: auto;
-    border: 1px solid rgb(81, 81, 81);
   }
+  // .input-holder:focus {
+  //   border: 1px solid rgb(81, 81, 81);
+  // }
   .form__item--error {
     display: none;
   }

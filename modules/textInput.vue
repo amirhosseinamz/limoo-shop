@@ -83,11 +83,12 @@
                 :disabled="disabledInputDefault"
                 :placeholder="placeholderText"
                 v-model="currentValue"
-                required
+                :required="attributeRequired"
               />
 
               <button
                 v-if="showIconClearInput"
+                v-show="onlyRemoveIconClearData"
                 @click="[(typeingShowClearIcon = false)]"
                 type="button"
                 aria-label="Close"
@@ -157,7 +158,7 @@
               </p>
             </div>
 
-            <div v-else>
+            <div class="form__error--main" v-else>
               <p v-if="removeError === false" class="w-100 form__item--error ">
                 {{ msgError.notValidMsg }}
               </p>
@@ -207,6 +208,7 @@ export default {
     disabledInputDefault: { type: Boolean, default: false },
     removeError: { type: Boolean, default: false },
     checkPassword: { type: Boolean, default: false },
+    attributeRequired: { type: Boolean, default: false },
   },
 
   data() {
@@ -223,6 +225,7 @@ export default {
       counterDownSecond: [],
       Tcounter: 178,
       timerZero: false,
+      onlyRemoveIconClearData: false,
     };
   },
 
@@ -251,6 +254,8 @@ export default {
         this.clearInput++;
         this.showError = false;
         this.typeingShowClearIcon = false;
+        this.onlyRemoveIconClearData = false;
+        this.currentValue = "";
       }
     },
 
@@ -418,6 +423,7 @@ export default {
         // نمایش آیکن پاک کردن مقدار وارد شده پس از تایپ //
         if (this.showIconClearInput) {
           this.typeingShowClearIcon = true;
+          this.onlyRemoveIconClearData = true;
         }
 
         // فقط باید مقدار مورد نظر حروف باشد که اجرا شود //
@@ -532,7 +538,9 @@ export default {
         functionality();
       } else {
         this.showError = false;
-        this.typeingShowClearIcon = false;
+
+        // only remove icon clear input //
+        this.onlyRemoveIconClearData = false;
       }
 
       // این قسمت مختص به چک کردن داده هایی است که برای تمامی آیتم ها یک سان است //
@@ -853,6 +861,9 @@ export default {
     background: $disabled_input !important;
     border-color: #bdbdbd;
   }
+}
+.form__error--main {
+  @include display-flex();
 }
 
 // timer //
