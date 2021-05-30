@@ -78,12 +78,7 @@ export default {
   components: {
     textInput,
   },
-  watch: {
-    phone(value) {
-      this.phone = value;
-      this.validationPhoneNumber(value);
-    },
-  },
+  watch: {},
   created() {
     this.storePhone = this.$store.getters.PhoneNumberPicker;
     // this.phone = this.$store.getters.PhoneNumberPicker;
@@ -98,7 +93,6 @@ export default {
 
     goToNextStepofRecyclePass() {
       this.checkInitialValidation++;
-      console.log("dsads");
 
       setTimeout(() => {
         const formData = this.formData;
