@@ -62,7 +62,11 @@
             }"
             class="form__main--item"
           >
-            <div class="input-holder" v-if="tagHtml == 'input'">
+            <div
+              :class="{ 'border--actice': haveBorder }"
+              class="input-holder"
+              v-if="tagHtml == 'input'"
+            >
               <!-- <input
                 :class="{ 'add--space': statusAddSpaceNumber }"
                 class="signup-input form-control"
@@ -89,7 +93,7 @@
               <button
                 v-if="showIconClearInput"
                 v-show="onlyRemoveIconClearData"
-                @click="[(typeingShowClearIcon = false)]"
+                @click="[(typeingShowClearIcon = false), (haveBorder = false)]"
                 type="button"
                 aria-label="Close"
                 class="clear--button"
@@ -209,6 +213,7 @@ export default {
     removeError: { type: Boolean, default: false },
     checkPassword: { type: Boolean, default: false },
     attributeRequired: { type: Boolean, default: false },
+    activeBorderClick: { type: Boolean, default: false },
   },
 
   data() {
@@ -226,6 +231,7 @@ export default {
       Tcounter: 178,
       timerZero: false,
       onlyRemoveIconClearData: false,
+      haveBorder: false,
     };
   },
 
@@ -595,6 +601,9 @@ export default {
     },
 
     clickInput() {
+      if (this.activeBorderClick) {
+        this.haveBorder = true;
+      }
       this.$emit("click-input", this.nameInput);
     },
   },
@@ -821,7 +830,7 @@ export default {
   cursor: default;
 }
 .show--error .input-holder {
-  border-color: red;
+  border-color: red !important;
   background: #fff4f5;
 }
 .show--error .clear-input span {
@@ -910,6 +919,9 @@ export default {
 }
 .active--timer.timer-holder {
   visibility: visible;
+}
+.border--actice {
+  border: 1px solid rgb(81, 81, 81) !important;
 }
 // end timer //
 

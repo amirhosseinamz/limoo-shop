@@ -16,7 +16,7 @@
               labelNameClass=""
               inputNameClass="w-100"
               state="authInput"
-              maxlength="100"
+              maxlength="11"
               function-max-len="greaterThan"
               placeholderText="*********09"
               :msgError="{
@@ -38,6 +38,7 @@
               :show-icon-star="false"
               :form-data="formData"
               :attribute-required="false"
+              :active-border-click="true"
               accessStyleParentInToChildNameId="address__form--data"
               tag-html="input"
               timer-start=""
@@ -46,44 +47,6 @@
               :label-text="getTextByTextKey('auth_please_enter_number')"
             >
             </text-input>
-            <div class="input-section">
-              <div
-                :style="
-                  phone || isActive
-                    ? 'border:1px solid #515151'
-                    : 'border:1px solid #bdbdbd'
-                "
-                :class="[wrongInput ? 'input-holder-wrong' : 'input-holder']"
-              >
-                <input
-                  class="form-control"
-                  :class="[wrongInput ? 'signup-input-wrong' : 'signup-input']"
-                  @click="[(wrongInput = false), (isActive = true)]"
-                  type="tel"
-                  maxlength="11"
-                  placeholder="*********09"
-                  v-model.trim="phone"
-                />
-
-                <button
-                  @click="
-                    [(wrongInput = false), (phone = ''), (isActive = false)]
-                  "
-                  type="button"
-                  :style="phone ? 'visibility: visible' : 'visibility: hidden'"
-                  :class="[wrongInput ? 'clear-input-wrong' : 'clear-input']"
-                  aria-label="Close"
-                >
-                  <span aria-hidden="true">&times;</span>
-                </button>
-              </div>
-            </div>
-            <p
-              class="err-text"
-              :style="wrongInput ? 'visibility: visible' : 'visibility: hidden'"
-            >
-              {{ getTextByTextKey("auth_phone_not_valid") }}
-            </p>
           </div>
 
           <div class="btn-control">
@@ -104,10 +67,7 @@ import textInput from "~/modules/textInput";
 export default {
   data() {
     return {
-      phone: "09198814783",
       storePhone: "",
-      wrongInput: false,
-      isActive: false,
       btnIsDisabled: false,
       formData: {
         phone: "",
@@ -135,17 +95,7 @@ export default {
   },
   methods: {
     getTextByTextKey,
-    validationPhoneNumber(value) {
-      if (/\D/.test(value)) {
-        this.wrongInput = true;
-        this.btnIsDisabled = true;
-      } else if (!/\D/.test(value)) {
-        this.wrongInput = false;
-        this.btnIsDisabled = false;
-        // } else if (value.length == 0) {
-        //     this.wrongInput = false;
-      }
-    },
+
     goToNextStepofRecyclePass() {
       this.checkInitialValidation++;
       console.log("dsads");
@@ -421,7 +371,13 @@ export default {
   }
   .txt-content {
     width: 270px;
-    margin-right: 15px;
+    margin-right: 23px;
+  }
+  .recycle-container::v-deep {
+    .input-holder {
+      margin-right: auto;
+      margin-left: auto;
+    }
   }
 }
 </style>
