@@ -212,9 +212,6 @@ export default {
     margin-right: auto;
     margin-left: auto;
   }
-  // .input-holder:focus {
-  //   border: 1px solid rgb(81, 81, 81);
-  // }
   .form__main--item {
     justify-content: center;
   }
@@ -224,6 +221,10 @@ export default {
   .show--error .input-holder {
     border-color: $red;
     background: $bg_festival_counrer_down;
+  }
+  .signup-input {
+    padding-right: 0;
+    margin-right: 24px;
   }
 }
 
@@ -250,8 +251,6 @@ export default {
   }
 
   .input-holder {
-    margin-right: 16px;
-    margin-left: 16px;
     padding: 0;
     width: 328px;
     height: 60px;
@@ -285,6 +284,15 @@ export default {
   .err-text {
     margin-right: 16px;
   }
+  .recycle-container::v-deep {
+    .signup-input {
+      margin-right: 16px;
+      margin-left: 16px;
+      width: 328px;
+      height: 60px;
+      margin-bottom: 8px;
+    }
+  }
 }
 @media screen and (max-width: 350px) {
   .signup-input {
@@ -301,8 +309,6 @@ export default {
   }
 
   .input-holder {
-    margin-right: 10px;
-    margin-left: 10px;
     padding: 0;
     width: 280px;
     height: 60px;
@@ -328,6 +334,18 @@ export default {
   .txt-content {
     width: 280px;
     margin-right: 10px;
+  }
+  .recycle-container::v-deep {
+    .input-holder {
+      margin-right: auto;
+      margin-left: auto;
+    }
+    .signup-input {
+      margin-right: 5px;
+      margin-left: 5px;
+      width: 270px;
+      padding-right: 16px;
+    }
   }
 }
 @media screen and (max-width: 321px) and (min-width: 299px) {
@@ -371,6 +389,12 @@ export default {
     .input-holder {
       margin-right: auto;
       margin-left: auto;
+    }
+    .signup-input {
+      margin-right: 5px;
+      margin-left: 5px;
+      width: 270px;
+      padding-right: 16px;
     }
   }
 }
