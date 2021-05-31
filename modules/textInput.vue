@@ -831,7 +831,7 @@ export default {
 }
 .show--error .input-holder {
   border-color: red !important;
-  background: #fff4f5;
+  background: #fff4f5 !important;
 }
 .show--error .clear-input span {
   color: red;
