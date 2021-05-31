@@ -20,7 +20,7 @@
               labelNameClass=""
               inputNameClass="w-100"
               state="authInput"
-              maxlength="100"
+              maxlength="11"
               function-max-len="greaterThan"
               placeholderText="*********09"
               :msgError="{
@@ -37,7 +37,7 @@
               :check-initial-validation="checkInitialValidation"
               :check-empty-submit="true"
               :check-required="false"
-              :check-typing-submit="false"
+              :check-typing-submit="true"
               :use-timer="false"
               :show-icon-star="false"
               :form-data="formData"
@@ -49,6 +49,7 @@
               :label-text="getTextByTextKey('auth_please_enter_number')"
             >
             </text-input>
+            {{ checkInitialValidation }}
           </div>
 
           <div class="btn-control">

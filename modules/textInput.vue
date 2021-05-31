@@ -251,6 +251,8 @@ export default {
     }
 
     this.currentValue = currentValue;
+
+    console.log(this.showError, "this.showError");
   },
 
   watch: {
@@ -331,7 +333,12 @@ export default {
     },
 
     typingInput(e, submitValue) {
-      this.checkDataValidation("typeing");
+      const keyboardKey = e.key;
+
+      // only run typeing check validation //
+      if (keyboardKey !== "Enter") {
+        this.checkDataValidation("typeing");
+      }
     },
 
     checkDataValidation(stateCheckForm) {
@@ -509,8 +516,6 @@ export default {
           };
 
           if (stateCheckForm == "typeing") {
-            console.log(this.nameInput);
-
             if (this.nameInput == "repeatNewPass") {
               repeatPasswordCheckValue(currentInputValue);
             }
@@ -544,7 +549,6 @@ export default {
         functionality();
       } else {
         this.showError = false;
-
         // only remove icon clear input //
         this.onlyRemoveIconClearData = false;
       }
