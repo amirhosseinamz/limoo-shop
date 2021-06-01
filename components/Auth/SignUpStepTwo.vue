@@ -592,7 +592,8 @@ export default {
     font-size: 20px;
     line-height: 140.62%;
     width: 280px;
-    margin-right: 10px;
+    margin-right: auto;
+    margin-left: auto;
   }
   .signup-limoo-logo {
     margin-top: 0;

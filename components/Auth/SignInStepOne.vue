@@ -319,6 +319,9 @@ export default {
   .disposable-pass {
     margin-right: 6px;
   }
+  .card {
+    width: 360px;
+  }
 }
 @media screen and (max-width: 350px) {
   .card {
@@ -364,6 +367,9 @@ export default {
   }
   .forget-pass-section {
     width: 280px;
+  }
+  .card {
+    width: auto;
   }
 }
 @media screen and (max-width: 280px) {
