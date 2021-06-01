@@ -49,7 +49,6 @@
               :label-text="getTextByTextKey('auth_please_enter_number')"
             >
             </text-input>
-            {{ checkInitialValidation }}
           </div>
 
           <div class="btn-control">
@@ -130,7 +129,6 @@ export default {
         }
 
         if (checkSubmitForm === "success") {
-          console.log("asdsa", this.formData.phone);
           this.$emit("onSubmit", this.formData.phone);
         } else {
           this.$store.commit("PhoneNumber", { value: this.formData.phone });

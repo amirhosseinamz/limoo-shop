@@ -214,6 +214,7 @@ export default {
     checkPassword: { type: Boolean, default: false },
     attributeRequired: { type: Boolean, default: false },
     activeBorderClick: { type: Boolean, default: false },
+    startAgainTimer: { type: Number, default: 0 },
   },
 
   data() {
@@ -277,22 +278,28 @@ export default {
     checkInitialValidation() {
       this.checkDataValidation("submit");
     },
+
+    // will true server response timer run function  //
+    startAgainTimer() {
+      console.log("dsd");
+      this.clearTimer();
+    },
   },
 
   methods: {
     getTextByTextKey,
     isEmail(str) {
-      var pattern = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+      const pattern = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
       return pattern.test(str); // returns a boolean
     },
 
     isNotEmpty(str) {
-      var pattern = /\S+/;
+      const pattern = /\S+/;
       return pattern.test(str); // returns a boolean
     },
 
     isNumber(str) {
-      var pattern = /^\d+$/;
+      const pattern = /^\d+$/;
       return pattern.test(str); // returns a boolean
     },
 
@@ -596,12 +603,16 @@ export default {
       }, 1000);
     },
 
-    sendNewRequest() {
+    clearTimer() {
       const splitTimerStart = this.timerStart.split(":");
       this.countDownTimer(splitTimerStart[0], splitTimerStart[1]);
       setTimeout(() => {
         this.timerZero = false;
       }, 1000);
+    },
+
+    sendNewRequest() {
+      this.$emit("again-start-timer");
     },
 
     clickInput() {
