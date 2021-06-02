@@ -215,6 +215,7 @@ export default {
     attributeRequired: { type: Boolean, default: false },
     activeBorderClick: { type: Boolean, default: false },
     startAgainTimer: { type: Number, default: 0 },
+    defaultShowTextAgainTimer: { type: Boolean, default: false },
   },
 
   data() {
@@ -251,9 +252,12 @@ export default {
       this.countDownTimer(splitTimerStart[0], splitTimerStart[1]);
     }
 
-    this.currentValue = currentValue;
+    // check show again text timer //
+    if (this.defaultShowTextAgainTimer) {
+      this.timerZero = true;
+    }
 
-    console.log(this.showError, "this.showError");
+    this.currentValue = currentValue;
   },
 
   watch: {
@@ -281,7 +285,6 @@ export default {
 
     // will true server response timer run function  //
     startAgainTimer() {
-      console.log("dsd");
       this.clearTimer();
     },
   },

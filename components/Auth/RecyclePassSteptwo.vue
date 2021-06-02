@@ -21,21 +21,12 @@
             {{ getTextByTextKey("auth_aignup_code_agin") }}
           </p>
         </div>
-        <div
-          class="alert-message "
-          :class="{ 'alert-message-animation': confirmCode }"
-        >
-          <img class="alert-icon " src="/icons/alarm.svg" />
-          <p dir="rtl" class="alert-txt">
-            {{ getTextByTextKey("auth_aignup_code_incorrect") }}
-          </p>
-        </div>
       </div>
       <div class="card-body">
         <form @submit.prevent="pressed">
           <div class="form-group">
             <p class="txt-header">
-              {{ getTextByTextKey("auth_aignup_enter_code_please") }}
+              {{ getTextByTextKey("auth_forget_password") }}
             </p>
             <text-input
               class="user--item user-profile__info-pass"
@@ -46,7 +37,7 @@
               function-max-len="greaterThan"
               placeholderText=""
               :msgError="{
-                notValidMsg: getTextByTextKey('auth_request_code_resend'),
+                notValidMsg: '',
               }"
               :check-email="false"
               :check-number="true"
@@ -70,22 +61,18 @@
               tag-html="input"
               type-input="text"
               name-input="verifyCode"
-              :label-text="
-                getTextByTextKey('auth_aignup_phone_enter_code') +
-                  ' ' +
-                  userPhoneNumber +
-                  ' ' +
-                  getTextByTextKey('auth_enter_phone')
-              "
-              :start-again-timer="startAgainTimer"
+              :default-show-text-again-timer="true"
+              :label-text="getTextByTextKey('auth_aignup_enter_code_please')"
               @again-start-timer="sendNewRequest"
             >
             </text-input>
           </div>
-
           <div class="btn-control">
-            <button class="signup-btn" type="submit" :disabled="btnIsDisabled">
-              {{ getTextByTextKey("public_confirm") }}
+            <button class="signup-btn" type="submit">
+              {{ getTextByTextKey("home_blog_single_more") }}
+            </button>
+            <button class="google-signup-btn" type="submit">
+              {{ getTextByTextKey("auth_login_google") }}
             </button>
           </div>
         </form>
@@ -121,7 +108,6 @@ export default {
         verifyCode: "",
       },
       checkInitialValidation: 0,
-      startAgainTimer: 0,
     };
   },
   watch: {
@@ -212,32 +198,10 @@ export default {
       }, 1000);
     },
     sendNewRequest() {
-      const headers = {
-        "Content-Type": "application/json",
-        "Client-Key": process.env.CLIENT_KEY,
-      };
-      this.$axios
-        .$post(
-          process.env.SIGN_UP_API,
-          { phone: this.userPhoneNumber },
-          {
-            headers: headers,
-          }
-        )
-        .then((result) => {
-          console.log(result.response_code);
-
-          if (result.response_code == 2208) {
-            this.startAgainTimer++;
-            this.newCodeSent = true;
-            setTimeout(() => {
-              this.newCodeSent = false;
-            }, 5000);
-          }
-        })
-        .catch((e) => {
-          console.log(e);
-        });
+      this.timerPassed = true;
+      setTimeout(() => {
+        this.timerPassed = false;
+      }, 5000);
     },
   },
 };
@@ -409,7 +373,7 @@ export default {
   line-height: 33.75px;
   font-weight: 400;
   text-align: right;
-  margin: 77px 90px 33px 0;
+  margin: 63px 90px 33px 0;
 }
 .txt-content {
   font-size: 16px;
@@ -430,6 +394,9 @@ export default {
 .signup-btn {
   margin-top: 14px;
   margin-bottom: 126px;
+}
+.google-signup-btn {
+  display: none;
 }
 
 .signup-container::v-deep {
@@ -453,6 +420,9 @@ export default {
 }
 
 @media screen and (max-width: 540px) {
+  .google-signup-btn {
+    @include display-flex();
+  }
   @keyframes cssAnimation {
     0% {
       opacity: 0;
@@ -494,7 +464,7 @@ export default {
     margin-top: 20px;
   }
   .card {
-    width: 380px;
+    width: 360px;
     height: 100vh;
     border-radius: 0;
   }
@@ -518,19 +488,20 @@ export default {
   }
   .signup-btn {
     width: 328px;
-    margin-top: 38px;
-    margin-bottom: 184px;
+    margin-top: 32px;
+    margin-bottom: 107px;
   }
   .txt-header {
     font-size: 20px;
     line-height: 140.62%;
     width: 328px;
-    margin: 128px 16px 24px 26px;
+    margin: 120px 16px 24px 16px;
   }
 
   @mixin txt-content {
     width: 328px;
     font-size: 14px;
+    margin-bottom: 17px;
     margin-right: 16px;
     margin-left: 16px;
   }
@@ -593,7 +564,7 @@ export default {
     line-height: 140.62%;
     width: 280px;
     margin-right: auto;
-    margin-left: auto;
+    margin-left: Auto;
   }
   .signup-limoo-logo {
     margin-top: 0;
