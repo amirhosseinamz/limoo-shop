@@ -223,14 +223,13 @@ export default {
     background: $bg_festival_counrer_down;
   }
   .signup-input {
-    padding-right: 0;
-    margin-right: 24px;
+    padding-right: 24px;
   }
 }
 
 @media screen and (max-width: 540px) {
   .card {
-    width: auto;
+    width: 360px;
     height: 100vh;
     border-radius: 0;
   }
@@ -275,22 +274,22 @@ export default {
     width: 328px;
     margin: 120px 16px 33px 16px;
   }
-  .txt-content {
-    font-size: 14px;
-    width: 328px;
-    margin-right: 16px;
-    margin-left: 16px;
-  }
   .err-text {
     margin-right: 16px;
   }
   .recycle-container::v-deep {
     .signup-input {
-      margin-right: 16px;
-      margin-left: 16px;
       width: 328px;
       height: 60px;
       margin-bottom: 8px;
+      padding-right: 16px;
+      padding-left: 16px;
+    }
+    .txt-content {
+      font-size: 14px;
+      width: 328px;
+      margin-right: 16px;
+      margin-left: 16px;
     }
   }
 }
@@ -329,12 +328,10 @@ export default {
     font-size: 20px;
     line-height: 140.62%;
     width: 280px;
-    margin-right: 10px;
+    margin-right: auto;
+    margin-left: auto;
   }
-  .txt-content {
-    width: 280px;
-    margin-right: 10px;
-  }
+
   .recycle-container::v-deep {
     .input-holder {
       margin-right: auto;
@@ -346,6 +343,12 @@ export default {
       width: 270px;
       padding-right: 16px;
     }
+    .txt-content {
+      width: 280px;
+    }
+  }
+  .card {
+    width: auto;
   }
 }
 @media screen and (max-width: 321px) and (min-width: 299px) {
@@ -379,7 +382,6 @@ export default {
     font-size: 20px;
     line-height: 140.62%;
     width: 270px;
-    margin-right: 15px;
   }
   .txt-content {
     width: 270px;

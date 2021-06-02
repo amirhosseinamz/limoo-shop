@@ -357,6 +357,8 @@ export default {
     line-height: 140.62%;
     width: 280px;
     margin: 37px 10px 20px 10px;
+    margin-right: auto;
+    margin-left: auto;
   }
   .txt-content {
     width: 280px;

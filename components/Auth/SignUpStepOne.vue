@@ -267,7 +267,7 @@ export default {
   }
 
   .card {
-    width: auto;
+    width: 360px;
     height: 100vh;
     border-radius: 0;
   }
@@ -346,7 +346,6 @@ export default {
     margin-right: 10px;
     margin-left: 10px;
     width: 280px;
-    margin-bottom: 42px;
     &-wrong {
       margin-right: 10px;
       margin-left: 10px;
@@ -381,7 +380,8 @@ export default {
     font-size: 20px;
     line-height: 140.62%;
     width: 280px;
-    margin-right: 10px;
+    margin-right: auto;
+    margin-left: auto;
   }
 
   @mixin txt-content {
@@ -407,6 +407,9 @@ export default {
     .signup-input {
       @include signup-input();
     }
+  }
+  .card {
+    width: auto;
   }
 }
 @media screen and (max-width: 280px) {
@@ -441,7 +444,6 @@ export default {
     font-size: 20px;
     line-height: 140.62%;
     width: 270px;
-    margin-right: 15px;
   }
 
   @mixin txt-content {
