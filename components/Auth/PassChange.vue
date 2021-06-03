@@ -261,6 +261,8 @@ export default {
   .signup-input {
     @extend .signup-input;
     padding-right: 0;
+    direction: ltr;
+    text-align: right;
   }
   .form__main--item {
     justify-content: center;
@@ -278,6 +280,9 @@ export default {
   }
   .form__item--error {
     margin-bottom: 08px;
+  }
+  .signin-eye {
+    margin-bottom: 0;
   }
 }
 

@@ -83,7 +83,7 @@
           inputNameClass=""
           class=" p-modal-address w-100"
           state="standard"
-          maxlength="65"
+          maxlength="130"
           function-max-len="equalTo"
           placeholderText=""
           :msgError="{

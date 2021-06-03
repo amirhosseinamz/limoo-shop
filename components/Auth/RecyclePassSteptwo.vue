@@ -413,6 +413,7 @@ export default {
   .signup-input {
     @extend .signup-input;
     padding-right: 0;
+    direction: ltr;
   }
   .timer-holder {
     margin-bottom: 0;
