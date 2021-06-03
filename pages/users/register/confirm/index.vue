@@ -15,7 +15,7 @@ import SignUpStepTwo from "~/components/Auth/SignUpStepTwo";
 import WellcomeSignUp from "~/components/Auth/WellcomeSignUp.vue";
 export default {
   layout: "signinup",
-  middleware: "confirmPageGuard",
+  // middleware: "confirmPageGuard",
   components: {
     SignUpStepTwo,
     WellcomeSignUp,

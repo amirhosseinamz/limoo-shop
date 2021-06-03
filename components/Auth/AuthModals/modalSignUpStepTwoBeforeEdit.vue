@@ -37,52 +37,74 @@
             <p class="txt-header">
               {{ getTextByTextKey("auth_aignup_enter_code_please") }}
             </p>
-            <text-input
-              class="user--item user-profile__info-pass"
-              labelNameClass=""
-              inputNameClass="w-100"
-              state="authInput"
-              maxlength="4"
-              function-max-len="greaterThan"
-              placeholderText=""
-              :msgError="{
-                notValidMsg: getTextByTextKey('auth_request_code_resend'),
-              }"
-              :check-email="false"
-              :check-number="true"
-              :active-check-phone-number="false"
-              :check-code="true"
-              :only-use-string="false"
-              :show-icon-clear-input="false"
-              :show-icon-eye-input="false"
-              :status-add-space-number="true"
-              :check-initial-validation="checkInitialValidation"
-              :check-empty-submit="true"
-              :check-required="false"
-              :check-typing-submit="true"
-              :use-timer="true"
-              :show-icon-star="false"
-              :form-data="formData"
-              :attribute-required="true"
-              :active-border-click="true"
-              timer-start="0:10"
-              accessStyleParentInToChildNameId="address__form--data"
-              tag-html="input"
-              type-input="text"
-              name-input="verifyCode"
-              :label-text="
-                getTextByTextKey('auth_aignup_phone_enter_code') +
-                  ' ' +
-                  userPhoneNumber +
-                  ' ' +
-                  getTextByTextKey('auth_enter_phone')
-              "
-              :start-again-timer="startAgainTimer"
-              @again-start-timer="sendNewRequest"
-            >
-            </text-input>
-          </div>
+            <p dir="rtl" class="txt-content">
+              {{ getTextByTextKey("auth_aignup_phone_enter_code") }}
+              <span>
+                {{ userPhoneNumber }}
+                {{ getTextByTextKey("auth_enter_phone") }}
+              </span>
+            </p>
+            <div class="input-section">
+              <div
+                class="input-holder"
+                :style="
+                  verifyCode || isActive
+                    ? 'border:1px solid #515151'
+                    : 'border:1px solid #bdbdbd'
+                "
+              >
+                <!-- <input
+                  @click="[(isActive = true)]"
+                  class="signup-input form-control"
+                  type="text"
+                  v-model="verifyCode"
+                  maxlength="4"
+                  required
+                  oninvalid="setCustomValidity()"
+                  oninput="setCustomValidity('')"
+                /> -->
 
+                <input
+                  @click="[(isActive = true)]"
+                  class="signup-input form-control"
+                  type="text"
+                  v-model="verifyCode"
+                  maxlength="4"
+                  required
+                  :oninvalid="
+                    this.getTextByTextKey('auth_aignup_enter_code_please')
+                  "
+                  oninput="setCustomValidity('')"
+                />
+              </div>
+            </div>
+          </div>
+          <div class="timer-holder">
+            <p :class="{ 'show-timer': timerZero }" class="timer">
+              <span class="tCounter">
+                <span class="timer-timeText">0</span>
+                <h3 class="timer-timeText">
+                  {{ counterDownMinutes[1] }}
+                </h3>
+                <span class="timer-timeText">:</span>
+                <h3 class="timer-timeText">
+                  {{ counterDownSecond[0] }}
+                </h3>
+
+                <h3 class="timer-timeText">
+                  {{ counterDownSecond[1] }}
+                </h3></span
+              >
+              {{ getTextByTextKey("auth_aignup_agin_code_send") }}
+            </p>
+            <p
+              class="code-request"
+              :class="{ 'show-code-request': timerZero }"
+              @click="sendNewRequest"
+            >
+              {{ getTextByTextKey("auth_request_code_resend") }}
+            </p>
+          </div>
           <div class="btn-control">
             <button class="signup-btn" type="submit" :disabled="btnIsDisabled">
               {{ getTextByTextKey("public_confirm") }}
@@ -96,17 +118,11 @@
 
 <script>
 import { getTextByTextKey } from "~/modules/splitPartJsonResource.js";
-import textInput from "~/modules/textInput";
 
 export default {
-  props: {
-    confirmCode: Boolean,
-  },
-  components: {
-    textInput,
-  },
   data() {
     return {
+      verifyCode: "",
       timerPassed: false,
       newCodeSent: false,
       isActive: false,
@@ -116,22 +132,36 @@ export default {
       counterDownSecond: [],
       Tcounter: 178,
       timerZero: false,
-      formData: {
-        verifyCode: "",
-      },
-      checkInitialValidation: 0,
-      startAgainTimer: 0,
+      confirmCodeIsWrong: false,
     };
   },
-  watch: {},
   mounted() {
     this.userPhoneNumber = this.$store.getters.PhoneNumberPicker;
+    this.countdownTimer(2, 60);
+  },
+  watch: {
+    verifyCode(value) {
+      this.verifyCode = value;
+      this.validationVerifyCode(value);
+    },
   },
   methods: {
     getTextByTextKey,
-
+    validationVerifyCode(value) {
+      if (/\D/.test(value)) {
+        // console.log(value);
+        // this.verifyCode = this.verifyCode.substring(
+        //     0,
+        //     this.verifyCode.length - 1
+        // );
+        this.verifyCode = this.verifyCode.slice(0, -1);
+      } else if (this.verifyCode.length < 4) {
+        this.btnIsDisabled = true;
+      } else if (this.verifyCode.length == 4) {
+        this.btnIsDisabled = false;
+      }
+    },
     animateTimerPassed() {
-      // console.log(this.verifyCode);
       this.timerPassed = true;
       setTimeout(() => {
         this.timerPassed = false;
@@ -139,35 +169,69 @@ export default {
     },
     pressed() {
       // talk to server
-      // this.$store.commit("PhoneNumber", { value: "" });
-      this.checkInitialValidation++;
-
-      setTimeout(() => {
-        const formData = this.formData;
-        let checkSubmitForm = "success";
-
-        // چک کردن ارور فورم //
-        for (let key in formData) {
-          const value = formData[key].value;
-
-          if (formData[key].hasError) {
-            checkSubmitForm = "failed";
+      const verifyCode = parseInt(this.verifyCode);
+      // console.log(verifyCode, this.userPhoneNumber);
+      const headers = {
+        "Content-Type": "application/json",
+        "Client-Key": process.env.CLIENT_KEY,
+      };
+      this.$axios
+        .$post(
+          process.env.SIGN_UP_OTP_API,
+          {
+            phone: this.userPhoneNumber,
+            activation_code: verifyCode,
+          },
+          {
+            headers: headers,
           }
-
-          if (typeof value !== "undefined") {
-            formData[key] = value;
+        )
+        .then((result) => {
+          // console.log(result);
+          if (result.response_code == 1) {
+            this.$store.dispatch({
+              type: "userIsAuth",
+              value: true,
+            });
+            this.$store.commit("authUser/setToken", result.token);
+            this.$store.commit("PhoneNumber", { value: "" });
+            this.$emit("event-show-modal-wellcome");
+            // console.log(result.token);
+          } else if (result.response_code == 2222) {
+            this.confirmCodeIsWrong = true;
+            setTimeout(() => {
+              this.confirmCodeIsWrong = false;
+            }, 5000);
           }
-        }
-
-        if (checkSubmitForm === "success") {
-          this.$emit("onConfirm", parseInt(this.formData.verifyCode));
-        }
-      });
+        })
+        .catch((e) => console.log(e));
     },
 
     nextPage() {
       // go to .../users/signin-up
-      this.$router.push("/users/signin-up");
+      this.$emit("btn-go-back-signup-step-one");
+    },
+    countdownTimer(mm, ss) {
+      const interval = setInterval(() => {
+        //
+        this.Tcounter--;
+        // console.log(this.Tcounter);
+        ss--;
+        if (ss == 0) {
+          ss = 59;
+          mm--;
+        }
+        if (this.Tcounter == 0) {
+          // console.log("TimerPassed");
+          this.animateTimerPassed();
+          clearInterval(interval);
+          this.timerZero = true;
+        }
+        if (mm.toString().length < 2) mm = "0" + mm;
+        if (ss.toString().length < 2) ss = "0" + ss;
+        this.counterDownMinutes = mm.toString().split("");
+        this.counterDownSecond = ss.toString().split("");
+      }, 1000);
     },
     sendNewRequest() {
       const headers = {
@@ -183,19 +247,20 @@ export default {
           }
         )
         .then((result) => {
-          console.log(result.response_code);
-
+          // console.log(result.response_code);
           if (result.response_code == 2208) {
-            this.startAgainTimer++;
+            this.countdownTimer(2, 60);
+            this.Tcounter = 178;
+            setTimeout(() => {
+              this.timerZero = false;
+            }, 1000);
             this.newCodeSent = true;
             setTimeout(() => {
               this.newCodeSent = false;
             }, 5000);
           }
         })
-        .catch((e) => {
-          console.log(e);
-        });
+        .catch((e) => console.log(e));
     },
   },
 };
@@ -259,7 +324,7 @@ export default {
 }
 
 .signup-container {
-  height: 100vh;
+  /* height: 100vh; */
   @include display-flex();
   flex-direction: column;
   justify-content: center;
@@ -324,7 +389,18 @@ export default {
   direction: rtl;
   font-family: inherit;
 }
-
+.timer-holder {
+  @include display-flex();
+  justify-content: flex-end;
+}
+.timer {
+  @include display-flex();
+  flex-direction: row;
+  font-size: 14px;
+  line-height: 140.62%;
+  color: $gray;
+  margin-right: 90px;
+}
 .show-timer {
   display: none;
 }
@@ -390,26 +466,6 @@ export default {
   margin-bottom: 126px;
 }
 
-.signup-container::v-deep {
-  .txt-content {
-    @extend .txt-content;
-  }
-  .input-holder {
-    @extend .input-holder;
-  }
-  .form__main--item {
-    justify-content: center;
-    width: auto;
-  }
-  .signup-input {
-    @extend .signup-input;
-    padding-right: 0;
-  }
-  .timer-holder {
-    margin-bottom: 0;
-  }
-}
-
 @media screen and (max-width: 540px) {
   @keyframes cssAnimation {
     0% {
@@ -452,18 +508,18 @@ export default {
     margin-top: 20px;
   }
   .card {
-    width: 380px;
+    width: auto;
     height: 100vh;
     border-radius: 0;
   }
-  @mixin signup-input {
+  .signup-input {
     margin-right: 16px;
     margin-left: 16px;
     width: 328px;
     height: 60px;
     margin-bottom: 8px;
   }
-  @mixin input-holder {
+  .input-holder {
     margin-right: 16px;
     margin-left: 16px;
     padding: 0;
@@ -471,9 +527,7 @@ export default {
     height: 60px;
     margin-bottom: 8px;
   }
-  .input-holder {
-    @include input-holder();
-  }
+
   .signup-btn {
     width: 328px;
     margin-top: 38px;
@@ -485,40 +539,21 @@ export default {
     width: 328px;
     margin: 128px 16px 24px 16px;
   }
-
-  @mixin txt-content {
+  .txt-content {
     width: 328px;
     font-size: 14px;
     margin-right: 16px;
     margin-left: 16px;
   }
-
-  .signup-container::v-deep {
-    .txt-content {
-      @include txt-content();
-    }
-    .input-holder {
-      @include signup-input();
-    }
-    .form__main--item {
-      justify-content: center;
-      width: auto;
-    }
-    .signup-input {
-      @include signup-input();
-      margin-right: 0;
-      margin-left: 0;
-    }
-    .timer {
-      margin-right: 16px;
-      font-size: 13px;
-    }
-    .timer-timeText {
-      font-size: 13px;
-    }
-    .code-request {
-      margin-right: 16px;
-    }
+  .timer {
+    margin-right: 16px;
+    font-size: 13px;
+  }
+  .timer-timeText {
+    font-size: 13px;
+  }
+  .code-request {
+    margin-right: 16px;
   }
 }
 @media screen and (max-width: 321px) and (min-width: 299px) {
@@ -535,12 +570,13 @@ export default {
   .alert-message {
     width: 280px;
   }
-  @mixin signup-input {
+  .signup-input {
     margin-right: 10px;
     margin-left: 10px;
     width: 280px;
+    margin-bottom: 42px;
   }
-  @mixin input-holder {
+  .input-holder {
     width: 280px;
   }
   .signup-btn {
@@ -550,34 +586,14 @@ export default {
     font-size: 20px;
     line-height: 140.62%;
     width: 280px;
-    margin-right: auto;
-    margin-left: auto;
+    margin-right: 10px;
+  }
+  .txt-content {
+    width: 280px;
+    margin-right: 10px;
   }
   .signup-limoo-logo {
     margin-top: 0;
-  }
-  @mixin txt-content {
-    width: 280px;
-    margin-right: 10px;
-    margin-left: 0;
-  }
-  .signup-container::v-deep {
-    .txt-content {
-      @include txt-content();
-    }
-    .input-holder {
-      @include signup-input();
-    }
-    .form__main--item {
-      justify-content: center;
-      width: auto;
-    }
-    .signup-input {
-      @include signup-input();
-    }
-  }
-  .card {
-    width: auto;
   }
 }
 @media screen and (max-width: 280px) {
@@ -593,10 +609,14 @@ export default {
     padding-left: 30px;
   }
   .signup-input {
+    margin-right: 5px;
+    margin-left: 5px;
     width: 270px;
+    margin-bottom: 42px;
   }
   .input-holder {
     width: 270px;
+    margin-right: 10px;
   }
   .signup-btn {
     width: 270px;
@@ -604,9 +624,8 @@ export default {
   .txt-header {
     font-size: 20px;
     line-height: 140.62%;
-    width: 280px;
+    width: 270px;
     margin-right: 5px;
-    margin-left: 0px;
   }
   .txt-content {
     width: 270px;

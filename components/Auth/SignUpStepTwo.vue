@@ -65,7 +65,7 @@
               :form-data="formData"
               :attribute-required="true"
               :active-border-click="true"
-              timer-start="0:10"
+              timer-start="2:60"
               accessStyleParentInToChildNameId="address__form--data"
               tag-html="input"
               type-input="text"
@@ -107,7 +107,6 @@ export default {
   },
   data() {
     return {
-      verifyCode: "",
       timerPassed: false,
       newCodeSent: false,
       isActive: false,
@@ -124,32 +123,13 @@ export default {
       startAgainTimer: 0,
     };
   },
-  watch: {
-    verifyCode(value) {
-      this.verifyCode = value;
-      this.validationVerifyCode(value);
-    },
-  },
+  watch: {},
   mounted() {
     this.userPhoneNumber = this.$store.getters.PhoneNumberPicker;
-    this.countdownTimer(2, 60);
   },
   methods: {
     getTextByTextKey,
 
-    validationVerifyCode(value) {
-      if (/\D/.test(value)) {
-        // console.log(value);
-        this.verifyCode = this.verifyCode.slice(0, -1);
-        // THe first is 0, the starting point. The second is the number of
-        // items to remove. Passing a negative number will remove starting
-        // from the end. This is the solution
-      } else if (this.verifyCode.length < 4) {
-        this.btnIsDisabled = true;
-      } else if (this.verifyCode.length == 4) {
-        this.btnIsDisabled = false;
-      }
-    },
     animateTimerPassed() {
       // console.log(this.verifyCode);
       this.timerPassed = true;
@@ -188,28 +168,6 @@ export default {
     nextPage() {
       // go to .../users/signin-up
       this.$router.push("/users/signin-up");
-    },
-    countdownTimer(mm, ss) {
-      const interval = setInterval(() => {
-        //
-        this.Tcounter--;
-        // console.log(this.Tcounter);
-        ss--;
-        if (ss == 0) {
-          ss = 59;
-          mm--;
-        }
-        if (this.Tcounter == 0) {
-          // console.log("TimerPassed");
-          this.animateTimerPassed();
-          clearInterval(interval);
-          this.timerZero = true;
-        }
-        if (mm.toString().length < 2) mm = "0" + mm;
-        if (ss.toString().length < 2) ss = "0" + ss;
-        this.counterDownMinutes = mm.toString().split("");
-        this.counterDownSecond = ss.toString().split("");
-      }, 1000);
     },
     sendNewRequest() {
       const headers = {
