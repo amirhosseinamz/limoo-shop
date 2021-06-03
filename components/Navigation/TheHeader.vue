@@ -164,12 +164,14 @@ export default {
   },
   methods: {
     showAuthModal() {
+      this.showModalAuth = true;
+
       // console.log("hi");
-      if (!this.userIsAuth) {
-        this.showModalAuth = true;
-      } else if (this.userIsAuth) {
-        this.$router.push("/profile");
-      }
+      // if (!this.userIsAuth) {
+      //   this.showModalAuth = true;
+      // } else if (this.userIsAuth) {
+      //   this.$router.push("/profile");
+      // }
     },
 
     showWellcomeModal() {

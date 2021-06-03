@@ -173,7 +173,7 @@
       tag-html="textarea"
       timer-start="0:10"
       type-input="text"
-      name-input="codeRequired2"
+      name-input="codeRequired444"
       label-text="متن نظر شما:"
     >
     </text-input>
@@ -336,7 +336,17 @@ export default {
         notValidNumber: "شماره وارد شده صحیح نیست",
       },
       checkValidationSubmitForm: 0,
-      formData: {},
+      formData: {
+        test: "",
+        codePoste: "",
+        phoneNumber: "",
+        code: "",
+        codeRequired: "",
+        codeRequired2: "",
+        codeRequired444: "",
+        forgetPassword1: "",
+        forgetPassword2: "",
+      },
     };
   },
   props: {
