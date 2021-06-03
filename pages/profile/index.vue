@@ -79,7 +79,7 @@ import TheLastOrdersList from "~/components/Profile/TheLastOrdersList.vue";
 import { getTextByTextKey } from "~/modules/splitPartJsonResource.js";
 
 export default {
-  middleware: "authentication",
+  // middleware: "authentication",
   layout: "removeFooterMobile",
   components: {
     TheProfileSideBar,
