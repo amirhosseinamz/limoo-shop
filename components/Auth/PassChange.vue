@@ -47,13 +47,15 @@
               :use-timer="false"
               :show-icon-star="true"
               :form-data="formData"
-              :check-password="true"
+              :state-password="true"
+              :check-typeing-several-password="checkTypeingSeveralPassword"
               accessStyleParentInToChildNameId="address__form--data"
               tag-html="input"
               timer-start=""
               type-input="text"
               name-input="newPass"
               label-text="رمز عبور جدید:"
+              @typeing="typeing"
             >
             </text-input>
 
@@ -83,13 +85,15 @@
               :use-timer="false"
               :show-icon-star="true"
               :form-data="formData"
-              :check-password="true"
+              :state-password="true"
+              :check-typeing-several-password="checkTypeingSeveralPassword"
               accessStyleParentInToChildNameId="address__form--data"
               tag-html="input"
               timer-start=""
               type-input="text"
               name-input="repeatNewPass"
               label-text="تکرار رمز عبور جدید"
+              @typeing="typeing"
             >
             </text-input>
           </div>
@@ -136,6 +140,7 @@ export default {
         repeatNewPass: "",
         newPass: "",
       },
+      checkTypeingSeveralPassword: 0,
     };
   },
   components: {
@@ -164,6 +169,10 @@ export default {
     nextPage() {
       // go to ...
       this.$router.push("/users/password/forget/confirm");
+    },
+
+    typeing(data) {
+      this.checkTypeingSeveralPassword++;
     },
   },
 };

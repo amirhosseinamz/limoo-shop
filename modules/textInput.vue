@@ -211,11 +211,12 @@ export default {
     idInput: { type: String, default: "" },
     disabledInputDefault: { type: Boolean, default: false },
     removeError: { type: Boolean, default: false },
-    checkPassword: { type: Boolean, default: false },
+    statePassword: { type: Boolean, default: false },
     attributeRequired: { type: Boolean, default: false },
     activeBorderClick: { type: Boolean, default: false },
     startAgainTimer: { type: Number, default: 0 },
     defaultShowTextAgainTimer: { type: Boolean, default: false },
+    checkTypeingSeveralPassword: { type: Number, default: 0 },
   },
 
   data() {
@@ -287,6 +288,17 @@ export default {
     startAgainTimer() {
       this.clearTimer();
     },
+
+    checkTypeingSeveralPassword() {
+      if (this.nameInput === "repeatNewPass") {
+        const checkHasErrorRepeatPassInToNewPass = this.formData.repeatNewPass
+          .checkHasErrorRepeatPassInToNewPass;
+
+        if (typeof checkHasErrorRepeatPassInToNewPass !== "undefined") {
+          this.showError = checkHasErrorRepeatPassInToNewPass;
+        }
+      }
+    },
   },
 
   methods: {
@@ -355,6 +367,8 @@ export default {
       const currentInputValue = this.currentValue;
       const maxlength = this.maxlength;
       const functionMaxLen = this.functionMaxLen;
+
+      this.formData[this.nameInput] = { value: currentInputValue };
 
       const functionality = () => {
         if (this.isNotEmpty(currentInputValue)) {
@@ -476,7 +490,7 @@ export default {
           }
         }
 
-        if (this.checkPassword) {
+        if (this.statePassword) {
           const repeatPasswordCheckValue = (value) => {
             let newPassValue = this.formData["newPass"];
 
@@ -508,6 +522,15 @@ export default {
           };
 
           const newPasswordCheckValue = (value) => {
+            let repeatNewPassValue = this.formData["repeatNewPass"].value;
+
+            if (typeof repeatNewPassValue !== "undefined") {
+              repeatPasswordCheckValue(repeatNewPassValue);
+              this.formData[
+                "repeatNewPass"
+              ].checkHasErrorRepeatPassInToNewPass = this.showError;
+            }
+
             if (value.length == 0) {
               this.msgError.notValidMsg = "";
               this.showError = false;
@@ -575,10 +598,14 @@ export default {
       }
 
       // آپدیت آبجکت فورم برای گرفتن اطاعات وارد شده //
-      this.formData[this.nameInput] = {
-        value: currentInputValue,
-        hasError: this.showError,
-      };
+      // this.formData[this.nameInput] = {
+      //   value: currentInputValue,
+      //   hasError: this.showError,
+      // };
+
+      this.formData[this.nameInput].hasError = this.showError;
+
+      this.$emit("typeing", this.formData);
     },
 
     countDownTimer(mm, ss) {
