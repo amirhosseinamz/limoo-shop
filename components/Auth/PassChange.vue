@@ -26,7 +26,7 @@
               labelNameClass=""
               inputNameClass="w-100"
               state="authInput"
-              maxlength="100"
+              maxlength="32"
               function-max-len="greaterThan"
               placeholderText=""
               :msgError="{
@@ -86,6 +86,7 @@
               :show-icon-star="true"
               :form-data="formData"
               :state-password="true"
+              :active-border-click="true"
               :check-typeing-several-password="checkTypeingSeveralPassword"
               accessStyleParentInToChildNameId="address__form--data"
               tag-html="input"

@@ -324,6 +324,7 @@ export default {
   text-align: right;
   margin-top: 17px;
   color: $white;
+  direction: ltr;
 }
 .form-control {
   direction: rtl;

@@ -2,301 +2,301 @@
 @import "_colors.scss";
 
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 html {
-    font-family: "IRANYekan";
+  font-family: "IRANYekan";
 }
 // ==============Inheritance classes==================
 .sass-input__default {
-    outline: none;
-    border: none;
-    background: transparent;
+  outline: none;
+  border: none;
+  background: transparent;
 }
 button {
-    outline: none;
+  outline: none;
 }
 .w-100 {
-    width: 100%;
+  width: 100%;
 }
 .align-items-start {
-    align-items: flex-start;
+  align-items: flex-start;
 }
 .align-items-center {
-    align-items: center;
+  align-items: center;
 }
 .flex-column {
-    flex-flow: column;
+  flex-flow: column;
 }
 .d-rtl {
-    direction: rtl;
+  direction: rtl;
 }
 .h-100 {
-    height: 100%;
+  height: 100%;
 }
 .d-none {
-    display: none !important;
+  display: none !important;
 }
 .btn-change {
-    height: 57px;
-    width: 270px;
-    background: $btn__green;
-    color: $white;
-    font-size: 18px;
-    font-family: inherit;
-    line-height: 140.62%;
-    text-align: center;
-    border-radius: 10px;
-    cursor: pointer;
-    outline: none;
-    border: none;
-    transition: all 120ms ease-in;
+  height: 57px;
+  width: 270px;
+  background: $btn__green;
+  color: $white;
+  font-size: 18px;
+  font-family: inherit;
+  line-height: 140.62%;
+  text-align: center;
+  border-radius: 10px;
+  cursor: pointer;
+  outline: none;
+  border: none;
+  transition: all 120ms ease-in;
 }
 // .btn-change:hover{
 //   background: #28b862;
 //   transition: all 120ms ease-in;
 // }
 .justify-content-start {
-    justify-content: flex-start;
+  justify-content: flex-start;
 }
 .text-right {
-    text-align: right;
+  text-align: right;
 }
 .justify-content-end {
-    justify-content: flex-end;
+  justify-content: flex-end;
 }
 input[type="number"] {
-    -moz-appearance: textfield;
+  -moz-appearance: textfield;
 }
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
-    -webkit-appearance: none;
+  -webkit-appearance: none;
 }
 
 // ==================utile classes ===================
 .menu-item__activated {
-    // filter: invert(20%) sepia(60%) saturate(619%) hue-rotate(335deg)
-    //     brightness(175%) contrast(105%);
-    color: $yellow !important;
-    // fill: $yellow;
+  // filter: invert(20%) sepia(60%) saturate(619%) hue-rotate(335deg)
+  //     brightness(175%) contrast(105%);
+  color: $yellow !important;
+  // fill: $yellow;
 }
 
 // ===================Mixins==========================
-@import '_mixins.scss';
+@import "_mixins.scss";
 
 // ===================================================
 .signup-limoo-logo {
-    margin-top: 0;
-    height: 56.25px;
+  margin-top: 0;
+  height: 56.25px;
 }
 .app-signup-close-btn {
-    @extend .sass-input__default;
-    cursor: pointer;
-    margin-left: 24px;
+  @extend .sass-input__default;
+  cursor: pointer;
+  margin-left: 24px;
 }
 .app-signin-next-btn {
-    @extend .sass-input__default;
-    cursor: pointer;
-    margin-left: 24px;
+  @extend .sass-input__default;
+  cursor: pointer;
+  margin-left: 24px;
 }
 .signin-btn,
 .signup-btn {
-    font-family: inherit;
-    font-size: 18px;
-    font-weight: 400;
-    line-height: 25.31px;
-    text-align: center;
-    color: $white;
-    background: $yellow;
-    height: 58px;
-    width: 463px;
-    border: none;
-    border-radius: 10px;
-    outline: none;
+  font-family: inherit;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 25.31px;
+  text-align: center;
+  color: $white;
+  background: $yellow;
+  height: 58px;
+  width: 463px;
+  border: none;
+  border-radius: 10px;
+  outline: none;
 
-    cursor: pointer;
+  cursor: pointer;
 }
 .google-signup-btn {
-    font-family: inherit;
-    font-size: 14px;
-    font-weight: 500;
-    line-height: 19.69px;
-    text-align: center;
-    color: $gray;
-    background: $google-btn__bg;
-    height: 44px;
-    width: 189px;
-    border: none;
-    border-radius: 10px;
-    outline: none;
-    margin-bottom: 31px;
-    cursor: pointer;
-    visibility: hidden;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 19.69px;
+  text-align: center;
+  color: $gray;
+  background: $google-btn__bg;
+  height: 44px;
+  width: 189px;
+  border: none;
+  border-radius: 10px;
+  outline: none;
+  margin-bottom: 31px;
+  cursor: pointer;
+  visibility: hidden;
 }
 .signin-input,
 .signup-input {
-    // font-family: "IRANYekan";
+  // font-family: "IRANYekan";
+  @extend .sass-input__default;
+  font-size: 16px;
+  font-weight: 400;
+  flex-grow: 2;
+  &-wrong {
     @extend .sass-input__default;
     font-size: 16px;
     font-weight: 400;
     flex-grow: 2;
-    &-wrong {
-        @extend .sass-input__default;
-        font-size: 16px;
-        font-weight: 400;
-        flex-grow: 2;
-        color: $red;
-    }
+    color: $red;
+  }
 }
 
 .input-section,
 .search-section {
-    display: flex;
-    justify-content: center;
+  display: flex;
+  justify-content: center;
 }
 .input-holder-verify,
 .input-holder {
-    background: $input-bg;
+  background: $white;
+  margin-bottom: 8px;
+  height: 54px;
+  line-height: 28px;
+  border: 1px solid $input-border;
+  box-sizing: border-box;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: row-reverse;
+  width: 463px;
+  &-wrong {
+    color: $red;
+    background: $alert-red__bg;
     margin-bottom: 8px;
     height: 54px;
     line-height: 28px;
-    border: 1px solid $input-border;
+    border: 1px solid $alert-red !important;
     box-sizing: border-box;
     border-radius: 10px;
     display: flex;
     flex-direction: row-reverse;
     width: 463px;
-    &-wrong {
-        color: $red;
-        background: $alert-red__bg;
-        margin-bottom: 8px;
-        height: 54px;
-        line-height: 28px;
-        border: 1px solid $alert-red !important;
-        box-sizing: border-box;
-        border-radius: 10px;
-        display: flex;
-        flex-direction: row-reverse;
-        width: 463px;
-        outline: none;
-    }
+    outline: none;
+  }
 }
 ::-webkit-input-placeholder,
 ::-moz-placeholder,
 :-ms-input-placeholder,
 :-moz-placeholder,
 ::placeholder {
-    color: $input-border;
+  color: $input-border;
 }
 .clear-input {
+  @extend .sass-input__default;
+  color: $gray;
+  font-size: 30px;
+  cursor: pointer;
+  padding-left: 16px;
+  &-wrong {
     @extend .sass-input__default;
-    color: $gray;
+    color: $red;
     font-size: 30px;
     cursor: pointer;
     padding-left: 16px;
-    &-wrong {
-        @extend .sass-input__default;
-        color: $red;
-        font-size: 30px;
-        cursor: pointer;
-        padding-left: 16px;
-    }
+  }
 }
 
 .flex-row {
-    flex-direction: row;
+  flex-direction: row;
 }
 .cursor-pointer {
-    cursor: pointer;
+  cursor: pointer;
 }
 .flex-wrap {
-    flex-wrap: wrap;
+  flex-wrap: wrap;
 }
 .justify-content-center {
-    justify-content: center;
+  justify-content: center;
 }
 .p-product-btn {
-    width: 150px;
-    height: 47px;
-    background: #ffffff;
-    box-shadow: 0px 8px 16px rgba(17, 17, 17, 0.03);
-    border-radius: 10px;
-    border: 2px solid #ffcc40;
-    font-family: inherit;
-    color: $yellow;
-    font-size: 14px;
+  width: 150px;
+  height: 47px;
+  background: #ffffff;
+  box-shadow: 0px 8px 16px rgba(17, 17, 17, 0.03);
+  border-radius: 10px;
+  border: 2px solid #ffcc40;
+  font-family: inherit;
+  color: $yellow;
+  font-size: 14px;
+  transition: all 120ms ease-in;
+  &:hover {
     transition: all 120ms ease-in;
-    &:hover {
-        transition: all 120ms ease-in;
-        background: $yellow;
-        color: #fff;
-    }
+    background: $yellow;
+    color: #fff;
+  }
 }
 .p-favorite-product-btn-main {
-    @include display-flex();
+  @include display-flex();
 }
 .p-favorite-product-btn-delete {
-    background: $google-btn__bg;
-    border: 2px solid $google-btn__bg;
-    box-sizing: border-box;
-    border-radius: 10px;
-    width: 47px;
-    height: 47px;
-    margin-right: 25px;
+  background: $google-btn__bg;
+  border: 2px solid $google-btn__bg;
+  box-sizing: border-box;
+  border-radius: 10px;
+  width: 47px;
+  height: 47px;
+  margin-right: 25px;
 }
 .p-favorite-product-btn-link {
-    border: none;
-    color: inherit;
-    border-bottom: none;
-    unicode-bidi: normal;
-    text-decoration: none;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  border: none;
+  color: inherit;
+  border-bottom: none;
+  unicode-bidi: normal;
+  text-decoration: none;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .p-input-style__default {
-    @include display-flex();
-    flex-direction: row;
-    justify-content: space-between;
-    font-family: inherit;
-    border: 1px solid $input-border;
-    box-shadow: 0px 4px 4px $gray-border;
-    height: 52px;
-    width: 91px;
-    border-radius: 15px;
-    color: #828282;
-    outline: none;
-    padding-right: 10px;
-    padding-left: 10px;
-    width: 175px;
+  @include display-flex();
+  flex-direction: row;
+  justify-content: space-between;
+  font-family: inherit;
+  border: 1px solid $input-border;
+  box-shadow: 0px 4px 4px $gray-border;
+  height: 52px;
+  width: 91px;
+  border-radius: 15px;
+  color: #828282;
+  outline: none;
+  padding-right: 10px;
+  padding-left: 10px;
+  width: 175px;
 }
 .p-favorite-product-btn-modal-delete {
-    background: $yellow;
-    margin-left: 16px;
-    color: $white;
+  background: $yellow;
+  margin-left: 16px;
+  color: $white;
 }
 .p-favorite-product-btn-modal-cancel {
-    background: $light_gray;
-    margin-left: 0;
-    border-color: $light_gray;
-    color: $gray;
+  background: $light_gray;
+  margin-left: 0;
+  border-color: $light_gray;
+  color: $gray;
 }
 .p-favorite-product-btn-modal-cancel:hover {
-    background: #e0e0e0;
-    color: #828282;
+  background: #e0e0e0;
+  color: #828282;
 }
 .d-none {
-    display: none !important;
+  display: none !important;
 }
 .d-fleX {
-    display: flex;
+  display: flex;
 }
 .justify-content-space-between {
-    justify-content: space-between;
+  justify-content: space-between;
 }
 // .d-flex {
 //     display: flex;

@@ -37,6 +37,8 @@
             :use-timer="false"
             :show-icon-star="false"
             :form-data="formData"
+            :active-border-click="true"
+            @typeing="typeing"
             accessStyleParentInToChildNameId="address__form--data"
             tag-html="input"
             timer-start=""
@@ -128,6 +130,10 @@ export default {
     previousPage() {
       // go to ...
       this.$router.push("/users/signin-up");
+    },
+
+    typeing() {
+      console.log("typeing", this.formData);
     },
   },
 };

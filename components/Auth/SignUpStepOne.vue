@@ -41,12 +41,14 @@
               :use-timer="false"
               :show-icon-star="false"
               :form-data="formData"
+              :active-border-click="true"
               accessStyleParentInToChildNameId="address__form--data"
               tag-html="input"
               timer-start=""
               type-input="text"
               name-input="phone"
               :label-text="getTextByTextKey('auth_please_enter_number')"
+              @typeing="typeing"
             >
             </text-input>
           </div>
@@ -128,6 +130,9 @@ export default {
           }
         }
 
+        // formData.phone = "09898814783";
+        // this.checkInitialValidation++;
+
         if (checkSubmitForm === "success") {
           this.$emit("onSubmit", this.formData.phone);
         } else {
@@ -138,6 +143,9 @@ export default {
     closePage() {
       this.$router.push("/");
       this.$store.commit("PhoneNumber", { value: "" });
+    },
+    typeing() {
+      // this.formData.phone = "09098814783";
     },
   },
 };

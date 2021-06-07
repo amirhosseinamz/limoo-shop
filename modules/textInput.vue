@@ -63,7 +63,7 @@
             class="form__main--item"
           >
             <div
-              :class="{ 'border--actice': haveBorder }"
+              :class="{ 'border--active': haveBorder }"
               class="input-holder"
               v-if="tagHtml == 'input'"
             >
@@ -364,6 +364,11 @@ export default {
     },
 
     checkDataValidation(stateCheckForm) {
+      if (stateCheckForm === "submit") {
+        // detected value input //
+        this.updateCurrentInput();
+      }
+
       const currentInputValue = this.currentValue;
       const maxlength = this.maxlength;
       const functionMaxLen = this.functionMaxLen;
@@ -505,7 +510,7 @@ export default {
             if (value.length == 0) {
               this.msgError.notValidMsg = "";
               this.showError = false;
-            } else if (value.length > 32) {
+            } else if (value.length > this.maxlength) {
               this.msgError.notValidMsg =
                 "رمز عبور نمی تواند بیش از 32 کاراکتر باشد!";
               this.showError = true;
@@ -537,7 +542,7 @@ export default {
             if (value.length == 0) {
               this.msgError.notValidMsg = "";
               this.showError = false;
-            } else if (value.length > 32) {
+            } else if (value.length > this.maxlength) {
               this.msgError.notValidMsg =
                 "رمز عبور نمی تواند بیش از 32 کاراکتر باشد!";
               this.showError = true;
@@ -608,6 +613,24 @@ export default {
 
       this.formData[this.nameInput].hasError = this.showError;
       this.$emit("typeing", this.formData);
+
+      if (stateCheckForm == "typeing") {
+        // detected value input //
+        this.updateCurrentInput();
+      }
+    },
+
+    updateCurrentInput() {
+      const formData = this.formData[this.nameInput];
+      let currentUpdateValue = "";
+
+      if (typeof formData.value === "undefined") {
+        currentUpdateValue = formData;
+      } else {
+        currentUpdateValue = formData.value;
+      }
+
+      this.currentValue = currentUpdateValue;
     },
 
     countDownTimer(mm, ss) {
@@ -967,9 +990,11 @@ export default {
 .active--timer.timer-holder {
   visibility: visible;
 }
-.border--actice {
+.border--active {
   border: 1px solid rgb(81, 81, 81) !important;
+  background: $input-bg !important;
 }
+
 // end timer //
 
 // textarea style //
