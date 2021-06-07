@@ -514,7 +514,10 @@ export default {
               this.msgError.notValidMsg =
                 "رمز عبور نمی تواند بیش از 32 کاراکتر باشد!";
               this.showError = true;
-            } else if (!/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/.test(value)) {
+            } else if (
+              !/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/.test(value) &&
+              !/^(?=.*\d)(?=.*[!@#$%^&*()|`]).{8,}$/.test(value)
+            ) {
               this.msgError.notValidMsg =
                 "رمز عبور باید شامل حداقل 8 (رقم و کاراکتر) باشد!";
               this.showError = true;
@@ -546,7 +549,10 @@ export default {
               this.msgError.notValidMsg =
                 "رمز عبور نمی تواند بیش از 32 کاراکتر باشد!";
               this.showError = true;
-            } else if (!/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/.test(value)) {
+            } else if (
+              !/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/.test(value) &&
+              !/^(?=.*\d)(?=.*[!@#$%^&*()|`]).{8,}$/.test(value)
+            ) {
               this.msgError.notValidMsg =
                 "رمز عبور باید شامل حداقل 8 (رقم و کاراکتر) باشد!";
               this.showError = true;
