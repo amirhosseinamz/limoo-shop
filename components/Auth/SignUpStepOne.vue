@@ -130,9 +130,6 @@ export default {
           }
         }
 
-        //         formData.phone = "09898814783";
-        // this.checkInitialValidation++;
-
         if (checkSubmitForm === "success") {
           this.$emit("onSubmit", this.formData.phone);
         } else {
@@ -144,9 +141,7 @@ export default {
       this.$router.push("/");
       this.$store.commit("PhoneNumber", { value: "" });
     },
-    typeing() {
-      // this.formData.phone = "09098814783";
-    },
+    typeing() {},
   },
 };
 </script>
