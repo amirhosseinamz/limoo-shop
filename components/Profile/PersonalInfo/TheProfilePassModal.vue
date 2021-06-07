@@ -37,7 +37,7 @@
         :check-typing-submit="true"
         :use-timer="false"
         :show-icon-star="true"
-        :check-password="true"
+        :state-passowrd="true"
         :form-data="formData"
         tag-html="input"
         timer-start=""
@@ -67,19 +67,21 @@
         :show-icon-eye-input="true"
         :status-add-space-number="false"
         :check-initial-validation="checkInitialValidation"
+        :check-typeing-several-password="checkTypeingSeveralPassword"
         :check-empty-submit="true"
         :check-required="true"
         :check-typing-submit="true"
         :use-timer="false"
         :show-icon-star="true"
         :form-data="formData"
-        :check-password="true"
+        :state-password="true"
         accessStyleParentInToChildNameId="address__form--data"
         tag-html="input"
         timer-start=""
         type-input="text"
         name-input="newPass"
         label-text="رمز عبور جدید:"
+        @typeing="typeing"
       >
       </text-input>
 
@@ -103,19 +105,21 @@
         :show-icon-eye-input="true"
         :status-add-space-number="false"
         :check-initial-validation="checkInitialValidation"
+        :check-typeing-several-password="checkTypeingSeveralPassword"
         :check-empty-submit="true"
         :check-required="true"
         :check-typing-submit="true"
         :use-timer="false"
         :show-icon-star="true"
         :form-data="formData"
-        :check-password="true"
+        :state-password="true"
         accessStyleParentInToChildNameId="address__form--data"
         tag-html="input"
         timer-start=""
         type-input="text"
         name-input="repeatNewPass"
         label-text="تکرار رمز عبور جدید"
+        @typeing="typeing"
       >
       </text-input>
 
@@ -143,6 +147,7 @@ export default {
         newPass: "",
       },
       checkInitialValidation: 0,
+      checkTypeingSeveralPassword: 0,
     };
   },
   watch: {},
@@ -177,6 +182,8 @@ export default {
           }
         }
 
+        console.log(formData, "formData");
+
         if (checkSubmitForm === "success") {
           // later we talk to back end
           if (screen.width < 950) {
@@ -189,6 +196,10 @@ export default {
           }
         }
       });
+    },
+
+    typeing(data) {
+      this.checkTypeingSeveralPassword++;
     },
   },
 };

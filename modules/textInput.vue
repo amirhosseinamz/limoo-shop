@@ -604,7 +604,6 @@ export default {
       // };
 
       this.formData[this.nameInput].hasError = this.showError;
-
       this.$emit("typeing", this.formData);
     },
 
