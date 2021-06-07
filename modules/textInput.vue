@@ -484,8 +484,10 @@ export default {
           }
 
           if (stateCheckForm == "typeing") {
-            if (currentInputValue.length < maxlength) {
-              this.showError = true;
+            if (this.checkRequired) {
+              if (currentInputValue.length < maxlength) {
+                this.showError = true;
+              }
             }
           }
         }
@@ -524,6 +526,7 @@ export default {
           const newPasswordCheckValue = (value) => {
             let repeatNewPassValue = this.formData["repeatNewPass"].value;
 
+            // compare newPass and  pepatPass //
             if (typeof repeatNewPassValue !== "undefined") {
               repeatPasswordCheckValue(repeatNewPassValue);
               this.formData[

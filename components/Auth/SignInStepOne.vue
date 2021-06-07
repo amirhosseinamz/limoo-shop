@@ -17,7 +17,7 @@
             state="authInput"
             maxlength="100"
             function-max-len="greaterThan"
-            placeholderText="کلمه عبور ..."
+            placeholderText="... کلمه عبور"
             :msgError="{
               notValidMsg: 'مجاز نیست',
               notValidNumber: 'بیش از حد مجاز',
@@ -31,7 +31,7 @@
             :show-icon-eye-input="true"
             :status-add-space-number="false"
             :check-initial-validation="checkInitialValidation"
-            :check-empty-submit="false"
+            :check-empty-submit="true"
             :check-required="false"
             :check-typing-submit="false"
             :use-timer="false"
@@ -205,6 +205,13 @@ export default {
   .form__main--item {
     flex-flow: inherit;
     justify-content: center;
+  }
+  .signup-input {
+    direction: ltr;
+    text-align: right;
+  }
+  .signin-eye {
+    margin-bottom: 0;
   }
 }
 

@@ -30,7 +30,7 @@
             <p class="txt-header">
               {{ getTextByTextKey("auth_aignup_code_agin") }}
             </p>
-            <text-input
+            <!-- <text-input
               class="user--item user-profile__info-pass"
               labelNameClass=""
               inputNameClass="w-100"
@@ -70,7 +70,7 @@
                   getTextByTextKey('auth_enter_phone')
               "
             >
-            </text-input>
+            </text-input> -->
 
             <p dir="rtl" class="txt-content">
               {{ getTextByTextKey("auth_aignup_phone_enter_code") }}
