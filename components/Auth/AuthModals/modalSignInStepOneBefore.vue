@@ -7,46 +7,63 @@
 
       <div class="card-body">
         <form @submit.prevent="pressed">
-          <p class="txt-header">
-            {{ getTextByTextKey("auth_password") }}
-          </p>
-          <text-input
-            class="user--item user-profile__info-pass"
-            labelNameClass=""
-            inputNameClass="w-100"
-            state="authInput"
-            maxlength="100"
-            function-max-len="greaterThan"
-            placeholderText="... کلمه عبور"
-            :msgError="{
-              notValidMsg: 'مجاز نیست',
-              notValidNumber: 'بیش از حد مجاز',
-            }"
-            :check-email="false"
-            :check-number="false"
-            :active-check-phone-number="false"
-            :check-code="false"
-            :only-use-string="false"
-            :show-icon-clear-input="false"
-            :show-icon-eye-input="true"
-            :status-add-space-number="false"
-            :check-initial-validation="checkInitialValidation"
-            :check-empty-submit="true"
-            :check-required="false"
-            :check-typing-submit="false"
-            :use-timer="false"
-            :show-icon-star="false"
-            :form-data="formData"
-            :active-border-click="true"
-            @typeing="typeing"
-            accessStyleParentInToChildNameId="address__form--data"
-            tag-html="input"
-            timer-start=""
-            type-input="password"
-            name-input="password"
-            label-text="شما عضو هستید لطفا برای ورود کلمه عبور خود را وارد کنید."
-          >
-          </text-input>
+          <div class="form-group">
+            <p class="txt-header">
+              {{ getTextByTextKey("auth_password") }}
+            </p>
+            <p dir="rtl" class="txt-content">
+              {{ getTextByTextKey("auth_please_enter_password") }}
+            </p>
+            <div class="input-section">
+              <div
+                class="input-holder"
+                :style="
+                  password || isActive
+                    ? 'border:1px solid #515151'
+                    : 'border:1px solid #bdbdbd'
+                "
+              >
+                <input
+                  @click="[(isActive = true)]"
+                  class="signin-input
+                form-control"
+                  :type="passwordFieldType"
+                  :placeholder="
+                    getTextByTextKey('auth_forget_passwrord_circle')
+                  "
+                  v-model="password"
+                  maxlength="32"
+                  required
+                />
+                <button
+                  @click="switchVisibility"
+                  type="button"
+                  class="
+                                            clear-input
+                                    "
+                  aria-label="Close"
+                >
+                  <span
+                    :style="
+                      passwordFieldType === 'password'
+                        ? 'display: block'
+                        : 'display: none'
+                    "
+                    class="signin__close-eye"
+                  ></span>
+                  <span
+                    :style="
+                      passwordFieldType === 'text'
+                        ? 'display: block'
+                        : 'display: none'
+                    "
+                    class="signin__open-eye"
+                  ></span>
+                </button>
+              </div>
+            </div>
+          </div>
+
           <div class="btn-control">
             <button class="signin-btn" type="submit">
               {{ getTextByTextKey("home_blog_single_more") }}
@@ -71,7 +88,6 @@
 
 <script>
 import { getTextByTextKey } from "~/modules/splitPartJsonResource.js";
-import textInput from "~/modules/textInput";
 
 export default {
   data() {
@@ -79,61 +95,36 @@ export default {
       passwordFieldType: "password",
       password: "",
       isActive: false,
-      formData: {
-        password: "",
-      },
-      checkInitialValidation: 0,
     };
-  },
-  components: {
-    textInput,
   },
   methods: {
     getTextByTextKey,
     pressed() {
-      this.checkInitialValidation++;
-
-      setTimeout(() => {
-        const formData = this.formData;
-        let checkSubmitForm = "success";
-
-        // چک کردن ارور فورم //
-        for (let key in formData) {
-          const value = formData[key].value;
-
-          if (formData[key].hasError) {
-            checkSubmitForm = "failed";
-          }
-
-          if (typeof value !== "undefined") {
-            formData[key] = value;
-          }
-        }
-
-        if (checkSubmitForm === "success") {
-          this.$store.commit("passHolder", { value: formData.password });
-        }
-      });
+      this.$store.commit("passHolder", { value: this.password });
+      console.log(this.password);
+    },
+    switchVisibility() {
+      this.passwordFieldType =
+        this.passwordFieldType === "password" ? "text" : "password";
     },
     forgetPass() {
       // send request to disposablePass
       // this.$store.commit("walkInSignIncomponents", {
       //     value: "recyclePass"
       // });
-      this.$router.push("/users/password/forget");
+      // this.$router.push("/users/password/forget");
+      this.$emit("btn-go-to-recycle-pass");
     },
     disposablePass() {
       // send request to disposablePass
       // this.$store.commit("walkInSignIncomponents", { value: "stepTwo" });
-      this.$router.push("/users/password/disposable");
+      // this.$router.push("/users/password/disposable");
+      this.$emit("btn-go-to-signin-step-two");
     },
     previousPage() {
       // go to ...
+      // this.$router.push("/users/signin-up");
       this.$emit("btn-go-back-signup-step-one");
-    },
-
-    typeing() {
-      console.log("typeing", this.formData);
     },
   },
 };
@@ -141,12 +132,12 @@ export default {
 
 <style lang="scss" scoped>
 .signin-container {
+  /* height: 100vh; */
   @include display-flex();
   flex-direction: column;
   justify-content: center;
   align-items: center;
   text-align: center;
-  overflow: hidden;
 }
 
 .card {
@@ -174,6 +165,43 @@ export default {
   font-size: 24px;
   color: $black-icon;
 }
+.signin__close-eye::before {
+  content: "\e810";
+  @include font-icon__limoo();
+  font-size: 20px;
+  color: $gray;
+  vertical-align: middle;
+}
+.signin__close-eye,
+.signin__open-eye {
+  margin-bottom: 4px;
+}
+.signin__open-eye::before {
+  content: "\e811";
+  @include font-icon__limoo();
+  font-size: 20px;
+  color: $gray;
+  vertical-align: middle;
+}
+.form-control {
+  direction: rtl;
+  font-family: inherit;
+}
+.err-text {
+  font-family: inherit;
+  font-size: 13px;
+  text-align: right;
+  color: $alert-red;
+  line-height: 140.62%;
+  margin-right: 90px;
+  margin-bottom: 29px;
+}
+.btn-control {
+  @include display-flex();
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
 
 .txt-header {
   font-size: 24px;
@@ -182,7 +210,6 @@ export default {
   text-align: right;
   margin: 37px 90px 33px 15px;
 }
-
 .txt-content {
   font-size: 16px;
   line-height: 22.5px;
@@ -191,35 +218,6 @@ export default {
   margin-bottom: 25px;
   margin-right: 90px;
 }
-
-.signin-container::v-deep {
-  .txt-content {
-    @extend .txt-content;
-  }
-  .input-holder {
-    @extend .input-holder;
-    margin-right: auto;
-    margin-left: auto;
-  }
-  // .input-holder:focus {
-  //   border: 1px solid rgb(81, 81, 81);
-  // }
-  .form__item--error {
-    display: none;
-  }
-  .form__main--item {
-    flex-flow: inherit;
-    justify-content: center;
-  }
-  .signup-input {
-    direction: ltr;
-    text-align: right;
-  }
-  .signin-eye {
-    margin-bottom: 0;
-  }
-}
-
 .signin-btn {
   margin-top: 32px;
 }
@@ -266,19 +264,13 @@ export default {
     border-radius: 0;
     padding-right: 5px;
   }
-  @mixin signin-input() {
+  .signin-input {
+    margin-right: 16px;
+    margin-left: 16px;
     padding-right: 0px;
     width: 328px;
     height: 60px;
     margin-bottom: 8px;
-  }
-  .signin-input {
-    @include signin-input();
-  }
-  .signin-container::v-deep {
-    .signin-input {
-      @include signin-input();
-    }
   }
   .input-holder {
     margin-right: 16px;
@@ -320,38 +312,16 @@ export default {
   .signup-limoo-logo {
     margin-top: 0.5rem;
   }
-  .forget-pass-section {
-    width: 328px;
-    margin-right: auto;
-    margin-left: auto;
-  }
-  .forget-pass {
-    margin-right: 6px;
-  }
-  .disposable-pass {
-    margin-right: 6px;
-  }
-  .card {
-    width: 360px;
-  }
 }
 @media screen and (max-width: 350px) {
   .card {
     padding-right: 0px;
   }
-  @mixin signin-input() {
+  .signin-input {
     margin-right: 10px;
     margin-left: 10px;
     width: 280px;
     margin-bottom: 42px;
-  }
-  .signin-input {
-    @include signin-input();
-  }
-  .form-group::v-deep {
-    .signin-input {
-      @include signin-input();
-    }
   }
   .input-holder {
     margin-right: 16px;
@@ -369,8 +339,6 @@ export default {
     line-height: 140.62%;
     width: 280px;
     margin: 37px 10px 20px 10px;
-    margin-right: auto;
-    margin-left: auto;
   }
   .txt-content {
     width: 280px;
@@ -379,28 +347,13 @@ export default {
   .signup-limoo-logo {
     margin-top: 0;
   }
-  .forget-pass-section {
-    width: 280px;
-  }
-  .card {
-    width: auto;
-  }
 }
 @media screen and (max-width: 280px) {
-  @mixin signin-input() {
+  .signin-input {
     margin-right: 5px;
     margin-left: 5px;
     width: 270px;
     margin-bottom: 42px;
-  }
-  .signin-input {
-    @include signin-input();
-  }
-  .form-group::v-deep {
-    .signin-input {
-      background: red;
-      @include signin-input();
-    }
   }
   .input-holder {
     margin-right: 10px;
@@ -425,9 +378,6 @@ export default {
   }
   .signup-limoo-logo {
     margin-top: 0.2rem;
-  }
-  .forget-pass-section {
-    width: 270px;
   }
 }
 </style>

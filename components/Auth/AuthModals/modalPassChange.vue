@@ -181,7 +181,6 @@ export default {
 
 <style lang="scss" scoped>
 .pass-container {
-  height: 100vh;
   @include display-flex();
   flex-direction: column;
   justify-content: center;
