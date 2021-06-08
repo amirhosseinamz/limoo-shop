@@ -49,23 +49,22 @@
                 notValidMsg: getTextByTextKey('auth_request_code_resend'),
               }"
               :check-email="false"
-              :check-number="true"
+              :check-number="false"
               :active-check-phone-number="false"
-              :check-code="true"
               :only-use-string="false"
               :show-icon-clear-input="false"
               :show-icon-eye-input="false"
               :status-add-space-number="true"
               :check-initial-validation="checkInitialValidation"
-              :check-empty-submit="true"
+              :check-empty-submit="false"
               :check-required="false"
-              :check-typing-submit="true"
+              :check-typing-submit="false"
               :use-timer="true"
               :show-icon-star="false"
               :form-data="formData"
               :attribute-required="true"
               :active-border-click="true"
-              timer-start="0:10"
+              timer-start="2:60"
               accessStyleParentInToChildNameId="address__form--data"
               tag-html="input"
               type-input="text"
@@ -160,14 +159,48 @@ export default {
         }
 
         if (checkSubmitForm === "success") {
-          this.$emit("onConfirm", parseInt(this.formData.verifyCode));
+          const verifyCode = parseInt(this.formData.verifyCode);
+          const headers = {
+            "Content-Type": "application/json",
+            "Client-Key": process.env.CLIENT_KEY,
+          };
+          this.$axios
+            .$post(
+              process.env.SIGN_UP_OTP_API,
+              {
+                phone: this.userPhoneNumber,
+                activation_code: verifyCode,
+              },
+              {
+                headers: headers,
+              }
+            )
+            .then((result) => {
+              // console.log(result);
+              if (result.response_code == 1) {
+                this.$store.dispatch({
+                  type: "userIsAuth",
+                  value: true,
+                });
+                this.$store.commit("authUser/setToken", result.token);
+                this.$store.commit("PhoneNumber", { value: "" });
+                this.$emit("event-show-modal-wellcome");
+                // console.log(result.token);
+              } else if (result.response_code == 2222) {
+                this.confirmCodeIsWrong = true;
+                setTimeout(() => {
+                  this.confirmCodeIsWrong = false;
+                }, 5000);
+              }
+            })
+            .catch((e) => console.log(e));
         }
       });
     },
 
     nextPage() {
       // go to .../users/signin-up
-      this.$router.push("/users/signin-up");
+      this.$emit("btn-go-back-signup-step-one");
     },
     sendNewRequest() {
       const headers = {
@@ -183,19 +216,22 @@ export default {
           }
         )
         .then((result) => {
-          console.log(result.response_code);
-
+          // console.log(result.response_code);
           if (result.response_code == 2208) {
             this.startAgainTimer++;
+
+            this.countdownTimer(2, 60);
+            this.Tcounter = 178;
+            setTimeout(() => {
+              this.timerZero = false;
+            }, 1000);
             this.newCodeSent = true;
             setTimeout(() => {
               this.newCodeSent = false;
             }, 5000);
           }
         })
-        .catch((e) => {
-          console.log(e);
-        });
+        .catch((e) => console.log(e));
     },
   },
 };
@@ -259,7 +295,6 @@ export default {
 }
 
 .signup-container {
-  height: 100vh;
   @include display-flex();
   flex-direction: column;
   justify-content: center;
@@ -384,6 +419,7 @@ export default {
   font-size: 20px;
   max-width: 461px;
   letter-spacing: 0.7em;
+  direction: ltr;
 }
 .signup-btn {
   margin-top: 14px;

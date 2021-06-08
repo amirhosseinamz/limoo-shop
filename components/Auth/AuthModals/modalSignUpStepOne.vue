@@ -31,7 +31,7 @@
               :active-check-phone-number="true"
               :check-code="false"
               :only-use-string="false"
-              :show-icon-clear-input="false"
+              :show-icon-clear-input="true"
               :show-icon-eye-input="false"
               :status-add-space-number="false"
               :check-initial-validation="checkInitialValidation"
