@@ -11,45 +11,42 @@
             <p class="txt-header">
               {{ getTextByTextKey("auth_password_recovery") }}
             </p>
-            <p class="txt-content">
-              {{ getTextByTextKey("auth_please_enter_number") }}
-            </p>
-            <div class="input-section">
-              <div
-                :style="
-                  phone || isActive
-                    ? 'border:1px solid #515151'
-                    : 'border:1px solid #bdbdbd'
-                "
-                :class="[wrongInput ? 'input-holder-wrong' : 'input-holder']"
-              >
-                <input
-                  class="form-control"
-                  :class="[wrongInput ? 'signup-input-wrong' : 'signup-input']"
-                  @click="[(wrongInput = false), (isActive = true)]"
-                  type="tel"
-                  maxlength="11"
-                  placeholder="*********09"
-                  v-model.trim="phone"
-                /><button
-                  @click="
-                    [(wrongInput = false), (phone = ''), (isActive = false)]
-                  "
-                  type="button"
-                  :style="phone ? 'visibility: visible' : 'visibility: hidden'"
-                  :class="[wrongInput ? 'clear-input-wrong' : 'clear-input']"
-                  aria-label="Close"
-                >
-                  <span aria-hidden="true">&times;</span>
-                </button>
-              </div>
-            </div>
-            <p
-              class="err-text"
-              :style="wrongInput ? 'visibility: visible' : 'visibility: hidden'"
+            <text-input
+              class="user--item user-profile__info-pass"
+              labelNameClass=""
+              inputNameClass="w-100"
+              state="authInput"
+              maxlength="11"
+              function-max-len="greaterThan"
+              placeholderText="*********09"
+              :msgError="{
+                notValidMsg: getTextByTextKey('auth_phone_not_valid'),
+              }"
+              :check-email="false"
+              :check-number="true"
+              :active-check-phone-number="true"
+              :check-code="false"
+              :only-use-string="false"
+              :show-icon-clear-input="true"
+              :show-icon-eye-input="false"
+              :status-add-space-number="false"
+              :check-initial-validation="checkInitialValidation"
+              :check-empty-submit="false"
+              :check-required="true"
+              :check-typing-submit="false"
+              :use-timer="false"
+              :show-icon-star="false"
+              :form-data="formData"
+              :attribute-required="false"
+              :active-border-click="true"
+              accessStyleParentInToChildNameId="address__form--data"
+              tag-html="input"
+              timer-start=""
+              type-input="password"
+              name-input="phone"
+              :label-text="getTextByTextKey('auth_please_enter_number')"
             >
-              {{ getTextByTextKey("auth_phone_not_valid") }}
-            </p>
+            </text-input>
           </div>
 
           <div class="btn-control">
@@ -65,23 +62,23 @@
 
 <script>
 import { getTextByTextKey } from "~/modules/splitPartJsonResource.js";
+import textInput from "~/modules/textInput";
 
 export default {
   data() {
     return {
-      phone: "",
       storePhone: "",
-      wrongInput: false,
-      isActive: false,
       btnIsDisabled: false,
+      formData: {
+        phone: "",
+      },
+      checkInitialValidation: 0,
     };
   },
-  watch: {
-    phone(value) {
-      this.phone = value;
-      this.validationPhoneNumber(value);
-    },
+  components: {
+    textInput,
   },
+  watch: {},
   created() {
     this.storePhone = this.$store.getters.PhoneNumberPicker;
     // this.phone = this.$store.getters.PhoneNumberPicker;
@@ -93,39 +90,34 @@ export default {
   },
   methods: {
     getTextByTextKey,
-    validationPhoneNumber(value) {
-      if (/\D/.test(value)) {
-        this.wrongInput = true;
-        this.btnIsDisabled = true;
-      } else if (!/\D/.test(value)) {
-        this.wrongInput = false;
-        this.btnIsDisabled = false;
-        // } else if (value.length == 0) {
-        //     this.wrongInput = false;
-      }
-    },
-    goToNextStepofRecyclePass() {
-      const condition = this.phone.match(/\d/g);
 
-      if (this.phone == "" || condition.length < 11) {
-        this.wrongInput = true;
-      } else if (condition.length === 11) {
-        this.wrongInput = false;
-        this.$store.commit("PhoneNumber", { value: this.phone });
-        // if (this.phone == this.storePhone) {
-        //     this.$store.commit("walkInSignUpcomponents", {
-        //         value: "stepTwo"
-        //     });
-        // }
-      }
-      if (!this.wrongInput) {
-        console.log("go to confirm");
-        // this.$router.push("/users/password/forget/confirm");
-        this.$emit("btn-go-back-recycle-pass-step-two");
-      }
+    goToNextStepofRecyclePass() {
+      this.checkInitialValidation++;
+
+      setTimeout(() => {
+        const formData = this.formData;
+        let checkSubmitForm = "success";
+
+        // چک کردن ارور فورم //
+        for (let key in formData) {
+          const value = formData[key].value;
+
+          if (formData[key].hasError) {
+            checkSubmitForm = "failed";
+          }
+
+          if (typeof value !== "undefined") {
+            formData[key] = value;
+          }
+        }
+
+        if (checkSubmitForm === "success") {
+        }
+
+        console.log(formData);
+      });
     },
     nextPage() {
-      // this.$router.push("/users/signin");
       this.$emit("btn-go-back-signin-step-one");
     },
   },
@@ -134,12 +126,12 @@ export default {
 
 <style lang="scss" scoped>
 .recycle-container {
-  /* height: 100vh; */
   @include display-flex();
   flex-direction: column;
   justify-content: center;
   align-items: center;
   text-align: center;
+  overflow: hidden;
 }
 .signup-input-wrong,
 .signup-input {
@@ -209,9 +201,34 @@ export default {
   margin-bottom: 25px;
   margin-right: 90px;
 }
+
+.recycle-container::v-deep {
+  .txt-content {
+    @extend .txt-content;
+  }
+  .input-holder {
+    @extend .input-holder;
+    margin-right: auto;
+    margin-left: auto;
+  }
+  .form__main--item {
+    justify-content: center;
+  }
+  .form__item--error {
+    @extend .err-text;
+  }
+  .show--error .input-holder {
+    border-color: $red;
+    background: $bg_festival_counrer_down;
+  }
+  .signup-input {
+    padding-right: 24px;
+  }
+}
+
 @media screen and (max-width: 540px) {
   .card {
-    width: auto;
+    width: 360px;
     height: 100vh;
     border-radius: 0;
   }
@@ -232,8 +249,6 @@ export default {
   }
 
   .input-holder {
-    margin-right: 16px;
-    margin-left: 16px;
     padding: 0;
     width: 328px;
     height: 60px;
@@ -258,14 +273,23 @@ export default {
     width: 328px;
     margin: 120px 16px 33px 16px;
   }
-  .txt-content {
-    font-size: 14px;
-    width: 328px;
-    margin-right: 16px;
-    margin-left: 16px;
-  }
   .err-text {
     margin-right: 16px;
+  }
+  .recycle-container::v-deep {
+    .signup-input {
+      width: 328px;
+      height: 60px;
+      margin-bottom: 8px;
+      padding-right: 16px;
+      padding-left: 16px;
+    }
+    .txt-content {
+      font-size: 14px;
+      width: 328px;
+      margin-right: 16px;
+      margin-left: 16px;
+    }
   }
 }
 @media screen and (max-width: 350px) {
@@ -283,8 +307,6 @@ export default {
   }
 
   .input-holder {
-    margin-right: 10px;
-    margin-left: 10px;
     padding: 0;
     width: 280px;
     height: 60px;
@@ -305,11 +327,27 @@ export default {
     font-size: 20px;
     line-height: 140.62%;
     width: 280px;
-    margin-right: 10px;
+    margin-right: auto;
+    margin-left: auto;
   }
-  .txt-content {
-    width: 280px;
-    margin-right: 10px;
+
+  .recycle-container::v-deep {
+    .input-holder {
+      margin-right: auto;
+      margin-left: auto;
+    }
+    .signup-input {
+      margin-right: 5px;
+      margin-left: 5px;
+      width: 270px;
+      padding-right: 16px;
+    }
+    .txt-content {
+      width: 280px;
+    }
+  }
+  .card {
+    width: auto;
   }
 }
 @media screen and (max-width: 321px) and (min-width: 299px) {
@@ -343,11 +381,22 @@ export default {
     font-size: 20px;
     line-height: 140.62%;
     width: 270px;
-    margin-right: 15px;
   }
   .txt-content {
     width: 270px;
-    margin-right: 15px;
+    margin-right: 23px;
+  }
+  .recycle-container::v-deep {
+    .input-holder {
+      margin-right: auto;
+      margin-left: auto;
+    }
+    .signup-input {
+      margin-right: 5px;
+      margin-left: 5px;
+      width: 270px;
+      padding-right: 16px;
+    }
   }
 }
 </style>
