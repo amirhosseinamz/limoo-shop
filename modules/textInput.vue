@@ -22,12 +22,14 @@
 
       <h3 :class="labelNameClass" class="txt-content">
         {{ labelText }}
+        <span v-if="showIconStar" class="comment__form-star">*</span>
       </h3>
 
       <div class="w-100">
-        <div class="search-section__items">
+        <div v-if="tagHtml == 'input'" class="search-section__items">
           <input
             class="search-section__input"
+            :class="inputNameClass"
             :placeholder="placeholderText"
             @keyup="typingInput"
             type="text"
@@ -37,6 +39,16 @@
             :id="idInput"
           />
         </div>
+        <textarea
+          @keyup="typingInput"
+          :maxlength="maxlength"
+          v-model="currentValue"
+          v-else
+          rows="8"
+          cols="80"
+          :class="inputNameClass"
+          class="form__textara-item p-input-style__default d-rtl "
+        ></textarea>
         <span class="search__section--error pass__alert ">{{
           msgError.notValidMsg
         }}</span>
