@@ -7,34 +7,39 @@
         </div>
 
         <div class="products__filter-btns w-100 ">
-          <button
-            @click="showBoxFilter"
+          <Button
+            state="initial"
+            :show-inside-icon-button-text="true"
+            class-name-text-button=""
+            class-name-icon-button=""
+            :text="getTextByTextKey('category_filter_text')"
+            icon-address="/icons/filter_search_icon.svg"
             class="products__filter-btn"
-            type="button"
-          >
-            <img
-              class="products__filter-icon"
-              src="/icons/filter_search_icon.svg"
-              alt=""
-            />
-            <h3 class="products__filter-text">
-              {{ getTextByTextKey("category_filter_text") }}
-            </h3>
-          </button>
-          <button
-            @click="showModalSort"
+            @btn-click="showBoxFilter"
+          ></Button>
+          <!-- 
+          <Button
+            state="initial"
+            :show-inside-icon-button-text="false"
+            :show-loading="true"
+            class-name-text-button=""
+            class-name-icon-button=""
+            text=""
+            icon-address="/icons/filter_search_icon.svg"
+            class="products__filter-btn"
+            @btn-click="showBoxFilter"
+          ></Button> -->
+
+          <Button
+            state="initial"
+            :show-inside-icon-button-text="true"
+            class-name-text-button=""
+            class-name-icon-button=""
+            :text="getTextByTextKey('category_btn_new')"
+            icon-address="/icons/arrow-filter.svg"
             class="products__filter-btn btn--filter-gray"
-            type="button"
-          >
-            <img
-              class="products__filter-icon"
-              src="/icons/arrow-filter.svg"
-              alt=""
-            />
-            <h3 class="products__filter-text">
-              {{ getTextByTextKey("category_btn_new") }}
-            </h3>
-          </button>
+            @btn-click="showModalSort"
+          ></Button>
         </div>
 
         <div class="products__top-title w-100 products__top-mobile">
@@ -59,6 +64,7 @@
 
 <script>
 import { getTextByTextKey } from "~/modules/splitPartJsonResource.js";
+import Button from "~/components/UI/Button";
 
 export default {
   props: {
@@ -66,7 +72,9 @@ export default {
     defaultSelectedSuggestion: { type: Object, default: {} },
   },
 
-  components: {},
+  components: {
+    Button,
+  },
 
   data() {
     return {
@@ -208,19 +216,15 @@ export default {
 .products__top-mobile {
   display: none;
 }
-// .products__filter-icon::after {
-//   content: "\e801";
-//   @include font-icon__new();
-//   font-size: 30px;
-//   color: $white;
-//   cursor: pointer;
-// }
-// .products__filter-icon {
-//   @include display-flex();
-// }
-// .icon--filter::after {
-//   content: "\b815";
-// }
+
+.products__filter-main::v-deep {
+  .button__text {
+    @extend .products__filter-text;
+  }
+  .button__icon {
+    @extend .products__filter-icon;
+  }
+}
 
 @media (max-width: 1220px) {
 }
