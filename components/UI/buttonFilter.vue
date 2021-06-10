@@ -1,5 +1,5 @@
 <template>
-  <button @click="btnClick" class="button" type="button">
+  <button :class="changeSizeBtn" @click="btnClick" class="button" type="button">
     <img
       v-if="showInsideIconButtonText"
       :class="classNameIconButton"
@@ -29,12 +29,32 @@ export default {
     classNameTextButton: { type: [String], default: "" },
     classNameIconButton: { type: [String], default: "" },
     showLoading: { type: [Boolean], default: false },
+    size: { type: [String], default: "small" },
   },
 
   data() {
     return {
       changeSizeBtn: "",
     };
+  },
+
+  created() {
+    switch (this.size) {
+      case "small":
+        this.changeSizeBtn = "btn--small";
+        break;
+
+      case "medium":
+        this.changeSizeBtn = "btn--medium";
+        break;
+
+      case "large":
+        this.changeSizeBtn = "btn--large";
+        break;
+
+      default:
+        break;
+    }
   },
 
   methods: {
@@ -68,7 +88,7 @@ export default {
   color: $white;
   font-weight: 400;
   font-family: inherit;
-  margin-right: 10px;
+  // margin-right: 10px;
 }
 .lds-ring {
   display: inline-block;
@@ -101,7 +121,18 @@ export default {
 .lds-ring div:nth-child(3) {
   animation-delay: -0.15s;
 }
-
+.btn--small {
+  width: 130px;
+  height: 47px;
+}
+.btn--medium {
+  width: 200px;
+  height: 52px;
+}
+.btn--large {
+  width: 463px;
+  height: 58px;
+}
 @keyframes lds-ring {
   0% {
     transform: rotate(0deg);

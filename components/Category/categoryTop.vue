@@ -7,16 +7,31 @@
         </div>
 
         <div class="products__filter-btns w-100 ">
-          <Button
-            state="initial"
+          <!-- <buttonFilter
+            status="initial"
+            size="large"
+            :show-inside-icon-button-text="false"
+            class-name-text-button=""
+            class-name-icon-button=""
+            :text="getTextByTextKey('category_filter_text')"
+            icon-address="/icons/filter_search_icon.svg"
+            class=""
+            state="button"
+            @btn-click="showBoxFilter"
+          ></buttonFilter> -->
+
+          <buttonFilter
+            status="initial"
+            size="small"
             :show-inside-icon-button-text="true"
             class-name-text-button=""
             class-name-icon-button=""
             :text="getTextByTextKey('category_filter_text')"
             icon-address="/icons/filter_search_icon.svg"
             class="products__filter-btn"
+            state="button"
             @btn-click="showBoxFilter"
-          ></Button>
+          ></buttonFilter>
           <!-- 
           <Button
             state="initial"
@@ -30,7 +45,7 @@
             @btn-click="showBoxFilter"
           ></Button> -->
 
-          <Button
+          <buttonFilter
             state="initial"
             :show-inside-icon-button-text="true"
             class-name-text-button=""
@@ -39,7 +54,7 @@
             icon-address="/icons/arrow-filter.svg"
             class="products__filter-btn btn--filter-gray"
             @btn-click="showModalSort"
-          ></Button>
+          ></buttonFilter>
         </div>
 
         <div class="products__top-title w-100 products__top-mobile">
@@ -64,7 +79,7 @@
 
 <script>
 import { getTextByTextKey } from "~/modules/splitPartJsonResource.js";
-import Button from "~/components/UI/Button";
+import buttonFilter from "~/components/UI/buttonFilter";
 
 export default {
   props: {
@@ -73,7 +88,7 @@ export default {
   },
 
   components: {
-    Button,
+    buttonFilter,
   },
 
   data() {
