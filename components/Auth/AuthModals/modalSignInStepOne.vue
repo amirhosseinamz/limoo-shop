@@ -99,7 +99,7 @@ export default {
         const formData = this.formData;
         let checkSubmitForm = "success";
 
-        // چک کردن ارور فورم //
+        // check form validation //
         for (let key in formData) {
           const value = formData[key].value;
 
