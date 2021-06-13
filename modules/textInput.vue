@@ -392,14 +392,13 @@ export default {
           this.showError = false;
         }
 
-        // وقتی تعداد عدد یا حروف های زده شده برابر با مکس باشد ارور نمایش داده می شود //
         if (functionMaxLen == "equalTo") {
           if (currentInputValue.length == this.maxlength) {
             this.showError = true;
           }
         }
 
-        // بررسی درست وارد کردن ایمیل //
+        // check valid value true email //
         if (this.checkEmail) {
           const checkEmail = this.isEmail(currentInputValue);
 
@@ -418,7 +417,7 @@ export default {
           }
         }
 
-        // بررسی مقدار وارد شده در صورتی که عدد نباشد ارور نمایش داده می شود //
+        // check value enter while not number show error //
         if (this.checkNumber) {
           const chekNumber = this.isNumber(currentInputValue);
 

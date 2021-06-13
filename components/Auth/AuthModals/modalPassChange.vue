@@ -30,7 +30,7 @@
               function-max-len="greaterThan"
               placeholderText=""
               :msgError="{
-                notValidMsg: 'رمز عبور باید شامل حداقل 8 (رقم و کاراکتر) باشد!',
+                notValidMsg: getTextByTextKey('personal_info_error_password'),
               }"
               :check-email="false"
               :check-number="false"
@@ -54,7 +54,7 @@
               timer-start=""
               type-input="text"
               name-input="newPass"
-              label-text="رمز عبور جدید:"
+              :label-text="getTextByTextKey('auth_new_passowrd')"
               @typeing="typeing"
             >
             </text-input>
@@ -68,7 +68,7 @@
               function-max-len="greaterThan"
               placeholderText=""
               :msgError="{
-                notValidMsg: 'رمز عبور باید شامل حداقل 8 (رقم و کاراکتر) باشد!',
+                notValidMsg: getTextByTextKey('personal_info_error_password'),
               }"
               :check-email="false"
               :check-number="false"
@@ -93,7 +93,7 @@
               timer-start=""
               type-input="text"
               name-input="repeatNewPass"
-              label-text="تکرار رمز عبور جدید"
+              :label-text="getTextByTextKey('auth_new_passowrd')"
               @typeing="typeing"
             >
             </text-input>

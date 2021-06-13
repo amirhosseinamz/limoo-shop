@@ -17,10 +17,12 @@
             state="authInput"
             maxlength="100"
             function-max-len="greaterThan"
-            placeholderText="... کلمه عبور"
+            :placeholderText="getTextByTextKey('auth_forget_passwrord_circle')"
             :msgError="{
-              notValidMsg: 'مجاز نیست',
-              notValidNumber: 'بیش از حد مجاز',
+              notValidMsg: getTextByTextKey(
+                'auth_forget_password_error_not_valid'
+              ),
+              notValidNumber: getTextByTextKey('address_validation_over_limit'),
             }"
             :check-email="false"
             :check-number="false"
@@ -44,7 +46,7 @@
             timer-start=""
             type-input="password"
             name-input="password"
-            label-text="شما عضو هستید لطفا برای ورود کلمه عبور خود را وارد کنید."
+            :label-text="getTextByTextKey('auth_please_enter_password')"
           >
           </text-input>
           <div class="btn-control">
