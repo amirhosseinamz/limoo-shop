@@ -6,6 +6,34 @@
           <h3 class="products__top-text">موبایل اندرویدی</h3>
         </div>
 
+        <div class="buttons__example">
+          <Button
+            state="primary"
+            size="larg"
+            :show-inside-icon-button-text="false"
+            :show-loading="false"
+            class-name-text-button=""
+            class-name-icon-button=""
+            text="ورود به لیمو"
+            icon-address="/icons/filter_search_icon.svg"
+            class="products__filter-btn"
+            @btn-click="showBoxFilter"
+          ></Button>
+
+          <Button
+            state="secondary"
+            size="larg"
+            :show-inside-icon-button-text="false"
+            :show-loading="true"
+            class-name-text-button=""
+            class-name-icon-button=""
+            text=""
+            icon-address="/icons/filter_search_icon.svg"
+            class="products__filter-btn"
+            @btn-click="showBoxFilter"
+          ></Button>
+        </div>
+
         <div class="products__filter-btns w-100 ">
           <!-- <buttonFilter
             status="initial"
@@ -32,18 +60,6 @@
             state="button"
             @btn-click="showBoxFilter"
           ></buttonFilter>
-          <!-- 
-          <Button
-            state="initial"
-            :show-inside-icon-button-text="false"
-            :show-loading="true"
-            class-name-text-button=""
-            class-name-icon-button=""
-            text=""
-            icon-address="/icons/filter_search_icon.svg"
-            class="products__filter-btn"
-            @btn-click="showBoxFilter"
-          ></Button> -->
 
           <buttonFilter
             state="initial"
@@ -80,6 +96,7 @@
 <script>
 import { getTextByTextKey } from "~/modules/splitPartJsonResource.js";
 import buttonFilter from "~/components/UI/buttonFilter";
+import Button from "~/components/UI/Button";
 
 export default {
   props: {
@@ -89,6 +106,7 @@ export default {
 
   components: {
     buttonFilter,
+    Button,
   },
 
   data() {
@@ -140,6 +158,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.buttons__example {
+  margin-bottom: 100px;
+}
 .products__filter-btns {
   @include display-flex();
   flex-wrap: wrap;

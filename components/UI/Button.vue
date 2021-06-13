@@ -1,5 +1,11 @@
 <template>
-  <button @click="btnClick" class="button" type="button">
+  <button
+    :id="sizeButton"
+    :class="stateValue"
+    @click="btnClick"
+    class="button"
+    type="button"
+  >
     <img
       v-if="showInsideIconButtonText"
       :class="classNameIconButton"
@@ -21,7 +27,7 @@
 
 <script>
 export default {
-  name: "Buttons",
+  name: "Button",
   props: {
     text: { type: [String], default: "" },
     iconAddress: { type: [String], default: "" },
@@ -29,17 +35,70 @@ export default {
     classNameTextButton: { type: [String], default: "" },
     classNameIconButton: { type: [String], default: "" },
     showLoading: { type: [Boolean], default: false },
+    size: { type: [String], default: "small" },
+    state: { type: [String], default: "primary" },
   },
 
   data() {
     return {
-      changeSizeBtn: "",
+      sizeButton: "",
+      stateValue: "",
     };
+  },
+
+  created() {
+    this.checkState();
   },
 
   methods: {
     btnClick() {
       this.$emit("btn-click");
+    },
+
+    checkSize(state) {
+      switch (this.size) {
+        case "small":
+          this.sizeButton = `button__small--${state}`;
+          break;
+
+        case "larg":
+          this.sizeButton = `button__larg--${state}`;
+          break;
+
+        case "medium":
+          this.sizeButton = `medium__primary--${state}`;
+          break;
+
+        default:
+          break;
+      }
+    },
+
+    checkState() {
+      switch (this.state) {
+        case "primary":
+          this.stateValue = "state--primary";
+          this.checkSize("primary");
+          break;
+
+        case "secondary":
+          this.stateValue = "state-secondary";
+          this.checkSize("secondary");
+          break;
+
+        case "stroke":
+          this.stateValue = "state--stroke";
+          this.checkSize("stroke");
+          break;
+
+        case "other":
+          this.stateValue = "state--other";
+          this.checkSize("other");
+          break;
+
+        default:
+          break;
+      }
     },
   },
 };
@@ -62,6 +121,7 @@ export default {
   @include display-flex();
   align-items: center;
   cursor: pointer;
+  justify-content: center;
 }
 .button__text {
   font-size: 16px;
@@ -101,6 +161,40 @@ export default {
 .lds-ring div:nth-child(3) {
   animation-delay: -0.15s;
 }
+
+// state primary//
+#button__larg--primary {
+  width: 463px;
+  height: 58px;
+  background: $yellow;
+}
+#button__medium--primary {
+  width: 130px;
+  height: 52px;
+  background: $yellow;
+}
+#button__small--primary {
+  width: 130px;
+  height: 47px;
+  background: $yellow;
+}
+
+// state secondary//
+#button__medium--secondary {
+  width: 270px;
+  height: 57px;
+  background: $btn__green;
+}
+#button__larg--secondary {
+  width: 395px;
+  height: 57px;
+  background: $btn__green;
+}
+
+// primary
+// secondary
+// stroke
+// other
 
 @keyframes lds-ring {
   0% {
