@@ -1,7 +1,7 @@
 <template>
   <button
+    v-if="state !== 'stroke'"
     :id="sizeButton"
-    :class="stateValue"
     @click="btnClick"
     class="button"
     type="button"
@@ -22,6 +22,15 @@
       <div></div>
       <div></div>
     </div>
+  </button>
+  <button
+    v-else-if="state === 'stroke'"
+    :id="sizeButton"
+    type="button"
+    class=" cursor-pointer"
+    name="button"
+  >
+    <span class="button__small--icon "></span>
   </button>
 </template>
 
@@ -66,7 +75,11 @@ export default {
           break;
 
         case "medium":
-          this.sizeButton = `medium__primary--${state}`;
+          this.sizeButton = `button__medium--${state}`;
+          break;
+
+        case "extra--small":
+          this.sizeButton = `button__extra--small-${state}`;
           break;
 
         default:
@@ -77,22 +90,22 @@ export default {
     checkState() {
       switch (this.state) {
         case "primary":
-          this.stateValue = "state--primary";
+          // this.stateValue = "state--primary";
           this.checkSize("primary");
           break;
 
         case "secondary":
-          this.stateValue = "state-secondary";
+          // this.stateValue = "state-secondary";
           this.checkSize("secondary");
           break;
 
         case "stroke":
-          this.stateValue = "state--stroke";
+          // this.stateValue = "state--stroke";
           this.checkSize("stroke");
           break;
 
         case "other":
-          this.stateValue = "state--other";
+          // this.stateValue = "state--other";
           this.checkSize("other");
           break;
 
@@ -169,7 +182,7 @@ export default {
   background: $yellow;
 }
 #button__medium--primary {
-  width: 130px;
+  width: 200px;
   height: 52px;
   background: $yellow;
 }
@@ -189,6 +202,37 @@ export default {
   width: 395px;
   height: 57px;
   background: $btn__green;
+}
+
+.button--delete {
+  background: $light-gray;
+  padding: 0;
+  border: 0px solid $light-gray;
+  box-sizing: border-box;
+  border-radius: 10px;
+  width: 47px;
+  height: 47px;
+  justify-content: center;
+  align-items: center;
+}
+
+// delete btn //
+#button__small--stroke {
+  @extend .button--delete;
+}
+.button__small--icon::after {
+  content: "\e826";
+  @include font-icon__limoo();
+  font-size: 17px;
+  color: $gray;
+}
+#button__extra--small-stroke {
+  @extend .button--delete;
+  width: 37px;
+  height: 37px;
+  .button__small--icon::after {
+    font-size: 13px;
+  }
 }
 
 // primary
