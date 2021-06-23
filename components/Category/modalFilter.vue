@@ -42,22 +42,30 @@
 
       <div class="w-100 modal-filter__btn">
         <div class="modal-filter__line"></div>
-        <button
-          @click="submitFliterModal"
-          type="button"
-          name="button"
-          class="p-product-btn    "
-        >
-          {{ getTextByTextKey("category_btn_submit_change") }}
-        </button>
-        <button
-          @click="modalClose"
-          type="button"
-          name="button"
-          class="modal-cancel"
-        >
-          {{ getTextByTextKey("category_submit_cancelle") }}
-        </button>
+
+        <div class="modal__btn-main w-100">
+          <Button
+            state="initial"
+            :show-inside-icon-button-text="false"
+            class-name-text-button=""
+            class-name-icon-button=""
+            :text="getTextByTextKey('category_btn_submit_change')"
+            icon-address="/icons/filter_search_icon.svg"
+            class="p-product-btn"
+            @btn-click="submitFliterModal"
+          ></Button>
+
+          <Button
+            state="initial"
+            :show-inside-icon-button-text="false"
+            class-name-text-button=""
+            class-name-icon-button=""
+            :text="getTextByTextKey('category_submit_cancelle')"
+            icon-address="/icons/filter_search_icon.svg"
+            class="modal-cancel"
+            @btn-click="modalClose"
+          ></Button>
+        </div>
       </div>
     </div>
   </modal>
@@ -70,6 +78,7 @@ import filterToggleActiveBtn from "./filterToggleActiveBtn";
 import filterBrand from "./filterBrand";
 import filterStore from "./filterStore";
 import { getTextByTextKey } from "~/modules/splitPartJsonResource.js";
+import Button from "~/components/UI/Button";
 
 export default {
   props: {
@@ -81,6 +90,7 @@ export default {
     filterToggleActiveBtn,
     filterBrand,
     filterStore,
+    Button,
   },
 
   data() {
@@ -216,6 +226,7 @@ export default {
   margin-left: 24px;
   font-size: 16px;
   cursor: pointer;
+  padding: 0;
 }
 .modal-cancel {
   width: 130px;
@@ -240,6 +251,17 @@ export default {
 .modal-filter__close-item .modal-filter__item-title {
   color: $color-price;
 }
+.modal-filter__main::v-deep .button__text {
+  margin-right: 0;
+  margin-right: auto;
+  margin-left: auto;
+}
+.modal__btn-main {
+  @include display-flex();
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: center;
+}
 
 @media (max-width: 768px) {
 }
@@ -256,6 +278,9 @@ export default {
     font-size: 14px;
   }
   .p-product-btn {
+    font-size: 14px;
+  }
+  .modal-filter__main::v-deep .button__text {
     font-size: 14px;
   }
   .modal-filter__item-close::before {

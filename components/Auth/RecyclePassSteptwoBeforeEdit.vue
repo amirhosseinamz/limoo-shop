@@ -1,5 +1,5 @@
 <template>
-  <div class="signup-container">
+  <div class="recycle-container">
     <div class="card">
       <div>
         <button @click="nextPage" class="app-signin-next-btn"></button>
@@ -22,49 +22,44 @@
           </p>
         </div>
       </div>
+
       <div class="card-body">
         <form @submit.prevent="pressed">
           <div class="form-group">
             <p class="txt-header">
               {{ getTextByTextKey("auth_forget_password") }}
             </p>
-            <text-input
-              class="user--item user-profile__info-pass"
-              labelNameClass=""
-              inputNameClass="w-100"
-              state="authInput"
-              maxlength="4"
-              function-max-len="greaterThan"
-              placeholderText=""
-              :msgError="{
-                notValidMsg: '',
-              }"
-              :check-email="false"
-              :check-number="true"
-              :active-check-phone-number="false"
-              :only-use-string="false"
-              :show-icon-clear-input="false"
-              :show-icon-eye-input="false"
-              :status-add-space-number="true"
-              :check-initial-validation="checkInitialValidation"
-              :check-empty-submit="true"
-              :check-required="false"
-              :check-typing-submit="false"
-              :use-timer="true"
-              :show-icon-star="false"
-              :form-data="formData"
-              :attribute-required="true"
-              :active-border-click="true"
-              timer-start="0:10"
-              accessStyleParentInToChildNameId="address__form--data"
-              tag-html="input"
-              type-input="text"
-              name-input="verifyCode"
-              :default-show-text-again-timer="true"
-              :label-text="getTextByTextKey('auth_aignup_enter_code_please')"
-              @again-start-timer="sendNewRequest"
-            >
-            </text-input>
+            <p dir="rtl" class="txt-content">
+              {{ getTextByTextKey("auth_aignup_enter_code_please") }}
+            </p>
+            <div class="input-section">
+              <div
+                class="input-holder"
+                :style="
+                  verifyCode || isActive
+                    ? 'border:1px solid #515151'
+                    : 'border:1px solid #bdbdbd'
+                "
+              >
+                <input
+                  @click="[(isActive = true)]"
+                  class="signup-input form-control"
+                  type="text"
+                  v-model="verifyCode"
+                  maxlength="4"
+                  required
+                />
+              </div>
+            </div>
+          </div>
+          <div class="timer-holder">
+            <p class="timer">
+              <span>02:45</span>
+              {{ getTextByTextKey("auth_aignup_agin_code_send") }}
+            </p>
+            <p @click="animate" class="code-request">
+              {{ getTextByTextKey("auth_request_code_resend") }}
+            </p>
           </div>
           <div class="btn-control">
             <button class="signup-btn" type="submit">
@@ -82,31 +77,15 @@
 
 <script>
 import { getTextByTextKey } from "~/modules/splitPartJsonResource.js";
-import textInput from "~/modules/textInput";
 
 export default {
-  props: {
-    confirmCode: Boolean,
-  },
-  components: {
-    textInput,
-  },
   data() {
     return {
       verifyCode: "",
+      wrongInput: false,
       timerPassed: false,
       newCodeSent: false,
       isActive: false,
-      userPhoneNumber: "",
-      btnIsDisabled: false,
-      counterDownMinutes: [],
-      counterDownSecond: [],
-      Tcounter: 178,
-      timerZero: false,
-      formData: {
-        verifyCode: "",
-      },
-      checkInitialValidation: 0,
     };
   },
   watch: {
@@ -115,92 +94,41 @@ export default {
       this.validationVerifyCode(value);
     },
   },
-  mounted() {
-    this.userPhoneNumber = this.$store.getters.PhoneNumberPicker;
-    this.countdownTimer(2, 60);
-  },
   methods: {
     getTextByTextKey,
-
     validationVerifyCode(value) {
       if (/\D/.test(value)) {
         // console.log(value);
+        // this.verifyCode = this.verifyCode.substring(
+        //     0,
+        //     this.verifyCode.length - 1
+        // );
         this.verifyCode = this.verifyCode.slice(0, -1);
-        // THe first is 0, the starting point. The second is the number of
-        // items to remove. Passing a negative number will remove starting
-        // from the end. This is the solution
-      } else if (this.verifyCode.length < 4) {
-        this.btnIsDisabled = true;
-      } else if (this.verifyCode.length == 4) {
-        this.btnIsDisabled = false;
       }
-    },
-    animateTimerPassed() {
-      // console.log(this.verifyCode);
-      this.timerPassed = true;
-      setTimeout(() => {
-        this.timerPassed = false;
-      }, 5000);
     },
     pressed() {
       // talk to server
-      // this.$store.commit("PhoneNumber", { value: "" });
-      this.checkInitialValidation++;
-
-      setTimeout(() => {
-        const formData = this.formData;
-        let checkSubmitForm = "success";
-
-        // چک کردن ارور فورم //
-        for (let key in formData) {
-          const value = formData[key].value;
-
-          if (formData[key].hasError) {
-            checkSubmitForm = "failed";
-          }
-
-          if (typeof value !== "undefined") {
-            formData[key] = value;
-          }
-        }
-
-        if (checkSubmitForm === "success") {
-          this.$emit("onConfirm", parseInt(this.formData.verifyCode));
-        }
-      });
+      // this.$store.commit("walkInSignIncomponents", {
+      //     value: "PassChange"
+      // });
+      this.$router.push("/users/password");
     },
-
-    nextPage() {
-      // go to .../users/signin-up
-      this.$router.push("/users/signin-up");
-    },
-    countdownTimer(mm, ss) {
-      const interval = setInterval(() => {
-        //
-        this.Tcounter--;
-        // console.log(this.Tcounter);
-        ss--;
-        if (ss == 0) {
-          ss = 59;
-          mm--;
-        }
-        if (this.Tcounter == 0) {
-          // console.log("TimerPassed");
-          this.animateTimerPassed();
-          clearInterval(interval);
-          this.timerZero = true;
-        }
-        if (mm.toString().length < 2) mm = "0" + mm;
-        if (ss.toString().length < 2) ss = "0" + ss;
-        this.counterDownMinutes = mm.toString().split("");
-        this.counterDownSecond = ss.toString().split("");
-      }, 1000);
-    },
-    sendNewRequest() {
+    animate() {
       this.timerPassed = true;
       setTimeout(() => {
         this.timerPassed = false;
       }, 5000);
+    },
+    changeRTL() {
+      this.$vuetify.rtl = true;
+    },
+    nextPage() {
+      // go to ...
+      // console.log("hi");
+      // this.$store.commit("walkInSignIncomponents", {
+      //     value: "recyclePass"
+      // });
+      this.$router.push("/users/password/forget");
     },
   },
 };
@@ -213,7 +141,7 @@ export default {
   width: 463px;
   height: 58px;
   background-color: $alert-massage__green;
-  margin: 8px 90px 0px 89px;
+  margin: 44px 90px 0px 89px;
   border-radius: 10px;
   position: absolute;
   opacity: 0;
@@ -239,7 +167,6 @@ export default {
 .alert-message-animation {
   animation: cssAnimation 2000ms 2 alternate;
 }
-
 @keyframes cssAnimation {
   0% {
     opacity: 0;
@@ -247,23 +174,23 @@ export default {
   }
   70% {
     opacity: 1;
-    transform: translate(0%, -60%);
+    transform: translate(0%, -120%);
   }
   80% {
     opacity: 1;
-    transform: translate(0%, -60%);
+    transform: translate(0%, -120%);
   }
   90% {
     opacity: 1;
-    transform: translate(0%, -60%);
+    transform: translate(0%, -120%);
   }
   100% {
     opacity: 1;
-    transform: translate(0%, -60%);
+    transform: translate(0%, -120%);
   }
 }
 
-.signup-container {
+.recycle-container {
   height: 100vh;
   @include display-flex();
   flex-direction: column;
@@ -294,6 +221,7 @@ export default {
   margin-right: 18px;
   margin-top: 17px;
 }
+
 .app-signin-next-btn {
   @include display-flex();
   margin: 24px 11.5px 0 24px;
@@ -304,7 +232,7 @@ export default {
 .app-signin-next-btn::before {
   content: "\e801";
   @include font-icon__limoo();
-  font-size: 25px;
+  font-size: 24px;
   color: $black-icon;
 }
 .success-txt {
@@ -324,27 +252,21 @@ export default {
   text-align: right;
   margin-top: 17px;
   color: $white;
-  direction: ltr;
 }
 .form-control {
   direction: rtl;
   font-family: inherit;
 }
-
-.show-timer {
-  display: none;
-}
-.tCounter {
+.timer-holder {
   @include display-flex();
-  flex-direction: row;
-  margin-right: 5px;
+  justify-content: flex-end;
 }
-.timer-timeText {
+.timer {
   font-size: 14px;
-  font-weight: 400;
   line-height: 140.62%;
   color: $gray;
-  margin-right: 2px;
+  margin-right: 90px;
+  display: none;
 }
 .code-request {
   font-weight: 500;
@@ -354,10 +276,6 @@ export default {
   color: $code-request;
   margin-right: 90px;
   cursor: pointer;
-  display: none;
-}
-.show-code-request {
-  display: block;
 }
 .btn-control {
   @include display-flex();
@@ -380,10 +298,10 @@ export default {
   line-height: 22.5px;
   font-weight: 318;
   text-align: right;
-  margin-bottom: 25px;
-  margin-right: 90px;
+  margin: 5px 90px 16px 0;
 }
 .signup-input {
+  padding: 0;
   color: $code;
   text-align: center;
   text-align: -moz-center;
@@ -393,37 +311,17 @@ export default {
 }
 .signup-btn {
   margin-top: 14px;
-  margin-bottom: 126px;
+  margin-bottom: 148px;
 }
 .google-signup-btn {
   display: none;
 }
-
-.signup-container::v-deep {
-  .txt-content {
-    @extend .txt-content;
-  }
-  .input-holder {
-    @extend .input-holder;
-  }
-  .form__main--item {
-    justify-content: center;
-    width: auto;
-  }
-  .signup-input {
-    @extend .signup-input;
-    padding-right: 0;
-    direction: ltr;
-  }
-  .timer-holder {
-    margin-bottom: 0;
+@media screen and (max-width: 600px) {
+  .google-signup-btn {
+    display: block;
   }
 }
-
 @media screen and (max-width: 540px) {
-  .google-signup-btn {
-    @include display-flex();
-  }
   @keyframes cssAnimation {
     0% {
       opacity: 0;
@@ -449,6 +347,7 @@ export default {
   .success-message {
     width: 328px;
     height: 56px;
+
     margin: 16px 16px 0px 16px;
   }
   .alert-message {
@@ -465,18 +364,18 @@ export default {
     margin-top: 20px;
   }
   .card {
-    width: 360px;
+    width: auto;
     height: 100vh;
     border-radius: 0;
   }
-  @mixin signup-input {
+  .signup-input {
     margin-right: 16px;
     margin-left: 16px;
     width: 328px;
     height: 60px;
     margin-bottom: 8px;
   }
-  @mixin input-holder {
+  .input-holder {
     margin-right: 16px;
     margin-left: 16px;
     padding: 0;
@@ -484,9 +383,7 @@ export default {
     height: 60px;
     margin-bottom: 8px;
   }
-  .input-holder {
-    @include input-holder();
-  }
+
   .signup-btn {
     width: 328px;
     margin-top: 32px;
@@ -498,48 +395,18 @@ export default {
     width: 328px;
     margin: 120px 16px 24px 16px;
   }
-
-  @mixin txt-content {
+  .txt-content {
     width: 328px;
     font-size: 14px;
     margin-bottom: 17px;
     margin-right: 16px;
     margin-left: 16px;
   }
-
-  .signup-container::v-deep {
-    .txt-content {
-      @include txt-content();
-    }
-    .input-holder {
-      @include signup-input();
-    }
-    .form__main--item {
-      justify-content: center;
-      width: auto;
-    }
-    .signup-input {
-      @include signup-input();
-      margin-right: 0;
-      margin-left: 0;
-    }
-    .timer {
-      margin-right: 16px;
-      font-size: 13px;
-    }
-    .timer-timeText {
-      font-size: 13px;
-    }
-    .code-request {
-      margin-right: 16px;
-    }
+  .timer {
+    margin-right: 16px;
   }
-}
-@media screen and (max-width: 321px) and (min-width: 299px) {
-  .card {
-    @include display-flex();
-    flex-direction: column;
-    justify-content: space-between;
+  .code-request {
+    margin-right: 16px;
   }
 }
 @media screen and (max-width: 350px) {
@@ -549,12 +416,13 @@ export default {
   .alert-message {
     width: 280px;
   }
-  @mixin signup-input {
+  .signup-input {
     margin-right: 10px;
     margin-left: 10px;
     width: 280px;
+    margin-bottom: 42px;
   }
-  @mixin input-holder {
+  .input-holder {
     width: 280px;
   }
   .signup-btn {
@@ -564,34 +432,21 @@ export default {
     font-size: 20px;
     line-height: 140.62%;
     width: 280px;
-    margin-right: auto;
-    margin-left: Auto;
+    margin-right: 10px;
+  }
+  .txt-content {
+    width: 280px;
+    margin-right: 10px;
   }
   .signup-limoo-logo {
     margin-top: 0;
   }
-  @mixin txt-content {
-    width: 280px;
-    margin-right: 10px;
-    margin-left: 0;
-  }
-  .signup-container::v-deep {
-    .txt-content {
-      @include txt-content();
-    }
-    .input-holder {
-      @include signup-input();
-    }
-    .form__main--item {
-      justify-content: center;
-      width: auto;
-    }
-    .signup-input {
-      @include signup-input();
-    }
-  }
+}
+@media screen and (max-width: 321px) and (min-width: 299px) {
   .card {
-    width: auto;
+    @include display-flex();
+    flex-direction: column;
+    justify-content: space-between;
   }
 }
 @media screen and (max-width: 280px) {
@@ -603,11 +458,18 @@ export default {
     height: 60px;
     margin-right: 5px;
   }
+  .card {
+    padding-right: 0;
+  }
+
   .alert-txt {
     padding-left: 30px;
   }
   .signup-input {
+    margin-right: 5px;
+    margin-left: 5px;
     width: 270px;
+    margin-bottom: 42px;
   }
   .input-holder {
     width: 270px;
@@ -618,9 +480,8 @@ export default {
   .txt-header {
     font-size: 20px;
     line-height: 140.62%;
-    width: 280px;
+    width: 270px;
     margin-right: 5px;
-    margin-left: 0px;
   }
   .txt-content {
     width: 270px;

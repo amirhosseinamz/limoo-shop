@@ -55,9 +55,13 @@
       </div>
     </div>
 
-    <form @submit.prevent="" class="w-100 p-modal_wrapper align-items-start">
+    <form
+      id="form__modal--main"
+      @submit.prevent=""
+      class="w-100 p-modal_wrapper align-items-start"
+    >
       <div class="p-modal-content w-100 align-items-start flex-wrap">
-        <div
+        <!-- <div
           :class="{ 'p-modal-show_error': showErrorValidationAddress }"
           class="w-100 p-modal-address"
         >
@@ -72,7 +76,42 @@
             class="p-modal-address-input p-input-style__default "
           />
           <span class="pass__alert ">{{ errorValidationNumberAddress }}</span>
-        </div>
+        </div> -->
+
+        <text-input
+          labelNameClass="p-modal-wrapper-province_city-title"
+          inputNameClass=""
+          class=" p-modal-address w-100"
+          state="standard"
+          maxlength="130"
+          function-max-len="equalTo"
+          placeholderText=""
+          :msgError="{
+            notValidMsg: 'مجاز نیست',
+            notValidNumber: 'بیش از حد مجاز',
+          }"
+          :check-email="false"
+          :check-number="false"
+          :active-check-phone-number="false"
+          :check-code="false"
+          :only-use-string="true"
+          :show-icon-clear-input="false"
+          :show-icon-eye-input="false"
+          :status-add-space-number="false"
+          :check-initial-validation="checkInitialValidation"
+          :check-empty-submit="true"
+          :check-required="false"
+          :use-timer="false"
+          :show-icon-star="false"
+          :form-data="formData"
+          accessStyleParentInToChildNameId="address__form--data"
+          tag-html="input"
+          timer-start="0:10"
+          type-input="text"
+          name-input="address"
+          label-text="نشانی پستی دقیق :"
+        >
+        </text-input>
 
         <div class="w-100 p-modal-content-items flex-wrap">
           <div
@@ -97,7 +136,7 @@
           </div>
           <div
             :class="{ 'p-modal-show_error': showErrorValidationCity }"
-            class="p-modal-wrapper-item"
+            class="p-modal-wrapper-item flex-wrap "
           >
             <h3 class="p-modal-wrapper-province_city-title">
               {{ getTextByTextKey("address_validation_select_city") }}
@@ -114,7 +153,8 @@
               {{ getTextByTextKey("address_validation_select_city") }}
             </span>
           </div>
-          <div
+
+          <!-- <div
             :class="{ 'p-modal-show_error': showErrorValidationCodePoste }"
             class="p-modal-wrapper-item p-margin-left-0"
           >
@@ -136,8 +176,45 @@
               class="p-modal-item-input p-input-style__default"
             />
             <span class="pass__alert ">{{ validationCodePosteMsg }}</span>
-          </div>
-          <div
+          </div> -->
+
+          <text-input
+            class="p-modal-wrapper-item p-margin-left-0"
+            labelNameClass="p-modal-wrapper-province_city-title"
+            inputNameClass=""
+            state="standard"
+            maxlength="10"
+            function-max-len="greaterThan"
+            placeholderText=""
+            :msgError="{
+              notValidMsg: 'مجاز نیست',
+              notValidNumber: 'بیش از حد مجاز',
+            }"
+            :check-email="false"
+            :check-number="true"
+            :active-check-phone-number="false"
+            :check-code="false"
+            :only-use-string="false"
+            :show-icon-clear-input="false"
+            :show-icon-eye-input="false"
+            :status-add-space-number="false"
+            :check-initial-validation="checkInitialValidation"
+            :check-empty-submit="false"
+            :check-required="false"
+            :check-typing-submit="true"
+            :use-timer="false"
+            :show-icon-star="false"
+            :form-data="formData"
+            accessStyleParentInToChildNameId="address__form--data"
+            tag-html="input"
+            timer-start=""
+            type-input="text"
+            name-input="codePoste"
+            :label-text="textLabelCodePoste"
+          >
+          </text-input>
+
+          <!-- <div
             :class="{ 'p-modal-show_error': showErrorValidationNameReceiver }"
             class="p-modal-wrapper-item "
           >
@@ -152,10 +229,44 @@
               class="p-modal-item-input p-input-style__default"
             />
             <span class="pass__alert ">{{ validationNameReceiverMsg }}</span>
-            <!-- <span class="pass__alert  p-modal-validation-mobile">اشتباه است</span> -->
-          </div>
+          </div> -->
 
-          <div
+          <text-input
+            class="p-modal-wrapper-item"
+            labelNameClass="p-modal-wrapper-province_city-title"
+            inputNameClass=""
+            state="standard"
+            maxlength="34"
+            function-max-len="equalTo"
+            placeholderText=""
+            :msgError="{
+              notValidMsg: 'مجاز نیست',
+              notValidNumber: 'بیش از حد مجاز',
+            }"
+            :check-email="false"
+            :check-number="false"
+            :active-check-phone-number="false"
+            :check-code="false"
+            :only-use-string="true"
+            :show-icon-clear-input="false"
+            :show-icon-eye-input="false"
+            :status-add-space-number="false"
+            :check-initial-validation="checkInitialValidation"
+            :check-empty-submit="true"
+            :check-required="true"
+            :use-timer="false"
+            :show-icon-star="false"
+            :form-data="formData"
+            accessStyleParentInToChildNameId="address__form--data"
+            tag-html="input"
+            timer-start="0:10"
+            type-input="text"
+            name-input="nameReceiver"
+            label-text="نام گیرنده:"
+          >
+          </text-input>
+
+          <!-- <div
             :class="{ 'p-modal-show_error': showErrorValidationNumberReceiver }"
             class="p-modal-wrapper-item"
           >
@@ -172,8 +283,42 @@
             <span class="pass__alert ">{{
               errorValidationNumberReceiverMsg
             }}</span>
-            <!-- <span class="pass__alert  p-modal-validation-mobile">اشتباه است</span> -->
-          </div>
+          </div> -->
+
+          <text-input
+            class="p-modal-wrapper-item"
+            labelNameClass="p-modal-wrapper-province_city-title"
+            inputNameClass=""
+            state="standard"
+            maxlength="11"
+            function-max-len="greaterThan"
+            placeholderText=""
+            :msgError="{
+              notValidMsg: 'مجاز نیست',
+              notValidNumber: 'بیش از حد مجاز',
+            }"
+            :check-email="false"
+            :check-number="true"
+            :active-check-phone-number="true"
+            :check-code="false"
+            :only-use-string="false"
+            :show-icon-clear-input="true"
+            :show-icon-eye-input="false"
+            :status-add-space-number="false"
+            :check-initial-validation="checkInitialValidation"
+            :check-empty-submit="true"
+            :check-required="true"
+            :use-timer="false"
+            :show-icon-star="false"
+            :form-data="formData"
+            accessStyleParentInToChildNameId="address__form--data"
+            tag-html="input"
+            timer-start="0:10"
+            type-input="text"
+            name-input="numberReceiver"
+            label-text="شماره گیرنده:"
+          >
+          </text-input>
         </div>
       </div>
 
@@ -205,6 +350,7 @@
 import customeDropDown from "../../../modules/customeDropDown.vue";
 import "../../../assets/styles/_adresses.scss";
 import { getTextByTextKey } from "~/modules/splitPartJsonResource.js";
+import textInput from "~/modules/textInput";
 
 export default {
   props: {
@@ -216,6 +362,7 @@ export default {
   },
   components: {
     customeDropDown,
+    textInput,
   },
   data() {
     return {
@@ -226,16 +373,10 @@ export default {
       formData: {},
       initialValueProvince: "",
       initialValueCity: "",
-      showErrorValidationAddress: false,
-      showErrorValidationNumberReceiver: false,
-      showErrorValidationNameReceiver: false,
-      showErrorValidationCodePoste: false,
       showErrorValidationCity: false,
       showErrorValidationProvince: false,
-      errorValidationNumberReceiverMsg: "عدد مجاز است",
-      validationNameReceiverMsg: "معتبر نیست",
-      validationCodePosteMsg: "معتبر نیست",
-      errorValidationNumberAddress: "عدد مجاز است",
+      checkInitialValidation: 0,
+      textLabelCodePoste: "کد پستی (اختیاری):",
     };
   },
 
@@ -244,12 +385,12 @@ export default {
   },
 
   created() {
+    const width = window.innerWidth;
     // پس از کلیک روی ویرایش آدرس کاندیشن زیر اجرا می شود //
     if (typeof this.dataEditAddress.id != "undefined") {
       for (let key in this.dataEditAddress) {
         this.formData[key] = this.dataEditAddress[key];
       }
-
       this.initialValueProvince = this.formData.province;
       this.initialValueCity = this.formData.city;
     } else {
@@ -259,10 +400,14 @@ export default {
       }
     }
 
-    // پس از اتصال به بک اند بعد از گرفتن پروفایل قسمت مورد آپدیت شود //
-    this.formData.numberReceiver = this.profilePhoneNumber;
+    if (485 >= width) {
+      this.textLabelCodePoste = "کد پستی";
+    }
 
+    // // پس از اتصال به بک اند بعد از گرفتن پروفایل قسمت مورد آپدیت شود //
+    // this.formData.numberReceiver = this.profilePhoneNumber;
     this.setDefaultValidationMsg();
+    this.detectedResizeBrowser();
   },
 
   mounted() {},
@@ -285,137 +430,6 @@ export default {
       this.errorValidationNumberAddress = this.onlyUseNumberMsg;
     },
 
-    isEmailAddress(str) {
-      var pattern = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-      return pattern.test(str); // returns a boolean
-    },
-
-    isNotEmpty(str) {
-      var pattern = /\S+/;
-      return pattern.test(str); // returns a boolean
-    },
-
-    isNumber(str) {
-      var pattern = /^\d+$/;
-      return pattern.test(str); // returns a boolean
-    },
-
-    isSame(str1, str2) {
-      return str1 === str2;
-    },
-
-    updateCodePoste(e, submitValue) {
-      const value = e.target.value;
-
-      // در صورت خالی نبودن اجرا می شود //
-      if (this.isNotEmpty(value)) {
-        // در صورتی که مقدار نوشته شده عدد بود اجرا می شود //
-        if (this.isNumber(value)) {
-          if (value.length == 11) {
-            this.showErrorValidationCodePoste = true;
-            this.validationCodePosteMsg = this.overLimitMsg;
-          } else {
-            this.validationCodePosteMsg = this.notValidMsg;
-            this.showErrorValidationCodePoste = false;
-          }
-        } else {
-          this.validationCodePosteMsg = this.notValidMsg;
-          this.showErrorValidationCodePoste = true;
-        }
-      } else {
-        this.showErrorValidationCodePoste = false;
-      }
-    },
-
-    checkHasString(value) {
-      let num = value;
-      let digits = num.toString().split("");
-      let realDigits = digits.map(Number);
-      let checkStringNumberStatus = false;
-      let counterCheckLenNumber = -1;
-      let inValid = /\s/;
-
-      realDigits.map((t, i) => {
-        if (isNaN(t)) {
-          counterCheckLenNumber++;
-        }
-      });
-
-      if (realDigits.length - 1 == counterCheckLenNumber) {
-        checkStringNumberStatus = true;
-      }
-
-      // در صورتی که کاربر مقدار نوشته شده اش فاصله داشته باشد اجرا می شود //
-      if (inValid.test(value)) {
-        checkStringNumberStatus = true;
-      }
-
-      return checkStringNumberStatus;
-    },
-
-    updateNameReceiver(e, submitValue) {
-      const value = e.target.value;
-
-      // در صورت خالی نبودن اجرا می شود //
-      if (this.isNotEmpty(value)) {
-        // فقط باید مقدار مورد نظر حروف باشد که اجرا شود //
-        if (this.checkHasString(value)) {
-          this.showErrorValidationNameReceiver = false;
-          if (value.length == 35) {
-            this.validationNameReceiverMsg = this.overLimitMsg;
-            this.showErrorValidationNameReceiver = true;
-          }
-        } else {
-          this.validationNameReceiverMsg = this.notValidMsg;
-          this.showErrorValidationNameReceiver = true;
-        }
-      } else {
-        this.showErrorValidationNameReceiver = false;
-      }
-    },
-
-    UpdateNumberReceiver(e, submitValue) {
-      const value = e.target.value;
-
-      if (this.isNotEmpty(value)) {
-        if (this.isNumber(value)) {
-          if (value.length == 12) {
-            this.errorValidationNumberReceiverMsg = this.overLimitMsg;
-            this.showErrorValidationNumberReceiver = true;
-          } else {
-            this.showErrorValidationNumberReceiver = false;
-          }
-
-          // if (value.length < 11) {
-          //   this.errorValidationNumberReceiverMsg = 'بیش از حد مجاز';
-          //   this.showErrorValidationNumberReceiver  = true;
-          // }
-        } else {
-          this.errorValidationNumberReceiverMsg = this.notValidMsg;
-          this.showErrorValidationNumberReceiver = true;
-        }
-      } else {
-        this.showErrorValidationNumberReceiver = false;
-      }
-    },
-
-    updateAddress(e, submitValue) {
-      const value = e.target.value;
-
-      if (value != "") {
-        if (this.isNotEmpty(value)) {
-          this.showErrorValidationAddress = false;
-        }
-
-        if (value.length == 65) {
-          this.showErrorValidationAddress = true;
-          this.errorValidationNumberAddress = this.overLimitMsg;
-        }
-      } else {
-        this.showErrorValidationAddress = false;
-      }
-    },
-
     closeModalMobile() {
       this.modalClose = true;
       setTimeout(() => {
@@ -426,8 +440,6 @@ export default {
     closeModalDesktop() {
       this.$emit("close-modal");
     },
-
-    checkValidFormData() {},
 
     checkShowErrorCityProvince() {
       if (this.formData.province == "") {
@@ -443,80 +455,41 @@ export default {
       }
     },
 
-    checkErrorForm() {
-      let checkVerifiSubmitForm = true;
+    submitAddressAdd() {
+      this.checkInitialValidation++;
+      // در صورت نداشت ارور فورم مورد نظر ارسال می شود //
+      setTimeout(() => {
+        const formData = this.formData;
+        let checkSubmitForm = "success";
 
-      const checkEmptyForm = () => {
-        if (this.formData.address == "") {
-          this.showErrorValidationAddress = true;
-          this.errorValidationNumberAddress = this.notValidMsg;
-        }
+        // check has error city and province //
+        this.checkShowErrorCityProvince();
 
-        // if (this.formData.nameReceiver.length != 11) {
-        //   this.validationNameReceiverMsg       = 'اشتباه است';
-        //   this.showErrorValidationNameReceiver = true;
-        // }
+        // چک کردن ارور فورم //
+        for (let key in formData) {
+          const value = formData[key].value;
 
-        if (this.formData.nameReceiver == "") {
-          this.showErrorValidationNameReceiver = true;
-          this.validationNameReceiverMsg = this.notValidMsg;
-        }
+          if (formData[key].hasError) {
+            checkSubmitForm = "failed";
+          }
 
-        if (this.formData.numberReceiver == "") {
-          this.showErrorValidationNumberReceiver = true;
-          this.errorValidationNumberReceiverMsg = this.notValidMsg;
-        }
+          if (typeof value !== "undefined") {
+            formData[key] = value;
+          }
 
-        if (this.formData.numberReceiver.length != 11) {
-          this.showErrorValidationNumberReceiver = true;
-          this.errorValidationNumberReceiverMsg = this.notValidMsg;
-        }
-
-        if (this.formData.numberReceiver.length > 11) {
-          this.showErrorValidationNumberReceiver = true;
-          this.errorValidationNumberReceiverMsg = this.overLimitMsg;
-        }
-
-        if (this.formData.codePoste != "") {
-          if (this.formData.codePoste.length != 10) {
-            this.showErrorValidationCodePoste = true;
-            this.validationCodePosteMsg = this.notValidMsg;
+          // has error city & province run condition //
+          if (
+            this.showErrorValidationCity ||
+            this.showErrorValidationProvince
+          ) {
+            checkSubmitForm = "failed";
           }
         }
 
-        if (this.formData.codePoste.length == 11) {
-          this.showErrorValidationCodePoste = true;
-          this.validationCodePosteMsg = this.overLimitMsg;
+        if (checkSubmitForm === "success") {
+          this.$emit("submit-address-add", this.formData);
         }
-
-        this.checkShowErrorCityProvince();
-        // this.updateNameReceiver('',this.formData.nameReceiver);
-      };
-
-      checkEmptyForm();
-
-      // در صورت داشتن ارور اجرا می شود //
-      if (
-        this.showErrorValidationAddress ||
-        this.showErrorValidationNumberReceiver ||
-        this.showErrorValidationNameReceiver ||
-        this.showErrorValidationCodePoste ||
-        this.showErrorValidationCity ||
-        this.showErrorValidationProvince
-      ) {
-        checkVerifiSubmitForm = false;
-      }
-
-      return checkVerifiSubmitForm;
-    },
-
-    submitAddressAdd() {
-      const checkVerifiSubmitForm = this.checkErrorForm();
-
-      // در صورتی که اروی برای نمایش نباشد ارسال می شود //
-      if (checkVerifiSubmitForm) {
-        this.$emit("submit-address-add", this.formData);
-      }
+      });
     },
 
     selectedProvince(value, allData) {
@@ -532,10 +505,70 @@ export default {
       this.showErrorValidationCity = false;
       this.$emit("selected-city", allData);
     },
+
+    detectedResizeBrowser() {
+      window.addEventListener(
+        "resize",
+        () => {
+          const width = window.innerWidth;
+
+          if (485 >= width) {
+            this.textLabelCodePoste = "کد پستی";
+          } else {
+            this.textLabelCodePoste = "کد پستی (اختیاری):";
+          }
+        },
+        true
+      );
+    },
   },
 };
 </script>
+
 <style lang="scss" scoped>
+@mixin p-modal-wrapper-province_city-title() {
+  font-family: inherit;
+  font-size: 16px;
+  font-weight: 500;
+  margin-bottom: 16px;
+  color: $black;
+  text-align: right;
+  padding-right: 7px;
+  line-height: 140.62%;
+}
+@mixin pass__alert_style() {
+  margin-top: 4px;
+  color: $alert-red;
+  text-align: right;
+  font-size: 14px;
+  @include display-flex();
+  width: 100%;
+  text-align: right;
+  visibility: hidden;
+}
+// custome input //
+.modal::v-deep {
+  .p-modal-wrapper-province_city-title {
+    @include p-modal-wrapper-province_city-title();
+  }
+  .search-section__items {
+    border: 1px solid $input-border;
+    box-shadow: 0px 4px 4px $gray-border;
+    border-radius: 15px;
+    height: 52px;
+  }
+  .form__textara-item {
+    height: 52px;
+  }
+  .search-section__input {
+    padding-right: 10px;
+    padding-left: 10px;
+    color: $gray;
+  }
+  .search__section--error {
+    margin-bottom: 0;
+  }
+}
 .p-modal-header-icon {
   @include display-flex();
 }
@@ -634,15 +667,17 @@ export default {
     border: none;
   }
   .pass__alert {
-    margin-top: 4px;
-    color: $alert-red;
-    text-align: right;
-    font-size: 14px;
-    line-height: 140.62%;
-    @include display-flex();
-    width: 100%;
-    text-align: right;
-    visibility: hidden;
+    @include pass__alert_style();
+  }
+  &::v-deep {
+    .show--error .search__section--error {
+      visibility: visible;
+    }
+  }
+}
+.modal::v-deep {
+  .pass__alert {
+    @include pass__alert_style();
   }
 }
 .splicer-line {
@@ -669,13 +704,7 @@ export default {
   margin-left: 0;
 }
 .p-modal-wrapper-province_city-title {
-  font-family: inherit;
-  font-size: 16px;
-  font-weight: 500;
-  margin-bottom: 16px;
-  color: $black;
-  text-align: right;
-  padding-right: 7px;
+  @include p-modal-wrapper-province_city-title();
 }
 .p-margin-left-0 {
   margin-left: 0;
@@ -733,11 +762,13 @@ export default {
 .p-modal-btns {
   padding-top: 49px;
 }
-/* .p-modal-address{
-  // height: 109px;
-} */
 .p-modal-show_error .pass__alert {
   visibility: inherit;
+}
+.modal::v-deep {
+  .p-modal-show_error .pass__alert {
+    visibility: inherit;
+  }
 }
 .p-modal-show_error .p-modal-item-input {
   border: solid 1px $red !important;
@@ -760,6 +791,10 @@ export default {
   font-size: 28px;
   color: $gray;
   cursor: pointer;
+}
+.form__modal--address .card-body .form-group {
+  height: 95px;
+  background: red;
 }
 
 @media (max-width: 960px) {
@@ -840,9 +875,17 @@ export default {
       width: 91vw;
       margin-bottom: 47px;
     }
-    .pass__alert {
+    @mixin pass__alert() {
       font-size: 13px;
       padding-right: 7px;
+    }
+    .pass__alert {
+      @include pass__alert();
+    }
+    &::v-deep {
+      .pass__alert {
+        @include pass__alert();
+      }
     }
   }
   .clear-input > img {
@@ -864,8 +907,16 @@ export default {
   .p-modal-header-desktop {
     display: none;
   }
-  .p-modal-wrapper-province_city-title {
+  @mixin p-modal-wrapper-province_city-title() {
     font-size: 14px;
+  }
+  .modal::v-deep {
+    .p-modal-wrapper-province_city-title {
+      @include p-modal-wrapper-province_city-title();
+    }
+  }
+  .p-modal-wrapper-province_city-title {
+    @include p-modal-wrapper-province_city-title();
   }
   .p-modal-wrapper-item {
     width: 43%;
@@ -938,11 +989,19 @@ export default {
     padding-right: 29px;
     padding-left: 29px;
   }
-  .p-modal-wrapper-item {
-    margin-bottom: 6px;
+  @mixin pass__alert() {
+    height: 20px;
   }
   .modal .pass__alert {
-    height: 20px;
+    @include pass__alert();
+  }
+  .modal::v-deep {
+    .pass__alert {
+      @include pass__alert();
+    }
+    .p-modal-wrapper-item {
+      margin-bottom: 0;
+    }
   }
   .splicer-line {
     margin-top: 16px;
@@ -952,6 +1011,11 @@ export default {
   }
   .p-input-style__default {
     height: 46px;
+  }
+  #form__modal--main::v-deep {
+    .search-section__items {
+      height: 46px !important;
+    }
   }
   .p-modal-wrapper-item {
     margin-bottom: 0;
@@ -1027,8 +1091,16 @@ export default {
   .splicer-line {
     margin-bottom: 17px;
   }
-  .modal .pass__alert {
+  @mixin pass__alert_style() {
     font-size: 11px;
+  }
+  .modal .pass__alert {
+    @include pass__alert_style();
+  }
+  .modal::v-deep {
+    .pass__alert {
+      @include pass__alert_style();
+    }
   }
 
   .splicer-line {
@@ -1047,8 +1119,13 @@ export default {
   .p-modal-btns {
     padding-top: 9px;
   }
-  .p-modal-wrapper-province_city-title {
+  @mixin p-modal-wrapper-province_city-title() {
     margin-bottom: 8px;
+  }
+  .modal::v-deep {
+    .p-modal-wrapper-province_city-title {
+      @include p-modal-wrapper-province_city-title();
+    }
   }
   .p-modal-address {
     margin-bottom: 0;
@@ -1062,9 +1139,6 @@ export default {
   .modal {
     height: 617px;
   }
-  .p-modal-wrapper-province_city-title {
-    margin-bottom: 11px;
-  }
   .p-favorite-product-btn-modal-delete {
     margin-left: 3%;
   }
@@ -1075,11 +1149,25 @@ export default {
     margin-top: 17px;
     margin-bottom: 0px;
   }
+  @mixin p-modal-wrapper-province_city-title() {
+    margin-bottom: 16px;
+  }
+  @mixin p-modal-wrapper-item() {
+    margin-bottom: 6px;
+  }
   .p-modal-wrapper-item {
     margin-bottom: 6px;
   }
   .p-modal-wrapper-province_city-title {
-    margin-bottom: 16px;
+    @include p-modal-wrapper-province_city-title();
+  }
+  .modal::v-deep {
+    .p-modal-wrapper-province_city-title {
+      @include p-modal-wrapper-province_city-title();
+    }
+    .p-modal-wrapper-item {
+      @include p-modal-wrapper-item();
+    }
   }
 }
 </style>

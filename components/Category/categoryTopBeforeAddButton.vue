@@ -6,60 +6,6 @@
           <h3 class="products__top-text">موبایل اندرویدی</h3>
         </div>
 
-        <div class="buttons__example">
-          <Button
-            state="primary"
-            size="medium"
-            :show-inside-icon-button-text="false"
-            :show-loading="false"
-            class-name-text-button=""
-            class-name-icon-button=""
-            text="ورود به لیمو"
-            icon-address="/icons/filter_search_icon.svg"
-            class="products__filter-btn"
-            @btn-click="showBoxFilter"
-          ></Button>
-
-          <Button
-            state="secondary"
-            size="medium"
-            :show-inside-icon-button-text="false"
-            :show-loading="false"
-            class-name-text-button=""
-            class-name-icon-button=""
-            text="ادامه فرایند خرید"
-            icon-address="/icons/filter_search_icon.svg"
-            class="products__filter-btn"
-            @btn-click="showBoxFilter"
-          ></Button>
-
-          <Button
-            state="stroke"
-            size="small"
-            :show-inside-icon-button-text="false"
-            :show-loading="false"
-            class-name-text-button=""
-            class-name-icon-button=""
-            text="ادامه فرایند خرید"
-            icon-address="/icons/filter_search_icon.svg"
-            class="products__filter-btn"
-            @btn-click="showBoxFilter"
-          ></Button>
-
-          <Button
-            state="stroke"
-            size="extra--small"
-            :show-inside-icon-button-text="false"
-            :show-loading="false"
-            class-name-text-button=""
-            class-name-icon-button=""
-            text="ادامه فرایند خرید"
-            icon-address="/icons/filter_search_icon.svg"
-            class="products__filter-btn"
-            @btn-click="showBoxFilter"
-          ></Button>
-        </div>
-
         <div class="products__filter-btns w-100 ">
           <!-- <buttonFilter
             status="initial"

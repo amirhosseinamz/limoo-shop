@@ -30,48 +30,6 @@
             <p class="txt-header">
               {{ getTextByTextKey("auth_aignup_code_agin") }}
             </p>
-            <!-- <text-input
-              class="user--item user-profile__info-pass"
-              labelNameClass=""
-              inputNameClass="w-100"
-              state="authInput"
-              maxlength="4"
-              function-max-len="greaterThan"
-              placeholderText=""
-              :msgError="{
-                notValidMsg: getTextByTextKey('auth_request_code_resend'),
-              }"
-              :check-email="false"
-              :check-number="true"
-              :active-check-phone-number="false"
-              :check-code="true"
-              :only-use-string="false"
-              :show-icon-clear-input="false"
-              :show-icon-eye-input="false"
-              :status-add-space-number="true"
-              :check-initial-validation="checkInitialValidation"
-              :check-empty-submit="false"
-              :check-required="false"
-              :check-typing-submit="false"
-              :use-timer="true"
-              :show-icon-star="false"
-              :form-data="formData"
-              :attribute-required="true"
-              :active-border-click="true"
-              timer-start="0:10"
-              accessStyleParentInToChildNameId="address__form--data"
-              tag-html="input"
-              type-input="text"
-              name-input="codePhoneNumber"
-              :label-text="
-                getTextByTextKey('auth_aignup_phone_enter_code') +
-                  ' ' +
-                  userPhoneNumber +
-                  getTextByTextKey('auth_enter_phone')
-              "
-            >
-            </text-input> -->
-
             <p dir="rtl" class="txt-content">
               {{ getTextByTextKey("auth_aignup_phone_enter_code") }}
               <span>
@@ -99,7 +57,6 @@
               </div>
             </div>
           </div>
-
           <div class="timer-holder">
             <p class="timer">
               <span>02:45</span>
@@ -109,7 +66,6 @@
               {{ getTextByTextKey("auth_request_code_resend") }}
             </p>
           </div>
-
           <div class="btn-control">
             <button class="signup-btn" type="submit">
               {{ getTextByTextKey("public_confirm") }}
@@ -123,7 +79,6 @@
 
 <script>
 import { getTextByTextKey } from "~/modules/splitPartJsonResource.js";
-import textInput from "~/modules/textInput";
 
 export default {
   data() {
@@ -133,14 +88,7 @@ export default {
       newCodeSent: false,
       isActive: false,
       userPhoneNumber: "",
-      checkInitialValidation: 0,
-      formData: {
-        codePhoneNumber: "",
-      },
     };
-  },
-  components: {
-    textInput,
   },
   mounted() {
     this.userPhoneNumber = this.$store.getters.PhoneNumberPicker;
@@ -153,6 +101,7 @@ export default {
   },
   methods: {
     getTextByTextKey,
+
     validationVerifyCode(value) {
       if (/\D/.test(value)) {
         // console.log(value);
@@ -179,7 +128,8 @@ export default {
     nextPage() {
       // go to ...
       // this.$store.commit("walkInSignIncomponents", { value: "stepOne" });
-      this.$router.push("/users/signin");
+      // this.$router.push("/users/signin");
+      this.$emit("btn-go-back-signin-step-one");
     },
   },
 };
@@ -242,13 +192,12 @@ export default {
 }
 
 .signin-container {
-  height: 100vh;
+  /* height: 100vh; */
   @include display-flex();
   flex-direction: column;
   justify-content: center;
   align-items: center;
   text-align: center;
-  overflow: hidden;
 }
 
 .card {
@@ -359,36 +308,6 @@ export default {
 .signup-btn {
   margin-top: 32px;
   margin-bottom: 144px;
-}
-.signin-container::v-deep {
-  .txt-content {
-    @extend .txt-content;
-  }
-  .input-holder {
-    @extend .input-holder;
-    margin-right: auto;
-    margin-left: auto;
-  }
-  .signup-input {
-    @extend .signup-input;
-    padding-right: 0;
-  }
-  .form__main--item {
-    justify-content: center;
-  }
-  .form__error--main {
-    display: none;
-  }
-  .show--error .input-holder {
-    border-color: $red;
-    background: $bg_festival_counrer_down;
-  }
-  .code-request {
-    @extend .code-request;
-  }
-  .timer-timeText {
-    @extend .timer-timeText;
-  }
 }
 
 @media (max-width: 540px) {

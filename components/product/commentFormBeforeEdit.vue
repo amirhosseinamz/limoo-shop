@@ -2,7 +2,7 @@
   <div class="comment__form-main">
     <form @submit="submitData" ref="form" class="w-100">
       <div class="w-100">
-        <!-- <div
+        <div
           :class="{ 'show--error': showErrorCommentTitle }"
           class="w-100 comment__form-item "
         >
@@ -20,43 +20,8 @@
             class="p-modal-address-input p-input-style__default "
           />
           <span class="pass__alert ">{{ errorCommentTitle }}</span>
-        </div> -->
-
-        <text-input
-          class="comment__form-item"
-          labelNameClass="p-modal-wrapper-province_city-title comment__form-title"
-          inputNameClass=" p-modal-address-input "
-          state="standard"
-          maxlength="20"
-          function-max-len="equalTo"
-          placeholderText=""
-          :msgError="{
-            notValidMsg: this.getTextByTextKey('address_not_valid'),
-          }"
-          :check-email="false"
-          :check-number="false"
-          :active-check-phone-number="false"
-          :check-code="false"
-          :only-use-string="false"
-          :show-icon-clear-input="false"
-          :show-icon-eye-input="false"
-          :status-add-space-number="false"
-          :check-initial-validation="checkInitialValidation"
-          :check-empty-submit="true"
-          :check-required="true"
-          :use-timer="false"
-          :show-icon-star="true"
-          :form-data="formData"
-          accessStyleParentInToChildNameId="address__form--data"
-          tag-html="input"
-          timer-start="0:10"
-          type-input="text"
-          name-input="Title"
-          :label-text="getTextByTextKey('product_comment_title')"
-        >
-        </text-input>
-
-        <!-- <div
+        </div>
+        <div
           :class="{ 'show--error': showErrorCommentText }"
           class="w-100 comment__form-item "
         >
@@ -75,41 +40,7 @@
             cols="80"
           ></textarea>
           <span class="pass__alert ">{{ errorCommentText }}</span>
-        </div> -->
-
-        <text-input
-          class="comment__form-item"
-          labelNameClass="p-modal-wrapper-province_city-title comment__form-title"
-          inputNameClass="comment__textara-item"
-          state="standard"
-          maxlength="450"
-          function-max-len="equalTo"
-          placeholderText=""
-          :msgError="{
-            notValidMsg: this.getTextByTextKey('address_not_valid'),
-          }"
-          :check-email="false"
-          :check-number="false"
-          :active-check-phone-number="false"
-          :check-code="false"
-          :only-use-string="true"
-          :show-icon-clear-input="false"
-          :show-icon-eye-input="false"
-          :status-add-space-number="false"
-          :check-initial-validation="checkInitialValidation"
-          :check-empty-submit="true"
-          :check-required="true"
-          :use-timer="false"
-          :show-icon-star="true"
-          :form-data="formData"
-          accessStyleParentInToChildNameId="address__form--data"
-          tag-html="textarea"
-          timer-start="0:10"
-          type-input="text"
-          name-input="Body"
-          :label-text="getTextByTextKey('product_comment_title')"
-        >
-        </text-input>
+        </div>
       </div>
 
       <div class="w-100 comment__suggest-main">
@@ -156,7 +87,6 @@
 import "~/assets/styles/_radio_btn_style.scss";
 const moment = require("moment-jalaali");
 import { getTextByTextKey } from "~/modules/splitPartJsonResource.js";
-import textInput from "~/modules/textInput";
 
 export default {
   props: {
@@ -166,9 +96,7 @@ export default {
     commentStar: { type: [Object, Array], default: {} },
   },
 
-  components: {
-    textInput,
-  },
+  components: {},
 
   data() {
     return {
@@ -185,9 +113,9 @@ export default {
       },
       showErrorCommentText: false,
       errorCommentText: "",
+
       showErrorCommentTitle: false,
       errorCommentTitle: "",
-      checkInitialValidation: 0,
     };
   },
 
@@ -217,32 +145,29 @@ export default {
     },
 
     submitData(e) {
+      let checkVerifiSubmitForm = true;
+
       e.preventDefault();
-      this.checkInitialValidation++;
 
-      // در صورت نداشت ارور فورم مورد نظر ارسال می شود //
-      setTimeout(() => {
-        const formData = this.formData;
-        let checkSubmitForm = "success";
+      if (this.formData.Body == "") {
+        this.showErrorCommentText = true;
+        this.errorCommentText = this.getTextByTextKey("address_not_valid");
+      }
 
-        // چک کردن ارور فورم //
-        for (let key in formData) {
-          const value = formData[key].value;
+      if (this.formData.Title == "") {
+        this.showErrorCommentTitle = true;
+        this.errorCommentTitle = this.getTextByTextKey("address_not_valid");
+      }
 
-          if (formData[key].hasError) {
-            checkSubmitForm = "failed";
-          }
+      // در صورت داشتن ارور اجرا می شود //
+      if (this.showErrorCommentTitle || this.showErrorCommentText) {
+        checkVerifiSubmitForm = false;
+      }
 
-          if (typeof value !== "undefined") {
-            formData[key] = value;
-          }
-        }
-
-        if (checkSubmitForm === "success") {
-          this.formData.Rate = this.valueRengeSlider;
-          this.$emit("submit-data", this.formData);
-        }
-      });
+      if (checkVerifiSubmitForm) {
+        this.defaultUpdateFormData();
+        this.$emit("submit-data", this.formData);
+      }
     },
 
     defaultUpdateFormData() {
@@ -345,6 +270,9 @@ export default {
   margin-left: auto;
   padding-top: 38px;
 }
+.p-modal-address-input {
+  width: 100%;
+}
 .comment__form-title {
   font-size: 16px;
   color: $black-topic;
@@ -405,7 +333,17 @@ export default {
 .p-product-btn {
   width: 130px;
 }
-
+.pass__alert {
+  color: $alert-red;
+  text-align: right;
+  font-size: 14px;
+  line-height: 140.62%;
+  @include display-flex();
+  width: 100%;
+  text-align: right;
+  visibility: hidden;
+  margin-top: 4px;
+}
 .show--error .p-input-style__default {
   border: solid 1px red;
 }
@@ -421,42 +359,15 @@ export default {
   color: $alert-red;
 }
 
-.comment__form-main::v-deep {
-  .comment__form-title {
-    font-size: 16px;
-    color: $black-topic;
-    margin-bottom: 16px;
-    font-weight: 400;
-  }
-  .pass__alert {
-    color: $alert-red;
-    text-align: right;
-    font-size: 14px;
-    line-height: 140.62%;
-    @include display-flex();
-    width: 100%;
-    text-align: right;
-    margin-top: 4px;
-  }
-  .search-section__items {
-    font-family: inherit;
-    border: 1px solid #bdbdbd;
-    box-shadow: 0px 4px 4px #f2f2f2;
-    height: 52px;
-    border-radius: 15px;
-    color: #828282;
-    outline: none;
-    padding-right: 10px;
-    padding-left: 10px;
-  }
-  .p-modal-address-input {
-    width: 100%;
-  }
-}
-
 @media (max-width: 1600px) {
+  .comment__suggest-title {
+    margin-bottom: 17px;
+  }
   .comment__suggest-btns {
     margin-top: 17px;
+  }
+  .comment__form-title {
+    margin-bottom: 9px;
   }
   .comment__form-main {
     padding-top: 25px;
@@ -464,25 +375,29 @@ export default {
   .comment__suggest-main {
     margin-top: 25px;
   }
+  .comment__textara-item {
+    height: 100px;
+  }
   .comment__form-item {
     margin-bottom: 20px;
-  }
-  .comment__form-main::v-deep {
-    .comment__form-title {
-      margin-bottom: 9px;
-    }
-    .comment__textara-item {
-      height: 100px;
-    }
   }
 }
 
 @media (max-width: 760px) {
+  .comment__form-title {
+    font-size: 14px;
+  }
   .comment__form-main {
     width: 100%;
     padding-right: 19px;
     padding-left: 19px;
     padding-top: 27px;
+  }
+  .p-modal-address-input {
+    height: 46px;
+  }
+  .comment__textara-item {
+    height: 101px;
   }
   .comment__suggest-title {
     font-size: 14px;
@@ -513,17 +428,6 @@ export default {
   .p-product-btn {
     height: 47px;
     width: 149px;
-  }
-  .comment__form-main::v-deep {
-    .comment__form-title {
-      font-size: 14px;
-    }
-    .comment__textara-item {
-      height: 101px;
-    }
-    .p-modal-address-input {
-      height: 46px;
-    }
   }
 }
 </style>

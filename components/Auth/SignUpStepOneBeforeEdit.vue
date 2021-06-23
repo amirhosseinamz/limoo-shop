@@ -15,42 +15,47 @@
             <p class="txt-header">
               {{ getTextByTextKey("auth_registration_and_membership") }}
             </p>
-            <text-input
-              class="user--item user-profile__info-pass"
-              labelNameClass=""
-              inputNameClass="w-100"
-              state="authInput"
-              maxlength="11"
-              function-max-len="greaterThan"
-              placeholderText="*********09"
-              :msgError="{
-                notValidMsg: getTextByTextKey('auth_phone_not_valid'),
-              }"
-              :check-email="false"
-              :check-number="true"
-              :active-check-phone-number="true"
-              :check-code="false"
-              :only-use-string="false"
-              :show-icon-clear-input="true"
-              :show-icon-eye-input="false"
-              :status-add-space-number="false"
-              :check-initial-validation="checkInitialValidation"
-              :check-empty-submit="true"
-              :check-required="false"
-              :check-typing-submit="true"
-              :use-timer="false"
-              :show-icon-star="false"
-              :form-data="formData"
-              :active-border-click="true"
-              accessStyleParentInToChildNameId="address__form--data"
-              tag-html="input"
-              timer-start=""
-              type-input="text"
-              name-input="phone"
-              :label-text="getTextByTextKey('auth_please_enter_number')"
-              @typeing="typeing"
+            <p class="txt-content" dir="rtl">
+              {{ getTextByTextKey("auth_please_enter_number") }}
+            </p>
+            <div class="input-section">
+              <div
+                :style="
+                  phone || isActive
+                    ? 'border:1px solid #515151'
+                    : 'border:1px solid #bdbdbd'
+                "
+                :class="[wrongInput ? 'input-holder-wrong' : 'input-holder']"
+              >
+                <input
+                  :class="[
+                    wrongInput ? 'signup-input-wrong' : 'signup-input',
+                    'form-control',
+                  ]"
+                  @click="[(wrongInput = false), (isActive = true)]"
+                  type="tel"
+                  maxlength="11"
+                  placeholder="*********09"
+                  v-model.trim="phone"
+                /><button
+                  @click="
+                    [(wrongInput = false), (phone = ''), (isActive = false)]
+                  "
+                  type="button"
+                  :style="phone ? 'visibility: visible' : 'visibility: hidden'"
+                  :class="[wrongInput ? 'clear-input-wrong' : 'clear-input']"
+                  aria-label="Close"
+                >
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+            </div>
+            <p
+              class="err-text"
+              :style="wrongInput ? 'visibility: visible' : 'visibility: hidden'"
             >
-            </text-input>
+              {{ getTextByTextKey("auth_phone_not_valid") }}
+            </p>
           </div>
 
           <div class="btn-control">
@@ -78,7 +83,6 @@
 
 <script>
 import { getTextByTextKey } from "~/modules/splitPartJsonResource.js";
-import textInput from "~/modules/textInput";
 
 export default {
   data() {
@@ -88,19 +92,17 @@ export default {
       wrongInput: false,
       isActive: false,
       btnIsDisabled: false,
-      checkInitialValidation: 0,
-      formData: {
-        phone: "",
-      },
     };
   },
-  components: {
-    textInput,
+  watch: {
+    phone(value) {
+      this.phone = value;
+      this.validationPhoneNumber(value);
+    },
   },
-  watch: {},
   created() {
     this.storePhone = this.$store.getters.PhoneNumberPicker;
-    this.formData.phone = this.$store.getters.PhoneNumberPicker;
+    this.phone = this.$store.getters.PhoneNumberPicker;
   },
   // computed: {
   //     PhoneNumberPicker() {
@@ -109,39 +111,42 @@ export default {
   // },
   methods: {
     getTextByTextKey,
-
+    validationPhoneNumber(value) {
+      if (/\D/.test(value)) {
+        this.wrongInput = true;
+        this.btnIsDisabled = true;
+      } else if (!/\D/.test(value)) {
+        this.wrongInput = false;
+        this.btnIsDisabled = false;
+        // } else if (value.length == 0) {
+        //     this.wrongInput = false;
+      }
+    },
     goToNextStepofSignUp() {
-      this.checkInitialValidation++;
+      const condition = this.phone.match(/\d/g);
 
-      setTimeout(() => {
-        const formData = this.formData;
-        let checkSubmitForm = "success";
-
-        // چک کردن ارور فورم //
-        for (let key in formData) {
-          const value = formData[key].value;
-
-          if (formData[key].hasError) {
-            checkSubmitForm = "failed";
-          }
-
-          if (typeof value !== "undefined") {
-            formData[key] = value;
-          }
-        }
-
-        if (checkSubmitForm === "success") {
-          this.$emit("onSubmit", this.formData.phone);
-        } else {
-          this.$store.commit("PhoneNumber", { value: this.formData.phone });
-        }
-      });
+      if (this.phone == "" || condition.length < 11) {
+        this.wrongInput = true;
+        // console.log("input is '' or < 11");
+      } else if (condition.length === 11) {
+        // console.log("input length is === 11");
+        this.wrongInput = false;
+        this.$store.commit("PhoneNumber", { value: this.phone });
+      }
+      if (!this.wrongInput) {
+        // console.log("go to confirm");
+        // this.$store.dispatch({
+        //     type: "userIsAuth",
+        //     value: true
+        // });
+        // this.$router.push("/users/register/confirm");
+        this.$emit("onSubmit", this.phone);
+      }
     },
     closePage() {
       this.$router.push("/");
       this.$store.commit("PhoneNumber", { value: "" });
     },
-    typeing() {},
   },
 };
 </script>
@@ -197,6 +202,7 @@ export default {
   text-align: right;
   color: $alert-red;
   line-height: 140.62%;
+  margin-right: 90px;
   margin-bottom: 18px;
 }
 .btn-control {
@@ -223,24 +229,6 @@ export default {
   margin-bottom: 25px;
   margin-right: 90px;
 }
-.signup-container::v-deep {
-  .txt-content {
-    @extend .txt-content;
-  }
-  .input-holder {
-    @extend .input-holder;
-  }
-  .form__item--error {
-    @extend .err-text;
-  }
-  .form__main--item {
-    justify-content: center;
-    width: auto;
-  }
-  .signup-input {
-    @extend .signup-input;
-  }
-}
 @media screen and (max-width: 600px) {
   .signup-close-btn {
     display: none;
@@ -254,7 +242,12 @@ export default {
 }
 
 @media screen and (max-width: 540px) {
-  @mixin signup-input {
+  .card {
+    width: auto;
+    height: 100vh;
+    border-radius: 0;
+  }
+  .signup-input {
     margin-right: 18px;
     padding: 0;
     width: 328px;
@@ -269,16 +262,7 @@ export default {
     }
   }
 
-  .card {
-    width: 360px;
-    height: 100vh;
-    border-radius: 0;
-  }
-  .signup-input {
-    @include signup-input();
-  }
-
-  @mixin signup-input {
+  .input-holder {
     margin-right: 16px;
     margin-left: 16px;
     padding: 0;
@@ -294,10 +278,6 @@ export default {
     }
   }
 
-  .input-holder {
-    @include signup-input();
-  }
-
   .signup-btn {
     width: 328px;
   }
@@ -308,47 +288,24 @@ export default {
     margin-right: 16px;
     margin-left: 16px;
   }
-  @mixin txt-content {
+  .txt-content {
     width: 328px;
     margin-right: 16px;
     margin-left: 16px;
   }
-  .txt-content {
-    @include txt-content();
-  }
-  @mixin err-text {
-    margin-right: 16px;
-  }
   .err-text {
-    @include err-text();
+    margin-right: 16px;
   }
   .signup-limoo-logo {
     margin-top: 0.5rem;
   }
-  .signup-container::v-deep {
-    .txt-content {
-      @include txt-content();
-    }
-    .input-holder {
-      @include signup-input();
-    }
-    .form__item--error {
-      @include err-text();
-    }
-    .form__main--item {
-      justify-content: center;
-      width: auto;
-    }
-    .signup-input {
-      @include signup-input();
-    }
-  }
 }
 @media screen and (max-width: 350px) {
-  @mixin signup-input {
+  .signup-input {
     margin-right: 10px;
     margin-left: 10px;
     width: 280px;
+    margin-bottom: 42px;
     &-wrong {
       margin-right: 10px;
       margin-left: 10px;
@@ -357,7 +314,7 @@ export default {
     }
   }
 
-  @mixin input-holder {
+  .input-holder {
     margin-right: 10px;
     margin-left: 10px;
     padding: 0;
@@ -372,10 +329,6 @@ export default {
       margin-bottom: 8px;
     }
   }
-
-  .input-holder {
-    @include input-holder();
-  }
   .signup-btn {
     width: 280px;
   }
@@ -383,63 +336,33 @@ export default {
     font-size: 20px;
     line-height: 140.62%;
     width: 280px;
-    margin-right: auto;
-    margin-left: auto;
+    margin-right: 10px;
   }
-
-  @mixin txt-content {
+  .txt-content {
     width: 280px;
     margin-right: 10px;
   }
-
-  .txt-content {
-    @include txt-content();
-  }
-
   .signup-limoo-logo {
     margin-top: 0;
   }
-  .signup-container::v-deep {
-    .txt-content {
-      @include txt-content();
-    }
-    .input-holder {
-      @include signup-input();
-    }
-
-    .signup-input {
-      @include signup-input();
-    }
-  }
-  .card {
-    width: auto;
-  }
 }
 @media screen and (max-width: 280px) {
-  @mixin signup-input {
+  .signup-input,
+  .signup-input-wrong {
     margin-right: 5px;
     margin-left: 5px;
     width: 270px;
+    margin-bottom: 42px;
     padding-right: 0px;
   }
-
-  .signup-input,
-  .signup-input-wrong {
-    @include signup-input();
-  }
-
-  @mixin input-holder {
+  .input-holder-wrong,
+  .input-holder {
     margin-right: 5px;
     margin-left: 5px;
     width: 270px;
     margin-bottom: 8px;
     padding-right: 0;
   }
-
-  .input-holder-wrong,
-  .input-holder {
-    @include input-holder();
-  }
   .signup-btn {
     width: 270px;
   }
@@ -447,32 +370,14 @@ export default {
     font-size: 20px;
     line-height: 140.62%;
     width: 270px;
+    margin-right: 15px;
   }
-
-  @mixin txt-content {
+  .txt-content {
     width: 270px;
     margin-right: 15px;
   }
-
-  .txt-content {
-    @include txt-content();
-  }
   .signup-limoo-logo {
     margin-top: 0.2rem;
-  }
-  .signup-container::v-deep {
-    .txt-content {
-      @include txt-content();
-    }
-    .input-holder {
-      @include signup-input();
-    }
-    .signup-input {
-      @include signup-input();
-    }
-    .form__item--error {
-      margin-right: 6px;
-    }
   }
 }
 </style>

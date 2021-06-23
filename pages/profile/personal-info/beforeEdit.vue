@@ -1,5 +1,5 @@
 <template>
-  <div id="test" class="profile-container">
+  <div class="profile-container">
     <transition mode="in-out">
       <div id="overlay" v-if="passChangeIsActive">
         <The-profile-pass-modal />
@@ -34,120 +34,47 @@
           <div class="user-profile__container">
             <div class="user-profile__info" dir="rtl">
               <div class="user-profile__info-name">
-                <text-input
-                  class="name"
-                  labelNameClass=""
-                  inputNameClass="w-100"
-                  idInput="name"
-                  state="authInput"
-                  maxlength="1000"
-                  function-max-len="greaterThan"
-                  placeholderText=""
-                  :msgError="{
-                    notValidMsg: 'مجاز نیست',
-                    notValidNumber: 'بیش از حد مجاز',
-                  }"
-                  :check-email="false"
-                  :check-number="false"
-                  :active-check-phone-number="false"
-                  :check-code="false"
-                  :only-use-string="false"
-                  :show-icon-clear-input="false"
-                  :show-icon-eye-input="false"
-                  :status-add-space-number="false"
-                  :check-initial-validation="checkInitialValidation"
-                  :check-empty-submit="false"
-                  :check-required="false"
-                  :check-typing-submit="false"
-                  :use-timer="false"
-                  :show-icon-star="false"
-                  :form-data="formData"
-                  accessStyleParentInToChildNameId="address__form--data"
-                  tag-html="input"
-                  timer-start=""
-                  type-input="text"
-                  name-input="name"
-                  label-text="نام"
-                >
-                </text-input>
-
-                <text-input
-                  class="family"
-                  labelNameClass=""
-                  inputNameClass="w-100"
-                  idInput="name"
-                  state="authInput"
-                  maxlength="1000"
-                  function-max-len="greaterThan"
-                  placeholderText=""
-                  :msgError="{
-                    notValidMsg: 'مجاز نیست',
-                    notValidNumber: 'بیش از حد مجاز',
-                  }"
-                  :check-email="false"
-                  :check-number="false"
-                  :active-check-phone-number="false"
-                  :check-code="false"
-                  :only-use-string="false"
-                  :show-icon-clear-input="false"
-                  :show-icon-eye-input="false"
-                  :status-add-space-number="false"
-                  :check-initial-validation="checkInitialValidation"
-                  :check-empty-submit="false"
-                  :check-required="false"
-                  :check-typing-submit="false"
-                  :use-timer="false"
-                  :show-icon-star="false"
-                  :form-data="formData"
-                  accessStyleParentInToChildNameId="address__form--data"
-                  tag-html="input"
-                  timer-start=""
-                  type-input="text"
-                  name-input="family"
-                  label-text="نام خانوادگی"
-                >
-                </text-input>
+                <section>
+                  <label for="name">
+                    {{ getTextByTextKey("personal_info_name") }}
+                  </label>
+                  <input
+                    type="text"
+                    id="name"
+                    :placeholder="
+                      getTextByTextKey('personal_info_place_holder_name')
+                    "
+                  />
+                </section>
+                <section>
+                  <label for="family">
+                    {{ getTextByTextKey("personal_info_family") }}
+                  </label>
+                  <input
+                    type="text"
+                    id="family"
+                    :placeholder="
+                      getTextByTextKey('personal_info_place_holder_family')
+                    "
+                  />
+                </section>
               </div>
               <!--/// email section is ignored in version alpha ///-->
-              <text-input
-                class="user-profile__info-phone "
-                labelNameClass=""
-                inputNameClass="w-100"
-                idInput="name"
-                state="authInput"
-                maxlength="10"
-                function-max-len="greaterThan"
-                placeholderText=""
-                :msgError="{
-                  notValidMsg: 'مجاز نیست',
-                  notValidNumber: 'بیش از حد مجاز',
-                }"
-                :check-email="false"
-                :check-number="true"
-                :active-check-phone-number="true"
-                :check-code="false"
-                :only-use-string="false"
-                :show-icon-clear-input="false"
-                :show-icon-eye-input="false"
-                :status-add-space-number="false"
-                :check-initial-validation="checkInitialValidation"
-                :check-empty-submit="false"
-                :check-required="false"
-                :check-typing-submit="false"
-                :use-timer="false"
-                :show-icon-star="true"
-                :form-data="formData"
-                :disabled-input-default="true"
-                :remove-error="true"
-                accessStyleParentInToChildNameId="address__form--data"
-                tag-html="input"
-                timer-start=""
-                type-input="text"
-                name-input="phoneNumber"
-                label-text="شماره همراه :"
-              >
-              </text-input>
-
+              <!-- <div class="user-profile__info-email">ایمیل</div> -->
+              <!-- ================================================ -->
+              <div class="user-profile__info-phone">
+                <label for="phoneNumber">
+                  {{ getTextByTextKey("personal_info_phone_number") }}
+                </label>
+                <input
+                  type="text"
+                  id="phoneNumber"
+                  maxlength="11"
+                  v-model="phoneNumber"
+                  required
+                  disabled
+                />
+              </div>
               <div class="user-profile__info-birthday">
                 <client-only>
                   <the-date-dropdown
@@ -159,78 +86,64 @@
                 </client-only>
                 <!-- <the-birthday /> -->
               </div>
+              <div class="user-profile__info-nationalcode">
+                <label for="nationalcode">
+                  {{ getTextByTextKey("personal_info_code_national") }}
+                </label>
+                <input
+                  :class="{ err__input: msg.nationalcode }"
+                  type="text"
+                  id="nationalcode"
+                  maxlength="10"
+                  :placeholder="
+                    getTextByTextKey('personal_info_place_holder_national')
+                  "
+                  v-model="nationalcode"
+                  required
+                />
+                <span class="user-profile__alert" v-if="msg.nationalcode">{{
+                  msg.nationalcode
+                }}</span>
 
-              <text-input
-                class="user--item user-profile__info-nationalcode"
-                labelNameClass=""
-                inputNameClass="w-100"
-                state="authInput"
-                maxlength="10"
-                function-max-len="greaterThan"
-                placeholderText=""
-                :msgError="{
-                  notValidMsg: 'کد ملی نمی تواند شامل حروف باشد!',
-                }"
-                :check-email="false"
-                :check-number="true"
-                :active-check-phone-number="false"
-                :check-code="false"
-                :only-use-string="false"
-                :show-icon-clear-input="false"
-                :show-icon-eye-input="false"
-                :status-add-space-number="false"
-                :check-initial-validation="checkInitialValidation"
-                :check-empty-submit="false"
-                :check-required="false"
-                :check-typing-submit="false"
-                :use-timer="false"
-                :show-icon-star="true"
-                :form-data="formData"
-                accessStyleParentInToChildNameId="address__form--data"
-                tag-html="input"
-                timer-start=""
-                type-input="text"
-                name-input="codePoste"
-                label-text="کد ملی:"
-              >
-              </text-input>
-
-              <text-input
-                class="user--item user-profile__info-pass"
-                labelNameClass=""
-                inputNameClass="w-100"
-                state="authInput"
-                maxlength="100"
-                function-max-len="greaterThan"
-                placeholderText=""
-                :msgError="{
-                  notValidMsg: 'مجاز نیست',
-                  notValidNumber: 'بیش از حد مجاز',
-                }"
-                :check-email="false"
-                :check-number="false"
-                :active-check-phone-number="false"
-                :check-code="false"
-                :only-use-string="false"
-                :show-icon-clear-input="false"
-                :show-icon-eye-input="true"
-                :status-add-space-number="false"
-                :check-initial-validation="checkInitialValidation"
-                :check-empty-submit="false"
-                :check-required="false"
-                :check-typing-submit="false"
-                :use-timer="false"
-                :show-icon-star="true"
-                :form-data="formData"
-                accessStyleParentInToChildNameId="address__form--data"
-                tag-html="input"
-                timer-start=""
-                type-input="text"
-                name-input="passwordShowModal"
-                label-text="رمز عبور:"
-                @click-input="passChange"
-              >
-              </text-input>
+                <!-- کد ملی وارد شده صحیح نیست! -->
+              </div>
+              <div class="user-profile__info-pass">
+                <label for="pass">
+                  {{ getTextByTextKey("personal_info_password") }}
+                  <span>*</span></label
+                >
+                <!-- <div class="pass-holder"> -->
+                <input
+                  @click="passChange"
+                  :type="passwordFieldType"
+                  value="********"
+                  id="pass"
+                />
+                <!-- <button
+                                        @click="switchVisibility"
+                                        type="button"
+                                        class="clear-input"
+                                        aria-label="Close"
+                                    >
+                                        <img
+                                            :style="
+                                                passwordFieldType === 'password'
+                                                    ? 'display: block'
+                                                    : 'display: none'
+                                            "
+                                            src="/icons/eye-profile-close.svg"
+                                        />
+                                        <img
+                                            :style="
+                                                passwordFieldType === 'text'
+                                                    ? 'display: block'
+                                                    : 'display: none'
+                                            "
+                                            src="/icons/eye-profile.svg"
+                                        />
+                                    </button> -->
+                <!-- </div> -->
+              </div>
             </div>
             <div class="user-profile__btn-holder">
               <button class="user-profile__btn" type="submit">
@@ -266,18 +179,17 @@ export default {
       // passFocusIsActive: false,
       passChangeIsActive: false,
       msg: [],
+      nationalcode: "",
       // later we get it from store (in talk with back-end)
+      phoneNumber: "09120121023",
       selectedDate: "",
-      checkInitialValidation: 0,
-      formData: {
-        phoneNumber: "09120121023",
-        passwordShowModal: "AB6565656509",
-        name: "مهدی",
-        family: "دادور",
-      },
     };
   },
   watch: {
+    nationalcode(value) {
+      this.nationalcode = value;
+      this.validateNationalcode(value);
+    },
     selectedDate() {
       console.log(this.selectedDate);
     },
@@ -287,20 +199,36 @@ export default {
     goToProfile() {
       this.$router.push("/profile");
     },
-
+    // passFocus() {
+    //     this.passFocusIsActive = !this.passFocusIsActive;
+    // },
     passChange() {
       this.passChangeIsActive = !this.passChangeIsActive;
+    },
+    switchVisibility() {
+      this.passwordFieldType =
+        this.passwordFieldType === "password" ? "text" : "password";
+    },
+    validateNationalcode(value) {
+      let difference = 10 - value.length;
+      if (/\D/.test(value)) {
+        this.msg["nationalcode"] = "کد ملی نمی تواند شامل حروف باشد!";
+      } else if (value.length == 0) {
+        this.msg["nationalcode"] = "";
+        // } else if (value.length < 10) {
+        //     this.msg["nationalcode"] =
+        //         "کد ملی باید 10 رقم باشد! " +
+        //         difference +
+        //         " رقم باقی مانده.";
+      } else {
+        this.msg["nationalcode"] = "";
+      }
     },
   },
 };
 </script>
 
 <style lang="scss" scoped>
-.search-section__items::v-deep {
-  background: red !important;
-  color: red;
-}
-
 #overlay {
   position: fixed; /* Sit on top of the page content */
   @include display-flex();
@@ -396,6 +324,15 @@ export default {
     height: 162px;
     width: 162px;
   }
+  &__container {
+    @include display-flex();
+    flex-direction: column;
+    width: 100%;
+    min-height: 500px;
+    height: max-content;
+    /* border: 1px solid rgb(11, 27, 201); */
+    padding: 0 90px;
+  }
   &__info {
     @include display-flex();
     flex-direction: row;
@@ -425,6 +362,94 @@ export default {
       flex-direction: row;
       justify-content: space-between;
     }
+    &-phone,
+    &-pass,
+    &-name > section,
+    &-nationalcode {
+      background: $white;
+      @include display-flex();
+      flex-direction: column;
+    }
+    &-name > section > label,
+    &-nationalcode > label,
+    &-pass > label,
+    &-phone > label {
+      font-size: 16px;
+      line-height: 140.62%;
+      text-align: right;
+      margin-bottom: 16px;
+    }
+    &-pass > label > span {
+      color: $alert-red;
+      margin-right: 3px;
+    }
+    #name,
+    #family,
+    &-phone > input,
+    &-nationalcode > input {
+      font-family: inherit;
+      font-size: 16px;
+      height: 52px;
+      border: 1px solid $input-border;
+      box-shadow: 0px 4px 4px $gray-border;
+      border-radius: 15px;
+      color: $gray;
+      outline: none;
+      padding: 16px;
+    }
+    /* &-pass > .pass-holder {
+            @include display-flex();
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+            border: 1px solid $input-border;
+            box-shadow: 0px 4px 4px $gray-border;
+            border-radius: 15px;
+            height: 52px;
+        } */
+    &-pass > input {
+      /* flex-grow: 1; */
+      border: 1px solid $input-border;
+      box-shadow: 0px 4px 4px $gray-border;
+      border-radius: 15px;
+      height: 52px;
+      font-family: inherit;
+      font-size: 16px;
+      height: 52px;
+      /* border: none; */
+      /* background: transparent; */
+      border-radius: 15px;
+      color: $gray;
+      outline: none;
+      padding: 16px;
+    }
+    /* .pass-holder__active {
+            border-color: $black;
+        } */
+    #name:focus,
+    #family:focus,
+    &-pass > input:focus,
+    &-nationalcode > input:focus {
+      border-color: $black;
+    }
+    .err__input {
+      /* we use this class when user input is wrong
+            so in this situation_ !important _is not so much bad */
+      border-color: $alert-red !important;
+      /*background: $alert-red__bg;
+            color: $alert-red;  */
+    }
+    #name {
+      width: 157px;
+    }
+    #family {
+      width: 208px;
+    }
+    /* &-email,
+        &-birthday,
+        &-pass {
+
+        } */
   }
   &__alert {
     margin-top: 4px;
@@ -449,59 +474,9 @@ export default {
     border: none;
   }
 }
-#name {
-  width: 157px;
-}
-#family {
-  width: 208px;
-}
-.user--item {
-  width: 390px;
-}
-.user-profile__container::v-deep {
-  .txt-content {
-    margin-bottom: 16px;
-    line-height: 140.62%;
-  }
-  .input-holder {
-    box-shadow: 0px 4px 4px $flash_white;
-    height: 52px;
-    background: $white;
-    border-radius: 15px;
-    margin-bottom: 4px;
-  }
-  .form__item--error {
-    margin-bottom: 0;
-    font-size: 14px;
-  }
-  .signup-input {
-    color: $gray;
-    font-size: 16px;
-    padding: 16px;
-  }
-  .form__item--error {
-    display: none;
-    width: 100%;
-    justify-content: flex-end;
-  }
-  .show--error .form__item--error {
-    display: flex;
-  }
-  .card-body {
-    height: 100%;
-  }
-}
-
-.name::v-deep {
-  width: 157px;
-}
-.family::v-deep {
-  width: 208px;
-}
 .splicer-line {
   display: none;
 }
-
 @media (max-width: 1450px) {
   .user-profile {
     &__info {
@@ -517,23 +492,11 @@ export default {
     &__container {
       padding: 0 50px;
     }
-    @mixin name {
+    #name {
       width: 137px;
     }
-    @mixin family {
-      width: 178px;
-    }
-    #name {
-      @include name;
-    }
     #family {
-      @include family;
-    }
-    .name::v-deep {
-      @include name;
-    }
-    .family::v-deep {
-      @include family;
+      width: 178px;
     }
   }
 }
@@ -690,41 +653,6 @@ export default {
     border: none;
     border-top: 1px solid $gray-border;
   }
-
-  .user-profile__container::v-deep {
-    .txt-content {
-      font-size: 14px;
-    }
-    .input-holder {
-      height: 46px;
-    }
-    .name {
-      width: 208px;
-    }
-    .family {
-      width: 277px;
-    }
-    .signup-input {
-      padding: 14px 16px;
-      font-size: 13px;
-    }
-    .signin__close-eye::before {
-      font-size: 16px;
-    }
-    .form__item--error {
-      font-size: 13px;
-    }
-  }
-
-  // #name,
-  // #family,
-  // &-nationalcode > input,
-  // &-pass > input,
-  // &-phone > input {
-  //   font-size: 13px;
-  //   height: 46px;
-  //   padding: 14px 16px;
-  // }
 }
 @media (max-width: 600px) {
   .user-profile__holder {
@@ -755,15 +683,6 @@ export default {
       width: 220px;
     }
   }
-
-  .user-profile__container::v-deep {
-    .name {
-      width: 170px;
-    }
-    .family {
-      width: 220px;
-    }
-  }
 }
 @media (max-width: 530px) {
   .user-profile {
@@ -771,14 +690,6 @@ export default {
       width: 120px;
     }
     #family {
-      width: 142px;
-    }
-  }
-  .user-profile__container::v-deep {
-    .name {
-      width: 120px;
-    }
-    .family {
       width: 142px;
     }
   }
@@ -794,18 +705,6 @@ export default {
       padding: 13px;
     }
   }
-
-  .user-profile__container::v-deep {
-    .name {
-      width: 110px;
-    }
-    .family {
-      width: 135px;
-    }
-    .signup-input {
-      padding: 13px;
-    }
-  }
 }
 @media (max-width: 280px) {
   .user-profile {
@@ -816,14 +715,6 @@ export default {
     #family {
       width: 110px;
       padding: 10px;
-    }
-  }
-  .user-profile__container::v-deep {
-    .name {
-      width: 105px;
-    }
-    .family {
-      width: 110px;
     }
   }
 }

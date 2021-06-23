@@ -1,51 +1,51 @@
 <template>
-    <modal
-        id="p-profile-favorite-modal"
-        class="p-profile-favorite-modal"
-        size="800px"
-        :show.sync="show"
-        :footer="false"
-    >
-        <!-- <div
+  <modal
+    id="p-profile-favorite-modal"
+    class="p-profile-favorite-modal"
+    size="800px"
+    :show.sync="show"
+    :footer="false"
+  >
+    <!-- <div
             class="w-100 p-profile-favorite-wrapper flex-wrap align-items-start flex-column "
         ></div> -->
-        <modalSignUpStepOne
-            @btn-close-modal="modalClose"
-            @btn-go-to-signup-step-two="gotoSignUpStepTwo"
-            @btn-go-to-signin-step-one="gotoSignInStepone"
-            v-if="SignUpStepOne"
-        />
-        <modalSignUpStepTwo
-            @btn-go-back-signup-step-one="gotoSignUpStepOne"
-            @event-show-modal-wellcome="showWellcomeModal"
-            v-else-if="SignUpStepTwo"
-        />
-        <modalSignInStepOne
-            @btn-go-back-signup-step-one="gotoSignUpStepOne"
-            @btn-go-to-signin-step-two="gotoSignInSteptwo"
-            @btn-go-to-recycle-pass="goToRecyclePass"
-            v-else-if="SignInStepone"
-        />
-        <modalSignInStepTwo
-            @btn-go-back-signin-step-one="gotoSignInStepone"
-            v-else-if="SignInSteptwo"
-        />
-        <modalRecyclePass
-            @btn-go-back-signin-step-one="gotoSignInStepone"
-            @btn-go-back-recycle-pass-step-two="goToRecyclePassStepTwo"
-            v-else-if="RecyclePass"
-        />
-        <modalRecyclePassStepTwo
-            @btn-go-back-recycle-pass="goToRecyclePass"
-            @btn-go-to-pass-change="goToPassChange"
-            v-else-if="RecyclePassStepTwo"
-        />
-        <modalPassChange
-            @btn-go-back-recycle-pass-step-two="goToRecyclePassStepTwo"
-            v-else-if="PassChange"
-        />
-        <!--  -->
-    </modal>
+    <modalSignUpStepOne
+      @btn-close-modal="modalClose"
+      @btn-go-to-signup-step-two="gotoSignUpStepTwo"
+      @btn-go-to-signin-step-one="gotoSignInStepone"
+      v-if="SignUpStepOne"
+    />
+    <modalSignUpStepTwo
+      @btn-go-back-signup-step-one="gotoSignUpStepOne"
+      @event-show-modal-wellcome="showWellcomeModal"
+      v-else-if="SignUpStepTwo"
+    />
+    <modalSignInStepOne
+      @btn-go-back-signup-step-one="gotoSignUpStepOne"
+      @btn-go-to-signin-step-two="gotoSignInSteptwo"
+      @btn-go-to-recycle-pass="goToRecyclePass"
+      v-else-if="SignInStepone"
+    />
+    <modalSignInStepTwo
+      @btn-go-back-signin-step-one="gotoSignInStepone"
+      v-else-if="SignInSteptwo"
+    />
+    <modalRecyclePass
+      @btn-go-back-signin-step-one="gotoSignInStepone"
+      @btn-go-back-recycle-pass-step-two="goToRecyclePassStepTwo"
+      v-else-if="RecyclePass"
+    />
+    <modalRecyclePassStepTwo
+      @btn-go-back-recycle-pass="goToRecyclePass"
+      @btn-go-to-pass-change="goToPassChange"
+      v-else-if="RecyclePassStepTwo"
+    />
+    <modalPassChange
+      @btn-go-back-recycle-pass-step-two="goToRecyclePassStepTwo"
+      v-else-if="PassChange"
+    />
+    <!--  -->
+  </modal>
 </template>
 
 <script>
@@ -57,92 +57,97 @@ import modalRecyclePass from "~/components/Auth/AuthModals/modalRecyclePass";
 import modalRecyclePassStepTwo from "~/components/Auth/AuthModals/modalRecyclePassSteptwo";
 import modalPassChange from "~/components/Auth/AuthModals/modalPassChange";
 export default {
-    props: {
-        active: { type: [Boolean, Number], default: false }
+  props: {
+    active: { type: [Boolean, Number], default: false },
+  },
+  data() {
+    return {
+      SignUpStepOne: true,
+      SignUpStepTwo: false,
+      SignInStepone: false,
+      SignInSteptwo: false,
+      RecyclePass: false,
+      RecyclePassStepTwo: false,
+      PassChange: false,
+    };
+  },
+  components: {
+    modalSignUpStepOne,
+    modalSignUpStepTwo,
+    modalSignInStepOne,
+    modalSignInStepTwo,
+    modalRecyclePass,
+    modalRecyclePassStepTwo,
+    modalPassChange,
+  },
+
+  computed: {
+    show: {
+      set(val) {
+        this.$emit("update:active", !!val);
+      },
+      get() {
+        return !!this.active;
+      },
     },
-    data() {
-        return {
-            SignUpStepOne: true,
-            SignUpStepTwo: false,
-            SignInStepone: false,
-            SignInSteptwo: false,
-            RecyclePass: false,
-            RecyclePassStepTwo: false,
-            PassChange: false
-        };
+  },
+
+  mounted() {},
+
+  methods: {
+    modalClose() {
+      this.show = false;
     },
-    components: {
-        modalSignUpStepOne,
-        modalSignUpStepTwo,
-        modalSignInStepOne,
-        modalSignInStepTwo,
-        modalRecyclePass,
-        modalRecyclePassStepTwo,
-        modalPassChange
+    showWellcomeModal() {
+      this.$emit("event-show-modal-wellcome");
+      this.gotoSignUpStepOne();
+    },
+    gotoSignUpStepTwo() {
+      this.SignUpStepOne = false;
+      this.SignUpStepTwo = true;
+    },
+    gotoSignUpStepOne() {
+      this.SignUpStepOne = true;
+      this.SignUpStepTwo = false;
+      this.SignInStepone = false;
+    },
+    gotoSignInStepone() {
+      this.SignUpStepOne = false;
+      this.SignInSteptwo = false;
+      this.RecyclePass = false;
+      this.SignInStepone = true;
+    },
+    gotoSignInSteptwo() {
+      this.SignInStepone = false;
+      this.SignInSteptwo = true;
     },
 
-    computed: {
-        show: {
-            set(val) {
-                this.$emit("update:active", !!val);
-            },
-            get() {
-                return !!this.active;
-            }
-        }
+    goToRecyclePass() {
+      this.SignInStepone = false;
+      this.RecyclePassStepTwo = false;
+      this.RecyclePass = true;
     },
 
-    methods: {
-        modalClose() {
-            this.show = false;
-        },
-        showWellcomeModal() {
-            this.$emit("event-show-modal-wellcome");
-            this.gotoSignUpStepOne();
-        },
-        gotoSignUpStepTwo() {
-            this.SignUpStepOne = false;
-            this.SignUpStepTwo = true;
-        },
-        gotoSignUpStepOne() {
-            this.SignUpStepOne = true;
-            this.SignUpStepTwo = false;
-            this.SignInStepone = false;
-        },
-        gotoSignInStepone() {
-            this.SignUpStepOne = false;
-            this.SignInSteptwo = false;
-            this.RecyclePass = false;
-            this.SignInStepone = true;
-        },
-        gotoSignInSteptwo() {
-            this.SignInStepone = false;
-            this.SignInSteptwo = true;
-        },
-        goToRecyclePass() {
-            this.SignInStepone = false;
-            this.RecyclePassStepTwo = false;
-            this.RecyclePass = true;
-        },
-        goToRecyclePassStepTwo() {
-            this.RecyclePass = false;
-            this.PassChange = false;
-            this.RecyclePassStepTwo = true;
-        },
-        goToPassChange() {
-            this.RecyclePassStepTwo = false;
-            this.PassChange = true;
-        }
-    }
+    goToRecyclePassStepTwo() {
+      this.RecyclePass = false;
+      this.PassChange = false;
+      this.RecyclePassStepTwo = true;
+    },
+    goToPassChange() {
+      this.RecyclePassStepTwo = false;
+      this.PassChange = true;
+    },
+  },
 };
 </script>
 
 <style lang="scss" scoped>
 .modal-body {
-    position: relative;
-    padding: 0 !important;
-    font-size: 12px;
+  position: relative;
+  padding: 0 !important;
+  font-size: 12px;
 }
+
 @media (max-width: 768px) {
 }
 

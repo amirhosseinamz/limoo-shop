@@ -12,139 +12,117 @@
     </span>
     <hr class="splicer-line" />
     <form @submit.prevent="">
-      <div class="pass__holder">
-        <label for="oldPassValidation">
-          {{ getTextByTextKey("personal_info_old_password") }}
-          <span>*</span></label
-        >
-        <div
-          :style="
-            oldPassInput
-              ? 'border:1px solid #515151'
-              : 'border:1px solid #bdbdbd'
-          "
-          @click="oldPassInputActive"
-          class="pass__old"
-        >
-          <input
-            :type="oldPassType"
-            id="oldPassValidation"
-            v-model="oldPassValidation"
-          />
-          <button
-            @click="switchVisibility('Oldpass')"
-            type="button"
-            class="clear-input"
-            aria-label="Close"
-          >
-            <span
-              :style="
-                oldPassType === 'password' ? 'display: block' : 'display: none'
-              "
-              class="signin__close-eye"
-            ></span>
-            <span
-              :style="
-                oldPassType === 'text' ? 'display: block' : 'display: none'
-              "
-              class="signin__open-eye"
-            ></span>
-          </button>
-        </div>
-        <span class="pass__alert" v-if="msg.oldPassValidation">{{
-          msg.oldPassValidation
-        }}</span>
-      </div>
-      <div class="pass__holder">
-        <label for="newPassVlidation">
-          {{ getTextByTextKey("personal_info_new_password") }}
-          <span>*</span></label
-        >
-        <div
-          :style="
-            newPassInput
-              ? 'border:1px solid #515151'
-              : 'border:1px solid #bdbdbd'
-          "
-          @click="newPassInputActive"
-          class="pass__new"
-        >
-          <input
-            :type="newPassType"
-            id="newPassVlidation"
-            v-model="newPassVlidation"
-          />
-          <button
-            @click="switchVisibility('NewPass')"
-            type="button"
-            class="clear-input"
-            aria-label="Close"
-          >
-            <span
-              :style="
-                newPassType === 'password' ? 'display: block' : 'display: none'
-              "
-              class="signin__close-eye"
-            ></span>
-            <span
-              :style="
-                newPassType === 'text' ? 'display: block' : 'display: none'
-              "
-              class="signin__open-eye"
-            ></span>
-          </button>
-        </div>
-        <span class="pass__alert" v-if="msg.newPassVlidation">{{
-          msg.newPassVlidation
-        }}</span>
-      </div>
-      <div class="pass__holder pass__repeat">
-        <label for="repeatNewPassVlidation">
-          {{ getTextByTextKey("personal_info_repeat_password") }}
-          <span>*</span></label
-        >
-        <div
-          :style="
-            repeatnewPassInput
-              ? 'border:1px solid #515151'
-              : 'border:1px solid #bdbdbd'
-          "
-          @click="repeatnewPassInputActive"
-          class="pass__new-repeat"
-        >
-          <input
-            :type="newPassRepeatType"
-            id="repeatNewPassVlidation"
-            v-model="repeatNewPassVlidation"
-          />
-          <button
-            @click="switchVisibility('NewPassRepeat')"
-            type="button"
-            class="clear-input"
-            aria-label="Close"
-          >
-            <span
-              :style="
-                newPassRepeatType === 'password'
-                  ? 'display: block'
-                  : 'display: none'
-              "
-              class="signin__close-eye"
-            ></span>
-            <span
-              :style="
-                newPassRepeatType === 'text'
-                  ? 'display: block'
-                  : 'display: none'
-              "
-              class="signin__open-eye"
-            ></span>
-          </button>
-        </div>
-        <span class="pass__alert" v-if="msg.repeatNewPassVlidation">{{
-          msg.repeatNewPassVlidation
-        }}</span>
-      </div>
+      <text-input
+        class="w-100  pass__repeat"
+        labelNameClass=""
+        inputNameClass="w-100"
+        state="authInput"
+        maxlength="100"
+        function-max-len="greaterThan"
+        placeholderText=""
+        :msgError="{
+          notValidMsg: 'رمز عبور باید شامل حداقل 8 (رقم و کاراکتر) باشد!',
+        }"
+        :check-email="false"
+        :check-number="false"
+        :active-check-phone-number="false"
+        :check-code="false"
+        :only-use-string="false"
+        :show-icon-clear-input="false"
+        :show-icon-eye-input="true"
+        :status-add-space-number="false"
+        :check-initial-validation="checkInitialValidation"
+        :check-empty-submit="true"
+        :check-required="true"
+        :check-typing-submit="true"
+        :use-timer="false"
+        :show-icon-star="true"
+        :state-passowrd="true"
+        :form-data="formData"
+        tag-html="input"
+        timer-start=""
+        type-input="text"
+        name-input="oldPass"
+        label-text="رمز عبور قدیم:"
+      >
+      </text-input>
+
+      <text-input
+        class="w-100  pass__repeat"
+        labelNameClass=""
+        inputNameClass="w-100"
+        state="authInput"
+        maxlength="100"
+        function-max-len="greaterThan"
+        placeholderText=""
+        :msgError="{
+          notValidMsg: 'رمز عبور باید شامل حداقل 8 (رقم و کاراکتر) باشد!',
+        }"
+        :check-email="false"
+        :check-number="false"
+        :active-check-phone-number="false"
+        :check-code="false"
+        :only-use-string="false"
+        :show-icon-clear-input="false"
+        :show-icon-eye-input="true"
+        :status-add-space-number="false"
+        :check-initial-validation="checkInitialValidation"
+        :check-typeing-several-password="checkTypeingSeveralPassword"
+        :check-empty-submit="true"
+        :check-required="true"
+        :check-typing-submit="true"
+        :use-timer="false"
+        :show-icon-star="true"
+        :form-data="formData"
+        :state-password="true"
+        accessStyleParentInToChildNameId="address__form--data"
+        tag-html="input"
+        timer-start=""
+        type-input="text"
+        name-input="newPass"
+        label-text="رمز عبور جدید:"
+        @typeing="typeing"
+      >
+      </text-input>
+
+      <text-input
+        class="w-100  pass__repeat"
+        labelNameClass=""
+        inputNameClass="w-100"
+        state="authInput"
+        maxlength="32"
+        function-max-len="greaterThan"
+        placeholderText=""
+        :msgError="{
+          notValidMsg: 'رمز عبور باید شامل حداقل 8 (رقم و کاراکتر) باشد!',
+        }"
+        :check-email="false"
+        :check-number="false"
+        :active-check-phone-number="false"
+        :check-code="false"
+        :only-use-string="false"
+        :show-icon-clear-input="false"
+        :show-icon-eye-input="true"
+        :status-add-space-number="false"
+        :check-initial-validation="checkInitialValidation"
+        :check-typeing-several-password="checkTypeingSeveralPassword"
+        :check-empty-submit="true"
+        :check-required="true"
+        :check-typing-submit="true"
+        :use-timer="false"
+        :show-icon-star="true"
+        :form-data="formData"
+        :state-password="true"
+        accessStyleParentInToChildNameId="address__form--data"
+        tag-html="input"
+        timer-start=""
+        type-input="text"
+        name-input="repeatNewPass"
+        label-text="تکرار رمز عبور جدید"
+        @typeing="typeing"
+      >
+      </text-input>
+
       <button @click="submitChangePass" class="pass__submitbtn">
         {{ getTextByTextKey("personal_info_submit_change") }}
       </button>
@@ -153,55 +131,28 @@
 </template>
 <script>
 import { getTextByTextKey } from "~/modules/splitPartJsonResource.js";
+import textInput from "~/modules/textInput";
 
 export default {
   name: "TheProfilePassModal",
+  components: {
+    textInput,
+  },
   data() {
     return {
       modalClose: false,
-      oldPassType: "password",
-      newPassType: "password",
-      newPassRepeatType: "password",
-      msg: [],
-      oldPassValidation: "",
-      newPassVlidation: "",
-      repeatNewPassVlidation: "",
-      oldPassInput: false,
-      newPassInput: false,
-      repeatnewPassInput: false,
+      formData: {
+        repeatNewPass: "",
+        oldPass: "",
+        newPass: "",
+      },
+      checkInitialValidation: 0,
+      checkTypeingSeveralPassword: 0,
     };
   },
-  watch: {
-    oldPassValidation(value) {
-      this.oldPassValidation = value;
-      this.validateOldpass(value);
-    },
-    newPassVlidation(value) {
-      this.newPassVlidation = value;
-      this.validateNewPass(value);
-    },
-    repeatNewPassVlidation(value) {
-      this.repeatNewPassVlidation = value;
-      this.validateRepeatNewPass(value);
-    },
-  },
+  watch: {},
   methods: {
     getTextByTextKey,
-    oldPassInputActive() {
-      this.oldPassInput = true;
-      this.newPassInput = false;
-      this.repeatnewPassInput = false;
-    },
-    newPassInputActive() {
-      this.newPassInput = true;
-      this.oldPassInput = false;
-      this.repeatnewPassInput = false;
-    },
-    repeatnewPassInputActive() {
-      this.repeatnewPassInput = true;
-      this.newPassInput = false;
-      this.oldPassInput = false;
-    },
     closeModalMobile() {
       this.modalClose = true;
       setTimeout(() => {
@@ -211,86 +162,44 @@ export default {
     closeModalDesktop() {
       this.$parent.passChange();
     },
-    switchVisibility(type) {
-      if (type == "Oldpass") {
-        this.oldPassType =
-          this.oldPassType === "password" ? "text" : "password";
-      } else if (type == "NewPass") {
-        this.newPassType =
-          this.newPassType === "password" ? "text" : "password";
-      } else if (type == "NewPassRepeat") {
-        this.newPassRepeatType =
-          this.newPassRepeatType === "password" ? "text" : "password";
-      }
-    },
-    // "^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$"
-    validateOldpass(value) {
-      // for oldPass we must get response from back-end
-      // if (value.length == 0) {
-      //     this.msg["oldPassValidation"] = "";
-      // } else if (value.length > 32) {
-      //     this.msg["oldPassValidation"] =
-      //         "رمز عبور نمی تواند بیش از 32 کاراکتر باشد!";
-      // } else if (!/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/.test(value)) {
-      //     this.msg["oldPassValidation"] =
-      //         "رمز عبور باید شامل حداقل 8 (رقم و کاراکتر) باشد!";
-      // } else {
-      //     this.msg["oldPassValidation"] = "";
-      // }
-    },
-    validateNewPass(value) {
-      if (value.length == 0) {
-        this.msg["newPassVlidation"] = "";
-      } else if (value.length > 32) {
-        this.msg["newPassVlidation"] =
-          "رمز عبور نمی تواند بیش از 32 کاراکتر باشد!";
-      } else if (!/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/.test(value)) {
-        this.msg["newPassVlidation"] =
-          "رمز عبور باید شامل حداقل 8 (رقم و کاراکتر) باشد!";
-      } else {
-        this.msg["newPassVlidation"] = "";
-      }
-    },
-    validateRepeatNewPass(value) {
-      let userNewPass = this.newPassVlidation;
-      // console.log("userPass", userPass);
-      // console.log("repeat", value);
-      if (value.length == 0) {
-        this.msg["repeatNewPassVlidation"] = "";
-      } else if (value.length > 32) {
-        this.msg["repeatNewPassVlidation"] =
-          "رمز عبور نمی تواند بیش از 32 کاراکتر باشد!";
-      } else if (!/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/.test(value)) {
-        this.msg["repeatNewPassVlidation"] =
-          "رمز عبور باید شامل حداقل 8 (رقم و کاراکتر) باشد!";
-      } else if (!(userNewPass === value)) {
-        this.msg["repeatNewPassVlidation"] =
-          "لطفا رمز جدید را بصورت صحیح وارد کنید.";
-      } else {
-        this.msg["repeatNewPassVlidation"] = "";
-      }
-    },
     submitChangePass() {
-      this.oldPassInput = false;
-      this.newPassInput = false;
-      this.repeatnewPassInput = false;
-      let userPass = this.newPassVlidation;
-      let repeatUserPass = this.repeatNewPassVlidation;
-      if (
-        userPass === repeatUserPass &&
-        userPass != "" &&
-        repeatUserPass != ""
-      ) {
-        // later we talk to back end
-        if (screen.width < 950) {
-          this.modalClose = true;
-          setTimeout(() => {
-            this.$parent.passChange();
-          }, 280);
-        } else {
-          this.$parent.passChange();
+      this.checkInitialValidation++;
+      // در صورت نداشت ارور فورم مورد نظر ارسال می شود //
+      setTimeout(() => {
+        const formData = this.formData;
+        let checkSubmitForm = "success";
+
+        // چک کردن ارور فورم //
+        for (let key in formData) {
+          const value = formData[key].value;
+
+          if (formData[key].hasError) {
+            checkSubmitForm = "failed";
+          }
+
+          if (typeof value !== "undefined") {
+            formData[key] = value;
+          }
         }
-      }
+
+        console.log(formData, "formData");
+
+        if (checkSubmitForm === "success") {
+          // later we talk to back end
+          if (screen.width < 950) {
+            this.modalClose = true;
+            setTimeout(() => {
+              this.$parent.passChange();
+            }, 280);
+          } else {
+            this.$parent.passChange();
+          }
+        }
+      });
+    },
+
+    typeing(data) {
+      this.checkTypeingSeveralPassword++;
     },
   },
 };
@@ -348,6 +257,13 @@ export default {
         color: $red;
         margin-right: 3px;
       }
+    }
+  }
+  &::v-deep {
+    .pass__repeat {
+      height: 88px;
+      width: 390px;
+      margin-bottom: 35px;
     }
   }
   .pass__repeat {
@@ -432,6 +348,50 @@ export default {
 .splicer-line {
   display: none;
 }
+
+.modal::v-deep {
+  .txt-content {
+    margin-bottom: 16px;
+    line-height: 140.62%;
+  }
+  .input-holder {
+    box-shadow: 0px 4px 4px $flash_white;
+    height: 52px;
+    background: $white;
+    border-radius: 15px;
+    margin-bottom: 4px;
+  }
+  .form__item--error {
+    margin-bottom: 0;
+    font-size: 14px;
+  }
+  .signup-input {
+    color: $gray;
+    font-size: 16px;
+    padding: 16px;
+  }
+  .signin__close-eye::before {
+    font-size: 16px;
+  }
+  .signin-eye::before {
+    font-size: 16px;
+  }
+  .signin-eye {
+    margin-bottom: 0;
+  }
+  .form__item--error {
+    display: none;
+    width: 100%;
+    justify-content: flex-end;
+  }
+  .show--error .form__item--error {
+    display: flex;
+  }
+  .card-body {
+    height: 100%;
+  }
+}
+
 @media (max-width: 960px) {
   .modal-animation__open {
     animation: modalOpen 600ms linear;
@@ -492,6 +452,23 @@ export default {
       margin-bottom: 35px;
       label {
         font-size: 14px;
+      }
+    }
+
+    &::v-deep {
+      .pass__repeat {
+        height: 80px;
+        width: 84vw;
+        margin-bottom: 35px;
+      }
+      .txt-content {
+        font-size: 14px;
+      }
+      .input-holder {
+        height: 46px;
+      }
+      .form__item--error {
+        font-size: 13px;
       }
     }
 
@@ -583,6 +560,19 @@ export default {
       width: 91vw;
       margin-bottom: 37px;
       margin-top: 15px;
+    }
+    &::v-deep {
+      .input-holder {
+        height: 40px;
+      }
+      .pass__repeat {
+        height: 70px;
+        width: 84vw;
+        margin-bottom: 25px;
+      }
+      .txt-content {
+        font-size: 13px;
+      }
     }
   }
   .splicer-line {

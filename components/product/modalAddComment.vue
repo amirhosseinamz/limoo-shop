@@ -83,6 +83,7 @@ import "~/assets/styles/_modal_add_comment.scss";
 import "~/assets/styles/_slider_range_price.scss";
 import commentForm from "./commentForm";
 import { getTextByTextKey } from "~/modules/splitPartJsonResource.js";
+import textInput from "~/modules/textInput";
 
 export default {
   props: {
@@ -93,6 +94,7 @@ export default {
 
   components: {
     commentForm,
+    textInput,
   },
 
   data() {

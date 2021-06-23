@@ -20,102 +20,83 @@
             <p class="txt-header">
               {{ getTextByTextKey("auth_change_password") }}
             </p>
-            <p dir="rtl" class="txt-content">
-              {{ getTextByTextKey("auth_new_passowrd") }}
-            </p>
-            <div class="input-section">
-              <div
-                class="input-holder"
-                :style="
-                  password || passIsActive
-                    ? 'border:1px solid #515151'
-                    : 'border:1px solid #bdbdbd'
-                "
-              >
-                <input
-                  @click="[(passIsActive = true)]"
-                  class="signup-input form-control"
-                  :type="passwordFieldType"
-                  :placeholder="
-                    getTextByTextKey('auth_forget_passwrord_circle')
-                  "
-                  v-model="password"
-                  maxlength="32"
-                  required
-                />
-                <button
-                  @click="switchVisibility"
-                  type="button"
-                  class="clear-input"
-                  aria-label="Close"
-                >
-                  <span
-                    :style="
-                      passwordFieldType === 'password'
-                        ? 'display: block'
-                        : 'display: none'
-                    "
-                    class="signin__close-eye"
-                  ></span>
-                  <span
-                    :style="
-                      passwordFieldType === 'text'
-                        ? 'display: block'
-                        : 'display: none'
-                    "
-                    class="signin__open-eye"
-                  ></span>
-                </button>
-              </div>
-            </div>
-            <p dir="rtl" class="txt-content">
-              {{ getTextByTextKey("auth_repeat_new_password") }}
-            </p>
-            <div class="input-section">
-              <div
-                class="input-holder-verify"
-                :style="
-                  passwordVerify || verifyPassIsActive
-                    ? 'border:1px solid #515151'
-                    : 'border:1px solid #bdbdbd'
-                "
-              >
-                <input
-                  @click="[(verifyPassIsActive = true)]"
-                  class="signup-input form-control"
-                  :type="passwordFieldTypeVerify"
-                  :placeholder="
-                    getTextByTextKey('auth_forget_passwrord_circle')
-                  "
-                  v-model="passwordVerify"
-                  maxlength="32"
-                  required
-                />
-                <button
-                  @click="switchVisibilityVerify"
-                  type="button"
-                  class="clear-input"
-                  aria-label="Close"
-                >
-                  <span
-                    :style="
-                      passwordFieldTypeVerify === 'password'
-                        ? 'display: block'
-                        : 'display: none'
-                    "
-                    class="signin__close-eye"
-                  ></span>
-                  <span
-                    :style="
-                      passwordFieldTypeVerify === 'text'
-                        ? 'display: block'
-                        : 'display: none'
-                    "
-                    class="signin__open-eye"
-                  ></span>
-                </button>
-              </div>
-            </div>
+
+            <text-input
+              class="w-100  pass__repeat"
+              labelNameClass=""
+              inputNameClass="w-100"
+              state="authInput"
+              maxlength="32"
+              function-max-len="greaterThan"
+              placeholderText=""
+              :msgError="{
+                notValidMsg: getTextByTextKey('personal_info_error_password'),
+              }"
+              :check-email="false"
+              :check-number="false"
+              :active-check-phone-number="false"
+              :check-code="false"
+              :only-use-string="false"
+              :show-icon-clear-input="false"
+              :show-icon-eye-input="true"
+              :status-add-space-number="false"
+              :check-initial-validation="checkInitialValidation"
+              :check-empty-submit="true"
+              :check-required="true"
+              :check-typing-submit="true"
+              :use-timer="false"
+              :show-icon-star="true"
+              :form-data="formData"
+              :state-password="true"
+              :check-typeing-several-password="checkTypeingSeveralPassword"
+              accessStyleParentInToChildNameId="address__form--data"
+              tag-html="input"
+              timer-start=""
+              type-input="text"
+              name-input="newPass"
+              :label-text="getTextByTextKey('auth_new_passowrd')"
+              @typeing="typeing"
+            >
+            </text-input>
+
+            <text-input
+              class="w-100  pass__repeat"
+              labelNameClass=""
+              inputNameClass="w-100"
+              state="authInput"
+              maxlength="32"
+              function-max-len="greaterThan"
+              placeholderText=""
+              :msgError="{
+                notValidMsg: getTextByTextKey('personal_info_error_password'),
+              }"
+              :check-email="false"
+              :check-number="false"
+              :active-check-phone-number="false"
+              :check-code="false"
+              :only-use-string="false"
+              :show-icon-clear-input="false"
+              :show-icon-eye-input="true"
+              :status-add-space-number="false"
+              :check-initial-validation="checkInitialValidation"
+              :check-empty-submit="true"
+              :check-required="true"
+              :check-typing-submit="true"
+              :use-timer="false"
+              :show-icon-star="true"
+              :form-data="formData"
+              :state-password="true"
+              :active-border-click="true"
+              :check-typeing-several-password="checkTypeingSeveralPassword"
+              accessStyleParentInToChildNameId="address__form--data"
+              tag-html="input"
+              timer-start=""
+              type-input="text"
+              name-input="repeatNewPass"
+              :label-text="getTextByTextKey('auth_new_passowrd')"
+              @typeing="typeing"
+            >
+            </text-input>
           </div>
 
           <div class="btn-control">
@@ -143,6 +124,7 @@
 
 <script>
 import { getTextByTextKey } from "~/modules/splitPartJsonResource.js";
+import textInput from "~/modules/textInput";
 
 export default {
   data() {
@@ -154,7 +136,16 @@ export default {
       passChenged: false,
       passIsActive: false,
       verifyPassIsActive: false,
+      checkInitialValidation: 0,
+      formData: {
+        repeatNewPass: "",
+        newPass: "",
+      },
+      checkTypeingSeveralPassword: 0,
     };
+  },
+  components: {
+    textInput,
   },
   methods: {
     getTextByTextKey,
@@ -178,8 +169,11 @@ export default {
     },
     nextPage() {
       // go to ...
-      // this.$router.push("/users/password/forget/confirm");
-      this.$emit("btn-go-back-recycle-pass-step-two");
+      this.$router.push("/users/password/forget/confirm");
+    },
+
+    typeing(data) {
+      this.checkTypeingSeveralPassword++;
     },
   },
 };
@@ -187,12 +181,12 @@ export default {
 
 <style lang="scss" scoped>
 .pass-container {
-  /* height: 100vh; */
   @include display-flex();
   flex-direction: column;
   justify-content: center;
   align-items: center;
   text-align: center;
+  overflow: hidden;
 }
 
 .card {
@@ -251,9 +245,6 @@ export default {
   color: $gray;
   vertical-align: middle;
 }
-.input-holder {
-  margin-bottom: 38px;
-}
 .input-holder-verify {
   margin-bottom: 42px;
 }
@@ -266,6 +257,42 @@ export default {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+.card::v-deep {
+  .txt-content {
+    @extend .txt-content;
+  }
+  .input-holder {
+    @extend .input-holder;
+    margin-right: auto;
+    margin-left: auto;
+  }
+  .signup-input {
+    @extend .signup-input;
+    padding-right: 0;
+    direction: ltr;
+    text-align: right;
+  }
+  .form__main--item {
+    justify-content: center;
+    width: 463px;
+  }
+  .show--error .input-holder {
+    border-color: $red;
+    background: $bg_festival_counrer_down;
+  }
+  .code-request {
+    @extend .code-request;
+  }
+  .timer-timeText {
+    @extend .timer-timeText;
+  }
+  .form__item--error {
+    margin-bottom: 08px;
+  }
+  .signin-eye {
+    margin-bottom: 0;
+  }
 }
 
 .txt-header {
@@ -299,6 +326,7 @@ export default {
 .desk-display {
   display: block;
 }
+
 @media screen and (max-width: 600px) {
   .app-signin-next-btn {
     visibility: hidden;
@@ -351,7 +379,7 @@ export default {
     }
   }
   .card {
-    width: auto;
+    width: 360px;
     height: 100vh;
     border-radius: 0;
     padding-right: 1px;
@@ -374,12 +402,9 @@ export default {
     margin-bottom: 8px;
   }
   .input-holder {
-    margin-right: 16px;
-    margin-left: 16px;
     padding: 0;
     width: 328px;
     height: 60px;
-    margin-bottom: 24px;
   }
   .input-holder-verify {
     margin-right: 16px;
@@ -398,8 +423,8 @@ export default {
     line-height: 140.62%;
     width: 328px;
     margin-top: 100px;
-    margin-right: 16px;
-    margin-left: 16px;
+    margin-left: auto;
+    margin-right: auto;
   }
   .txt-content {
     width: 328px;
@@ -411,10 +436,25 @@ export default {
   .signup-limoo-logo {
     margin-top: 0.5rem;
   }
+  .card::v-deep {
+    .txt-content {
+      font-size: 14px;
+    }
+    .form__item--error {
+      font-size: 13px;
+      margin-bottom: 24px;
+    }
+    .form__error--main {
+      width: 328px;
+      margin-right: auto;
+      margin-left: auto;
+    }
+  }
 }
 @media screen and (max-width: 350px) {
   .card {
     padding-right: 0px;
+    width: auto;
   }
   .success-message {
     width: 280px;
@@ -426,12 +466,9 @@ export default {
     margin-bottom: 42px;
   }
   .input-holder {
-    margin-right: 15px;
-    margin-left: 15px;
     padding: 0;
     width: 280px;
     height: 60px;
-    margin-bottom: 8px;
   }
   .input-holder-verify {
     width: 280px;
@@ -444,6 +481,8 @@ export default {
     line-height: 140.62%;
     width: 280px;
     margin: 37px 10px 20px 10px;
+    margin-right: auto;
+    margin-left: auto;
   }
   .txt-content {
     width: 280px;
@@ -451,6 +490,15 @@ export default {
   }
   .signup-limoo-logo {
     margin-top: 0;
+  }
+  .form__item--error {
+    font-size: 13px;
+    margin-bottom: 8px;
+  }
+  .card::v-deep {
+    .form__error--main {
+      width: 280px;
+    }
   }
 }
 @media screen and (max-width: 280px) {
@@ -464,8 +512,6 @@ export default {
     margin-bottom: 42px;
   }
   .input-holder {
-    margin-right: 5px;
-    margin-left: 5px;
     padding: 0 10px 0 0;
     width: 270px;
     height: 60px;
@@ -484,7 +530,6 @@ export default {
     font-size: 20px;
     line-height: 140.62%;
     width: 270px;
-    margin-right: 10px;
   }
   .txt-content {
     width: 270px;
@@ -492,6 +537,12 @@ export default {
   }
   .signup-limoo-logo {
     margin-top: 0.2rem;
+  }
+
+  .card::v-deep {
+    .form__error--main {
+      width: 270px;
+    }
   }
 }
 </style>
