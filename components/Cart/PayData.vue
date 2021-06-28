@@ -74,35 +74,22 @@
     </div>
 
     <div class="cart-detail__btn w-100">
-      <button
-        type="button"
-        class="cart-detail__btn-item remove--border"
-        name="button"
-      >
-        <NuxtLink class="cart-detail__btn-link" to="/shipping">
-          ادامه فرایند خرید
-        </NuxtLink>
-      </button>
-      <button
-        type="button"
-        class="cart-detail__btn-item btn--debtor"
-        name="button"
-      >
-        <NuxtLink class="cart-detail__btn-link" to="/shipping">
-          خرید اقساصی کالا
-        </NuxtLink>
-      </button>
+      <base-button link to="/shipping" no-box-shadow block classes="continue-purchase">ادامه فرایند خرید</base-button>
+      <base-button link block no-box-shadow to="/shipping" base-color="gray" mode="secondary" classes="cart-detail__btn-item">
+        خرید اقساطی کالا
+      </base-button>
     </div>
   </div>
 </template>
 
 <script>
+import BaseButton from "../UI/BaseButton";
 export default {
   props: {
     detailPrice: { type: [Object, Array], default: [] },
   },
 
-  components: {},
+  components: { BaseButton },
 
   data() {
     return {};
@@ -208,20 +195,11 @@ export default {
   height: 21px;
 }
 .cart-detail__btn-item {
-  width: 100%;
-  // height: 57px;
-  background: $btn__green;
-  border-radius: 10px;
-  border: 2px solid $gray;
-  font-family: inherit;
-  font-size: 16px;
-  color: $white;
-  margin-top: 24px;
-  font-weight: 400;
-  cursor: pointer;
+  height: 57px;
+  margin-top: 1.5rem;
 }
-.cart-detail__btn-item:nth-child(1) {
-  margin-top: 0;
+.continue-purchase {
+  height: 61px;
 }
 .remove--border {
   border-color: $btn__green;

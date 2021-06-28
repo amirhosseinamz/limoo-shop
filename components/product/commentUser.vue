@@ -3,12 +3,9 @@
     class="p-comments-content-main w-100 flex-column flex-wrap  d-rtl tabs__content"
   >
     <div class="w-100">
-      <button
-        @click="showModalAddComment"
-        class="btn-change comments-add__comment"
-      >
+      <base-button no-box-shadow no-hover base-color="yellow" classes="comments-add__comment">
         {{ getTextByTextKey("product_submit_comment") }}
-      </button>
+      </base-button>
     </div>
 
     <div class="w-100">
@@ -721,12 +718,10 @@ export default {
   display: none;
 }
 .comments-add__comment {
-  border: solid 2px $yellow;
-  background: $white;
-  font-size: 16px;
-  color: $yellow;
-  margin-bottom: 42px;
+  width: 270px;
   height: 57px;
+  font-family: inherit;
+  margin-bottom: 1.5rem;
 }
 
 @media (max-width: 1220px) {
@@ -777,8 +772,8 @@ export default {
     @include display-flex();
     align-items: center;
     justify-content: center;
-    margin-bottom: 24px;
-    margin-top: 24px;
+    margin-bottom: 1.5rem;
+    margin-top: 1.5rem;
     height: 47px;
   }
   .tabs__content {
@@ -959,7 +954,7 @@ export default {
 
 @media (max-width: 485px) {
   .comments-add__comment {
-    width: 72%;
+    width: 72%!important;
   }
 }
 

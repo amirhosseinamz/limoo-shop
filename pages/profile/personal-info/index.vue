@@ -233,9 +233,13 @@
               </text-input>
             </div>
             <div class="user-profile__btn-holder">
-              <button class="user-profile__btn" type="submit">
+              <base-button
+              button-type="submit"
+              classes="user-profile__btn"
+              no-box-shadow
+              >
                 {{ getTextByTextKey("personal_info_submit_change") }}
-              </button>
+              </base-button>
             </div>
           </div>
         </form>

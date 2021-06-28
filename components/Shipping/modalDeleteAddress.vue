@@ -14,28 +14,30 @@
             </h3>
 
             <div class="p-profile-favorite-btns w-100 justify-content-center">
-                <button
-                    @click="deleteItem"
-                    type="button"
-                    name="button"
-                    class="p-product-btn  p-favorite-product-btn-modal-delete cursor-pointer  "
-                >
-                    حذف
-                </button>
-                <button
-                    @click="modalClose"
-                    type="button"
-                    name="button"
-                    class="p-product-btn  cursor-pointer p-favorite-product-btn-modal-cancel  "
-                >
-                    انصراف
-                </button>
+                  <base-button
+                    @button-clicked="deleteItem"
+                    classes="p-product-btn p-favorite-product-btn-modal-delete"
+                    base-color="yellow"
+                    no-box-shadow
+                  >
+                    {{ getTextByTextKey("public_delete") }}
+                </base-button>
+                  <base-button
+                    @button-clicked="modalClose"
+                    classes="p-product-btn p-favorite-product-btn-modal-cancel"
+                    no-box-shadow
+                    base-color="light-gray"
+                  >
+                    {{ getTextByTextKey("public_cancel") }}
+                </base-button>
             </div>
         </div>
     </modal>
 </template>
 
 <script>
+import { getTextByTextKey } from "../../modules/splitPartJsonResource";
+
 export default {
     props: {
         active: { type: [Boolean, Number], default: false },
@@ -62,7 +64,8 @@ export default {
 
         modalClose() {
             this.show = false;
-        }
+        },
+      getTextByTextKey,
     }
 };
 </script>
@@ -84,19 +87,10 @@ export default {
     font-weight: 400 !important;
 }
 .p-favorite-product-btn-modal-delete {
-    background: $yellow;
-    margin-left: 16px;
-    color: $white;
+    margin-left: 1rem;
 }
 .p-favorite-product-btn-modal-cancel {
-    background: $light_gray;
     margin-left: 0;
-    border-color: $light_gray;
-    color: $gray;
-}
-.p-favorite-product-btn-modal-cancel:hover {
-    background: #e0e0e0;
-    color: #828282;
 }
 .p-favorite-product-btn {
     width: 130px;
@@ -107,15 +101,15 @@ export default {
         font-size: 16px;
     }
     .p-product-btn {
-        width: 130px;
-        height: 41px;
+        width: 130px!important;
+        height: 41px!important;;
     }
 }
 
 @media (max-width: 460px) {
     .p-product-btn {
-        width: 116px;
-        height: 38px;
+        width: 116px!important;;
+        height: 38px!important;;
     }
 }
 </style>

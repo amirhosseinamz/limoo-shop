@@ -30,13 +30,6 @@
         :banner-vertical-product="bannerVerticalProduct"
         :banner-blog="bannerBlog"
 
-
-
-
-
-
-
-
        ></content-home>
     </div>
 </template>

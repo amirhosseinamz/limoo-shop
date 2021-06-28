@@ -130,7 +130,7 @@
             {{ getTextByTextKey("category_finish_product") }}
           </div>
           <div slot="no-results">
-            {{ getTextByTextKey("category_no_results_round") }}
+            {{ getTextByTextKey("category_no_results_found") }}
           </div>
         </infinite-loading>
       </no-ssr>

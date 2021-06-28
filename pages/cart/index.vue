@@ -24,6 +24,7 @@
             :current-orders="currentOrders"
             @btn-delete-order="btnDeleteOrder"
         />
+      <modal-delete-address active ></modal-delete-address>
     </div>
 </template>
 <script>
@@ -31,11 +32,13 @@ import TheCartPayDetail from "~/components/Cart/TheCartPayDetail.vue";
 import TheCartOrders from "~/components/Cart/TheCartOrders.vue";
 import TheModalDeleteUserOrders from "~/components/Cart/TheModalDeleteUserOrders.vue";
 import addCamaPrice from "~/modules/addCamaPrice.js";
+import ModalDeleteAddress from "../../components/Shipping/modalDeleteAddress";
 
 
 export default {
     layout      : "removeFooterCart",
     components : {
+      ModalDeleteAddress,
         TheCartPayDetail,
         TheCartOrders,
         TheModalDeleteUserOrders

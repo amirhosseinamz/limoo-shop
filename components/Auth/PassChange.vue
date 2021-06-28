@@ -100,18 +100,19 @@
           </div>
 
           <div class="btn-control">
-            <button
-              class="signup-btn desk-display"
-              :class="{ 'success-pss-btn': passChenged }"
-              type="submit"
+            <base-button
+              classes="signup-btn desk-display"
+              button-type="submit"
               dir="rtl"
+              :base-color="btnColor"
+              no-box-shadow
             >
               {{
                 passChenged
                   ? getTextByTextKey("home_blog_single_more")
                   : getTextByTextKey("auth_success_change")
               }}
-            </button>
+            </base-button>
             <button class="signup-btn min-display" type="submit">
               {{ getTextByTextKey("home_blog_single_more") }}
             </button>
@@ -143,6 +144,15 @@ export default {
       },
       checkTypeingSeveralPassword: 0,
     };
+  },
+  computed: {
+    btnColor() {
+      if (this.passChenged) {
+        return 'green'
+      } else {
+        return 'yellow'
+      }
+    }
   },
   components: {
     textInput,
@@ -312,13 +322,10 @@ export default {
   margin-right: 90px;
 }
 .signup-btn {
-  margin-bottom: 56px;
-}
-.success-pss-btn {
-  background: $alert-massage__green;
+  margin-bottom: 3.5rem;
 }
 .signup-input {
-  padding-right: 24px;
+  padding-right: 1.5rem;
 }
 
 .min-display {
@@ -415,7 +422,7 @@ export default {
     height: 60px;
   }
   .signup-btn {
-    width: 328px;
+    width: 328px!important;
     margin-top: 6px;
     margin-bottom: 132px;
   }
@@ -475,7 +482,7 @@ export default {
     width: 280px;
   }
   .signup-btn {
-    width: 280px;
+    width: 280px!important;
   }
   .txt-header {
     font-size: 20px;
@@ -525,7 +532,7 @@ export default {
     width: 270px;
   }
   .signup-btn {
-    width: 270px;
+    width: 270px!important;
   }
   .txt-header {
     font-size: 20px;

@@ -36,13 +36,15 @@
                                     dayData.selectedtime
                             }"
                         >
-                            <button
-                                class="time-day__btn"
+                              <base-button
+                                classes="time-day__btn"
                                 :disabled="dayData.disable"
-                                @click="selectedTimeInDay(dayData, data)"
-                            >
+                                base-color="light"
+                                mode="time"
+                                @button-clicked="selectedTimeInDay(dayData, data)"
+                              >
                                 {{ dayData.time }}
-                            </button>
+                            </base-button>
                         </div>
                     </div>
                 </div>
@@ -167,24 +169,16 @@ export default {
     font-family: inherit;
     width: 147px;
     height: 50px;
-    background: $gray-border;
-    border-radius: 10px;
-    padding: 14px 12px;
-    margin: 12px 16px 10px 6px;
-    border: none;
-    font-size: 16px;
-    line-height: 140.62%;
-    text-align: center;
-    color: $gray;
-    cursor: pointer;
+    padding: 0.875rem 0.75rem;
+    margin: 0.75rem 1rem 0.625rem 0.375rem;
 }
 button[disabled] {
     cursor: initial;
     opacity: 0.5;
 }
 .user-selected-time-in-day .time-day__btn {
-    background: $yellow;
-    color: $code;
+    background: $yellow!important;
+    color: $code!important;
 }
 .user-selected-time-in-days .timeContent__circle {
     width: 17px;

@@ -83,9 +83,9 @@
           </div>
 
           <div class="btn-control">
-            <button class="signup-btn" type="submit" :disabled="btnIsDisabled">
+            <base-button no-box-shadow base-color="yellow" classes="signup-btn" button-type="submit" :disabled="btnIsDisabled">
               {{ getTextByTextKey("public_confirm") }}
-            </button>
+            </base-button>
           </div>
         </form>
       </div>
@@ -385,8 +385,8 @@ export default {
   letter-spacing: 0.7em;
 }
 .signup-btn {
-  margin-top: 14px;
-  margin-bottom: 126px;
+  margin-top: 0.875rem;
+  margin-bottom: 5rem;
 }
 
 .signup-container::v-deep {
@@ -474,9 +474,9 @@ export default {
     @include input-holder();
   }
   .signup-btn {
-    width: 328px;
-    margin-top: 38px;
-    margin-bottom: 184px;
+    width: 328px!important;
+    margin-top: 38px!important;
+    margin-bottom: 11.5rem;
   }
   .txt-header {
     font-size: 20px;
@@ -543,7 +543,7 @@ export default {
     width: 280px;
   }
   .signup-btn {
-    width: 280px;
+    width: 280px!important;
   }
   .txt-header {
     font-size: 20px;
@@ -598,7 +598,7 @@ export default {
     width: 270px;
   }
   .signup-btn {
-    width: 270px;
+    width: 270px!important;
   }
   .txt-header {
     font-size: 20px;

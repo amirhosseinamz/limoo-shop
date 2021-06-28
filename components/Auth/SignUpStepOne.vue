@@ -54,21 +54,21 @@
           </div>
 
           <div class="btn-control">
-            <button class="signup-btn" type="submit" :disabled="btnIsDisabled">
+            <base-button base-color="yellow" button-type="submit" :disabled="btnIsDisabled" classes="signup-btn" no-effect no-box-shadow>
               <span class="desk-display">
                 {{ getTextByTextKey("auth_login_limoo") }}
               </span>
               <span class="min-display">
                 {{ getTextByTextKey("auth_login") }}
               </span>
-            </button>
+            </base-button>
 
             <!-- <button class="signup-btn min-display" type="submit">
                             ورود
                         </button> -->
-            <button class="google-signup-btn" type="submit">
+            <base-button base-color="light" button-type="submit" classes="google-signup-btn">
               {{ getTextByTextKey("auth_login_google") }}
-            </button>
+            </base-button>
           </div>
         </form>
       </div>
@@ -189,7 +189,7 @@ export default {
   font-family: inherit;
 }
 .signup-btn {
-  margin-bottom: 40px;
+  margin-bottom: 2.5rem;
 }
 .err-text {
   font-family: inherit;
@@ -299,7 +299,7 @@ export default {
   }
 
   .signup-btn {
-    width: 328px;
+    width: 328px!important;
   }
   .txt-header {
     font-size: 20px;
@@ -377,7 +377,7 @@ export default {
     @include input-holder();
   }
   .signup-btn {
-    width: 280px;
+    width: 280px!important;
   }
   .txt-header {
     font-size: 20px;
@@ -441,7 +441,7 @@ export default {
     @include input-holder();
   }
   .signup-btn {
-    width: 270px;
+    width: 270px!important;
   }
   .txt-header {
     font-size: 20px;

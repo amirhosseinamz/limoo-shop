@@ -68,12 +68,19 @@
           }}</span>
           <span class="order-situation__value">{{ data.orderSituation }}</span>
         </div>
-        <NuxtLink
+<!--        <NuxtLink
           :to="`/profile/my-orders/${currentUrl}/detail/` + data.orderCode"
           class="p-history-product-btn-link"
         >
           {{ getTextByTextKey("orders_see_product") }}
-        </NuxtLink>
+        </NuxtLink>-->
+        <base-button
+          link
+          no-box-shadow
+          :to="`/profile/my-orders/${currentUrl}/detail/` + data.orderCode"
+          classes="p-history-product-btn-link">
+          {{ getTextByTextKey("orders_see_product") }}
+        </base-button>
       </div>
       <span
         class="p-history-product-line w-100 p-history-product-desktop"
@@ -214,8 +221,8 @@ export default {
 }
 /* .order-code__title:hover::before {
     color: $yellow;
-                                 for test 
-   
+                                 for test
+
 } */
 .order-code {
   &__value,
@@ -289,19 +296,8 @@ export default {
   white-space: nowrap;
 }
 .p-history-product-btn-link {
-  @include display-flex();
-  align-items: center;
-  justify-content: center;
   width: 270px;
   height: 57px;
-  color: $white;
-  background-color: $btn__green;
-  font-size: 16px;
-  text-align: center;
-  line-height: 140.62%;
-  font-family: inherit;
-  border-radius: 10px;
-  text-decoration: none;
   margin: 41px auto 19px auto;
 }
 .btn-mobile__order-detail,
