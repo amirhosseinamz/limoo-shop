@@ -50,7 +50,6 @@
               <base-button
                 base-color="yellow"
                 link no-box-shadow no-hover
-                mode="secondary-outline"
                 :to="'/product/' + data.id"
                 classes="p-favorite-product-btn-link p-favorite-product-btn-link-desktop"
                 >مشاهده محصول</base-button>

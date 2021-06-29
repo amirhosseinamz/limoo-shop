@@ -112,21 +112,13 @@
                 </div>
                 <div class="order-detail__btns-price">
                     <div class="order-detail__btns-container">
-                        <div class="order-detail__btns-add-minus">
-                            <button
-                                @click="addOrderToCart(data)"
-                                class="order-detail__btns-add"
-                                :disabled="data.count == 10"
-                            ></button>
-                            <span class="order-detail__count">{{
-                                data.count
-                            }}</span>
-                            <button
-                                @click="minusOrderFromCart(data)"
-                                class="order-detail__btns-minus"
-                                :disabled="data.count == 1"
-                            ></button>
-                        </div>
+                      <base-stepper
+                         bordered
+                        :min-value="1"
+                        :max-value="10"
+                        @plus-clicked="addOrderToCart(data)"
+                        @minus-clicked="minusOrderFromCart(data)"
+                      ></base-stepper>
                         <base-button
                             no-box-shadow
                             @button-clicked="showModalDeleteOrder(data)"
@@ -284,48 +276,15 @@ export default {
     /* border: 1px solid red; */
     margin-right: 16px;
 }
-.order-detail__btn-delete,
-.order-detail__btns-add,
-.order-detail__btns-minus {
+.order-detail__btn-delete {
     width: 43px;
     height: 43px;
-    background-color: $circle-bg;
-    box-sizing: border-box;
-    border-radius: 10px;
-    border: none;
-    cursor: pointer;
 }
 .order-detail__btn-delete::before {
     @include font-icon__limoo();
     content: "\e826";
     font-size: 16px;
     color: $gray-3;
-}
-
-.order-detail__btns-add-minus {
-    @include display-flex();
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    width: 123px;
-    border: 1px solid $circle-bg;
-    border-radius: 10px;
-}
-.order-detail__btns-add::before,
-.order-detail__btns-minus::before {
-    @include font-icon__limoo();
-    content: "\e822";
-    font-size: 10px;
-    font-weight: bold;
-    color: $code;
-}
-.order-detail__btns-minus::before {
-    content: "\e81b";
-}
-.order-detail__count {
-    font-size: 16px;
-    color: $code;
-    line-height: 140.62%;
 }
 .order-detail__price-container {
     @include display-flex();
@@ -408,14 +367,9 @@ export default {
         width: 100%;
         margin-left: 16px;
     }
-    .order-detail__btn-delete,
-    .order-detail__btns-add,
-    .order-detail__btns-minus {
+    .order-detail__btn-delete {
         width: 36px;
         height: 36px;
-    }
-    .order-detail__btns-add-minus {
-        width: 108px;
     }
     .order-detail__btn-delete::before {
         font-size: 14px;

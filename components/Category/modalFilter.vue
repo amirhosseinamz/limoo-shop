@@ -213,13 +213,6 @@ export default {
   margin-bottom: 18px;
   background: $flash_white;
 }
-.p-product-btn {
-  width: 130px;
-  height: 47px;
-  margin-left: 1.5rem;
-  font-size: 1rem;
-  padding: 0;
-}
 
 .modal-cancel {
   width: 130px;
@@ -249,6 +242,14 @@ export default {
   justify-content: center;
 }
 
+.p-product-btn {
+  width: 130px;
+  height: 47px;
+  margin-left: 1.5rem;
+  font-family: inherit;
+  font-size: 1rem;
+  padding: 0;
+}
 @media (max-width: 768px) {
 }
 
@@ -260,11 +261,12 @@ export default {
   .modal-filter__filter-tools {
     margin-top: 0;
   }
-  .modal-cancel {
-    font-size: 14px;
-  }
   .p-product-btn {
+    width: 150px;
+    height: 47px;
+    font-family: inherit;
     font-size: 14px;
+    transition: all 120ms ease-in;
   }
   .modal-filter__main::v-deep .button__text {
     font-size: 14px;
