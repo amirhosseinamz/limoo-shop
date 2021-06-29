@@ -83,9 +83,15 @@
           </div>
 
           <div class="btn-control">
-            <button class="signup-btn" type="submit" :disabled="btnIsDisabled">
+            <base-button
+              base-color="yellow"
+              button-type="submit"
+              classes="signup-btn"
+              :disabled="btnIsDisabled"
+              no-effect no-box-shadow
+            >
               {{ getTextByTextKey("public_confirm") }}
-            </button>
+            </base-button>
           </div>
         </form>
       </div>
@@ -422,8 +428,12 @@ export default {
   direction: ltr;
 }
 .signup-btn {
-  margin-top: 14px;
-  margin-bottom: 126px;
+  margin-top: 0.875rem;
+  margin-bottom: 5rem;
+  font-family: inherit;
+  font-size: 18px;
+  height: 58px;
+  width: 463px;
 }
 
 .signup-container::v-deep {
@@ -512,8 +522,8 @@ export default {
   }
   .signup-btn {
     width: 328px;
-    margin-top: 38px;
-    margin-bottom: 184px;
+    margin-top: 2.375rem;
+    margin-bottom: 11.5rem;
   }
   .txt-header {
     font-size: 20px;

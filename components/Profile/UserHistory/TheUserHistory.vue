@@ -290,7 +290,12 @@ export default {
 .input__product--item {
   margin-bottom: 24px;
 }
-
+.p-product-btn {
+  width: 150px;
+  height: 47px;
+  font-family: inherit;
+  transition: all 120ms ease-in;
+}
 @media (max-width: 768px) {
   .btn-text-desktop {
     display: none;

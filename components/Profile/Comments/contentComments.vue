@@ -533,7 +533,12 @@ export default {
 .p-comment-content-item-mobile {
   display: none;
 }
-
+.p-product-btn {
+  width: 150px;
+  height: 47px;
+  font-family: inherit;
+  transition: all 120ms ease-in;
+}
 @media (max-width: 1220px) {
   .p-comments-content-header-item {
     margin-left: 10%;

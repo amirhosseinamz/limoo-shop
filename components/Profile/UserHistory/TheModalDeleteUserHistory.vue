@@ -86,20 +86,26 @@ export default {
 .p-history-product-btn-modal-cancel {
   margin-left: 0;
 }
+.p-product-btn {
+  width: 150px;
+  height: 47px;
+  font-family: inherit;
+  transition: all 120ms ease-in;
+}
 @media (max-width: 768px) {
   .p-profile-history-title {
     font-size: 16px;
   }
   .p-product-btn {
-    width: 130px!important;
-    height: 41px!important;
+    width: 130px;
+    height: 41px;
   }
 }
 
 @media (max-width: 460px) {
   .p-product-btn {
-    width: 116px!important;
-    height: 38px!important;
+    width: 116px;
+    height: 38px;
   }
 }
 </style>

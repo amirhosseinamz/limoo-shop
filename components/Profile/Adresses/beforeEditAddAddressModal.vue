@@ -761,7 +761,12 @@ export default {
   color: $gray;
   cursor: pointer;
 }
-
+.p-product-btn {
+  width: 150px;
+  height: 47px;
+  font-family: inherit;
+  transition: all 120ms ease-in;
+}
 @media (max-width: 960px) {
   .modal-animation__open {
     animation: modalOpen 600ms linear;

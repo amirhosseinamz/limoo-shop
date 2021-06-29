@@ -38,31 +38,28 @@
                             >ارسال توسط لیمو</span
                         >
                     </base-button>
-                    <button
-                        class="shipping-btn__items shipping-btn__seller"
-                        :class="{
-                            'shipping-btn__seller-active': data.sellerSelected
-                        }"
+                      <base-button
+                        :class="[{'shipping-btn__seller-active': data.sellerSelected}, 'shipping-btn__items', 'shipping-btn__seller']"
+                        @button-clicked="selectSendBySeller(data)"
+                        no-box-shadow
+                        base-color="white"
                         v-show="data.shippingSeller == 'seller'"
-                        @click="selectSendBySeller(data)"
-                    >
+                      >
                         <span class="shipping-btn__seller-title"
                             >ارسال توسط فروشنده</span
                         >
-                    </button>
-
-                    <button
-                        class="shipping-btn__items shipping-btn__post"
-                        :class="{
-                            'shipping-btn__post-active': data.postSelected
-                        }"
+                    </base-button>
+                      <base-button
+                        :class="[{'shipping-btn__post-active': data.postSelected}, 'shipping-btn__items', 'shipping-btn__post']"
+                        @button-clicked="selectSendByPost(data)"
+                        no-box-shadow
+                        base-color="white"
                         v-show="data.shippingPost == 'post'"
-                        @click="selectSendByPost(data)"
-                    >
+                      >
                         <span class="shipping-btn__post-title"
                             >ارسال پستی
                         </span>
-                    </button>
+                    </base-button>
                 </div>
                 <div class="shipping-txt__holder d-rtl">
                     <span
@@ -367,6 +364,7 @@ export default {
     font-family: inherit;
     font-size: 14px;
     background-color: transparent;
+    cursor: pointer;
 }
 .shipping-btn__seller,
 .shipping-btn__limoo,

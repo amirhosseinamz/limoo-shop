@@ -96,13 +96,6 @@ input::-webkit-inner-spin-button {
   cursor: pointer;
   margin-left: 24px;
 }
-.signin-btn,
-.signup-btn {
-  font-family: inherit;
-  font-size: 18px;
-  height: 58px;
-  width: 463px;
-}
 .google-signup-btn {
   font-family: inherit;
   height: 44px;
@@ -193,13 +186,13 @@ input::-webkit-inner-spin-button {
   display: flex;
   justify-content: center;
 }
-.p-product-btn {
+/*.p-product-btn {
   width: 150px;
   height: 47px;
   font-family: inherit;
   font-size: 14px;
   transition: all 120ms ease-in;
-}
+}*/
 .p-favorite-product-btn-main {
   @include display-flex();
 }

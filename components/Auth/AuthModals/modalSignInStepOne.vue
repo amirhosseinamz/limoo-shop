@@ -50,9 +50,14 @@
           >
           </text-input>
           <div class="btn-control">
-            <button class="signin-btn" type="submit">
+            <base-button
+              base-color="yellow"
+              button-type="submit"
+              classes="signin-btn"
+              no-effect no-box-shadow
+            >
               {{ getTextByTextKey("home_blog_single_more") }}
-            </button>
+            </base-button>
           </div>
           <div class="forget-pass-section">
             <p @click="forgetPass" class="forget-pass">
@@ -176,7 +181,12 @@ export default {
   font-size: 24px;
   color: $black-icon;
 }
-
+.signin-btn {
+  font-family: inherit;
+  font-size: 18px;
+  height: 58px;
+  width: 463px;
+}
 .txt-header {
   font-size: 24px;
   line-height: 33.75px;
@@ -223,7 +233,7 @@ export default {
 }
 
 .signin-btn {
-  margin-top: 32px;
+  margin-top: 2rem;
 }
 .signin-input {
   padding-right: 24px;
@@ -293,7 +303,7 @@ export default {
 
   .signin-btn {
     width: 328px;
-    margin-top: 30px;
+    margin-top: 1.875rem;
   }
   .txt-header {
     font-size: 20px;

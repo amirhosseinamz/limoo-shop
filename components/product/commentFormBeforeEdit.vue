@@ -63,21 +63,22 @@
       </div>
 
       <div class="w-100 comment__suggest-btns">
-        <button
-          type="submit"
-          name="button"
-          class="p-product-btn  p-favorite-product-btn-modal-delete cursor-pointer  "
-        >
+          <base-button
+            button-type="submit"
+            classes="p-product-btn p-favorite-product-btn-modal-delete"
+            base-color="yellow"
+            no-box-shadow
+          >
           {{ getTextByTextKey("public_edit") }}
-        </button>
-        <button
-          @click="closeModal"
-          type="button"
-          name="button"
-          class="p-product-btn  cursor-pointer p-favorite-product-btn-modal-cancel "
-        >
+        </base-button>
+          <base-button
+            @button-clicked="closeModal"
+            classes="p-product-btn p-favorite-product-btn-modal-cancel"
+            no-box-shadow
+            base-color="light-gray"
+          >
           {{ getTextByTextKey("public_cancel") }}
-        </button>
+        </base-button>
       </div>
     </form>
   </div>
@@ -332,6 +333,9 @@ export default {
 }
 .p-product-btn {
   width: 130px;
+  height: 47px;
+  font-family: inherit;
+  transition: all 120ms ease-in;
 }
 .pass__alert {
   color: $alert-red;

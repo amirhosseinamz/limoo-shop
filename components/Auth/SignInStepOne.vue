@@ -180,6 +180,13 @@ export default {
   color: $black-icon;
 }
 
+.signin-btn {
+  font-family: inherit;
+  font-size: 18px;
+  height: 58px;
+  width: 463px;
+}
+
 .txt-header {
   font-size: 24px;
   line-height: 33.75px;
@@ -295,7 +302,7 @@ export default {
   }
 
   .signin-btn {
-    width: 328px!important;
+    width: 328px;
     margin-top: 1.875rem;
   }
   .txt-header {
@@ -367,7 +374,7 @@ export default {
     margin-bottom: 8px;
   }
   .signin-btn {
-    width: 280px!important;
+    width: 280px;
   }
   .txt-header {
     font-size: 20px;
@@ -416,7 +423,7 @@ export default {
     margin-bottom: 8px;
   }
   .signin-btn {
-    width: 270px!important;
+    width: 270px;
   }
   .txt-header {
     font-size: 20px;

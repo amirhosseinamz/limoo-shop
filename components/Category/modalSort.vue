@@ -218,7 +218,7 @@ export default {
     font-size: 14px;
   }
   .p-product-btn {
-    font-size: 14px!important;
+    font-size: 14px;
   }
   .modal-filter__item-close::before {
     // content: "\e801";
@@ -239,10 +239,10 @@ export default {
     padding-bottom: 18px;
   }
   .p-product-btn {
-    margin-left: 4%!important;
+    margin-left: 4%;
   }
   .modal-sort__close-item {
-    padding-right: 0px;
+    padding-right: 0;
     padding-left: 0;
   }
   .modal-filter__item {
@@ -256,8 +256,8 @@ export default {
   //   font-size: 17px;
   // }
   .p-product-btn {
-    width: 36%!important;
-    margin-left: 7%!important;
+    width: 36%;
+    margin-left: 7%;
   }
   .modal-cancel {
     width: 36%;
@@ -266,7 +266,7 @@ export default {
 
 @media (max-width: 320px) {
   .p-product-btn {
-    width: 45%!important;
+    width: 45%;
   }
 }
 </style>

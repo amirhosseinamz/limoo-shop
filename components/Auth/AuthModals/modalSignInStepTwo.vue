@@ -66,8 +66,8 @@
               {{ getTextByTextKey("auth_request_code_resend") }}
             </p>
           </div>
-          <div class="btn-control">
-            <base-button base-color="yellow" button-type="submit" classes="signin-btn" no-effect no-box-shadow>
+          <div class="btn-control justify-content-center">
+            <base-button base-color="yellow" button-type="submit" classes="signup-btn" no-effect no-box-shadow>
               {{ getTextByTextKey("public_confirm") }}
             </base-button>
 
@@ -231,6 +231,12 @@ export default {
   height: 24px;
   cursor: pointer;
 }
+.signup-btn {
+  font-family: inherit;
+  font-size: 18px;
+  height: 58px;
+  width: 463px;
+}
 .success-txt {
   font-weight: 500;
   font-size: 16px;
@@ -374,7 +380,7 @@ export default {
   }
 
   .signup-btn {
-    width: 328px!important;;
+    width: 328px;
     margin: 2rem 1rem 11.5rem 1rem;
   }
   .txt-header {
@@ -413,7 +419,7 @@ export default {
     width: 280px;
   }
   .signup-btn {
-    width: 280px!important;;
+    width: 280px;
   }
   .txt-header {
     font-size: 20px;
@@ -458,7 +464,7 @@ export default {
     width: 270px;
   }
   .signup-btn {
-    width: 270px!important;
+    width: 270px;
   }
   .txt-header {
     font-size: 20px;

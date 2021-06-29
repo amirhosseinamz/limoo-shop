@@ -62,12 +62,17 @@
             </p>
           </div>
           <div class="btn-control">
-            <button class="signup-btn" type="submit">
+            <base-button
+              base-color="yellow"
+              button-type="submit"
+              classes="signup-btn"
+              no-effect no-box-shadow
+            >
               {{ getTextByTextKey("home_blog_single_more") }}
-            </button>
-            <button class="google-signup-btn" type="submit">
+            </base-button>
+            <base-button base-color="light" button-type="submit" classes="google-signup-btn">
               {{ getTextByTextKey("auth_login_google") }}
-            </button>
+            </base-button>
           </div>
         </form>
       </div>
@@ -237,6 +242,12 @@ export default {
   font-size: 24px;
   color: $black-icon;
 }
+.signup-btn {
+  font-family: inherit;
+  font-size: 18px;
+  height: 58px;
+  width: 463px;
+}
 .success-txt {
   font-weight: 500;
   font-size: 16px;
@@ -312,8 +323,8 @@ export default {
   letter-spacing: 0.7em;
 }
 .signup-btn {
-  margin-top: 14px;
-  margin-bottom: 148px;
+  margin-top: 0.875rem;
+  margin-bottom: 9.25rem;
 }
 .google-signup-btn {
   display: none;
@@ -388,8 +399,8 @@ export default {
 
   .signup-btn {
     width: 328px;
-    margin-top: 32px;
-    margin-bottom: 107px;
+    margin-top: 2rem;
+    margin-bottom: 6.6875rem;
   }
   .txt-header {
     font-size: 20px;

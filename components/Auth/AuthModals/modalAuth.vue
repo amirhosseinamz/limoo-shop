@@ -6,9 +6,7 @@
     :show.sync="show"
     :footer="false"
   >
-    <!-- <div
-            class="w-100 p-profile-favorite-wrapper flex-wrap align-items-start flex-column "
-        ></div> -->
+
     <modalSignUpStepOne
       @btn-close-modal="modalClose"
       @btn-go-to-signup-step-two="gotoSignUpStepTwo"

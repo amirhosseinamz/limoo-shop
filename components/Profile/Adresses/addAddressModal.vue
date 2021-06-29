@@ -45,10 +45,11 @@
             </h3>
           </div>
           <div class="p-modal-header-close ">
-            <span
-              @click="closeModalDesktop"
-              class=" p-modal-header-close-icon"
-            ></span>
+            <base-button
+              @button-clicked="closeModalDesktop"
+              classes="p-modal-header-close-icon"
+              base-color="white"
+              mode="close"></base-button>
           </div>
         </div>
         <span class="splicer-line p-modal-header-line"></span>
@@ -325,23 +326,23 @@
       <div
         class="p-profile-favorite-btns w-100 justify-content-center p-modal-btns"
       >
-        <button
-          @click="submitAddressAdd"
-          type="button"
-          name="button"
-          class="p-product-btn  p-favorite-product-btn-modal-delete cursor-pointer  "
-        >
+          <base-button
+            @button-clicked="submitAddressAdd"
+            classes="p-product-btn p-favorite-product-btn-modal-delete"
+            base-color="yellow"
+            no-box-shadow
+          >
           {{ getTextByTextKey("public_submit") }}
-        </button>
+        </base-button>
 
-        <button
-          @click="closeModalMobile"
-          type="button"
-          name="button"
-          class="p-product-btn  cursor-pointer p-favorite-product-btn-modal-cancel "
-        >
+          <base-button
+            @button-clicked="closeModalMobile"
+            classes="p-product-btn p-favorite-product-btn-modal-cancel"
+            no-box-shadow
+            base-color="light-gray"
+          >
           {{ getTextByTextKey("public_back") }}
-        </button>
+        </base-button>
       </div>
     </form>
   </div>
@@ -785,18 +786,19 @@ export default {
 .p-input-style__default:focus {
   border: solid 1px $black;
 }
-.p-modal-header-close-icon::after {
-  content: "\e807";
-  @include font-icon__limoo();
+.p-modal-header-close-icon::before {
   font-size: 28px;
-  color: $gray;
-  cursor: pointer;
 }
 .form__modal--address .card-body .form-group {
   height: 95px;
   background: red;
 }
-
+.p-product-btn {
+  width: 150px;
+  height: 47px;
+  font-family: inherit;
+  transition: all 120ms ease-in;
+}
 @media (max-width: 960px) {
   .modal-animation__open {
     animation: modalOpen 600ms linear;

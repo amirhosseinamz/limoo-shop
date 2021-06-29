@@ -225,6 +225,12 @@ export default {
   margin-top: 17px;
   color: $white;
 }
+.signin-btn {
+  font-family: inherit;
+  font-size: 18px;
+  height: 58px;
+  width: 463px;
+}
 .signin-next-btn {
   @include display-flex();
   justify-content: flex-start;
@@ -422,9 +428,9 @@ export default {
     height: 60px;
   }
   .signup-btn {
-    width: 328px!important;
-    margin-top: 6px;
-    margin-bottom: 132px;
+    width: 328px;
+    margin-top: 0.375rem;
+    margin-bottom: 8.25rem;
   }
   .txt-header {
     font-size: 20px;
@@ -482,7 +488,7 @@ export default {
     width: 280px;
   }
   .signup-btn {
-    width: 280px!important;
+    width: 280px;
   }
   .txt-header {
     font-size: 20px;
@@ -532,7 +538,7 @@ export default {
     width: 270px;
   }
   .signup-btn {
-    width: 270px!important;
+    width: 270px;
   }
   .txt-header {
     font-size: 20px;
