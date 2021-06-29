@@ -48,27 +48,22 @@
         <div class="modal-filter__line"></div>
 
         <div class="modal__btn-main w-100">
-          <Button
-            state="initial"
-            :show-inside-icon-button-text="false"
-            class-name-text-button=""
-            class-name-icon-button=""
-            :text="getTextByTextKey('category_btn_submit_change')"
-            icon-address="/icons/filter_search_icon.svg"
-            class="p-product-btn"
-            @btn-click="submitFliterModal"
-          ></Button>
-
-          <Button
-            state="initial"
-            :show-inside-icon-button-text="false"
-            class-name-text-button=""
-            class-name-icon-button=""
-            :text="getTextByTextKey('category_submit_cancelle')"
-            icon-address="/icons/filter_search_icon.svg"
-            class="modal-cancel"
-            @btn-click="modalClose"
-          ></Button>
+          <base-button
+            @button-clicked="submitFliterModal"
+            classes="p-product-btn"
+            base-color="yellow"
+            no-box-shadow
+          >
+            {{ getTextByTextKey('category_btn_submit_change') }}
+          </base-button>
+          <base-button
+            @button-clicked="modalClose"
+            classes="modal-cancel"
+            no-box-shadow
+            base-color="light-gray"
+          >
+            {{ getTextByTextKey('category_submit_cancelle') }}
+          </base-button>
         </div>
       </div>
     </div>
@@ -221,25 +216,16 @@ export default {
 .p-product-btn {
   width: 130px;
   height: 47px;
-  background: $yellow !important;
-  color: $white;
-  margin-left: 24px;
-  font-size: 16px;
-  cursor: pointer;
+  margin-left: 1.5rem;
+  font-size: 1rem;
   padding: 0;
 }
+
 .modal-cancel {
   width: 130px;
   height: 47px;
-  background: $light-gray;
   margin-left: 0;
-  border-color: $gray;
-  color: #828282;
-  border-radius: 10px;
-  border: none;
   font-family: inherit;
-  font-size: 16px;
-  cursor: pointer;
 }
 .modal-filter__btn {
   padding-bottom: 18px;

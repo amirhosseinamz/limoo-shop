@@ -2,7 +2,11 @@
   <div class="signup-container">
     <div class="card">
       <div class="signup-close-btn">
-        <button @click="closePage" class="app-signup-close-btn"></button>
+        <base-button
+          @button-clicked="closePage"
+          classes="app-signup-close-btn"
+          base-color="white"
+          mode="close"></base-button>
       </div>
 
       <div class="signup-limoo-logo">
@@ -52,18 +56,20 @@
           </div>
 
           <div class="btn-control">
-            <button class="signup-btn" type="submit" :disabled="btnIsDisabled">
+            <base-button
+              base-color="yellow"
+              button-type="submit"
+              classes="signup-btn"
+              no-effect no-box-shadow
+            >
               <span class="desk-display">
                 {{ getTextByTextKey("auth_login_limoo") }}
               </span>
               <span class="min-display">
                 {{ getTextByTextKey("auth_login") }}
               </span>
-            </button>
+            </base-button>
 
-            <!-- <button class="signup-btn min-display" type="submit">
-                            ورود
-                        </button> -->
             <button class="google-signup-btn" type="submit">
               {{ getTextByTextKey("auth_login_google") }}
             </button>
@@ -188,10 +194,7 @@ export default {
   margin-top: 24px;
 }
 .app-signup-close-btn::before {
-  content: "\e807";
-  @include font-icon__limoo();
   font-size: 28px;
-  color: $gray;
 }
 .signup-input {
   padding-right: 24px;
@@ -204,7 +207,11 @@ export default {
   font-family: inherit;
 }
 .signup-btn {
-  margin-bottom: 40px;
+  font-family: inherit;
+  font-size: 18px;
+  height: 58px;
+  width: 463px;
+  margin-bottom: 2.5rem;
 }
 .err-text {
   font-family: inherit;

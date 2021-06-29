@@ -301,6 +301,12 @@ export default {
   font-size: 25px;
   color: $black-icon;
 }
+.signup-btn {
+  font-family: inherit;
+  font-size: 18px;
+  height: 58px;
+  width: 463px;
+}
 .success-txt {
   font-weight: 500;
   font-size: 16px;
@@ -474,8 +480,8 @@ export default {
     @include input-holder();
   }
   .signup-btn {
-    width: 328px!important;
-    margin-top: 38px!important;
+    width: 328px;
+    margin-top: 38px;
     margin-bottom: 11.5rem;
   }
   .txt-header {
@@ -543,7 +549,7 @@ export default {
     width: 280px;
   }
   .signup-btn {
-    width: 280px!important;
+    width: 280px;
   }
   .txt-header {
     font-size: 20px;
@@ -598,7 +604,7 @@ export default {
     width: 270px;
   }
   .signup-btn {
-    width: 270px!important;
+    width: 270px;
   }
   .txt-header {
     font-size: 20px;

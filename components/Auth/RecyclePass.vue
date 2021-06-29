@@ -138,6 +138,12 @@ export default {
 .signup-input {
   margin-right: 24px;
 }
+.signup-btn {
+  font-family: inherit;
+  font-size: 18px;
+  height: 58px;
+  width: 463px;
+}
 .card {
   @include display-flex();
   flex-direction: column;

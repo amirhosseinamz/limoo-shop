@@ -50,9 +50,15 @@
           </div>
 
           <div class="btn-control">
-            <button class="signup-btn" :disabled="btnIsDisabled" type="submit">
+            <base-button
+              base-color="yellow"
+              button-type="submit"
+              classes="signup-btn"
+              :disabled="btnIsDisabled"
+              no-effect no-box-shadow
+            >
               {{ getTextByTextKey("home_blog_single_more") }}
-            </button>
+            </base-button>
           </div>
         </form>
       </div>
@@ -161,12 +167,18 @@ export default {
   font-size: 24px;
   color: $black-icon;
 }
+.signup-btn {
+  font-family: inherit;
+  font-size: 18px;
+  height: 58px;
+  width: 463px;
+}
 .form-control {
   direction: rtl;
   font-family: inherit;
 }
 .signup-btn {
-  margin-bottom: 126px;
+  margin-bottom: 5rem;
 }
 .err-text {
   font-family: inherit;
@@ -263,9 +275,9 @@ export default {
   }
 
   .signup-btn {
-    margin-top: 15px;
+    margin-top: 1rem;
     width: 328px;
-    margin-bottom: 184px;
+    margin-bottom: 5rem;
   }
   .txt-header {
     font-size: 20px;

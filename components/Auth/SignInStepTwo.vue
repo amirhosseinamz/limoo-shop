@@ -30,47 +30,6 @@
             <p class="txt-header">
               {{ getTextByTextKey("auth_aignup_code_agin") }}
             </p>
-            <!-- <text-input
-              class="user--item user-profile__info-pass"
-              labelNameClass=""
-              inputNameClass="w-100"
-              state="authInput"
-              maxlength="4"
-              function-max-len="greaterThan"
-              placeholderText=""
-              :msgError="{
-                notValidMsg: getTextByTextKey('auth_request_code_resend'),
-              }"
-              :check-email="false"
-              :check-number="true"
-              :active-check-phone-number="false"
-              :check-code="true"
-              :only-use-string="false"
-              :show-icon-clear-input="false"
-              :show-icon-eye-input="false"
-              :status-add-space-number="true"
-              :check-initial-validation="checkInitialValidation"
-              :check-empty-submit="false"
-              :check-required="false"
-              :check-typing-submit="false"
-              :use-timer="true"
-              :show-icon-star="false"
-              :form-data="formData"
-              :attribute-required="true"
-              :active-border-click="true"
-              timer-start="0:10"
-              accessStyleParentInToChildNameId="address__form--data"
-              tag-html="input"
-              type-input="text"
-              name-input="codePhoneNumber"
-              :label-text="
-                getTextByTextKey('auth_aignup_phone_enter_code') +
-                  ' ' +
-                  userPhoneNumber +
-                  getTextByTextKey('auth_enter_phone')
-              "
-            >
-            </text-input> -->
 
             <p dir="rtl" class="txt-content">
               {{ getTextByTextKey("auth_aignup_phone_enter_code") }}
@@ -281,6 +240,12 @@ export default {
   height: 24px;
   cursor: pointer;
 }
+.signup-btn {
+  font-family: inherit;
+  font-size: 18px;
+  height: 58px;
+  width: 463px;
+}
 .success-txt {
   font-weight: 500;
   font-size: 16px;
@@ -454,7 +419,7 @@ export default {
   }
 
   .signup-btn {
-    width: 328px!important;
+    width: 328px;
     margin: 2rem 1rem 11.5rem 1rem;
   }
   .txt-header {
@@ -493,7 +458,7 @@ export default {
     width: 280px;
   }
   .signup-btn {
-    width: 280px!important;
+    width: 280px;
   }
   .txt-header {
     font-size: 20px;
@@ -538,7 +503,7 @@ export default {
     width: 270px;
   }
   .signup-btn {
-    width: 270px!important;
+    width: 270px;
   }
   .txt-header {
     font-size: 20px;

@@ -856,21 +856,6 @@ export default {
     margin-left: 12px;
     margin-bottom: 22px;
   }
-  // .show-more-description::before {
-  //     @include display-flex();
-  //     content: "\e801";
-  //     @include font-icon__limoo();
-  //     font-size: 12px;
-  //     color: $input-border;
-  //     /* position: absolute; */
-  //     transform: rotate(-90deg);
-  //     /* margin-right: 4px; */
-  //     /* border: 1px solid red; */
-  // }
-  // .full-description__active .show-more-description::before {
-  //     transform: rotate(90deg);
-  // }
-  /* 00000000000000000000000000 */
   .p-comments-content-header-item {
     margin-left: 0;
     width: 100%;
@@ -954,7 +939,7 @@ export default {
 
 @media (max-width: 485px) {
   .comments-add__comment {
-    width: 72%!important;
+    width: 72%;
   }
 }
 

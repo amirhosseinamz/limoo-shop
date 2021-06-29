@@ -63,9 +63,6 @@
               </span>
             </base-button>
 
-            <!-- <button class="signup-btn min-display" type="submit">
-                            ورود
-                        </button> -->
             <base-button base-color="light" button-type="submit" classes="google-signup-btn">
               {{ getTextByTextKey("auth_login_google") }}
             </base-button>
@@ -177,6 +174,12 @@ export default {
   @include font-icon__limoo();
   font-size: 28px;
   color: $gray;
+}
+.signup-btn {
+  font-family: inherit;
+  font-size: 18px;
+  height: 58px;
+  width: 463px;
 }
 .signup-input {
   padding-right: 24px;
@@ -299,7 +302,7 @@ export default {
   }
 
   .signup-btn {
-    width: 328px!important;
+    width: 328px;
   }
   .txt-header {
     font-size: 20px;
@@ -377,7 +380,7 @@ export default {
     @include input-holder();
   }
   .signup-btn {
-    width: 280px!important;
+    width: 280px;
   }
   .txt-header {
     font-size: 20px;
@@ -441,7 +444,7 @@ export default {
     @include input-holder();
   }
   .signup-btn {
-    width: 270px!important;
+    width: 270px;
   }
   .txt-header {
     font-size: 20px;

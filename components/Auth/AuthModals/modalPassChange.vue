@@ -100,21 +100,26 @@
           </div>
 
           <div class="btn-control">
-            <button
-              class="signup-btn desk-display"
-              :class="{ 'success-pss-btn': passChenged }"
-              type="submit"
-              dir="rtl"
-            >
+              <base-button
+                :base-color="buttonColor"
+                button-type="submit"
+                class="signup-btn desk-display"
+                no-effect no-box-shadow
+              >
               {{
                 passChenged
                   ? getTextByTextKey("home_blog_single_more")
                   : getTextByTextKey("auth_success_change")
               }}
-            </button>
-            <button class="signup-btn min-display" type="submit">
+            </base-button>
+            <base-button
+              base-color="yellow"
+              button-type="submit"
+              classes="signup-btn min-display"
+              no-effect no-box-shadow
+            >
               {{ getTextByTextKey("home_blog_single_more") }}
-            </button>
+            </base-button>
           </div>
         </form>
       </div>
@@ -146,6 +151,15 @@ export default {
   },
   components: {
     textInput,
+  },
+  computed: {
+    buttonColor () {
+      if (this.passChenged) {
+        return 'green'
+      } else {
+        return 'yellow'
+      }
+    }
   },
   methods: {
     getTextByTextKey,
@@ -213,6 +227,12 @@ export default {
   text-align: right;
   margin-top: 17px;
   color: $white;
+}
+.signup-btn {
+  font-family: inherit;
+  font-size: 18px;
+  height: 58px;
+  width: 463px;
 }
 .signin-next-btn {
   @include display-flex();
@@ -311,10 +331,7 @@ export default {
   margin-right: 90px;
 }
 .signup-btn {
-  margin-bottom: 56px;
-}
-.success-pss-btn {
-  background: $alert-massage__green;
+  margin-bottom: 3.5rem;
 }
 .signup-input {
   padding-right: 24px;
@@ -415,8 +432,8 @@ export default {
   }
   .signup-btn {
     width: 328px;
-    margin-top: 6px;
-    margin-bottom: 132px;
+    margin-top: 0.375rem;
+    margin-bottom: 8.25rem;
   }
   .txt-header {
     font-size: 20px;

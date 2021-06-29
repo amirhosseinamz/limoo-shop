@@ -405,9 +405,11 @@ export default {
   margin-bottom: 24px;
 }
 .p-product-btn {
-  width: 130px!important;
+  width: 130px;
+  height: 47px;
+  font-family: inherit;
+  transition: all 120ms ease-in;
 }
-
 .show--error .p-input-style__default {
   border: solid 1px red;
 }
@@ -513,8 +515,8 @@ export default {
     margin-bottom: 19px;
   }
   .p-product-btn {
-    height: 47px!important;
-    width: 149px!important;
+    height: 47px;
+    width: 149px;
   }
   .comment__form-main::v-deep {
     .comment__form-title {

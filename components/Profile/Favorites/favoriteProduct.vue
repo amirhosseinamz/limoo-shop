@@ -215,9 +215,12 @@ export default {
   display: none!important;
 }
 .p-product-btn {
-  font-size: 14px!important;
+  width: 150px;
+  height: 47px;
+  font-family: inherit;
+  font-size: 14px;
+  transition: all 120ms ease-in;
 }
-
 @media (max-width: 1024px) {
   .p-favorite-product-content-left {
     width: 52%;
@@ -248,8 +251,8 @@ export default {
     width: 45px!important;
   }
   .p-favorite-product-btn-main .p-product-btn {
-    width: 116px!important;
-    height: 43px!important;
+    width: 116px;
+    height: 43px;
   }
 }
 
@@ -335,8 +338,8 @@ export default {
     display: none!important;
   }
   .p-favorite-product-btn-main .p-product-btn {
-    width: 104px!important;
-    height: 36px!important;
+    width: 104px;
+    height: 36px;
   }
   .p-favorite-product-item-icon-delete {
     width: 16px!important;

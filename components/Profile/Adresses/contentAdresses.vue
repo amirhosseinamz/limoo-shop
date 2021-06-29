@@ -412,7 +412,12 @@ export default {
   font-size: 19px;
   color: $gray;
 }
-
+.p-product-btn {
+  width: 150px;
+  height: 47px;
+  font-family: inherit;
+  transition: all 120ms ease-in;
+}
 @media (max-width: 1220px) {
   .p-adresses-content-header-item {
     margin-left: 10%;

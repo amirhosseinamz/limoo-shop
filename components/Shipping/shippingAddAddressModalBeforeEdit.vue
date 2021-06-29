@@ -756,7 +756,12 @@ export default {
 .p-input-style__default:focus {
     border: solid 1px $black;
 }
-
+.p-product-btn {
+  width: 150px;
+  height: 47px;
+  font-family: inherit;
+  transition: all 120ms ease-in;
+}
 @media (max-width: 960px) {
     .modal-animation__open {
         animation: modalOpen 600ms linear;
@@ -911,7 +916,7 @@ export default {
 
 @media screen and (max-width: 485px) {
     .p-product-btn {
-        width: 47%!important;
+        width: 47%;
         margin-left: 0;
     }
     .p-favorite-product-btn-modal-delete {
