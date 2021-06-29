@@ -13,7 +13,11 @@
             {{ getTextByTextKey("category_sort_title") }}
           </h3>
           <div @click="modalClose" class="modal-filter__item-left">
-            <span class="modal-filter__item-close"></span>
+            <base-button
+              base-color="white"
+              mode="close"
+              no-box-shadow
+              class="modal-filter__item-close"></base-button>
           </div>
         </div>
         <div class="modal-filter__line remove--margin"></div>
@@ -148,11 +152,7 @@ export default {
   color: $black;
 }
 .modal-filter__item-close::before {
-  content: "\e807";
-  @include font-icon__limoo();
   font-size: 31px;
-  color: $gray;
-  cursor: pointer;
 }
 .modal-sort__close-item {
   @include display-flex();

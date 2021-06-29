@@ -12,7 +12,12 @@
             <!-- {{ getTextByTextKey("product_pic_text") }} -->
             افزودن محصول به لیست مقایسه
           </h3>
-          <span @click="modalClose" class="product__modal-close"></span>
+          <base-button
+            @button-clicked="modalClose"
+            classes="product__modal-close"
+            base-color="white"
+            mode="close"></base-button>
+
         </div>
         <span class="product__modal-line"></span>
       </div>
@@ -128,17 +133,9 @@ export default {
   @include display-flex();
   padding-bottom: 38px;
 }
-.product__modal-close::after {
-  content: "\e807";
-  @include font-icon__limoo();
+.product__modal-close::before {
   font-size: 30px;
-  color: $color-gray;
-  cursor: pointer;
-}
-.product__modal-close {
-  width: 30px;
-  height: 30px;
-  cursor: pointer;
+  opacity: 0.5;
 }
 .product__modal-text {
   @include display-flex();

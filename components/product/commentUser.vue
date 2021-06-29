@@ -3,7 +3,7 @@
     class="p-comments-content-main w-100 flex-column flex-wrap  d-rtl tabs__content"
   >
     <div class="w-100">
-      <base-button no-box-shadow no-hover base-color="yellow" classes="comments-add__comment">
+      <base-button no-box-shadow no-hover base-color="yellow" classes="comments-add__comment" @button-clicked="showModalAddComment">
         {{ getTextByTextKey("product_submit_comment") }}
       </base-button>
     </div>

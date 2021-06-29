@@ -46,16 +46,22 @@
 
         <div class="p-favorite-product-left align-items-start">
           <div class="p-favorite-product-btn-main">
-            <base-button base-color="yellow" link :to="'/product/' + data.id" no-box-shadow mode="secondary-outline" classes="p-product-btn">
-              <NuxtLink
+            <div class="p-product-btn">
+              <base-button
+                base-color="yellow"
+                link no-box-shadow no-hover
+                mode="secondary-outline"
                 :to="'/product/' + data.id"
-                class="p-favorite-product-btn-link p-favorite-product-btn-link-desktop"
-                >مشاهده محصول</NuxtLink>
-              <NuxtLink
+                classes="p-favorite-product-btn-link p-favorite-product-btn-link-desktop"
+                >مشاهده محصول</base-button>
+              <base-button
+                link
                 :to="'/product/' + data.id"
-                class="p-favorite-product-btn-link p-favorite-product-btn-link-mobile"
-                >مشاهده</NuxtLink>
-            </base-button>
+                classes="p-favorite-product-btn-link p-favorite-product-btn-link-mobile"
+                base-color="yellow"
+                no-box-shadow
+                >مشاهده</base-button>
+            </div>
               <base-button
                 @button-clicked="deleteFav(data)"
                 classes="p-favorite-product-btn-delete"
@@ -128,11 +134,6 @@ export default {
   margin-top: 8px;
   color: $code-request;
   cursor: pointer;
-}
-.p-favorite-product-btn-link {
-  @include display-flex();
-  align-items: center;
-  justify-content: center;
 }
 .p-favorite-product-item {
   @include display-flex();
@@ -211,7 +212,7 @@ export default {
   color: $gray-3;
 }
 .p-favorite-product-btn-link-mobile {
-  display: none;
+  display: none!important;
 }
 .p-product-btn {
   font-size: 14px!important;
@@ -231,9 +232,14 @@ export default {
 
 @media (max-width: 768px) {
   .p-favorite-product-btn {
-    width: 123px;
-    font-size: 13px;
-    height: 45px;
+    width: 123px!important;
+    font-size: 13px!important;
+    height: 45px!important;
+  }
+  .p-favorite-product-btn-link {
+    height: 47px!important;
+    width: 110px!important;
+    font-size: 14px!important;
   }
   .p-favorite-product-content-left {
     width: 70%;
@@ -242,10 +248,8 @@ export default {
     width: 45px!important;
   }
   .p-favorite-product-btn-main .p-product-btn {
-    width: 116px;
-    background: $yellow;
-    color: $white;
-    height: 43px;
+    width: 116px!important;
+    height: 43px!important;
   }
 }
 
@@ -314,8 +318,6 @@ export default {
     height: 36px!important;
   }
   .p-favorite-product-btn {
-    background: $yellow;
-    color: $white;
     height: 40px;
     width: 40px;
   }
@@ -323,20 +325,21 @@ export default {
     padding-top: 3px;
   }
   .p-favorite-product-btn-link {
-    width: 104px;
+    width: 104px!important;
+    height: 35px!important;
   }
   .p-favorite-product-btn-link-mobile {
-    display: flex;
+    display: flex!important;
   }
   .p-favorite-product-btn-link-desktop {
-    display: none;
+    display: none!important;
   }
   .p-favorite-product-btn-main .p-product-btn {
-    width: 104px;
-    height: 36px;
+    width: 104px!important;
+    height: 36px!important;
   }
   .p-favorite-product-item-icon-delete {
-    width: 16px;
+    width: 16px!important;
   }
 }
 
@@ -346,7 +349,7 @@ export default {
   }
 
   .p-favorite-product-btn-link {
-    font-size: 13px;
+    font-size: 13px!important;
   }
 }
 
