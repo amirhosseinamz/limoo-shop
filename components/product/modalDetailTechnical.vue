@@ -14,6 +14,7 @@
           </h3>
           <!-- <span class="product__modal-close"></span> -->
           <span @click="modalClose" class="product__modal-arrow"></span>
+
         </div>
         <span class="product__modal-line"></span>
       </div>

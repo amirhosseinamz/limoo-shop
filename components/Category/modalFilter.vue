@@ -14,7 +14,11 @@
               {{ getTextByTextKey("category_advanced_search") }}
             </h3>
             <div @click="modalClose" class="modal-filter__item-left">
-              <span class="modal-filter__item-close"></span>
+              <base-button
+                base-color="white"
+                mode="close"
+                no-box-shadow
+                class="modal-filter__item-close"></base-button>
             </div>
             <div class="modal-filter__line"></div>
           </div>
@@ -194,11 +198,7 @@ export default {
   font-weight: 300;
 }
 .modal-filter__item-close::before {
-  content: "\e807";
-  @include font-icon__limoo();
   font-size: 22px;
-  color: $gray;
-  cursor: pointer;
   opacity: 0.5;
 }
 .modal-filter__close-item {

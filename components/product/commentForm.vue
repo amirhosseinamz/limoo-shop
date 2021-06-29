@@ -132,21 +132,23 @@
       </div>
 
       <div class="w-100 comment__suggest-btns">
-        <button
-          type="submit"
-          name="button"
-          class="p-product-btn  p-favorite-product-btn-modal-delete cursor-pointer  "
-        >
+          <base-button
+            button-type="submit"
+            classes="p-product-btn p-favorite-product-btn-modal-delete"
+            base-color="yellow"
+            no-box-shadow
+          >
           {{ getTextByTextKey("public_edit") }}
-        </button>
-        <button
-          @click="closeModal"
-          type="button"
-          name="button"
-          class="p-product-btn  cursor-pointer p-favorite-product-btn-modal-cancel "
-        >
+        </base-button>
+          <base-button
+            @button-clicked="closeModal"
+            button-type="submit"
+            classes="p-product-btn p-favorite-product-btn-modal-cancel"
+            no-box-shadow
+            base-color="light-gray"
+          >
           {{ getTextByTextKey("public_cancel") }}
-        </button>
+        </base-button>
       </div>
     </form>
   </div>
@@ -403,7 +405,7 @@ export default {
   margin-bottom: 24px;
 }
 .p-product-btn {
-  width: 130px;
+  width: 130px!important;
 }
 
 .show--error .p-input-style__default {
@@ -511,8 +513,8 @@ export default {
     margin-bottom: 19px;
   }
   .p-product-btn {
-    height: 47px;
-    width: 149px;
+    height: 47px!important;
+    width: 149px!important;
   }
   .comment__form-main::v-deep {
     .comment__form-title {

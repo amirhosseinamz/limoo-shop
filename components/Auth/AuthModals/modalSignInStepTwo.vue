@@ -67,9 +67,10 @@
             </p>
           </div>
           <div class="btn-control">
-            <button class="signup-btn" type="submit">
+            <base-button base-color="yellow" button-type="submit" classes="signin-btn" no-effect no-box-shadow>
               {{ getTextByTextKey("public_confirm") }}
-            </button>
+            </base-button>
+
           </div>
         </form>
       </div>
@@ -306,8 +307,8 @@ export default {
   letter-spacing: 0.7em;
 }
 .signup-btn {
-  margin-top: 32px;
-  margin-bottom: 144px;
+  margin-top: 2rem;
+  margin-bottom: 5rem;
 }
 
 @media (max-width: 540px) {
@@ -373,8 +374,8 @@ export default {
   }
 
   .signup-btn {
-    width: 328px;
-    margin: 32px 16px 184px 16px;
+    width: 328px!important;;
+    margin: 2rem 1rem 11.5rem 1rem;
   }
   .txt-header {
     font-size: 20px;
@@ -412,7 +413,7 @@ export default {
     width: 280px;
   }
   .signup-btn {
-    width: 280px;
+    width: 280px!important;;
   }
   .txt-header {
     font-size: 20px;
@@ -457,7 +458,7 @@ export default {
     width: 270px;
   }
   .signup-btn {
-    width: 270px;
+    width: 270px!important;
   }
   .txt-header {
     font-size: 20px;

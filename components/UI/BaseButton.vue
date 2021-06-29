@@ -57,7 +57,8 @@ export default {
         'subtle',
         'text',
         'time',
-        'product'
+        'product',
+        'close'
       ].includes(value.toLowerCase())
     },
     type: {
@@ -166,9 +167,6 @@ a {
   height: 77px;
   background-color: $green;
 
-  &:hover {
-    box-shadow: inset 100px 100px 4px rgba(0, 0, 0, 0.25);
-  }
   &.disabled {
     background-color: $light-gray;
     color: $color-gray;
@@ -184,9 +182,6 @@ a {
   border: 3px solid $green;
   color: $green;
 
-  &:hover {
-    box-shadow: inset 0 4px 4px rgba(0, 0, 0, 0.25);
-  }
   &.disabled {
     color: $light-gray;
     border: 3px solid $light-gray;
@@ -202,16 +197,8 @@ a {
   color: white;
   border: none;
 
-  &:hover {
-    box-shadow: 3px 7px 11px -2px #00000040;
-    mix-blend-mode: normal;
-  }
   &.disabled {
     background: $color-gray;
-  }
-  &.disabled:hover {
-    box-shadow: none !important;
-    cursor: default !important;
   }
 }
 
@@ -291,12 +278,6 @@ a {
   background-color: transparent;
   color: $orange;
   border: 2px solid $orange-3;
-}
-
-.btn.yellow.secondary-outline:hover {
-  background-color: $orange;
-  border: 2px solid $orange;
-  color: $white;
 }
 
 .btn.yellow.secondary:hover {
@@ -381,6 +362,15 @@ a {
   &.product {
     border: 1px solid $gray-5;
     color: $gray-3;
+  }
+  &.close {
+    border: none;
+    background-color: transparent;
+    &::before {
+      content: "\e807";
+      @include font-icon__limoo();
+      color: $gray;
+    }
   }
 }
 

@@ -416,7 +416,7 @@ export default {
     margin-bottom: 8px;
   }
   .signin-btn {
-    width: 270px;
+    width: 270px!important;
   }
   .txt-header {
     font-size: 20px;

@@ -45,10 +45,11 @@
             </h3>
           </div>
           <div class="p-modal-header-close ">
-            <span
-              @click="closeModalDesktop"
-              class=" p-modal-header-close-icon"
-            ></span>
+            <base-button
+              @button-clicked="closeModalDesktop"
+              classes="p-modal-header-close-icon"
+              base-color="white"
+              mode="close"></base-button>
           </div>
         </div>
         <span class="splicer-line p-modal-header-line"></span>
@@ -780,12 +781,8 @@ export default {
 .p-input-style__default:focus {
   border: solid 1px $black;
 }
-.p-modal-header-close-icon::after {
-  content: "\e807";
-  @include font-icon__limoo();
+.p-modal-header-close-icon::before {
   font-size: 28px;
-  color: $gray;
-  cursor: pointer;
 }
 .form__modal--address .card-body .form-group {
   height: 95px;

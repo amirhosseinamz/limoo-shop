@@ -395,9 +395,6 @@ export default {
   content: "\e80e";
   color: $yellow;
 }
-.p-ticket-content-btn-edit:hover::before {
-  color: $white;
-}
 .p-ticket-content-btn-edit {
   height: 47px;
   width: 47px;

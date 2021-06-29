@@ -20,10 +20,11 @@
               {{ getTextByTextKey("support_your_answer") }}
             </h3>
           </div>
-          <span
-            @click="closeModalMobile"
-            class="p-modal-header-close-icon"
-          ></span>
+          <base-button
+            @button-clicked="closeModalMobile"
+            classes="p-modal-header-close-icon"
+            base-color="white"
+            mode="close"></base-button>
         </div>
         <span class="splicer-line p-modal-header-line"></span>
       </div>
@@ -251,14 +252,10 @@ export default {
 
 .p-modal-header-close-icon {
   /* border: 1px solid red; */
-  margin-top: 24px;
+  margin-top: 1.5rem;
 }
 .p-modal-header-close-icon::before {
-  @include font-icon__limoo();
-  content: "\e807";
-  color: $gray;
   font-size: 28px;
-  cursor: pointer;
 }
 .p-modal_wrapper {
   padding-right: 99px;

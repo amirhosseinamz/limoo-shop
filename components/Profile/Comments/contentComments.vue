@@ -200,7 +200,6 @@ export default {
   created() {
     this.userComments = Object.values(this.commentsData).length;
   },
-  components: {},
   computed: {},
 
   methods: {

@@ -15,12 +15,17 @@
           </h3>
           <!-- <span class="product__modal-close"></span> -->
           <span @click="closeModal" class="product__modal-arrow"></span>
+
         </div>
         <span class="product__modal-line"></span>
       </div>
 
       <div class="comment--close__main comment--desktop">
-        <span @click="closeModal" class="comment__close"></span>
+        <base-button
+          @button-clicked="closeModal"
+          classes="comment__close"
+          base-color="white"
+          mode="close"></base-button>
       </div>
 
       <div class="w-100 comment__modal-container">
@@ -225,11 +230,7 @@ export default {
 
 <style lang="scss" scoped>
 .comment__close::before {
-  content: "\e807";
-  @include font-icon__limoo();
   font-size: 30px;
-  color: $gray;
-  cursor: pointer;
   opacity: 0.5;
 }
 .comment--close__main {
