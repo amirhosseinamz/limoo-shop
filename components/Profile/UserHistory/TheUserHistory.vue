@@ -270,7 +270,7 @@ export default {
   content: "\e826";
   @include font-icon__limoo();
   font-size: 17px;
-  color: $input-border;
+  color: $gray-3;
 }
 .p-history-product-btn-link {
   border: none;

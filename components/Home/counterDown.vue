@@ -61,9 +61,9 @@
 
           </div>
           <div class="w-100 productContent-timerBtn">
-            <button class="productContent-moreFestival" type="button" name="button">
+            <base-button class="productContent-moreFestival" base-color="red" mode="secondary-outline">
               {{getTextByTextKey('home_festival_btn_text')}}
-            </button>
+            </base-button>
           </div>
       </div>
   </div>
@@ -168,21 +168,11 @@ export default {
   @include display-flex();
 }
 .productContent-moreFestival{
-  @include display-flex();
-  align-items: flex-start;
-  border:solid 1px $red-color;
-  color: $red-color;
-  font-size: 14px;
+  font-size: 14px!important;
   font-weight: 500;
-  justify-content: center;
-  text-align: center;
   width: 190px;
   height: 47px;
-  border-radius: 10px;
-  background: $white;
   font-family: inherit;
-  align-items: center;
-  cursor: pointer;
 }
 .productContent-timerBtn{
   justify-content: center;

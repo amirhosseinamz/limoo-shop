@@ -46,22 +46,6 @@
 
         <div class="p-favorite-product-left align-items-start">
           <div class="p-favorite-product-btn-main">
-<!--            <button
-              type="button"
-              class="p-product-btn cursor-pointer"
-              name="button"
-            >
-              <NuxtLink
-                :to="'/product/' + data.id"
-                class="p-favorite-product-btn-link p-favorite-product-btn-link-desktop"
-                >مشاهده محصول</NuxtLink
-              >
-              <NuxtLink
-                :to="'/product/' + data.id"
-                class="p-favorite-product-btn-link p-favorite-product-btn-link-mobile"
-                >مشاهده</NuxtLink
-              >
-            </button>-->
             <base-button base-color="yellow" link :to="'/product/' + data.id" no-box-shadow mode="secondary-outline" classes="p-product-btn">
               <NuxtLink
                 :to="'/product/' + data.id"
@@ -224,7 +208,7 @@ export default {
   content: "\e826";
   @include font-icon__limoo();
   font-size: 17px;
-  color: $gray;
+  color: $gray-3;
 }
 .p-favorite-product-btn-link-mobile {
   display: none;

@@ -436,7 +436,7 @@ export default {
   @include font-icon__limoo();
   font-size: 16px;
   content: "\e826";
-  color: $input-border;
+  color: $gray-3;
 }
 .p-comments-content-header {
   background: $white;

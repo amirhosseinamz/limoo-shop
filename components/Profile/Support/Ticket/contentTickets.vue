@@ -27,7 +27,6 @@
         classes="btn-change p-tickets-content-btn-data"
         base-color="yellow"
         mode="secondary-outline"
-        no-radius
         >
         {{ getTextByTextKey("support_send_new_ticket") }}
       </base-button>
@@ -415,7 +414,7 @@ export default {
   @include font-icon__limoo();
   font-size: 16px;
   content: "\e826";
-  color: $input-border;
+  color: $gray-3;
 }
 
 .p-tickets-content-data-wrapper {

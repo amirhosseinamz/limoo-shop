@@ -124,11 +124,7 @@
                       no-box-shadow
                       base-color="light"
                     >
-                      <img
-                        class="p-favorite-product-item-icon-delete"
-                        src="/icons/delete.svg"
-                        alt=""
-                      />
+                      <span class="p-favorite-product-item-icon-delete"></span>
                     </base-button>
                   </div>
                 </div>
@@ -319,7 +315,7 @@ export default {
   content: "\e802";
   @include font-icon__new();
   font-size: 28px;
-  color: $color-gray;
+  color: $gray-3;
   cursor: pointer;
 }
 .p-adresses-content-header-item {
@@ -387,6 +383,12 @@ export default {
 }
 .p-favorite-product-btn-main {
   margin-bottom: 37px;
+}
+.p-favorite-product-item-icon-delete::before {
+  @include font-icon__limoo();
+  font-size: 16px;
+  content: "\e826";
+  color: $gray-3;
 }
 .p-adresses-icon::before {
   content: "\e823";

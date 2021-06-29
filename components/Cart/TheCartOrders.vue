@@ -299,7 +299,7 @@ export default {
     @include font-icon__limoo();
     content: "\e826";
     font-size: 16px;
-    color: $color-gray;
+    color: $gray-3;
 }
 
 .order-detail__btns-add-minus {

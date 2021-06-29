@@ -18,7 +18,7 @@
       </div>
       <div class="w-100 justify-content-center">
         <base-button
-          :classes="'cart-detail__btn-item ' + hasTime"
+          :class="[{'all-orders__hastimed': !allOrdersHasTimed.item}, 'cart-detail__btn-item']"
           :disabled="!allOrdersHasTimed.item"
           no-box-shadow
         >
@@ -103,15 +103,6 @@
 export default {
   props: {
     detailPrice: { type: [Object, Array], default: [] },
-  },
-  computed: {
-    hasTime() {
-      if (!this.allOrdersHasTimed.item) {
-        return "all-orders__hastimed";
-      } else {
-        return ''
-      }
-    },
   },
   components: {},
 
@@ -257,6 +248,11 @@ export default {
   font-family: inherit;
   font-size: 16px;
   margin-top: 1.5rem;
+
+  &.disabled {
+    background-color: $gray-5!important;
+    color: $gray-3!important;
+  }
 }
 
 .all-orders__hastimed {

@@ -390,7 +390,7 @@ export default {
     @include font-icon__limoo();
     content: "\e826";
     font-size: 14px;
-    color: $gray;
+    color: $gray-3;
 }
 .address-detail__btn-edit {
     width: 37px;

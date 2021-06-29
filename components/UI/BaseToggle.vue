@@ -28,8 +28,9 @@ export default {
 .switch {
   position: relative;
   display: inline-block;
-  width: 60px;
-  height: 34px;
+  width: 54px;
+  height: 29px;
+  border-radius: 40px;
 
   input {
     opacity: 0;
@@ -41,14 +42,10 @@ export default {
         background-color: $orange;
       }
       & + .slider::before {
-        -webkit-transform: translateX(26px);
-        -ms-transform: translateX(26px);
-        transform: translateX(26px);
+        -webkit-transform: translateX(23px);
+        -ms-transform: translateX(23px);
+        transform: translateX(23px);
       }
-    }
-
-    &:focus + .slider {
-      box-shadow: 0 0 1px $orange;
     }
   }
   .slider {
@@ -58,17 +55,17 @@ export default {
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: $color-gray;
+    background-color: $gray-5;
     -webkit-transition: .4s;
     transition: .4s;
 
     &::before {
       position: absolute;
       content: "";
-      height: 26px;
-      width: 26px;
-      left: 4px;
-      bottom: 4px;
+      height: 25px;
+      width: 26.38px;
+      left: 2px;
+      bottom: 2px;
       background-color: white;
       -webkit-transition: .4s;
       transition: .4s;

@@ -40,7 +40,9 @@ export default {
         'white',
         'light',
         'gray',
-        'light-gray'
+        'light-gray',
+        'red',
+        'dark'
       ].includes(value.toLowerCase())
     },
     mode: {
@@ -54,7 +56,8 @@ export default {
         'secondary-inline',
         'subtle',
         'text',
-        'time'
+        'time',
+        'product'
       ].includes(value.toLowerCase())
     },
     type: {
@@ -204,7 +207,7 @@ a {
     mix-blend-mode: normal;
   }
   &.disabled {
-    background: $color-gray !important;
+    background: $color-gray;
   }
   &.disabled:hover {
     box-shadow: none !important;
@@ -224,12 +227,8 @@ a {
     color: $green--answer;
   }
   &.disabled {
-    color: $color-gray !important;
-    border: 2px solid $color-gray !important;
-  }
-  &.disabled:hover {
-    box-shadow: none !important;
-    cursor: default !important;
+    color: $color-gray;
+    border: 2px solid $color-gray;
   }
 }
 
@@ -356,7 +355,8 @@ a {
 /*****************Light Gray****************/
 
 .btn.light-gray {
-  background-color: $light-gray;
+  background-color: $gray-5;
+  color: $gray-3;
   border: none;
 }
 
@@ -364,7 +364,7 @@ a {
 /*************Light********************/
 .btn.light {
   color: $color_discount;
-  background: $border-gray-bg;
+  background: $gray-5;
   border: none;
 
   &.time {
@@ -378,5 +378,29 @@ a {
   background-color: $white;
   border: 2px solid $light-gray;
   color: $gray;
+  &.product {
+    border: 1px solid $gray-5;
+    color: $gray-3;
+  }
+}
+
+/*************Red********************/
+
+.btn.red {
+  &.secondary-outline {
+    border: 1px solid $red-color;
+    color: $red-color;
+    background-color: transparent;
+  }
+}
+
+/*************Red********************/
+
+.btn.dark {
+  &.primary {
+    background-color: $gray-3;
+    color: white;
+    border: none;
+  }
 }
 </style>
