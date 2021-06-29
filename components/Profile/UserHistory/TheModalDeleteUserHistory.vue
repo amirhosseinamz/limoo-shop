@@ -8,22 +8,22 @@
       </h3>
 
       <div class="p-profile-history-btns w-100 justify-content-center">
-        <button
-          @click="DeleteHistory"
-          type="button"
-          name="button"
-          class="p-product-btn  p-history-product-btn-modal-delete cursor-pointer  "
-        >
+          <base-button
+            @button-clicked="DeleteHistory"
+            classes="p-product-btn p-history-product-btn-modal-delete"
+            base-color="yellow"
+            no-box-shadow
+          >
           {{ getTextByTextKey("public_delete") }}
-        </button>
-        <button
-          @click="modalClose"
-          type="button"
-          name="button"
-          class="p-product-btn  cursor-pointer p-history-product-btn-modal-cancel  "
-        >
+        </base-button>
+          <base-button
+            @button-clicked="modalClose"
+            classes="p-product-btn p-history-product-btn-modal-cancel"
+            no-box-shadow
+            base-color="light-gray"
+          >
           {{ getTextByTextKey("public_cancel") }}
-        </button>
+        </base-button>
       </div>
     </div>
   </modal>
@@ -81,36 +81,25 @@ export default {
   font-weight: 400;
 }
 .p-history-product-btn-modal-delete {
-  background: $yellow;
-  margin-left: 16px;
-  color: $white;
+  margin-left: 1rem;
 }
 .p-history-product-btn-modal-cancel {
-  background: $light_gray;
   margin-left: 0;
-  border-color: $light_gray;
-  color: $gray;
 }
-.p-history-product-btn-modal-cancel:hover {
-  background: $light-gray;
-  color: $gray;
-  /* border: 1px solid red; */
-}
-
 @media (max-width: 768px) {
   .p-profile-history-title {
     font-size: 16px;
   }
   .p-product-btn {
-    width: 130px;
-    height: 41px;
+    width: 130px!important;
+    height: 41px!important;
   }
 }
 
 @media (max-width: 460px) {
   .p-product-btn {
-    width: 116px;
-    height: 38px;
+    width: 116px!important;
+    height: 38px!important;
   }
 }
 </style>

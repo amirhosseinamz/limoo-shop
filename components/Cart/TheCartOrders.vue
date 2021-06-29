@@ -127,11 +127,12 @@
                                 :disabled="data.count == 1"
                             ></button>
                         </div>
-                        <button
-                            @click="showModalDeleteOrder(data)"
-                            class="order-detail__btn-delete"
-                            name="button"
-                        ></button>
+                        <base-button
+                            no-box-shadow
+                            @button-clicked="showModalDeleteOrder(data)"
+                            classes="order-detail__btn-delete"
+                            base-color="light"
+                        ></base-button>
                     </div>
                     <div class="order-detail__price-container">
                         <span class="order-detail__orderPrice">{{
@@ -298,7 +299,7 @@ export default {
     @include font-icon__limoo();
     content: "\e826";
     font-size: 16px;
-    color: $color-gray;
+    color: $gray-3;
 }
 
 .order-detail__btns-add-minus {

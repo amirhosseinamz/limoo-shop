@@ -76,22 +76,22 @@
       <div
         class="p-profile-favorite-btns w-100 justify-content-center p-modal-btns"
       >
-        <button
-          @click="submitTicketAdd"
-          type="button"
-          name="button"
-          class="btn__send-ticket"
-        >
+          <base-button
+            @button-clicked="submitTicketAdd"
+            classes="btn__send-ticket"
+            base-color="yellow"
+            no-box-shadow
+          >
           {{ getTextByTextKey("support_send") }}
-        </button>
-        <button
-          @click="eventCloseModal"
-          type="button"
-          name="button"
-          class="btn__cancel-ticket"
-        >
+        </base-button>
+          <base-button
+            @button-clicked="eventCloseModal"
+            classes="btn__cancel-ticket"
+            no-box-shadow
+            base-color="light-gray"
+          >
           {{ getTextByTextKey("public_cancel") }}
-        </button>
+        </base-button>
       </div>
     </form>
   </div>
@@ -289,20 +289,10 @@ export default {
     width: 130px;
     height: 47px;
     font-family: inherit;
-    font-size: 16px;
-    line-height: 140.62%;
-    border: none;
-    border-radius: 10px;
-    color: $white;
-    background-color: $yellow;
-    margin-left: 24px;
-    cursor: pointer;
+    margin-left: 1.5rem;
   }
   .btn__cancel-ticket {
-    color: $gray;
-    background-color: $light-gray;
     margin-left: 0;
-    cursor: pointer;
   }
   .pass__repeat {
     margin-bottom: 42px;
@@ -375,7 +365,7 @@ export default {
 }
 .p-modal-header-close-icon {
   /* border: 1px solid red; */
-  margin-top: 24px;
+  margin-top: 1.5rem;
 }
 .p-modal-header-close-icon::before {
   @include font-icon__limoo();

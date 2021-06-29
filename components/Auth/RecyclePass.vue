@@ -50,9 +50,9 @@
           </div>
 
           <div class="btn-control">
-            <button class="signup-btn" :disabled="btnIsDisabled" type="submit">
-              {{ getTextByTextKey("home_blog_single_more") }}
-            </button>
+              <base-button classes="signup-btn" button-type="submit" base-color="yellow" no-box-shadow :disabled="btnIsDisabled">
+                {{ getTextByTextKey("home_blog_single_more") }}
+              </base-button>
           </div>
         </form>
       </div>

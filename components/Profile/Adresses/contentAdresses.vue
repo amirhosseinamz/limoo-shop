@@ -21,13 +21,9 @@
     <div
       class="w-100 flex-wrap p-adresses-content-btn-add-main p-adresses-content-item-desktop"
     >
-      <button
-        @click="addAddress"
-        type="submit"
-        class=" btn-change p-adresses-content-btn-data"
-      >
+      <base-button no-box-shadow button-type="submit" @button-clicked="addAddress" classes="btn-change p-adresses-content-btn-data">
         {{ getTextByTextKey("address_add_address") }}
-      </button>
+      </base-button>
     </div>
 
     <div class="w-100 flex-wrap p-adresses-content-items">
@@ -98,10 +94,12 @@
                   class="p-adresses-content-data-btns w-100 justify-content-end"
                 >
                   <div class="p-favorite-product-btn-main">
-                    <button
-                      type="button"
-                      class="p-product-btn cursor-pointer p-adresses-content-btn-edit"
-                      name="button"
+                    <base-button
+                      no-box-shadow
+                      base-color="yellow"
+                      mode="secondary-outline"
+                      button-type="button"
+                      classes="p-product-btn p-adresses-content-btn-edit"
                     >
                       <span
                         @click="editAddress(data)"
@@ -119,18 +117,15 @@
                           alt=""
                         />
                       </span>
-                    </button>
-                    <button
-                      @click="showModalDeleteProduct(data)"
-                      class="p-favorite-product-btn-delete cursor-pointer  p-adresses-content-btn-delete"
-                      name="button"
+                    </base-button>
+                    <base-button
+                      @button-clicked="showModalDeleteProduct(data)"
+                      classes="p-favorite-product-btn-delete p-adresses-content-btn-delete"
+                      no-box-shadow
+                      base-color="light"
                     >
-                      <img
-                        class="p-favorite-product-item-icon-delete"
-                        src="/icons/delete.svg"
-                        alt=""
-                      />
-                    </button>
+                      <span class="p-favorite-product-item-icon-delete"></span>
+                    </base-button>
                   </div>
                 </div>
               </div>
@@ -149,15 +144,11 @@
       </span>
     </div>
     <div
-      class="w-100 flex-wrap p-adresses-content-btn-add-mobile p-adresses-content-item-mobile"
+      class="p-adresses-content-btn-add-mobile p-adresses-content-item-mobile"
     >
-      <button
-        @click="addAddress"
-        type="submit"
-        class=" btn-change p-adresses-content-btn-data"
-      >
+      <base-button no-box-shadow button-type="submit" @button-clicked="addAddress" classes="btn-change p-adresses-content-btn-data">
         {{ getTextByTextKey("address_add_address") }}
-      </button>
+      </base-button>
     </div>
   </div>
 </template>
@@ -324,7 +315,7 @@ export default {
   content: "\e802";
   @include font-icon__new();
   font-size: 28px;
-  color: $color-gray;
+  color: $gray-3;
   cursor: pointer;
 }
 .p-adresses-content-header-item {
@@ -362,7 +353,7 @@ export default {
   align-items: flex-end;
 }
 .p-adresses-content-btn-edit {
-  width: 130px;
+  width: 130px!important;
 }
 .p-adresses-content-wrapper {
   @include display-flex();
@@ -381,11 +372,9 @@ export default {
   display: none;
 }
 .p-adresses-content-btn-add-mobile .p-adresses-content-btn-data {
-  margin-top: 0;
   width: 100%;
-  font-size: 16px;
-  margin-bottom: 24px;
-  margin-top: 24px;
+  margin-bottom: 1.5rem;
+  margin-top: 1.5rem;
 }
 .p-adresses-content-data-wrapper {
   height: 167px;
@@ -394,6 +383,12 @@ export default {
 }
 .p-favorite-product-btn-main {
   margin-bottom: 37px;
+}
+.p-favorite-product-item-icon-delete::before {
+  @include font-icon__limoo();
+  font-size: 16px;
+  content: "\e826";
+  color: $gray-3;
 }
 .p-adresses-icon::before {
   content: "\e823";
@@ -491,17 +486,15 @@ export default {
     height: auto;
   }
   .p-favorite-product-btn-delete {
-    width: 37px;
-    height: 37px;
+    width: 37px!important;
+    height: 37px!important;
   }
   .p-adresses-content-btn-edit {
-    background: $yellow;
-    border-radius: 10px;
-    height: 36px;
-    width: 36px;
-  }
-  .p-adresses-content-btn-delete {
-    margin-right: 16px;
+    background: $yellow!important;
+    color: $white!important;
+    height: 36px!important;
+    width: 36px!important;
+    border: none!important;
   }
   .p-adresses-content-header-icon {
     width: 18px;
@@ -512,6 +505,8 @@ export default {
   }
   .p-adresses-content-item-mobile {
     display: flex;
+    align-items: center;
+    justify-content: center;
   }
   .p-adresses-content-text-main {
     margin-bottom: 0;

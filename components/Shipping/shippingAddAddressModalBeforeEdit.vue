@@ -200,29 +200,29 @@
             <div
                 class="p-profile-favorite-btns w-100 justify-content-center p-modal-btns"
             >
-                <button
-                    @click="submitAddressAdd"
-                    type="button"
-                    name="button"
-                    class="p-product-btn  p-favorite-product-btn-modal-delete cursor-pointer  "
-                >
-                    ثبت
-                </button>
-
-                <button
-                    @click="closeModalMobile"
-                    type="button"
-                    name="button"
-                    class="p-product-btn  cursor-pointer p-favorite-product-btn-modal-cancel "
-                >
-                    بازگشت
-                </button>
+                  <base-button
+                    @button-clicked="submitAddressAdd"
+                    classes="p-product-btn p-favorite-product-btn-modal-delete"
+                    base-color="yellow"
+                    no-box-shadow
+                  >
+                   {{ getTextByTextKey("public_submit") }}
+                </base-button>
+                  <base-button
+                    @button-clicked="closeModalMobile"
+                    classes="p-product-btn p-favorite-product-btn-modal-cancel"
+                    no-box-shadow
+                    base-color="light-gray"
+                  >
+                    {{ getTextByTextKey("public_back") }}
+                </base-button>
             </div>
         </form>
     </div>
 </template>
 <script>
 import customeDropDown from "~/modules/customeDropDown.vue";
+import { getTextByTextKey } from "../../modules/splitPartJsonResource";
 import "~/assets/styles/_adresses.scss";
 
 export default {
@@ -535,7 +535,8 @@ export default {
             this.formData.selectedCityAllProperty = allData;
             this.showErrorValidationCity = false;
             this.$emit("selected-city", allData);
-        }
+        },
+      getTextByTextKey,
     }
 };
 </script>
@@ -749,12 +750,6 @@ export default {
 .p-modal-show_error .p-modal-item-input {
     border: solid 1px $red !important;
 }
-.p-favorite-product-btn-modal-delete {
-    font-size: 16px;
-}
-.p-favorite-product-btn-modal-cancel {
-    font-size: 16px;
-}
 .p-modal-validation-mobile {
     display: none !important;
 }
@@ -916,7 +911,7 @@ export default {
 
 @media screen and (max-width: 485px) {
     .p-product-btn {
-        width: 47%;
+        width: 47%!important;
         margin-left: 0;
     }
     .p-favorite-product-btn-modal-delete {

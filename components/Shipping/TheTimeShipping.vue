@@ -27,18 +27,17 @@
                         v-show="data.shipping == 'seller'"
                         >ارسال توسط فروشنده</span
                     >
-                    <button
-                        class="shipping-btn__items shipping-btn__limoo"
-                        :class="{
-                            'shipping-btn__limoo-active': data.limooSelected
-                        }"
+                      <base-button
+                        :class="[{'shipping-btn__limoo-active': data.limooSelected}, 'shipping-btn__items', 'shipping-btn__limoo']"
+                        @button-clicked="selectSendByLimoo(data)"
+                        no-box-shadow
+                        base-color="white"
                         v-show="data.shippingLimoo == 'limoo'"
-                        @click="selectSendByLimoo(data)"
-                    >
+                      >
                         <span class="shipping-btn__limoo-title"
                             >ارسال توسط لیمو</span
                         >
-                    </button>
+                    </base-button>
                     <button
                         class="shipping-btn__items shipping-btn__seller"
                         :class="{
@@ -364,11 +363,10 @@ export default {
     height: fit-content;
 }
 .shipping-btn__items {
-    margin-right: 16px;
+    margin-right: 1rem;
     font-family: inherit;
     font-size: 14px;
     background-color: transparent;
-    cursor: pointer;
 }
 .shipping-btn__seller,
 .shipping-btn__limoo,
@@ -437,8 +435,8 @@ export default {
 .shipping-btn__post-active,
 .shipping-btn__limoo-active,
 .shipping-btn__seller-active {
-    border: 2px solid $yellow;
-    color: $code;
+    border: 2px solid $yellow!important;
+    color: $code!important;
 }
 .shipping-btn__post-active .shipping-btn__post-title::before {
     color: $blue-post;

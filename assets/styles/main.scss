@@ -9,6 +9,9 @@
 html {
   font-family: "IRANYekan";
 }
+a {
+  text-decoration: none;
+}
 // ==============Inheritance classes==================
 .sass-input__default {
   outline: none;
@@ -42,16 +45,8 @@ button {
 .btn-change {
   height: 57px;
   width: 270px;
-  background: $btn__green;
-  color: $white;
   font-size: 18px;
   font-family: inherit;
-  line-height: 140.62%;
-  text-align: center;
-  border-radius: 10px;
-  cursor: pointer;
-  outline: none;
-  border: none;
   transition: all 120ms ease-in;
 }
 // .btn-change:hover{
@@ -105,34 +100,14 @@ input::-webkit-inner-spin-button {
 .signup-btn {
   font-family: inherit;
   font-size: 18px;
-  font-weight: 400;
-  line-height: 25.31px;
-  text-align: center;
-  color: $white;
-  background: $yellow;
   height: 58px;
   width: 463px;
-  border: none;
-  border-radius: 10px;
-  outline: none;
-
-  cursor: pointer;
 }
 .google-signup-btn {
   font-family: inherit;
-  font-size: 14px;
-  font-weight: 500;
-  line-height: 19.69px;
-  text-align: center;
-  color: $gray;
-  background: $google-btn__bg;
   height: 44px;
   width: 189px;
-  border: none;
-  border-radius: 10px;
-  outline: none;
   margin-bottom: 31px;
-  cursor: pointer;
   visibility: hidden;
 }
 .signin-input,
@@ -215,6 +190,7 @@ input::-webkit-inner-spin-button {
   flex-wrap: wrap;
 }
 .justify-content-center {
+  display: flex;
   justify-content: center;
 }
 .p-product-btn {
@@ -238,25 +214,18 @@ input::-webkit-inner-spin-button {
   @include display-flex();
 }
 .p-favorite-product-btn-delete {
-  background: $google-btn__bg;
-  border: 2px solid $google-btn__bg;
-  box-sizing: border-box;
-  border-radius: 10px;
   width: 47px;
   height: 47px;
-  margin-right: 25px;
+  margin-right: 0.7rem;
 }
 .p-favorite-product-btn-link {
   border: none;
+  font-family: inherit;
   color: inherit;
-  border-bottom: none;
   unicode-bidi: normal;
-  text-decoration: none;
   width: 100%;
   height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  line-height: 2.5rem;
 }
 .p-input-style__default {
   @include display-flex();

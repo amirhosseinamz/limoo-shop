@@ -89,16 +89,20 @@
 
                 <div class="order-detail__btns-container">
                     <!-- edit btn -->
-                    <button
-                        @click="showModalDeleteOrder(data)"
-                        class="order-detail__btn-delete"
-                        name="button"
-                    ></button>
-                    <button
-                        @click="editAddress(data)"
-                        class="address-detail__btn-edit"
-                        name="button"
-                    ></button>
+                    <base-button
+                        @button-clicked="showModalDeleteOrder(data)"
+                        classes="order-detail__btn-delete"
+                        base-color="light-gray"
+                        no-box-shadow
+                    ></base-button>
+                    <base-button
+                        @button-clicked="editAddress(data)"
+                        classes="address-detail__btn-edit"
+                        no-box-shadow
+                        no-hover
+                        base-color="yellow"
+                        mode="secondary-inline"
+                    ></base-button>
                 </div>
             </div>
         </div>
@@ -380,29 +384,19 @@ export default {
 .order-detail__btn-delete {
     width: 37px;
     height: 37px;
-    background-color: $light-gray;
-    box-sizing: border-box;
-    border-radius: 10px;
-    border: none;
-    cursor: pointer;
-    margin-bottom: 16px;
+    margin-bottom: 1rem;
 }
 .order-detail__btn-delete::before {
     @include font-icon__limoo();
     content: "\e826";
     font-size: 14px;
-    color: $gray;
+    color: $gray-3;
 }
 .address-detail__btn-edit {
     width: 37px;
     height: 37px;
-    background-color: $yellow;
-    box-sizing: border-box;
-    border-radius: 10px;
-    border: none;
-    cursor: pointer;
-    margin-left: 10px;
-    margin-bottom: 16px;
+    margin-left: 0.625rem;
+    margin-bottom: 1rem;
 }
 .address-detail__btn-edit::before {
     @include font-icon__limoo();

@@ -6,97 +6,17 @@
           <h3 class="products__top-text">موبایل اندرویدی</h3>
         </div>
 
-        <div class="buttons__example">
-          <Button
-            state="primary"
-            size="medium"
-            :show-inside-icon-button-text="false"
-            :show-loading="false"
-            class-name-text-button=""
-            class-name-icon-button=""
-            text="ورود به لیمو"
-            icon-address="/icons/filter_search_icon.svg"
-            class="products__filter-btn"
-            @btn-click="showBoxFilter"
-          ></Button>
-
-          <Button
-            state="secondary"
-            size="medium"
-            :show-inside-icon-button-text="false"
-            :show-loading="false"
-            class-name-text-button=""
-            class-name-icon-button=""
-            text="ادامه فرایند خرید"
-            icon-address="/icons/filter_search_icon.svg"
-            class="products__filter-btn"
-            @btn-click="showBoxFilter"
-          ></Button>
-
-          <Button
-            state="stroke"
-            size="small"
-            :show-inside-icon-button-text="false"
-            :show-loading="false"
-            class-name-text-button=""
-            class-name-icon-button=""
-            text="ادامه فرایند خرید"
-            icon-address="/icons/filter_search_icon.svg"
-            class="products__filter-btn"
-            @btn-click="showBoxFilter"
-          ></Button>
-
-          <Button
-            state="stroke"
-            size="extra--small"
-            :show-inside-icon-button-text="false"
-            :show-loading="false"
-            class-name-text-button=""
-            class-name-icon-button=""
-            text="ادامه فرایند خرید"
-            icon-address="/icons/filter_search_icon.svg"
-            class="products__filter-btn"
-            @btn-click="showBoxFilter"
-          ></Button>
-        </div>
-
         <div class="products__filter-btns w-100 ">
-          <!-- <buttonFilter
-            status="initial"
-            size="large"
-            :show-inside-icon-button-text="false"
-            class-name-text-button=""
-            class-name-icon-button=""
-            :text="getTextByTextKey('category_filter_text')"
-            icon-address="/icons/filter_search_icon.svg"
-            class=""
-            state="button"
-            @btn-click="showBoxFilter"
-          ></buttonFilter> -->
+          <base-button no-box-shadow classes="products__filter-btn" @button-clicked="showBoxFilter">
+            <img src="/icons/filter_search_icon.svg" alt="filter">
+            {{ getTextByTextKey('category_filter_text') }}
+          </base-button>
 
-          <buttonFilter
-            status="initial"
-            size="small"
-            :show-inside-icon-button-text="true"
-            class-name-text-button=""
-            class-name-icon-button=""
-            :text="getTextByTextKey('category_filter_text')"
-            icon-address="/icons/filter_search_icon.svg"
-            class="products__filter-btn"
-            state="button"
-            @btn-click="showBoxFilter"
-          ></buttonFilter>
+          <base-button no-box-shadow classes="products__filter-btn" base-color="dark" @button-clicked="showModalSort">
+            <img src="/icons/arrow-filter.svg" alt="news">
+            {{ getTextByTextKey('category_btn_new') }}
+          </base-button>
 
-          <buttonFilter
-            state="initial"
-            :show-inside-icon-button-text="true"
-            class-name-text-button=""
-            class-name-icon-button=""
-            :text="getTextByTextKey('category_btn_new')"
-            icon-address="/icons/arrow-filter.svg"
-            class="products__filter-btn btn--filter-gray"
-            @btn-click="showModalSort"
-          ></buttonFilter>
         </div>
 
         <div class="products__top-title w-100 products__top-mobile">
@@ -105,15 +25,16 @@
       </div>
 
       <div class="products__suggestions w-100">
-        <div
-          :class="{ 'products__suggestions-active': data.active }"
-          @click="activeSuggestion(data)"
-          v-for="data in allCategorySuggestion"
-          :key="data.id"
-          class="products__suggestion-item "
-        >
+          <base-button
+            :class="[{ 'products__suggestions-active': data.active }, 'products__suggestion-item']"
+            @button-clicked="activeSuggestion(data)"
+            v-for="data in allCategorySuggestion"
+            :key="data.id"
+            base-color="white"
+            mode="product"
+          >
           <h3 class="products__suggestion-title">{{ data.title }}</h3>
-        </div>
+        </base-button>
       </div>
     </div>
   </div>
@@ -204,21 +125,15 @@ export default {
   flex-wrap: wrap;
 }
 .products__filter-btn {
-  margin-left: 21px;
-  background: $btn__green;
-  padding-top: 12px;
-  padding-bottom: 12px;
-  padding-right: 20px;
-  padding-left: 20px;
-  border: none;
-  border-radius: 10px;
-  outline: none;
+  justify-content: start!important;
+  margin-left: 1.3125rem;
   font-family: inherit;
   width: 207px;
   height: 47px;
-  @include display-flex();
-  align-items: center;
-  cursor: pointer;
+
+  img {
+    margin: 0 1rem 0 0.6rem;
+  }
 }
 .products__filter-btn:last-of-type {
   margin-left: 0;
@@ -250,15 +165,10 @@ export default {
 }
 .products__suggestion-item {
   font-family: inherit;
-  border-radius: 10px;
-  border: solid 1px $light-gray;
-  padding-top: 13px;
-  padding-bottom: 13px;
-  padding-right: 30px;
-  padding-left: 30px;
-  margin-left: 8px;
+  padding: 0.8125rem 1.875rem;
+  margin-left: 0.5rem;
   cursor: pointer;
-  margin-bottom: 8px;
+  margin-bottom: 0.5rem;
 }
 .products__suggestion-item:last-of-type {
   margin-left: 0;
@@ -269,23 +179,14 @@ export default {
   font-weight: 300;
 }
 .products__suggestions-active {
-  background: $light-yellow;
-  border-color: $light-yellow;
+  background: $light-yellow!important;
+  border-color: $light-yellow!important;
 }
 .products__suggestions-active .products__suggestion-title {
-  color: $white;
+  color: $white!important;
 }
 .products__top-mobile {
   display: none;
-}
-
-.products__filter-main::v-deep {
-  .button__text {
-    @extend .products__filter-text;
-  }
-  .button__icon {
-    @extend .products__filter-icon;
-  }
 }
 
 @media (max-width: 1220px) {
@@ -327,24 +228,14 @@ export default {
     width: 48%;
     height: 36px;
     margin-left: 3.5%;
-  }
-  .products__filter-text {
-    font-size: 14px;
-  }
-  .products__filter-icon {
-    height: 17px;
-  }
-  .btn--filter-gray .products__filter-icon {
-    height: 19px;
-  }
-  .products__filter-text {
-    margin-right: 6px;
+    font-size: 14px!important;
+    img {
+      margin: 0 0.3rem 0 0.6rem;
+      height: 19px;
+    }
   }
   .products__suggestions {
     padding-right: 8px;
-  }
-  .btn--filter-gray {
-    background: $gray;
   }
   .products__top-desktop {
     display: none;
@@ -370,12 +261,12 @@ export default {
   .products__filter-btn {
     padding-right: 8px;
     padding-left: 8px;
-  }
-  .products__filter-text {
-    font-size: 13px;
-  }
-  .btn--filter-gray .products__filter-icon {
-    height: 17px;
+    font-size: 13px!important;
+
+    img {
+      margin: 0 0.1rem 0 0.6rem;
+      height: 17px;
+    }
   }
 }
 </style>

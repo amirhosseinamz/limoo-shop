@@ -12,15 +12,22 @@
         </div>
         <div class="btn-control">
           <!-- to="/profile/personal-info" -->
-          <button
-            @click="closeWellcomeModalandGoToProfile"
-            class="badge-btn complete-btn"
-          >
+            <base-button
+              @button-clicked="closeWellcomeModalandGoToProfile"
+              classes="badge-btn complete-btn"
+              base-color="yellow"
+              no-box-shadow
+            >
             {{ getTextByTextKey("auth_aignup_complete") }}
-          </button>
-          <button @click="closeWellcomeModal" class="badge-btn later-btn">
+          </base-button>
+            <base-button
+              @button-clicked="closeWellcomeModal"
+              classes="badge-btn later-btn"
+              no-box-shadow
+              base-color="light-gray"
+            >
             {{ getTextByTextKey("auth_aignup_now_not") }}
-          </button>
+          </base-button>
         </div>
       </div>
     </div>
@@ -97,30 +104,16 @@ export default {
   padding-left: 50px;
 }
 .badge-btn {
-  @include display-flex();
-  align-items: center;
-  justify-content: center;
   font-family: inherit;
-  text-align: center;
-  border: none;
-  border-radius: 10px;
-  outline: none;
-  cursor: pointer;
   width: 200px;
   height: 52px;
-  font-weight: 500;
   font-size: 14px;
-  text-decoration: none;
 }
 .complete-btn {
-  color: $white;
-  background: $yellow;
-  margin: 0px 10px 28px 24px;
+  margin: 0 0.625rem 1.75rem 1.5rem;
 }
 .later-btn {
-  background: $google-btn__bg;
-  color: $code;
-  margin: 0px 24px 28px 10px;
+  margin: 0 1.5rem 1.75rem 0.625rem;
 }
 
 @media screen and (max-width: 700px) {

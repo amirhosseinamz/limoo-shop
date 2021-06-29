@@ -146,11 +146,12 @@
                   {{ data.commentTime }}
                 </div>
                 <div class="p-favorite-product-btn-main">
-                  <button
-                    type="button"
-                    class="p-product-btn cursor-pointer p-comment-content-btn-edit"
-                    name="button"
-                  >
+                    <base-button
+                      no-box-shadow
+                      base-color="yellow"
+                      mode="secondary-outline"
+                      classes="p-product-btn p-comment-content-btn-edit"
+                    >
                     <span
                       class="p-favorite-product-btn-link p-comment-content-item-desktop"
                     >
@@ -161,14 +162,15 @@
                       class="p-favorite-product-btn-link p-comment-content-item-mobile "
                     >
                     </span>
-                  </button>
-                  <button
-                    @click="showModalDeleteProduct(data)"
-                    class="p-favorite-product-btn-delete cursor-pointer  p-comment-content-btn-delete"
-                    name="button"
-                  >
+                    </base-button>
+                    <base-button
+                      @button-clicked="showModalDeleteProduct(data)"
+                      classes="p-favorite-product-btn-delete p-comment-content-btn-delete"
+                      no-box-shadow
+                      base-color="light"
+                    >
                     <span class="p-favorite-product-item-icon-delete"></span>
-                  </button>
+                  </base-button>
                 </div>
               </div>
             </div>
@@ -434,7 +436,7 @@ export default {
   @include font-icon__limoo();
   font-size: 16px;
   content: "\e826";
-  color: $input-border;
+  color: $gray-3;
 }
 .p-comments-content-header {
   background: $white;
@@ -511,7 +513,7 @@ export default {
   align-items: flex-start;
 }
 .p-comment-content-btn-edit {
-  width: 130px;
+  width: 130px!important;
 }
 .p-comment-content-wrapper {
   @include display-flex();
@@ -680,17 +682,15 @@ export default {
     height: auto;
   }
   .p-favorite-product-btn-delete {
-    width: 37px;
-    height: 37px;
+    width: 37px!important;
+    height: 37px!important;
   }
   .p-comment-content-btn-edit {
-    background: $yellow;
-    border-radius: 10px;
-    height: 36px;
-    width: 36px;
-  }
-  .p-comment-content-btn-delete {
-    margin-right: 16px;
+    background: $yellow!important;
+    color: $white!important;
+    height: 36px!important;
+    width: 36px!important;
+    border: none!important;
   }
   .p-comments-content-header-icon {
     width: 18px;
@@ -706,6 +706,8 @@ export default {
   }
   .p-comment-content-item-mobile {
     display: flex;
+    justify-content: center;
+    align-items: center;
   }
   .p-commentedproduct-main {
     margin-right: 6px;

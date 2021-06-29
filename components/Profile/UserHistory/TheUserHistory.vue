@@ -46,23 +46,14 @@
 
         <div class="p-history-product-left align-items-start">
           <div class="p-history-product-btn-main">
-            <button
-              type="button"
-              class="p-product-btn cursor-pointer"
-              name="button"
-            >
-              <NuxtLink
-                :to="'/product/' + data.id"
-                class="p-history-product-btn-link"
-              >
-                <span class="btn-text-desktop">
+            <base-button base-color="yellow" link :to="'/product/' + data.id" no-box-shadow mode="secondary-outline" classes="p-product-btn">
+              <span class="btn-text-desktop">
                   {{ getTextByTextKey("profile_see_single_product") }}
                 </span>
-                <span class="btn-text-mobile">
+              <span class="btn-text-mobile">
                   {{ getTextByTextKey("profile_order_see") }}
                 </span>
-              </NuxtLink>
-            </button>
+            </base-button>
             <button
               @click="deleteFav(data)"
               type="button"
@@ -85,6 +76,7 @@
 <script>
 import { getTextByTextKey } from "~/modules/splitPartJsonResource.js";
 import textInput from "~/modules/textInput";
+import BaseButton from "../../UI/BaseButton";
 
 export default {
   data() {
@@ -112,13 +104,14 @@ export default {
     historyData: { type: [Object, Array], default: {} },
   },
   components: {
+    BaseButton,
     textInput,
   },
   created() {
     this.userHistory = Object.values(this.historyData).length;
   },
   computed: {
-    historyData() {
+    historyDataa() {
       return (this.userHistory = Object.values(this.historyData).length);
     },
   },
@@ -127,7 +120,6 @@ export default {
       console.log(this.userHistory);
     },
   },
-  computed: {},
   methods: {
     getTextByTextKey,
     deleteFav(data) {
@@ -278,7 +270,7 @@ export default {
   content: "\e826";
   @include font-icon__limoo();
   font-size: 17px;
-  color: $input-border;
+  color: $gray-3;
 }
 .p-history-product-btn-link {
   border: none;
@@ -318,12 +310,6 @@ export default {
     width: 36px;
     height: 36px;
     margin-right: 16px;
-  }
-  .p-history-product-btn-main .p-product-btn {
-    width: 116px;
-    background: $yellow;
-    color: $white;
-    height: 36px;
   }
 }
 

@@ -49,9 +49,9 @@
           >
           </text-input>
           <div class="btn-control">
-            <button class="signin-btn" type="submit">
+            <base-button base-color="yellow" button-type="submit" classes="signin-btn" no-effect no-box-shadow>
               {{ getTextByTextKey("home_blog_single_more") }}
-            </button>
+            </base-button>
           </div>
           <div class="forget-pass-section">
             <p @click="forgetPass" class="forget-pass">
@@ -161,7 +161,10 @@ export default {
   box-shadow: 0px 8px 16px $box__shadow;
   border-radius: 15px;
 }
-
+.btn-control {
+  @include display-flex();
+  justify-content: center;
+}
 .signin-next-btn {
   @include display-flex();
   justify-content: flex-start;
@@ -223,7 +226,7 @@ export default {
 }
 
 .signin-btn {
-  margin-top: 32px;
+  margin-top: 2rem;
 }
 .signin-input {
   padding-right: 24px;
@@ -292,8 +295,8 @@ export default {
   }
 
   .signin-btn {
-    width: 328px;
-    margin-top: 30px;
+    width: 328px!important;
+    margin-top: 1.875rem;
   }
   .txt-header {
     font-size: 20px;
@@ -364,7 +367,7 @@ export default {
     margin-bottom: 8px;
   }
   .signin-btn {
-    width: 280px;
+    width: 280px!important;
   }
   .txt-header {
     font-size: 20px;

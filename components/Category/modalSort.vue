@@ -25,22 +25,22 @@
 
       <div class="w-100 modal-filter__btn">
         <div class="modal-filter__line"></div>
-        <button
-          @click="submitModal"
-          type="button"
-          name="button"
-          class="p-product-btn    "
-        >
+          <base-button
+            @button-clicked="submitModal"
+            classes="p-product-btn"
+            base-color="yellow"
+            no-box-shadow
+          >
           {{ getTextByTextKey("category_btn_submit_change") }}
-        </button>
-        <button
-          @click="modalClose"
-          type="button"
-          name="button"
-          class="modal-cancel"
-        >
+        </base-button>
+          <base-button
+            @button-clicked="modalClose"
+            classes="modal-cancel"
+            no-box-shadow
+            base-color="light-gray"
+          >
           {{ getTextByTextKey("category_submit_cancelle") }}
-        </button>
+        </base-button>
       </div>
     </div>
   </modal>
@@ -177,24 +177,13 @@ export default {
 .p-product-btn {
   width: 130px;
   height: 47px;
-  background: $yellow !important;
-  color: $white;
-  margin-left: 24px;
-  font-size: 16px;
-  cursor: pointer;
+  margin-left: 1.5rem;
 }
 .modal-cancel {
   width: 130px;
   height: 47px;
-  background: $light-gray;
   margin-left: 0;
-  border-color: $gray;
-  color: #828282;
-  border-radius: 10px;
-  border: none;
   font-family: inherit;
-  font-size: 16px;
-  cursor: pointer;
 }
 .modal-filter__btn {
   padding-bottom: 18px;
@@ -229,7 +218,7 @@ export default {
     font-size: 14px;
   }
   .p-product-btn {
-    font-size: 14px;
+    font-size: 14px!important;
   }
   .modal-filter__item-close::before {
     // content: "\e801";
@@ -250,7 +239,7 @@ export default {
     padding-bottom: 18px;
   }
   .p-product-btn {
-    margin-left: 4%;
+    margin-left: 4%!important;
   }
   .modal-sort__close-item {
     padding-right: 0px;
@@ -267,8 +256,8 @@ export default {
   //   font-size: 17px;
   // }
   .p-product-btn {
-    width: 36%;
-    margin-left: 7%;
+    width: 36%!important;
+    margin-left: 7%!important;
   }
   .modal-cancel {
     width: 36%;
@@ -277,7 +266,7 @@ export default {
 
 @media (max-width: 320px) {
   .p-product-btn {
-    width: 45%;
+    width: 45%!important;
   }
 }
 </style>

@@ -53,16 +53,28 @@
             </div>
         </div>
         <div class="time-modal__btn-holder">
-            <button class="time-modal__btn-submit" @click="submitTimeAdd">
-                ثبت
-            </button>
-            <button class="time-modal__btn-cancel" @click="closeModal">
-                انصراف
-            </button>
+              <base-button
+                @button-clicked="submitTimeAdd"
+                classes="time-modal__btn-submit"
+                base-color="yellow"
+                no-box-shadow
+              >
+                {{ getTextByTextKey("public_submit") }}
+            </base-button>
+              <base-button
+                @button-clicked="closeModal"
+                classes="time-modal__btn-cancel"
+                no-box-shadow
+                base-color="light-gray"
+              >
+                {{ getTextByTextKey("public_cancel") }}
+            </base-button>
         </div>
     </div>
 </template>
 <script>
+import { getTextByTextKey } from "../../modules/splitPartJsonResource";
+
 export default {
     props: {
         timeData: { type: [Object, Array], default: {} }
@@ -158,7 +170,8 @@ export default {
                 }
             });
             this.updateTimeSelected++;
-        }
+        },
+      getTextByTextKey,
     }
 };
 </script>
@@ -204,18 +217,8 @@ export default {
 .time-modal__btn-cancel {
     width: 149px;
     height: 47px;
-    border-radius: 10px;
-    border: none;
     font-family: inherit;
-    font-size: 14px;
-}
-.time-modal__btn-submit {
-    color: $white;
-    background-color: $yellow;
-}
-.time-modal__btn-cancel {
-    color: $gray;
-    background-color: $light-gray;
+    font-size: 14px!important;
 }
 .time-modal__dayTime-holder {
     @include display-flex();

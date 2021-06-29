@@ -21,13 +21,15 @@
       </div>
     </transition>
     <div class="w-100 flex-wrap p-tickets-content-btn-add-main">
-      <button
-        @click="addTicket"
-        type="submit"
-        class=" btn-change p-tickets-content-btn-data"
-      >
+      <base-button
+        @button-clicked="addTicket"
+        button-type="submit"
+        classes="btn-change p-tickets-content-btn-data"
+        base-color="yellow"
+        mode="secondary-outline"
+        >
         {{ getTextByTextKey("support_send_new_ticket") }}
-      </button>
+      </base-button>
 
       <span class="p-ticket__topic" v-show="userTicket !== 0">
         {{ getTextByTextKey("support_request") }}
@@ -96,25 +98,29 @@
                   class="p-tickets-content-data-btns w-100 justify-content-end"
                 >
                   <div class="p-favorite-product-btn-main">
-                    <button
-                      @click="editTicket(data)"
-                      type="button"
-                      class="p-product-btn cursor-pointer p-ticket-content-btn-edit"
-                      name="button"
-                    ></button>
-                    <button
-                      @click="showModalDeleteProduct(data)"
-                      class="p-favorite-product-btn-delete cursor-pointer  p-tickets-content-btn-delete"
-                      name="button"
-                    ></button>
+                    <base-button
+                      @button-clicked="editTicket(data)"
+                      button-type="button"
+                      classes="p-ticket-content-btn-edit"
+                      base-color="yellow"
+                      mode="secondary-outline"
+                    ></base-button>
+                    <base-button
+                      @button-clicked="showModalDeleteProduct(data)"
+                      classes="p-favorite-product-btn-delete p-tickets-content-btn-delete"
+                      no-box-shadow
+                      base-color="light"
+                    ></base-button>
                   </div>
-                  <button
+                  <base-button
                     v-show="data.answer"
-                    @click="sendAnswer"
-                    class="ticket__send-answer"
-                  >
+                    @button-clicked="sendAnswer"
+                    classes="ticket__send-answer"
+                    base-color="yellow"
+                    mode="secondary-inline"
+                    >
                     {{ getTextByTextKey("support_send_answer") }}
-                  </button>
+                  </base-button>
                 </div>
               </div>
             </div>
@@ -147,9 +153,6 @@ export default {
       userTicket: -1,
     };
   },
-
-  components: {},
-
   computed: {},
   created() {
     this.userTicket = Object.values(this.ticketData).length;
@@ -276,18 +279,9 @@ export default {
   margin-top: 28px;
 }
 .p-tickets-content-btn-data {
-  margin: 38px 14px 0 0;
-  font-size: 16px;
-  height: 57px;
+  margin-top: 2rem;
+  height: 56px;
   width: 270px;
-  color: $yellow;
-  background: $white;
-  border: 2px solid $yellow;
-  box-shadow: 0px 8px 16px $box__shadow;
-}
-.p-tickets-content-btn-data:hover {
-  color: $white;
-  background: $yellow;
 }
 .p-tickets-content-item {
   @include display-flex();
@@ -389,21 +383,11 @@ export default {
   /* border: 1px solid red; */
 }
 .ticket__send-answer {
-  border: none;
-  font-family: inherit;
-  font-size: 16px;
   height: 47px;
   width: 130px;
-  background-color: $yellow;
-  color: $white;
-  border-radius: 10px;
-  margin-left: 24px;
-  cursor: pointer;
-}
-.ticket__send-answer:hover {
-  background-color: $white;
-  color: $yellow;
-  border: 2px solid $yellow;
+  font-family: inherit;
+  margin-left: 1.5rem;
+  transition: all 120ms ease-in;
 }
 .p-ticket-content-btn-edit::before {
   @include font-icon__limoo();
@@ -415,11 +399,9 @@ export default {
   color: $white;
 }
 .p-ticket-content-btn-edit {
-  /* background: $yellow; */
-  border: 2px solid $yellow;
-  border-radius: 10px;
   height: 47px;
   width: 47px;
+  transition: all 120ms ease-in;
 }
 .p-ticketss-content-wrapper {
   @include display-flex();
@@ -432,7 +414,7 @@ export default {
   @include font-icon__limoo();
   font-size: 16px;
   content: "\e826";
-  color: $input-border;
+  color: $gray-3;
 }
 
 .p-tickets-content-data-wrapper {
@@ -463,10 +445,9 @@ export default {
     margin-top: 8px;
   }
   .p-tickets-content-btn-data {
-    margin: 24px auto 0 auto;
+    margin-top: 1rem;
     height: 47px;
     width: 259px;
-    border: 2px solid $yellow;
   }
   .p-ticket__topic {
     font-size: 14px;
@@ -542,8 +523,8 @@ export default {
     padding-left: 40px;
   }
   .p-favorite-product-btn-delete {
-    width: 37px;
-    height: 37px;
+    width: 37px!important;
+    height: 37px!important;
   }
   .p-tickets__state-accepted__title,
   .p-tickets__state-acceptting__title {
@@ -559,15 +540,17 @@ export default {
     margin-left: 8px;
   }
   .p-tickets-content-btn-delete {
-    margin-right: 16px;
+    margin-right: 1rem;
   }
   .p-ticket-content-btn-edit {
-    background: $yellow;
-    height: 36px;
-    width: 36px;
+    background: $yellow!important;
+    height: 36px!important;
+    width: 36px!important;
+    border: none!important;
   }
   .p-ticket-content-btn-edit:hover {
-    background: $white;
+    background: $white!important;
+    border: 2px solid $yellow!important;
   }
   .p-ticket-content-btn-edit::before {
     font-size: 14px;

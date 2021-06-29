@@ -46,36 +46,25 @@
 
         <div class="p-favorite-product-left align-items-start">
           <div class="p-favorite-product-btn-main">
-            <button
-              type="button"
-              class="p-product-btn cursor-pointer"
-              name="button"
-            >
+            <base-button base-color="yellow" link :to="'/product/' + data.id" no-box-shadow mode="secondary-outline" classes="p-product-btn">
               <NuxtLink
                 :to="'/product/' + data.id"
                 class="p-favorite-product-btn-link p-favorite-product-btn-link-desktop"
-                >مشاهده محصول</NuxtLink
-              >
+                >مشاهده محصول</NuxtLink>
               <NuxtLink
                 :to="'/product/' + data.id"
                 class="p-favorite-product-btn-link p-favorite-product-btn-link-mobile"
-                >مشاهده</NuxtLink
+                >مشاهده</NuxtLink>
+            </base-button>
+              <base-button
+                @button-clicked="deleteFav(data)"
+                classes="p-favorite-product-btn-delete"
+                no-box-shadow
+                base-color="light"
               >
-            </button>
-            <button
-              @click="deleteFav(data)"
-              type="button"
-              class="p-favorite-product-btn-delete cursor-pointer"
-              name="button"
-            >
-              <!-- <img
-                class="p-favorite-product-item-icon-delete"
-                src="/icons/delete.svg"
-                alt=""
-              /> -->
 
               <span class="p-favorite-product-item-icon-delete"></span>
-            </button>
+            </base-button>
           </div>
         </div>
       </div>
@@ -139,6 +128,11 @@ export default {
   margin-top: 8px;
   color: $code-request;
   cursor: pointer;
+}
+.p-favorite-product-btn-link {
+  @include display-flex();
+  align-items: center;
+  justify-content: center;
 }
 .p-favorite-product-item {
   @include display-flex();
@@ -214,10 +208,13 @@ export default {
   content: "\e826";
   @include font-icon__limoo();
   font-size: 17px;
-  color: $gray;
+  color: $gray-3;
 }
 .p-favorite-product-btn-link-mobile {
   display: none;
+}
+.p-product-btn {
+  font-size: 14px!important;
 }
 
 @media (max-width: 1024px) {
@@ -242,7 +239,7 @@ export default {
     width: 70%;
   }
   .p-favorite-product-btn-delete {
-    width: 45px;
+    width: 45px!important;
   }
   .p-favorite-product-btn-main .p-product-btn {
     width: 116px;
@@ -313,9 +310,8 @@ export default {
     padding-bottom: 10px;
   }
   .p-favorite-product-btn-delete {
-    width: 36px;
-    height: 36px;
-    margin-right: 16px;
+    width: 36px!important;
+    height: 36px!important;
   }
   .p-favorite-product-btn {
     background: $yellow;
