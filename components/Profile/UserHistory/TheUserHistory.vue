@@ -46,7 +46,7 @@
 
         <div class="p-history-product-left align-items-start">
           <div class="p-history-product-btn-main">
-            <base-button base-color="yellow" link :to="'/product/' + data.id" no-box-shadow mode="secondary-outline" classes="p-product-btn">
+            <base-button base-color="yellow" link :to="'/product/' + data.id" no-box-shadow classes="p-product-btn">
               <span class="btn-text-desktop">
                   {{ getTextByTextKey("profile_see_single_product") }}
                 </span>

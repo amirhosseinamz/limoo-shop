@@ -58,7 +58,8 @@ export default {
         'text',
         'time',
         'product',
-        'close'
+        'close',
+        'stepper'
       ].includes(value.toLowerCase())
     },
     type: {
@@ -350,6 +351,13 @@ a {
 
   &.time {
     color: $gray;
+  }
+  &.stepper {
+    color: $gray-2;
+    &.disabled {
+      background-color: $gray-6;
+      color: $gray-4;
+    }
   }
 }
 

@@ -13,7 +13,7 @@
             </div>
             <div v-if="!cancelDiscount" class="pay-detail__discount-left">
               <base-button base-color="yellow" @button-clicked="submitDiscount" :disabled="!payDiscount" classes="pay-detail__discount-btn">
-                اعمال کد
+               {{ getTextByTextKey("apply_code") }}
               </base-button>
             </div>
             <div v-else class="pay-detail__discount-left">
