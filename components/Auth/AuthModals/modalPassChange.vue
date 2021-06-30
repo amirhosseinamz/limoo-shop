@@ -338,7 +338,7 @@ export default {
 }
 
 .min-display {
-  display: none;
+  display: none!important;
 }
 .desk-display {
   display: block;
