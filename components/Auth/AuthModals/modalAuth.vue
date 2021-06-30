@@ -31,7 +31,7 @@
     <modalRecyclePass
       @btn-go-back-signin-step-one="gotoSignInStepone"
       @btn-go-back-recycle-pass-step-two="goToRecyclePassStepTwo"
-      v-else-if="true"
+      v-else-if="RecyclePass"
     />
     <modalRecyclePassStepTwo
       @btn-go-back-recycle-pass="goToRecyclePass"
@@ -40,7 +40,7 @@
     />
     <modalPassChange
       @btn-go-back-recycle-pass-step-two="goToRecyclePassStepTwo"
-      v-else-if="PassChange"
+      v-else-if="true"
     />
     <!--  -->
   </modal>

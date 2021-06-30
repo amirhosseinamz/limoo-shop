@@ -1,10 +1,22 @@
 <template>
   <div class="stepper-container" :class="[{'bordered': bordered}, usage]">
-    <base-button base-color="light" mode="stepper" classes="plus" @button-clicked="increment" :disabled="plusDisabled"></base-button>
+    <base-button
+      base-color="light"
+      mode="stepper"
+      classes="plus"
+      @button-clicked="increment"
+      :disabled="plusDisabled"
+    ></base-button>
     <span class="number">
       {{ counter }}
     </span>
-    <base-button base-color="light" mode="stepper" classes="minus" @button-clicked="decrement" :disabled="minusDisabled"></base-button>
+    <base-button
+      base-color="light"
+      mode="stepper"
+      classes="minus"
+      @button-clicked="decrement"
+      :disabled="minusDisabled"
+    ></base-button>
   </div>
 </template>
 

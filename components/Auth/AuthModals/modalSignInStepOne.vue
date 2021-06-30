@@ -49,7 +49,7 @@
             :label-text="getTextByTextKey('auth_please_enter_password')"
           >
           </text-input>
-          <div class="btn-control">
+          <div class="btn-control justify-content-center">
             <base-button
               base-color="yellow"
               button-type="submit"
