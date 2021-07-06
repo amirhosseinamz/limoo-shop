@@ -5,7 +5,7 @@
         <div class="products__top-title w-100 products__top-desktop">
           <h3 class="products__top-text">موبایل اندرویدی</h3>
         </div>
-        <base-tabs></base-tabs>
+        <base-range-slider min-value="0" max-value="10"></base-range-slider>
         <div class="products__filter-btns w-100 ">
           <base-button no-box-shadow classes="products__filter-btn" @button-clicked="showBoxFilter">
             <img src="/icons/filter_search_icon.svg" alt="filter">
@@ -58,7 +58,10 @@ export default {
 
   data() {
     return {
+      disabledTab: true,
       allCategorySuggestion: [],
+      tabsName: ['مرجوع شده', 'لغو شده'],
+      selected: 'مرجوع شده'
     };
   },
 
@@ -75,6 +78,9 @@ export default {
   },
 
   methods: {
+    tabChanged (val) {
+      this.selected = val
+    },
     activeSuggestion(data) {
       let updateCategorySuggestion = [];
       this.allCategorySuggestion.map((content) => {

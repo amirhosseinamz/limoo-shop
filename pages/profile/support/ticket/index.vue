@@ -16,27 +16,14 @@
     </div>
     <!-- ----- -->
     <div class="support__navbar-mobile d-rtl">
-      <div
-        :class="{ 'item-active': sendTicket }"
-        class="support-nav__mobile-items"
-      >
-        <NuxtLink
-          @click="goToSupport('sendTicket')"
-          to="/profile/support/ticket"
-        >
-          {{ getTextByTextKey("support_call_ticket") }}
-        </NuxtLink>
-        <span class="bottomLine-mobile"></span>
-      </div>
-      <div
-        :class="{ 'item-active': faqPart }"
-        class="support-nav__mobile-items support-nav__mobile-faq"
-      >
-        <NuxtLink @click="goToSupport('faqPart')" to="/profile/support/faq">
-          {{ getTextByTextKey("support_faq") }}
-        </NuxtLink>
-        <span class="bottomLine-mobile"></span>
-      </div>
+      <base-tabs
+        :tabs="tabsNames"
+        :selected="selected"
+        @change-tab="goToSupport"
+        class="w-100 d-rtl"
+        tabs-item-class="support-nav__mobile-items"
+        tabs-class="tabs-navigator"
+      ></base-tabs>
     </div>
     <!-- ----- -->
     <div class="user-profile__holder">
@@ -99,28 +86,14 @@
           </div>
         </div>
         <div class="support__navbar-desktop d-rtl">
-          <div
-            :class="{ 'item-active': sendTicket }"
-            class="support-nav__items"
-          >
-            <NuxtLink
-              @click="goToSupport('sendTicket')"
-              to="/profile/support/ticket"
-            >
-              {{ getTextByTextKey("support_tab_send_ticket") }}
-            </NuxtLink>
-
-            <span class="bottomLine"></span>
-          </div>
-          <div
-            :class="{ 'item-active': faqPart }"
-            class="support-nav__items support-nav__faq"
-          >
-            <NuxtLink @click="goToSupport('faqPart')" to="/profile/support/faq">
-              {{ getTextByTextKey("support_faq") }}
-            </NuxtLink>
-            <span class="bottomLine"></span>
-          </div>
+          <base-tabs
+            :tabs="tabsNames"
+            :selected="selected"
+            @change-tab="goToSupport"
+            class="w-100 d-rtl"
+            tabs-item-class="support-nav__items"
+            tabs-class="tabs-navigator"
+          ></base-tabs>
         </div>
         <div class="w-100 user-profile-tickets-main flex-column">
           <contentTickets
@@ -157,8 +130,11 @@ export default {
 
   data() {
     return {
-      sendTicket: false,
-      faqPart: false,
+      tabsNames: [
+        this.getTextByTextKey("support_tab_send_ticket"),
+        this.getTextByTextKey("support_faq"),
+      ],
+      selected: this.getTextByTextKey("support_tab_send_ticket"),
       ticketsData: [
         {
           id: 1,
@@ -189,16 +165,13 @@ export default {
     };
   },
 
-  watch: {},
-
   mounted() {
     const curentRoute = this.$route.path;
     // const activeTab = this.$route.query.activeTab;
-    if (curentRoute == "/profile/support/ticket") {
-      this.sendTicket = true;
-      // this.delivered = false;
-      // this.returned = false;
-      // this.canceled = false;
+    if (curentRoute === "/profile/support/ticket") {
+      this.selected = this.tabsNames[0];
+    } else if (curentRoute === "/profile/support/faq") {
+      this.selected = this.tabsNames[1];
     }
   },
 
@@ -208,12 +181,12 @@ export default {
       this.$router.push("/profile");
     },
     goToSupport(page) {
-      if (page == "sendTicket") {
+      if (page === this.tabsNames[0]) {
         this.$router.push("/profile/support/ticket");
-        this.sendTicket = true;
-      } else if (page == "faqPart") {
+        this.selected = page;
+      } else if (page === this.tabsNames[1]) {
         this.$router.push("/profile/support/faq");
-        this.faqPart = true;
+        this.selected = page;
       }
     },
     btnDeleteProduct(data) {
@@ -288,9 +261,11 @@ export default {
 .support__navbar-mobile {
   display: none;
 }
+
 .user-profile-tickets-main {
   background: transparent;
 }
+
 .profile-container {
   margin: 0 auto;
   width: 100%;
@@ -299,6 +274,7 @@ export default {
   display: flex;
   flex-direction: row-reverse;
 }
+
 .user-profile__holder {
   margin: 166px 0 50px 17px;
   width: 100%;
@@ -306,6 +282,7 @@ export default {
   height: max-content;
   /* border: 5px solid #2f0404; */
 }
+
 .user-profile {
   width: 100%;
 
@@ -331,6 +308,7 @@ export default {
     height: 96px;
     /* border: 1px solid #f00808; */
   }
+
   &__support-contact {
     @include display-flex();
     flex-direction: column;
@@ -340,6 +318,7 @@ export default {
     width: 100%;
     height: 200px;
   }
+
   &__topic {
     font-size: 18px;
     line-height: 140.62%;
@@ -349,6 +328,7 @@ export default {
     margin-right: 25px;
     margin-bottom: 38px;
   }
+
   &__back-btn {
     text-decoration: none;
     /* border: 1px solid #f00808; */
@@ -360,6 +340,7 @@ export default {
     margin-bottom: 16px;
     cursor: initial;
   }
+
   &__back-btn::after {
     content: "\e801";
     /* border: 1px solid #f00808; */
@@ -373,54 +354,38 @@ export default {
     margin-right: 16px;
   }
 }
-.support__navbar-desktop {
+
+.support__navbar-desktop::v-deep {
   @include display-flex();
   flex-direction: row;
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
   background-color: $white;
-  box-shadow: 0px 8px 16px $box__shadow;
+  box-shadow: 0 0.5rem 1rem $box__shadow;
   z-index: 1;
   padding: 0 57px;
   margin-top: 24px;
   width: 100%;
   height: 83px;
-}
-.support-nav__items {
-  @include display-flex();
-  flex-direction: column;
-  justify-content: space-between;
-  margin-top: 31px;
-}
-.support-nav__faq {
-  margin-right: 143px;
-}
-.support-nav__items a {
-  color: $gray;
-  text-decoration: none;
-  font-size: 18px;
-  line-height: 140.62%;
-}
-.item-active {
-  & a {
-    color: $black-topic;
+
+  .support-nav__items {
+    font-size: 18px;
+    padding: 0 2.7rem;
+    white-space: nowrap;
   }
-  .bottomLine {
-    align-self: center;
-    background-color: $yellow;
-    height: 5px;
-    width: 170%;
-    margin-top: 20px;
-    border-top-left-radius: 15px;
-    border-top-right-radius: 15px;
+
+  li:nth-child(1) {
+    margin-left: 9rem;
   }
 }
+
 .support-contact__title {
   font-weight: 400;
   text-align: right;
   margin-top: 24px;
   margin-right: 22px;
 }
+
 .support-contact__holder {
   @include display-flex();
   flex-direction: row;
@@ -430,6 +395,7 @@ export default {
   padding: 0 22px;
   /* border: 1px solid #f00808; */
 }
+
 .support-contact__description {
   font-weight: 400;
   color: $gray;
@@ -439,6 +405,7 @@ export default {
   line-height: 180.62%;
   /* border: 1px solid #3608f0; */
 }
+
 .support-contact__left {
   @include display-flex();
   flex-direction: column;
@@ -449,14 +416,17 @@ export default {
   width: 48%;
   /* border: 1px solid #3608f0; */
 }
+
 .support-contact__mail,
 .support-contact__call {
   @include display-flex();
   flex-direction: row;
 }
+
 .support-contact__call {
   margin-top: 27px;
 }
+
 .support-contact__mail-title::before {
   @include font-icon__limoo();
   content: "\e81a";
@@ -464,6 +434,7 @@ export default {
   vertical-align: middle;
   margin-left: 8px;
 }
+
 .support-contact__call-title::before {
   @include font-icon__limoo();
   content: "\e81f";
@@ -471,24 +442,28 @@ export default {
   vertical-align: middle;
   margin-left: 8px;
 }
+
 .support-contact__mail-title,
 .support-contact__call-title {
   font-weight: 400;
   color: $gray;
   line-height: 140.62%;
 }
+
 .support-contact__mail-limoo,
 .support-contact__call-limoo {
   line-height: 140.62%;
   font-size: 16px;
   margin-right: 8px;
 }
+
 .splicer-line {
   display: block;
   width: 100%;
   border: none;
   border-bottom: 1px solid $light-gray;
 }
+
 .user-profile__topic {
   text-align: right;
 }
@@ -532,7 +507,7 @@ export default {
     display: none;
   }
   /* ================== */
-  .support__navbar-mobile {
+  .support__navbar-mobile::v-deep {
     @include display-flex();
     flex-direction: row;
     justify-content: space-between;
@@ -542,109 +517,111 @@ export default {
     padding: 0 170px;
     width: 100%;
     height: 54px;
+
+    .support-nav__mobile-items {
+      font-size: 16px;
+      white-space: nowrap;
+      padding: 0 0.5rem;
+    }
+      .tabs-navigator {
+        @include display-flex();
+        justify-content: space-between;
+        align-items: center;
+      }
   }
-  .support-nav__mobile-items {
+
+
+/* ============= */
+.user-profile__support-mobile {
+  @include display-flex();
+  flex-direction: column;
+  background: $white;
+  height: 121px;
+  width: 100%;
+  padding-right: 21px;
+  border-radius: 10px;
+  box-shadow: 0px 8px 16px $box__shadow;
+}
+
+.support-contact__mobile-title {
+  font-weight: 400;
+  font-size: 14px;
+  text-align: right;
+  margin-top: 19px;
+}
+
+.support-contact__call,
+.support-contact__mail {
+  margin-top: 16px;
+}
+
+.support-contact__mail {
+  margin-bottom: 16px;
+}
+
+.support-contact__mail-title,
+.support-contact__mail-title::before,
+.support-contact__call-title,
+.support-contact__call-title::before {
+  font-size: 14px;
+}
+
+.support-contact__mail-limoo,
+.support-contact__call-limoo {
+  font-size: 14px;
+  margin-right: 4px;
+}
+
+.mobile-screen {
+  display: block;
+
+  &__holder {
     @include display-flex();
-    flex-direction: column;
+    flex-direction: row-reverse;
     justify-content: space-between;
-    margin-top: 14px;
-  }
-  /* .support-nav__faq {
-    margin-right: 143px;
-} */
-  .support-nav__mobile-items a {
-    color: $gray;
-    text-decoration: none;
-    font-size: 14px;
-    line-height: 140.62%;
-  }
-  .item-active {
-    & a {
+    align-items: center;
+    height: 56px;
+    background: $white;
+    margin-top: 47px;
+
+    &-txt {
+      font-size: 14px;
+      line-height: 140.62%;
+      margin-right: 16px;
       color: $black-topic;
     }
-    .bottomLine-mobile {
-      align-self: center;
-      background-color: $yellow;
-      height: 4px;
-      width: 150%;
-      margin-top: 15px;
-      border-top-left-radius: 15px;
-      border-top-right-radius: 15px;
-    }
-  }
-  /* ============= */
-  .user-profile__support-mobile {
-    @include display-flex();
-    flex-direction: column;
-    background: $white;
-    height: 121px;
-    width: 100%;
-    padding-right: 21px;
-    border-radius: 10px;
-    box-shadow: 0px 8px 16px $box__shadow;
-  }
-  .support-contact__mobile-title {
-    font-weight: 400;
-    font-size: 14px;
-    text-align: right;
-    margin-top: 19px;
-  }
-  .support-contact__call,
-  .support-contact__mail {
-    margin-top: 16px;
-  }
-  .support-contact__mail {
-    margin-bottom: 16px;
-  }
-  .support-contact__mail-title,
-  .support-contact__mail-title::before,
-  .support-contact__call-title,
-  .support-contact__call-title::before {
-    font-size: 14px;
-  }
-  .support-contact__mail-limoo,
-  .support-contact__call-limoo {
-    font-size: 14px;
-    margin-right: 4px;
-  }
-  .mobile-screen {
-    display: block;
-    &__holder {
-      @include display-flex();
-      flex-direction: row-reverse;
-      justify-content: space-between;
-      align-items: center;
-      height: 56px;
-      background: $white;
-      margin-top: 47px;
-      &-txt {
-        font-size: 14px;
-        line-height: 140.62%;
-        margin-right: 16px;
-        color: $black-topic;
-      }
-      &-arrow {
-        margin-left: 16px;
-      }
-    }
-  }
-  .profile-container {
-    @include display-flex();
-    flex-direction: column;
-    margin-bottom: 58px;
-  }
-  .user-profile__holder {
-    margin: 8px 0;
-    padding: 0 16px;
-  }
-  .user-profile {
-    &__topic {
-      display: none;
+
+    &-arrow {
+      margin-left: 16px;
     }
   }
 }
 
+.profile-container {
+  @include display-flex();
+  flex-direction: column;
+  margin-bottom: 58px;
+}
+
+.user-profile__holder {
+  margin: 8px 0;
+  padding: 0 16px;
+}
+
+.user-profile {
+  &__topic {
+    display: none;
+  }
+}
+
+}
+
 @media (max-width: 600px) {
+  .support__navbar-mobile::v-deep {
+    .support-nav__mobile-items {
+      font-size: 14px;
+    }
+  }
   .user-profile {
     background: none;
     border: none;
@@ -666,6 +643,7 @@ export default {
 
 @media (max-width: 320px) {
 }
+
 @media (max-width: 280px) {
   .support-contact__mobile-title {
     font-size: 13px;

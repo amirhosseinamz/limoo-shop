@@ -437,9 +437,7 @@ export default {
     padding: 0 21px 18px 21px;
   }
   .p-tickets-content-btn-add-main {
-    height: 130px;
-    /* background: $white; */
-    margin-top: 8px;
+    margin-top: .5rem;
   }
   .p-tickets-content-btn-data {
     margin-top: 1rem;
@@ -459,6 +457,12 @@ export default {
 }
 
 @media (max-width: 600px) {
+  .p-tickets-content-btn-add-main::v-deep {
+      .p-tickets-content-btn-data {
+        width: 70%;
+        margin: 1rem auto 0.5rem auto;
+      }
+  }
   .user-Ticket__empty-container {
     height: 136px;
   }
@@ -519,6 +523,7 @@ export default {
     padding-right: 8px;
     padding-left: 40px;
   }
+
   .p-favorite-product-btn-delete {
     width: 37px!important;
     height: 37px!important;

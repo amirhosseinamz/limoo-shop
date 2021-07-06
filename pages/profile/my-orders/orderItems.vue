@@ -18,62 +18,20 @@
             {{ getTextByTextKey("orders_order_list_text") }}
           </span>
           <div class="order-nav d-rtl">
-            <div
-              @click="goToOrder('waitForPayment')"
-              :class="{ 'item-active': waitForPayment }"
-              class="order-nav__items"
+            <base-tabs
+              :tabs="tabsNames"
+              :selected="selected"
+              @change-tab="goToOrder"
+              length="2"
+              class="w-100 d-rtl"
+              tabs-item-class="order-nav__items"
+              tabs-class="tabs-navigator"
             >
-              <div class="order-nav__items-holder">
-                <NuxtLink to="">
-                  {{
-                    getTextByTextKey("orders_tab_waiting_for_payment")
-                  }} </NuxtLink
-                ><span class="order-counter">2</span>
-              </div>
-              <span class="bottomLine"></span>
-            </div>
-            <div
-              @click="goToOrder('paidInProgress')"
-              :class="{ 'item-active': paidInProgress }"
-              class="order-nav__items"
-            >
-              <NuxtLink to="">
-                {{ getTextByTextKey("orders_tab_processing") }}
-              </NuxtLink>
-              <span class="bottomLine"></span>
-            </div>
-            <div
-              @click="goToOrder('delivered')"
-              :class="{ 'item-active': delivered }"
-              class="order-nav__items "
-            >
-              <NuxtLink to="">{{
-                getTextByTextKey("orders_tab_delivered")
-              }}</NuxtLink>
-              <span class="bottomLine"></span>
-            </div>
-            <div
-              @click="goToOrder('returned')"
-              :class="{ 'item-active': returned }"
-              class="order-nav__items "
-            >
-              <NuxtLink to="">{{
-                getTextByTextKey("orders_tab_referred")
-              }}</NuxtLink>
-              <span class="bottomLine"></span>
-            </div>
-            <div
-              @click="goToOrder('canceled')"
-              :class="{ 'item-active': canceled }"
-              class="order-nav__items "
-            >
-              <NuxtLink to="">{{
-                getTextByTextKey("orders_tab_canceled")
-              }}</NuxtLink>
-              <span class="bottomLine"></span>
-            </div>
+
+            </base-tabs>
           </div>
         </div>
+
         <div class="order-holder">
           <!--  -->
           <the-order-item
@@ -105,11 +63,14 @@ export default {
 
   data() {
     return {
-      waitForPayment: false,
-      paidInProgress: false,
-      delivered: false,
-      returned: false,
-      canceled: false,
+      tabsNames: [
+        this.getTextByTextKey("orders_tab_waiting_for_payment"),
+        this.getTextByTextKey("orders_tab_processing"),
+        this.getTextByTextKey("orders_tab_delivered"),
+        this.getTextByTextKey("orders_tab_referred"),
+        this.getTextByTextKey("orders_tab_canceled")
+      ],
+      selected: this.getTextByTextKey("orders_tab_waiting_for_payment"),
       currentOrder: {},
     };
   },
@@ -121,27 +82,25 @@ export default {
 
     switch (currentRoutueName) {
       case "profile-my-orders-wait-for-payment":
-        this.waitForPayment = true;
+        this.selected = this.tabsNames[0]
         break;
 
       case "profile-my-orders-in-progress":
-        this.paidInProgress = true;
+        this.selected = this.tabsNames[1]
         break;
 
       case "profile-my-orders-delivered":
-        this.delivered = true;
+        this.selected = this.tabsNames[2]
         break;
 
       case "profile-my-orders-returned":
-        this.returned = true;
+        this.selected = this.tabsNames[3]
         break;
 
       case "profile-my-orders-canceled":
-        this.canceled = true;
+        this.selected = this.tabsNames[4]
         break;
     }
-
-    console.log(currentRoutueName);
 
     const pageContent = Object.values(this.userOrderData).length;
     if (pageContent == 0) {
@@ -155,23 +114,23 @@ export default {
       this.$router.push("/profile");
     },
     goToOrder(page) {
-      if (page == "paidInProgress") {
+      if (page === this.tabsNames[1]) {
         this.$router.push("/profile/my-orders/in-progress");
-        console.log("dsads");
         this.paidInProgress = true;
-      } else if (page == "delivered") {
+      } else if (page === this.tabsNames[2]) {
         this.$router.push("/profile/my-orders/delivered");
         this.delivered = true;
-      } else if (page == "returned") {
+      } else if (page === this.tabsNames[3]) {
         this.$router.push("/profile/my-orders/returned");
         this.returned = true;
-      } else if (page == "canceled") {
+      } else if (page === this.tabsNames[4]) {
         this.$router.push("/profile/my-orders/canceled");
         this.canceled = true;
-      } else if (page == "waitForPayment") {
+      } else if (page === this.tabsNames[0]) {
         this.$router.push("/profile/my-orders/wait-for-payment");
         this.waitForPayment = true;
       }
+      this.selected = page
     },
     // request //
   },
@@ -181,12 +140,6 @@ export default {
 <style lang="scss" scoped>
 .mobile-screen {
   display: none;
-}
-.order-nav__items-holder {
-  @include display-flex();
-  flex-direction: row;
-  align-items: center;
-  width: fit-content;
 }
 .profile-container {
   margin: 0 auto;
@@ -233,41 +186,21 @@ export default {
     margin-right: 38px;
   }
 }
-.order-nav {
+.order-nav::v-deep {
   @include display-flex();
-  flex-direction: row;
   justify-content: space-between;
   margin-top: 40px;
   height: 51px;
   width: 100%;
-  /* border: 1px solid blue; */
-  padding: 0 38px;
-  &__items {
+  padding: 0 2rem;
+  .tabs-navigator {
     @include display-flex();
-    flex-direction: column;
     justify-content: space-between;
-    /* border: 1px solid blue; */
   }
-  &__items a {
-    color: $gray;
-    text-decoration: none;
-    font-size: 18px;
-    line-height: 140.62%;
-    width: fit-content;
-  }
-  .item-active {
-    & a {
-      color: $black-topic;
-    }
-    .bottomLine {
-      align-self: center;
-      background-color: $yellow;
-      height: 5px;
-      width: 110%;
-      margin-top: 20px;
-      border-top-left-radius: 15px;
-      border-top-right-radius: 15px;
-    }
+  .order-nav__items {
+    white-space: nowrap;
+    padding: 0 0.5rem 1.8rem 0.5rem;
+    font-size: 17px;
   }
 }
 .order-holder {
@@ -326,6 +259,7 @@ export default {
         margin-left: 8px;
       }
     }
+
   }
   .profile-container {
     @include display-flex();
@@ -342,6 +276,11 @@ export default {
     border-bottom-right-radius: 0;
     &__topic {
       display: none;
+    }
+  }
+  .order-nav::v-deep {
+    .order-nav__items {
+      font-size: 16px;
     }
   }
 }
@@ -371,38 +310,16 @@ export default {
   .order-holder {
     padding: 0 5px;
   }
-  .order-nav__items a {
-    font-size: 13px;
-    white-space: nowrap;
-  }
-  .order-nav__items {
-    margin-left: 24px;
-  }
-  .order-nav__items:last-of-type {
-    padding-left: 16px;
-  }
-  .order-nav {
-    @include display-flex();
-    /* flex-direction: row; */
-    flex-flow: row;
+  .order-nav::v-deep {
     overflow: auto;
-    justify-content: space-between;
-    margin-top: 0;
-    height: 51px;
+    margin-top: 0.6rem;
+    height: 60px;
     width: 100%;
-    /* border: 1px solid blue; */
-    padding: 16px 16px 0 16px;
-    .item-active {
-      & a {
-        color: $code;
-      }
-      .bottomLine {
-        height: 4px;
-        width: 110%;
-        margin-top: 12px;
-        border-top-left-radius: 15px;
-        border-top-right-radius: 15px;
-      }
+    padding: 1rem 1rem 0 1rem;
+
+    .order-nav__items {
+      font-size: 13px;
+      margin-left: 1.5rem;
     }
   }
 }
