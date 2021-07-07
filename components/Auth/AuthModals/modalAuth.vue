@@ -11,7 +11,7 @@
       @btn-close-modal="modalClose"
       @btn-go-to-signup-step-two="gotoSignUpStepTwo"
       @btn-go-to-signin-step-one="gotoSignInStepone"
-      v-if="false"
+      v-if="SignUpStepOne"
     />
     <modalSignUpStepTwo
       @btn-go-back-signup-step-one="gotoSignUpStepOne"
@@ -40,7 +40,7 @@
     />
     <modalPassChange
       @btn-go-back-recycle-pass-step-two="goToRecyclePassStepTwo"
-      v-else-if="true"
+      v-else-if="PassChange"
     />
     <!--  -->
   </modal>

@@ -67,9 +67,7 @@
                             <span class="user-cart__time-title"
                                 >نحوه و زمان ارسال کالا</span
                             >
-                            <div class="user-cart__time-nav__holder d-rtl">
-                                <!--  -->
-                                <!-- :class="{ 'item-active': sendTime }" -->
+<!--                            <div class="user-cart__time-nav__holder d-rtl">
                                 <div
                                     class="user-cart__time-nav__items"
                                     :class="{ 'item-active': sendTime }"
@@ -83,8 +81,26 @@
                                     <NuxtLink to="">ارسال فوری</NuxtLink>
                                     <span class="bottomLine"></span>
                                 </div>
-                                <!--  -->
-                            </div>
+                                &lt;!&ndash;  &ndash;&gt;
+                            </div>-->
+                          <base-tabs
+                            :tabs="tabsNames"
+                            :selected="selected"
+                            @change-tab="tabChanged"
+                            :disables="[tabsNames[1]]"
+                            class="user-cart__time-nav__holder"
+                            tabs-item-class="user-cart__time-nav__items"
+                            tabs-class="tabs-navigator"
+                          >
+                            <tab-content
+                              :name="tabsNames[0]"
+                              :isSelected="selected === tabsNames[0]"
+                            >
+
+                            </tab-content>
+                            <tab-content :name="tabsNames[1]" :isSelected="selected === tabsNames[1]">
+                            </tab-content>
+                          </base-tabs>
                         </div>
                         <div class="user-cart__order-time__container">
                             <the-time-shipping
@@ -125,6 +141,8 @@ export default {
     },
     data() {
         return {
+            tabsNames: ['ارسال پیشنهادی','ارسال فوری'],
+            selected: 'ارسال پیشنهادی',
             allOrdersHasTimed: { item: false },
             showModalDeleteAddress: false,
             userAddressData: -1,
@@ -672,6 +690,9 @@ export default {
     },
 
     methods: {
+      tabChanged (val) {
+        this.selected = val
+      },
         submitTimesAdd() {
             this.allOrdersHasTimed.item = true;
         },
@@ -869,31 +890,22 @@ export default {
     width: 100%;
     height: fit-content;
     background-color: $white;
-    box-shadow: 0px 8px 16px $box__shadow;
-    border-radius: 0px 0px 10px 10px;
+    box-shadow: 0 8px 16px $box__shadow;
+    border-radius: 0 0 10px 10px;
     padding-top: 14px;
 }
-.user-cart__time-nav__holder {
-    @include display-flex();
-    flex-direction: row;
-    /* box-shadow: 0px 8px 16px $box__shadow; */
-
-    padding: 0 38px;
+.user-cart__time-nav__holder::v-deep {
+    padding: 0 2.375rem;
     width: 100%;
     height: 60px;
-}
-.user-cart__time-nav__items {
-    @include display-flex();
-    flex-direction: column;
-    justify-content: space-between;
-    margin-left: 50px;
-}
-.user-cart__time-nav__items a {
-    color: $gray;
-    text-decoration: none;
+
+  .user-cart__time-nav__items {
+    margin-left: 3.125rem;
+    padding-bottom: 0.7rem;
     font-size: 18px;
-    line-height: 140.62%;
+  }
 }
+
 .user-cart__time-nav__urgent a {
     margin-right: 64px;
 }
@@ -1018,14 +1030,13 @@ export default {
         width: 100%;
         border-top: 1px solid $gray-border;
     }
-    .user-cart__time-nav__holder {
-        /* justify-content: space-between; */
-        padding: 15px 30px 0 30px;
+    .user-cart__time-nav__holder::v-deep {
+        padding: 0.9375rem 1.875rem 0 1.875rem;
         height: 51px;
-        /* border: 1px solid red; */
-    }
-    .user-cart__time-nav__items a {
-        font-size: 13px;
+
+      .user-cart__time-nav__items {
+        font-size: 14px;
+      }
     }
     .user-cart__time-nav__urgent a {
         margin-right: 0;
@@ -1098,13 +1109,20 @@ export default {
     }
 }
 @media (max-width: 540px) {
-    .user-cart__time-nav__holder {
+    .user-cart__time-nav__holder::v-deep {
         justify-content: space-between;
-        padding: 15px 37px 0 37px;
-    }
-    .user-cart__time-nav__items {
+        padding: 0.9375rem 2.3125rem 0 2.3125rem;
+
+      .tabs-navigator {
+        @include display-flex();
+        justify-content: space-between;
+      }
+      .user-cart__time-nav__items {
         margin-left: 0;
+        font-size: 12px;
+      }
     }
+
 }
 @media (max-width: 280px) {
     .user-cart__shipping-address {
