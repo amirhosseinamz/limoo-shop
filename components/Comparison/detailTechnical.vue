@@ -87,7 +87,7 @@ import { getTextByTextKey } from "~/modules/splitPartJsonResource.js";
 
 export default {
   props: {
-    detailTechnical: { type: [Object, Array], default: [] },
+    detailTechnical: { type: [Object, Array], default: () => { return [] } },
   },
 
   components: {},

@@ -231,9 +231,6 @@
 import TheTimeCart from "./TheTimeCart.vue";
 import shippingAddTimeModal from "./shippingAddTimeModal.vue";
 export default {
-    props: {
-        timeData: { type: [Object, Array], default: {} }
-    },
     components: { TheTimeCart, shippingAddTimeModal },
     data() {
         return {
@@ -243,6 +240,11 @@ export default {
             dataTimeTable: []
         };
     },
+  computed: {
+      timeData () {
+        return this.$store.getters["shipping/shipping/timeData"]
+      }
+  },
     mounted() {
         this.timeData.map((content, index) => {
             content.limooSelected = true;
@@ -312,11 +314,6 @@ export default {
     align-items: center;
     width: 100%; /* Full width (cover the whole page) */
     height: 100%; /* Full height (cover the whole page) */
-    /* transition: opacity 200ms ease-out; */
-    /* top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0; */
     z-index: 20;
     background: $white;
     top: 0;
@@ -343,9 +340,9 @@ export default {
 .order-content-item__time-receive {
     @include display-flex();
     flex-direction: column;
-    border-bottom: 1px solid $light-gray;
+    border-bottom: toRem(1) solid $light-gray;
     width: 100%;
-    min-height: 347px;
+    min-height: toRem(347);
     height: fit-content;
 }
 .order-content-item__time-receive:last-of-type {
@@ -356,13 +353,13 @@ export default {
     flex-direction: row;
     width: 100%;
     padding-right: 8px;
-    margin-top: 24px;
+    margin-top: toRem(24);
     height: fit-content;
 }
 .shipping-btn__items {
-    margin-right: 1rem;
+    margin-right: toRem(16);
     font-family: inherit;
-    font-size: 14px;
+    font-size: toRem(14);
     background-color: transparent;
     cursor: pointer;
 }
@@ -371,22 +368,22 @@ export default {
 .shipping-btn__post {
     @include display-flex();
     align-items: center;
-    padding: 14px;
-    width: 224px;
-    height: 49px;
-    border-radius: 12px;
-    border: 2px solid $light-gray;
+    padding: toRem(14);
+    width: toRem(224);
+    height: toRem(49);
+    border-radius: toRem(12);
+    border: toRem(2) solid $light-gray;
     box-sizing: border-box;
     color: $gray;
 }
 .shipping-order__heavy,
 .shipping-sendby__seller {
-    font-size: 14px;
+    font-size: toRem(14);
     line-height: 140.62%;
     align-items: center;
     text-align: right;
     color: $black-topic;
-    margin-right: 16px;
+    margin-right: toRem(16);
 }
 .shipping-btn__limoo-title::before,
 .shipping-btn__seller-title::before,
@@ -396,9 +393,8 @@ export default {
     @include font-icon__limoo();
     content: "\e878";
     color: $gray;
-    font-size: 18px;
-    margin-left: 8px;
-    /* vertical-align: middle; */
+    font-size: toRem(18);
+    margin-left: toRem(8);
 }
 .shipping-btn__seller-title::before {
     content: "\e828";
@@ -417,12 +413,12 @@ export default {
 .shipping-txt__holder {
     @include display-flex();
     flex-direction: column;
-    margin: 24px;
+    margin: toRem(24);
     font-family: inherit;
-    font-size: 14px;
+    font-size: toRem(14);
     color: $code;
     /* border: 1px solid red; */
-    min-height: 20px;
+    min-height: toRem(20);
 }
 .shipping-txt__item {
     display: none;
@@ -448,18 +444,17 @@ export default {
 .order-product-img__holder {
     @include display-flex();
     flex-direction: row;
-    padding: 0 16px;
+    padding: 0 toRem(16);
 }
 .order-product-img__item {
-    padding: 0 8px;
+    padding: 0 toRem(8);
 }
 .shipping-time__slider-holder {
     width: 100%;
-    height: 212px;
-    /* border: 1px solid red; */
-    margin: 16px 0 42px 0;
-    padding-right: 24px;
-    padding-left: 8px;
+    height: toRem(212);
+    margin: toRem(16) 0 toRem(42) 0;
+    padding-right: toRem(24);
+    padding-left: toRem(8);
 }
 .show-time__slider__active {
     display: none;
@@ -470,11 +465,10 @@ export default {
 .post-shipping__time-holder {
     @include display-flex();
     flex-direction: column;
-    margin: 16px 24px 42px 0;
-    /* border: 1px solid red; */
+    margin: toRem(16) toRem(24) toRem(42) 0;
 }
 .post-shipping__time-title {
-    font-size: 16px;
+    font-size: toRem(16);
     line-height: 140.62%;
     color: $gray;
 }
@@ -482,20 +476,20 @@ export default {
     @include font-icon__limoo();
     content: "\e804";
     color: $gray;
-    font-size: 18px;
-    margin-left: 8px;
+    font-size: toRem(18);
+    margin-left: toRem(8);
 }
 .post-shipping__time-day {
-    font-size: 16px;
+    font-size: toRem(16);
     line-height: 140.62%;
     color: $black-topic;
-    margin-right: 5px;
+    margin-right: toRem(5);
 }
 .post-shipping__time-container {
-    margin-bottom: 7px;
+    margin-bottom: toRem(7);
 }
 .post-shipping__time-hour-title {
-    font-size: 14px;
+    font-size: toRem(14);
     line-height: 140.62%;
     color: $gray;
     display: none;
@@ -504,15 +498,15 @@ export default {
     @include font-icon__limoo();
     content: "\e82c";
     color: $gray;
-    font-size: 16px;
-    margin-left: 8px;
+    font-size: toRem(16);
+    margin-left: toRem(8);
     vertical-align: -10%;
 }
 .post-shipping__time-hour {
-    font-size: 14px;
+    font-size: toRem(14);
     line-height: 140.62%;
     color: $black-topic;
-    margin-right: 5px;
+    margin-right: toRem(5);
     display: none;
 }
 .post-shipping__btn-notif__holder {
@@ -526,86 +520,85 @@ export default {
         display: block;
     }
     .post-shipping__time-holder {
-        margin: 16px 10px 24px 0;
+        margin: toRem(16) toRem(10) toRem(24) 0;
     }
     .post-shipping__time-hour-title,
     .post-shipping__time-hour {
         display: block;
     }
     .post-shipping__time-title {
-        font-size: 14px;
+        font-size: toRem(14);
     }
     .post-shipping__time-title::before {
-        font-size: 16px;
+        font-size: toRem(16);
     }
     .post-shipping__time-day {
-        font-size: 14px;
+        font-size: toRem(14);
     }
     .order-content-item__time-receive {
-        min-height: 301px;
+        min-height: toRem(301);
     }
     .shipping-btn__holder {
-        padding-left: 8px;
+        padding-left: toRem(8);
         /* justify-content: space-between; */
-        margin-top: 14px;
+        margin-top: toRem(14);
     }
     .shipping-btn__items {
-        margin-right: 13px;
-        font-size: 13px;
+        margin-right: toRem(13);
+        font-size: toRem(13);
     }
 
     .shipping-btn__limoo,
     .shipping-btn__post {
-        padding: 11px;
-        width: 154px;
-        height: 38px;
+        padding: toRem(11);
+        width: toRem(154);
+        height: toRem(38);
     }
     .shipping-btn__seller {
-        width: 156px;
-        padding: 2px;
-        height: 38px;
+        width: toRem(156);
+        padding: toRem(2);
+        height: toRem(38);
     }
     .shipping-btn__limoo-title::before,
     .shipping-btn__seller-title::before,
     .shipping-btn__post-title::before,
     .shipping-sendby__seller::before,
     .shipping-order__heavy::before {
-        font-size: 16px;
-        margin-left: 8px;
-        /* vertical-align: middle; */
+        font-size: toRem(16);
+        margin-left: toRem(8);
     }
     .shipping-txt__holder {
-        margin: 16px 0;
-        padding: 0 30px;
+        margin: toRem(16) 0;
+        padding: 0 toRem(30);
     }
     .order-product-img__holder {
         flex-wrap: wrap;
     }
     .order-product-img__item {
-        width: 80px;
-        height: 80px;
-        padding: 0 4px;
+        width: toRem(80);
+        height: toRem(80);
+        padding: 0 toRem(4);
     }
 }
 
 @media (max-width: 545px) {
     .shipping-order__heavy,
     .shipping-sendby__seller {
-        margin-right: 10px;
+        margin-right: toRem(10);
     }
     .shipping-txt__item {
         text-align: justify;
     }
     .order-content-item__time-receive {
-        min-height: 270px;
+        min-height: toRem(270);
     }
     .post-shipping__btn-notif__holder {
         @include display-flex();
         justify-content: space-between;
         align-items: center;
         flex-direction: row-reverse;
-        margin: 16px 0 24px 0;
-        padding: 0 11px;
+        margin: toRem(16) 0 toRem(24) 0;
+        padding: 0 toRem(11);
     }
     .post-shipping__btn-notif__notactive {
         display: none;
@@ -617,35 +610,35 @@ export default {
         justify-content: space-between;
     }
     .shipping-btn__items {
-        margin-right: 3px;
+        margin-right: toRem(3);
     }
     .shipping-txt__holder {
-        padding: 0 11px;
-        font-size: 13px;
+        padding: 0 toRem(11);
+        font-size: toRem(13);
     }
     .order-product-img__holder {
-        padding: 0 2px;
+        padding: 0 toRem(2);
         flex-wrap: wrap;
     }
     .post-shipping__btn-mobile {
-        height: 36px;
-        width: 136px;
+        height: toRem(36);
+        width: toRem(136);
         background-color: $yellow;
         box-sizing: border-box;
-        box-shadow: 0px 4px 6px $box__shadow2;
-        border-radius: 10px;
+        box-shadow: 0 toRem(4) toRem(6) $box__shadow2;
+        border-radius: toRem(10);
         border: none;
         font-family: inherit;
-        font-size: 13px;
+        font-size: toRem(13);
         color: $white;
-        padding: 9px 10px;
+        padding: toRem(9) toRem(10);
         display: block;
     }
     .post-shipping__btn-mobile-notactive {
         display: none;
     }
     .afterPickTime-shipping__btn-mobile {
-        font-size: 13px;
+        font-size: toRem(13);
         line-height: 140.62%;
         font-family: inherit;
         color: $gray;
@@ -660,13 +653,13 @@ export default {
         @include font-icon__limoo();
         content: "\e800";
         color: $yellow;
-        font-size: 20px;
-        margin-left: 4px;
+        font-size: toRem(20);
+        margin-left: toRem(4);
         vertical-align: -13%;
         line-height: 140.62%;
     }
     .post-shipping__alert-txt-mobile {
-        font-size: 11px;
+        font-size: toRem(11);
         font-family: inherit;
         line-height: 140.62%;
         text-align: right;
@@ -677,8 +670,8 @@ export default {
         @include font-icon__limoo();
         content: "\e80f";
         color: $red-color;
-        font-size: 16px;
-        margin-left: 4px;
+        font-size: toRem(16);
+        margin-left: toRem(4);
         vertical-align: -13%;
         line-height: 140.62%;
     }
@@ -688,34 +681,34 @@ export default {
 }
 @media (max-width: 321px) {
     .shipping-btn__limoo {
-        padding: 5px;
+        padding: toRem(5);
     }
     .post-shipping__btn-mobile {
-        height: 36px;
-        width: 110px;
-        font-size: 12px;
-        padding: 9px 5px;
+        height: toRem(36);
+        width: toRem(110);
+        font-size: toRem(12);
+        padding: toRem(9) toRem(5);
     }
     .post-shipping__alert-txt-mobile::before {
-        font-size: 14px;
+        font-size: toRem(14);
     }
     .shipping-btn__seller-title {
-        font-size: 13px;
+        font-size: toRem(13);
     }
     .shipping-btn__limoo-title::before,
     .shipping-btn__seller-title::before,
     .shipping-btn__post-title::before,
     .shipping-sendby__seller::before,
     .shipping-order__heavy::before {
-        font-size: 12px;
-        margin-left: 3px;
+        font-size: toRem(12);
+        margin-left: toRem(3);
     }
     .shipping-btn__limoo-title::before {
-        margin-right: 3px;
+        margin-right: toRem(3);
     }
     .shipping-order__heavy,
     .shipping-sendby__seller {
-        margin-right: 5px;
+        margin-right: toRem(5);
     }
     .post-shipping__alert-txt-mobile-notactive {
         display: none;
@@ -723,27 +716,27 @@ export default {
 }
 @media (max-width: 281px) {
     .shipping-btn__seller-title {
-        font-size: 11px;
+        font-size: toRem(11);
     }
     .shipping-btn__limoo {
-        padding: 2px;
+        padding: toRem(2);
     }
     .post-shipping__btn-notif__holder {
         flex-direction: column;
-        margin: 16px 0 14px 0;
+        margin: toRem(16) 0 toRem(14) 0;
     }
     .post-shipping__btn-mobile {
         @include display-flex();
         align-self: flex-end;
-        height: 36px;
-        width: 110px;
-        font-size: 12px;
-        padding: 9px 5px;
+        height: toRem(36);
+        width: toRem(110);
+        font-size: toRem(12);
+        padding: toRem(9) toRem(5);
     }
     .post-shipping__alert-txt-mobile {
         @include display-flex();
         align-self: flex-start;
-        margin-bottom: 5px;
+        margin-bottom: toRem(5);
         order: -1;
     }
     .post-shipping__alert-txt-mobile-notactive {

@@ -2,7 +2,7 @@
             <div  class="tabs__content">
                 <div class="tabs__content-data">
                     <h3 class="tabs__content-title">معرفی کامل تستی</h3>
-                 
+
                     <!-- <div class="tabs__content-items">
                             <div class="tabs__content-item">
                                     <div class="tab__content-wrapper w-100">
@@ -116,7 +116,6 @@ export default {
         border-top-right-radius: 20px;
         @include display-flex();
         margin-top:19px;
-        visibility: hidden;
     }
     .tab--active .tabs__item-line{
        visibility:visible;
@@ -126,8 +125,6 @@ export default {
     }
     .tabs__content{
         padding-top:38px;
-        visibility: hidden;
-        position: absolute;
     }
     .tabs__content-title{
         font-size: 16px;

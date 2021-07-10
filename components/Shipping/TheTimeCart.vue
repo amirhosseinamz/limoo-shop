@@ -55,8 +55,8 @@
 <script>
 export default {
     props: {
-        timeTable: { type: [Object, Array], default: {} },
-        timeData: { type: [Object, Array], default: {} }
+        timeTable: { type: [Object, Array], default: () => { return {} } },
+        timeData: { type: [Object, Array], default: () => { return {} } }
     },
     data() {
         return {
@@ -123,8 +123,7 @@ export default {
 .timeContent__mainSlider {
     position: relative;
     width: 100%;
-    /* @include display-flex();
-    flex-direction: row; */
+
 }
 .timeContent__topic-day__holder {
     @include display-flex();
@@ -132,43 +131,42 @@ export default {
     justify-content: center;
     align-items: center;
     width: 100%;
-    height: 54px;
-    border-bottom: 1px solid $light-gray;
+    height: toRem(54);
+    border-bottom: toRem(1) solid $light-gray;
 }
 .timeContent__topic-day {
     color: $gray;
-    font-size: 18px;
+    font-size: toRem(18);
     line-height: 140.62%;
 }
 .timeContent__circle {
-    width: 17px;
-    height: 17px;
+    width: toRem(17);
+    height: toRem(17);
     border-radius: 50%;
-    border: 5px solid $light-gray;
-    margin-left: 9px;
+    border: toRem(5) solid $light-gray;
+    margin-left: toRem(9);
 }
 .order-content-item__time-cart {
     /* width: 348px; */
-    width: 348px;
-    height: 212px;
-    border: 1px solid $light-gray;
+    width: toRem(348);
+    height: toRem(212);
+    border: toRem(1) solid $light-gray;
     box-sizing: border-box;
-    border-radius: 15px;
-    margin: 0 8px;
+    border-radius: toRem(15);
+    margin: 0 toRem(8);
 }
 .timeContent__times-day__holder {
     @include display-flex();
     flex-wrap: wrap;
     flex-direction: row;
     width: 100%;
-    height: 157px;
-    /* border: 1px solid red; */
-    padding-bottom: 13px;
+    height: toRem(157);
+    padding-bottom: toRem(13);
 }
 .time-day__btn {
     font-family: inherit;
-    width: 147px;
-    height: 50px;
+    width: toRem(147);
+    height: toRem(50);
     padding: 0.875rem 0.75rem;
     margin: 0.75rem 1rem 0.625rem 0.375rem;
 }
@@ -181,11 +179,11 @@ button[disabled] {
     color: $code!important;
 }
 .user-selected-time-in-days .timeContent__circle {
-    width: 17px;
-    height: 17px;
+    width: toRem(17);
+    height: toRem(17);
     border-radius: 50%;
-    border: 5px solid $yellow;
-    margin-left: 9px;
+    border: toRem(5) solid $yellow;
+    margin-left: toRem(9);
 }
 .user-selected-time-in-days .timeContent__topic-day {
     color: $code;

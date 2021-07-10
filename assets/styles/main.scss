@@ -1,5 +1,6 @@
 @import "_variables.scss";
 @import "_colors.scss";
+@import "_functions";
 
 * {
   margin: 0;
@@ -101,7 +102,6 @@ input::-webkit-inner-spin-button {
   height: 44px;
   width: 189px;
   margin-bottom: 31px;
-  visibility: hidden;
 }
 .signin-input,
 .signup-input {

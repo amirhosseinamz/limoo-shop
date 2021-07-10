@@ -162,7 +162,6 @@ import textInput from "~/modules/textInput";
 
 export default {
   props: {
-    radioBtnData: { type: [Object, Array], default: {} },
     commentsData: { type: [Object, Array], default: {} },
     valueRengeSlider: { type: Number, default: 0 },
     commentStar: { type: [Object, Array], default: {} },
@@ -193,7 +192,11 @@ export default {
     };
   },
 
-  watch: {},
+  computed: {
+    radioBtnData () {
+      return this.$store.getters["product/single/single/radioBtnData"]
+    }
+  },
 
   created() {
     this.setDefaultResponseCodeRadioBtn();
@@ -207,14 +210,7 @@ export default {
     getTextByTextKey,
 
     activeRadioBtn($event, data) {
-      this.radioBtnData.map((content) => {
-        if (content.id == data.id) {
-          content.checked = true;
-        } else {
-          content.checked = false;
-        }
-      });
-
+      this.$store.dispatch('product/single/single/changeRadioBtnDataActivation', data.id)
       this.formData.Suggest = data.value;
     },
 
@@ -320,21 +316,7 @@ export default {
     },
 
     setDefaultResponseCodeRadioBtn() {
-      this.radioBtnData.map((content) => {
-        if (content.id == 1) {
-          content.title = this.getTextByTextKey("product_customer_feedback");
-          content.mobileTitle = this.getTextByTextKey(
-            "product_comment_mobile_title"
-          );
-        }
-
-        if (content.id == 2) {
-          content.title = this.getTextByTextKey("product_question_answer");
-          content.mobileTitle = this.getTextByTextKey(
-            "product_question_answer"
-          );
-        }
-      });
+       this.$store.dispatch('product/single/single/changeRadioBtnData')
     },
   },
 };

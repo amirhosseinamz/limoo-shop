@@ -29,12 +29,6 @@ export default {
     return {};
   },
 
-  watch: {},
-
-  created() {},
-
-  mounted() {},
-
   methods: {
     getTextByTextKey,
   },
@@ -80,17 +74,12 @@ export default {
   border-top-right-radius: 20px;
   @include display-flex();
   margin-top: 19px;
-  visibility: hidden;
-}
-.tab--active .tabs__item-line {
-  visibility: visible;
 }
 .tab--active .tabs__item-title {
   color: $black-topic;
 }
 .tabs__content {
   padding-top: 38px;
-  visibility: hidden;
   position: absolute;
 }
 .tabs__content-title {

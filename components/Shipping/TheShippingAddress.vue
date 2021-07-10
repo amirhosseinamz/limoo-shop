@@ -3,11 +3,7 @@
         <transition moda="in-out">
             <div id="overlay" v-if="passChangeIsActive">
                 <shipping-add-address-modal
-                    :all-province="allProvince"
-                    :all-citys="allCitys"
-                    :form-data-original="formData"
                     :data-edit-address="dataEditAddress"
-                    :profile-phone-number="profilePhoneNumber"
                     @selected-province="selectedProvince"
                     @selected-city="selectedCity"
                     @submit-address-add="submitAddressAdd"
@@ -15,7 +11,7 @@
                 />
             </div>
         </transition>
-        <div class="w-100 flex-wrap" :key="updateChoosedAddress">
+        <div class="w-100 flex-wrap" :key="updateChosenAddress">
             <div
                 :class="{
                     'order-detail__choosed-adress': data.defultAddress
@@ -111,13 +107,6 @@
 <script>
 import shippingAddAddressModal from "./shippingAddAddressModal.vue";
 export default {
-    props: {
-        allProvince: { type: [Object, Array], default: [] },
-        allCitys: { type: [Object, Array], default: [] },
-        addressData: { type: [Object, Array], default: {} },
-        formData: { type: [Object, Array], default: {} },
-        profilePhoneNumber: { type: [Number, String], default: "" }
-    },
     components: {
         shippingAddAddressModal
     },
@@ -129,8 +118,27 @@ export default {
             modalEditSelected: {
                 id: null
             },
-            updateChoosedAddress: 0
         };
+    },
+    computed: {
+      addressData () {
+        return this.$store.getters["shipping/shipping/addressData"]
+      },
+      updateChosenAddress () {
+        return this.$store.getters["shipping/shipping/updateChosenAddress"]
+      },
+      allProvince () {
+        return this.$store.getters["shipping/shipping/allProvince"]
+      },
+      allCities () {
+        return this.$store.getters["shipping/shipping/allCities"]
+      },
+      formData () {
+        return this.$store.getters["shipping/shipping/formData"]
+      },
+      profilePhoneNumber () {
+        return this.$store.getters["shipping/shipping/profilePhoneNumber"]
+      }
     },
     created() {
         document.addEventListener("click", this.checkCloseDropDown);
@@ -186,7 +194,6 @@ export default {
             }
 
             if (findAncestor(e.target, "order-detail__closer") == null) {
-                // console.log(this.modalEditSelected.id);
                 if (this.modalEditSelected.id) {
                     this.showEditDeleteOption(this.modalEditSelected.id);
                 }
@@ -195,14 +202,13 @@ export default {
         pickAddress(data) {
             this.addressData.map(content => {
                 if (content.id == data.id) {
-                    content.defultAddress = true;
-
+                    this.$store.dispatch('shipping/shipping/changeDefaultAddress', [content, true])
                     // if we want open one paragraph in time
                 } else {
-                    content.defultAddress = false;
+                    this.$store.dispatch('shipping/shipping/changeDefaultAddress', [content, false])
                 }
             });
-            this.updateChoosedAddress++;
+            this.$store.dispatch('shipping/shipping/updateChosenAddress')
         },
         showModalDeleteOrder(data) {
             this.$emit("event-show-modal-delete-order", data);
@@ -215,6 +221,7 @@ export default {
         },
         showModalEditAddress(data) {},
         showEditDeleteOption(data) {
+          console.log('aldkfsd');
             this.addressData.map(content => {
                 if (content.id == data.id) {
                     content.selected = !content.selected;

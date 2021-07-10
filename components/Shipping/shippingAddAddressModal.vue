@@ -143,7 +143,7 @@
               {{ getTextByTextKey("address_validation_select_city") }}
             </h3>
             <customeDropDown
-              :options="allCitys"
+              :options="allCities"
               :initial-value="initialValueCity"
               label="title"
               className="p-modal-select-box-province_city"
@@ -355,11 +355,7 @@ import textInput from "~/modules/textInput";
 
 export default {
   props: {
-    allProvince: { type: [Object, Array], default: [] },
-    allCitys: { type: [Object, Array], default: [] },
-    formDataOriginal: { type: [Object, Array], default: {} },
     dataEditAddress: { type: Object, default: {} },
-    profilePhoneNumber: { type: [Number, String], default: "" },
   },
   components: {
     customeDropDown,
@@ -380,7 +376,20 @@ export default {
       textLabelCodePoste: "کد پستی (اختیاری):",
     };
   },
-
+  computed: {
+    allProvince () {
+      return this.$store.getters["shipping/shipping/allProvince"]
+    },
+    allCities () {
+      return this.$store.getters["shipping/shipping/allCities"]
+    },
+    formDataOriginal () {
+      return this.$store.getters["shipping/shipping/formData"]
+    },
+    profilePhoneNumber () {
+      return this.$store.getters["shipping/shipping/profilePhoneNumber"]
+    }
+  },
   watch: {
     dataEditAddress(data) {},
   },
@@ -494,15 +503,17 @@ export default {
     },
 
     selectedProvince(value, allData) {
-      this.formData.province = value;
-      this.formData.selectedProvinceAllProperty = allData;
+      // this.formData.province = value;
+      // this.formData.selectedProvinceAllProperty = allData;
+      this.$store.dispatch('shipping/shipping/selectProvince', [value, allData])
       this.showErrorValidationProvince = false;
       this.$emit("selected-province", allData);
     },
 
     selectedCity(value, allData) {
-      this.formData.city = value;
-      this.formData.selectedCityAllProperty = allData;
+      // this.formData.city = value;
+      // this.formData.selectedCityAllProperty = allData;
+      this.$store.dispatch('shipping/shipping/selectProvince', [value, allData])
       this.showErrorValidationCity = false;
       this.$emit("selected-city", allData);
     },

@@ -101,16 +101,17 @@
 
 <script>
 export default {
-  props: {
-    detailPrice: { type: [Object, Array], default: [] },
-  },
-  components: {},
-
   data() {
     return {};
   },
+  computed: {
+    detailPrice () {
+      return this.$store.getters["shipping/shipping/detailPrice"]
+    }
+  },
   inject: ["allOrdersHasTimed"],
   created() {
+    //console.log(this.detailPrice);
     // console.log(this.allOrdersHasTimed); // > Injected property: 5
   },
   methods: {},

@@ -18,11 +18,7 @@
       :product-slider="productSlider"
       :product-detail-technical="detailTechnical"
       :product-slider-mobile="productSliderMobile"
-      :introduction-and-detail-technical-tab="introductionAndDetailTechnicalTab"
-      :comment-and-answer-question-tab-name="commentAnswerQuestionTabName"
       :comment-data="getComments"
-      :radio-btn-data="radioBtnData"
-      :close-modal-add-comment="closeModalAddComment"
       @active-item-slider-nav="activeItemSliderNav"
       @more-comment="moreComment"
       @more-comment-mobile="moreCommentMobile"
@@ -225,36 +221,6 @@ export default {
         },
       ],
 
-      introductionAndDetailTechnicalTab: [
-        {
-          id: 1,
-          title: "معرفی کامل محصول",
-          active: true,
-          type: "fullIntroduction",
-        },
-        {
-          id: 2,
-          title: "مشخصات فنی محصول",
-          active: false,
-          type: "detailTechnical",
-        },
-      ],
-
-      commentAnswerQuestionTabName: [
-        {
-          id: 1,
-          title: "نظر مشتریان محصول",
-          titleMobile: "نظر مشتریان",
-          active: true,
-        },
-        {
-          id: 2,
-          title: "پرسش و پاسخ",
-          titleMobile: "پرسش و پاسخ",
-          active: false,
-        },
-      ],
-
       commentsData: [
         {
           id: 1,
@@ -302,35 +268,14 @@ export default {
 
       pageMoreComment: 1,
 
-      radioBtnData: [
-        {
-          id: 1,
-          title: "پیشنهاد می کنم",
-          checked: true,
-          value: 1,
-        },
-        {
-          id: 2,
-          title: "پیشنهاد نمی کنم",
-          checked: false,
-          value: 2,
-        },
-        {
-          id: 3,
-          title: "نظری ندارم",
-          checked: false,
-          value: 3,
-        },
-      ],
-
-      closeModalAddComment: 0,
     };
   },
 
-  watch: {},
-
-  created() {},
-
+  computed: {
+    radioBtnData () {
+      return this.$store.getters["product/single/single/radioBtnData"]
+    }
+  },
   mounted() {
     this.productData = productData;
     this.checkAddCircleComment();
@@ -447,7 +392,7 @@ export default {
 
       // در صورت نداشتن ارور مقدار مورد نظر ذر صدا زده می شود //
       // و باعث بسته شدن مودال می شود //
-      this.closeModalAddComment++;
+      this.$store.dispatch('product/single/single/increaseCloseModalAddComment')
     },
   },
 };
