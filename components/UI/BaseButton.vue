@@ -135,8 +135,8 @@ a {
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  font-size: 16px;
-  border-radius: 10px;
+  font-size: toRem(16);
+  border-radius: toRem(10);
 
   &.no-box-shadow:hover {
     box-shadow: none !important;
@@ -150,12 +150,12 @@ a {
 }
 .btn-circle {
   border-radius: 100% !important;
-  width: 74px;
-  height: 74px;
+  width: toRem(74);
+  height: toRem(74);
   @include display-flex();
   align-items: center;
   justify-content: center;
-  font-size: 16px;
+  font-size: toRem(16);
   color: $white;
 }
 
@@ -164,8 +164,8 @@ a {
 /*Primary*/
 
 .btn-circle.primary {
-  width: 77px;
-  height: 77px;
+  width: toRem(77);
+  height: toRem(77);
   background-color: $green;
 
   &.disabled {
@@ -177,15 +177,15 @@ a {
 /*Secondary*/
 
 .btn-circle.secondary {
-  width: 74px;
-  height: 74px;
+  width: toRem(74);
+  height: toRem(74);
   background-color: transparent;
-  border: 3px solid $green;
+  border: toRem(3) solid $green;
   color: $green;
 
   &.disabled {
     color: $light-gray;
-    border: 3px solid $light-gray;
+    border: toRem(3) solid $light-gray;
   }
 }
 
@@ -208,15 +208,15 @@ a {
 .btn.green.secondary {
   background-color: transparent;
   color: $green;
-  border: 2px solid $green;
+  border: toRem(2) solid $green;
 
   &:hover {
-    border: 2px solid $green--answer;
+    border: toRem(2) solid $green--answer;
     color: $green--answer;
   }
   &.disabled {
     color: $color-gray;
-    border: 2px solid $color-gray;
+    border: toRem(2) solid $color-gray;
   }
 }
 
@@ -225,15 +225,15 @@ a {
 .btn.green.subtle {
   background-color: transparent;
   color: $green;
-  border: 2px solid #AAFFC6;
+  border: toRem(2) solid #AAFFC6;
 
   &:hover {
-    border: 2px solid $icon--green;
+    border: toRem(2) solid $icon--green;
     color: $green--answer;
   }
   &.disabled {
     color: $color-gray !important;
-    border: 2px solid #e0e0e0 !important;
+    border: toRem(2) solid #e0e0e0 !important;
   }
 }
 
@@ -267,7 +267,7 @@ a {
   border: none;
 
   &:hover {
-    box-shadow: inset 100px 100px 0 rgba(0, 0, 0, 0.1);
+    box-shadow: inset toRem(100) toRem(100) 0 rgba(0, 0, 0, 0.1);
     mix-blend-mode: normal;
   }
 }
@@ -278,11 +278,11 @@ a {
 .btn.yellow.secondary-outline {
   background-color: transparent;
   color: $orange;
-  border: 2px solid $orange-3;
+  border: toRem(2) solid $orange-3;
 }
 
 .btn.yellow.secondary:hover {
-  border: 2px solid $orange;
+  border: toRem(2) solid $orange;
   color: $orange-2;
 }
 
@@ -291,12 +291,12 @@ a {
 .btn.yellow.secondary-inline.no-hover:hover{
   background-color: $orange;
   color: $white;
-  border: 2px solid $orange;
+  border: toRem(2) solid $orange;
 }
 
 .btn.yellow.secondary-inline:hover {
   background-color: $white;
-  border: 2px solid $orange;
+  border: toRem(2) solid $orange;
   color: $orange;
 }
 
@@ -305,12 +305,12 @@ a {
 .btn.yellow.subtle {
   background-color: transparent;
   color: $orange;
-  border: 2px solid $orange-4;
+  border: toRem(2) solid $orange-4;
 }
 
 .btn.yellow.subtle:hover {
   color: $orange;
-  border: 2px solid $orange-2;
+  border: toRem(2) solid $orange-2;
 }
 
 /*Text*/
@@ -330,7 +330,7 @@ a {
 
 .btn.gray.secondary {
   color: $gray;
-  border: 2px solid $gray;
+  border: toRem(2) solid $gray;
 }
 
 
@@ -365,10 +365,10 @@ a {
 
 .btn.white {
   background-color: $white;
-  border: 2px solid $light-gray;
+  border: toRem(2) solid $light-gray;
   color: $gray;
   &.product {
-    border: 1px solid $gray-5;
+    border: toRem(1) solid $gray-5;
     color: $gray-3;
   }
   &.close {
@@ -386,7 +386,7 @@ a {
 
 .btn.red {
   &.secondary-outline {
-    border: 1px solid $red-color;
+    border: toRem(1) solid $red-color;
     color: $red-color;
     background-color: transparent;
   }

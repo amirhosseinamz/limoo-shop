@@ -38,7 +38,6 @@
         border-top-right-radius: 20px;
         @include display-flex();
         margin-top:19px;
-        visibility: hidden;
     }
     .tab--active .tabs__item-line{
        visibility:visible;
@@ -48,7 +47,6 @@
     }
     .tabs__content{
         padding-top:38px;
-        visibility: hidden;
         position: absolute;
     }
     .tabs__content-title{
@@ -188,5 +186,5 @@
         .tabs__content-right{
             width:148px;
         }
-        
+
     }

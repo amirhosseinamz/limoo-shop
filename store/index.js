@@ -2,7 +2,6 @@
   get the same instance because on the server in node where does runs. if we have plain object
   stored well then we always get that object for every connected user. if we have a function
   that returns and you store as this does then every new user recives his owen store*/
-
 export const state = () => ({
   // signUp: "stepOne",
   // signIn: "stepOne",

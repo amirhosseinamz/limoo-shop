@@ -33,11 +33,6 @@
                             "
                             @add-more-order-to-card="addMoreOrderToCard"
                             @minus-order-from-card="minusOrderFromCart"
-                            :address-data="addressData"
-                            :all-province="allProvince"
-                            :all-citys="allCitys"
-                            :form-data="formData"
-                            :profile-phone-number="profilePhoneNumber"
                             @selected-province="selectedProvince"
                             @selected-city="selectedCity"
                             @submit-address-add="submitAddressAdd"
@@ -65,24 +60,8 @@
                     <div class="user-cart__shipping-time__container">
                         <div class="user-cart__time-topic__holder">
                             <span class="user-cart__time-title"
-                                >نحوه و زمان ارسال کالا</span
-                            >
-<!--                            <div class="user-cart__time-nav__holder d-rtl">
-                                <div
-                                    class="user-cart__time-nav__items"
-                                    :class="{ 'item-active': sendTime }"
-                                >
-                                    <NuxtLink to="">ارسال پیشنهادی</NuxtLink>
-                                    <span class="bottomLine"></span>
-                                </div>
-                                <div
-                                    class="user-cart__time-nav__items user-cart__time-nav__urgent"
-                                >
-                                    <NuxtLink to="">ارسال فوری</NuxtLink>
-                                    <span class="bottomLine"></span>
-                                </div>
-                                &lt;!&ndash;  &ndash;&gt;
-                            </div>-->
+                                >نحوه و زمان ارسال کالا</span>
+
                           <base-tabs
                             :tabs="tabsNames"
                             :selected="selected"
@@ -95,23 +74,20 @@
                             <tab-content
                               :name="tabsNames[0]"
                               :isSelected="selected === tabsNames[0]"
-                            >
+                            ></tab-content>
 
-                            </tab-content>
                             <tab-content :name="tabsNames[1]" :isSelected="selected === tabsNames[1]">
                             </tab-content>
                           </base-tabs>
                         </div>
                         <div class="user-cart__order-time__container">
                             <the-time-shipping
-                                :time-data="timeData"
                                 @submit-times-add="submitTimesAdd"
                             ></the-time-shipping>
                         </div>
                     </div>
                 </div>
                 <The-cart-shipping-detail
-                    :detail-price="detailPrice"
                 ></The-cart-shipping-detail>
             </div>
         </div>
@@ -147,534 +123,37 @@ export default {
             showModalDeleteAddress: false,
             userAddressData: -1,
             sendTime: true,
-            addressData: [
-                {
-                    id: 1,
-                    address: "تهران ، خیابان ولیعصر ، تقاطع کوچه حسینی راد 1",
-                    province: "تهران",
-                    city: "جنت آباد",
-                    codePoste: "90",
-                    nameReceiver: "شروین پیکارجو",
-                    numberReceiver: "09190894025",
-                    defultAddress: true
-                },
-                {
-                    id: 2,
-                    address: "تهران ، خیابان ولیعصر ، تقاطع کوچه حسینی راد 2",
-                    province: "قم",
-                    city: "قم",
-                    codePoste: "2",
-                    nameReceiver: "خشایار سُلگی",
-                    numberReceiver: "09180151023",
-                    defultAddress: false
-                },
-                {
-                    id: 3,
-                    address: "تهران ، خیابان ولیعصر ، تقاطع کوچه حسینی راد 3",
-                    province: "قم",
-                    city: "قم",
-                    codePoste: "2",
-                    nameReceiver: "مهدی دادور",
-                    numberReceiver: "09180151023",
-                    defultAddress: false
-                }
-            ],
-            ordersData: [
-                {
-                    id: 1,
-                    title: "تهران خیابان ولی عصر 1 تقاطع مطهری، کوچه حسینی راد"
-                },
-                {
-                    id: 2,
-                    title: "تهران خیابان ولی عصر 2 تقاطع مطهری، کوچه حسینی راد"
-                },
-                {
-                    id: 3,
-                    title: "تهران خیابان ولی عصر 3 تقاطع مطهری، کوچه حسینی راد"
-                },
-                {
-                    id: 4,
-                    title: "تهران خیابان ولی عصر 3 تقاطع مطهری، کوچه حسینی راد"
-                },
-                {
-                    id: 5,
-                    title: "تهران خیابان ولی عصر 3 تقاطع مطهری، کوچه حسینی راد"
-                },
-                {
-                    id: 6,
-                    title: "تهران خیابان ولی عصر 3 تقاطع مطهری، کوچه حسینی راد"
-                },
-                {
-                    id: 7,
-                    title: "تهران خیابان ولی عصر 3 تقاطع مطهری، کوچه حسینی راد"
-                }
-            ],
             currentOrders: {},
-            detailPrice: {
-                price: 12000,
-                totalDiscount: 142250,
-                submitDeliveryPrice: "رایگان",
-                totalPrice: 2587000
-            },
-            allProvince: [
-                {
-                    id: 1,
-                    title: "تهران",
-                    selected: false
-                },
-                {
-                    title: "قم",
-                    id: 2,
-                    selected: false
-                }
-            ],
-            allCitys: [
-                {
-                    id: 1,
-                    parent_id: 2,
-                    title: "قم",
-                    selected: false
-                },
-                {
-                    id: 2,
-                    parent_id: 1,
-                    title: "جنت آباد",
-                    selected: false
-                }
-            ],
-            formData: {
-                province: "",
-                city: "",
-                codePoste: "",
-                nameReceiver: "",
-                numberReceiver: "",
-                address: "",
-                defultAddress: true
-            },
             updateAddress: 0,
-            profilePhoneNumber: "09198814783",
             currentAddress: {},
-            timeData: [
-                {
-                    id: 1,
-                    shippingLimoo: "limoo",
-                    shippingPost: "post",
 
-                    orders: [
-                        { id: 1, img: "/img/apple-watch-1.png" },
-                        { id: 2, img: "/img/apple-watch-1.png" },
-                        { id: 3, img: "/img/apple-watch-1.png" }
-                    ],
-                    timeTable: [
-                        {
-                            id: 1,
-                            dayTime: "شنبه 23 بهمن 99",
-                            weekday: "شنبه",
-                            weekcal: "23 بهمن 99",
-                            timeInDayTable: [
-                                {
-                                    id: 1,
-                                    time: "بین 8:00 تا 12:00",
-                                    disable: true
-                                },
-                                { id: 2, time: "بین 12:00 تا 16:00" },
-                                { id: 3, time: "بین 16:00 تا 20:00" },
-                                { id: 4, time: "بین 20:00 تا 00:00" }
-                            ]
-                        },
-                        {
-                            id: 2,
-                            dayTime: "یک شنبه 24 بهمن 99",
-                            weekday: "یک شنبه",
-                            weekcal: "24 بهمن 99",
-                            timeInDayTable: [
-                                { id: 1, time: "بین 8:00 تا 12:00" },
-                                { id: 2, time: "بین 12:00 تا 16:00" },
-                                { id: 3, time: "بین 16:00 تا 20:00" },
-                                { id: 4, time: "بین 20:00 تا 00:00" }
-                            ]
-                        },
-                        {
-                            id: 3,
-                            dayTime: "دو شنبه 25 بهمن 99",
-                            weekday: "دو شنبه",
-                            weekcal: "25 بهمن 99",
-                            timeInDayTable: [
-                                { id: 1, time: "بین 8:00 تا 12:00" },
-                                { id: 2, time: "بین 12:00 تا 16:00" },
-                                { id: 3, time: "بین 16:00 تا 20:00" },
-                                { id: 4, time: "بین 20:00 تا 00:00" }
-                            ]
-                        },
-                        {
-                            id: 4,
-                            dayTime: "سه شنبه 26 بهمن 99",
-                            weekday: "سه شنبه",
-                            weekcal: "26 بهمن 99",
-                            timeInDayTable: [
-                                { id: 1, time: "بین 8:00 تا 12:00" },
-                                { id: 2, time: "بین 12:00 تا 16:00" },
-                                { id: 3, time: "بین 16:00 تا 20:00" },
-                                { id: 4, time: "بین 20:00 تا 00:00" }
-                            ]
-                        },
-                        {
-                            id: 5,
-                            dayTime: "چهار شنبه 27 بهمن 99",
-                            weekday: "چهار شنبه",
-                            weekcal: "27 بهمن 99",
-                            timeInDayTable: [
-                                { id: 1, time: "بین 8:00 تا 12:00" },
-                                { id: 2, time: "بین 12:00 تا 16:00" },
-                                { id: 3, time: "بین 16:00 تا 20:00" },
-                                { id: 4, time: "بین 20:00 تا 00:00" }
-                            ]
-                        },
-                        {
-                            id: 6,
-                            dayTime: "پنچ شنبه 28 بهمن 99",
-                            weekday: "پنج شنبه",
-                            weekcal: "28 بهمن 99",
-                            timeInDayTable: [
-                                { id: 1, time: "بین 8:00 تا 12:00" },
-                                { id: 2, time: "بین 12:00 تا 16:00" },
-                                { id: 3, time: "بین 16:00 تا 20:00" },
-                                { id: 4, time: "بین 20:00 تا 00:00" }
-                            ]
-                        },
-                        {
-                            id: 7,
-                            dayTime: "جمعه 29 بهمن 99",
-                            weekday: "جمعه",
-                            weekcal: "29 بهمن 99",
-                            timeInDayTable: [
-                                { id: 1, time: "بین 8:00 تا 12:00" },
-                                { id: 2, time: "بین 12:00 تا 16:00" },
-                                { id: 3, time: "بین 16:00 تا 20:00" },
-                                { id: 4, time: "بین 20:00 تا 00:00" }
-                            ]
-                        }
-                    ]
-                },
-                {
-                    id: 2,
-                    shipping: "heavy",
-                    orders: [{ id: 1, img: "/img/apple-watch-2.png" }],
-                    timeTable: [
-                        {
-                            id: 1,
-                            dayTime: "شنبه 23 بهمن 99",
-                            weekday: "شنبه",
-                            weekcal: "23 بهمن 99",
-                            timeInDayTable: [
-                                {
-                                    id: 1,
-                                    time: "بین 8:00 تا 12:00",
-                                    disable: true
-                                },
-                                { id: 2, time: "بین 12:00 تا 16:00" },
-                                {
-                                    id: 3,
-                                    time: "بین 16:00 تا 20:00",
-                                    disable: true
-                                },
-                                {
-                                    id: 4,
-                                    time: "بین 20:00 تا 00:00",
-                                    disable: true
-                                }
-                            ]
-                        },
-                        {
-                            id: 2,
-                            dayTime: "یک شنبه 24 بهمن 99",
-                            weekday: "یک شنبه",
-                            weekcal: "24 بهمن 99",
-                            timeInDayTable: [
-                                { id: 1, time: "بین 8:00 تا 12:00" },
-                                { id: 2, time: "بین 12:00 تا 16:00" },
-                                { id: 3, time: "بین 16:00 تا 20:00" },
-                                { id: 4, time: "بین 20:00 تا 00:00" }
-                            ]
-                        },
-                        {
-                            id: 3,
-                            dayTime: "دو شنبه 25 بهمن 99",
-                            weekday: "دو شنبه",
-                            weekcal: "25 بهمن 99",
-                            timeInDayTable: [
-                                { id: 1, time: "بین 8:00 تا 12:00" },
-                                { id: 2, time: "بین 12:00 تا 16:00" },
-                                { id: 3, time: "بین 16:00 تا 20:00" },
-                                { id: 4, time: "بین 20:00 تا 00:00" }
-                            ]
-                        },
-                        {
-                            id: 4,
-                            dayTime: "سه شنبه 26 بهمن 99",
-                            weekday: "سه شنبه",
-                            weekcal: "26 بهمن 99",
-                            timeInDayTable: [
-                                { id: 1, time: "بین 8:00 تا 12:00" },
-                                { id: 2, time: "بین 12:00 تا 16:00" },
-                                { id: 3, time: "بین 16:00 تا 20:00" },
-                                { id: 4, time: "بین 20:00 تا 00:00" }
-                            ]
-                        },
-                        {
-                            id: 5,
-                            dayTime: "چهار شنبه 27 بهمن 99",
-                            weekday: "چهار شنبه",
-                            weekcal: "27 بهمن 99",
-                            timeInDayTable: [
-                                { id: 1, time: "بین 8:00 تا 12:00" },
-                                { id: 2, time: "بین 12:00 تا 16:00" },
-                                { id: 3, time: "بین 16:00 تا 20:00" },
-                                { id: 4, time: "بین 20:00 تا 00:00" }
-                            ]
-                        },
-                        {
-                            id: 6,
-                            dayTime: "پنچ شنبه 28 بهمن 99",
-                            weekday: "پنج شنبه",
-                            weekcal: "28 بهمن 99",
-                            timeInDayTable: [
-                                { id: 1, time: "بین 8:00 تا 12:00" },
-                                { id: 2, time: "بین 12:00 تا 16:00" },
-                                { id: 3, time: "بین 16:00 تا 20:00" },
-                                { id: 4, time: "بین 20:00 تا 00:00" }
-                            ]
-                        },
-                        {
-                            id: 7,
-                            dayTime: "جمعه 29 بهمن 99",
-                            weekday: "جمعه",
-                            weekcal: "29 بهمن 99",
-                            timeInDayTable: [
-                                { id: 1, time: "بین 8:00 تا 12:00" },
-                                { id: 2, time: "بین 12:00 تا 16:00" },
-                                { id: 3, time: "بین 16:00 تا 20:00" },
-                                { id: 4, time: "بین 20:00 تا 00:00" }
-                            ]
-                        }
-                    ]
-                },
-                {
-                    id: 3,
-                    shippingSeller: "seller",
-                    shippingLimoo: "limoo",
-                    orders: [
-                        { id: 1, img: "/img/apple-watch-3.png" },
-                        { id: 2, img: "/img/apple-watch-3.png" }
-                    ],
-                    timeTable: [
-                        {
-                            id: 1,
-                            dayTime: "شنبه 23 بهمن 99",
-                            weekday: "شنبه",
-                            weekcal: "23 بهمن 99",
-                            timeInDayTable: [
-                                {
-                                    id: 1,
-                                    time: "بین 8:00 تا 12:00",
-                                    disable: true
-                                },
-                                { id: 2, time: "بین 12:00 تا 16:00" },
-                                {
-                                    id: 3,
-                                    time: "بین 16:00 تا 20:00",
-                                    disable: true
-                                },
-                                {
-                                    id: 4,
-                                    time: "بین 20:00 تا 00:00",
-                                    disable: true
-                                }
-                            ]
-                        },
-                        {
-                            id: 2,
-                            dayTime: "یک شنبه 24 بهمن 99",
-                            weekday: "یک شنبه",
-                            weekcal: "24 بهمن 99",
-                            timeInDayTable: [
-                                { id: 1, time: "بین 8:00 تا 12:00" },
-                                {
-                                    id: 2,
-                                    time: "بین 12:00 تا 16:00",
-                                    disable: true
-                                },
-                                { id: 3, time: "بین 16:00 تا 20:00" },
-                                { id: 4, time: "بین 20:00 تا 00:00" }
-                            ]
-                        },
-                        {
-                            id: 3,
-                            dayTime: "دو شنبه 25 بهمن 99",
-                            weekday: "دو شنبه",
-                            weekcal: "25 بهمن 99",
-                            timeInDayTable: [
-                                { id: 1, time: "بین 8:00 تا 12:00" },
-                                { id: 2, time: "بین 12:00 تا 16:00" },
-                                { id: 3, time: "بین 16:00 تا 20:00" },
-                                { id: 4, time: "بین 20:00 تا 00:00" }
-                            ]
-                        },
-                        {
-                            id: 4,
-                            dayTime: "سه شنبه 26 بهمن 99",
-                            weekday: "سه شنبه",
-                            weekcal: "26 بهمن 99",
-                            timeInDayTable: [
-                                { id: 1, time: "بین 8:00 تا 12:00" },
-                                { id: 2, time: "بین 12:00 تا 16:00" },
-                                { id: 3, time: "بین 16:00 تا 20:00" },
-                                { id: 4, time: "بین 20:00 تا 00:00" }
-                            ]
-                        },
-                        {
-                            id: 5,
-                            dayTime: "چهار شنبه 27 بهمن 99",
-                            weekday: "چهار شنبه",
-                            weekcal: "27 بهمن 99",
-                            timeInDayTable: [
-                                { id: 1, time: "بین 8:00 تا 12:00" },
-                                { id: 2, time: "بین 12:00 تا 16:00" },
-                                { id: 3, time: "بین 16:00 تا 20:00" },
-                                { id: 4, time: "بین 20:00 تا 00:00" }
-                            ]
-                        },
-                        {
-                            id: 6,
-                            dayTime: "پنچ شنبه 28 بهمن 99",
-                            weekday: "پنج شنبه",
-                            weekcal: "28 بهمن 99",
-                            timeInDayTable: [
-                                { id: 1, time: "بین 8:00 تا 12:00" },
-                                { id: 2, time: "بین 12:00 تا 16:00" },
-                                { id: 3, time: "بین 16:00 تا 20:00" },
-                                { id: 4, time: "بین 20:00 تا 00:00" }
-                            ]
-                        },
-                        {
-                            id: 7,
-                            dayTime: "جمعه 29 بهمن 99",
-                            weekday: "جمعه",
-                            weekcal: "29 بهمن 99",
-                            timeInDayTable: [
-                                { id: 1, time: "بین 8:00 تا 12:00" },
-                                { id: 2, time: "بین 12:00 تا 16:00" },
-                                { id: 3, time: "بین 16:00 تا 20:00" },
-                                { id: 4, time: "بین 20:00 تا 00:00" }
-                            ]
-                        }
-                    ]
-                },
-                {
-                    id: 4,
-                    shipping: "seller",
-                    orders: [{ id: 1, img: "/img/apple-watch-1.png" }],
-                    timeTable: [
-                        {
-                            id: 1,
-                            dayTime: "شنبه 23 بهمن 99",
-                            weekday: "شنبه",
-                            weekcal: "23 بهمن 99",
-                            timeInDayTable: [
-                                {
-                                    id: 1,
-                                    time: "بین 8:00 تا 12:00",
-                                    disable: true
-                                },
-                                { id: 2, time: "بین 12:00 تا 16:00" },
-                                {
-                                    id: 3,
-                                    time: "بین 16:00 تا 20:00",
-                                    disable: true
-                                },
-                                {
-                                    id: 4,
-                                    time: "بین 20:00 تا 00:00",
-                                    disable: true
-                                }
-                            ]
-                        },
-                        {
-                            id: 2,
-                            dayTime: "یک شنبه 24 بهمن 99",
-                            weekday: "یک شنبه",
-                            weekcal: "24 بهمن 99",
-                            timeInDayTable: [
-                                { id: 1, time: "بین 8:00 تا 12:00" },
-                                { id: 2, time: "بین 12:00 تا 16:00" },
-                                { id: 3, time: "بین 16:00 تا 20:00" },
-                                { id: 4, time: "بین 20:00 تا 00:00" }
-                            ]
-                        },
-                        {
-                            id: 3,
-                            dayTime: "دو شنبه 25 بهمن 99",
-                            weekday: "دو شنبه",
-                            weekcal: "25 بهمن 99",
-                            timeInDayTable: [
-                                { id: 1, time: "بین 8:00 تا 12:00" },
-                                { id: 2, time: "بین 12:00 تا 16:00" },
-                                { id: 3, time: "بین 16:00 تا 20:00" },
-                                { id: 4, time: "بین 20:00 تا 00:00" }
-                            ]
-                        },
-                        {
-                            id: 4,
-                            dayTime: "سه شنبه 26 بهمن 99",
-                            weekday: "سه شنبه",
-                            weekcal: "26 بهمن 99",
-                            timeInDayTable: [
-                                { id: 1, time: "بین 8:00 تا 12:00" },
-                                { id: 2, time: "بین 12:00 تا 16:00" },
-                                { id: 3, time: "بین 16:00 تا 20:00" },
-                                { id: 4, time: "بین 20:00 تا 00:00" }
-                            ]
-                        },
-                        {
-                            id: 5,
-                            dayTime: "چهار شنبه 27 بهمن 99",
-                            weekday: "چهار شنبه",
-                            weekcal: "27 بهمن 99",
-                            timeInDayTable: [
-                                { id: 1, time: "بین 8:00 تا 12:00" },
-                                { id: 2, time: "بین 12:00 تا 16:00" },
-                                { id: 3, time: "بین 16:00 تا 20:00" },
-                                { id: 4, time: "بین 20:00 تا 00:00" }
-                            ]
-                        },
-                        {
-                            id: 6,
-                            dayTime: "پنچ شنبه 28 بهمن 99",
-                            weekday: "پنج شنبه",
-                            weekcal: "28 بهمن 99",
-                            timeInDayTable: [
-                                { id: 1, time: "بین 8:00 تا 12:00" },
-                                { id: 2, time: "بین 12:00 تا 16:00" },
-                                { id: 3, time: "بین 16:00 تا 20:00" },
-                                { id: 4, time: "بین 20:00 تا 00:00" }
-                            ]
-                        },
-                        {
-                            id: 7,
-                            dayTime: "جمعه 29 بهمن 99",
-                            weekday: "جمعه",
-                            weekcal: "29 بهمن 99",
-                            timeInDayTable: [
-                                { id: 1, time: "بین 8:00 تا 12:00" },
-                                { id: 2, time: "بین 12:00 تا 16:00" },
-                                { id: 3, time: "بین 16:00 تا 20:00" },
-                                { id: 4, time: "بین 20:00 تا 00:00" }
-                            ]
-                        }
-                    ]
-                }
-            ]
         };
+    },
+    computed: {
+      addressData () {
+        return this.$store.getters["shipping/shipping/addressData"]
+      },
+      ordersData () {
+        return this.$store.getters["shipping/shipping/ordersData"]
+      },
+      allProvince () {
+        return this.$store.getters["shipping/shipping/allProvince"]
+      },
+      allCities () {
+        return this.$store.getters["shipping/shipping/allCities"]
+      },
+      formData () {
+        return this.$store.getters["shipping/shipping/formData"]
+      },
+      timeData () {
+        return this.$store.getters["shipping/shipping/timeData"]
+      },
+      detailPrice () {
+        return this.$store.getters["shipping/shipping/detailPrice"]
+      },
+      profilePhoneNumber () {
+        return this.$store.getters["shipping/shipping/profilePhoneNumber"]
+      }
     },
     provide() {
         return {
@@ -742,14 +221,12 @@ export default {
         btnDeleteAddress(data) {
             const removeOrder = () => {
                 let indexDeleteOrderData = -1;
-
                 this.addressData.map((content, index) => {
                     if (content.id == data.id) {
                         indexDeleteOrderData = index;
                     }
                 });
-
-                this.addressData.splice(indexDeleteOrderData, 1);
+                this.$store.dispatch('shipping/shipping/deleteAddress', indexDeleteOrderData)
             };
 
             removeOrder();
@@ -773,6 +250,7 @@ export default {
         },
 
         addCama() {
+            //this.$store.dispatch("shipping/shipping/addCama")
             const getDetailPrice = this.detailPrice;
             const setUpdateDetailPrice = {};
 
@@ -785,8 +263,7 @@ export default {
                     );
                 }
             }
-
-            this.detailPrice = setUpdateDetailPrice;
+            this.$store.dispatch('shipping/shipping/addCama',setUpdateDetailPrice)
         }
     }
 };
@@ -795,34 +272,32 @@ export default {
 .cart-container {
     margin: 0 auto;
     width: 100%;
-    max-width: 1920px;
+    max-width: toRem(1920);
     height: fit-content;
 }
 .user-cart__container {
-    padding: 166px 16px 0 16px;
-    /* margin-bottom: 60px; */
+    padding: toRem(166) toRem(16) 0 toRem(16);
     width: 100%;
     height: fit-content;
     @include display-flex();
     flex-direction: column;
-    /* border: 1px solid red; */
 }
 .user-shipping__address-btn__empty {
     @include display-flex();
     justify-content: center;
     align-items: center;
-    width: 270px;
-    height: 57px;
+    width: toRem(270);
+    height: toRem(57);
     margin: 0 auto;
-    font-size: 16px;
+    font-size: toRem(16);
     line-height: 140.62%;
     text-align: center;
     color: $yellow;
-    border: 2px solid $yellow;
+    border: toRem(2) solid $yellow;
     box-sizing: border-box;
-    border-radius: 10px;
+    border-radius: toRem(10);
     cursor: pointer;
-    margin-top: 24px;
+    margin-top: toRem(24);
 }
 .user-shipping__address-btn__empty:hover {
     color: $white;
@@ -841,20 +316,20 @@ export default {
     height: fit-content;
 }
 .user-cart__shipping-topic {
-    font-size: 18px;
+    font-size: toRem(18);
     line-height: 140.62%;
     text-align: right;
-    margin-bottom: 24px;
+    margin-bottom: toRem(24);
 }
 .user-cart__shipping-container {
     @include display-flex();
     flex-direction: column;
     width: 70%;
     /* border: 1px solid blue; */
-    margin-left: 30px;
+    margin-left: toRem(30);
     /* background-color: $white; */
-    border-radius: 10px;
-    min-height: 193px;
+    border-radius: toRem(10);
+    min-height: toRem(193);
     height: fit-content;
 }
 .user-cart__shipping-address {
@@ -862,8 +337,8 @@ export default {
     flex-direction: column;
     background-color: $white;
     border-radius: 10px;
-    padding: 0 24px 30px 24px;
-    margin-bottom: 16px;
+    padding: 0 toRem(24) toRem(30) toRem(24);
+    margin-bottom: toRem(16);
 }
 .user-cart__shipping-time__container {
     @include display-flex();
@@ -874,40 +349,40 @@ export default {
     flex-direction: column;
     background-color: $white;
     width: 100%;
-    height: 142px;
+    height: toRem(142);
     z-index: 1;
-    box-shadow: 0px 8px 16px $box__shadow;
-    border-radius: 10px 10px 0px 0px;
+    box-shadow: 0 toRem(8) toRem(16) $box__shadow;
+    border-radius: toRem(10) toRem(10) 0 0;
 }
 .user-cart__time-title {
-    font-size: 18px;
+    font-size: toRem(18);
     line-height: 140.62%;
     color: $black-topic;
     text-align: right;
-    margin: 27px 38px 30px 0;
+    margin: toRem(27) toRem(38) toRem(30) 0;
 }
 .user-cart__order-time__container {
     width: 100%;
     height: fit-content;
     background-color: $white;
-    box-shadow: 0 8px 16px $box__shadow;
-    border-radius: 0 0 10px 10px;
-    padding-top: 14px;
+    box-shadow: 0 toRem(8) toRem(16) $box__shadow;
+    border-radius: 0 0 toRem(10) toRem(10);
+    padding-top: toRem(14);
 }
 .user-cart__time-nav__holder::v-deep {
     padding: 0 2.375rem;
     width: 100%;
-    height: 60px;
+    height: toRem(60);
 
   .user-cart__time-nav__items {
     margin-left: 3.125rem;
     padding-bottom: 0.7rem;
-    font-size: 18px;
+    font-size: toRem(18);
   }
 }
 
 .user-cart__time-nav__urgent a {
-    margin-right: 64px;
+    margin-right: toRem(64);
 }
 .item-active {
     & a {
@@ -916,28 +391,27 @@ export default {
     .bottomLine {
         align-self: center;
         background-color: $yellow;
-        height: 5px;
+        height: toRem(5);
         width: 115%;
-        margin-top: 20px;
-        border-top-left-radius: 15px;
-        border-top-right-radius: 15px;
+        margin-top: toRem(20);
+        border-top-left-radius: toRem(15);
+        border-top-right-radius: toRem(15);
     }
 }
 .user-shipping__title {
     font-family: inherit;
-    font-size: 18px;
+    font-size: toRem(18);
     line-height: 140.62%;
     text-align: right;
     color: $black-topic;
-    margin: 24px 0 24px 0;
-    /* border: 1px solid blue; */
+    margin: toRem(24) 0 toRem(24) 0;
 }
 .user-shipping__address-btn,
 .user-shipping__address-btn__mobile {
     font-family: inherit;
-    font-size: 16px;
+    font-size: toRem(16);
     line-height: 140.62%;
-    margin: 24px 0 24px 0;
+    margin: toRem(24) 0 toRem(24) 0;
     color: $gray;
     cursor: pointer;
 }
@@ -952,12 +426,12 @@ export default {
     @include font-icon__limoo();
     content: "\e821";
     color: $yellow;
-    font-size: 24px;
-    margin-right: 8px;
+    font-size: toRem(24);
+    margin-right: toRem(8);
     vertical-align: middle;
 }
 .user-shipping__address-btn__mobile::after {
-    margin-left: 23px;
+    margin-left: toRem(23);
 }
 .user-shipping__address-btn__mobile {
     display: none;
@@ -966,18 +440,18 @@ export default {
     @include display-flex();
     text-decoration: none;
     color: $code-request;
-    font-size: 16px;
+    font-size: toRem(16);
     line-height: 140.62%;
     text-align: right;
-    margin: 24px 18px 60px 0;
+    margin: toRem(24) toRem(18) toRem(60) 0;
 }
 .user-cart__go-back::before {
     @include font-icon__limoo();
     @include display-flex();
     content: "\e801";
     color: $code-request;
-    font-size: 12px;
-    margin-left: 6px;
+    font-size: toRem(12);
+    margin-left: toRem(6);
     transform: rotate(180deg);
 }
 .mobile-screen__holder {
@@ -996,9 +470,9 @@ export default {
 
 @media (max-width: 960px) {
     .user-shipping__address-btn__empty {
-        width: 259px;
-        height: 47px;
-        margin-top: 8px;
+        width: toRem(259);
+        height: toRem(47);
+        margin-top: toRem(8);
     }
     .desktop-btn__empty {
         display: none;
@@ -1012,30 +486,30 @@ export default {
     .user-shipping__address-btn__mobile {
         display: block;
         font-family: inherit;
-        font-size: 13px;
+        font-size: toRem(13);
         line-height: 140.62%;
-        margin: 8px 0 24px 0;
+        margin: toRem(8) 0 toRem(24) 0;
         color: $gray;
         text-align: left;
         cursor: pointer;
     }
     .user-shipping__address-btn__mobile::after {
-        font-size: 19px;
-        margin-left: 2px;
-        margin-right: 4px;
+        font-size: toRem(19);
+        margin-left: toRem(2);
+        margin-right: toRem(4);
     }
     .user-cart__shipping-line {
         display: block;
-        margin: 0 auto 16px auto;
+        margin: 0 auto toRem(16) auto;
         width: 100%;
-        border-top: 1px solid $gray-border;
+        border-top: toRem(1) solid $gray-border;
     }
     .user-cart__time-nav__holder::v-deep {
         padding: 0.9375rem 1.875rem 0 1.875rem;
-        height: 51px;
+        height: toRem(51);
 
       .user-cart__time-nav__items {
-        font-size: 14px;
+        font-size: toRem(14);
       }
     }
     .user-cart__time-nav__urgent a {
@@ -1046,43 +520,43 @@ export default {
             color: $code;
         }
         .bottomLine {
-            height: 4px;
+            height: toRem(4);
             width: 115%;
-            margin-top: 10px;
+            margin-top: toRem(10);
         }
     }
     .user-cart__time-topic__holder {
-        height: 102px;
+        height: toRem(102);
     }
     .user-cart__time-title {
-        font-size: 14px;
-        margin: 16px 11px 16px 0;
+        font-size: toRem(14);
+        margin: toRem(16) toRem(11) toRem(16) 0;
     }
     .user-cart__container {
-        padding: 47px 0 0 0;
-        margin-bottom: 60px;
+        padding: toRem(47) 0 0 0;
+        margin-bottom: toRem(60);
         flex-direction: column;
     }
     .user-cart__shipping-holder {
         flex-direction: column;
-        padding: 0 5px;
+        padding: 0 toRem(5);
     }
     .user-cart__shipping-container {
         width: 100%;
         /* border: 1px solid blue; */
-        min-height: 145px;
+        min-height: toRem(145);
         margin-left: 0;
     }
     .user-cart__shipping-address {
-        padding: 0 11px;
-        margin-bottom: 8px;
+        padding: 0 toRem(11);
+        margin-bottom: toRem(8);
     }
     .user-cart__go-back {
         display: none;
     }
     .user-shipping__title {
-        font-size: 14px;
-        margin: 16px 0 16px 0;
+        font-size: toRem(14);
+        margin: toRem(16) 0 toRem(16) 0;
         /* border: 1px solid blue; */
     }
     .user-cart__shipping-topic {
@@ -1093,19 +567,17 @@ export default {
         flex-direction: row;
         justify-content: space-between;
         align-items: center;
-        height: 56px;
+        height: toRem(56);
         background: $white;
-        margin-bottom: 8px;
-        padding: 0 16px;
+        margin-bottom: toRem(8);
+        padding: 0 toRem(16);
     }
     .mobile-screen__arrow::before {
         content: "\e801";
         @include font-icon__limoo();
-        font-size: 16px;
+        font-size: toRem(16);
         color: $gray;
         font-weight: bold;
-        /* margin-right: 4px;
-        margin-left: 8px; */
     }
 }
 @media (max-width: 540px) {
@@ -1119,17 +591,17 @@ export default {
       }
       .user-cart__time-nav__items {
         margin-left: 0;
-        font-size: 12px;
+        font-size: toRem(12);
       }
     }
 
 }
 @media (max-width: 280px) {
     .user-cart__shipping-address {
-        padding: 0 3px;
+        padding: 0 toRem(3);
     }
     .user-cart__time-nav__holder {
-        padding: 15px 17px 0 17px;
+        padding: toRem(15) toRem(17) 0 toRem(17);
     }
 }
 </style>

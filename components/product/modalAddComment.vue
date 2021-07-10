@@ -73,7 +73,6 @@
         <comment-form
           @submit-data="submitData"
           @close-modal="closeModal"
-          :radio-btn-data="radioBtnData"
           :comments-data="commentsData"
           :value-renge-slider="valueRengeSlider"
           :comment-star="commentStar"
@@ -93,7 +92,6 @@ import textInput from "~/modules/textInput";
 export default {
   props: {
     active: { type: [Boolean, Number], default: false },
-    radioBtnData: { type: [Object, Array], default: [] },
     commentsData: { type: [Object, Array], default: {} },
   },
 

@@ -94,28 +94,28 @@ export default {
   .stepper-container {
     display: flex;
     align-items: center;
-    width: 120px;
-    height: 43px;
+    width: toRem(120);
+    height: toRem(43);
 
     &.bordered {
-      border: 1px solid $gray-6;
-      border-radius: 10px;
+      border: toRem(1) solid $gray-6;
+      border-radius: toRem(10);
     }
     .plus, .minus {
-      width: 43px;
-      height: 43px;
+      width: toRem(43);
+      height: toRem(43);
     }
     .plus {
       &::before {
         @include font-icon__limoo();
         content: "\e822";
-        font-size: 10px;
+        font-size: toRem(10);
         font-weight: bold;
       }
     }
     .number {
-      width: 2rem;
-      height: 44px;
+      width: toRem(32);
+      height: toRem(44);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -124,7 +124,7 @@ export default {
         &::before {
           @include font-icon__limoo();
           content: "\e81b";
-          font-size: 10px;
+          font-size: toRem(10);
           font-weight: bold;
         }
     }
@@ -133,14 +133,14 @@ export default {
   @media (max-width: 960px) {
     .stepper-container {
       &.cart {
-        width: 105px;
-        height: 36px;
+        width: toRem(105);
+        height: toRem(36);
         .plus,.minus {
-          width: 36px;
-          height: 36px;
+          width: toRem(36);
+          height: toRem(36);
         }
         .number {
-          height: 36px;
+          height: toRem(36);
         }
       }
     }

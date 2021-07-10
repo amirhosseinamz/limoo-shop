@@ -198,7 +198,6 @@
     <modal-add-comment
       class="comment__modal--data"
       @submit-data="submitData"
-      :radio-btn-data="radioBtnData"
       :comments-data="commentsData"
       :active.sync="statusShowModalAddComment"
     ></modal-add-comment>
@@ -213,8 +212,6 @@ import { getTextByTextKey } from "~/modules/splitPartJsonResource.js";
 export default {
   props: {
     commentsData: { type: [Object, Array], default: {} },
-    radioBtnData: { type: [Object, Array], default: [] },
-    closeModalAddComment: { type: Number, default: 0 },
   },
 
   components: {
@@ -231,9 +228,13 @@ export default {
       statusShowModalAddComment: false,
     };
   },
-
+  computed: {
+    closeModalAddComment() {
+      return this.$store.getters["product/single/single/closeModalAddComment"]
+    }
+  },
   watch: {
-    closeModalAddComment(status) {
+    closeModalAddComment() {
       this.statusShowModalAddComment = false;
     },
   },
@@ -613,11 +614,7 @@ export default {
   display: none;
 }
 .tabs__content {
-  visibility: hidden;
   position: absolute;
-}
-.tab--active .tabs__item-line {
-  visibility: visible;
 }
 .p-commented-default-main {
   width: 50px;
@@ -842,11 +839,6 @@ export default {
     text-justify: inter-word;
     -webkit-line-clamp: 3;
   }
-  // .full-description__active .p-commentedproduct-description {
-  //     white-space: normal;
-  //     // overflow: visible;
-  //     // height: fit-content;
-  // }
   .show-more-description {
     @include display-flex();
     /* align-self: flex-start; */

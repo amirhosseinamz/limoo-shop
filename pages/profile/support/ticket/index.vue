@@ -135,34 +135,20 @@ export default {
         this.getTextByTextKey("support_faq"),
       ],
       selected: this.getTextByTextKey("support_tab_send_ticket"),
-      ticketsData: [
-        {
-          id: 1,
-          ticketTitle: "ثبت نشدن عکس پروفایل",
-          state: "acceptting",
-          question:
-            "متاسفانه پس از بارها تلاش کردن موفق به ثبت عکس پروفایل کاربری در سایت لیمو نشدم لطفا راهنمایی بفرمایید.",
-          answer: "",
-          QA: [{ id: 1 }, { id: 2 }],
-        },
-        {
-          id: 2,
-          ticketTitle: "ثبت نشدن ایمیل کاربری من",
-          state: "accepted",
-          question:
-            "متاسفانه پس از بارها تلاش کردن موفق به ثبت ایمیل کاربری در سایت لیمو نشدم لطفا راهنمایی بفرمایید.",
-          answer:
-            " با سلام کاربر گرامی تیکت شما را بررسی کردیم و نتیجه به این شرح است.",
-        },
-      ],
-      currentProduct: {},
-      statusShowModalDeleteProduct: false,
-      formData: {
-        ticketTitle: "",
-        question: "",
-      },
       updateTicket: 0,
+      statusShowModalDeleteProduct: false
     };
+  },
+  computed: {
+    ticketsData () {
+      return this.$store.getters["profile/ticket/ticket/ticketsData"]
+    },
+    formData () {
+      return this.$store.getters["profile/ticket/ticket/formData"]
+    },
+    currentProduct () {
+      return this.$store.getters["profile/ticket/ticket/currentProduct"]
+    }
   },
 
   mounted() {
@@ -269,18 +255,17 @@ export default {
 .profile-container {
   margin: 0 auto;
   width: 100%;
-  max-width: 1920px;
+  max-width: toRem(1920);
   min-height: 100vh;
   display: flex;
   flex-direction: row-reverse;
 }
 
 .user-profile__holder {
-  margin: 166px 0 50px 17px;
+  margin: toRem(166) 0 toRem(50) toRem(17);
   width: 100%;
   min-height: 100vh;
   height: max-content;
-  /* border: 5px solid #2f0404; */
 }
 
 .user-profile {
@@ -289,87 +274,81 @@ export default {
   height: max-content;
   @include display-flex();
   flex-direction: column;
-  /* justify-content: center; */
   align-items: center;
   text-align: center;
-  /* background: $white; */
-  border-radius: 10px;
-  box-shadow: 0px 8px 16px $box__shadow;
-  /* border: 1px solid #f00808; */
+  border-radius: toRem(10);
+  box-shadow: 0 toRem(8) toRem(16) $box__shadow;
   &__support {
     @include display-flex();
     flex-direction: row;
     justify-content: space-between;
     align-items: flex-end;
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
+    border-top-left-radius: toRem(10);
+    border-top-right-radius: toRem(10);
     background: $white;
     width: 100%;
-    height: 96px;
-    /* border: 1px solid #f00808; */
+    height: toRem(96);
   }
 
   &__support-contact {
     @include display-flex();
     flex-direction: column;
-    border-bottom-left-radius: 10px;
-    border-bottom-right-radius: 10px;
+    border-bottom-left-radius: toRem(10);
+    border-bottom-right-radius: toRem(10);
     background: $white;
     width: 100%;
-    height: 200px;
+    height: toRem(200);
   }
 
   &__topic {
-    font-size: 18px;
+    font-size: toRem(18);
     line-height: 140.62%;
     color: $black-topic;
     align-self: flex-end;
-    margin-top: 37px;
-    margin-right: 25px;
-    margin-bottom: 38px;
+    margin-top: toRem(37);
+    margin-right: toRem(25);
+    margin-bottom: toRem(38);
   }
 
   &__back-btn {
     text-decoration: none;
-    /* border: 1px solid #f00808; */
     @include display-flex();
     flex-direction: row;
-    border-right: 1px solid $light-gray;
-    height: 64px;
-    margin-left: 26px;
-    margin-bottom: 16px;
+    border-right: toRem(1) solid $light-gray;
+    height: toRem(64);
+    margin-left: toRem(26);
+    margin-bottom: toRem(16);
     cursor: initial;
   }
 
   &__back-btn::after {
     content: "\e801";
-    /* border: 1px solid #f00808; */
     @include font-icon__limoo();
     @include display-flex();
-    font-size: 15px;
-    padding: 4px;
+    font-size: toRem(15);
+    padding: toRem(4);
     color: $input-border;
     align-self: center;
     cursor: pointer;
-    margin-right: 16px;
+    margin-right: toRem(16);
   }
 }
 
 .support__navbar-desktop::v-deep {
   @include display-flex();
   flex-direction: row;
-  border-top-left-radius: 10px;
-  border-top-right-radius: 10px;
+  border-top-left-radius: toRem(10);
+  border-top-right-radius: toRem(10);
   background-color: $white;
-  box-shadow: 0 0.5rem 1rem $box__shadow;
+  box-shadow: 0 toRem(8) toRem(16) $box__shadow;
   z-index: 1;
-  padding: 0 57px;
-  margin-top: 24px;
+  padding: 0 toRem(57);
+  margin-top: toRem(24);
   width: 100%;
-  height: 83px;
+  height: toRem(83);
 
   .support-nav__items {
-    font-size: 18px;
+    font-size: toRem(18);
     padding: 0 2.7rem;
     white-space: nowrap;
   }
@@ -382,8 +361,8 @@ export default {
 .support-contact__title {
   font-weight: 400;
   text-align: right;
-  margin-top: 24px;
-  margin-right: 22px;
+  margin-top: toRem(24);
+  margin-right: toRem(22);
 }
 
 .support-contact__holder {
@@ -391,30 +370,27 @@ export default {
   flex-direction: row;
   justify-content: space-between;
   width: 100%;
-  margin-top: 24px;
-  padding: 0 22px;
-  /* border: 1px solid #f00808; */
+  margin-top: toRem(24);
+  padding: 0 toRem(22);
 }
 
 .support-contact__description {
   font-weight: 400;
   color: $gray;
   width: 48%;
-  padding-top: 4px;
+  padding-top: toRem(4);
   text-align: right;
   line-height: 180.62%;
-  /* border: 1px solid #3608f0; */
 }
 
 .support-contact__left {
   @include display-flex();
   flex-direction: column;
-  border-right: 1px solid $light-gray;
-  padding: 4px 30px 0 0;
+  border-right: toRem(1) solid $light-gray;
+  padding: toRem(4) toRem(30) 0 0;
   align-self: center;
-  height: 89px;
+  height: toRem(89);
   width: 48%;
-  /* border: 1px solid #3608f0; */
 }
 
 .support-contact__mail,
@@ -424,23 +400,23 @@ export default {
 }
 
 .support-contact__call {
-  margin-top: 27px;
+  margin-top: toRem(27);
 }
 
 .support-contact__mail-title::before {
   @include font-icon__limoo();
   content: "\e81a";
-  font-size: 18px;
+  font-size: toRem(18);
   vertical-align: middle;
-  margin-left: 8px;
+  margin-left: toRem(8);
 }
 
 .support-contact__call-title::before {
   @include font-icon__limoo();
   content: "\e81f";
-  font-size: 18px;
+  font-size: toRem(18);
   vertical-align: middle;
-  margin-left: 8px;
+  margin-left: toRem(8);
 }
 
 .support-contact__mail-title,
@@ -453,15 +429,15 @@ export default {
 .support-contact__mail-limoo,
 .support-contact__call-limoo {
   line-height: 140.62%;
-  font-size: 16px;
-  margin-right: 8px;
+  font-size: toRem(16);
+  margin-right: toRem(8);
 }
 
 .splicer-line {
   display: block;
   width: 100%;
   border: none;
-  border-bottom: 1px solid $light-gray;
+  border-bottom: toRem(1) solid $light-gray;
 }
 
 .user-profile__topic {
@@ -473,25 +449,25 @@ export default {
 
 @media (max-width: 1220px) {
   .support-contact__holder {
-    padding: 0 5px;
+    padding: 0 toRem(5);
   }
   .support-contact__left {
-    padding-right: 5px;
+    padding-right: toRem(5);
     width: 49%;
   }
   .support-contact__mail-title,
   .support-contact__mail-title::before,
   .support-contact__call-title,
   .support-contact__call-title::before {
-    font-size: 13px;
+    font-size: toRem(13);
   }
   .support-contact__mail-limoo,
   .support-contact__call-limoo {
-    font-size: 15px;
-    margin-right: 2px;
+    font-size: toRem(15);
+    margin-right: toRem(2);
   }
   .support-contact__description {
-    font-size: 15px;
+    font-size: toRem(15);
     width: 49%;
   }
 }
@@ -512,16 +488,16 @@ export default {
     flex-direction: row;
     justify-content: space-between;
     background-color: $white;
-    box-shadow: 0px 8px 16px $box__shadow;
-    border-top: 1px solid $light-gray;
-    padding: 0 170px;
+    box-shadow: 0 toRem(8) toRem(16) $box__shadow;
+    border-top: toRem(1) solid $light-gray;
+    padding: 0 toRem(170);
     width: 100%;
-    height: 54px;
+    height: toRem(54);
 
     .support-nav__mobile-items {
-      font-size: 16px;
+      font-size: toRem(16);
       white-space: nowrap;
-      padding: 0 0.5rem;
+      padding: 0 toRem(8);
     }
       .tabs-navigator {
         @include display-flex();
@@ -536,40 +512,40 @@ export default {
   @include display-flex();
   flex-direction: column;
   background: $white;
-  height: 121px;
+  height: toRem(121);
   width: 100%;
-  padding-right: 21px;
-  border-radius: 10px;
-  box-shadow: 0px 8px 16px $box__shadow;
+  padding-right: toRem(21);
+  border-radius: toRem(10);
+  box-shadow: 0 toRem(8) toRem(16) $box__shadow;
 }
 
 .support-contact__mobile-title {
   font-weight: 400;
-  font-size: 14px;
+  font-size: toRem(14);
   text-align: right;
-  margin-top: 19px;
+  margin-top: toRem(19);
 }
 
 .support-contact__call,
 .support-contact__mail {
-  margin-top: 16px;
+  margin-top: toRem(16);
 }
 
 .support-contact__mail {
-  margin-bottom: 16px;
+  margin-bottom: toRem(16);
 }
 
 .support-contact__mail-title,
 .support-contact__mail-title::before,
 .support-contact__call-title,
 .support-contact__call-title::before {
-  font-size: 14px;
+  font-size: toRem(14);
 }
 
 .support-contact__mail-limoo,
 .support-contact__call-limoo {
-  font-size: 14px;
-  margin-right: 4px;
+  font-size: toRem(14);
+  margin-right: toRem(4);
 }
 
 .mobile-screen {
@@ -580,19 +556,19 @@ export default {
     flex-direction: row-reverse;
     justify-content: space-between;
     align-items: center;
-    height: 56px;
+    height: toRem(56);
     background: $white;
-    margin-top: 47px;
+    margin-top: toRem(47);
 
     &-txt {
-      font-size: 14px;
+      font-size: toRem(14);
       line-height: 140.62%;
-      margin-right: 16px;
+      margin-right: toRem(16);
       color: $black-topic;
     }
 
     &-arrow {
-      margin-left: 16px;
+      margin-left: toRem(16);
     }
   }
 }
@@ -600,12 +576,12 @@ export default {
 .profile-container {
   @include display-flex();
   flex-direction: column;
-  margin-bottom: 58px;
+  margin-bottom: toRem(58);
 }
 
 .user-profile__holder {
-  margin: 8px 0;
-  padding: 0 16px;
+  margin: toRem(8) 0;
+  padding: 0 toRem(16);
 }
 
 .user-profile {
@@ -619,7 +595,7 @@ export default {
 @media (max-width: 600px) {
   .support__navbar-mobile::v-deep {
     .support-nav__mobile-items {
-      font-size: 14px;
+      font-size: toRem(14);
     }
   }
   .user-profile {
@@ -628,13 +604,13 @@ export default {
     box-shadow: none;
   }
   .support__navbar-mobile {
-    padding: 0 41px;
+    padding: 0 toRem(41);
   }
   .user-profile__holder {
-    padding: 0 5px;
+    padding: 0 toRem(5);
   }
   .user-profile__support-mobile {
-    padding-right: 11px;
+    padding-right: toRem(11);
   }
 }
 
@@ -646,17 +622,17 @@ export default {
 
 @media (max-width: 280px) {
   .support-contact__mobile-title {
-    font-size: 13px;
+    font-size: toRem(13);
   }
   .support-contact__mail-title,
   .support-contact__mail-title::before,
   .support-contact__call-title,
   .support-contact__call-title::before {
-    font-size: 12px;
+    font-size: toRem(12);
   }
   .support-contact__mail-limoo,
   .support-contact__call-limoo {
-    font-size: 12px;
+    font-size: toRem(12);
   }
 }
 </style>

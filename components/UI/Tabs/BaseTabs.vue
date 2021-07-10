@@ -84,7 +84,7 @@ export default {
         height: 100%;
         align-items: center;
         display: flex;
-        padding: 0 1.5rem;
+        padding: 0 toRem(24);
         cursor: pointer;
 
         .length {
@@ -98,22 +98,22 @@ export default {
             content: " ";
             position: absolute;
             width: 100%;
-            height: 5px;
+            height: toRem(5);
             bottom: 0;
             left: 0;
             background-color: #ffcc40;
-            border-top-right-radius: 5px;
-            border-top-left-radius: 5px;
+            border-top-right-radius: toRem(5);
+            border-top-left-radius: toRem(5);
           }
           .length {
             @include display-flex();
             align-items: center;
             justify-content: center;
-            width: 24px;
-            height: 24px;
+            width: toRem(24);
+            height: toRem(24);
             background-color: $bg-libht__red;
             color: $red-color;
-            margin-right: 0.4rem;
+            margin-right: toRem(6.4);
             border-radius: 100%;
           }
         }
