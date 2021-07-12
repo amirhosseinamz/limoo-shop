@@ -1,14 +1,15 @@
 <template>
   <div class="slider-wrapper">
-    <input @input="sliderChanged"
-         v-model="value"
+    <input
+         v-model="rangeValue"
+         @input="rangeChanged"
          type="range"
          class="slider"
          :min="minValue"
          :max="maxValue"
     >
-    <div id="selector" :style="{right: value+'%'}" ></div>
-    <div class="progress" :style="{width: value+'%'}"></div>
+    <div class="selector" :style="{ right: valuePercent }" :class="selectorClass"></div>
+    <div class="progress" :style="{ width: valuePercent }"></div>
   </div>
 </template>
 
@@ -23,22 +24,36 @@ export default {
     maxValue: {
       type: String,
       require: true
+    },
+    value: {
+      type: Number,
+      require: true
+    },
+    selectorClass: {
+      type: String,
+      require: false,
+      default: ""
     }
   },
   data () {
     return {
-      value: 0,
+      rangeValue: 0
     }
   },
-  methods: {
-    sliderChanged () {
-      this.widthValue = (this.value / this.maxValue) * 100
+  watch: {
+    value (val) {
+      this.rangeValue = val
     }
   },
   computed: {
-    // background () {
-    //   return `background: linear-gradient(270deg, yellow ${this.widthValue-0.3}%, blue ${this.widthValue }%);`
-    // }
+    valuePercent () {
+      return (this.rangeValue / this.maxValue) * 100 + '%'
+    }
+  },
+  methods: {
+    rangeChanged () {
+      this.$emit('range-changed', this.rangeValue)
+    }
   }
 };
 
@@ -51,7 +66,6 @@ export default {
     align-items: center;
     width: toRem(372);
     height: toRem(8.5);
-    margin-right: 50rem;
     border-radius: toRem(40);
     background-color: $gray-5;
 
@@ -80,28 +94,18 @@ export default {
         appearance: none;
         opacity: 0;
       }
-      &::-moz-range-thumb {
-        z-index: 130;
-        position: relative;
-        width: toRem(30);
-        height: toRem(25);
-        cursor: pointer;
-        -moz-appearance: none;
-        appearance: none;
-        background-color: deeppink;
-        opacity: 0;
-      }
     }
-    #selector {
-      width: toRem(20);
-      height: toRem(20);
-      border: toRem(3) solid $orange;
-      box-shadow: 0 0 0 toRem(5.2) $orange-5;
+    .selector {
+      width: toRem(22);
+      height: toRem(22);
+      border: toRem(2) solid $orange;
+      box-shadow: 0 0 0 toRem(5.2) rgba(255, 204, 64, 0.3);
       background-color: $white;
       position: absolute;
       border-radius: 50%;
       z-index: 5;
       transform: translateX(50%);
+      cursor: pointer;
     }
     .progress {
       height: 100%;

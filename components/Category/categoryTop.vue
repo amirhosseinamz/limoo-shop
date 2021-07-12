@@ -5,7 +5,7 @@
         <div class="products__top-title w-100 products__top-desktop">
           <h3 class="products__top-text">موبایل اندرویدی</h3>
         </div>
-        <base-range-slider min-value="0" max-value="100"></base-range-slider>
+        <base-range-slider-multiple min="0" max="100000" first-value="20000" second-value="70000" width="287.29"></base-range-slider-multiple>
         <div class="products__filter-btns w-100 ">
           <base-button no-box-shadow classes="products__filter-btn" @button-clicked="showBoxFilter">
             <img src="/icons/filter_search_icon.svg" alt="filter">

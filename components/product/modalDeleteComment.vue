@@ -6,6 +6,7 @@
         :show.sync="show"
         :footer="false"
     >
+
         <div
             class="w-100 p-profile-favorite-wrapper flex-wrap align-items-start flex-column "
         >

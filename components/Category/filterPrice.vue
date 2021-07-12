@@ -1,122 +1,148 @@
 <template>
   <div :class="{'active--box':openBox}" class="w-100 modal-filter__box">
-        <div @click="toggleBox" class="modal-filter__box-title w-100">
-          <h3 class="modal-filter__box-text">{{title}}</h3>
-          <span class="modal-filter__box-arrow"></span>
-          <!-- <img class="modal-filter__box-arrow" src="/icons/arrow-down.svg" alt=""> -->
+    <div @click="toggleBox" class="modal-filter__box-title w-100">
+      <h3 class="modal-filter__box-text">{{ title }}</h3>
+      <span class="modal-filter__box-arrow"></span>
+      <!-- <img class="modal-filter__box-arrow" src="/icons/arrow-down.svg" alt=""> -->
+    </div>
+
+    <div class="modal-filter__box-content w-100">
+      <div class="modal-filter__box-items w-100">
+        <div class="modal-filter__box-item">
+          <div class="w-100 modal-filter__box-slider">
+
+            <div class="w-100 modal-filter__box-price">
+              <div class="modal-filter__box-from">
+                <h3 class="modal-filter__box-titlePrice">از</h3>
+                <input @keyup="fromPrice" v-model="lastUpdateValueRenge.addCamaFromPrice"
+                       type="text" class="modal-filter__box-value modal-filter__box-data">
+                </input>
+              </div>
+              <div class="modal-filter__box-from box--to">
+                <h3 class="modal-filter__box-titlePrice">تا</h3>
+                <input @keyup="toPrice" v-model="lastUpdateValueRenge.addCamaToPrice"
+                       type="text" class="modal-filter__box-value modal-filter__box-data">
+                </input>
+              </div>
+              <h3 class="modal-filter__box-unit">تومان</h3>
+            </div>
+
+            <div class="modal-filter__box-renge" :key="updateRenge">
+              <!--                                            <client-only>
+                                                                <vue-slider
+                                                                    v-model="value"
+                                                                    :max="minMax.max"
+                                                                    :min="minMax.min"
+                                                                    ref="slider"
+                                                                    @change="changeSliderRenge"
+                                                                    height="9px"
+                                                                    width="99%"
+                                                                    dotSize="24"
+                                                                    direction="rtl"
+                                                                    padding="7px 0px"
+
+                                                                    >
+                                                                      <template v-slot:dot="{ value, focus }">
+                                                                        <img src="/icons/renge-circle.svg" :class="['renge-circle custom-dot', { focus }]"></img>
+                                                                      </template>
+                                                                  </vue-slider>
+                                                            </client-only>-->
+
+            </div>
+            <base-range-slider-multiple
+              class="multiple-range-slider"
+              width="100"
+              min="0"
+              max="100000"
+              first-value="10000"
+              second-value="30000"
+              @selector-changed="SliderChanged"
+            ></base-range-slider-multiple>
+          </div>
         </div>
-
-        <div class="modal-filter__box-content w-100">
-                  <div class="modal-filter__box-items w-100">
-                            <div class="modal-filter__box-item">
-                                  <div class="w-100 modal-filter__box-slider" >
-
-                                      <div class="w-100 modal-filter__box-price">
-                                            <div class="modal-filter__box-from">
-                                                <h3 class="modal-filter__box-titlePrice">از</h3>
-                                                <input @keyup="fromPrice" v-model="lastUpdateValueRenge.addCamaFromPrice" type="text" class="modal-filter__box-value modal-filter__box-data">
-                                                </input>
-                                            </div>
-                                            <div class="modal-filter__box-from box--to">
-                                                <h3 class="modal-filter__box-titlePrice">تا</h3>
-                                                <input @keyup="toPrice" v-model="lastUpdateValueRenge.addCamaToPrice" type="text" class="modal-filter__box-value modal-filter__box-data">
-                                                </input>
-                                            </div>
-                                            <h3 class="modal-filter__box-unit">تومان</h3>
-                                      </div>
-
-                                        <div class="modal-filter__box-renge" :key="updateRenge">
-                                            <client-only>
-                                                  <vue-slider
-                                                      v-model="value"
-                                                      :max="minMax.max"
-                                                      :min="minMax.min"
-                                                      ref="slider"
-                                                      @change="changeSliderRenge"
-                                                      height="9px"
-                                                      width="99%"
-                                                      dotSize="24"
-                                                      direction="rtl"
-                                                      padding="7px 0px"
-
-                                                      >
-                                                        <template v-slot:dot="{ value, focus }">
-                                                          <img src="/icons/renge-circle.svg" :class="['renge-circle custom-dot', { focus }]"></img>
-                                                        </template>
-                                                    </vue-slider>
-                                              </client-only>
-                                        </div>
-
-                                      </div>
-                            </div>
-                  </div>
-        </div>
+      </div>
+    </div>
 
   </div>
 </template>
 
 <script>
-import 'vue-slider-component/theme/antd.css'
-import '~/assets/styles/_slider_range_price.scss'
+import "vue-slider-component/theme/antd.css";
+import "~/assets/styles/_slider_range_price.scss";
 import addCamaPrice from "~/modules/addCamaPrice.js";
+import BaseRangeSliderMultiple from "../UI/BaseRangeSliderMultiple";
 
 
 export default {
   props: {
     // categorySuggestion  : { type: [Object,Array], default: [] },
-    openDefaultBox  : { type: Boolean, default: false },
-    title           : { type: String, default: '' },
-    minMax          : { type: Object, default: {} },
-    fromToRenge     : { type: Object, default: {} },
+    openDefaultBox: { type: Boolean, default: false },
+    title: { type: String, default: "" },
+    minMax: { type: Object, default: {} },
+    fromToRenge: { type: Object, default: {} },
   },
 
   components: {
+    BaseRangeSliderMultiple,
   },
 
   data() {
     return {
-      openBox              : false,
-      value                : [this.fromToRenge.from, this.fromToRenge.to],
-      lastUpdateValueRenge : {
-        addCamaFromPrice : '',
-        addCamaToPrice   : '',
+      openBox: false,
+      value: [this.fromToRenge.from, this.fromToRenge.to],
+      lastUpdateValueRenge: {
+        addCamaFromPrice: "",
+        addCamaToPrice: "",
       },
-      updateRenge          : 0,
-      changeInputRenge     : true,
-    }
+      updateRenge: 0,
+      changeInputRenge: true,
+      rightValue: null,
+      leftValue: null,
+    };
   },
-
+/*
   watch: {
-
-  },
+    lastUpdateValueRenge (val) {
+      console.log(val);
+      this.rightValue = val[0]
+      this.leftValue = val[1]
+    }
+  },*/
 
   mounted() {
     const minMax = [this.fromToRenge.from, this.fromToRenge.to];
 
     if (this.openDefaultBox) {
       this.openBox = true;
-    }
-    else {
+    } else {
       this.openBox = false;
     }
 
-    this.addCamaPrice(minMax)
-    this.$emit("last-update-slider-renge",minMax);
+    this.addCamaPrice(minMax);
+    this.$emit("last-update-slider-renge", minMax);
   },
 
   methods: {
-    toggleBox(){
+    SliderChanged(val) {
+      if (this.changeInputRenge) {
+        this.addCamaPrice(val);
+        this.$emit("last-update-slider-renge", val);
+      } else {
+        this.changeInputRenge = true;
+      }
+    },
+
+    toggleBox() {
       if (this.openBox) {
         this.openBox = false;
-      }
-      else {
+      } else {
         this.openBox = true;
       }
     },
 
-    addCamaPrice(data){
+    addCamaPrice(data) {
       let lastUpdateRenge = {};
-      data.map((content,index)=>{
+      data.map((content, index) => {
         if (index == 0) {
           lastUpdateRenge.addCamaFromPrice = addCamaPrice(content);
         }
@@ -124,63 +150,61 @@ export default {
         if (index == 1) {
           lastUpdateRenge.addCamaToPrice = addCamaPrice(content);
         }
-      })
+      });
 
       this.lastUpdateValueRenge = lastUpdateRenge;
     },
 
-    changeSliderRenge(value, index){
+    changeSliderRenge(value, index) {
       if (this.changeInputRenge) {
         this.addCamaPrice(value);
-        this.$emit("last-update-slider-renge",value);
-      }
-      else {
+        this.$emit("last-update-slider-renge", value);
+      } else {
         this.changeInputRenge = true;
       }
 
     },
 
-    removeCamaTyping(e){
-      const value    = e.target.value.split(',');
-      let removeCama = '';
-      value.map((content)=>{
-        removeCama+= content;
-      })
+    removeCamaTyping(e) {
+      const value = e.target.value.split(",");
+      let removeCama = "";
+      value.map((content) => {
+        removeCama += content;
+      });
 
       return removeCama;
     },
 
-    fromPrice(e){
-      const removeCama                           = this.removeCamaTyping(e);
+    fromPrice(e) {
+      const removeCama = this.removeCamaTyping(e);
       this.lastUpdateValueRenge.addCamaFromPrice = addCamaPrice(removeCama);
 
       // ایندکس 0 به معنای from است //
-      this.updateInputChangeRenge(e,0,removeCama)
+      this.updateInputChangeRenge(e, 0, removeCama);
     },
 
-    toPrice(e){
-      const removeCama                         = this.removeCamaTyping(e);
+    toPrice(e) {
+      const removeCama = this.removeCamaTyping(e);
       this.lastUpdateValueRenge.addCamaToPrice = addCamaPrice(removeCama);
 
       // ایندکس یک به معنای to است //
-      this.updateInputChangeRenge(e,1,removeCama)
+      this.updateInputChangeRenge(e, 1, removeCama);
     },
 
-    updateInputChangeRenge(e,indexUpdateFromToRenge,valueRengeRemoveCama){
-      const value       = e.target.value;
-      if (value != '') {
+    updateInputChangeRenge(e, indexUpdateFromToRenge, valueRengeRemoveCama) {
+      const value = e.target.value;
+      if (value != "") {
         if (this.minMax.max >= valueRengeRemoveCama) {
-              this.value[indexUpdateFromToRenge] = parseInt(valueRengeRemoveCama);
-          }
-          else {
-              this.value[indexUpdateFromToRenge]   = this.minMax.max;
-          }
+          this.value[indexUpdateFromToRenge] = parseInt(valueRengeRemoveCama);
+        } else {
+          this.value[indexUpdateFromToRenge] = this.minMax.max;
+        }
       }
 
       this.changeInputRenge = false;
-      this.$emit("last-update-slider-renge",this.value);
-      this.updateRenge++
-    }
+      this.$emit("last-update-slider-renge", this.value);
+      this.updateRenge++;
+    },
 
   },
 
@@ -188,14 +212,14 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.modal-filter__box{
+.modal-filter__box {
   width: 98%;
   margin-right: auto;
   margin-left: auto;
   background: $white;
   padding-top: 13px;
   padding-bottom: 13px;
-  border:solid 1px $chinese_white;
+  border: solid 1px $chinese_white;
   @include display-flex();
   align-items: flex-start;
   border-radius: 10px;
@@ -207,19 +231,22 @@ export default {
   overflow: hidden;
   margin-top: 6px;
 }
-.modal-filter__box-content{
+
+.modal-filter__box-content {
   @include display-flex();
   align-items: flex-start;
   flex-wrap: wrap;
   margin-top: 16px;
 }
-.modal-filter__box-text{
+
+.modal-filter__box-text {
   font-size: 16px;
   color: $dark_gray;
   font-weight: 400;
   flex-grow: 1;
   @include display-flex();
 }
+
 .modal-filter__box-arrow::before {
   content: "\e800";
   @include font-icon__arrow();
@@ -227,51 +254,64 @@ export default {
   color: $gray;
   cursor: pointer;
 }
-.modal-filter__box-arrow{
-  height:18px;
-  transition  : all .3s ease-in-out;
+
+.modal-filter__box-arrow {
+  height: 18px;
+  transition: all .3s ease-in-out;
   margin-top: 3px;
 }
-.modal-filter__box-title{
+
+.modal-filter__box-title {
   @include display-flex();
   align-items: center;
   cursor: pointer;
 }
-.active--box .modal-filter__box-arrow{
-  transform:rotate(-180deg);
-  transition  : all .3s ease-in-out;
+
+.active--box .modal-filter__box-arrow {
+  transform: rotate(-180deg);
+  transition: all .3s ease-in-out;
 }
+
 .active--box {
   max-height: 1000px;
   transition: max-height 1s ease-in-out;
 }
 
 
-.renge-circle{
+.renge-circle {
   pointer-events: none;
 }
-.modal-filter__box-price{
+
+.multiple-range-slider {
+  margin-top: toRem(26);
+}
+
+.modal-filter__box-price {
   @include display-flex();
   align-items: center;
   width: 100%;
 }
-.modal-filter__box-from{
+
+.modal-filter__box-from {
   @include display-flex();
   align-items: center;
   margin-left: 11px;
 }
-.modal-filter__box-from:last-of-type{
+
+.modal-filter__box-from:last-of-type {
   margin-left: 0;
 }
-.modal-filter__box-titlePrice{
+
+.modal-filter__box-titlePrice {
   font-size: 16px;
   color: $gray;
   margin-left: 14px;
   font-weight: 400;
 }
-.modal-filter__box-value{
+
+.modal-filter__box-value {
   background: $flash_white;
-  border:1px solid $flash_white;
+  border: 1px solid $flash_white;
   width: 99px;
   height: 30px;
   justify-content: center;
@@ -283,53 +323,56 @@ export default {
   text-align: center;
   direction: ltr;
 }
-.modal-filter__box-unit{
+
+.modal-filter__box-unit {
   font-weight: 300;
   color: $gray;
   font-size: 14px;
-  margin-right: 14px;
+  margin-right: toRem(6);
 }
-.modal-filter__box-data{
+
+.modal-filter__box-data {
   font-weight: 400;
   font-size: 16px;
   color: $color-price;
 }
-.modal-filter__box-renge{
+
+.modal-filter__box-renge {
   margin-top: 19px;
 }
 
 
 @media (max-width: 420px) {
-  .modal-filter__box-renge{
+  .modal-filter__box-renge {
     margin-top: 12px;
     display: none;
   }
-  .modal-filter__box-text{
+  .modal-filter__box-text {
     font-size: 14px;
   }
-  .modal-filter__box-title{
+  .modal-filter__box-title {
     align-items: flex-start;
   }
-  .modal-filter__box-value{
+  .modal-filter__box-value {
     width: 90px;
   }
-  .modal-filter__box-titlePrice{
+  .modal-filter__box-titlePrice {
     font-size: 14px;
   }
-  .modal-filter__box-unit{
+  .modal-filter__box-unit {
     font-size: 13px;
     margin-right: 6px;
   }
-  .modal-filter__filter-tools{
+  .modal-filter__filter-tools {
     margin-top: 16px;
   }
-  .modal-filter__box-price{
+  .modal-filter__box-price {
     justify-content: center;
   }
-  .modal-filter__box-data{
+  .modal-filter__box-data {
     font-size: 13px;
   }
-  .modal-filter__box-renge{
+  .modal-filter__box-renge {
     display: none;
   }
 
@@ -344,7 +387,6 @@ export default {
   //   @include display-flex();
   // }
 }
-
 
 
 </style>

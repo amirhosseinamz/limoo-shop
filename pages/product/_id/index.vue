@@ -12,7 +12,6 @@
               /> -->
       </div>
     </div>
-
     <contentSingleProduct
       :product-data="productData"
       :product-slider="productSlider"
