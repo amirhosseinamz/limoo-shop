@@ -1,14 +1,16 @@
 <template>
-  <div class="middle" :style="{width: width + '%'}">
+  <div class="middle" :style="{ width: width + 'px' }">
     <div class="multi-range-slider">
       <input @input="setRightValue" type="range" class="input-right" :min="min" :max="max" v-model="rightValue">
       <input @input="setLeftValue" type="range" class="input-left" :min="min" :max="max" v-model="leftValue">
 
       <div class="slider">
         <div class="track" @click="moveSelector"></div>
-        <div class="range" @click="moveSelector" :style="{ right: rightPercent + '%', left: (100 - leftPercent) + '%'}"></div>
-        <div class="thumb left-slider" :style="{ left: (100 - leftPercent)+'%' }"></div>
-        <div class="thumb right-slider" :style="{right: rightPercent + '%'}"></div>
+        <div class="range" @click="moveSelector"
+             :style="{ right: isChanged ? leftPercent + '%' : rightPercent + '%',
+left: isChanged ? (100 - rightPercent) + '%' : (100 - leftPercent) + '%'}"></div>
+        <div class="thumb left-slider" ref="left" id="left-slider" :style="{ left: (100 - leftPercent)+'%' }"></div>
+        <div class="thumb right-slider" ref="right" id="right-slider" :style="{right: rightPercent + '%'}"></div>
       </div>
     </div>
   </div>
@@ -20,110 +22,145 @@ export default {
   props: {
     min: {
       type: String,
-      require: true
+      require: true,
     },
     max: {
       type: String,
-      require: true
+      require: true,
     },
     firstValue: {
-      type: String,
-      require: false
+      type: Number,
+      require: false,
     },
     secondValue: {
-      type: String,
-      require: false
+      type: Number,
+      require: false,
     },
-    width: {
-      type: String,
-      require: false
-    }
   },
-  data () {
+  data() {
     return {
       rightPercent: null,
       leftPercent: null,
       rightValue: 20000,
-      leftValue: 70000
-    }
+      leftValue: 70000,
+      width: "",
+      isChanged: false,
+    };
+  },
+  computed: {
+    // leftPercentComputed () {
+    //   if (this.isChanged) {
+    //     return this.rightPercent - 100
+    //   } else {
+    //     return 100 - this.leftPercent
+    //   }
+    // },
+    // rightPercentComputed () {
+    //   if (this.isChanged) {
+    //     return this.leftPercent
+    //   } else {
+    //     return this.rightPercent
+    //   }
+    // }
   },
   watch: {
-    firstValue (val) {
-      this.rightValue = val
+    firstValue(val) {
+      this.rightValue = val;
     },
-    secondValue (val) {
-      this.leftValue = val
+    secondValue(val) {
+      this.leftValue = val;
     },
-    rightValue (val) {
-      this.rightPercent = (val * 100) / this.max
+    rightValue(val) {
+      this.rightPercent = (val * 100) / this.max;
     },
-    leftValue (val) {
-      this.leftPercent = (val * 100) / this.max
-    }
+    leftValue(val) {
+      this.leftPercent = (val * 100) / this.max;
+    },
+    rightPercent(val) {
+      this.rightValue = (val * this.max) / 100;
+    },
+    leftPercent(val) {
+      this.leftValue = (val * this.max) / 100;
+    },
   },
   methods: {
-    setRightValue () {
-      this.rightValue = Math.min(+this.leftValue, +this.rightValue)
-      this.rightPercent = ((+this.rightValue - +this.min) / (+this.max - +this.min)) * 100
-      this.$emit('selector-changed', [this.rightValue, this.leftValue])
+    setRightValue() {
+      this.isChanged = this.leftValue < this.rightValue;
+      if (this.isChanged) {
+        this.leftPercent = ((+this.leftValue - +this.min) / (+this.max - +this.min)) * 100;
+        this.$emit("selector-changed", [this.leftValue, this.rightValue]);
+        return;
+      }
+
+      this.rightPercent = ((+this.rightValue - +this.min) / (+this.max - +this.min)) * 100;
+      this.$emit("selector-changed", [this.rightValue, this.leftValue]);
     },
-    setLeftValue () {
-      this.leftValue = Math.max(+this.leftValue, +this.rightValue)
-      this.leftPercent = ((+this.leftValue - +this.min) / (+this.max - +this.min)) * 100
-      this.$emit('selector-changed', [this.rightValue, this.leftValue])
+    setLeftValue() {
+      this.isChanged = this.leftValue < this.rightValue;
+      if (this.isChanged) {
+        this.rightPercent = ((+this.rightValue - +this.min) / (+this.max - +this.min)) * 100;
+        this.$emit("selector-changed", [Math.trunc(this.rightValue), Math.trunc(this.leftValue)]);
+        return;
+      }
+      this.leftPercent = ((+this.leftValue - +this.min) / (+this.max - +this.min)) * 100;
+      this.$emit("selector-changed", [Math.trunc(this.rightValue), Math.trunc(this.leftValue)]);
     },
-    moveSelector (e) {
-      const rightDot = document.querySelector('.right-slider')
-      const leftDot = document.querySelector('.left-slider')
-      const distanceRight = Math.abs(this.getDistanceBetweenElements(e, rightDot))
-      const distanceLeft = Math.abs(this.getDistanceBetweenElements(e, leftDot))
-      const rightPosition = this.getPositionAtCenter(rightDot).x
-      const leftPosition = this.getPositionAtCenter(leftDot).x
+    moveSelector(e) {
+      let rightDot = document.querySelector(".right-slider");
+      let leftDot = document.querySelector(".left-slider");
+      const distanceRight = Math.abs(this.getDistanceBetweenElements(e, rightDot));
+      const distanceLeft = Math.abs(this.getDistanceBetweenElements(e, leftDot));
+      const rightPosition = this.getPositionAtCenter(rightDot).x;
+      const leftPosition = this.getPositionAtCenter(leftDot).x;
+
       if (distanceRight < distanceLeft) {
-        const moveDistanceValue = Math.ceil(((e.clientX - rightPosition) * this.max ) / this.width)
-        const moveDistanceValuePlus = Math.ceil(Math.abs((e.clientX - rightPosition) * this.max ) / this.width)
+        const moveDistanceValue = Math.ceil(((e.clientX - rightPosition) * this.max) / this.width);
+        const moveDistanceValuePlus = Math.ceil(Math.abs((e.clientX - rightPosition) * this.max) / this.width);
         if (moveDistanceValue > 0) {
-          this.rightValue -= moveDistanceValuePlus
+          this.rightValue -= moveDistanceValuePlus;
         } else {
-          this.rightValue += moveDistanceValuePlus
+          this.rightValue += moveDistanceValuePlus;
         }
-
+          this.$emit('selector-moved', [this.rightValue, this.leftValue])
       } else {
-        const moveDistanceValue = Math.ceil(((e.clientX - leftPosition) * this.max ) / this.width)
-        const moveDistanceValuePlus = Math.ceil(Math.abs((e.clientX - leftPosition) * this.max ) / this.width)
+        const moveDistanceValue = Math.ceil(((e.clientX - leftPosition) * this.max) / this.width);
+        const moveDistanceValuePlus = Math.ceil(Math.abs((e.clientX - leftPosition) * this.max) / this.width);
 
         if (moveDistanceValue > 0) {
-          this.leftValue -= moveDistanceValuePlus
+          this.leftValue -= moveDistanceValuePlus;
         } else {
-          this.leftValue += moveDistanceValuePlus
+          this.leftValue += moveDistanceValuePlus;
         }
+        this.$emit('selector-moved', [this.rightValue, this.leftValue])
       }
     },
-    getPositionAtCenter (element) {
+    getPositionAtCenter(element) {
       const { top, left, width, height } = element.getBoundingClientRect();
-      console.log(left);
       return {
         x: left + width / 2,
         y: top + height / 2,
       };
     },
 
-    getDistanceBetweenElements (a, b) {
+    getDistanceBetweenElements(a, b) {
       const aPosition = a.clientX;
+
       const bPosition = this.getPositionAtCenter(b);
-      return aPosition - bPosition.x
+      return aPosition - bPosition.x;
     },
   },
   mounted() {
     if (this.firstValue) {
-      this.rightValue = this.firstValue
+      this.rightValue = this.firstValue;
     }
     if (this.secondValue) {
-      this.leftValue = this.secondValue
+      this.leftValue = this.secondValue;
     }
-    this.setRightValue()
-    this.setLeftValue()
-  }
+    this.setRightValue();
+    this.setLeftValue();
+    const _middle = document.querySelector(".middle");
+    this.width = _middle.parentElement.clientWidth;
+  },
 };
 </script>
 
@@ -159,6 +196,7 @@ export default {
       background: $orange;
       transition: all 0.05s ease-out;
     }
+
     .thumb {
       position: absolute;
       cursor: pointer;
@@ -171,11 +209,12 @@ export default {
       border-radius: 50%;
       transition: all 0.05s ease-out;
 
-      &.left-slider {
+      &#left-slider {
         left: 25%;
         transform: translateX(-40%);
       }
-      &.right-slider {
+
+      &#right-slider {
         right: 25%;
         transform: translateX(40%);
       }
@@ -189,7 +228,7 @@ export default {
     z-index: 2;
     height: 10px;
     width: 100%;
-    opacity: 0;
+    opacity: 0.1;
     cursor: pointer;
 
     &::-webkit-slider-thumb {

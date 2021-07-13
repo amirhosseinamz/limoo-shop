@@ -25,7 +25,6 @@
             @btn-delete-order="btnDeleteOrder"
         />
       <modal-delete-address active ></modal-delete-address>
-      <base-toggle></base-toggle>
     </div>
 </template>
 <script>

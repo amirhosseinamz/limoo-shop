@@ -16,48 +16,47 @@
                 <h3 class="modal-filter__box-titlePrice">از</h3>
                 <input @keyup="fromPrice" v-model="lastUpdateValueRenge.addCamaFromPrice"
                        type="text" class="modal-filter__box-value modal-filter__box-data">
-                </input>
               </div>
               <div class="modal-filter__box-from box--to">
                 <h3 class="modal-filter__box-titlePrice">تا</h3>
                 <input @keyup="toPrice" v-model="lastUpdateValueRenge.addCamaToPrice"
                        type="text" class="modal-filter__box-value modal-filter__box-data">
-                </input>
               </div>
               <h3 class="modal-filter__box-unit">تومان</h3>
             </div>
 
             <div class="modal-filter__box-renge" :key="updateRenge">
-              <!--                                            <client-only>
-                                                                <vue-slider
-                                                                    v-model="value"
-                                                                    :max="minMax.max"
-                                                                    :min="minMax.min"
-                                                                    ref="slider"
-                                                                    @change="changeSliderRenge"
-                                                                    height="9px"
-                                                                    width="99%"
-                                                                    dotSize="24"
-                                                                    direction="rtl"
-                                                                    padding="7px 0px"
+<!--                <client-only>
+                      <vue-slider
+                          v-model="value"
+                          :max="minMax.max"
+                          :min="minMax.min"
+                          ref="slider"
+                          @change="changeSliderRenge"
+                          height="9px"
+                          width="99%"
+                          dotSize="24"
+                          direction="rtl"
+                          padding="7px 0px"
 
-                                                                    >
-                                                                      <template v-slot:dot="{ value, focus }">
-                                                                        <img src="/icons/renge-circle.svg" :class="['renge-circle custom-dot', { focus }]"></img>
-                                                                      </template>
-                                                                  </vue-slider>
-                                                            </client-only>-->
-
-            </div>
-            <base-range-slider-multiple
+                          >
+                            <template v-slot:dot="{ value, focus }">
+                              <img src="/icons/renge-circle.svg" :class="['renge-circle custom-dot', { focus }]"></img>
+                            </template>
+                        </vue-slider>
+                  </client-only>-->
+              <base-range-slider-multiple
               class="multiple-range-slider"
-              width="100"
               min="0"
               max="100000"
-              first-value="10000"
-              second-value="30000"
-              @selector-changed="SliderChanged"
+              :first-value="value[0]"
+              :second-value="value[1]"
+              @selector-changed="changeSliderRenge"
+              @selector-moved="selectorMoved"
             ></base-range-slider-multiple>
+
+            </div>
+
           </div>
         </div>
       </div>
@@ -70,7 +69,6 @@
 import "vue-slider-component/theme/antd.css";
 import "~/assets/styles/_slider_range_price.scss";
 import addCamaPrice from "~/modules/addCamaPrice.js";
-import BaseRangeSliderMultiple from "../UI/BaseRangeSliderMultiple";
 
 
 export default {
@@ -80,10 +78,6 @@ export default {
     title: { type: String, default: "" },
     minMax: { type: Object, default: {} },
     fromToRenge: { type: Object, default: {} },
-  },
-
-  components: {
-    BaseRangeSliderMultiple,
   },
 
   data() {
@@ -96,8 +90,6 @@ export default {
       },
       updateRenge: 0,
       changeInputRenge: true,
-      rightValue: null,
-      leftValue: null,
     };
   },
 /*
@@ -123,15 +115,6 @@ export default {
   },
 
   methods: {
-    SliderChanged(val) {
-      if (this.changeInputRenge) {
-        this.addCamaPrice(val);
-        this.$emit("last-update-slider-renge", val);
-      } else {
-        this.changeInputRenge = true;
-      }
-    },
-
     toggleBox() {
       if (this.openBox) {
         this.openBox = false;
@@ -143,11 +126,11 @@ export default {
     addCamaPrice(data) {
       let lastUpdateRenge = {};
       data.map((content, index) => {
-        if (index == 0) {
+        if (index === 0) {
           lastUpdateRenge.addCamaFromPrice = addCamaPrice(content);
         }
 
-        if (index == 1) {
+        if (index === 1) {
           lastUpdateRenge.addCamaToPrice = addCamaPrice(content);
         }
       });
@@ -155,14 +138,24 @@ export default {
       this.lastUpdateValueRenge = lastUpdateRenge;
     },
 
-    changeSliderRenge(value, index) {
+    changeSliderRenge(value) {
+
       if (this.changeInputRenge) {
-        this.addCamaPrice(value);
+        //this.addCamaPrice(value);
+        console.log(value);
         this.$emit("last-update-slider-renge", value);
       } else {
         this.changeInputRenge = true;
       }
-
+      console.log(value);
+    },
+    selectorMoved (val) {
+      if (this.changeInputRenge) {
+        this.addCamaPrice(val);
+        this.$emit("last-update-slider-renge", val);
+      } else {
+        this.changeInputRenge = true;
+      }
     },
 
     removeCamaTyping(e) {
@@ -178,7 +171,6 @@ export default {
     fromPrice(e) {
       const removeCama = this.removeCamaTyping(e);
       this.lastUpdateValueRenge.addCamaFromPrice = addCamaPrice(removeCama);
-
       // ایندکس 0 به معنای from است //
       this.updateInputChangeRenge(e, 0, removeCama);
     },

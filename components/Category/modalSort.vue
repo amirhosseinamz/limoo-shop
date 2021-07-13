@@ -22,7 +22,14 @@
         </div>
         <div class="modal-filter__line remove--margin"></div>
       </div>
-
+      <base-range-slider-multiple
+        class="multiple-range-slider"
+        width="287.42"
+        min="0"
+        max="100000"
+        first-value="10000"
+        second-value="30000"
+      ></base-range-slider-multiple>
       <div class="w-100 modal-sort__content">
         <sort-box :sort-data="sortData" @active-radio="activeRadio"></sort-box>
       </div>

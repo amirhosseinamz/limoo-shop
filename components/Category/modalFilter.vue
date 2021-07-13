@@ -139,6 +139,7 @@ export default {
 
     lastUpdateSliderRenge(data) {
       // this.$store.state.category.submitDataFilterModal.lastUpdateSliderRenge = data;
+      console.log('in last update: ' , data);
       this.$store.commit("category/updateSliderRenge", data);
     },
 
