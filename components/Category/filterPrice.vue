@@ -47,10 +47,10 @@
                   </client-only>-->
               <base-range-slider-multiple
               class="multiple-range-slider"
-              min="0"
-              max="100000"
-              :first-value="value[0]"
-              :second-value="value[1]"
+              :min="minMax.min"
+              :max="minMax.max"
+              :first-value="fromValue"
+              :second-value="toValue"
               @selector-changed="changeSliderRenge"
               @selector-moved="selectorMoved"
             ></base-range-slider-multiple>
@@ -83,13 +83,16 @@ export default {
   data() {
     return {
       openBox: false,
-      value: [this.fromToRenge.from, this.fromToRenge.to],
+      fromValue: this.fromToRenge.from,
+      toValue: this.fromToRenge.to,
       lastUpdateValueRenge: {
         addCamaFromPrice: "",
         addCamaToPrice: "",
       },
       updateRenge: 0,
       changeInputRenge: true,
+      timeout: null,
+      isChange: false
     };
   },
 /*
@@ -139,6 +142,11 @@ export default {
     },
 
     changeSliderRenge(value) {
+      this.isChange = this.toValue < this.fromValue
+      this.fromValue = parseInt(value[0])
+      this.toValue = parseInt(value[1])
+      console.log('from: ' , this.fromValue);
+      console.log('to: ',this.toValue);
 
       if (this.changeInputRenge) {
         this.addCamaPrice(value);
@@ -167,34 +175,41 @@ export default {
     },
 
     fromPrice(e) {
-      const removeCama = this.removeCamaTyping(e);
-      this.lastUpdateValueRenge.addCamaFromPrice = addCamaPrice(removeCama);
-      // ایندکس 0 به معنای from است //
-      this.updateInputChangeRenge(e, 0, removeCama);
+      clearTimeout(this.timeout);
+      this.timeout = setTimeout(() => {
+        const removeCama = this.removeCamaTyping(e);
+        this.lastUpdateValueRenge.addCamaFromPrice = addCamaPrice(removeCama);
+        console.log('from price: ', removeCama);
+        this.updateInputChangeRangeFrom(e, removeCama);
+      },2000)
+
     },
 
     toPrice(e) {
-      const removeCama = this.removeCamaTyping(e);
-      this.lastUpdateValueRenge.addCamaToPrice = addCamaPrice(removeCama);
+        clearTimeout(this.timeout);
+        this.timeout = setTimeout(() => {
+        const removeCama = this.removeCamaTyping(e);
+        this.lastUpdateValueRenge.addCamaToPrice = addCamaPrice(removeCama);
+        console.log('to price: ', removeCama);
+        this.updateInputChangeRangeTo(e, removeCama);
 
-      // ایندکس یک به معنای to است //
-      this.updateInputChangeRenge(e, 1, removeCama);
+      },2000)
+
     },
 
-    updateInputChangeRenge(e, indexUpdateFromToRenge, valueRengeRemoveCama) {
-      const value = e.target.value;
-      if (value != "") {
-        if (this.minMax.max >= valueRengeRemoveCama) {
-          this.value[indexUpdateFromToRenge] = parseInt(valueRengeRemoveCama);
-        } else {
-          this.value[indexUpdateFromToRenge] = this.minMax.max;
-        }
-      }
+    updateInputChangeRangeFrom(e, valueRengeRemoveCama) {
+      this.fromValue = parseInt(valueRengeRemoveCama);
 
       this.changeInputRenge = false;
-      this.$emit("last-update-slider-renge", this.value);
+      this.$emit("last-update-slider-renge", [parseInt(this.fromValue), parseInt(this.toValue)]);
       this.updateRenge++;
     },
+    updateInputChangeRangeTo (e, valueRengeRemoveCama) {
+      this.toValue = parseInt(valueRengeRemoveCama);
+      this.changeInputRenge = false;
+      this.$emit("last-update-slider-renge", [parseInt(this.fromValue), parseInt(this.toValue)]);
+      this.updateRenge++;
+    }
 
   },
 

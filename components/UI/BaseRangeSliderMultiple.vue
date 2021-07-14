@@ -19,11 +19,11 @@ export default {
   name: "BaseRangeSliderMultiple",
   props: {
     min: {
-      type: String,
+      type: Number,
       require: true,
     },
     max: {
-      type: String,
+      type: Number,
       require: true,
     },
     firstValue: {
@@ -39,8 +39,8 @@ export default {
     return {
       rightPercent: null,
       leftPercent: null,
-      rightValue: 20000,
-      leftValue: 70000,
+      rightValue: 0,
+      leftValue: 0,
       width: "",
       isChanged: false,
     };
@@ -210,12 +210,12 @@ export default {
       border-radius: 50%;
       transition: all 0.1s ease-out;
 
-      &#left-slider {
+      &.left-slider {
         left: 25%;
         transform: translateX(-40%);
       }
 
-      &#right-slider {
+      &.right-slider {
         right: 25%;
         transform: translateX(40%);
       }
@@ -240,6 +240,7 @@ export default {
       border: none;
       background-color: red;
       -webkit-appearance: none;
+      transition: all 2s ease-out;
     }
   }
 
