@@ -19,11 +19,11 @@ export default {
   name: "BaseRangeSliderMultiple",
   props: {
     min: {
-      type: String,
+      type: Number,
       require: true,
     },
     max: {
-      type: String,
+      type: Number,
       require: true,
     },
     firstValue: {
@@ -39,8 +39,8 @@ export default {
     return {
       rightPercent: null,
       leftPercent: null,
-      rightValue: 20000,
-      leftValue: 70000,
+      rightValue: 0,
+      leftValue: 0,
       width: "",
       isChanged: false,
     };
@@ -86,22 +86,22 @@ export default {
       this.isChanged = this.leftValue < this.rightValue;
       if (this.isChanged) {
         this.leftPercent = ((+this.leftValue - +this.min) / (+this.max - +this.min)) * 100;
-        this.$emit("selector-changed", [this.leftValue, this.rightValue]);
+        this.$emit("selector-changed", [this.leftValue, this.rightValue], this.isChanged);
         return;
       }
 
       this.rightPercent = ((+this.rightValue - +this.min) / (+this.max - +this.min)) * 100;
-      this.$emit("selector-changed", [this.rightValue, this.leftValue]);
+      this.$emit("selector-changed", [this.rightValue, this.leftValue], this.isChanged);
     },
     setLeftValue() {
       this.isChanged = this.leftValue < this.rightValue;
       if (this.isChanged) {
         this.rightPercent = ((+this.rightValue - +this.min) / (+this.max - +this.min)) * 100;
-        this.$emit("selector-changed", [this.leftValue, this.rightValue]);
+        this.$emit("selector-changed", [this.leftValue, this.rightValue], this.isChanged);
         return;
       }
       this.leftPercent = ((+this.leftValue - +this.min) / (+this.max - +this.min)) * 100;
-      this.$emit("selector-changed", [this.rightValue, this.leftValue]);
+      this.$emit("selector-changed", [this.rightValue, this.leftValue], this.isChanged);
     },
     moveSelector(e) {
       this.isChanged = this.leftValue < this.rightValue;
@@ -210,12 +210,12 @@ export default {
       border-radius: 50%;
       transition: all 0.1s ease-out;
 
-      &#left-slider {
+      &.left-slider {
         left: 25%;
         transform: translateX(-40%);
       }
 
-      &#right-slider {
+      &.right-slider {
         right: 25%;
         transform: translateX(40%);
       }
@@ -240,6 +240,7 @@ export default {
       border: none;
       background-color: red;
       -webkit-appearance: none;
+      transition: all 2s ease-out;
     }
   }
 
