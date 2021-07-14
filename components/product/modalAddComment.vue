@@ -46,13 +46,13 @@
           </div>
 
           <div class="comment--slider__main">
-            <client-only>
+<!--            <client-only>
               <vue-slider
-                v-model="valueRengeSlider"
+                v-model="valueRangeSlider"
                 :max="5"
                 :min="1"
                 ref="slider"
-                @change="changeSliderRenge"
+                @change="changeSliderRange"
                 height="9px"
                 width="99%"
                 :dotSize="dotSize"
@@ -66,7 +66,15 @@
                   />
                 </template>
               </vue-slider>
-            </client-only>
+            </client-only>-->
+            <base-range-slider
+              class="range-slider"
+              selector-class="range-slider-dot"
+              min-value="0"
+              max-value="4"
+              @range-changed="changeSliderRange"
+              :value="valueRangeSlider"
+            ></base-range-slider>
           </div>
         </div>
 
@@ -74,7 +82,7 @@
           @submit-data="submitData"
           @close-modal="closeModal"
           :comments-data="commentsData"
-          :value-renge-slider="valueRengeSlider"
+          :value-renge-slider="valueRangeSlider"
           :comment-star="commentStar"
         ></comment-form>
       </div>
@@ -125,7 +133,7 @@ export default {
         },
       ],
       currentStarActive: {},
-      valueRengeSlider: 1,
+      valueRangeSlider: 0,
       dotSize: 35,
     };
   },
@@ -142,7 +150,7 @@ export default {
   },
 
   mounted() {
-    // this.activeDefaultRengeSlider();
+    // this.activeDefaultRangeSlider();
     const width = window.innerWidth;
 
     if (760 >= width) {
@@ -157,7 +165,7 @@ export default {
       this.$store.commit("singleProduct/showHidenBodyScroll", status);
       if (!status) {
         // پاک کردن دیتا هایی که قبلا در مودال نوشته شده بود //
-        this.valueRengeSlider = 1;
+        this.valueRangeSlider = 1;
         this.commentStar.map((content) => {
           content.active = false;
         });
@@ -174,25 +182,20 @@ export default {
 
     activeStr(data) {
       this.commentStar.map((content) => {
-        if (data.id >= content.id) {
-          content.active = true;
-        } else {
-          content.active = false;
-        }
+        content.active = data.id >= content.id;
       });
-      this.activeDefaultRengeSlider();
+      this.activeDefaultRangeSlider();
     },
 
-    changeSliderRenge(currentRenge) {
+    changeSliderRange(currentRange) {
       const currentStarActive = {
-        id: currentRenge,
+        id: +currentRange + 1,
         active: false,
       };
-
       this.activeStr(currentStarActive);
     },
 
-    activeDefaultRengeSlider() {
+    activeDefaultRangeSlider() {
       // پیدا کردن مقدار پیشفرض ستاره ها //
       let findCountLastActiveStar = -1;
       this.commentStar.map((content) => {
@@ -200,7 +203,7 @@ export default {
           findCountLastActiveStar = content.id;
         }
       });
-      this.valueRengeSlider = findCountLastActiveStar;
+      this.valueRangeSlider = findCountLastActiveStar - 1;
     },
 
     submitData(data) {
@@ -228,7 +231,7 @@ export default {
 
 <style lang="scss" scoped>
 .comment__close::before {
-  font-size: 30px;
+  font-size: toRem(30);
   opacity: 0.5;
 }
 .comment--close__main {
@@ -239,11 +242,11 @@ export default {
   display: none;
 }
 .comment__rating-title {
-  font-size: 16px;
+  font-size: toRem(16);
   color: $color-price;
   font-weight: 400;
-  margin-top: 15px;
-  margin-bottom: 43px;
+  margin-top: toRem(15);
+  margin-bottom: toRem(43);
 }
 .comment__modal-rating {
   @include display-flex();
@@ -257,9 +260,9 @@ export default {
   content: "\e825";
   @include font-icon__limoo();
   font-weight: 400;
-  font-size: 31px;
+  font-size: toRem(31);
   color: $light-gray;
-  letter-spacing: 2px;
+  letter-spacing: toRem(2);
 }
 .comment__modal-rating {
   width: 100%;
@@ -278,10 +281,9 @@ export default {
   @include display-flex();
   flex-wrap: wrap;
   align-items: flex-start;
-  width: 372px;
+  width: toRem(372);
   flex-flow: column;
-  margin-right: auto;
-  margin-left: auto;
+  margin: 0 auto;
 }
 .comment__modal-container {
   flex-wrap: wrap;
@@ -292,11 +294,12 @@ export default {
 }
 .comment--slider__main {
   width: 100%;
-  margin-top: 27px;
+  margin-top: toRem(27);
 }
+
 .renge-circle {
-  width: 35px;
-  height: 35px;
+  width: toRem(35);
+  height: toRem(35);
   pointer-events: none;
 }
 
@@ -305,35 +308,34 @@ export default {
   @include display-flex();
   content: "\e801";
   @include font-icon__limoo();
-  font-size: 12px;
+  font-size: toRem(12);
 }
 .product__modal-close {
-  width: 30px;
-  height: 30px;
+  width: toRem(30);
+  height: toRem(30);
   cursor: pointer;
 }
 .product__modal-title {
-  font-size: 14px;
+  font-size: toRem(14);
   color: $black;
   font-weight: 400;
   flex-grow: 1;
-  min-height: 18px;
+  min-height: toRem(18);
   color: $black-topic;
 }
 .product__modal-top {
   @include display-flex();
   align-items: flex-start;
-  padding-right: 16px;
-  padding-left: 16px;
+  padding: 0 toRem(16);
 }
 .product__modal-line {
-  margin-bottom: 15px;
-  margin-top: 15px;
+  margin-bottom: toRem(15);
+  margin-top: toRem(15);
 }
 .product__modal-line {
   background: $gray-border;
   width: 100%;
-  height: 1px;
+  height: toRem(1);
   @include display-flex();
 }
 .product__modal-text {
@@ -343,14 +345,14 @@ export default {
 .product__modal-arrow::after {
   content: "\e801";
   @include font-icon__limoo();
-  font-size: 17px;
+  font-size: toRem(17);
   cursor: pointer;
   color: $gray;
 }
 
 @media (max-width: 1600px) {
   .comment__rating-title {
-    margin-bottom: 16px;
+    margin-bottom: toRem(16);
   }
 }
 
@@ -365,32 +367,39 @@ export default {
     width: 74%;
   }
   .comment__rating-title {
-    font-size: 14px;
+    font-size: toRem(14);
     color: $gray;
-    margin-bottom: 24px;
-    margin-top: 24px;
+    margin: toRem(24) 0;
   }
   .comment__star::before {
-    font-size: 21px;
+    font-size: toRem(21);
   }
   .comment__stars {
     justify-content: center;
   }
   .comment__star {
-    margin-left: 12px;
+    margin-left: toRem(12);
   }
   .comment__star:last-of-type {
     margin-left: 0;
   }
-  .comment--slider__main {
-    margin-top: 14px;
+  .comment--slider__main::v-deep {
+    .range-slider {
+      width: 100%;
+      .range-slider-dot {
+        width: toRem(19);
+        height: toRem(19);
+        box-shadow: 0 0 0 toRem(4.8) rgba(255, 204, 64, 0.3);
+      }
+    }
+
   }
   .product__modal-line {
-    margin-bottom: 0px;
+    margin-bottom: 0;
   }
   .renge-circle {
-    width: 26px;
-    height: 26px;
+    width: toRem(26);
+    height: toRem(26);
   }
 }
 </style>

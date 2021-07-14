@@ -3,7 +3,6 @@
     <div class="w-100 cart-detail__text">
       <h3 class="cart-detail__title">صورتحساب</h3>
     </div>
-
     <div class="cart-detail__items">
       <div class="w-100 cart-detail__content">
         <div class="cart-detail__item">
