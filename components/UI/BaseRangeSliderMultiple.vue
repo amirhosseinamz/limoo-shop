@@ -1,5 +1,5 @@
 <template>
-  <div class="middle" :style="{ width: width + 'px' }">
+  <div class="middle" ref="middle" :style="{ width: width + 'px' }">
     <div class="multi-range-slider">
       <input @input="setRightValue" type="range" class="input-right" :min="min" :max="max" v-model="rightValue">
       <input @input="setLeftValue" type="range" class="input-left" :min="min" :max="max" v-model="leftValue">
@@ -104,6 +104,7 @@ export default {
       this.$emit("selector-changed", [this.rightValue, this.leftValue]);
     },
     moveSelector(e) {
+      this.isChanged = this.leftValue < this.rightValue;
       let rightDot = this.$refs["right-thumb"];
       let leftDot = this.$refs["left-thumb"];
       const distanceRight = Math.abs(this.getDistanceBetweenElements(e, rightDot));
@@ -119,7 +120,6 @@ export default {
         } else {
           this.rightValue += moveDistanceValuePlus;
         }
-        this.$emit("selector-moved", [this.rightValue, this.leftValue]);
       } else {
         const moveDistanceValue = Math.ceil(((e.clientX - leftPosition) * this.max) / this.width);
         const moveDistanceValuePlus = Math.ceil(Math.abs((e.clientX - leftPosition) * this.max) / this.width);
@@ -129,6 +129,10 @@ export default {
         } else {
           this.leftValue += moveDistanceValuePlus;
         }
+      }
+      if (this.isChanged) {
+        this.$emit("selector-moved", [this.leftValue, this.rightValue]);
+      } else {
         this.$emit("selector-moved", [this.rightValue, this.leftValue]);
       }
     },
@@ -155,7 +159,7 @@ export default {
     }
     this.setRightValue();
     this.setLeftValue();
-    const _middle = document.querySelector(".middle");
+    const _middle = this.$refs.middle
     this.width = _middle.parentElement.clientWidth;
   },
 };
