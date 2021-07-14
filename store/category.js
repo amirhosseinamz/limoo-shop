@@ -33,10 +33,6 @@ const mutations = {
       state.updateStateSortModal = data;
     },
 
-    updateStateSortModal(state, data) {
-      state.updateStateSortModal = data;
-    },
-
     updateSliderRenge(state, data) {
       state.submitDataFilterModal.lastUpdateSliderRenge = data;
     },

@@ -6,11 +6,9 @@
 
       <div class="slider">
         <div class="track" @click="moveSelector"></div>
-        <div class="range" @click="moveSelector"
-             :style="{ right: isChanged ? leftPercent + '%' : rightPercent + '%',
-left: isChanged ? (100 - rightPercent) + '%' : (100 - leftPercent) + '%'}"></div>
-        <div class="thumb left-slider" ref="left" id="left-slider" :style="{ left: (100 - leftPercent)+'%' }"></div>
-        <div class="thumb right-slider" ref="right" id="right-slider" :style="{right: rightPercent + '%'}"></div>
+        <div class="range" @click="moveSelector" :style="{ right: rightPercentComputed, left: leftPercentComputed }"></div>
+        <div class="thumb left-slider" ref="left-thumb" :style="{ left: (100 - leftPercent)+'%' }"></div>
+        <div class="thumb right-slider" ref="right-thumb" :style="{right: rightPercent + '%'}"></div>
       </div>
     </div>
   </div>
@@ -48,20 +46,20 @@ export default {
     };
   },
   computed: {
-    // leftPercentComputed () {
-    //   if (this.isChanged) {
-    //     return this.rightPercent - 100
-    //   } else {
-    //     return 100 - this.leftPercent
-    //   }
-    // },
-    // rightPercentComputed () {
-    //   if (this.isChanged) {
-    //     return this.leftPercent
-    //   } else {
-    //     return this.rightPercent
-    //   }
-    // }
+    rightPercentComputed () {
+      if (this.isChanged) {
+        return this.leftPercent + '%'
+      } else {
+        return this.rightPercent + '%'
+      }
+    },
+    leftPercentComputed () {
+      if (this.isChanged) {
+        return 100 - this.rightPercent + '%'
+      } else {
+        return 100 - this.leftPercent + '%'
+      }
+    }
   },
   watch: {
     firstValue(val) {
@@ -99,15 +97,15 @@ export default {
       this.isChanged = this.leftValue < this.rightValue;
       if (this.isChanged) {
         this.rightPercent = ((+this.rightValue - +this.min) / (+this.max - +this.min)) * 100;
-        this.$emit("selector-changed", [Math.trunc(this.rightValue), Math.trunc(this.leftValue)]);
+        this.$emit("selector-changed", [this.leftValue, this.rightValue]);
         return;
       }
       this.leftPercent = ((+this.leftValue - +this.min) / (+this.max - +this.min)) * 100;
-      this.$emit("selector-changed", [Math.trunc(this.rightValue), Math.trunc(this.leftValue)]);
+      this.$emit("selector-changed", [this.rightValue, this.leftValue]);
     },
     moveSelector(e) {
-      let rightDot = document.querySelector(".right-slider");
-      let leftDot = document.querySelector(".left-slider");
+      let rightDot = this.$refs["right-thumb"];
+      let leftDot = this.$refs["left-thumb"];
       const distanceRight = Math.abs(this.getDistanceBetweenElements(e, rightDot));
       const distanceLeft = Math.abs(this.getDistanceBetweenElements(e, leftDot));
       const rightPosition = this.getPositionAtCenter(rightDot).x;
@@ -121,7 +119,7 @@ export default {
         } else {
           this.rightValue += moveDistanceValuePlus;
         }
-          this.$emit('selector-moved', [this.rightValue, this.leftValue])
+        this.$emit("selector-moved", [this.rightValue, this.leftValue]);
       } else {
         const moveDistanceValue = Math.ceil(((e.clientX - leftPosition) * this.max) / this.width);
         const moveDistanceValuePlus = Math.ceil(Math.abs((e.clientX - leftPosition) * this.max) / this.width);
@@ -131,7 +129,7 @@ export default {
         } else {
           this.leftValue += moveDistanceValuePlus;
         }
-        this.$emit('selector-moved', [this.rightValue, this.leftValue])
+        this.$emit("selector-moved", [this.rightValue, this.leftValue]);
       }
     },
     getPositionAtCenter(element) {
@@ -144,7 +142,6 @@ export default {
 
     getDistanceBetweenElements(a, b) {
       const aPosition = a.clientX;
-
       const bPosition = this.getPositionAtCenter(b);
       return aPosition - bPosition.x;
     },
@@ -194,7 +191,7 @@ export default {
       bottom: 0;
       border-radius: toRem(40);
       background: $orange;
-      transition: all 0.05s ease-out;
+      transition: all 0.1s ease-out;
     }
 
     .thumb {
@@ -207,7 +204,7 @@ export default {
       box-shadow: 0 0 0 toRem(5.2) rgba(255, 204, 64, 0.3);
       background-color: $white;
       border-radius: 50%;
-      transition: all 0.05s ease-out;
+      transition: all 0.1s ease-out;
 
       &#left-slider {
         left: 25%;
@@ -228,7 +225,7 @@ export default {
     z-index: 2;
     height: 10px;
     width: 100%;
-    opacity: 0.1;
+    opacity: 0;
     cursor: pointer;
 
     &::-webkit-slider-thumb {

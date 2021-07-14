@@ -127,11 +127,11 @@ export default {
       let lastUpdateRenge = {};
       data.map((content, index) => {
         if (index === 0) {
-          lastUpdateRenge.addCamaFromPrice = addCamaPrice(content);
+          lastUpdateRenge.addCamaFromPrice = addCamaPrice(Math.trunc(content));
         }
 
         if (index === 1) {
-          lastUpdateRenge.addCamaToPrice = addCamaPrice(content);
+          lastUpdateRenge.addCamaToPrice = addCamaPrice(Math.trunc(content));
         }
       });
 
@@ -141,13 +141,11 @@ export default {
     changeSliderRenge(value) {
 
       if (this.changeInputRenge) {
-        //this.addCamaPrice(value);
-        console.log(value);
+        this.addCamaPrice(value);
         this.$emit("last-update-slider-renge", value);
       } else {
         this.changeInputRenge = true;
       }
-      console.log(value);
     },
     selectorMoved (val) {
       if (this.changeInputRenge) {
