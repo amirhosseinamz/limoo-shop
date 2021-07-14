@@ -83,8 +83,8 @@ export default {
   data() {
     return {
       openBox: false,
-      fromValue: this.fromToRenge.from,
-      toValue: this.fromToRenge.to,
+      fromValue: 30000,
+      toValue: 80000,
       lastUpdateValueRenge: {
         addCamaFromPrice: "",
         addCamaToPrice: "",
@@ -105,7 +105,7 @@ export default {
   },*/
 
   mounted() {
-    const minMax = [this.fromToRenge.from, this.fromToRenge.to];
+    const minMax = [this.fromValue, this.toValue];
 
     if (this.openDefaultBox) {
       this.openBox = true;
@@ -141,12 +141,14 @@ export default {
       this.lastUpdateValueRenge = lastUpdateRenge;
     },
 
-    changeSliderRenge(value) {
-      this.isChange = this.toValue < this.fromValue
-      this.fromValue = parseInt(value[0])
-      this.toValue = parseInt(value[1])
-      console.log('from: ' , this.fromValue);
-      console.log('to: ',this.toValue);
+    changeSliderRenge(value, isChanged) {
+      if (isChanged) {
+        this.fromValue = parseInt(value[1])
+        this.toValue = parseInt(value[0])
+      } else {
+        this.fromValue = parseInt(value[0])
+        this.toValue = parseInt(value[1])
+      }
 
       if (this.changeInputRenge) {
         this.addCamaPrice(value);
@@ -179,7 +181,6 @@ export default {
       this.timeout = setTimeout(() => {
         const removeCama = this.removeCamaTyping(e);
         this.lastUpdateValueRenge.addCamaFromPrice = addCamaPrice(removeCama);
-        console.log('from price: ', removeCama);
         this.updateInputChangeRangeFrom(e, removeCama);
       },2000)
 
@@ -190,7 +191,6 @@ export default {
         this.timeout = setTimeout(() => {
         const removeCama = this.removeCamaTyping(e);
         this.lastUpdateValueRenge.addCamaToPrice = addCamaPrice(removeCama);
-        console.log('to price: ', removeCama);
         this.updateInputChangeRangeTo(e, removeCama);
 
       },2000)
@@ -199,7 +199,6 @@ export default {
 
     updateInputChangeRangeFrom(e, valueRengeRemoveCama) {
       this.fromValue = parseInt(valueRengeRemoveCama);
-
       this.changeInputRenge = false;
       this.$emit("last-update-slider-renge", [parseInt(this.fromValue), parseInt(this.toValue)]);
       this.updateRenge++;

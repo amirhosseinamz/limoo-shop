@@ -86,22 +86,22 @@ export default {
       this.isChanged = this.leftValue < this.rightValue;
       if (this.isChanged) {
         this.leftPercent = ((+this.leftValue - +this.min) / (+this.max - +this.min)) * 100;
-        this.$emit("selector-changed", [this.leftValue, this.rightValue]);
+        this.$emit("selector-changed", [this.leftValue, this.rightValue], this.isChanged);
         return;
       }
 
       this.rightPercent = ((+this.rightValue - +this.min) / (+this.max - +this.min)) * 100;
-      this.$emit("selector-changed", [this.rightValue, this.leftValue]);
+      this.$emit("selector-changed", [this.rightValue, this.leftValue], this.isChanged);
     },
     setLeftValue() {
       this.isChanged = this.leftValue < this.rightValue;
       if (this.isChanged) {
         this.rightPercent = ((+this.rightValue - +this.min) / (+this.max - +this.min)) * 100;
-        this.$emit("selector-changed", [this.leftValue, this.rightValue]);
+        this.$emit("selector-changed", [this.leftValue, this.rightValue], this.isChanged);
         return;
       }
       this.leftPercent = ((+this.leftValue - +this.min) / (+this.max - +this.min)) * 100;
-      this.$emit("selector-changed", [this.rightValue, this.leftValue]);
+      this.$emit("selector-changed", [this.rightValue, this.leftValue], this.isChanged);
     },
     moveSelector(e) {
       this.isChanged = this.leftValue < this.rightValue;

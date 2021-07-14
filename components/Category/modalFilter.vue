@@ -95,8 +95,8 @@ export default {
   data() {
     return {
       rengeFromTo: {
-        from: 10000,
-        to: 30000,
+        from: 40000,
+        to: 70000,
       },
       checkBoxData: {},
     };
