@@ -30,8 +30,8 @@
           :open-default-box="true"
           :title="getTextByTextKey('category_price_range_text')"
           :minMax="{ min: 0, max: 100000 }"
-          :from-to-renge="rengeFromTo"
-          @last-update-slider-renge="lastUpdateSliderRenge"
+          :from-to-range="rengeFromTo"
+          @last-update-slider-range="lastUpdateSliderRenge"
         ></filter-price>
 
         <filter-brand

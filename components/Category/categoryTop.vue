@@ -5,6 +5,7 @@
         <div class="products__top-title w-100 products__top-desktop">
           <h3 class="products__top-text">موبایل اندرویدی</h3>
         </div>
+        <base-checkbox></base-checkbox>
         <div class="products__filter-btns w-100 ">
           <base-button no-box-shadow classes="products__filter-btn" @button-clicked="showBoxFilter">
             <img src="/icons/filter_search_icon.svg" alt="filter">
