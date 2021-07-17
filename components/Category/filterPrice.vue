@@ -28,6 +28,7 @@
             <div class="modal-filter__box-renge" :key="updateRange">
               <base-range-slider-multiple
               class="multiple-range-slider"
+              :width="rangeSliderWidth"
               :min="minMax.min"
               :max="minMax.max"
               :first-value="fromValue"
@@ -73,8 +74,24 @@ export default {
       updateRange: 0,
       changeInputRange: true,
       timeout: null,
-      isChange: false
+      isChange: false,
+      windowWidth: 0
     };
+  },
+  watch: {
+    windowWidth (val) {
+      this.windowWidth = val
+      console.log(val);
+    }
+  },
+  computed: {
+    rangeSliderWidth () {
+      if (this.windowWidth > 421) {
+        return '307'
+      } else {
+        return '270'
+      }
+    }
   },
 
   mounted() {
@@ -82,9 +99,17 @@ export default {
     this.openBox = this.openDefaultBox;
     this.addCommaPrice(minMax);
     this.$emit("last-update-slider-range", minMax);
+    window.addEventListener('resize', this.handleResize);
+    this.handleResize();
+  },
+  destroyed() {
+    window.removeEventListener('resize', this.handleResize);
   },
 
   methods: {
+    handleResize() {
+      this.windowWidth = window.innerWidth;
+    },
     toggleBox() {
       this.openBox = !this.openBox;
     },
@@ -195,6 +220,7 @@ export default {
 
   },
 
+
 };
 </script>
 
@@ -204,30 +230,27 @@ export default {
   margin-right: auto;
   margin-left: auto;
   background: $white;
-  padding-top: 13px;
-  padding-bottom: 13px;
-  border: solid 1px $chinese_white;
+  padding: toRem(13) toRem(16);
+  border: solid toRem(1) $chinese_white;
   @include display-flex();
   align-items: flex-start;
-  border-radius: 10px;
-  padding-right: 16px;
-  padding-left: 16px;
+  border-radius: toRem(10);
   flex-wrap: wrap;
-  max-height: 51px;
+  max-height: toRem(51);
   transition: max-height 0.5s cubic-bezier(0, 1, 0, 1);
   overflow: hidden;
-  margin-top: 6px;
+  margin-top: toRem(6);
 }
 
 .modal-filter__box-content {
   @include display-flex();
   align-items: flex-start;
   flex-wrap: wrap;
-  margin-top: 16px;
+  margin-top: toRem(16);
 }
 
 .modal-filter__box-text {
-  font-size: 16px;
+  font-size: toRem(16);
   color: $dark_gray;
   font-weight: 400;
   flex-grow: 1;
@@ -237,15 +260,15 @@ export default {
 .modal-filter__box-arrow::before {
   content: "\e800";
   @include font-icon__arrow();
-  font-size: 18px;
+  font-size: toRem(18);
   color: $gray;
   cursor: pointer;
 }
 
 .modal-filter__box-arrow {
-  height: 18px;
+  height: toRem(18);
   transition: all .3s ease-in-out;
-  margin-top: 3px;
+  margin-top: toRem(3);
 }
 
 .modal-filter__box-title {
@@ -260,7 +283,7 @@ export default {
 }
 
 .active--box {
-  max-height: 1000px;
+  max-height: toRem(1000);
   transition: max-height 1s ease-in-out;
 }
 
@@ -282,7 +305,7 @@ export default {
 .modal-filter__box-from {
   @include display-flex();
   align-items: center;
-  margin-left: 11px;
+  margin-left: toRem(11);
 }
 
 .modal-filter__box-from:last-of-type {
@@ -290,21 +313,21 @@ export default {
 }
 
 .modal-filter__box-titlePrice {
-  font-size: 16px;
+  font-size: toRem(16);
   color: $gray;
-  margin-left: 14px;
+  margin-left: toRem(14);
   font-weight: 400;
 }
 
 .modal-filter__box-value {
   background: $flash_white;
-  border: 1px solid $flash_white;
-  width: 99px;
-  height: 30px;
+  border: toRem(1) solid $flash_white;
+  width: toRem(99);
+  height: toRem(30);
   justify-content: center;
   @include display-flex();
   align-items: center;
-  border-radius: 100px;
+  border-radius: toRem(100);
   outline: none;
   font-family: inherit;
   text-align: center;
@@ -314,55 +337,53 @@ export default {
 .modal-filter__box-unit {
   font-weight: 300;
   color: $gray;
-  font-size: 14px;
+  font-size: toRem(14);
   margin-right: toRem(6);
 }
 
 .modal-filter__box-data {
   font-weight: 400;
-  font-size: 16px;
+  font-size: toRem(16);
   color: $color-price;
 }
 
 .modal-filter__box-renge {
-  margin-top: 19px;
+  margin-top: toRem(19);
+  display: flex;
+  justify-content: center;
 }
 
 
 @media (max-width: 420px) {
   .modal-filter__box-renge {
-    margin-top: 12px;
-    display: none;
+   margin: 0;
   }
   .modal-filter__box-text {
-    font-size: 14px;
+    font-size: toRem(14);
   }
   .modal-filter__box-title {
     align-items: flex-start;
   }
   .modal-filter__box-value {
-    width: 90px;
+    width: toRem(90);
   }
   .modal-filter__box-titlePrice {
-    font-size: 14px;
+    font-size: toRem(14);
+    margin-left: toRem(8);
   }
   .modal-filter__box-unit {
-    font-size: 13px;
-    margin-right: 6px;
+    font-size: toRem(13);
+    margin-right: toRem(6);
   }
   .modal-filter__filter-tools {
-    margin-top: 16px;
+    margin-top: toRem(16);
   }
   .modal-filter__box-price {
     justify-content: center;
   }
   .modal-filter__box-data {
-    font-size: 13px;
+    font-size: toRem(13);
   }
-  .modal-filter__box-renge {
-    display: none;
-  }
-
 
 }
 

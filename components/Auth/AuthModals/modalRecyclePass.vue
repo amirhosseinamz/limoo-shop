@@ -120,7 +120,6 @@ export default {
         if (checkSubmitForm === "success") {
         }
 
-        console.log(formData);
       });
     },
     nextPage() {

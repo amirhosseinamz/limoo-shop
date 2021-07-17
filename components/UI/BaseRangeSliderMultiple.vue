@@ -34,6 +34,10 @@ export default {
       type: Number,
       require: false,
     },
+    width: {
+      type: String,
+      require: true
+    }
   },
   data() {
     return {
@@ -41,7 +45,6 @@ export default {
       leftPercent: null,
       rightValue: 0,
       leftValue: 0,
-      width: "",
       isChanged: false,
     };
   },
@@ -159,8 +162,8 @@ export default {
     }
     this.setRightValue();
     this.setLeftValue();
-    const _middle = this.$refs.middle
-    this.width = _middle.parentElement.clientWidth;
+    // const _middle = this.$refs.middle
+    // this.width = _middle.parentElement.clientWidth;
   },
 };
 </script>
@@ -168,7 +171,6 @@ export default {
 <style lang="scss" scoped>
 .middle {
   position: relative;
-  width: 100%;
 
   .slider {
     position: relative;
@@ -195,7 +197,6 @@ export default {
       bottom: 0;
       border-radius: toRem(40);
       background: $orange;
-      transition: all 0.1s ease-out;
     }
 
     .thumb {
@@ -208,7 +209,6 @@ export default {
       box-shadow: 0 0 0 toRem(5.2) rgba(255, 204, 64, 0.3);
       background-color: $white;
       border-radius: 50%;
-      transition: all 0.1s ease-out;
 
       &.left-slider {
         left: 25%;
@@ -240,7 +240,15 @@ export default {
       border: none;
       background-color: red;
       -webkit-appearance: none;
-      transition: all 2s ease-out;
+    }
+    &::-moz-range-thumb {
+      pointer-events: all;
+      width: 30px;
+      height: 30px;
+      border-radius: 0;
+      border: none;
+      background-color: red;
+      -webkit-appearance: none;
     }
   }
 

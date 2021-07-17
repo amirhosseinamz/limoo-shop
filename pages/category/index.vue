@@ -396,11 +396,9 @@ export default {
     },
 
     activeCatSuggestion(data) {
-      console.log(data);
     },
 
     updateInfiniteCatMobile(data) {
-      console.log(data, "updateInfiniteCatMobile");
     },
 
     setDataModalFilter() {
@@ -434,7 +432,6 @@ export default {
 
     submitData() {
       const getLastUpdate = this.$store.state.category.submitDataFilterModal;
-      console.log(getLastUpdate, "getLastUpdate");
     },
 
     setDataModalSort() {
