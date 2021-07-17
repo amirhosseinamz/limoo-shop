@@ -14,44 +14,25 @@
             <div class="w-100 modal-filter__box-price">
               <div class="modal-filter__box-from">
                 <h3 class="modal-filter__box-titlePrice">از</h3>
-                <input @keyup="fromPrice" v-model="lastUpdateValueRenge.addCamaFromPrice"
+                <input ref="fromInput" @keyup="fromPrice" v-model="lastUpdateValueRange.addCommaFromPrice"
                        type="text" class="modal-filter__box-value modal-filter__box-data">
               </div>
               <div class="modal-filter__box-from box--to">
                 <h3 class="modal-filter__box-titlePrice">تا</h3>
-                <input @keyup="toPrice" v-model="lastUpdateValueRenge.addCamaToPrice"
+                <input ref="toInput" @keyup="toPrice" v-model="lastUpdateValueRange.addCommaToPrice"
                        type="text" class="modal-filter__box-value modal-filter__box-data">
               </div>
               <h3 class="modal-filter__box-unit">تومان</h3>
             </div>
 
-            <div class="modal-filter__box-renge" :key="updateRenge">
-<!--                <client-only>
-                      <vue-slider
-                          v-model="value"
-                          :max="minMax.max"
-                          :min="minMax.min"
-                          ref="slider"
-                          @change="changeSliderRenge"
-                          height="9px"
-                          width="99%"
-                          dotSize="24"
-                          direction="rtl"
-                          padding="7px 0px"
-
-                          >
-                            <template v-slot:dot="{ value, focus }">
-                              <img src="/icons/renge-circle.svg" :class="['renge-circle custom-dot', { focus }]"></img>
-                            </template>
-                        </vue-slider>
-                  </client-only>-->
+            <div class="modal-filter__box-renge" :key="updateRange">
               <base-range-slider-multiple
               class="multiple-range-slider"
               :min="minMax.min"
               :max="minMax.max"
               :first-value="fromValue"
               :second-value="toValue"
-              @selector-changed="changeSliderRenge"
+              @selector-changed="changeSliderRange"
               @selector-moved="selectorMoved"
             ></base-range-slider-multiple>
 
@@ -68,7 +49,7 @@
 <script>
 import "vue-slider-component/theme/antd.css";
 import "~/assets/styles/_slider_range_price.scss";
-import addCamaPrice from "~/modules/addCamaPrice.js";
+import addCommaPrice from "~/modules/addCamaPrice.js";
 
 
 export default {
@@ -77,7 +58,7 @@ export default {
     openDefaultBox: { type: Boolean, default: false },
     title: { type: String, default: "" },
     minMax: { type: Object, default: {} },
-    fromToRenge: { type: Object, default: {} },
+    fromToRange: { type: Object, default: {} },
   },
 
   data() {
@@ -85,63 +66,45 @@ export default {
       openBox: false,
       fromValue: 30000,
       toValue: 80000,
-      lastUpdateValueRenge: {
-        addCamaFromPrice: "",
-        addCamaToPrice: "",
+      lastUpdateValueRange: {
+        addCommaFromPrice: "",
+        addCommaToPrice: "",
       },
-      updateRenge: 0,
-      changeInputRenge: true,
+      updateRange: 0,
+      changeInputRange: true,
       timeout: null,
       isChange: false
     };
   },
-/*
-  watch: {
-    lastUpdateValueRenge (val) {
-      console.log(val);
-      this.rightValue = val[0]
-      this.leftValue = val[1]
-    }
-  },*/
 
   mounted() {
     const minMax = [this.fromValue, this.toValue];
-
-    if (this.openDefaultBox) {
-      this.openBox = true;
-    } else {
-      this.openBox = false;
-    }
-
-    this.addCamaPrice(minMax);
-    this.$emit("last-update-slider-renge", minMax);
+    this.openBox = this.openDefaultBox;
+    this.addCommaPrice(minMax);
+    this.$emit("last-update-slider-range", minMax);
   },
 
   methods: {
     toggleBox() {
-      if (this.openBox) {
-        this.openBox = false;
-      } else {
-        this.openBox = true;
-      }
+      this.openBox = !this.openBox;
     },
 
-    addCamaPrice(data) {
-      let lastUpdateRenge = {};
+    addCommaPrice(data) {
+      let lastUpdateRange = {};
       data.map((content, index) => {
         if (index === 0) {
-          lastUpdateRenge.addCamaFromPrice = addCamaPrice(Math.trunc(content));
+          lastUpdateRange.addCommaFromPrice = addCommaPrice(Math.trunc(content));
         }
 
         if (index === 1) {
-          lastUpdateRenge.addCamaToPrice = addCamaPrice(Math.trunc(content));
+          lastUpdateRange.addCommaToPrice = addCommaPrice(Math.trunc(content));
         }
       });
 
-      this.lastUpdateValueRenge = lastUpdateRenge;
+      this.lastUpdateValueRange = lastUpdateRange;
     },
 
-    changeSliderRenge(value, isChanged) {
+    changeSliderRange(value, isChanged) {
       if (isChanged) {
         this.fromValue = parseInt(value[1])
         this.toValue = parseInt(value[0])
@@ -150,64 +113,84 @@ export default {
         this.toValue = parseInt(value[1])
       }
 
-      if (this.changeInputRenge) {
-        this.addCamaPrice(value);
-        this.$emit("last-update-slider-renge", value);
+      if (this.changeInputRange) {
+        this.addCommaPrice(value);
+        this.$emit("last-update-slider-range", value);
       } else {
-        this.changeInputRenge = true;
+        this.changeInputRange = true;
       }
     },
     selectorMoved (val) {
-      if (this.changeInputRenge) {
-        this.addCamaPrice(val);
-        this.$emit("last-update-slider-renge", val);
+      if (this.changeInputRange) {
+        this.addCommaPrice(val);
+        this.$emit("last-update-slider-range", val);
       } else {
-        this.changeInputRenge = true;
+        this.changeInputRange = true;
       }
     },
 
-    removeCamaTyping(e) {
+    removeCommaTyping(e) {
       const value = e.target.value.split(",");
-      let removeCama = "";
+      let removeComma = "";
       value.map((content) => {
-        removeCama += content;
+        removeComma += content;
       });
 
-      return removeCama;
+      return removeComma;
     },
 
     fromPrice(e) {
       clearTimeout(this.timeout);
-      this.timeout = setTimeout(() => {
-        const removeCama = this.removeCamaTyping(e);
-        this.lastUpdateValueRenge.addCamaFromPrice = addCamaPrice(removeCama);
-        this.updateInputChangeRangeFrom(e, removeCama);
-      },2000)
+        this.timeout = setTimeout(() => {
+        const removedFromComma = this.removeCommaTyping(e);
+        let removedToComma = ""
+        const toValue = this.$refs.toInput.value.split(",")
+        toValue.map((content) => {
+          removedToComma += content
+        })
+        this.toValue = parseInt(removedToComma)
+        this.lastUpdateValueRange.addCommaFromPrice = addCommaPrice(removedFromComma);
+        this.updateInputChangeRangeFrom(e, removedFromComma);
+      },1000)
 
     },
 
     toPrice(e) {
         clearTimeout(this.timeout);
         this.timeout = setTimeout(() => {
-        const removeCama = this.removeCamaTyping(e);
-        this.lastUpdateValueRenge.addCamaToPrice = addCamaPrice(removeCama);
-        this.updateInputChangeRangeTo(e, removeCama);
-
-      },2000)
+        const removedToComma = this.removeCommaTyping(e);
+        let removedFromComma = ""
+        const fromValue = this.$refs.fromInput.value.split(",")
+        fromValue.map((content) => {
+          removedFromComma += content
+        })
+        this.fromValue = parseInt(removedFromComma)
+        this.lastUpdateValueRange.addCommaToPrice = addCommaPrice(removedToComma);
+        this.updateInputChangeRangeTo(e, removedToComma);
+      },1000)
 
     },
 
-    updateInputChangeRangeFrom(e, valueRengeRemoveCama) {
-      this.fromValue = parseInt(valueRengeRemoveCama);
-      this.changeInputRenge = false;
-      this.$emit("last-update-slider-renge", [parseInt(this.fromValue), parseInt(this.toValue)]);
-      this.updateRenge++;
+    updateInputChangeRangeFrom(e, valueRangeRemoveComma) {
+      if (valueRangeRemoveComma < this.minMax.min) {
+        this.fromValue = this.minMax.min;
+      } else {
+        this.fromValue = parseInt(valueRangeRemoveComma);
+      }
+      this.changeInputRange = false;
+      this.$emit("last-update-slider-range", [parseInt(this.fromValue), parseInt(this.toValue)]);
+      this.updateRange++;
     },
-    updateInputChangeRangeTo (e, valueRengeRemoveCama) {
-      this.toValue = parseInt(valueRengeRemoveCama);
-      this.changeInputRenge = false;
-      this.$emit("last-update-slider-renge", [parseInt(this.fromValue), parseInt(this.toValue)]);
-      this.updateRenge++;
+    updateInputChangeRangeTo (e, valueRangeRemoveComma) {
+      if (valueRangeRemoveComma > this.minMax.max) {
+        this.toValue = this.minMax.max;
+      } else {
+        this.toValue = parseInt(valueRangeRemoveComma);
+      }
+      this.changeInputRange = false;
+      this.$emit("last-update-slider-range", [parseInt(this.fromValue), parseInt(this.toValue)]);
+      this.updateRange++;
+
     }
 
   },
