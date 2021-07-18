@@ -227,15 +227,15 @@ export default {
     pointer-events: none;
     -webkit-appearance: none;
     z-index: 2;
-    height: 10px;
+    height: toRem(10);
     width: 100%;
     opacity: 0;
     cursor: pointer;
 
     &::-webkit-slider-thumb {
       pointer-events: all;
-      width: 30px;
-      height: 30px;
+      width: toRem(30);
+      height: toRem(30);
       border-radius: 0;
       border: none;
       background-color: red;
@@ -243,8 +243,8 @@ export default {
     }
     &::-moz-range-thumb {
       pointer-events: all;
-      width: 30px;
-      height: 30px;
+      width: toRem(30);
+      height: toRem(30);
       border-radius: 0;
       border: none;
       background-color: red;
