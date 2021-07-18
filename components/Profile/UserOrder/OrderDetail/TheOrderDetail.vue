@@ -22,7 +22,8 @@
         </div>
       </div>
       <div class="order-detail__timeline">
-        <ul class="progressbar">
+        <base-steps :length="4" :actives-length="order.progress" :item-names="itemNames" class="steps"></base-steps>
+<!--        <ul class="progressbar">
           <li
             :class="[
               order.progress == 1 ? 'active' : '',
@@ -53,7 +54,7 @@
           <li :class="{ active: order.progress == 4 }">
             {{ getTextByTextKey("orders_detail_status_get") }}
           </li>
-        </ul>
+        </ul>-->
       </div>
       <div class="order-detail__shipment-date">
         <span> {{ getTextByTextKey("orders_detail_date_delive_time") }} </span>
@@ -69,6 +70,16 @@ export default {
   name: "TheOrderDetail",
   props: {
     userOrderData: { type: [Object, Array], default: {} },
+  },
+  data () {
+    return {
+      itemNames: [
+        this.getTextByTextKey("orders_detail_status_check"),
+        this.getTextByTextKey("orders_detail_status_preparation"),
+        this.getTextByTextKey("orders_detial_status_delivery"),
+        this.getTextByTextKey("orders_detail_status_get")
+      ]
+    }
   },
   methods: {
     getTextByTextKey,
@@ -137,12 +148,10 @@ export default {
   padding: 0 0px 38px 0px;
 }
 .order-detail__timeline {
-  padding-top: 12px;
-  width: 125%;
-  /* border: 1px solid red; */
-  height: 80px;
-  margin-right: -12.5%;
-  margin-left: -12.5%;
+  margin: toRem(32) toRem(80) toRem(16) toRem(64);
+}
+.steps::v-deep {
+  height: toRem(80);
 }
 .order-detail__holder {
   @include display-flex();
@@ -200,18 +209,9 @@ export default {
   margin-top: 38px;
   /* border: 1px solid red; */
 }
-@media (max-width: 1450px) {
-  .order-detail__timeline {
-    width: 120%;
-    margin-right: -10%;
-    margin-left: -10%;
-  }
-}
 @media (max-width: 1220px) {
   .order-detail__timeline {
-    width: 110%;
-    margin-right: -5%;
-    margin-left: -5%;
+    margin: toRem(32) toRem(64) toRem(8) toRem(48);
   }
 }
 @media (max-width: 960px) {
@@ -222,7 +222,7 @@ export default {
     margin-top: 11px;
     width: 100%;
     min-height: 182px;
-    padding: 0 0px 0px 0px;
+    padding: 0;
     overflow-x: hidden;
   }
   .order-detail__holder {
@@ -232,25 +232,15 @@ export default {
   }
   /* /\/\/\/\/\/\/\/\ */
   .order-detail__timeline {
-    padding-top: 5px;
-    width: 120%;
-    height: 46px;
-    margin-right: -10%;
-    margin-left: -10%;
-    margin-bottom: 16px;
+    margin: toRem(32) toRem(64) toRem(8) toRem(48);
   }
-  .progressbar li {
-    width: 24%;
-    font-size: 13px;
-  }
-  .progressbar li:before {
-    width: 15px;
-    height: 15px;
-    margin: 0 auto 10px auto;
-  }
-  .progressbar li:after {
-    width: 100%;
-    top: 7px;
+  .steps::v-deep {
+        font-size: toRem(13);
+        height: toRem(46);
+        .circle {
+          width: toRem(15)!important;
+          height: toRem(15)!important;
+        }
   }
   /* /\/\/\/\/\/\/\/\ */
   .paid-order-product-img {
@@ -277,39 +267,25 @@ export default {
     margin-top: 4px;
   }
   .order-detail__timeline {
-    width: 120%;
-    margin-right: -10%;
-    margin-left: -10%;
-  }
-
-  .progressbar li {
-    width: 24%;
-    font-size: 13px;
-  }
-  .progressbar li:before {
-    width: 9px;
-    height: 9px;
-    margin: 0 auto 10px auto;
-  }
-  .progressbar li:after {
-    width: 105%;
-    top: 4px;
+    margin: toRem(32) toRem(64) toRem(8) toRem(48);
   }
 }
 @media (max-width: 500px) {
-  .progressbar li {
-    width: 22%;
+  .order-detail__timeline {
+    margin: toRem(32) toRem(48) toRem(8) toRem(32);
+  }
+  .steps::v-deep {
+    font-size: toRem(11);
+    .circle {
+      width: toRem(11)!important;
+      height: toRem(11)!important;
+    }
   }
 }
 @media (max-width: 340px) {
-  .progressbar li {
-    width: 20%;
-    font-size: 12px;
-  }
+
 }
 @media (max-width: 280px) {
-  .progressbar li {
-    font-size: 11px;
-  }
+
 }
 </style>
