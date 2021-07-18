@@ -173,9 +173,9 @@ export default {
   @include display-flex();
   flex-wrap: wrap;
   align-items: flex-start;
-  padding-right: 18px;
-  padding-left: 18px;
-  padding-top: 30px;
+  padding-right: toRem(18);
+  padding-left: toRem(18);
+  padding-top: toRem(30);
   height: 100vh;
   flex-flow: column;
   justify-content: space-between;
@@ -187,12 +187,12 @@ export default {
   align-items: center;
 }
 .modal-filter__item-title {
-  font-size: 16px;
+  font-size: toRem(16);
   color: $dark_gray;
   font-weight: 300;
 }
 .modal-filter__item-close::before {
-  font-size: 22px;
+  font-size: toRem(22);
   opacity: 0.5;
 }
 .modal-filter__close-item {
@@ -205,22 +205,22 @@ export default {
   justify-content: flex-end;
 }
 .modal-filter__line {
-  height: 1px;
+  height: toRem(1);
   width: 100%;
   @include display-flex();
-  margin-top: 20px;
-  margin-bottom: 18px;
+  margin-top: toRem(20);
+  margin-bottom: toRem(18);
   background: $flash_white;
 }
 
 .modal-cancel {
-  width: 130px;
-  height: 47px;
+  width: toRem(130);
+  height: toRem(47);
   margin-left: 0;
   font-family: inherit;
 }
 .modal-filter__btn {
-  padding-bottom: 18px;
+  padding-bottom: toRem(18);
   justify-content: center;
   @include display-flex();
   justify-content: center;
@@ -242,8 +242,8 @@ export default {
 }
 
 .p-product-btn {
-  width: 130px;
-  height: 47px;
+  width: toRem(130);
+  height: toRem(47);
   margin-left: 1.5rem;
   font-family: inherit;
   font-size: 1rem;
@@ -254,33 +254,33 @@ export default {
 
 @media (max-width: 485px) {
   .modal-filter__item-title {
-    font-size: 14px;
+    font-size: toRem(14);
     align-items: flex-start;
   }
   .modal-filter__filter-tools {
     margin-top: 0;
   }
   .p-product-btn {
-    width: 150px;
-    height: 47px;
+    width: toRem(150);
+    height: toRem(47);
     font-family: inherit;
-    font-size: 14px;
+    font-size: toRem(14);
     transition: all 120ms ease-in;
   }
   .modal-filter__main::v-deep .button__text {
-    font-size: 14px;
+    font-size: toRem(14);
   }
   .modal-filter__item-close::before {
     content: "\e801";
     @include font-icon__limoo();
-    font-size: 17px;
+    font-size: toRem(17);
     opacity: 1;
   }
   .modal-filter__line {
-    margin-top: 12px;
+    margin-top: toRem(12);
   }
   .modal-filter__btn {
-    padding-bottom: 12px;
+    padding-bottom: toRem(12);
   }
 }
 

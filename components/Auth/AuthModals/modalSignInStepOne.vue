@@ -140,7 +140,6 @@ export default {
     },
 
     typeing() {
-      console.log("typeing", this.formData);
     },
   },
 };
