@@ -98,13 +98,13 @@ export default {
 }
 .progressbar li:before {
   content: "";
-  width: 26px;
-  height: 26px;
-  line-height: 30px;
+  width: toRem(26);
+  height: toRem(26);
+  line-height: toRem(30);
   border-radius: 50%;
   display: block;
   text-align: center;
-  margin: 0 auto 10px auto;
+  margin: 0 auto toRem(10) auto;
   background-color: $gray__bar;
   z-index: 1;
   position: inherit;
@@ -113,9 +113,9 @@ export default {
   content: "";
   position: absolute;
   width: 100%;
-  height: 2px;
+  height: toRem(2);
   background-color: $gray__bar;
-  top: 13px;
+  top: toRem(13);
   left: 50%;
   z-index: 0;
 }
@@ -138,14 +138,14 @@ export default {
   @include display-flex();
   flex-direction: column;
   justify-content: space-between;
-  margin-top: 24px;
+  margin-top: toRem(24);
   width: 100%;
-  min-height: 280px;
+  min-height: toRem(280);
   height: fit-content;
-  border: 1px solid $light-gray;
+  border: toRem(1) solid $light-gray;
   box-sizing: border-box;
-  border-radius: 10px;
-  padding: 0 0px 38px 0px;
+  border-radius: toRem(10);
+  padding: 0 0 toRem(38) 0;
 }
 .order-detail__timeline {
   margin: toRem(32) toRem(80) toRem(16) toRem(64);
@@ -157,29 +157,29 @@ export default {
   @include display-flex();
   flex-direction: row;
   width: 100%;
-  min-height: 106px;
+  min-height: toRem(106);
   height: fit-content;
 
-  padding: 16px 15px 0 15px;
+  padding: toRem(16) toRem(15) 0 toRem(15);
 
   /* border: 1px solid red; */
 }
 .paid-order-product-img {
-  width: 90px;
-  height: 90px;
+  width: toRem(90);
+  height: toRem(90);
 }
 .order-title__holder {
   @include display-flex();
   flex-direction: column;
   width: 100%;
-  min-height: 70px;
+  min-height: toRem(70);
   height: fit-content;
-  padding-top: 16px;
-  padding-right: 16px;
+  padding-top: toRem(16);
+  padding-right: toRem(16);
   /* border: 1px solid red; */
 }
 .p-product-content-title {
-  font-size: 16px;
+  font-size: toRem(16);
   line-height: 140.62%;
   text-align: right;
 }
@@ -187,26 +187,26 @@ export default {
   @include display-flex();
   flex-direction: row;
   width: 100%;
-  margin-top: 16px;
+  margin-top: toRem(16);
   /* border: 1px solid red; */
 }
 .p-product-content-price-title {
-  font-size: 16px;
+  font-size: toRem(16);
   line-height: 140.62%;
   color: $gray;
   text-align: right;
 }
 .price-unit {
-  margin-right: 4px;
+  margin-right: toRem(4);
 }
 .order-detail__shipment-date {
   width: 100%;
-  font-size: 16px;
+  font-size: toRem(16);
   line-height: 140.62%;
   text-align: right;
   color: $black-topic;
-  margin-right: 15px;
-  margin-top: 38px;
+  margin-right: toRem(15);
+  margin-top: toRem(38);
   /* border: 1px solid red; */
 }
 @media (max-width: 1220px) {
@@ -219,16 +219,16 @@ export default {
     display: none;
   }
   .the-order-detail__holder {
-    margin-top: 11px;
+    margin-top: toRem(11);
     width: 100%;
-    min-height: 182px;
+    min-height: toRem(182);
     padding: 0;
     overflow-x: hidden;
   }
   .order-detail__holder {
-    min-height: 86px;
+    min-height: toRem(86);
     height: fit-content;
-    padding: 16px 8px 0 8px;
+    padding: toRem(16) toRem(8) 0 toRem(8);
   }
   /* /\/\/\/\/\/\/\/\ */
   .order-detail__timeline {
@@ -244,27 +244,27 @@ export default {
   }
   /* /\/\/\/\/\/\/\/\ */
   .paid-order-product-img {
-    width: 80px;
-    height: 80px;
+    width: toRem(80);
+    height: toRem(80);
   }
   .order-title__holder {
-    min-height: 60px;
+    min-height: toRem(60);
     height: fit-content;
-    padding-top: 7px;
+    padding-top: toRem(7);
   }
   .p-product-content-title {
-    font-size: 13px;
+    font-size: toRem(13);
   }
   .p-product-content-price {
-    margin-top: 10px;
+    margin-top: toRem(10);
   }
   .p-product-content-price-title {
-    font-size: 13px;
+    font-size: toRem(13);
   }
 }
 @media (max-width: 700px) {
   .p-product-content-price {
-    margin-top: 4px;
+    margin-top: toRem(4);
   }
   .order-detail__timeline {
     margin: toRem(32) toRem(64) toRem(8) toRem(48);
