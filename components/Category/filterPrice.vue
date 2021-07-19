@@ -199,6 +199,8 @@ export default {
     updateInputChangeRangeFrom(e, valueRangeRemoveComma) {
       if (valueRangeRemoveComma < this.minMax.min) {
         this.fromValue = this.minMax.min;
+      } else if (valueRangeRemoveComma > this.minMax.max) {
+        this.fromValue = this.minMax.max;
       } else {
         this.fromValue = parseInt(valueRangeRemoveComma);
       }
@@ -209,6 +211,8 @@ export default {
     updateInputChangeRangeTo (e, valueRangeRemoveComma) {
       if (valueRangeRemoveComma > this.minMax.max) {
         this.toValue = this.minMax.max;
+      } else if (valueRangeRemoveComma < this.minMax.min) {
+        this.toValue = this.minMax.min
       } else {
         this.toValue = parseInt(valueRangeRemoveComma);
       }

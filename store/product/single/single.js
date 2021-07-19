@@ -34,6 +34,10 @@ const getters = {
 const mutations = {
   increaseCloseModalAddComment (state) {
     state.closeModalAddComment++
+  },
+  changeRadioBtnDataActivation (state, payload) {
+    const theItem = state.radioBtnData.find(item => item.id === payload)
+    theItem.checked = !!theItem;
   }
 }
 const actions = {
@@ -52,8 +56,7 @@ const actions = {
 
   },
   changeRadioBtnDataActivation (context, payload) {
-    const theItem = context.getters.radioBtnData.find(item => item.id === payload)
-    theItem.checked = !!theItem;
+    context.commit('changeRadioBtnDataActivation', payload)
   }
 }
 

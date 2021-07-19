@@ -5,8 +5,8 @@
         <div class="line"></div>
         <span class="circle">
           <span class="title">
-          {{ itemNames[item-1] }}
-        </span>
+            {{ itemNames[item-1] }}
+          </span>
         </span>
       </li>
     </ul>

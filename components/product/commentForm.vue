@@ -116,20 +116,20 @@
         <h3 class="comment__suggest-title w-100">
           {{ getTextByTextKey("product_comment_suggest_buying") }}
         </h3>
-        <div class="w-100 comment__suggest-data radio--btn">
-          <div
-            v-for="(data, index) in radioBtnData"
-            :key="data.id"
-            class="comment__suggest-item"
-          >
-            <label @change="activeRadioBtn($event, data)" class="container">
-              <input name="radio" :checked="data.checked" type="radio" />
-              <span class="checkmark"></span>
-              <h3 class="comment__suggest-text">{{ data.title }}</h3>
-            </label>
+        <div class="w-100 comment__suggest-data">
+            <base-radio-button
+              v-for="(data, index) in radioBtnData"
+              :key="data.id"
+              scale
+              class="comment__suggest-item"
+              name="addComment"
+              @value-changed="activeRadioBtn($event, data)"
+              :title="data.title"
+              :value="data.value"
+              :selected="radioBtnData[0].value"
+            ></base-radio-button>
           </div>
         </div>
-      </div>
 
       <div class="w-100 comment__suggest-btns">
           <base-button
@@ -210,6 +210,7 @@ export default {
     getTextByTextKey,
 
     activeRadioBtn($event, data) {
+      console.log(data);
       this.$store.dispatch('product/single/single/changeRadioBtnDataActivation', data.id)
       this.formData.Suggest = data.value;
     },
@@ -324,76 +325,57 @@ export default {
 
 <style lang="scss" scoped>
 .comment__form-main {
-  width: 481px;
+  width: toRem(481);
   margin-right: auto;
   margin-left: auto;
-  padding-top: 38px;
+  padding-top: toRem(38);
 }
 .comment__form-title {
-  font-size: 16px;
+  font-size: toRem(16);
   color: $black-topic;
-  margin-bottom: 16px;
+  margin-bottom: toRem(16);
   font-weight: 400;
 }
-.comment__form-item {
-  margin-bottom: 24px;
-}
-.comment__form-item:last-of-type {
-  margin-bottom: 0;
-}
 .comment__textara-item {
-  height: 126px;
-  padding-top: 12px;
-  padding-bottom: 12px;
-  padding-right: 12px;
-  padding-left: 12px;
+  height: toRem(126);
+  padding: toRem(12) toRem(12);
   resize: none;
 }
 .comment__suggest-title {
-  font-size: 16px;
+  font-size: toRem(16);
   color: $black-topic;
-  margin-bottom: 38px;
+  margin-bottom: toRem(38);
   font-weight: 400;
 }
 .comment__suggest-main {
-  margin-top: 38px;
+  margin-top: toRem(38);
 }
 .comment__suggest-text {
-  font-size: 16px;
+  font-size: toRem(16);
   color: $black-topic;
   font-weight: 400;
-  margin-right: 28px;
+  margin-right: toRem(28);
 }
 .comment__suggest-data {
   @include display-flex();
-  align-items: flex-start;
+  align-items: center;
   justify-content: space-between;
-}
-.radio--btn .checkmark {
-  border-radius: 1000px;
-  padding: 5px;
-  border: solid 5px $light-gray;
-}
-.radio--btn .checkmark::after {
-  display: none !important;
-}
-.radio--btn .container input:checked ~ .checkmark {
-  background: $white;
+  margin-bottom: toRem(32);
 }
 .comment__suggest-btns {
   justify-content: center;
   @include display-flex();
-  margin-top: 42px;
-  margin-bottom: 24px;
+  margin-top: toRem(42);
+  margin-bottom: toRem(24);
 }
 .p-product-btn {
-  width: 130px;
-  height: 47px;
+  width: toRem(130);
+  height: toRem(47);
   font-family: inherit;
   transition: all 120ms ease-in;
 }
 .show--error .p-input-style__default {
-  border: solid 1px red;
+  border: solid toRem(1) red;
 }
 .show--error .pass__alert {
   visibility: visible;
@@ -402,38 +384,41 @@ export default {
   @include display-flex();
 }
 .comment__form-star {
-  margin-right: 3px;
-  font-size: 16px;
+  margin-right: toRem(3);
+  font-size: toRem(16);
   color: $alert-red;
 }
 
 .comment__form-main::v-deep {
+  .comment__suggest-item {
+    font-size: toRem(16);
+  }
   .comment__form-title {
-    font-size: 16px;
+    font-size: toRem(16);
     color: $black-topic;
-    margin-bottom: 16px;
+    margin-bottom: toRem(16);
     font-weight: 400;
   }
   .pass__alert {
     color: $alert-red;
     text-align: right;
-    font-size: 14px;
+    font-size: toRem(14);
     line-height: 140.62%;
     @include display-flex();
     width: 100%;
     text-align: right;
-    margin-top: 4px;
+    margin-top: toRem(4);
   }
   .search-section__items {
     font-family: inherit;
-    border: 1px solid #bdbdbd;
-    box-shadow: 0px 4px 4px #f2f2f2;
-    height: 52px;
-    border-radius: 15px;
+    border: toRem(1) solid #bdbdbd;
+    box-shadow: 0 toRem(4) toRem(4) #f2f2f2;
+    height: toRem(52);
+    border-radius: toRem(15);
     color: #828282;
     outline: none;
-    padding-right: 10px;
-    padding-left: 10px;
+    padding-right: toRem(10);
+    padding-left: toRem(10);
   }
   .p-modal-address-input {
     width: 100%;
@@ -442,73 +427,75 @@ export default {
 
 @media (max-width: 1600px) {
   .comment__suggest-btns {
-    margin-top: 17px;
+    margin-top: toRem(17);
   }
   .comment__form-main {
-    padding-top: 25px;
+    padding-top: toRem(25);
   }
   .comment__suggest-main {
-    margin-top: 25px;
+    margin-top: toRem(25);
   }
   .comment__form-item {
-    margin-bottom: 20px;
+    margin-bottom: toRem(20);
   }
   .comment__form-main::v-deep {
     .comment__form-title {
-      margin-bottom: 9px;
+      margin-bottom: toRem(9);
     }
     .comment__textara-item {
-      height: 100px;
+      height: toRem(100);
     }
   }
 }
 
 @media (max-width: 760px) {
-  .comment__form-main {
+  .comment__form-main::v-deep {
+    .comment__suggest-item {
+      font-size: toRem(14);
+    }
     width: 100%;
-    padding-right: 19px;
-    padding-left: 19px;
-    padding-top: 27px;
+    padding-right: toRem(19);
+    padding-left: toRem(19);
+    padding-top: toRem(27);
+  }
+
+  .comment__suggest-data {
+    flex-direction: column;
+    align-items: flex-start;
   }
   .comment__suggest-title {
-    font-size: 14px;
-    margin-bottom: 18px;
+    font-size: toRem(14);
+    margin-bottom: toRem(18);
   }
   .comment__suggest-text {
-    font-size: 14px;
-  }
-  .comment__suggest-data {
-    flex-flow: column;
+    font-size: toRem(14);
   }
   .comment__suggest-main {
-    margin-top: 24px;
+    margin-top: toRem(24);
   }
   .comment__suggest-item {
-    margin-bottom: 26px;
+    margin-bottom: toRem(26);
   }
   .comment__suggest-item:last-of-type {
     margin-bottom: 0;
   }
-  .radio--btn .checkmark {
-    padding: 3px;
-  }
   .comment__suggest-btns {
-    margin-top: 38px;
-    margin-bottom: 19px;
+    margin-top: toRem(38);
+    margin-bottom: toRem(19);
   }
   .p-product-btn {
-    height: 47px;
-    width: 149px;
+    height: toRem(47);
+    width: toRem(149);
   }
   .comment__form-main::v-deep {
     .comment__form-title {
-      font-size: 14px;
+      font-size: toRem(14);
     }
     .comment__textara-item {
-      height: 101px;
+      height: toRem(101);
     }
     .p-modal-address-input {
-      height: 46px;
+      height: toRem(46);
     }
   }
 }

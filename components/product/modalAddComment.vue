@@ -46,27 +46,6 @@
           </div>
 
           <div class="comment--slider__main">
-<!--            <client-only>
-              <vue-slider
-                v-model="valueRangeSlider"
-                :max="5"
-                :min="1"
-                ref="slider"
-                @change="changeSliderRange"
-                height="9px"
-                width="99%"
-                :dotSize="dotSize"
-                direction="rtl"
-                padding="7px 0px"
-              >
-                <template v-slot:dot="{ value, focus }">
-                  <img
-                    src="/icons/renge-circle.svg"
-                    :class="['renge-circle custom-dot', { focus }]"
-                  />
-                </template>
-              </vue-slider>
-            </client-only>-->
             <base-range-slider
               class="range-slider"
               selector-class="range-slider-dot"
