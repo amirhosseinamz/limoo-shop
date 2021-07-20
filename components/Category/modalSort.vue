@@ -22,14 +22,6 @@
         </div>
         <div class="modal-filter__line remove--margin"></div>
       </div>
-      <base-range-slider-multiple
-        class="multiple-range-slider"
-        width="287.42"
-        min="0"
-        max="100000"
-        first-value="10000"
-        second-value="30000"
-      ></base-range-slider-multiple>
       <div class="w-100 modal-sort__content">
         <sort-box :sort-data="sortData" @active-radio="activeRadio"></sort-box>
       </div>
@@ -73,7 +65,23 @@ export default {
 
   data() {
     return {
-      sortData: [],
+      sortData: [
+        {
+          id: 1,
+          title: 'جدیدترین ها',
+          value: 'new'
+        },
+        {
+          id: 2,
+          title: 'ارزان ترین ها',
+          new: 'cheap'
+        },
+        {
+          id: 3,
+          title: 'پروفروش ترین ها',
+          new: 'best'
+        }
+      ],
       selectedRadioBtnData: {},
     };
   },
@@ -145,7 +153,7 @@ export default {
   @include display-flex();
   flex-wrap: wrap;
   align-items: flex-start;
-  padding-top: 30px;
+  padding-top: toRem(30);
 }
 .modal-filter__item {
   width: 100%;
@@ -154,18 +162,18 @@ export default {
   align-items: center;
 }
 .modal-filter__item-title {
-  font-size: 18px;
+  font-size: toRem(18);
   font-weight: 300;
   color: $black;
 }
 .modal-filter__item-close::before {
-  font-size: 31px;
+  font-size: toRem(31);
 }
 .modal-sort__close-item {
   @include display-flex();
   align-items: flex-start;
-  padding-right: 15px;
-  padding-left: 15px;
+  padding-right: toRem(15);
+  padding-left: toRem(15);
   flex-flow: column;
 }
 .modal-filter__item-left {
@@ -174,40 +182,41 @@ export default {
   justify-content: flex-end;
 }
 .modal-filter__line {
-  height: 1px;
+  height: toRem(1);
   width: 100%;
   @include display-flex();
-  margin-top: 18px;
-  margin-bottom: 18px;
+  margin-top: toRem(18);
+  margin-bottom: toRem(18);
   background: $flash_white;
 }
 .p-product-btn {
-  width: 130px;
-  height: 47px;
+  font-family: inherit;
+  width: toRem(130);
+  height: toRem(47);
   margin-left: 1.5rem;
 }
 .modal-cancel {
-  width: 130px;
-  height: 47px;
+  width: toRem(130);
+  height: toRem(47);
   margin-left: 0;
   font-family: inherit;
 }
 .modal-filter__btn {
-  padding-bottom: 18px;
+  padding-bottom: toRem(18);
   justify-content: center;
   @include display-flex();
   justify-content: center;
   flex-wrap: wrap;
 }
 .modal-sort__content {
-  margin-top: 54px;
-  margin-bottom: 54px;
+  margin-top: toRem(54);
+  margin-bottom: toRem(54);
   @include display-flex();
   align-items: flex-start;
 }
 .remove--margin {
   margin-bottom: 0;
-  margin-top: 10px;
+  margin-top: toRem(10);
 }
 
 @media (max-width: 768px) {
@@ -215,35 +224,36 @@ export default {
 
 @media (max-width: 485px) {
   .modal-filter__item-title {
-    font-size: 14px;
+    font-size: toRem(14);
     align-items: flex-start;
   }
   .modal-filter__filter-tools {
     margin-top: 0;
   }
   .modal-cancel {
-    font-size: 14px;
+    font-size: toRem(14);
   }
   .p-product-btn {
-    font-size: 14px;
+    font-size: toRem(14);
   }
   .modal-filter__item-close::before {
     // content: "\e801";
     // @include font-icon__limoo();
-    font-size: 24px;
+    font-size: toRem(24);
   }
   .modal-filter__line {
-    margin-top: 12px;
+    margin-top: toRem(12);
   }
   .modal-sort__content {
-    margin-top: 25px;
+    margin-top: toRem(25);
+    margin-bottom: toRem(16);
   }
   .remove--margin {
-    margin-top: 23px;
+    margin-top: toRem(23);
   }
   .modal-filter__btn {
-    margin-top: 0px;
-    padding-bottom: 18px;
+    margin-top: 0;
+    padding-bottom: toRem(18);
   }
   .p-product-btn {
     margin-left: 4%;
@@ -253,8 +263,8 @@ export default {
     padding-left: 0;
   }
   .modal-filter__item {
-    padding-right: 15px;
-    padding-left: 15px;
+    padding-right: toRem(15);
+    padding-left: toRem(15);
   }
 }
 

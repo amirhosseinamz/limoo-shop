@@ -15,7 +15,7 @@
                                 <div class="payment__header">
                                   <span class="user-shipping__title">انتخاب درگاه پرداخت</span>
                                   <span class="payment__line"></span>
-                                  <payment-gateway :key="updatePaymentGateway" :payment-gateway="paymentGateway" @selected-getway="selectedGetway"></payment-gateway>
+                                  <payment-gateway :key="updatePaymentGateway" :payment-gateway="paymentGateway"></payment-gateway>
                                 </div>
 
                                 <div class="w-100 payment__address-main payment--desktop">
@@ -78,14 +78,17 @@ export default {
                 {
                   id    : 1,
                   title : 'آسان پرداخت',
+                  value: 'asanPardakht'
                 },
                 {
                   id    : 2,
                   title : 'کیف پول دایور',
+                  value: 'diver'
                 },
                 {
                   id    : 3,
                   title : 'بانک ملت',
+                  value: 'mellat'
                 },
             ],
             updatePaymentGateway : 0,
@@ -115,18 +118,6 @@ export default {
           }
 
           this.detailPrice = setUpdateDetailPrice;
-        },
-
-        selectedGetway(data){
-          this.paymentGateway.map((content)=>{
-              if (data.id == content.id) {
-                content.selected = true;
-              }
-              else {
-                content.selected = false;
-              }
-          })
-          this.updatePaymentGateway++;
         }
 
     }
