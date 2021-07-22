@@ -1,568 +1,687 @@
 <template>
-    <div class="orders-content__main">
-        <transition moda="in-out">
-            <div id="overlay" v-if="passChangeIsActive">
-                <shipping-add-address-modal
-                    :data-edit-address="dataEditAddress"
-                    @selected-province="selectedProvince"
-                    @selected-city="selectedCity"
-                    @submit-address-add="submitAddressAdd"
-                    @close-modal="closeModal"
-                />
+  <div class="orders-content__main">
+    <transition moda="in-out">
+      <div id="overlay" v-if="passChangeIsActive">
+        <shipping-add-address-modal
+          :data-edit-address="dataEditAddress"
+          @selected-province="selectedProvince"
+          @selected-city="selectedCity"
+          @submit-address-add="submitAddressAdd"
+          @close-modal="closeModal"
+        />
+      </div>
+    </transition>
+    <div class="w-100 flex-wrap" :key="updateChosenAddress">
+      <base-accordion
+        v-for="data in addressData"
+        :key="data.id"
+        name="address"
+        :text="data.address"
+        :value="data.id.toString()"
+        :border-active="false"
+        :selected="addressData[0].id.toString()"
+        class="order-content-item"
+        radioClass="accordion-radio"
+        description-class="accordion-description"
+      >
+        <div class="order-detail" :key="updateSelected">
+          <div class="order-detail__desktop-holder">
+<!--            <div class="order-detail__holder">
+                                        <span
+                                          @click="pickAddress(data)"
+                                          class="card-shape__circle"
+                                        >
+                                            <span class="card-shape__circle-inner"></span>
+                                        </span>
+              <span class="order-detail__title">
+                                            {{ data.address }}</span
+              >
+            </div>-->
+            <div class="address-detail__user-container">
+              <div class="address-detail__user-holder">
+                                            <span class="address-detail__user-reciver">{{
+                                                data.nameReceiver
+                                              }}</span>
+                <span class="address-detail__user-phone">{{
+                    data.numberReceiver
+                  }}</span>
+              </div>
+              <div
+                class="address-detail__three-point__btn order-detail__closer"
+                @click="showEditDeleteOption(data)"
+              >
+                                            <span
+                                              class="address-detail__point order-detail__closer"
+                                            ></span>
+                <span
+                  class="address-detail__point order-detail__closer"
+                ></span>
+                <span
+                  class="address-detail__point order-detail__closer"
+                ></span>
+              </div>
             </div>
-        </transition>
-        <div class="w-100 flex-wrap" :key="updateChosenAddress">
             <div
-                :class="{
-                    'order-detail__choosed-adress': data.defultAddress
-                }"
-                v-for="data in addressData"
-                :key="data.id"
-                class="w-100 flex-wrap order-content-item"
+              @click="showEditDeleteOption(data)"
+              class="order-detail__btn-holder__mobile"
+              :class="{
+                                            'order-detail__btn-show': data.selected
+                                        }"
             >
-                <div class="order-detail" :key="updateSelected">
-                    <div class="order-detail__desktop-holder">
-                        <div class="order-detail__holder">
-                            <span
-                                @click="pickAddress(data)"
-                                class="card-shape__circle"
-                            >
-                                <span class="card-shape__circle-inner"></span>
-                            </span>
-                            <span class="order-detail__title">
-                                {{ data.address }}</span
-                            >
-                        </div>
-                        <div class="address-detail__user-container">
-                            <div class="address-detail__user-holder">
-                                <span class="address-detail__user-reciver">{{
-                                    data.nameReceiver
-                                }}</span>
-                                <span class="address-detail__user-phone">{{
-                                    data.numberReceiver
-                                }}</span>
-                            </div>
-                            <div
-                                class="address-detail__three-point__btn order-detail__closer"
-                                @click="showEditDeleteOption(data)"
-                            >
-                                <span
-                                    class="address-detail__point order-detail__closer"
-                                ></span>
-                                <span
-                                    class="address-detail__point order-detail__closer"
-                                ></span>
-                                <span
-                                    class="address-detail__point order-detail__closer"
-                                ></span>
-                            </div>
-                        </div>
-                        <div
-                            @click="showEditDeleteOption(data)"
-                            class="order-detail__btn-holder__mobile"
-                            :class="{
-                                'order-detail__btn-show': data.selected
-                            }"
-                        >
-                            <button
-                                class="address-detail__btn-delete"
-                                @click="showModalDeleteOrder(data)"
-                                name="button"
-                            >
-                                حذف
-                            </button>
-                            <span class="order-detail__btn-holder__line"></span>
-                            <button
-                                @click="editAddress(data)"
-                                class="address-detail__btn-edit__mobile"
-                                name="button"
-                            >
-                                ویرایش
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="order-detail__btns-container">
-                    <!-- edit btn -->
-                    <base-button
-                        @button-clicked="showModalDeleteOrder(data)"
-                        classes="order-detail__btn-delete"
-                        base-color="light-gray"
-                        no-box-shadow
-                    ></base-button>
-                    <base-button
-                        @button-clicked="editAddress(data)"
-                        classes="address-detail__btn-edit"
-                        no-box-shadow
-                        no-hover
-                        base-color="yellow"
-                        mode="secondary-inline"
-                    ></base-button>
-                </div>
+              <button
+                class="address-detail__btn-delete"
+                @click="showModalDeleteOrder(data)"
+                name="button"
+              >
+                حذف
+              </button>
+              <span class="order-detail__btn-holder__line"></span>
+              <button
+                @click="editAddress(data)"
+                class="address-detail__btn-edit__mobile"
+                name="button"
+              >
+                ویرایش
+              </button>
             </div>
+          </div>
         </div>
+
+        <div class="order-detail__btns-container">
+          <base-button
+            @button-clicked="showModalDeleteOrder(data)"
+            classes="order-detail__btn-delete"
+            base-color="light-gray"
+            no-box-shadow
+          ></base-button>
+          <base-button
+            @button-clicked="editAddress(data)"
+            classes="address-detail__btn-edit"
+            no-box-shadow
+            no-hover
+            base-color="yellow"
+            mode="secondary-inline"
+          ></base-button>
+        </div>
+      </base-accordion>
+      <!--                <div
+                            :class="{
+                                'order-detail__choosed-adress': data.defultAddress
+                            }"
+                            v-for="data in addressData"
+                            :key="data.id"
+                            class="w-100 flex-wrap order-content-item"
+                        >
+                            <div class="order-detail" :key="updateSelected">
+                                <div class="order-detail__desktop-holder">
+                                    <div class="order-detail__holder">
+                                        <span
+                                            @click="pickAddress(data)"
+                                            class="card-shape__circle"
+                                        >
+                                            <span class="card-shape__circle-inner"></span>
+                                        </span>
+                                        <span class="order-detail__title">
+                                            {{ data.address }}</span
+                                        >
+                                    </div>
+                                    <div class="address-detail__user-container">
+                                        <div class="address-detail__user-holder">
+                                            <span class="address-detail__user-reciver">{{
+                                                data.nameReceiver
+                                            }}</span>
+                                            <span class="address-detail__user-phone">{{
+                                                data.numberReceiver
+                                            }}</span>
+                                        </div>
+                                        <div
+                                            class="address-detail__three-point__btn order-detail__closer"
+                                            @click="showEditDeleteOption(data)"
+                                        >
+                                            <span
+                                                class="address-detail__point order-detail__closer"
+                                            ></span>
+                                            <span
+                                                class="address-detail__point order-detail__closer"
+                                            ></span>
+                                            <span
+                                                class="address-detail__point order-detail__closer"
+                                            ></span>
+                                        </div>
+                                    </div>
+                                    <div
+                                        @click="showEditDeleteOption(data)"
+                                        class="order-detail__btn-holder__mobile"
+                                        :class="{
+                                            'order-detail__btn-show': data.selected
+                                        }"
+                                    >
+                                        <button
+                                            class="address-detail__btn-delete"
+                                            @click="showModalDeleteOrder(data)"
+                                            name="button"
+                                        >
+                                            حذف
+                                        </button>
+                                        <span class="order-detail__btn-holder__line"></span>
+                                        <button
+                                            @click="editAddress(data)"
+                                            class="address-detail__btn-edit__mobile"
+                                            name="button"
+                                        >
+                                            ویرایش
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="order-detail__btns-container">
+                                &lt;!&ndash; edit btn &ndash;&gt;
+                                <base-button
+                                    @button-clicked="showModalDeleteOrder(data)"
+                                    classes="order-detail__btn-delete"
+                                    base-color="light-gray"
+                                    no-box-shadow
+                                ></base-button>
+                                <base-button
+                                    @button-clicked="editAddress(data)"
+                                    classes="address-detail__btn-edit"
+                                    no-box-shadow
+                                    no-hover
+                                    base-color="yellow"
+                                    mode="secondary-inline"
+                                ></base-button>
+                            </div>
+                        </div>-->
     </div>
+  </div>
 </template>
 <script>
 import shippingAddAddressModal from "./shippingAddAddressModal.vue";
+
 export default {
-    components: {
-        shippingAddAddressModal
+  components: {
+    shippingAddAddressModal,
+  },
+  data() {
+    return {
+      passChangeIsActive: false,
+      updateSelected: 0,
+      dataEditAddress: {},
+      modalEditSelected: {
+        id: null,
+      },
+    };
+  },
+  computed: {
+    addressData() {
+      return this.$store.getters["shipping/shipping/addressData"];
     },
-    data() {
-        return {
-            passChangeIsActive: false,
-            updateSelected: 0,
-            dataEditAddress: {},
-            modalEditSelected: {
-                id: null
-            },
-        };
+    updateChosenAddress() {
+      return this.$store.getters["shipping/shipping/updateChosenAddress"];
     },
-    computed: {
-      addressData () {
-        return this.$store.getters["shipping/shipping/addressData"]
-      },
-      updateChosenAddress () {
-        return this.$store.getters["shipping/shipping/updateChosenAddress"]
-      },
-      allProvince () {
-        return this.$store.getters["shipping/shipping/allProvince"]
-      },
-      allCities () {
-        return this.$store.getters["shipping/shipping/allCities"]
-      },
-      formData () {
-        return this.$store.getters["shipping/shipping/formData"]
-      },
-      profilePhoneNumber () {
-        return this.$store.getters["shipping/shipping/profilePhoneNumber"]
+    allProvince() {
+      return this.$store.getters["shipping/shipping/allProvince"];
+    },
+    allCities() {
+      return this.$store.getters["shipping/shipping/allCities"];
+    },
+    formData() {
+      return this.$store.getters["shipping/shipping/formData"];
+    },
+    profilePhoneNumber() {
+      return this.$store.getters["shipping/shipping/profilePhoneNumber"];
+    },
+  },
+  created() {
+    document.addEventListener("click", this.checkCloseDropDown);
+  },
+
+  destroyed() {
+    document.removeEventListener("click", this.documentClick);
+  },
+  methods: {
+    selectedProvince(data) {
+      this.$emit("selected-province", data);
+    },
+    addAddress() {
+      this.dataEditAddress = {};
+      this.passChangeIsActive = !this.passChangeIsActive;
+    },
+    selectedCity(data) {
+      this.$emit("selected-city", data);
+    },
+    submitAddressAdd(data) {
+      // بر اساس آیدی تغیین می شود که حالت ویرایش است یا خیر //
+
+      let stateEditAdd = "";
+      if (typeof this.dataEditAddress.id == "undefined") {
+        stateEditAdd = "add";
+      } else {
+        stateEditAdd = "edit";
+      }
+
+      this.passChangeIsActive = false;
+      this.$emit("submit-address-add", data, stateEditAdd);
+      if (stateEditAdd == "edit") {
+        this.showEditDeleteOption(data);
       }
     },
-    created() {
-        document.addEventListener("click", this.checkCloseDropDown);
+    closeModal() {
+      this.dataEditAddress = {};
+      this.passChangeIsActive = false;
     },
 
-    destroyed() {
-        document.removeEventListener("click", this.documentClick);
+    editAddress(data) {
+      this.dataEditAddress = data;
+      this.passChangeIsActive = true;
     },
-    methods: {
-        selectedProvince(data) {
-            this.$emit("selected-province", data);
-        },
-        addAddress() {
-            this.dataEditAddress = {};
-            this.passChangeIsActive = !this.passChangeIsActive;
-        },
-        selectedCity(data) {
-            this.$emit("selected-city", data);
-        },
-        submitAddressAdd(data) {
-            // بر اساس آیدی تغیین می شود که حالت ویرایش است یا خیر //
+    //
+    checkCloseDropDown(e) {
+      // هر جایی به غیر از باکس دراپ دان کلیک شود در صورتی که دراپ دان باز باشد بسته می شود //
 
-            let stateEditAdd = "";
-            if (typeof this.dataEditAddress.id == "undefined") {
-                stateEditAdd = "add";
-            } else {
-                stateEditAdd = "edit";
-            }
+      // چک کردت این که روی دراپ دان کلیک شده یا خیر //
+      function findAncestor(el, cls) {
+        while ((el = el.parentElement) && !el.classList.contains(cls)) ;
+        return el;
+      }
 
-            this.passChangeIsActive = false;
-            this.$emit("submit-address-add", data, stateEditAdd);
-            if (stateEditAdd == "edit") {
-                this.showEditDeleteOption(data);
-            }
-        },
-        closeModal() {
-            this.dataEditAddress = {};
-            this.passChangeIsActive = false;
-        },
-
-        editAddress(data) {
-            this.dataEditAddress = data;
-            this.passChangeIsActive = true;
-        },
-        //
-        checkCloseDropDown(e) {
-            // هر جایی به غیر از باکس دراپ دان کلیک شود در صورتی که دراپ دان باز باشد بسته می شود //
-
-            // چک کردت این که روی دراپ دان کلیک شده یا خیر //
-            function findAncestor(el, cls) {
-                while ((el = el.parentElement) && !el.classList.contains(cls));
-                return el;
-            }
-
-            if (findAncestor(e.target, "order-detail__closer") == null) {
-                if (this.modalEditSelected.id) {
-                    this.showEditDeleteOption(this.modalEditSelected.id);
-                }
-            }
-        },
-        pickAddress(data) {
-            this.addressData.map(content => {
-                if (content.id == data.id) {
-                    this.$store.dispatch('shipping/shipping/changeDefaultAddress', [content, true])
-                    // if we want open one paragraph in time
-                } else {
-                    this.$store.dispatch('shipping/shipping/changeDefaultAddress', [content, false])
-                }
-            });
-            this.$store.dispatch('shipping/shipping/updateChosenAddress')
-        },
-        showModalDeleteOrder(data) {
-            this.$emit("event-show-modal-delete-order", data);
-        },
-        addOrderToCart(data) {
-            this.$emit("add-more-order-to-card", data);
-        },
-        minusOrderFromCart(data) {
-            this.$emit("minus-order-from-card", data);
-        },
-        showModalEditAddress(data) {},
-        showEditDeleteOption(data) {
-          console.log('aldkfsd');
-            this.addressData.map(content => {
-                if (content.id == data.id) {
-                    content.selected = !content.selected;
-
-                    // if we want open one paragraph in time
-                } else {
-                    content.selected = false;
-                }
-                if (!this.modalEditSelected.id) {
-                    this.modalEditSelected.id = data.id;
-                } else if (this.modalEditSelected.id) {
-                    this.modalEditSelected.id = null;
-                }
-            });
-            this.updateSelected++;
+      if (findAncestor(e.target, "order-detail__closer") == null) {
+        if (this.modalEditSelected.id) {
+          this.showEditDeleteOption(this.modalEditSelected.id);
         }
-    }
+      }
+    },
+    pickAddress(data) {
+      this.addressData.map(content => {
+        if (content.id == data.id) {
+          this.$store.dispatch("shipping/shipping/changeDefaultAddress", [content, true]);
+          // if we want open one paragraph in time
+        } else {
+          this.$store.dispatch("shipping/shipping/changeDefaultAddress", [content, false]);
+        }
+      });
+      this.$store.dispatch("shipping/shipping/updateChosenAddress");
+    },
+    showModalDeleteOrder(data) {
+      this.$emit("event-show-modal-delete-order", data);
+    },
+    addOrderToCart(data) {
+      this.$emit("add-more-order-to-card", data);
+    },
+    minusOrderFromCart(data) {
+      this.$emit("minus-order-from-card", data);
+    },
+    showModalEditAddress(data) {
+    },
+    showEditDeleteOption(data) {
+      console.log("aldkfsd");
+      this.addressData.map(content => {
+        if (content.id == data.id) {
+          content.selected = !content.selected;
+
+          // if we want open one paragraph in time
+        } else {
+          content.selected = false;
+        }
+        if (!this.modalEditSelected.id) {
+          this.modalEditSelected.id = data.id;
+        } else if (this.modalEditSelected.id) {
+          this.modalEditSelected.id = null;
+        }
+      });
+      this.updateSelected++;
+    },
+  },
 };
 </script>
 <style lang="scss" scoped>
+
 #overlay {
-    position: fixed; /* Sit on top of the page content */
-    @include display-flex();
-    justify-content: center;
-    align-items: center;
-    width: 100%; /* Full width (cover the whole page) */
-    height: 100%; /* Full height (cover the whole page) */
-    /* transition: opacity 200ms ease-out; */
-    /* top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0; */
-    z-index: 10;
-    background: $overlay__profile;
-    top: 0;
-    right: 0;
+  position: fixed;
+  @include display-flex();
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  z-index: 10;
+  background: $overlay__profile;
+  top: 0;
+  right: 0;
 }
+
 .v-leave-from {
-    opacity: 0.5;
+  opacity: 0.5;
 }
+
 .v-leave-active {
-    transition: all 300ms ease-in;
+  transition: all 300ms ease-in;
 }
+
 .v-leave-to {
-    opacity: 0;
+  opacity: 0;
 }
+
 .order-detail__choosed-adress .card-shape__circle {
-    background-color: $yellow;
+  background-color: $yellow;
 }
+
 .order-detail__choosed-adress .address-detail__user-container {
-    @include display-flex();
+  @include display-flex();
 }
+
 .card-shape__circle {
-    @include display-flex();
-    justify-content: center;
-    align-items: center;
-    width: 19px;
-    height: 19px;
-    border-radius: 50%;
-    background-color: $light-gray;
-    margin: 26px 16px 24px 0;
-    cursor: pointer;
-    /* background-color: $light-gray; */
+  @include display-flex();
+  justify-content: center;
+  align-items: center;
+  width: 19px;
+  height: 19px;
+  border-radius: 50%;
+  background-color: $light-gray;
+  margin: 26px 16px 24px 0;
+  cursor: pointer;
+  /* background-color: $light-gray; */
 }
+
 .card-shape__circle-inner {
-    width: 9.5px;
-    height: 9.5px;
-    border-radius: 50%;
-    background-color: $white;
-    cursor: pointer;
+  width: 9.5px;
+  height: 9.5px;
+  border-radius: 50%;
+  background-color: $white;
+  cursor: pointer;
 }
+
 /* .orders-content__main {
     border: 1px solid red;
 } */
 .order-content-item {
-    @include display-flex();
-    flex-direction: column;
-    border-radius: 10px;
-    height: fit-content;
-    min-height: 70px;
-    margin-bottom: 8px;
-    border: 1px solid $light-gray;
+  height: fit-content;
+  margin-bottom: 8px;
 }
+
 .order-detail {
-    height: 70px;
-    width: 100%;
-    /* border-bottom: 1px solid $gray-border; */
+  height: 70px;
+  width: 100%;
+  /* border-bottom: 1px solid $gray-border; */
 }
 
 .order-detail__desktop-holder {
-    @include display-flex();
-    flex-direction: column;
-    /* border: 1px solid red; */
+  @include display-flex();
+  flex-direction: column;
+  /* border: 1px solid red; */
 }
+
 .address-detail__user-container {
-    @include display-flex();
-    flex-direction: row;
-    margin-right: 42px;
-    justify-content: space-between;
-    display: none;
+  @include display-flex();
+  flex-direction: row;
+  margin-right: toRem(22);
+  margin-top: toRem(20);
+  justify-content: space-between;
 }
+
 .address-detail__user-holder {
-    @include display-flex();
-    flex-direction: row;
+  @include display-flex();
+  flex-direction: row;
 }
+
 .address-detail__three-point__btn {
-    display: none;
+  display: none;
 }
+
 .address-detail__user-reciver,
 .address-detail__user-phone {
-    font-size: 14px;
-    line-height: 140.62%;
-    text-align: right;
-    color: $black-topic;
-    margin-left: 24px;
+  font-size: 14px;
+  line-height: 140.62%;
+  text-align: right;
+  color: $black-topic;
+  margin-left: 24px;
 }
+
 .address-detail__user-phone::after {
-    @include font-icon__limoo();
-    content: "\e81f";
-    font-size: 14px;
-    color: $gray;
-    margin-right: 24px;
-    margin-left: 8px;
+  @include font-icon__limoo();
+  content: "\e81f";
+  font-size: 14px;
+  color: $gray;
+  margin-right: 24px;
+  margin-left: 8px;
 }
+
 .address-detail__user-reciver::before {
-    @include font-icon__limoo();
-    content: "\e823";
-    font-size: 14px;
-    color: $gray;
-    margin-left: 8px;
+  @include font-icon__limoo();
+  content: "\e823";
+  font-size: 14px;
+  color: $gray;
+  margin-left: 8px;
 }
+
 .address-detail__user-phone {
-    border-right: 1px solid $light-gray;
+  border-right: 1px solid $light-gray;
 }
+
 .order-detail__holder {
-    @include display-flex();
-    flex-direction: row;
-    height: fit-content;
+  @include display-flex();
+  flex-direction: row;
+  height: fit-content;
 }
+
 .order-detail__title {
-    width: 80%;
-    font-size: 16px;
-    line-height: 140.62%;
-    text-align: right;
-    color: $black-topic;
-    margin: 24px 8px 24px 0;
-    height: fit-content;
+  width: 80%;
+  font-size: 16px;
+  line-height: 140.62%;
+  text-align: right;
+  color: $black-topic;
+  margin: 24px 8px 24px 0;
+  height: fit-content;
 }
+
 .order-detail__content-holder {
-    @include display-flex();
-    flex-direction: column;
-    height: 91px;
-    padding-right: 16px;
-    border-right: 2px solid $gray-border;
+  @include display-flex();
+  flex-direction: column;
+  height: 91px;
+  padding-right: 16px;
+  border-right: 2px solid $gray-border;
 }
 
 .order-detail__btns-container {
-    @include display-flex();
-    flex-direction: row-reverse;
-    align-items: flex-end;
-    width: 100%;
-    height: 77px;
-    /* border: 1px solid red; */
-    padding-left: 16px;
-    display: none;
+  @include display-flex();
+  flex-direction: row-reverse;
+  align-items: flex-end;
+  width: 100%;
 }
+
 .order-detail__btn-delete {
-    width: 37px;
-    height: 37px;
-    margin-bottom: 1rem;
+  width: 37px;
+  height: 37px;
 }
+
 .order-detail__btn-delete::before {
-    @include font-icon__limoo();
-    content: "\e826";
-    font-size: 14px;
-    color: $gray-3;
+  @include font-icon__limoo();
+  content: "\e826";
+  font-size: 14px;
+  color: $gray-3;
 }
+
 .address-detail__btn-edit {
-    width: 37px;
-    height: 37px;
-    margin-left: 0.625rem;
-    margin-bottom: 1rem;
+  width: 37px;
+  height: 37px;
+  margin-left: 0.625rem;
 }
+
 .address-detail__btn-edit::before {
-    @include font-icon__limoo();
-    content: "\e80e";
-    font-size: 14px;
-    color: $white;
+  @include font-icon__limoo();
+  content: "\e80e";
+  font-size: 14px;
+  color: $white;
 }
+
 .address-detail__btn-delete,
 .address-detail__btn-edit__mobile {
-    display: none;
+  display: none;
 }
+
 .order-detail__choosed-adress {
-    min-height: 140px;
+  min-height: 140px;
 }
+
 .order-detail__choosed-adress .order-detail__btns-container {
-    @include display-flex();
+  @include display-flex();
 }
+
 @media (max-width: 960px) {
-    .order-detail__btn-holder__mobile {
-        @include display-flex();
-        flex-direction: column;
-        justify-content: space-between;
-        background-color: $white;
-        box-shadow: 0px 20px 24px $box__shadow;
-        border-radius: 10px;
-        width: 154px;
-        height: 82px;
-        position: absolute;
-        margin-top: 20px;
-        left: 33px;
-        display: none;
-        /* border: 1px solid blue; */
+  .order-content-item::v-deep {
+    .accordion-description {
+      order: 1;
     }
-    .order-detail__btn-holder__line {
-        width: 100%;
-        display: none;
-        border-top: 1px solid $gray-border;
+    .accordion-radio {
+      order: 2;
+      font-size: 14px;
+      align-items: flex-start!important;
     }
-    .order-detail__btn-show {
-        display: block;
-    }
-    .address-detail__btn-delete,
-    .address-detail__btn-edit__mobile {
-        @include display-flex();
-        background-color: transparent;
-        font-family: inherit;
-        /* width: 100%; */
-        font-size: 14px;
-        color: $gray;
-        border: none;
-        box-sizing: border-box;
-        cursor: pointer;
-        line-height: 140.62%;
-        text-align: right;
-        margin: 12px 12px 10px 0;
-    }
-    .address-detail__btn-edit__mobile {
-        margin: 10px 12px 10px 0;
-    }
-    .address-detail__three-point__btn {
-        @include display-flex();
-        flex-direction: column;
-        margin: 15px 0 13px 16px;
-        cursor: pointer;
-    }
-    .address-detail__point {
-        width: 4px;
-        height: 4px;
-        margin-bottom: 2px;
-        background-color: $gray;
-        border-radius: 50%;
-    }
-    .card-shape__circle {
-        width: 17px;
-        height: 17px;
-        margin: 17px 9px 24px 0;
-        /* background-color: $light-gray; */
-    }
-    .card-shape__circle-inner {
-        width: 7.5px;
-        height: 7.5px;
-    }
-    .order-detail__holder {
-        border-top: 1px solid $gray-border;
-    }
-    .address-detail__user-container {
-        order: -1;
-        margin-right: 10px;
-    }
-    .address-detail__user-reciver,
-    .address-detail__user-phone {
-        margin-top: 15px;
-        margin-bottom: 15px;
-        margin-left: 8px;
-    }
-    .address-detail__user-phone::after {
-        margin-right: 8px;
-        margin-left: 4px;
-    }
-    .address-detail__user-reciver::before {
-        margin-left: 4px;
-    }
-    .order-content-item {
-        min-height: fit-content;
-        /* padding-bottom: 16px; */
-        margin-bottom: 8px;
-    }
-    .order-detail__content-holder {
-        display: none;
-    }
-    .order-detail {
-        min-height: 50px;
-        height: fit-content;
-    }
+  }
+  .order-detail__btn-holder__mobile {
+    @include display-flex();
+    flex-direction: column;
+    justify-content: space-between;
+    background-color: $white;
+    box-shadow: 0px 20px 24px $box__shadow;
+    border-radius: 10px;
+    width: 154px;
+    height: 82px;
+    position: absolute;
+    margin-top: 20px;
+    left: 33px;
+    display: none;
+    /* border: 1px solid blue; */
+  }
+  .order-detail__btn-holder__line {
+    width: 100%;
+    display: none;
+    border-top: 1px solid $gray-border;
+  }
+  .order-detail__btn-show {
+    display: block;
+  }
+  .address-detail__btn-delete,
+  .address-detail__btn-edit__mobile {
+    @include display-flex();
+    background-color: transparent;
+    font-family: inherit;
+    /* width: 100%; */
+    font-size: 14px;
+    color: $gray;
+    border: none;
+    box-sizing: border-box;
+    cursor: pointer;
+    line-height: 140.62%;
+    text-align: right;
+    margin: 12px 12px 10px 0;
+  }
+  .address-detail__btn-edit__mobile {
+    margin: 10px 12px 10px 0;
+  }
+  .address-detail__three-point__btn {
+    @include display-flex();
+    flex-direction: column;
+    margin: 15px 0 13px 16px;
+    cursor: pointer;
+  }
+  .address-detail__point {
+    width: 4px;
+    height: 4px;
+    margin-bottom: 2px;
+    background-color: $gray;
+    border-radius: 50%;
+  }
+  .card-shape__circle {
+    width: 17px;
+    height: 17px;
+    margin: 17px 9px 24px 0;
+    /* background-color: $light-gray; */
+  }
+  .card-shape__circle-inner {
+    width: 7.5px;
+    height: 7.5px;
+  }
+  .order-detail__holder {
+    border-top: 1px solid $gray-border;
+  }
+  .address-detail__user-container {
+    margin-top: toRem(-15);
+    margin-right: 0;
+    border-bottom: 1px solid $gray-6;
+  }
+  .address-detail__user-reciver,
+  .address-detail__user-phone {
+    margin-top: 15px;
+    margin-bottom: 15px;
+    margin-left: 8px;
+  }
+  .address-detail__user-phone::after {
+    margin-right: 8px;
+    margin-left: 4px;
+  }
+  .address-detail__user-reciver::before {
+    margin-left: 4px;
+  }
+  .order-content-item {
+    min-height: fit-content;
+    /* padding-bottom: 16px; */
+    margin-bottom: 8px;
+  }
+  .order-detail__content-holder {
+    display: none;
+  }
+  .order-detail {
+    min-height: 50px;
+    height: fit-content;
+  }
 
-    .order-detail__title {
-        font-size: 14px;
-        margin: 16px 8px 16px 19px;
-    }
+  .order-detail__title {
+    font-size: 14px;
+    margin: 16px 8px 16px 19px;
+  }
 
-    .order-detail__choosed-adress .order-detail__btns-container {
-        display: none;
-    }
-    .order-detail__btns-container {
-        display: none;
-    }
-    .order-detail__btn-delete {
-        width: 36px;
-        height: 36px;
-    }
+  .order-detail__choosed-adress .order-detail__btns-container {
+    display: none;
+  }
+  .order-detail__btns-container {
+    display: none;
+  }
+  .order-detail__btn-delete {
+    width: 36px;
+    height: 36px;
+  }
 
-    .order-detail__btn-delete::before {
-        font-size: 14px;
-    }
-    .order-detail__choosed-adress {
-        min-height: 133px;
-        padding-bottom: 0;
-    }
-    .order-detail__choosed-adress .order-detail__btn-holder__line {
-        @include display-flex();
-    }
+  .order-detail__btn-delete::before {
+    font-size: 14px;
+  }
+  .order-detail__choosed-adress {
+    min-height: 133px;
+    padding-bottom: 0;
+  }
+  .order-detail__choosed-adress .order-detail__btn-holder__line {
+    @include display-flex();
+  }
 }
+
 @media (max-width: 280px) {
-    .address-detail__user-reciver,
-    .address-detail__user-phone {
-        font-size: 12px;
-        margin-left: 5px;
-    }
-    .address-detail__user-phone::after {
-        margin-right: 4px;
-        font-size: 12px;
-    }
-    .address-detail__user-reciver::before {
-        margin-left: 4px;
-        font-size: 12px;
-    }
-    .order-detail__title {
-        font-size: 14px;
-        margin: 20px 6px 16px 19px;
-    }
+  .address-detail__user-reciver,
+  .address-detail__user-phone {
+    font-size: 12px;
+    margin-left: 5px;
+  }
+  .address-detail__user-phone::after {
+    margin-right: 4px;
+    font-size: 12px;
+  }
+  .address-detail__user-reciver::before {
+    margin-left: 4px;
+    font-size: 12px;
+  }
+  .order-detail__title {
+    font-size: 14px;
+    margin: 20px 6px 16px 19px;
+  }
 }
+
 </style>

@@ -8,7 +8,7 @@ const state = () => ({
       codePoste: "90",
       nameReceiver: "شروین پیکارجو",
       numberReceiver: "09190894025",
-      defultAddress: true
+      defultAddress: true,
     },
     {
       id: 2,
@@ -115,11 +115,7 @@ const state = () => ({
           weekday: "شنبه",
           weekcal: "23 بهمن 99",
           timeInDayTable: [
-            {
-              id: 1,
-              time: "بین 8:00 تا 12:00",
-              disable: true
-            },
+            { id: 1, time: "بین 8:00 تا 12:00", disable: true },
             { id: 2, time: "بین 12:00 تا 16:00" },
             { id: 3, time: "بین 16:00 تا 20:00" },
             { id: 4, time: "بین 20:00 تا 00:00" }
