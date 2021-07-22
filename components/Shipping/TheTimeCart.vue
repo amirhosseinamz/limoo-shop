@@ -31,7 +31,7 @@
                   :value="data.id.toString()"
                   :title="data.dayTime"
                   :key="updateSelectedTimeInDay"
-                  :selected="selected(data.id.toString(), data.timeInDayTable.selectedtime)"
+                  :selected="selected(data.id.toString(), data.selected)"
                 ></base-radio-button>
                 <div class="timeContent__times-day__holder">
                     <div
@@ -76,8 +76,6 @@ export default {
     },
     methods: {
       selected (value, selected) {
-        console.log(value);
-        console.log(selected);
         if (selected) {
           return value
         }
