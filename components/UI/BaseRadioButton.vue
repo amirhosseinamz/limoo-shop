@@ -1,7 +1,7 @@
 <template>
   <div class="radio-button-wrapper" :class="{ 'button': button }" @click.self="buttonClicked($event, 'button')">
     <label class="container">
-      <input ref="radioInput" class="radio-inputs" @change="valueChanged" type="radio" :name="name" v-model="values" :value="value" :checked="checked">
+      <input ref="radioInput" class="base-radio-inputs" @change="valueChanged" type="radio" :name="name" v-model="values" :value="value" :checked="checked">
       <span class="mark" :class="{ 'scale': scale }"></span>
     </label>
     <span v-if="title" class="title" :class="titleClass" @click.self="buttonClicked($event, 'span')">
@@ -70,7 +70,7 @@ export default {
   methods: {
     valueChanged() {
       if (this.button && this.borderActive) {
-        const inputs = document.querySelectorAll('.radio-inputs')
+        const inputs = document.querySelectorAll('.base-radio-inputs')
         const selectedWrapper = document.querySelector('input:checked').parentElement.parentElement
         //remove active border from other inputs
         for (let i = 0; i < inputs.length; i++) {
@@ -85,13 +85,13 @@ export default {
       if (this.button) {
         if (tag === 'button') {
           //if user clicked on button
-          console.log(e.currentTarget.querySelector('.radio-inputs'));
-          this.values = e.currentTarget.querySelector('.radio-inputs').value
-          e.currentTarget.querySelector('.radio-inputs').checked = true
+          console.log(e.currentTarget.querySelector('.base-radio-inputs'));
+          this.values = e.currentTarget.querySelector('.base-radio-inputs').value
+          e.currentTarget.querySelector('.base-radio-inputs').checked = true
         } else if (tag === 'span') {
           // if user clicked on text of button
-          this.values = e.currentTarget.parentElement.querySelector('.radio-inputs').value
-          e.currentTarget.parentElement.querySelector('.radio-inputs').checked = true
+          this.values = e.currentTarget.parentElement.querySelector('.base-radio-inputs').value
+          e.currentTarget.parentElement.querySelector('.base-radio-inputs').checked = true
         }
 
         this.valueChanged()

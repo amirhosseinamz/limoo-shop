@@ -13,7 +13,7 @@
                         data.timeInDayTable.selectedtime
                 }"
             >
-                <div
+<!--                <div
                     class="timeContent__topic-day__holder"
                     :class="{
                         'user-selected-time-in-days': data.selected
@@ -24,7 +24,15 @@
                     <span class="timeContent__topic-day">
                         {{ data.dayTime }}</span
                     >
-                </div>
+                </div>-->
+                <base-radio-button
+                  class="timeContent__topic-day__holder"
+                  name="timeCart"
+                  :value="data.id.toString()"
+                  :title="data.dayTime"
+                  :key="updateSelectedTimeInDay"
+                  :selected="selected(data.id.toString(), data.selected)"
+                ></base-radio-button>
                 <div class="timeContent__times-day__holder">
                     <div
                         v-for="dayData in data.timeInDayTable"
@@ -67,6 +75,11 @@ export default {
         this.flickityOptions();
     },
     methods: {
+      selected (value, selected) {
+        if (selected) {
+          return value
+        }
+      },
         flickityOptions() {
             let Flickity = require("flickity");
             let sliderOptions = new Flickity(`.slider${this.timeData.id}`, {
@@ -85,16 +98,14 @@ export default {
             });
         },
         selectedTimeInDay(dayData, data) {
-            // console.log(dayData);
-            // console.log(data);
-             this.$emit("submit-times-add");
+            this.$emit("submit-times-add");
+            //this.selected(data.id.toString(), )
             this.timeTable.map(timeInDay => {
                 timeInDay.timeInDayTable.map(timeIn => {
                     timeIn.selectedtime = false;
                 });
                 if (timeInDay.id == data.id) {
                     timeInDay.selected = true;
-                    // console.log(timeInDay);
                     timeInDay.timeInDayTable.map(timeIn => {
                         if (timeIn.id == dayData.id) {
                             // console.log(timeIn);
@@ -133,11 +144,8 @@ export default {
     width: 100%;
     height: toRem(54);
     border-bottom: toRem(1) solid $light-gray;
-}
-.timeContent__topic-day {
     color: $gray;
     font-size: toRem(18);
-    line-height: 140.62%;
 }
 .timeContent__circle {
     width: toRem(17);
