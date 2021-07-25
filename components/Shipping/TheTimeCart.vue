@@ -13,18 +13,6 @@
                         data.timeInDayTable.selectedtime
                 }"
             >
-<!--                <div
-                    class="timeContent__topic-day__holder"
-                    :class="{
-                        'user-selected-time-in-days': data.selected
-                    }"
-                    :key="updateSelectedTimeInDay"
-                >
-                    <span class="timeContent__circle"></span>
-                    <span class="timeContent__topic-day">
-                        {{ data.dayTime }}</span
-                    >
-                </div>-->
                 <base-radio-button
                   class="timeContent__topic-day__holder"
                   name="timeCart"

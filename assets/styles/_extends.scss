@@ -1,0 +1,19 @@
+.d-flex {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  display: -moz-flex;
+  display: -webkit-flex;
+}
+.align-center {
+  @extend .d-flex;
+  align-items: center;
+}
+.justify-center {
+  @extend .d-flex;
+  justify-content: center;
+}
+.centered {
+  @extend .align-center;
+  @extend .justify-center;
+}

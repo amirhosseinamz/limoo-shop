@@ -5,24 +5,7 @@
         <div class="products__top-title w-100 products__top-desktop">
           <h3 class="products__top-text">موبایل اندرویدی</h3>
         </div>
-        <base-accordion
-          name="address"
-          text="آدرس اول"
-          value="1"
-          :border-active="false"
-          selected="1"
-        >
-          خیابان ولیعصر کوچه 8
-        </base-accordion>
-        <base-accordion
-          name="address"
-          text="آدرس دوم"
-          value="2"
-          :border-active="false"
-          selected="1"
-        >
-          خیابان هنرستان کوچه 87
-        </base-accordion>
+
         <div class="products__filter-btns w-100 ">
           <base-button no-box-shadow classes="products__filter-btn" @button-clicked="showBoxFilter">
             <img src="/icons/filter_search_icon.svg" alt="filter">
@@ -76,8 +59,9 @@ export default {
     return {
       disabledTab: true,
       allCategorySuggestion: [],
-      tabsName: ['مرجوع شده', 'لغو شده'],
-      selected: 'مرجوع شده'
+      selectedTab: 'limoo',
+      activeItem_1: true,
+      activeItem_2: false
     };
   },
 
@@ -94,8 +78,16 @@ export default {
   },
 
   methods: {
-    tabChanged (val) {
-      this.selected = val
+    selectTab(e, name) {
+      this.selectedTab = name
+      if (name === 'limoo') {
+        this.activeItem_2 = false
+        this.activeItem_1 = true
+      } else if (name === 'seller') {
+        this.activeItem_1 = false
+        this.activeItem_2 = true
+      }
+
     },
     activeSuggestion(data) {
       let updateCategorySuggestion = [];
@@ -127,6 +119,15 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.button-tabs {
+  li {
+    &.active {
+      button {
+        border: 2px solid $orange;
+      }
+    }
+  }
+}
 .buttons__example {
   margin-bottom: 100px;
 }
