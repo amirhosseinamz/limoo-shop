@@ -168,7 +168,7 @@ export default {
 .cart-detail__container {
   width: 30%;
   /* border: 1px solid red; */
-  height: 600px;
+  height: toRem(600);
   text-align: center;
   @include display-flex();
   flex-wrap: wrap;
@@ -178,20 +178,20 @@ export default {
 .cart-detail__payment {
   width: 100%;
   background-color: $white;
-  border-radius: 10px;
-  padding-right: 24px;
-  padding-left: 24px;
+  border-radius: toRem(10);
+  padding-right: toRem(24);
+  padding-left: toRem(24);
   @include display-flex();
   align-items: flex-start;
   flex-flow: column;
-  padding-bottom: 27px;
+  padding-bottom: toRem(27);
 }
 
 .cart-detail__item {
   @include display-flex();
   align-items: center;
   flex-wrap: wrap;
-  margin-top: 28px;
+  margin-top: toRem(28);
   width: 100%;
 }
 
@@ -211,17 +211,17 @@ export default {
 }
 
 .cart-detail__right-title {
-  margin-right: 8px;
-  font-size: 16px;
+  margin-right: toRem(8);
+  font-size: toRem(16);
   color: $color_discount;
   font-weight: 300;
 }
 
 .cart-detail__left-title {
-  font-size: 16px;
+  font-size: toRem(16);
   color: $color_discount;
   font-weight: 300;
-  margin-left: 6px;
+  margin-left: toRem(6);
 }
 
 .cart-detail__left-title:last-of-type {
@@ -234,11 +234,11 @@ export default {
   flex-wrap: wrap;
   width: 100%;
   margin-top: 0;
-  border: 1px solid $chinese_white;
-  padding-right: 18px;
-  padding-left: 18px;
-  padding-bottom: 24px;
-  border-radius: 10px;
+  border: toRem(1) solid $chinese_white;
+  padding-right: toRem(18);
+  padding-left: toRem(18);
+  padding-bottom: toRem(24);
+  border-radius: toRem(10);
 }
 
 .cart-detail__total {
@@ -251,7 +251,7 @@ export default {
 .cart-detail__line {
   background: $chinese_white;
   width: 94%;
-  height: 1px;
+  height: toRem(1);
   @include display-flex();
   margin-right: auto;
   margin-left: auto;
@@ -259,7 +259,7 @@ export default {
 }
 
 .cart-detail__total .cart-detail__item {
-  margin-top: 18px;
+  margin-top: toRem(18);
 }
 
 .red--pay {
@@ -267,23 +267,23 @@ export default {
 }
 
 .cart-detail__icon {
-  width: 18px;
-  height: 18px;
+  width: toRem(18);
+  height: toRem(18);
 }
 
 .discount--icon {
-  width: 21px;
-  height: 21px;
+  width: toRem(21);
+  height: toRem(21);
 }
 
 .car--icon {
-  width: 21px;
-  height: 21px;
+  width: toRem(21);
+  height: toRem(21);
 }
 
 .cart-detail__btn-item{
   width: 85%;
-  height: 61px;
+  height: toRem(61);
 
 }
 .remove--border {
@@ -296,26 +296,26 @@ export default {
 }
 
 .cart-detail__btn {
-  margin-top: 56px;
+  margin-top: toRem(56);
 }
 
 .cart-detail__about {
   @include display-flex();
   align-items: flex-start;
   flex-wrap: wrap;
-  margin-top: 27px;
+  margin-top: toRem(27);
 }
 
 .cart-detail__about-item {
   width: 100%;
-  height: 72px;
+  height: toRem(72);
   background: $white;
-  border-radius: 10px;
-  margin-bottom: 16px;
+  border-radius: toRem(10);
+  margin-bottom: toRem(16);
   @include display-flex();
   align-items: center;
-  padding-right: 16px;
-  padding-left: 16px;
+  padding-right: toRem(16);
+  padding-left: toRem(16);
 }
 
 .cart-detail__about-item:last-of-type {
@@ -327,27 +327,27 @@ export default {
   align-items: flex-start;
   @include display-flex();
   flex-wrap: wrap;
-  box-shadow: 0px 4px 4px $gray-border;
+  box-shadow: 0 toRem(4) toRem(4) $gray-border;
   z-index: 1;
 }
 
 .cart-detail__about-title {
   color: $gray;
   font-weight: 400;
-  margin-right: 8px;
-  font-size: 16px;
+  margin-right: toRem(8);
+  font-size: toRem(16);
 }
 
 .cart-detail__title {
-  font-size: 18px;
+  font-size: toRem(18);
   color: $black-topic;
   font-weight: 400;
   text-align: right;
 }
 
 .cart-detail__text {
-  margin-top: 16px;
-  margin-bottom: 16px;
+  margin-top: toRem(16);
+  margin-bottom: toRem(16);
 }
 
 .cart-detail__total .cart-detail__right-title {
@@ -357,11 +357,11 @@ export default {
 .cart-detail__btn-link {
   color: $white;
   text-decoration: none;
-  height: 53px;
+  height: toRem(53);
   @include display-flex();
   justify-content: center;
   align-items: center;
-  font-size: 16px;
+  font-size: toRem(16);
 }
 
 .btn--debtor .cart-detail__btn-link {
@@ -372,12 +372,12 @@ export default {
   @include display-flex();
   align-items: flex-start;
   justify-content: center;
-  margin-bottom: 26px;
+  margin-bottom: toRem(26);
 }
 
 .shipping-btn__left {
   @include display-flex();
-  margin-right: 10px;
+  margin-right: toRem(10);
 }
 
 .shipping-btn__item .cart-detail__left-title {
@@ -389,7 +389,7 @@ export default {
 }
 
 .cart-detail__content {
-  margin-top: 16px;
+  margin-top: toRem(16);
 }
 
 .shipping--mobile {
@@ -401,7 +401,7 @@ export default {
   @include display-flex();
   align-items: flex-start;
   flex-flow: column;
-  margin-top: 33px;
+  margin-top: toRem(33);
 }
 
 .pay__detail-discount {
@@ -416,31 +416,31 @@ export default {
   border: none;
   height: 100%;
   font-family: inherit;
-  font-size: 16px;
+  font-size: toRem(16);
   color: $gray;
-  margin-right: 16px;
+  margin-right: toRem(16);
 }
 
 .pay-detail__discount-item {
   position: relative;
-  // margin-bottom: 47px;
-  height: 72px;
+  @extend .align-center;
+  height: toRem(72);
   background: #FFFFFF;
-  border: 1px solid #E0E0E0;
-  box-shadow: 0px 4px 4px #F2F2F2;
-  border-radius: 10px;
+  border: toRem(1) solid #E0E0E0;
+  box-shadow: 0 toRem(4) toRem(4) #F2F2F2;
+  border-radius: toRem(10);
   @include display-flex();
   align-items: center;
-  padding-right: 16px;
-  padding-left: 8px;
+  padding-right: toRem(16);
+  padding-left: toRem(8);
   flex-wrap: wrap;
   width: 100%;
 }
 
 .pay-detail__discount-btn {
-  font-size: 14px;
-  height: 47px;
-  width: 139px;
+  font-size: toRem(14);
+  height: toRem(47);
+  width: toRem(139);
   font-family: inherit;
 }
 
@@ -454,7 +454,7 @@ export default {
 .pay-detail__discount-icon::after {
   @include font-icon__limoo();
   content: "\e80d";
-  font-size: 16px;
+  font-size: toRem(16);
   color: #bdbdbd;
 }
 
@@ -465,19 +465,19 @@ export default {
 }
 
 .pay-detail__discount-text {
-  margin-bottom: 16px;
+  margin-bottom: toRem(16);
   font-weight: 400;
   color: $black-topic;
   text-align: right;
-  font-size: 14px;
+  font-size: toRem(14);
 }
 
 .pay-detail__message-main {
   @include display-flex();
   align-items: flex-start;
-  margin-top: 16px;
-  margin-bottom: 47px;
-  padding-right: 3px;
+  margin-top: toRem(16);
+  margin-bottom: toRem(47);
+  padding-right: toRem(3);
   opacity: 0;
   pointer-events: none;
 }
@@ -489,10 +489,10 @@ export default {
 }
 
 .pay-detail__message-text {
-  font-size: 13px;
+  font-size: toRem(13);
   font-weight: 400;
   color: $green__answer;
-  margin-right: 8px;
+  margin-right: toRem(8);
 }
 
 .active--discount .pay-detail__discount-btn {
@@ -515,13 +515,8 @@ export default {
     height: auto;
   }
   .pay-detail__discount-left {
-    margin-top: 16px;
-    width: 100%;
-    margin-bottom: 16px;
-  }
-  .pay-detail__discount-right {
-    width: 100%;
-    margin-top: 16px;
+    margin-top: toRem(16);
+    margin-bottom: toRem(16);
   }
 }
 
@@ -529,15 +524,15 @@ export default {
 @media (max-width: 960px) {
   .pay-detail__discount-item {
     border-color: $gray;
-    height: 57px;
-    padding-top: 4px;
-    padding-bottom: 4px;
+    height: toRem(57);
+    padding-top: toRem(4);
+    padding-bottom: toRem(4);
   }
   .cart-detail__text {
     margin-top: 0;
   }
   .pay-detail__discount-input {
-    font-size: 13px;
+    font-size: toRem(13);
   }
   .pay__detail-discount {
     width: 100%;
@@ -552,25 +547,25 @@ export default {
   }
   .pay-detail__discount-right {
     width: 60%;
-    margin-top: 5px;
+    margin-top: toRem(5);
   }
   .shipping-btn__right .cart-detail__right-title {
-    font-size: 13px;
+    font-size: toRem(13);
   }
   .shipping-btn__item .cart-detail__left-title {
-    font-size: 13px;
+    font-size: toRem(13);
   }
   .cart-detail__right-title {
-    font-size: 13px;
+    font-size: toRem(13);
   }
   .cart-detail__left-title {
-    font-size: 13px;
+    font-size: toRem(13);
   }
   .cart-detail__btn-item {
     width: 100% !important;
   }
   .cart-detail__title {
-    font-size: 14px;
+    font-size: toRem(14);
   }
   .shipping-btn__right {
     flex-grow: 1;
@@ -578,10 +573,10 @@ export default {
     @include display-flex();
   }
   .shipping-btn__item {
-    margin-bottom: 10px;
-    margin-top: 16px;
-    padding-right: 6px;
-    padding-left: 13px;
+    margin-bottom: toRem(10);
+    margin-top: toRem(16);
+    padding-right: toRem(6);
+    padding-left: toRem(13);
   }
   .shipping--mobile {
     @include display-flex();
@@ -590,34 +585,34 @@ export default {
     margin-top: 0;
   }
   .cart-detail__item {
-    margin-top: 22px;
+    margin-top: toRem(22);
   }
   .cart-detail__container {
     width: 100%;
     margin-top: 0;
   }
   .cart-detail__items {
-    border: solid 1px $google-btn__bg;
-    border-radius: 10px;
-    padding-right: 0px;
-    padding-left: 0px;
-    padding-bottom: 22px;
+    border: solid toRem(1) $google-btn__bg;
+    border-radius: toRem(10);
+    padding-right: 0;
+    padding-left: 0;
+    padding-bottom: toRem(22);
     margin-top: 0;
   }
   .cart-detail__total {
-    margin-bottom: 16px;
-    padding-right: 12px;
-    padding-left: 12px;
+    margin-bottom: toRem(16);
+    padding-right: toRem(12);
+    padding-left: toRem(12);
   }
   .cart-detail__content {
-    padding-right: 12px;
-    padding-left: 12px;
+    padding-right: toRem(12);
+    padding-left: toRem(12);
   }
   .cart-detail__line {
     width: 100%;
     background: $google-btn__bg;
-    height: 1px;
-    margin-top: 16px;
+    height: toRem(1);
+    margin-top: toRem(16);
   }
   .btn--debtor {
     display: none;
@@ -625,25 +620,25 @@ export default {
   .cart-detail__btn {
     z-index: 11;
     position: fixed;
-    bottom: 58px;
+    bottom: toRem(58);
     right: 0;
     background: $white;
-    padding-bottom: 8px;
-    padding-right: 16px;
-    padding-left: 16px;
-    box-shadow: 0px 1px 15px rgba(0, 0, 0, 0.09);
+    padding-bottom: toRem(8);
+    padding-right: toRem(16);
+    padding-left: toRem(16);
+    box-shadow: 0 toRem(1) toRem(15) rgba(0, 0, 0, 0.09);
   }
   .cart-detail__icon {
-    height: 17px;
-    height: 17px;
+    height: toRem(17);
+    width: toRem(17);
   }
   .car--icon {
-    width: 19px;
-    height: 19px;
+    width: toRem(19);
+    height: toRem(19);
   }
   .discount--icon {
-    width: 17px;
-    height: 17px;
+    width: toRem(17);
+    height: toRem(17);
   }
   .cart-detail__text {
     @include display-flex();
@@ -655,10 +650,10 @@ export default {
     display: none;
   }
   .pay__detail-content {
-    margin-top: 24px;
+    margin-top: toRem(24);
   }
   .pay-detail__message-main {
-    margin-bottom: 24px;
+    margin-bottom: toRem(24);
   }
 }
 
