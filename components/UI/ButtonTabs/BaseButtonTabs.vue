@@ -52,8 +52,7 @@ export default {
 
   ul {
     list-style: none;
-    display: flex;
-    align-items: center;
+    @extend .align-center;
     height: 100%;
 
     li {
@@ -68,19 +67,6 @@ export default {
         font-family: inherit;
       }
     }
-    /*li {
-      color: $gray-3;
-      height: 100%;
-      align-items: center;
-      display: flex;
-      padding: 0 toRem(24);
-      cursor: pointer;
-
-      &.active {
-        color: #212121;
-        position: relative;
-      }
-    }*/
   }
 }
 </style>

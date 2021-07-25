@@ -1,11 +1,5 @@
 <template>
-  <div :class="{'active--box':openBox}" class="w-100 modal-filter__box">
-    <div @click="toggleBox" class="modal-filter__box-title w-100">
-      <h3 class="modal-filter__box-text">{{ title }}</h3>
-      <span class="modal-filter__box-arrow"></span>
-      <!-- <img class="modal-filter__box-arrow" src="/icons/arrow-down.svg" alt=""> -->
-    </div>
-
+    <sliding-drop-down :title="title" class="modal-filter__box">
     <div class="modal-filter__box-content w-100">
       <div class="modal-filter__box-items w-100">
         <div class="modal-filter__box-item">
@@ -43,17 +37,18 @@
         </div>
       </div>
     </div>
-
-  </div>
+    </sliding-drop-down>
 </template>
 
 <script>
 import "vue-slider-component/theme/antd.css";
 import "~/assets/styles/_slider_range_price.scss";
 import addCommaPrice from "~/modules/addCamaPrice.js";
+import SlidingDropDown from "../UI/SlidingDropDown";
 
 
 export default {
+  components: { SlidingDropDown },
   props: {
     // categorySuggestion  : { type: [Object,Array], default: [] },
     openDefaultBox: { type: Boolean, default: false },
@@ -229,21 +224,12 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.modal-filter__box {
+.modal-filter__box::v-deep {
   width: 98%;
-  margin-right: auto;
-  margin-left: auto;
-  background: $white;
-  padding: toRem(13) toRem(16);
-  border: solid toRem(1) $chinese_white;
-  @include display-flex();
-  align-items: flex-start;
-  border-radius: toRem(10);
-  flex-wrap: wrap;
-  max-height: toRem(51);
-  transition: max-height 0.5s cubic-bezier(0, 1, 0, 1);
-  overflow: hidden;
   margin-top: toRem(6);
+  .dropdown-title {
+    font-size: toRem(16);
+  }
 }
 
 .modal-filter__box-content {
@@ -252,40 +238,6 @@ export default {
   flex-wrap: wrap;
   margin-top: toRem(16);
 }
-
-.modal-filter__box-text {
-  font-size: toRem(16);
-  color: $dark_gray;
-  font-weight: 400;
-  flex-grow: 1;
-  @include display-flex();
-}
-
-.modal-filter__box-arrow::before {
-  content: "\e800";
-  @include font-icon__arrow();
-  font-size: toRem(18);
-  color: $gray;
-  cursor: pointer;
-}
-
-.modal-filter__box-arrow {
-  height: toRem(18);
-  transition: all .3s ease-in-out;
-  margin-top: toRem(3);
-}
-
-.modal-filter__box-title {
-  @include display-flex();
-  align-items: center;
-  cursor: pointer;
-}
-
-.active--box .modal-filter__box-arrow {
-  transform: rotate(-180deg);
-  transition: all .3s ease-in-out;
-}
-
 .active--box {
   max-height: toRem(1000);
   transition: max-height 1s ease-in-out;
@@ -362,11 +314,10 @@ export default {
   .modal-filter__box-renge {
    margin: 0;
   }
-  .modal-filter__box-text {
-    font-size: toRem(14);
-  }
-  .modal-filter__box-title {
-    align-items: flex-start;
+  .modal-filter__box::v-deep {
+    .dropdown-title {
+      font-size: toRem(14);
+    }
   }
   .modal-filter__box-value {
     width: toRem(90);
