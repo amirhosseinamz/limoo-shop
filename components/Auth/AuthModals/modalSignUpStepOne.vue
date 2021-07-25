@@ -69,10 +69,10 @@
                 {{ getTextByTextKey("auth_login") }}
               </span>
             </base-button>
-
+<!--
             <button class="google-signup-btn" type="submit">
               {{ getTextByTextKey("auth_login_google") }}
-            </button>
+            </button>-->
           </div>
         </form>
       </div>

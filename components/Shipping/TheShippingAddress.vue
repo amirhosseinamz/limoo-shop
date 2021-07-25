@@ -374,18 +374,18 @@ export default {
   @include display-flex();
   justify-content: center;
   align-items: center;
-  width: 19px;
-  height: 19px;
+  width: toRem(19);
+  height: toRem(19);
   border-radius: 50%;
   background-color: $light-gray;
-  margin: 26px 16px 24px 0;
+  margin: toRem(26) toRem(16) toRem(24) 0;
   cursor: pointer;
   /* background-color: $light-gray; */
 }
 
 .card-shape__circle-inner {
-  width: 9.5px;
-  height: 9.5px;
+  width: toRem(9.5);
+  height: toRem(9.5);
   border-radius: 50%;
   background-color: $white;
   cursor: pointer;
@@ -396,7 +396,7 @@ export default {
 } */
 .order-content-item {
   height: fit-content;
-  margin-bottom: 8px;
+  margin-bottom: toRem(8);
 }
 
 .order-detail {
@@ -408,7 +408,6 @@ export default {
 .order-detail__desktop-holder {
   @include display-flex();
   flex-direction: column;
-  /* border: 1px solid red; */
 }
 
 .address-detail__user-container {
@@ -430,7 +429,7 @@ export default {
 
 .address-detail__user-reciver,
 .address-detail__user-phone {
-  font-size: 14px;
+  font-size: toRem(14);
   line-height: 140.62%;
   text-align: right;
   color: $black-topic;
@@ -440,22 +439,22 @@ export default {
 .address-detail__user-phone::after {
   @include font-icon__limoo();
   content: "\e81f";
-  font-size: 14px;
+  font-size: toRem(14);
   color: $gray;
-  margin-right: 24px;
-  margin-left: 8px;
+  margin-right: toRem(24);
+  margin-left: toRem(8);
 }
 
 .address-detail__user-reciver::before {
   @include font-icon__limoo();
   content: "\e823";
-  font-size: 14px;
+  font-size: toRem(14);
   color: $gray;
-  margin-left: 8px;
+  margin-left: toRem(8);
 }
 
 .address-detail__user-phone {
-  border-right: 1px solid $light-gray;
+  border-right: toRem(1) solid $light-gray;
 }
 
 .order-detail__holder {
@@ -466,20 +465,20 @@ export default {
 
 .order-detail__title {
   width: 80%;
-  font-size: 16px;
+  font-size: toRem(16);
   line-height: 140.62%;
   text-align: right;
   color: $black-topic;
-  margin: 24px 8px 24px 0;
+  margin: toRem(24) toRem(8) toRem(24) 0;
   height: fit-content;
 }
 
 .order-detail__content-holder {
   @include display-flex();
   flex-direction: column;
-  height: 91px;
-  padding-right: 16px;
-  border-right: 2px solid $gray-border;
+  height: toRem(91);
+  padding-right: toRem(16);
+  border-right: toRem(2) solid $gray-border;
 }
 
 .order-detail__btns-container {
@@ -490,27 +489,27 @@ export default {
 }
 
 .order-detail__btn-delete {
-  width: 37px;
-  height: 37px;
+  width: toRem(37);
+  height: toRem(37);
 }
 
 .order-detail__btn-delete::before {
   @include font-icon__limoo();
   content: "\e826";
-  font-size: 14px;
+  font-size: toRem(14);
   color: $gray-3;
 }
 
 .address-detail__btn-edit {
-  width: 37px;
-  height: 37px;
+  width: toRem(37);
+  height: toRem(37);
   margin-left: 0.625rem;
 }
 
 .address-detail__btn-edit::before {
   @include font-icon__limoo();
   content: "\e80e";
-  font-size: 14px;
+  font-size: toRem(14);
   color: $white;
 }
 
@@ -520,7 +519,7 @@ export default {
 }
 
 .order-detail__choosed-adress {
-  min-height: 140px;
+  min-height: toRem(140);
 }
 
 .order-detail__choosed-adress .order-detail__btns-container {
@@ -534,7 +533,7 @@ export default {
     }
     .accordion-radio {
       order: 2;
-      font-size: 14px;
+      font-size: toRem(14);
       align-items: flex-start!important;
     }
   }
@@ -543,20 +542,19 @@ export default {
     flex-direction: column;
     justify-content: space-between;
     background-color: $white;
-    box-shadow: 0px 20px 24px $box__shadow;
-    border-radius: 10px;
-    width: 154px;
-    height: 82px;
+    box-shadow: 0 toRem(20) toRem(24) $box__shadow;
+    border-radius: toRem(10);
+    width: toRem(154);
+    height: toRem(82);
     position: absolute;
-    margin-top: 20px;
-    left: 33px;
+    margin-top: toRem(20);
+    left: toRem(33);
     display: none;
-    /* border: 1px solid blue; */
   }
   .order-detail__btn-holder__line {
     width: 100%;
     display: none;
-    border-top: 1px solid $gray-border;
+    border-top: toRem(1) solid $gray-border;
   }
   .order-detail__btn-show {
     display: block;
@@ -567,78 +565,76 @@ export default {
     background-color: transparent;
     font-family: inherit;
     /* width: 100%; */
-    font-size: 14px;
+    font-size: toRem(14);
     color: $gray;
     border: none;
     box-sizing: border-box;
     cursor: pointer;
     line-height: 140.62%;
     text-align: right;
-    margin: 12px 12px 10px 0;
+    margin: toRem(12) toRem(12) toRem(10) 0;
   }
   .address-detail__btn-edit__mobile {
-    margin: 10px 12px 10px 0;
+    margin: toRem(10) toRem(12) toRem(10) 0;
   }
   .address-detail__three-point__btn {
     @include display-flex();
     flex-direction: column;
-    margin: 15px 0 13px 16px;
+    margin: toRem(15) 0 toRem(13) toRem(16);
     cursor: pointer;
   }
   .address-detail__point {
-    width: 4px;
-    height: 4px;
-    margin-bottom: 2px;
+    width: toRem(4);
+    height: toRem(4);
+    margin-bottom: toRem(2);
     background-color: $gray;
     border-radius: 50%;
   }
   .card-shape__circle {
-    width: 17px;
-    height: 17px;
-    margin: 17px 9px 24px 0;
-    /* background-color: $light-gray; */
+    width: toRem(17);
+    height: toRem(17);
+    margin: toRem(17) toRem(9) toRem(24) 0;
   }
   .card-shape__circle-inner {
-    width: 7.5px;
-    height: 7.5px;
+    width: toRem(7.5);
+    height: toRem(7.5);
   }
   .order-detail__holder {
-    border-top: 1px solid $gray-border;
+    border-top: toRem(1) solid $gray-border;
   }
   .address-detail__user-container {
     margin-top: toRem(-15);
     margin-right: 0;
-    border-bottom: 1px solid $gray-6;
+    border-bottom: toRem(1) solid $gray-6;
   }
   .address-detail__user-reciver,
   .address-detail__user-phone {
-    margin-top: 15px;
-    margin-bottom: 15px;
-    margin-left: 8px;
+    margin-top: toRem(15);
+    margin-bottom: toRem(15);
+    margin-left: toRem(8);
   }
   .address-detail__user-phone::after {
-    margin-right: 8px;
-    margin-left: 4px;
+    margin-right: toRem(8);
+    margin-left: toRem(4);
   }
   .address-detail__user-reciver::before {
-    margin-left: 4px;
+    margin-left: toRem(4);
   }
   .order-content-item {
     min-height: fit-content;
-    /* padding-bottom: 16px; */
-    margin-bottom: 8px;
+    margin-bottom: toRem(8);
   }
   .order-detail__content-holder {
     display: none;
   }
   .order-detail {
-    min-height: 50px;
+    min-height: toRem(50);
     height: fit-content;
   }
 
   .order-detail__title {
-    font-size: 14px;
-    margin: 16px 8px 16px 19px;
+    font-size: toRem(14);
+    margin: toRem(16) toRem(8) toRem(16) toRem(19);
   }
 
   .order-detail__choosed-adress .order-detail__btns-container {
@@ -648,15 +644,15 @@ export default {
     display: none;
   }
   .order-detail__btn-delete {
-    width: 36px;
-    height: 36px;
+    width: toRem(36);
+    height: toRem(36);
   }
 
   .order-detail__btn-delete::before {
-    font-size: 14px;
+    font-size: toRem(14);
   }
   .order-detail__choosed-adress {
-    min-height: 133px;
+    min-height: toRem(133);
     padding-bottom: 0;
   }
   .order-detail__choosed-adress .order-detail__btn-holder__line {
@@ -667,20 +663,20 @@ export default {
 @media (max-width: 280px) {
   .address-detail__user-reciver,
   .address-detail__user-phone {
-    font-size: 12px;
-    margin-left: 5px;
+    font-size: toRem(12);
+    margin-left: toRem(5);
   }
   .address-detail__user-phone::after {
-    margin-right: 4px;
-    font-size: 12px;
+    margin-right: toRem(4);
+    font-size: toRem(12);
   }
   .address-detail__user-reciver::before {
-    margin-left: 4px;
-    font-size: 12px;
+    margin-left: toRem(4);
+    font-size: toRem(12);
   }
   .order-detail__title {
-    font-size: 14px;
-    margin: 20px 6px 16px 19px;
+    font-size: toRem(14);
+    margin: toRem(20) toRem(6) toRem(16) toRem(19);
   }
 }
 
