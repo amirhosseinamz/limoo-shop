@@ -1,6 +1,6 @@
 <template>
   <div class="w-100 content">
-    <div class="content__main ">
+    <div class="content__main " ref="contentMain">
       <category-selected :category="category"></category-selected>
       <div class=" w-100">
         <div class="w-100 content__wrapper">
@@ -17,7 +17,8 @@
               :category-products="categoryProducts"
               @update-infinite-cat-mobile="updateInfiniteCatMobile"
             ></category-products>
-            <paganation-cat></paganation-cat>
+<!--            <paganation-cat></paganation-cat>-->
+            <base-pagination @pageChanged="pageChanged"></base-pagination>
           </div>
         </div>
       </div>
@@ -54,6 +55,9 @@ export default {
   },
 
   methods: {
+    pageChanged () {
+      this.$refs.contentMain.scrollIntoView({behavior: 'smooth'})
+    },
     activeCatSuggestion(data) {
       this.$emit("active-cat-suggestion", data);
     },

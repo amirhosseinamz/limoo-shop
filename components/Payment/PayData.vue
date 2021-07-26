@@ -523,10 +523,10 @@ export default {
 
 @media (max-width: 960px) {
   .pay-detail__discount-item {
-    border-color: $gray;
     height: toRem(57);
     padding-top: toRem(4);
     padding-bottom: toRem(4);
+    padding-left: toRem(4.8);
   }
   .cart-detail__text {
     margin-top: 0;
