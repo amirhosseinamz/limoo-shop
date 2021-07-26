@@ -595,13 +595,13 @@ export default {
   .shipping-btn__limoo,
   .shipping-btn__post {
     padding: toRem(11);
-    width: toRem(154);
-    height: toRem(38);
+    width: toRem(200);
+    height: toRem(43.75);
   }
   .shipping-btn__seller {
-    width: toRem(156);
+    width: toRem(200);
     padding: toRem(2);
-    height: toRem(38);
+    height: toRem(43.75);
   }
   .shipping-btn__items::v-deep {
     .shipping-btn-title {
@@ -657,10 +657,22 @@ export default {
     justify-content: space-between;
   }
   .shipping-btn__items::v-deep {
-    margin-right: toRem(3);
+    margin-right: toRem(2);
+
     .shipping-btn-title {
-      font-size: toRem(13);
+      font-size: toRem(12);
     }
+  }
+  .shipping-btn__limoo,
+  .shipping-btn__post {
+    padding: toRem(11);
+    width: toRem(146);
+    height: toRem(40);
+  }
+  .shipping-btn__seller {
+    width: toRem(146);
+    padding: toRem(2);
+    height: toRem(40);
   }
 
   .shipping-txt__holder {
@@ -735,11 +747,27 @@ export default {
   .shipping-btn__limoo {
     padding: toRem(5);
   }
+
+  .shipping-btn__items::v-deep {
+    .shipping-btn-title {
+      font-size: toRem(11);
+    }
+  }
+  .shipping-btn__limoo,
+  .shipping-btn__post {
+    width: toRem(131);
+  }
+  .shipping-btn__seller {
+    width: toRem(135);
+  }
   .post-shipping__btn-mobile {
     height: toRem(36);
     width: toRem(110);
     font-size: toRem(12);
     padding: toRem(9) toRem(5);
+  }
+  .shipping-btn__holder {
+    padding-right: 0.2rem;
   }
   .post-shipping__alert-txt-mobile::before {
     font-size: toRem(14);
