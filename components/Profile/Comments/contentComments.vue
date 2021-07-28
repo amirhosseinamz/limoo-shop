@@ -59,47 +59,15 @@
                   </span>
 
                   <div class="p-comments__state-mobile">
-                    <div
-                      v-show="data.state == 'accepted'"
-                      class="p-comments__state-accepted"
-                    >
-                      <span class="p-comments__state-accepted__icon"></span>
-                      <span class="p-comments__state-accepted__title">
-                        {{ getTextByTextKey("comments_confirmation") }}
-                      </span>
-                    </div>
-                    <div
-                      v-show="data.state == 'acceptting'"
-                      class="p-comments__state-acceptting"
-                    >
-                      <span class="p-comments__state-acceptting__icon"></span>
-                      <span class="p-comments__state-acceptting__title">
-                        {{ getTextByTextKey("comments_awaiting_approval") }}
-                      </span>
-                    </div>
+                    <base-signs type="confirmed" v-if="data.state === 'accepted'"></base-signs>
+                    <base-signs type="waiting" v-if="data.state === 'acceptting'"></base-signs>
                   </div>
                 </div>
               </div>
 
               <div class="p-comments__state-desktop">
-                <div
-                  v-show="data.state == 'accepted'"
-                  class="p-comments__state-accepted"
-                >
-                  <span class="p-comments__state-accepted__icon"></span>
-                  <span class="p-comments__state-accepted__title">
-                    {{ getTextByTextKey("comments_confirmation") }}
-                  </span>
-                </div>
-                <div
-                  v-show="data.state == 'acceptting'"
-                  class="p-comments__state-acceptting"
-                >
-                  <span class="p-comments__state-acceptting__icon"></span>
-                  <span class="p-comments__state-acceptting__title">
-                    {{ getTextByTextKey("omments_awaiting_approval") }}
-                  </span>
-                </div>
+                <base-signs type="confirmed" v-if="data.state === 'accepted'"></base-signs>
+                <base-signs type="waiting" v-if="data.state === 'acceptting'"></base-signs>
               </div>
             </div>
             <!-- ==================================================================================== -->
@@ -392,44 +360,6 @@ export default {
 .p-comments__state-mobile {
   display: none;
 }
-.p-comments__state-accepted,
-.p-comments__state-acceptting {
-  @include display-flex();
-  flex-direction: row;
-}
-.p-comments__state-accepted__title,
-.p-comments__state-acceptting__title {
-  font-size: 14px;
-  line-height: 140.62%;
-  color: $gray;
-}
-.p-comments__state-accepted__icon {
-  @include display-flex();
-  align-self: center;
-  width: 18px;
-  height: 18px;
-  border-radius: 50%;
-  border: 3px solid $light__blue;
-  background-color: $code-request;
-  margin-left: 11px;
-}
-.p-comments__state-accepted__icon::before {
-  margin: auto;
-  @include font-icon__limoo();
-  font-size: 6px;
-  content: "\e82b";
-  color: $white;
-}
-.p-comments__state-acceptting__icon {
-  @include display-flex();
-  align-self: center;
-  width: 18px;
-  height: 18px;
-  border-radius: 50%;
-  border: 3px solid $border__yellow;
-  background-color: $yellow;
-  margin-left: 11px;
-}
 /* =========================== */
 .p-favorite-product-item-icon-delete::before {
   @include font-icon__limoo();
@@ -591,9 +521,7 @@ export default {
     display: block;
   }
   .p-comments__title,
-  .ideas-title,
-  .p-comments__state-acceptting__title,
-  .p-comments__state-accepted__title {
+  .ideas-title {
     font-size: 13px;
   }
   .stars-outer::before,
@@ -750,10 +678,6 @@ export default {
   }
   .p-commentedproduct-description {
     margin: 14px 11px 10px 27px;
-  }
-  .p-comments__state-accepted__icon,
-  .p-comments__state-acceptting__icon {
-    margin-left: 5px;
   }
 }
 </style>

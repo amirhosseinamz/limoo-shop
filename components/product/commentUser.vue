@@ -38,19 +38,19 @@
                   </div>
                   <div class="p-comments-idea__title">
                     <span
-                      v-show="data.Suggest == 1"
+                      v-show="data.Suggest === 1"
                       class="ideas-title idea-good"
                     >
                       {{ getTextByTextKey("commnets_suggestion_buy") }}
                     </span>
                     <span
-                      v-show="data.Suggest == 2"
+                      v-show="data.Suggest === 2"
                       class="ideas-title idea-bad"
                     >
                       {{ getTextByTextKey("comments_not_enough_experience") }}
                     </span>
                     <span
-                      v-show="data.Suggest == 3"
+                      v-show="data.Suggest === 3"
                       class="ideas-title idea-mid"
                     >
                       {{
@@ -58,68 +58,17 @@
                       }}
                     </span>
                     <div class="p-comments__state-mobile">
-                      <div
-                        v-show="typeof data.confirmLeave == 'undefined'"
-                        class="p-comments__state-accepted"
-                      >
-                        <span class="p-comments__state-accepted__icon"></span>
-                        <span class="p-comments__state-accepted__title">
-                          {{ data.dateConvert }}
-                        </span>
-                      </div>
-
-                      <div
-                        v-show="data.confirmLeave == 1"
-                        class="p-comments__state-accepted"
-                      >
-                        <span class="p-comments__state-accepted__icon"></span>
-                        <span class="p-comments__state-accepted__title">
-                          {{ getTextByTextKey("comments_confirmation") }}
-                        </span>
-                      </div>
-
-                      <div
-                        v-show="data.confirmLeave == 2"
-                        class="p-comments__state-acceptting"
-                      >
-                        <span class="p-comments__state-acceptting__icon"></span>
-                        <span class="p-comments__state-acceptting__title">
-                          {{ getTextByTextKey("comments_awaiting_approval") }}
-                        </span>
-                      </div>
+                      <base-signs type="confirmed" v-if="typeof data.confirmLeave === 'undefined'" :title="data.dateConvert"></base-signs>
+                      <base-signs type="confirmed" v-if="data.confirmLeave === 1"></base-signs>
+                      <base-signs type="waiting" v-if="data.confirmLeave === 2"></base-signs>
                     </div>
                   </div>
                 </div>
 
                 <div class="p-comments__state-desktop">
-                  <div
-                    v-show="typeof data.confirmLeave == 'undefined'"
-                    class="p-comments__state-accepted"
-                  >
-                    <span class="p-comments__state-accepted__icon"></span>
-                    <span class="p-comments__state-accepted__title">
-                      {{ data.dateConvert }}
-                    </span>
-                  </div>
-
-                  <div
-                    v-show="data.confirmLeave == 1"
-                    class="p-comments__state-accepted"
-                  >
-                    <span class="p-comments__state-accepted__icon"></span>
-                    <span class="p-comments__state-accepted__title">
-                      {{ getTextByTextKey("comments_confirmation") }}
-                    </span>
-                  </div>
-                  <div
-                    v-show="data.confirmLeave == 2"
-                    class="p-comments__state-acceptting"
-                  >
-                    <span class="p-comments__state-acceptting__icon"></span>
-                    <span class="p-comments__state-acceptting__title">
-                      {{ getTextByTextKey("comments_awaiting_approval") }}
-                    </span>
-                  </div>
+                  <base-signs type="confirmed" v-if="typeof data.confirmLeave === 'undefined'" :title="data.dateConvert"></base-signs>
+                  <base-signs type="confirmed" v-if="data.confirmLeave === 1"></base-signs>
+                  <base-signs type="waiting" v-if="data.confirmLeave === 2"></base-signs>
                 </div>
               </div>
               <!-- ==================================================================================== -->
@@ -462,46 +411,6 @@ export default {
 .p-comments__state-mobile {
   display: none;
 }
-.p-comments__state-accepted,
-.p-comments__state-acceptting {
-  @include display-flex();
-  flex-direction: row;
-}
-.p-comments__state-accepted__title,
-.p-comments__state-acceptting__title {
-  font-size: 14px;
-  line-height: 140.62%;
-  color: $gray;
-}
-.p-comments__state-accepted__icon {
-  @include display-flex();
-  align-self: center;
-  width: 18px;
-  height: 18px;
-  border-radius: 50%;
-  border: 3px solid $light__blue;
-  background-color: $code-request;
-  margin-left: 11px;
-  display: none;
-}
-.p-comments__state-accepted__icon::before {
-  margin: auto;
-  @include font-icon__limoo();
-  font-size: 6px;
-  content: "\e82b";
-  color: $white;
-}
-.p-comments__state-acceptting__icon {
-  @include display-flex();
-  align-self: center;
-  width: 18px;
-  height: 18px;
-  border-radius: 50%;
-  border: 3px solid $border__yellow;
-  background-color: $yellow;
-  margin-left: 11px;
-  display: none;
-}
 /* =========================== */
 .p-favorite-product-item-icon-delete::before {
   @include font-icon__limoo();
@@ -802,9 +711,7 @@ export default {
     display: block;
   }
   .p-comments__title,
-  .ideas-title,
-  .p-comments__state-acceptting__title,
-  .p-comments__state-accepted__title {
+  .ideas-title {
     font-size: 13px;
   }
   .stars-outer::before,
@@ -959,10 +866,6 @@ export default {
   }
   .p-commentedproduct-description {
     margin: 14px 11px 10px 27px;
-  }
-  .p-comments__state-accepted__icon,
-  .p-comments__state-acceptting__icon {
-    margin-left: 5px;
   }
 }
 </style>

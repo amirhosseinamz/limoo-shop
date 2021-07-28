@@ -27,9 +27,9 @@ export default {
   },
   watch: {
     pageNumber(val) {
+      this.$emit('pageChanged')
       this.changeActive(val - 1);
       this.showItems();
-      this.$emit('pageChanged')
     },
   },
   methods: {
@@ -109,6 +109,10 @@ export default {
           content: "\e801";
           @include font-icon__limoo();
         }
+        &::after {
+          content: "\e801";
+          @include font-icon__limoo();
+        }
       }
 
       &.right-arrow {
@@ -118,6 +122,11 @@ export default {
         border: toRem(1) solid $gray-5;
 
         &::before {
+          content: "\e801";
+          @include font-icon__limoo();
+          transform: rotate(180deg);
+        }
+        &::after {
           content: "\e801";
           @include font-icon__limoo();
           transform: rotate(180deg);
