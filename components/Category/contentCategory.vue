@@ -17,8 +17,7 @@
               :category-products="categoryProducts"
               @update-infinite-cat-mobile="updateInfiniteCatMobile"
             ></category-products>
-<!--            <paganation-cat></paganation-cat>-->
-            <base-pagination @pageChanged="pageChanged"></base-pagination>
+            <base-pagination class="category-pagination" @pageChanged="pageChanged"></base-pagination>
           </div>
         </div>
       </div>
@@ -30,7 +29,6 @@
 import categorySelected from "./categorySelected";
 import categoryProducts from "./categoryProducts";
 import categoryTop from "./categoryTop";
-import paganationCat from "./paganationCat";
 
 export default {
   props: {
@@ -45,7 +43,6 @@ export default {
     categorySelected,
     categoryProducts,
     categoryTop,
-    paganationCat,
   },
 
   data() {
@@ -55,8 +52,8 @@ export default {
   },
 
   methods: {
-    pageChanged () {
-      this.$refs.contentMain.scrollIntoView({behavior: 'smooth'})
+    pageChanged() {
+      this.$refs.contentMain.scrollIntoView({ behavior: "smooth" });
     },
     activeCatSuggestion(data) {
       this.$emit("active-cat-suggestion", data);
@@ -89,26 +86,28 @@ export default {
 
 <style lang="scss" scoped>
 .content {
-  margin-top: 135px;
+  margin-top: toRem(135);
 }
+
 .content__bg {
   background: $white;
-  // padding-top: 24px;
-  padding-bottom: 72px;
-  padding-right: 24px;
-  padding-left: 24px;
-  margin-bottom: 72px;
-  border-bottom-left-radius: 10px;
-  border-bottom-right-radius: 10px;
+  padding-bottom: toRem(72);
+  padding-right: toRem(24);
+  padding-left: toRem(24);
+  margin-bottom: toRem(72);
+  border-bottom-left-radius: toRem(10);
+  border-bottom-right-radius: toRem(10);
   @include display-flex();
   align-items: flex-start;
   flex-wrap: wrap;
 }
+
 .content__main {
   flex-wrap: wrap;
   flex-flow: column;
   @include display-flex();
 }
+
 .content__wrapper {
   flex-wrap: wrap;
   @include display-flex();
@@ -123,27 +122,33 @@ export default {
 
 @media (max-width: 960px) {
   .content {
-    margin-top: 0px;
+    margin-top: 0;
   }
   .content__main {
-    margin-top: 45px;
+    margin-top: toRem(45);
+  }
+  .category-pagination::v-deep {
+    &.pagination-container {
+      display: none;
+    }
   }
 }
 
 @media (max-width: 600px) {
+
 }
 
 @media (max-width: 485px) {
   .content__bg {
-    padding-right: 8px;
-    padding-left: 8px;
+    padding-right: toRem(8);
+    padding-left: toRem(8);
     padding-bottom: 0;
   }
   .productContent__sliderWrapper {
-    margin-top: 4px;
+    margin-top: toRem(4);
   }
   .content__main {
-    margin-top: 55px;
+    margin-top: toRem(55);
   }
 }
 </style>

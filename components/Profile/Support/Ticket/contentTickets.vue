@@ -61,24 +61,8 @@
               </div>
               <!-- ----- -->
               <div class="p-tickets__state">
-                <div
-                  v-show="data.state == 'accepted'"
-                  class="p-tickets__state-accepted"
-                >
-                  <span class="p-tickets__state-accepted__icon"></span>
-                  <span class="p-tickets__state-accepted__title">
-                    {{ getTextByTextKey("comments_confirmation") }}
-                  </span>
-                </div>
-                <div
-                  v-show="data.state == 'acceptting'"
-                  class="p-tickets__state-acceptting"
-                >
-                  <span class="p-tickets__state-acceptting__icon"></span>
-                  <span class="p-tickets__state-acceptting__title">
-                    {{ getTextByTextKey("support_confirm_wait") }}
-                  </span>
-                </div>
+                <base-signs type="confirmed" v-if="data.state === 'accepted'"></base-signs>
+                <base-signs type="waiting" v-if="data.state === 'acceptting'"></base-signs>
               </div>
               <!-- ----- -->
             </div>
@@ -231,21 +215,21 @@ export default {
   @include display-flex();
   flex-direction: column;
   justify-content: flex-start;
-  height: 220px;
+  height: toRem(220);
   background: $white;
-  border-radius: 10px;
+  border-radius: toRem(10);
   /* border: 1px solid red; */
 }
 .user-Ticket__empty-container img {
   opacity: 1;
 }
 .user-Ticket__empty {
-  font-size: 18px;
+  font-size: toRem(18);
   line-height: 140.62%;
   text-align: center;
   color: $gray;
-  margin-top: 24px;
-  margin-bottom: 24px;
+  margin-top: toRem(24);
+  margin-bottom: toRem(24);
 }
 .v-leave-from {
   opacity: 0.5;
@@ -257,55 +241,51 @@ export default {
   opacity: 0;
 }
 .p-tickets-content-main {
-  /* padding-right: 21px;
-    padding-left: 21px; */
-  border-bottom-left-radius: 10px;
-  border-bottom-right-radius: 10px;
+  border-bottom-left-radius: toRem(10);
+  border-bottom-right-radius: toRem(10);
   background: $white;
-
-  padding: 0 24px 19px 24px;
+  padding: 0 toRem(24) toRem(19) toRem(24);
 }
 .p-tickets-content-btn-add-main {
   @include display-flex();
   flex-direction: column;
-  /* border: 1px solid red; */
-  height: 168px;
+  height: toRem(168);
 }
 .p-ticket__topic {
-  font-size: 18px;
+  font-size: toRem(18);
   line-height: 140.62%;
   text-align: right;
-  margin-right: 1px;
-  margin-top: 28px;
+  margin-right: toRem(1);
+  margin-top: toRem(28);
 }
 .p-tickets-content-btn-data {
   margin-top: 2rem;
-  height: 56px;
-  width: 270px;
+  height: toRem(56);
+  width: toRem(270);
 }
 .p-tickets-content-item {
   @include display-flex();
-  border: 1px solid $light-gray;
-  border-radius: 10px;
+  border: toRem(1) solid $light-gray;
+  border-radius: toRem(10);
   height: fit-content;
-  min-height: 247px;
-  margin-bottom: 16px;
+  min-height: toRem(247);
+  margin-bottom: toRem(16);
   /* border: 1px solid red; */
 }
 .p-tickets-content-header {
   @include display-flex();
   justify-content: space-between;
   align-items: center;
-  padding-right: 16px;
-  padding-left: 24px;
-  border-bottom: 1px solid $light-gray;
-  height: 70px;
-  border-top-left-radius: 10px;
-  border-top-right-radius: 10px;
+  padding-right: toRem(16);
+  padding-left: toRem(24);
+  border-bottom: toRem(1) solid $light-gray;
+  height: toRem(70);
+  border-top-left-radius: toRem(10);
+  border-top-right-radius: toRem(10);
 }
 
 .ticket__title {
-  font-size: 16px;
+  font-size: toRem(16);
   line-height: 140.62%;
   color: $red-logout;
   text-align: right;
@@ -313,62 +293,24 @@ export default {
 .p-tickets__state {
   margin: auto 0;
 }
-.p-tickets__state-accepted,
-.p-tickets__state-acceptting {
-  @include display-flex();
-  flex-direction: row;
-}
-.p-tickets__state-accepted__title,
-.p-tickets__state-acceptting__title {
-  font-size: 14px;
-  line-height: 140.62%;
-  color: $gray;
-}
-.p-tickets__state-accepted__icon {
-  @include display-flex();
-  align-self: center;
-  width: 18px;
-  height: 18px;
-  border-radius: 50%;
-  border: 3px solid $light__blue;
-  background-color: $code-request;
-  margin-left: 11px;
-}
-.p-tickets__state-accepted__icon::before {
-  margin: auto;
-  @include font-icon__limoo();
-  font-size: 6px;
-  content: "\e82b";
-  color: $white;
-}
-.p-tickets__state-acceptting__icon {
-  @include display-flex();
-  align-self: center;
-  width: 18px;
-  height: 18px;
-  border-radius: 50%;
-  border: 3px solid $border__yellow;
-  background-color: $yellow;
-  margin-left: 11px;
-}
 .p-tickets-content-data {
   @include display-flex();
   flex-direction: column;
   justify-content: flex-start;
-  padding-right: 16px;
-  padding-left: 16px;
+  padding-right: toRem(16);
+  padding-left: toRem(16);
 }
 .ticket-content__question {
   text-align: right;
   margin-top: 24px;
-  font-size: 16px;
+  font-size: toRem(16);
   line-height: 140.62%;
   color: $black-topic;
 }
 .ticket-content__answer {
   text-align: right;
-  margin-top: 24px;
-  font-size: 16px;
+  margin-top: toRem(24);
+  font-size: toRem(16);
   line-height: 140.62%;
   color: $green__answer;
 }
@@ -376,28 +318,27 @@ export default {
   @include display-flex();
   flex-direction: row-reverse;
   justify-content: flex-start;
-  padding-left: 24px;
-  height: 85px;
+  padding-left: toRem(24);
+  height: toRem(85);
   align-items: flex-start;
-  margin-top: 25px;
-  /* border: 1px solid red; */
+  margin-top: toRem(25);
 }
 .ticket__send-answer {
-  height: 47px;
-  width: 130px;
+  height: toRem(47);
+  width: toRem(130);
   font-family: inherit;
   margin-left: 1.5rem;
   transition: all 120ms ease-in;
 }
 .p-ticket-content-btn-edit::before {
   @include font-icon__limoo();
-  font-size: 16px;
+  font-size: toRem(16);
   content: "\e80e";
   color: $yellow;
 }
 .p-ticket-content-btn-edit {
-  height: 47px;
-  width: 47px;
+  height: toRem(47);
+  width: toRem(47);
   transition: all 120ms ease-in;
 }
 .p-ticketss-content-wrapper {
@@ -409,20 +350,19 @@ export default {
 
 .p-favorite-product-btn-delete::before {
   @include font-icon__limoo();
-  font-size: 16px;
+  font-size: toRem(16);
   content: "\e826";
   color: $gray-3;
 }
 
 .p-tickets-content-data-wrapper {
   height: fit-content;
-  min-height: 177px;
+  min-height: toRem(177);
   @include display-flex();
   align-content: space-between;
-  /* border: 1px solid blue; */
 }
 .p-favorite-product-btn-main {
-  margin-bottom: 34px;
+  margin-bottom: toRem(34);
 }
 
 @media (max-width: 1220px) {
@@ -433,26 +373,26 @@ export default {
 
 @media (max-width: 960px) {
   .p-tickets-content-main {
-    border-radius: 10px;
-    padding: 0 21px 18px 21px;
+    border-radius: toRem(10);
+    padding: 0 toRem(21) toRem(18) toRem(21);
   }
   .p-tickets-content-btn-add-main {
     margin-top: .5rem;
   }
   .p-tickets-content-btn-data {
     margin-top: 1rem;
-    height: 47px;
-    width: 259px;
+    height: toRem(47);
+    width: toRem(259);
   }
   .p-ticket__topic {
-    font-size: 14px;
+    font-size: toRem(14);
     margin-right: 0;
-    margin-top: 24px;
-    margin-bottom: 14px;
+    margin-top: toRem(24);
+    margin-bottom: toRem(14);
   }
   .ticket__send-answer {
-    font-size: 14px;
-    width: 149px;
+    font-size: toRem(14);
+    width: toRem(149);
   }
 }
 
@@ -464,105 +404,91 @@ export default {
       }
   }
   .user-Ticket__empty-container {
-    height: 136px;
+    height: toRem(136);
   }
   .user-Ticket__empty-container img {
     margin: 0 auto;
-    height: 78px;
-    width: 78px;
+    height: toRem(78);
+    width: toRem(78);
   }
   .user-Ticket__empty {
-    font-size: 13px;
-    margin-top: 24px;
-    margin-bottom: 10px;
+    font-size: toRem(13);
+    margin-top: toRem(24);
+    margin-bottom: toRem(10);
   }
   .p-tickets-content-header {
-    /* flex-flow: column; */
-    padding-right: 8px;
-    padding-left: 8px;
-    min-height: 55px;
+    padding-right: toRem(8);
+    padding-left: toRem(8);
+    min-height: toRem(55);
     height: fit-content;
     background: $white;
   }
   .p-tickets-content-item {
     background: $white;
     min-height: fit-content;
-    margin-bottom: 8px;
+    margin-bottom: toRem(8);
   }
   .p-tickets-content-main {
-    padding: 0 11px 18px 11px;
+    padding: 0 toRem(11) toRem(18) toRem(11);
   }
   .p-tickets-content-data-btns {
-    padding-left: 8px;
+    padding-left: toRem(8);
     margin-bottom: 0;
-    margin-top: 35px;
-    height: 63px;
+    margin-top: toRem(35);
+    height: toRem(63);
     align-items: center;
     justify-content: space-between;
-    border-top: 1px solid $gray-border;
+    border-top: toRem(1) solid $gray-border;
   }
   .ticket__title {
-    font-size: 13px;
+    font-size: toRem(13);
   }
 
   .ticket__send-answer {
-    width: 149px;
-    margin-right: 8px;
+    width: toRem(149);
+    margin-right: toRem(8);
   }
   .ticket-content__question {
     text-align: justify;
-    margin-top: 8px;
-    font-size: 14px;
+    margin-top: toRem(8);
+    font-size: toRem(14);
   }
   .ticket-content__answer {
     text-align: justify;
-    margin-top: 16px;
-    font-size: 14px;
+    margin-top: toRem(16);
+    font-size: toRem(14);
   }
   .p-tickets-content-data {
-    padding-right: 8px;
-    padding-left: 40px;
+    padding-right: toRem(8);
+    padding-left: toRem(40);
   }
 
   .p-favorite-product-btn-delete {
-    width: 37px!important;
-    height: 37px!important;
-  }
-  .p-tickets__state-accepted__title,
-  .p-tickets__state-acceptting__title {
-    font-size: 13px;
-  }
-  .p-tickets__state-accepted__icon {
-    margin-left: 8px;
-  }
-  .p-tickets__state-accepted__icon::before {
-    font-size: 5px;
-  }
-  .p-tickets__state-acceptting__icon {
-    margin-left: 8px;
+    width: toRem(37)!important;
+    height: toRem(37)!important;
   }
   .p-tickets-content-btn-delete {
     margin-right: 1rem;
   }
   .p-ticket-content-btn-edit {
     background: $yellow!important;
-    height: 36px!important;
-    width: 36px!important;
+    height: toRem(36)!important;
+    width: toRem(36)!important;
     border: none!important;
   }
   .p-ticket-content-btn-edit:hover {
     background: $white!important;
-    border: 2px solid $yellow!important;
+    border: toRem(2) solid $yellow!important;
   }
   .p-ticket-content-btn-edit::before {
-    font-size: 14px;
+    font-size: toRem(14);
     color: $white;
   }
   .p-ticket-content-btn-edit:hover::before {
     color: $yellow;
   }
   .p-tickets-content-data-wrapper {
-    min-height: 166px;
+    min-height: toRem(166);
   }
   .p-favorite-product-btn-main {
     margin-bottom: 0;
@@ -573,10 +499,10 @@ export default {
 }
 @media (max-width: 280px) {
   .p-tickets-content-btn-data {
-    width: 200px;
+    width: toRem(200);
   }
   .p-tickets-content-main {
-    padding: 0 0 18px 0;
+    padding: 0 0 toRem(18) 0;
   }
 }
 </style>
