@@ -30,7 +30,7 @@
         </div>
         <hr class="splicer-line" />
         <!-- =============== -->
-        <form>
+        <form class="w-100">
           <div class="user-profile__container">
             <div class="user-profile__info" dir="rtl">
               <div class="user-profile__info-name">
@@ -438,19 +438,11 @@ export default {
     line-height: 140.62%;
   }
   &__btn {
-    margin: 0 auto 48px auto;
+    margin: toRem(48) auto 48px auto;
     height: 57px;
     width: 270px;
-    background: $btn__green;
-    color: $white;
     font-size: 18px;
     font-family: inherit;
-    line-height: 140.62%;
-    text-align: center;
-    border-radius: 10px;
-    cursor: pointer;
-    outline: none;
-    border: none;
   }
 }
 #name {
@@ -461,6 +453,11 @@ export default {
 }
 .user--item {
   width: 390px;
+}
+.user-profile__container {
+  @extend .align-center;
+  -webkit-flex-flow: column;
+  flex-flow: column;
 }
 .user-profile__container::v-deep {
   .txt-content {
@@ -544,17 +541,39 @@ export default {
 @media (max-width: 1220px) {
   .user-profile {
     &__info {
+      @include display-flex();
+      min-width: toRem(570);
       &-name,
       &-email,
       &-phone,
       &-birthday,
       &-nationalcode,
       &-pass {
-        width: 340px;
+        width: 100%;
       }
     }
     &__container {
-      padding: 0 20px;
+      padding: 0 toRem(20);
+    }
+  }
+  .user-profile {
+    @mixin name {
+      width: 250px;
+    }
+    @mixin family {
+      width: 290px;
+    }
+    #name {
+      @include name;
+    }
+    #family {
+      @include family;
+    }
+    .name::v-deep {
+      @include name;
+    }
+    .family::v-deep {
+      @include family;
     }
   }
 }
@@ -619,9 +638,7 @@ export default {
       flex-direction: row-reverse;
       flex-wrap: wrap;
       justify-content: space-between;
-      /* border: 1px solid red; */
       margin-top: 50px;
-      /* height: 500px; */
       min-width: 100%;
       &-name,
       &-email,
@@ -631,7 +648,7 @@ export default {
       &-pass {
         width: 100%;
         height: 90px;
-        margin: 0 100px 24px 100px;
+        margin: 0 0 24px 0;
       }
       &-phone {
         order: 1;
@@ -665,7 +682,7 @@ export default {
       }
     }
     &__container {
-      padding: 0;
+      padding: toRem(20);
     }
     &__btn {
       font-size: 16px;
@@ -674,7 +691,8 @@ export default {
       font-weight: 500;
       width: 100%;
       &-holder {
-        padding: 0 200px;
+        padding: 0;
+        width: 100%;
       }
     }
     &__alert {
@@ -719,16 +737,6 @@ export default {
       font-size: 13px;
     }
   }
-
-  // #name,
-  // #family,
-  // &-nationalcode > input,
-  // &-pass > input,
-  // &-phone > input {
-  //   font-size: 13px;
-  //   height: 46px;
-  //   padding: 14px 16px;
-  // }
 }
 @media (max-width: 600px) {
   .user-profile__holder {
@@ -744,14 +752,10 @@ export default {
       &-pass {
         width: 100%;
         height: 90px;
-        margin: 0 24px 24px 24px;
+        margin: 0 0 24px 0;
       }
     }
-    &__btn {
-      &-holder {
-        padding: 0 11px;
-      }
-    }
+
     #name {
       width: 170px;
     }

@@ -21,7 +21,7 @@ export default {
   data() {
     return {
       pageNumber: 1,
-      length: 80,
+      length: 40,
       showedItemsLength: 9
     };
   },
@@ -84,6 +84,7 @@ export default {
 .pagination-container {
   width: 100%;
   margin-top: toRem(48);
+  margin-bottom: toRem(48);
   @extend .centered;
 
   ul {

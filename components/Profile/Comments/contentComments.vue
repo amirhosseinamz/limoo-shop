@@ -31,7 +31,7 @@
         <div
           class="flex-wrap w-100 p-comment-content-wrapper align-items-start"
         >
-          <div class="d-flex align-items-start w-100">
+          <div class="w-100">
             <div class="w-100 flex-wrap  p-comments-content-header ">
               <div class="p-comments__header-holder">
                 <NuxtLink class="p-comments__title" :to="'/product/' + data.id">
