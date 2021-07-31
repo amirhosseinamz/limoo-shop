@@ -47,6 +47,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+
   .sign-container {
     @extend .align-center;
 
@@ -77,6 +78,14 @@ export default {
       color: $gray;
       font-size: toRem(14);
       margin-right: toRem(10);
+    }
+  }
+  @media (max-width: 601px) {
+    .sign-container {
+      .sign-title {
+        font-size: toRem(13);
+        margin-right: toRem(5);
+      }
     }
   }
 </style>

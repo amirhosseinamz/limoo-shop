@@ -35,7 +35,7 @@
         {{ getTextByTextKey("support_request") }}
       </span>
     </div>
-    <div class="user-Ticket__empty-container" v-show="userTicket == 0">
+    <div class="user-Ticket__empty-container" v-show="userTicket === 0">
       <img
         src="/empty-pages/empty-ticket-list.svg"
         :alt="getTextByTextKey('support_empty')"
@@ -53,7 +53,7 @@
         <div
           class="flex-wrap w-100 p-ticketss-content-wrapper align-items-start"
         >
-          <div class="d-flex align-items-start w-100">
+          <div class="w-100">
             <div class="w-100 flex-wrap  p-tickets-content-header">
               <!-- ======================== -->
               <div class="ticket__title">
@@ -61,6 +61,7 @@
               </div>
               <!-- ----- -->
               <div class="p-tickets__state">
+
                 <base-signs type="confirmed" v-if="data.state === 'accepted'"></base-signs>
                 <base-signs type="waiting" v-if="data.state === 'acceptting'"></base-signs>
               </div>
@@ -417,8 +418,8 @@ export default {
     margin-bottom: toRem(10);
   }
   .p-tickets-content-header {
-    padding-right: toRem(8);
-    padding-left: toRem(8);
+    padding-right: toRem(16);
+    padding-left: toRem(16);
     min-height: toRem(55);
     height: fit-content;
     background: $white;
@@ -432,7 +433,7 @@ export default {
     padding: 0 toRem(11) toRem(18) toRem(11);
   }
   .p-tickets-content-data-btns {
-    padding-left: toRem(8);
+    padding-left: toRem(16);
     margin-bottom: 0;
     margin-top: toRem(35);
     height: toRem(63);

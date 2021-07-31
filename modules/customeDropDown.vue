@@ -361,6 +361,7 @@ export default {
 }
 .dropdown-active .p-birthday-select-box {
     display: flex !important;
+    z-index: 5;
 }
 .dropdown-active {
     border-bottom-left-radius: 0;
@@ -417,7 +418,6 @@ export default {
     display: flex;
 }
 .birthday-item-main {
-    // width: 91px;
     @include display-flex();
 }
 .dropdown-active .birthday-item__days {

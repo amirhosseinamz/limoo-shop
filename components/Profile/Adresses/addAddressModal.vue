@@ -155,29 +155,6 @@
             </span>
           </div>
 
-          <!-- <div
-            :class="{ 'p-modal-show_error': showErrorValidationCodePoste }"
-            class="p-modal-wrapper-item p-margin-left-0"
-          >
-            <h3
-              class="p-modal-wrapper-province_city-title p-modal-header-mobile"
-            >
-              {{ getTextByTextKey("address_mobile_postal_code") }}
-            </h3>
-            <h3
-              class="p-modal-wrapper-province_city-title p-modal-header-desktop"
-            >
-              {{ getTextByTextKey("address_postal_code") }}
-            </h3>
-            <input
-              @keyup="updateCodePoste"
-              v-model="formData.codePoste"
-              maxlength="10"
-              type="text"
-              class="p-modal-item-input p-input-style__default"
-            />
-            <span class="pass__alert ">{{ validationCodePosteMsg }}</span>
-          </div> -->
 
           <text-input
             class="p-modal-wrapper-item p-margin-left-0"
@@ -215,22 +192,6 @@
           >
           </text-input>
 
-          <!-- <div
-            :class="{ 'p-modal-show_error': showErrorValidationNameReceiver }"
-            class="p-modal-wrapper-item "
-          >
-            <h3 class="p-modal-wrapper-province_city-title">
-              {{ getTextByTextKey("address_recipient_name") }}
-            </h3>
-            <input
-              @keyup="updateNameReceiver"
-              v-model="formData.nameReceiver"
-              maxlength="34"
-              type="text"
-              class="p-modal-item-input p-input-style__default"
-            />
-            <span class="pass__alert ">{{ validationNameReceiverMsg }}</span>
-          </div> -->
 
           <text-input
             class="p-modal-wrapper-item"
@@ -267,24 +228,6 @@
           >
           </text-input>
 
-          <!-- <div
-            :class="{ 'p-modal-show_error': showErrorValidationNumberReceiver }"
-            class="p-modal-wrapper-item"
-          >
-            <h3 class="p-modal-wrapper-province_city-title">
-              {{ getTextByTextKey("address_recipient_number") }}
-            </h3>
-            <input
-              @keyup="UpdateNumberReceiver"
-              v-model="formData.numberReceiver"
-              maxlength="11"
-              type="text"
-              class="p-modal-item-input  p-input-style__default"
-            />
-            <span class="pass__alert ">{{
-              errorValidationNumberReceiverMsg
-            }}</span>
-          </div> -->
 
           <text-input
             class="p-modal-wrapper-item"
@@ -527,21 +470,32 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.p-modal-wrapper-item::v-deep {
+  .birthday-item-main {
+    width: toRem(175);
+  }
+}
+.birthday-item-main::v-deep {
+  &.p-modal-select-box-province_city {
+    width: toRem(175)!important;
+  }
+}
+
 @mixin p-modal-wrapper-province_city-title() {
   font-family: inherit;
-  font-size: 16px;
+  font-size: toRem(16);
   font-weight: 500;
-  margin-bottom: 16px;
+  margin-bottom: toRem(16);
   color: $black;
   text-align: right;
-  padding-right: 7px;
+  padding-right: toRem(7);
   line-height: 140.62%;
 }
 @mixin pass__alert_style() {
-  margin-top: 4px;
+  margin-top: toRem(4);
   color: $alert-red;
   text-align: right;
-  font-size: 14px;
+  font-size: toRem(14);
   @include display-flex();
   width: 100%;
   text-align: right;
@@ -553,17 +507,17 @@ export default {
     @include p-modal-wrapper-province_city-title();
   }
   .search-section__items {
-    border: 1px solid $input-border;
-    box-shadow: 0px 4px 4px $gray-border;
-    border-radius: 15px;
-    height: 52px;
+    border: toRem(1) solid $input-border;
+    box-shadow: 0 toRem(4) toRem(4) $gray-border;
+    border-radius: toRem(15);
+    height: toRem(52);
   }
   .form__textara-item {
-    height: 52px;
+    height: toRem(52);
   }
   .search-section__input {
-    padding-right: 10px;
-    padding-left: 10px;
+    padding-right: toRem(10);
+    padding-left: toRem(10);
     color: $gray;
   }
   .search__section--error {
@@ -577,23 +531,23 @@ export default {
   @include display-flex();
   flex-direction: column;
   align-items: center;
-  width: 982px;
-  height: 623px;
+  width: toRem(982);
+  height: toRem(623);
   background: $white;
-  box-shadow: 0px 8px 16px $box__shadow;
+  box-shadow: 0 toRem(8) toRem(16) $box__shadow;
   border-radius: 15px;
   &__close-cross {
     align-self: flex-end;
-    width: 30px;
-    height: 30px;
-    margin-top: 24px;
-    margin-left: 24px;
+    width: toRem(30);
+    height: toRem(30);
+    margin-top: toRem(24);
+    margin-left: toRem(24);
     cursor: pointer;
   }
   &__close-line {
     display: none;
     align-self: center;
-    margin-top: 24px;
+    margin-top: toRem(24);
   }
   &__title {
     display: none;
@@ -604,20 +558,20 @@ export default {
     align-items: center;
   }
   .pass__holder {
-    height: 88px;
-    margin-bottom: 35px;
+    height: toRem(88);
+    margin-bottom: toRem(35);
     width: 45%;
     label {
-      font-size: 16px;
+      font-size: toRem(16);
       line-height: 140.62%;
       span {
         color: $red;
-        margin-right: 3px;
+        margin-right: toRem(3);
       }
     }
   }
   .pass__repeat {
-    margin-bottom: 42px;
+    margin-bottom: toRem(42);
   }
   .pass__old,
   .pass__new,
@@ -626,43 +580,41 @@ export default {
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    height: 52px;
+    height: toRem(52);
     flex-grow: 1;
     background: $white;
-    border: 1px solid $input-border;
+    border: toRem(1) solid $input-border;
     box-sizing: border-box;
-    box-shadow: 0px 4px 4px $gray-border;
-    border-radius: 15px;
-    margin-top: 15px;
+    box-shadow: 0 toRem(4) toRem(4) $gray-border;
+    border-radius: toRem(15);
+    margin-top: toRem(15);
   }
   .pass__old > input,
   .pass__new > input,
   .pass__new-repeat > input {
-    height: 52px;
+    height: toRem(52);
     flex-grow: 1;
     background: transparent;
-    /* border: 1px solid red; */
-    padding: 16px;
+    padding: toRem(16);
     line-height: 140.62%;
     border: none;
-    border-radius: 15px;
+    border-radius: toRem(15);
     font-family: inherit;
     outline: none;
-    /* letter-spacing: 5px; */
-    font-size: 16px;
+    font-size: toRem(16);
   }
   .pass__submitbtn {
     align-self: center;
-    margin-bottom: 40px;
-    height: 57px;
-    width: 270px;
+    margin-bottom: toRem(40);
+    height: toRem(57);
+    width: toRem(270);
     background: $btn__green;
     color: $white;
-    font-size: 18px;
+    font-size: toRem(18);
     font-family: inherit;
     line-height: 140.62%;
     text-align: center;
-    border-radius: 10px;
+    border-radius: toRem(10);
     cursor: pointer;
     outline: none;
     border: none;
@@ -691,15 +643,15 @@ export default {
   margin-left: 0;
 }
 .p-modal_wrapper {
-  padding-right: 191px;
-  padding-left: 191px;
+  padding-right: toRem(191);
+  padding-left: toRem(191);
   @include display-flex();
-  padding-top: 51px;
+  padding-top: toRem(51);
 }
 .p-modal-wrapper-item {
-  width: 175px;
-  margin-left: 37px;
-  margin-bottom: 11px;
+  width: toRem(175);
+  margin-left: toRem(27);
+  margin-bottom: toRem(11);
 }
 .p-modal-wrapper-item:last-of-type {
   margin-left: 0;
@@ -721,17 +673,17 @@ export default {
   @include display-flex();
 }
 .p-modal-header-icon-location {
-  width: 24px;
+  width: toRem(24);
 }
 .p-modal-header-top-title {
   color: $black;
-  font-size: 18px;
+  font-size: toRem(18);
   font-weight: 500;
-  margin-right: 11.5px;
+  margin-right: toRem(11.5);
 }
 .p-modal-header {
-  padding-right: 41px;
-  padding-left: 41px;
+  padding-right: toRem(41);
+  padding-left: toRem(41);
 }
 .p-modal-content {
   @include display-flex();
@@ -743,25 +695,25 @@ export default {
   width: 100%;
 }
 .p-modal-address {
-  margin-bottom: 19px;
+  margin-bottom: toRem(19);
 }
 .p-modal-header-line {
   width: 95%;
   margin-right: auto;
   margin-left: auto;
-  height: 1px;
+  height: toRem(1);
   background: $gray-border;
   @include display-flex();
-  margin-top: 2px;
+  margin-top: toRem(2);
 }
 .p-modal-header-top-main {
   @include display-flex();
   align-items: center;
-  padding-top: 20px;
-  padding-bottom: 11px;
+  padding-top: toRem(20);
+  padding-bottom: toRem(11);
 }
 .p-modal-btns {
-  padding-top: 49px;
+  padding-top: toRem(49);
 }
 .p-modal-show_error .pass__alert {
   visibility: inherit;
@@ -772,40 +724,45 @@ export default {
   }
 }
 .p-modal-show_error .p-modal-item-input {
-  border: solid 1px $red !important;
+  border: solid toRem(1) $red !important;
 }
 .p-favorite-product-btn-modal-delete {
-  font-size: 16px;
+  font-size: toRem(16);
 }
 .p-favorite-product-btn-modal-cancel {
-  font-size: 16px;
+  font-size: toRem(16);
 }
 .p-modal-validation-mobile {
   display: none !important;
 }
 .p-input-style__default:focus {
-  border: solid 1px $black;
+  border: solid toRem(1) $black;
 }
 .p-modal-header-close-icon::before {
-  font-size: 28px;
+  font-size: toRem(28);
 }
 .form__modal--address .card-body .form-group {
-  height: 95px;
+  height: toRem(95);
   background: red;
 }
 .p-product-btn {
-  width: 150px;
-  height: 47px;
+  width: toRem(150);
+  height: toRem(47);
   font-family: inherit;
   transition: all 120ms ease-in;
 }
 @media (max-width: 960px) {
+  .p-modal-wrapper-item::v-deep {
+    .birthday-item-main {
+      width: 100%;
+    }
+  }
   .modal-animation__open {
     animation: modalOpen 600ms linear;
   }
   @keyframes modalOpen {
     0% {
-      transform: translate(0, 579px);
+      transform: translate(0, toRem(579));
     }
     100% {
       transform: translate(0, 0);
@@ -819,18 +776,18 @@ export default {
       transform: translate(0, 0);
     }
     100% {
-      transform: translate(0, 579px);
+      transform: translate(0, toRem(579));
     }
   }
   .modal {
     align-self: flex-end;
     position: absolute;
     width: 100%;
-    height: 723px;
+    height: toRem(723);
     background: $white;
-    box-shadow: 0px 20px 24px $overlay__profile-mobile;
-    border-top-left-radius: 30px;
-    border-top-right-radius: 30px;
+    box-shadow: 0 toRem(20) toRem(24) $overlay__profile-mobile;
+    border-top-left-radius: toRem(30);
+    border-top-right-radius: toRem(30);
     border-bottom-left-radius: 0;
     border-bottom-right-radius: 0;
     &__close-cross {
@@ -839,25 +796,22 @@ export default {
     &__close-line {
       display: block;
       align-self: center;
-      margin-top: 24px;
+      margin-top: toRem(24);
     }
     &__title {
       display: block;
-      font-size: 14px;
+      font-size: toRem(14);
       line-height: 140.62%;
       color: $gray;
-      margin-top: 24px;
+      margin-top: toRem(24);
       text-align: right;
     }
-    /* form {
-            margin-top: 5px;
-        } */
     .pass__holder {
-      height: 80px;
+      height: toRem(80);
       width: 84vw;
-      margin-bottom: 35px;
+      margin-bottom: toRem(35);
       label {
-        font-size: 14px;
+        font-size: toRem(14);
       }
     }
 
@@ -865,21 +819,21 @@ export default {
     .pass__new,
     .pass__new-repeat {
       @include display-flex();
-      height: 46px;
+      height: toRem(46);
     }
     .pass__old > input,
     .pass__new > input,
     .pass__new-repeat > input {
-      height: 46px;
-      width: 200px;
+      height: toRem(46);
+      width: toRem(200);
     }
     .pass__submitbtn {
       width: 91vw;
-      margin-bottom: 47px;
+      margin-bottom: toRem(47);
     }
     @mixin pass__alert() {
-      font-size: 13px;
-      padding-right: 7px;
+      font-size: toRem(13);
+      padding-right: toRem(7);
     }
     .pass__alert {
       @include pass__alert();
@@ -891,16 +845,16 @@ export default {
     }
   }
   .clear-input > img {
-    width: 17px;
-    height: 15px;
+    width: toRem(17);
+    height: toRem(15);
   }
   .splicer-line {
     display: block;
     width: 95%;
     border: none;
-    margin: 16px 5px;
-    border-top: 1px solid $gray-border;
-    margin-bottom: 35px;
+    margin: toRem(16) toRem(5);
+    border-top: toRem(1) solid $gray-border;
+    margin-bottom: toRem(35);
   }
   .p-modal-header-mobile {
     display: flex;
@@ -910,7 +864,7 @@ export default {
     display: none;
   }
   @mixin p-modal-wrapper-province_city-title() {
-    font-size: 14px;
+    font-size: toRem(14);
   }
   .modal::v-deep {
     .p-modal-wrapper-province_city-title {
@@ -923,7 +877,7 @@ export default {
   .p-modal-wrapper-item {
     width: 43%;
     margin-left: 13%;
-    margin-bottom: 4px;
+    margin-bottom: toRem(4);
   }
   .p-modal-wrapper-item:nth-child(2n) {
     margin-left: 0;
@@ -935,35 +889,44 @@ export default {
     width: 100%;
   }
   .p-modal_wrapper {
-    padding-right: 32px;
-    padding-left: 32px;
-    padding-top: 24px;
+    padding-right: toRem(32);
+    padding-left: toRem(32);
+    padding-top: toRem(24);
   }
   .splicer-line {
     margin-bottom: 0;
     margin-top: 20px;
   }
   .p-modal-header-icon-location {
-    width: 19px;
+    width: toRem(19);
   }
   .p-modal-header-top-title {
-    font-size: 14px;
+    font-size: toRem(14);
     color: $gray;
   }
   .p-modal-header-top {
-    padding-top: 32px;
+    padding-top: toRem(32);
   }
   .p-modal-btns {
-    padding-top: 55px;
+    padding-top: toRem(55);
   }
 }
 
 @media (max-width: 540px) {
   .modal {
-    height: 688px;
+    height: toRem(688);
   }
   .p-modal-btns {
-    padding-top: 25px;
+    padding-top: toRem(25);
+  }
+  .p-modal-wrapper-item {
+    width: 100%;
+    margin-left: 0;
+    margin-bottom: toRem(4);
+  }
+
+  .p-modal-wrapper-item:nth-child(3n) {
+    margin-left: 0;
   }
 }
 
@@ -979,20 +942,20 @@ export default {
     margin-left: 0;
   }
   .p-modal-btns {
-    padding-top: 9px;
+    padding-top: toRem(9);
   }
   .modal {
-    height: 617px;
+    height: toRem(617);
   }
   .p-modal-address {
-    margin-bottom: 6px;
+    margin-bottom: toRem(6);
   }
   .p-modal_wrapper {
-    padding-right: 29px;
-    padding-left: 29px;
+    padding-right: toRem(29);
+    padding-left: toRem(29);
   }
   @mixin pass__alert() {
-    height: 20px;
+    height: toRem(20);
   }
   .modal .pass__alert {
     @include pass__alert();
@@ -1006,24 +969,24 @@ export default {
     }
   }
   .splicer-line {
-    margin-top: 16px;
+    margin-top: toRem(16);
   }
   .p-modal-header-top {
-    padding-top: 33px;
+    padding-top: toRem(33);
   }
   .p-input-style__default {
-    height: 46px;
+    height: toRem(46);
   }
   #form__modal--main::v-deep {
     .search-section__items {
-      height: 46px !important;
+      height: toRem(46) !important;
     }
   }
   .p-modal-wrapper-item {
     margin-bottom: 0;
   }
   .modal__close-line {
-    margin-top: 21px;
+    margin-top: toRem(21);
   }
   .p-modal-validation-mobile {
     display: flex !important;
@@ -1057,44 +1020,44 @@ export default {
     }
   }
   .modal {
-    height: 470px;
+    height: toRem(470);
     &__close-line {
-      margin-top: 20px;
+      margin-top: toRem(20);
     }
     &__title {
-      margin-top: 20px;
+      margin-top: toRem(20);
     }
     .pass__holder {
-      height: 70px;
+      height: toRem(70);
       width: 84vw;
-      margin-bottom: 25px;
+      margin-bottom: toRem(25);
       label {
-        font-size: 13px;
+        font-size: toRem(13);
       }
     }
     .pass__old,
     .pass__new,
     .pass__new-repeat {
       @include display-flex();
-      height: 40px;
+      height: toRem(40);
     }
     .pass__old > input,
     .pass__new > input,
     .pass__new-repeat > input {
-      height: 40px;
-      width: 200px;
+      height: toRem(40);
+      width: toRem(200);
     }
     .pass__submitbtn {
       width: 91vw;
-      margin-bottom: 37px;
-      margin-top: 15px;
+      margin-bottom: toRem(37);
+      margin-top: toRem(15);
     }
   }
   .splicer-line {
-    margin-bottom: 17px;
+    margin-bottom: toRem(17);
   }
   @mixin pass__alert_style() {
-    font-size: 11px;
+    font-size: toRem(11);
   }
   .modal .pass__alert {
     @include pass__alert_style();
@@ -1106,23 +1069,23 @@ export default {
   }
 
   .splicer-line {
-    margin-bottom: 10px;
-    margin-top: 10px;
+    margin-bottom: toRem(10);
+    margin-top: toRem(10);
   }
   .modal {
-    height: 536px;
+    height: toRem(536);
   }
   .p-modal_wrapper {
     padding-top: 0;
   }
   .p-modal-header-top {
-    padding-top: 16px;
+    padding-top: toRem(16);
   }
   .p-modal-btns {
-    padding-top: 9px;
+    padding-top: toRem(9);
   }
   @mixin p-modal-wrapper-province_city-title() {
-    margin-bottom: 8px;
+    margin-bottom: toRem(8);
   }
   .modal::v-deep {
     .p-modal-wrapper-province_city-title {
@@ -1133,32 +1096,32 @@ export default {
     margin-bottom: 0;
   }
   .p-modal-wrapper-item {
-    margin-bottom: 1px;
+    margin-bottom: toRem(1);
   }
 }
 
 @media screen and (max-width: 280px) {
   .modal {
-    height: 617px;
+    height: toRem(617);
   }
   .p-favorite-product-btn-modal-delete {
     margin-left: 3%;
   }
   .p-modal_wrapper {
-    padding-top: 24px;
+    padding-top: toRem(24);
   }
   .splicer-line {
-    margin-top: 17px;
-    margin-bottom: 0px;
+    margin-top: toRem(17);
+    margin-bottom: 0;
   }
   @mixin p-modal-wrapper-province_city-title() {
-    margin-bottom: 16px;
+    margin-bottom: toRem(16);
   }
   @mixin p-modal-wrapper-item() {
-    margin-bottom: 6px;
+    margin-bottom: toRem(6);
   }
   .p-modal-wrapper-item {
-    margin-bottom: 6px;
+    margin-bottom: toRem(6);
   }
   .p-modal-wrapper-province_city-title {
     @include p-modal-wrapper-province_city-title();

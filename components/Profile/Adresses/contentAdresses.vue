@@ -35,7 +35,7 @@
         <div
           class="flex-wrap w-100 p-adresses-content-wrapper align-items-start"
         >
-          <div class="d-flex align-items-start w-100">
+          <div class="w-100">
             <div
               class="w-100 flex-wrap  p-adresses-content-header align-items-center"
             >
@@ -413,8 +413,8 @@ export default {
   color: $gray;
 }
 .p-product-btn {
-  width: 150px;
-  height: 47px;
+  width: 150px!important;
+  height: 47px!important;
   font-family: inherit;
   transition: all 120ms ease-in;
 }

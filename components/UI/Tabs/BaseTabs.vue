@@ -99,7 +99,7 @@ export default {
             position: absolute;
             width: 100%;
             height: toRem(5);
-            bottom: 0;
+            bottom: toRem(-1);
             left: 0;
             background-color: #ffcc40;
             border-top-right-radius: toRem(5);

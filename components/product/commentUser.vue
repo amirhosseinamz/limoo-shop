@@ -1,5 +1,6 @@
 <template>
   <div
+    ref="contentMain"
     class="p-comments-content-main w-100 flex-column flex-wrap  d-rtl tabs__content"
   >
     <div class="w-100">
@@ -30,7 +31,7 @@
           <div
             class="flex-wrap w-100 p-comment-content-wrapper align-items-start"
           >
-            <div class="d-flex align-items-start w-100">
+            <div class="w-100">
               <div class="w-100 flex-wrap  p-comments-content-header ">
                 <div class="p-comments__header-holder">
                   <div class="p-comments__title">
@@ -140,7 +141,8 @@
             <span class="comment-more__icon"></span>
           </div>
         </div>
-        <paganation @last-update-page="lastUpdatePage"></paganation>
+<!--        <paganation @last-update-page="lastUpdatePage"></paganation>-->
+        <base-pagination class="comment-pagination" @pageChanged="pageChanged"></base-pagination>
       </div>
     </div>
 
@@ -226,9 +228,8 @@ export default {
       this.dataEditAddress = {};
       this.passChangeIsActive = false;
     },
-
-    lastUpdatePage(data) {
-      this.$emit("more-comment", data);
+    pageChanged () {
+      this.$refs.contentMain.scrollIntoView({ behavior: "smooth" });
     },
 
     moreCommentMobile() {
@@ -664,6 +665,14 @@ export default {
   .p-commentedproduct-description {
     font-size: 14px;
   }
+  .comment-pagination::v-deep {
+    .right-arrow,
+    .left-arrow,
+    .pagination-items {
+      width: toRem(40);
+      height: toRem(40);
+    }
+  }
 }
 
 @media (max-width: 760px) {
@@ -690,6 +699,11 @@ export default {
 @media (max-width: 600px) {
   .comment_more {
     @include display-flex();
+  }
+  .comment-pagination::v-deep {
+    &.pagination-container {
+      display: none;
+    }
   }
   .user-comments__empty-container {
     height: 252px;
