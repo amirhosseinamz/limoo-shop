@@ -1,10 +1,10 @@
 <template>
-  <modal
-    id="modal-sort"
-    class="modal-sort d-rtl"
-    size="800px"
-    :show.sync="show"
-    :footer="false"
+  <base-modal
+    class="modal-container d-rtl"
+    modal-class="modal"
+    :show-modal="show"
+    mode="scale"
+    backdropClass="backdrop"
   >
     <div class="modal-sort__main">
       <div class="modal-sort__close-item w-100">
@@ -28,29 +28,28 @@
 
       <div class="w-100 modal-filter__btn">
         <div class="modal-filter__line"></div>
-          <base-button
-            @button-clicked="submitModal"
-            classes="p-product-btn"
-            base-color="yellow"
-            no-box-shadow
-          >
+        <base-button
+          @button-clicked="submitModal"
+          classes="p-product-btn"
+          base-color="yellow"
+          no-box-shadow
+        >
           {{ getTextByTextKey("category_btn_submit_change") }}
         </base-button>
-          <base-button
-            @button-clicked="modalClose"
-            classes="modal-cancel"
-            no-box-shadow
-            base-color="light-gray"
-          >
+        <base-button
+          @button-clicked="modalClose"
+          classes="modal-cancel"
+          no-box-shadow
+          base-color="light-gray"
+        >
           {{ getTextByTextKey("category_submit_cancelle") }}
         </base-button>
       </div>
     </div>
-  </modal>
+  </base-modal>
 </template>
 
 <script>
-import "~/assets/styles/_modal_filter_category.scss";
 import sortBox from "./sortBox";
 import { getTextByTextKey } from "~/modules/splitPartJsonResource.js";
 
@@ -148,142 +147,169 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.modal-sort__main {
-  width: 100%;
-  @include display-flex();
-  flex-wrap: wrap;
-  align-items: flex-start;
-  padding-top: toRem(30);
+.modal-container::v-deep {
+  .backdrop {
+    background-color: rgba(81,81,81,.6)!important;
+  }
+  .modal {
+    max-width: toRem(466);
+    .modal-sort__main {
+      width: 100%;
+      @include display-flex();
+      flex-wrap: wrap;
+      align-items: flex-start;
+      padding-top: toRem(30);
+    }
+    .modal-filter__item {
+      width: 100%;
+      @include display-flex();
+      flex-wrap: wrap;
+      align-items: center;
+    }
+    .modal-filter__item-title {
+      font-size: toRem(18);
+      font-weight: 300;
+      color: $black;
+    }
+    .modal-filter__item-close::before {
+      font-size: toRem(31);
+    }
+    .modal-sort__close-item {
+      @include display-flex();
+      align-items: flex-start;
+      padding-right: toRem(15);
+      padding-left: toRem(15);
+      flex-flow: column;
+    }
+    .modal-filter__item-left {
+      flex-grow: 1;
+      @include display-flex();
+      justify-content: flex-end;
+    }
+    .modal-filter__line {
+      height: toRem(1);
+      width: 100%;
+      @include display-flex();
+      margin-top: toRem(18);
+      margin-bottom: toRem(18);
+      background: $flash_white;
+    }
+    .p-product-btn {
+      font-family: inherit;
+      width: toRem(130);
+      height: toRem(47);
+      margin-left: 1.5rem;
+    }
+    .modal-cancel {
+      width: toRem(130);
+      height: toRem(47);
+      margin-left: 0;
+      font-family: inherit;
+    }
+    .modal-filter__btn {
+      padding-bottom: toRem(18);
+      @extend .justify-center;
+      flex-wrap: wrap;
+    }
+    .modal-sort__content {
+      margin-top: toRem(28);
+      margin-bottom: toRem(28);
+      @extend .align-center;
+      flex-wrap: wrap;
+    }
+    .remove--margin {
+      margin-bottom: 0;
+      margin-top: toRem(10);
+    }
+  }
 }
-.modal-filter__item {
-  width: 100%;
-  @include display-flex();
-  flex-wrap: wrap;
-  align-items: center;
-}
-.modal-filter__item-title {
-  font-size: toRem(18);
-  font-weight: 300;
-  color: $black;
-}
-.modal-filter__item-close::before {
-  font-size: toRem(31);
-}
-.modal-sort__close-item {
-  @include display-flex();
-  align-items: flex-start;
-  padding-right: toRem(15);
-  padding-left: toRem(15);
-  flex-flow: column;
-}
-.modal-filter__item-left {
-  flex-grow: 1;
-  @include display-flex();
-  justify-content: flex-end;
-}
-.modal-filter__line {
-  height: toRem(1);
-  width: 100%;
-  @include display-flex();
-  margin-top: toRem(18);
-  margin-bottom: toRem(18);
-  background: $flash_white;
-}
-.p-product-btn {
-  font-family: inherit;
-  width: toRem(130);
-  height: toRem(47);
-  margin-left: 1.5rem;
-}
-.modal-cancel {
-  width: toRem(130);
-  height: toRem(47);
-  margin-left: 0;
-  font-family: inherit;
-}
-.modal-filter__btn {
-  padding-bottom: toRem(18);
-  justify-content: center;
-  @include display-flex();
-  justify-content: center;
-  flex-wrap: wrap;
-}
-.modal-sort__content {
-  margin-top: toRem(54);
-  margin-bottom: toRem(54);
-  @include display-flex();
-  align-items: flex-start;
-}
-.remove--margin {
-  margin-bottom: 0;
-  margin-top: toRem(10);
-}
+
 
 @media (max-width: 768px) {
 }
 
 @media (max-width: 485px) {
-  .modal-filter__item-title {
-    font-size: toRem(14);
-    align-items: flex-start;
+  .modal-container::v-deep {
+    .modal {
+      max-width: 90%;
+      width: 100%;
+      .backdrop {
+        background-color: rgba(196, 196, 196, 0.8);
+      }
+      .modal-filter__item-title {
+        font-size: toRem(14);
+        align-items: flex-start;
+      }
+      .modal-filter__filter-tools {
+        margin-top: 0;
+      }
+      .modal-cancel {
+        font-size: toRem(14);
+      }
+      .p-product-btn {
+        font-size: toRem(14);
+      }
+      .modal-filter__item-close::before {
+        // content: "\e801";
+        // @include font-icon__limoo();
+        font-size: toRem(24);
+      }
+      .modal-filter__line {
+        margin-top: toRem(12);
+      }
+      .modal-sort__content {
+        margin-top: toRem(25);
+        margin-bottom: toRem(16);
+      }
+      .remove--margin {
+        margin-top: toRem(23);
+      }
+      .modal-filter__btn {
+        margin-top: 0;
+        padding-bottom: toRem(18);
+      }
+      .p-product-btn {
+        margin-left: 4%;
+      }
+      .modal-sort__close-item {
+        padding-right: 0;
+        padding-left: 0;
+      }
+      .modal-filter__item {
+        padding-right: toRem(15);
+        padding-left: toRem(15);
+      }
+    }
   }
-  .modal-filter__filter-tools {
-    margin-top: 0;
-  }
-  .modal-cancel {
-    font-size: toRem(14);
-  }
-  .p-product-btn {
-    font-size: toRem(14);
-  }
-  .modal-filter__item-close::before {
-    // content: "\e801";
-    // @include font-icon__limoo();
-    font-size: toRem(24);
-  }
-  .modal-filter__line {
-    margin-top: toRem(12);
-  }
-  .modal-sort__content {
-    margin-top: toRem(25);
-    margin-bottom: toRem(16);
-  }
-  .remove--margin {
-    margin-top: toRem(23);
-  }
-  .modal-filter__btn {
-    margin-top: 0;
-    padding-bottom: toRem(18);
-  }
-  .p-product-btn {
-    margin-left: 4%;
-  }
-  .modal-sort__close-item {
-    padding-right: 0;
-    padding-left: 0;
-  }
-  .modal-filter__item {
-    padding-right: toRem(15);
-    padding-left: toRem(15);
-  }
+
 }
 
 @media (max-width: 330px) {
   // .modal-filter__item-close::before{
   //   font-size: 17px;
   // }
-  .p-product-btn {
-    width: 36%;
-    margin-left: 7%;
+  .modal-container::v-deep {
+    .modal {
+      .p-product-btn {
+        width: 36%;
+        margin-left: 7%;
+      }
+      .modal-cancel {
+        width: 36%;
+      }
+    }
   }
-  .modal-cancel {
-    width: 36%;
-  }
+
 }
 
 @media (max-width: 320px) {
-  .p-product-btn {
-    width: 45%;
+  .modal-container::v-deep {
+    .modal {
+      .p-product-btn {
+        width: 45%;
+      }
+    }
   }
+
 }
 </style>

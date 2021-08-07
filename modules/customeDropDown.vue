@@ -418,6 +418,7 @@ export default {
     display: flex;
 }
 .birthday-item-main {
+    width: 100%;
     @include display-flex();
 }
 .dropdown-active .birthday-item__days {

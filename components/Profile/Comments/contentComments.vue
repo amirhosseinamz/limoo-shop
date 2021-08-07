@@ -120,16 +120,16 @@
                       mode="secondary-outline"
                       classes="p-product-btn p-comment-content-btn-edit"
                     >
-                    <span
-                      class="p-favorite-product-btn-link p-comment-content-item-desktop"
-                    >
-                      {{ getTextByTextKey("public_edit") }}
-                    </span>
+                      <span
+                        class="p-favorite-product-btn-link p-comment-content-item-desktop"
+                      >
+                        {{ getTextByTextKey("public_edit") }}
+                      </span>
 
-                    <span
-                      class="p-favorite-product-btn-link p-comment-content-item-mobile "
-                    >
-                    </span>
+                      <span
+                        class="p-favorite-product-btn-link p-comment-content-item-mobile "
+                      >
+                      </span>
                     </base-button>
                     <base-button
                       @button-clicked="showModalDeleteProduct(data)"
@@ -200,23 +200,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-#overlay {
-  position: fixed; /* Sit on top of the page content */
-  @include display-flex();
-  justify-content: center;
-  align-items: center;
-  width: 100%; /* Full width (cover the whole page) */
-  height: 100%; /* Full height (cover the whole page) */
-  /* transition: opacity 200ms ease-out; */
-  /* top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0; */
-  z-index: 1;
-  background: $overlay__profile;
-  top: 0;
-  right: 0;
-}
 .user-comments__empty-container {
   @include display-flex();
   flex-direction: column;

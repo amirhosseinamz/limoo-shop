@@ -1,39 +1,38 @@
 <template>
-    <modal
-        id="p-profile-favorite-modal"
-        class="p-profile-favorite-modal d-rtl"
-        size="800px"
-        :show.sync="show"
-        :footer="false"
+  <base-modal
+    modal-class="p-profile-favorite-modal d-rtl"
+    :show-modal="show"
+    closable-from-backdrop
+    @close-from-backdrop="modalClose"
+  >
+    <div
+      class="w-100 p-profile-favorite-wrapper flex-wrap align-items-start flex-column "
     >
+      <h3 class="p-profile-favorite-title w-100 justify-content-center">
+        برای حذف مطمعن هستید؟
+      </h3>
 
-        <div
-            class="w-100 p-profile-favorite-wrapper flex-wrap align-items-start flex-column "
+      <div class="p-profile-favorite-btns w-100 justify-content-center">
+        <base-button
+          @button-clicked="deleteItem"
+          classes="p-product-btn p-favorite-product-btn-modal-delete"
+          base-color="yellow"
+          no-box-shadow
         >
-            <h3 class="p-profile-favorite-title w-100 justify-content-center">
-                برای حذف مطمعن هستید؟
-            </h3>
+          حذف
+        </base-button>
+        <base-button
+          @button-clicked="modalClose"
+          classes="p-product-btn p-favorite-product-btn-modal-cancel"
+          no-box-shadow
+          base-color="light-gray"
+        >
+          انصراف
+        </base-button>
+      </div>
+    </div>
+  </base-modal>
 
-            <div class="p-profile-favorite-btns w-100 justify-content-center">
-                  <base-button
-                    @button-clicked="deleteItem"
-                    classes="p-product-btn p-favorite-product-btn-modal-delete"
-                    base-color="yellow"
-                    no-box-shadow
-                  >
-                    حذف
-                </base-button>
-                  <base-button
-                    @button-clicked="modalClose"
-                    classes="p-product-btn p-favorite-product-btn-modal-cancel"
-                    no-box-shadow
-                    base-color="light-gray"
-                  >
-                    انصراف
-                </base-button>
-            </div>
-        </div>
-    </modal>
 </template>
 
 <script>

@@ -1,24 +1,23 @@
 <template>
   <div class="p-tickets-content-main w-100 flex-column flex-wrap  d-rtl">
     <transition moda="in-out">
-      <div id="overlay" v-if="passChangeIsActive">
         <add-ticket-modal
           :form-data-original="formData"
           :data-edit-ticket="dataEditTicket"
           @submit-ticket-add="submitTicketAdd"
           @close-modal="closeModal"
+          :show-add-modal="showAddModal"
+          :show-edit-modal="showEditModal"
         />
-      </div>
     </transition>
     <transition moda="in-out">
-      <div id="ansoverlay" v-if="sendAnswerToTicket">
         <send-ans-ticket-modal
           :form-data-original="formData"
           :data-edit-ticket="dataEditTicket"
           @submit-ticket-add="submitTicketAdd"
           @close-modal="closeModal"
+          :show-ans-modal="showAnsModal"
         />
-      </div>
     </transition>
     <div class="w-100 flex-wrap p-tickets-content-btn-add-main">
       <base-button
@@ -132,10 +131,12 @@ export default {
   },
   data() {
     return {
-      passChangeIsActive: false,
       sendAnswerToTicket: false,
       dataEditTicket: {},
       userTicket: -1,
+      showAddModal: false,
+      showEditModal: false,
+      showAnsModal: false
     };
   },
   computed: {},
@@ -151,7 +152,7 @@ export default {
 
     addTicket() {
       this.dataEditTicket = {};
-      this.passChangeIsActive = !this.passChangeIsActive;
+      this.showAddModal = !this.showAddModal;
     },
 
     selectedProvince(data) {
@@ -171,22 +172,25 @@ export default {
       } else {
         stateEditAdd = "edit";
       }
-
-      this.passChangeIsActive = false;
+      this.showAddModal = false;
+      this.showEditModal = false;
       this.$emit("submit-ticket-add", data, stateEditAdd);
     },
 
     closeModal() {
       this.dataEditTicket = {};
-      this.passChangeIsActive = false;
+      this.showAddModal = false;
+      this.showEditModal = false;
+      this.showAnsModal = false;
       this.sendAnswerToTicket = false;
     },
 
     editTicket(data) {
       this.dataEditTicket = data;
-      this.passChangeIsActive = true;
+      this.showEditModal = true;
     },
     sendAnswer(data) {
+      this.showAnsModal = true;
       this.sendAnswerToTicket = true;
     },
   },
@@ -194,24 +198,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-#overlay,
-#ansoverlay {
-  position: fixed; /* Sit on top of the page content */
-  @include display-flex();
-  justify-content: center;
-  align-items: center;
-  width: 100%; /* Full width (cover the whole page) */
-  height: 100%; /* Full height (cover the whole page) */
-  /* transition: opacity 200ms ease-out; */
-  /* top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0; */
-  z-index: 10;
-  background: $overlay__profile;
-  top: 0;
-  right: 0;
-}
 .user-Ticket__empty-container {
   @include display-flex();
   flex-direction: column;
@@ -219,7 +205,6 @@ export default {
   height: toRem(220);
   background: $white;
   border-radius: toRem(10);
-  /* border: 1px solid red; */
 }
 .user-Ticket__empty-container img {
   opacity: 1;

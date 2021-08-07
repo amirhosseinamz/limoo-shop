@@ -1,10 +1,9 @@
 <template>
-  <modal
-    id="p-profile-favorite-modal"
-    class="p-profile-favorite-modal d-rtl"
-    size="800px"
-    :show.sync="show"
-    :footer="false"
+  <base-modal
+    modal-class="p-profile-favorite-modal d-rtl"
+    :show-modal="show"
+    closable-from-backdrop
+    @close-from-backdrop="modalClose"
   >
     <div
       class="w-100 p-profile-favorite-wrapper flex-wrap align-items-start flex-column "
@@ -14,25 +13,25 @@
       </h3>
 
       <div class="p-profile-favorite-btns w-100 justify-content-center">
-          <base-button
-            @button-clicked="deleteItem"
-            classes="p-product-btn p-favorite-product-btn-modal-delete"
-            base-color="yellow"
-            no-box-shadow
-          >
+        <base-button
+          @button-clicked="deleteItem"
+          classes="p-product-btn p-favorite-product-btn-modal-delete"
+          base-color="yellow"
+          no-box-shadow
+        >
           {{ getTextByTextKey("public_delete") }}
         </base-button>
-          <base-button
-            @button-clicked="modalClose"
-            classes="p-product-btn p-favorite-product-btn-modal-cancel"
-            no-box-shadow
-            base-color="light-gray"
-          >
+        <base-button
+          @button-clicked="modalClose"
+          classes="p-product-btn p-favorite-product-btn-modal-cancel"
+          no-box-shadow
+          base-color="light-gray"
+        >
           {{ getTextByTextKey("public_cancel") }}
         </base-button>
       </div>
     </div>
-  </modal>
+  </base-modal>
 </template>
 
 <script>

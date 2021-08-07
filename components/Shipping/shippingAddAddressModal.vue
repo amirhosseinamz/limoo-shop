@@ -1,9 +1,12 @@
 <template>
-  <div
-    class="modal modal-animation__open"
-    :class="{ 'modal-animation__close': modalClose }"
-    dir="rtl"
+  <base-modal
+    class="modal-container"
+    :show-modal="showModal"
+    :mode="modalMode"
+    modal-class="modal"
+    @phone-modal-closed="closeModalMobile"
   >
+
     <div class="w-100 p-modal-header">
       <div class="w-100 p-modal-header-mobile">
         <div class="w-100 d-flex justify-content-center p-modal-header-icon">
@@ -11,11 +14,6 @@
             @click="closeModalDesktop"
             class="modal__close-cross"
             src="/icons/close.svg"
-          />
-          <img
-            @click="closeModalMobile"
-            class="modal__close-line"
-            src="/icons/line.svg"
           />
         </div>
 
@@ -62,22 +60,6 @@
       class="w-100 p-modal_wrapper align-items-start"
     >
       <div class="p-modal-content w-100 align-items-start flex-wrap">
-        <!-- <div
-          :class="{ 'p-modal-show_error': showErrorValidationAddress }"
-          class="w-100 p-modal-address"
-        >
-          <h3 class="p-modal-wrapper-province_city-title">
-            {{ getTextByTextKey("address_exact_postal_address") }}
-          </h3>
-          <input
-            maxlength="65"
-            @keyup="updateAddress"
-            v-model="formData.address"
-            type="text"
-            class="p-modal-address-input p-input-style__default "
-          />
-          <span class="pass__alert ">{{ errorValidationNumberAddress }}</span>
-        </div> -->
 
         <text-input
           labelNameClass="p-modal-wrapper-province_city-title"
@@ -155,30 +137,6 @@
             </span>
           </div>
 
-          <!-- <div
-            :class="{ 'p-modal-show_error': showErrorValidationCodePoste }"
-            class="p-modal-wrapper-item p-margin-left-0"
-          >
-            <h3
-              class="p-modal-wrapper-province_city-title p-modal-header-mobile"
-            >
-              {{ getTextByTextKey("address_mobile_postal_code") }}
-            </h3>
-            <h3
-              class="p-modal-wrapper-province_city-title p-modal-header-desktop"
-            >
-              {{ getTextByTextKey("address_postal_code") }}
-            </h3>
-            <input
-              @keyup="updateCodePoste"
-              v-model="formData.codePoste"
-              maxlength="10"
-              type="text"
-              class="p-modal-item-input p-input-style__default"
-            />
-            <span class="pass__alert ">{{ validationCodePosteMsg }}</span>
-          </div> -->
-
           <text-input
             class="p-modal-wrapper-item p-margin-left-0"
             labelNameClass="p-modal-wrapper-province_city-title"
@@ -215,23 +173,6 @@
           >
           </text-input>
 
-          <!-- <div
-            :class="{ 'p-modal-show_error': showErrorValidationNameReceiver }"
-            class="p-modal-wrapper-item "
-          >
-            <h3 class="p-modal-wrapper-province_city-title">
-              {{ getTextByTextKey("address_recipient_name") }}
-            </h3>
-            <input
-              @keyup="updateNameReceiver"
-              v-model="formData.nameReceiver"
-              maxlength="34"
-              type="text"
-              class="p-modal-item-input p-input-style__default"
-            />
-            <span class="pass__alert ">{{ validationNameReceiverMsg }}</span>
-          </div> -->
-
           <text-input
             class="p-modal-wrapper-item"
             labelNameClass="p-modal-wrapper-province_city-title"
@@ -266,25 +207,6 @@
             label-text="نام گیرنده:"
           >
           </text-input>
-
-          <!-- <div
-            :class="{ 'p-modal-show_error': showErrorValidationNumberReceiver }"
-            class="p-modal-wrapper-item"
-          >
-            <h3 class="p-modal-wrapper-province_city-title">
-              {{ getTextByTextKey("address_recipient_number") }}
-            </h3>
-            <input
-              @keyup="UpdateNumberReceiver"
-              v-model="formData.numberReceiver"
-              maxlength="11"
-              type="text"
-              class="p-modal-item-input  p-input-style__default"
-            />
-            <span class="pass__alert ">{{
-              errorValidationNumberReceiverMsg
-            }}</span>
-          </div> -->
 
           <text-input
             class="p-modal-wrapper-item"
@@ -326,26 +248,26 @@
       <div
         class="p-profile-favorite-btns w-100 justify-content-center p-modal-btns"
       >
-          <base-button
-            @button-clicked="submitAddressAdd"
-            classes="p-product-btn p-favorite-product-btn-modal-delete"
-            base-color="yellow"
-            no-box-shadow
-          >
+        <base-button
+          @button-clicked="submitAddressAdd"
+          classes="p-product-btn p-favorite-product-btn-modal-delete"
+          base-color="yellow"
+          no-box-shadow
+        >
           {{ getTextByTextKey("public_submit") }}
         </base-button>
 
-          <base-button
-            @button-clicked="closeModalMobile"
-            classes="p-product-btn p-favorite-product-btn-modal-cancel"
-            no-box-shadow
-            base-color="light-gray"
-          >
+        <base-button
+          @button-clicked="closeModalMobile"
+          classes="p-product-btn p-favorite-product-btn-modal-cancel"
+          no-box-shadow
+          base-color="light-gray"
+        >
           {{ getTextByTextKey("public_back") }}
         </base-button>
       </div>
     </form>
-  </div>
+  </base-modal>
 </template>
 <script>
 import customeDropDown from "~/modules/customeDropDown.vue";
@@ -356,6 +278,14 @@ import textInput from "~/modules/textInput";
 export default {
   props: {
     dataEditAddress: { type: Object, default: {} },
+    showAddModal: {
+      type: Boolean,
+      require: true
+    },
+    showEditModal: {
+      type: Boolean,
+      require: true
+    }
   },
   components: {
     customeDropDown,
@@ -374,30 +304,63 @@ export default {
       showErrorValidationProvince: false,
       checkInitialValidation: 0,
       textLabelCodePoste: "کد پستی (اختیاری):",
+      windowWidth: 0
     };
   },
   computed: {
-    allProvince () {
-      return this.$store.getters["shipping/shipping/allProvince"]
+
+    allProvince() {
+      return this.$store.getters["shipping/shipping/allProvince"];
     },
-    allCities () {
-      return this.$store.getters["shipping/shipping/allCities"]
+    allCities() {
+      return this.$store.getters["shipping/shipping/allCities"];
     },
-    formDataOriginal () {
-      return this.$store.getters["shipping/shipping/formData"]
+    formDataOriginal() {
+      return this.$store.getters["shipping/shipping/formData"];
     },
-    profilePhoneNumber () {
-      return this.$store.getters["shipping/shipping/profilePhoneNumber"]
+    profilePhoneNumber() {
+      return this.$store.getters["shipping/shipping/profilePhoneNumber"];
+    },
+    modalMode() {
+      if (this.windowWidth > 960) {
+        return "form";
+      } else {
+        return "phone";
+      }
+    },
+    showModal() {
+      return this.showAddModal || this.showEditModal;
     }
   },
   watch: {
-    dataEditAddress(data) {},
+    dataEditAddress(data) {
+    },
+    showEditModal(val) {
+      if (val) {
+        for (let key in this.dataEditAddress) {
+          this.formData[key] = this.dataEditAddress[key];
+        }
+        this.initialValueProvince = this.formData.province;
+        this.initialValueCity = this.formData.city;
+      }
+
+    },
+    showAddModal(val) {
+      if (val) {
+        const formDataOriginal = this.formDataOriginal;
+        for (let key in formDataOriginal) {
+          this.formData[key] = formDataOriginal[key];
+        }
+      }
+
+    }
   },
 
-  created() {
-    const width = window.innerWidth;
+  mounted() {
+    window.addEventListener('resize', this.handleResize);
+    this.handleResize();
     // پس از کلیک روی ویرایش آدرس کاندیشن زیر اجرا می شود //
-    if (typeof this.dataEditAddress.id != "undefined") {
+    if (typeof this.dataEditAddress.id !== "undefined") {
       for (let key in this.dataEditAddress) {
         this.formData[key] = this.dataEditAddress[key];
       }
@@ -409,8 +372,9 @@ export default {
         this.formData[key] = formDataOriginal[key];
       }
     }
+    debugger;
 
-    if (485 >= width) {
+    if (485 >= this.windowWidth) {
       this.textLabelCodePoste = "کد پستی";
     }
 
@@ -420,18 +384,18 @@ export default {
     this.detectedResizeBrowser();
   },
 
-  mounted() {},
-
   methods: {
     getTextByTextKey,
-
+    handleResize() {
+      this.windowWidth = window.innerWidth;
+    },
     setDefaultValidationMsg() {
       this.notValidMsg = this.getTextByTextKey("address_not_valid");
       this.overLimitMsg = this.getTextByTextKey(
-        "address_validation_over_limit"
+        "address_validation_over_limit",
       );
       this.onlyUseNumberMsg = this.getTextByTextKey(
-        "address_validation_required_number"
+        "address_validation_required_number",
       );
 
       this.errorValidationNumberReceiverMsg = this.onlyUseNumberMsg;
@@ -462,6 +426,25 @@ export default {
         this.showErrorValidationCity = true;
       } else {
         this.showErrorValidationCity = false;
+      }
+    },
+    showModalData() {
+      if (typeof this.dataEditAddress.id != "undefined") {
+        for (let key in this.dataEditAddress) {
+          this.formData[key] = this.dataEditAddress[key];
+        }
+        this.initialValueProvince = this.formData.province;
+        this.initialValueCity = this.formData.city;
+      } else {
+        const formDataOriginal = this.formDataOriginal;
+        for (let key in formDataOriginal) {
+          this.formData[key] = formDataOriginal[key];
+        }
+        console.log(this.formData);
+      }
+
+      if (485 >= this.windowWidth) {
+        this.textLabelCodePoste = "کد پستی";
       }
     },
 
@@ -505,7 +488,7 @@ export default {
     selectedProvince(value, allData) {
       // this.formData.province = value;
       // this.formData.selectedProvinceAllProperty = allData;
-      this.$store.dispatch('shipping/shipping/selectProvince', [value, allData])
+      this.$store.dispatch("shipping/shipping/selectProvince", [value, allData]);
       this.showErrorValidationProvince = false;
       this.$emit("selected-province", allData);
     },
@@ -513,7 +496,7 @@ export default {
     selectedCity(value, allData) {
       // this.formData.city = value;
       // this.formData.selectedCityAllProperty = allData;
-      this.$store.dispatch('shipping/shipping/selectProvince', [value, allData])
+      this.$store.dispatch("shipping/shipping/selectProvince", [value, allData]);
       this.showErrorValidationCity = false;
       this.$emit("selected-city", allData);
     },
@@ -530,7 +513,7 @@ export default {
             this.textLabelCodePoste = "کد پستی (اختیاری):";
           }
         },
-        true
+        true,
       );
     },
   },
@@ -540,583 +523,594 @@ export default {
 <style lang="scss" scoped>
 @mixin p-modal-wrapper-province_city-title() {
   font-family: inherit;
-  font-size: 16px;
+  font-size: toRem(16);
   font-weight: 500;
-  margin-bottom: 16px;
+  margin-bottom: toRem(16);
   color: $black;
   text-align: right;
-  padding-right: 7px;
+  padding-right: toRem(7);
   line-height: 140.62%;
 }
+
 @mixin pass__alert_style() {
-  margin-top: 4px;
+  margin-top: toRem(4);
   color: $alert-red;
-  text-align: right;
-  font-size: 14px;
+  font-size: toRem(14);
   @include display-flex();
   width: 100%;
   text-align: right;
   visibility: hidden;
 }
+
+.p-modal-select-box-province_city::v-deep {
+  .birthday-item-main {
+    width: 100%;
+  }
+}
+
 // custome input //
-.modal::v-deep {
-  .p-modal-wrapper-province_city-title {
-    @include p-modal-wrapper-province_city-title();
-  }
-  .search-section__items {
-    border: 1px solid $input-border;
-    box-shadow: 0px 4px 4px $gray-border;
-    border-radius: 15px;
-    height: 52px;
-  }
-  .form__textara-item {
-    height: 52px;
-  }
-  .search-section__input {
-    padding-right: 10px;
-    padding-left: 10px;
-    color: $gray;
-  }
-  .search__section--error {
-    margin-bottom: 0;
-  }
-}
-.p-modal-header-icon {
-  @include display-flex();
-}
-.modal {
-  @include display-flex();
-  flex-direction: column;
-  align-items: center;
-  width: 982px;
-  height: 623px;
-  background: $white;
-  box-shadow: 0px 8px 16px $box__shadow;
-  border-radius: 15px;
-  &__close-cross {
-    align-self: flex-end;
-    width: 30px;
-    height: 30px;
-    margin-top: 24px;
-    margin-left: 24px;
-    cursor: pointer;
-  }
-  &__close-line {
-    display: none;
-    align-self: center;
-    margin-top: 24px;
-  }
-  &__title {
-    display: none;
-  }
-  form {
+.modal-container::v-deep {
+  .modal {
     @include display-flex();
     flex-direction: column;
     align-items: center;
-  }
-  .pass__holder {
-    height: 88px;
-    margin-bottom: 35px;
-    width: 45%;
-    label {
-      font-size: 16px;
-      line-height: 140.62%;
-      span {
-        color: $red;
-        margin-right: 3px;
-      }
-    }
-  }
-  .pass__repeat {
-    margin-bottom: 42px;
-  }
-  .pass__old,
-  .pass__new,
-  .pass__new-repeat {
-    @include display-flex();
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    height: 52px;
-    flex-grow: 1;
+    width: toRem(982);
+    height: toRem(623);
     background: $white;
-    border: 1px solid $input-border;
-    box-sizing: border-box;
-    box-shadow: 0px 4px 4px $gray-border;
-    border-radius: 15px;
-    margin-top: 15px;
-  }
-  .pass__old > input,
-  .pass__new > input,
-  .pass__new-repeat > input {
-    height: 52px;
-    flex-grow: 1;
-    background: transparent;
-    /* border: 1px solid red; */
-    padding: 16px;
-    line-height: 140.62%;
-    border: none;
-    border-radius: 15px;
-    font-family: inherit;
-    outline: none;
-    /* letter-spacing: 5px; */
-    font-size: 16px;
-  }
-  .pass__submitbtn {
-    align-self: center;
-    margin-bottom: 40px;
-    height: 57px;
-    width: 270px;
-    background: $btn__green;
-    color: $white;
-    font-size: 18px;
-    font-family: inherit;
-    line-height: 140.62%;
-    text-align: center;
-    border-radius: 10px;
-    cursor: pointer;
-    outline: none;
-    border: none;
-  }
-  .pass__alert {
-    @include pass__alert_style();
-  }
-  &::v-deep {
-    .show--error .search__section--error {
-      visibility: visible;
-    }
-  }
-}
-.modal::v-deep {
-  .pass__alert {
-    @include pass__alert_style();
-  }
-}
-.splicer-line {
-  display: none;
-}
-.p-modal-city_provence {
-  @include display-flex();
-}
-.p-modal-header-close-icon {
-  margin-left: 0;
-}
-.p-modal_wrapper {
-  padding-right: 191px;
-  padding-left: 191px;
-  @include display-flex();
-  padding-top: 51px;
-}
-.p-modal-wrapper-item {
-  width: 175px;
-  margin-left: 37px;
-  margin-bottom: 11px;
-}
-.p-modal-wrapper-item:last-of-type {
-  margin-left: 0;
-}
-.p-modal-wrapper-province_city-title {
-  @include p-modal-wrapper-province_city-title();
-}
-.p-margin-left-0 {
-  margin-left: 0;
-}
-.p-modal-header-desktop {
-  @include display-flex();
-}
-.p-modal-header-mobile {
-  display: none;
-}
-.p-modal-header-top {
-  flex-grow: 1;
-  @include display-flex();
-}
-.p-modal-header-icon-location {
-  width: 24px;
-}
-.p-modal-header-top-title {
-  color: $black;
-  font-size: 18px;
-  font-weight: 500;
-  margin-right: 11.5px;
-}
-.p-modal-header {
-  padding-right: 41px;
-  padding-left: 41px;
-}
-.p-modal-content {
-  @include display-flex();
-}
-.p-modal-content-items {
-  @include display-flex();
-}
-.p-modal-address-input {
-  width: 100%;
-}
-.p-modal-address {
-  margin-bottom: 19px;
-}
-.p-modal-header-line {
-  width: 95%;
-  margin-right: auto;
-  margin-left: auto;
-  height: 1px;
-  background: $gray-border;
-  @include display-flex();
-  margin-top: 2px;
-}
-.p-modal-header-top-main {
-  @include display-flex();
-  align-items: center;
-  padding-top: 20px;
-  padding-bottom: 11px;
-}
-.p-modal-btns {
-  padding-top: 49px;
-  @include display-flex();
-}
-.p-modal-show_error .pass__alert {
-  visibility: inherit;
-}
-.modal::v-deep {
-  .p-modal-show_error .pass__alert {
-    visibility: inherit;
-  }
-}
-.p-modal-show_error .p-modal-item-input {
-  border: solid 1px $red !important;
-}
-.p-modal-validation-mobile {
-  display: none !important;
-}
-.p-input-style__default:focus {
-  border: solid 1px $black;
-}
-.p-modal-header-close-icon::before {
-  font-size: 28px;
-}
-.form__modal--address .card-body .form-group {
-  height: 95px;
-  background: red;
-}
-.p-product-btn {
-  width: 150px;
-  height: 47px;
-  font-family: inherit;
-  transition: all 120ms ease-in;
-}
-@media (max-width: 960px) {
-  .modal-animation__open {
-    animation: modalOpen 600ms linear;
-  }
-  @keyframes modalOpen {
-    0% {
-      transform: translate(0, 579px);
-    }
-    100% {
-      transform: translate(0, 0);
-    }
-  }
-  .modal-animation__close {
-    animation: modalClose 600ms linear;
-  }
-  @keyframes modalClose {
-    0% {
-      transform: translate(0, 0);
-    }
-    100% {
-      transform: translate(0, 579px);
-    }
-  }
-  .modal {
-    align-self: flex-end;
-    position: absolute;
-    width: 100%;
-    height: 723px;
-    background: $white;
-    box-shadow: 0px 20px 24px $overlay__profile-mobile;
-    border-top-left-radius: 30px;
-    border-top-right-radius: 30px;
-    border-bottom-left-radius: 0;
-    border-bottom-right-radius: 0;
+    box-shadow: 0 toRem(8) toRem(16) $box__shadow;
+    border-radius: toRem(15);
+
     &__close-cross {
+      align-self: flex-end;
+      width: toRem(30);
+      height: toRem(30);
+      margin-top: toRem(24);
+      margin-left: toRem(24);
+      cursor: pointer;
+    }
+
+    &__close-line {
+      display: none;
+      align-self: center;
+      margin-top: toRem(24);
+    }
+
+    &__title {
       display: none;
     }
-    &__close-line {
-      display: block;
-      align-self: center;
-      margin-top: 24px;
+
+    form {
+      @include display-flex();
+      flex-direction: column;
+      align-items: center;
     }
-    &__title {
-      display: block;
-      font-size: 14px;
+
+    .pass__holder {
+      height: toRem(88);
+      margin-bottom: toRem(35);
+      width: 45%;
+
+      label {
+        font-size: toRem(16);
+        line-height: 140.62%;
+
+        span {
+          color: $red;
+          margin-right: toRem(3);
+        }
+      }
+    }
+
+    .pass__repeat {
+      margin-bottom: toRem(42);
+    }
+
+    .pass__old,
+    .pass__new,
+    .pass__new-repeat {
+      @include display-flex();
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      height: toRem(52);
+      flex-grow: 1;
+      background: $white;
+      border: toRem(1) solid $input-border;
+      box-sizing: border-box;
+      box-shadow: 0 toRem(4) toRem(4) $gray-border;
+      border-radius: toRem(15);
+      margin-top: toRem(15);
+    }
+
+    .pass__old > input,
+    .pass__new > input,
+    .pass__new-repeat > input {
+      height: toRem(52);
+      flex-grow: 1;
+      background: transparent;
+      /* border: 1px solid red; */
+      padding: toRem(16);
       line-height: 140.62%;
-      color: $gray;
-      margin-top: 24px;
-      text-align: right;
-    }
-    /* form {
-            margin-top: 5px;
-        } */
-    .pass__holder {
-      height: 80px;
-      width: 84vw;
-      margin-bottom: 35px;
-      label {
-        font-size: 14px;
-      }
+      border: none;
+      border-radius: toRem(15);
+      font-family: inherit;
+      outline: none;
+      font-size: toRem(16);
     }
 
-    .pass__old,
-    .pass__new,
-    .pass__new-repeat {
-      @include display-flex();
-      height: 46px;
-    }
-    .pass__old > input,
-    .pass__new > input,
-    .pass__new-repeat > input {
-      height: 46px;
-      width: 200px;
-    }
     .pass__submitbtn {
-      width: 91vw;
-      margin-bottom: 47px;
+      align-self: center;
+      margin-bottom: toRem(40);
+      height: toRem(57);
+      width: toRem(270);
+      background: $btn__green;
+      color: $white;
+      font-size: toRem(18);
+      font-family: inherit;
+      line-height: 140.62%;
+      text-align: center;
+      border-radius: toRem(10);
+      cursor: pointer;
+      outline: none;
+      border: none;
     }
-    @mixin pass__alert() {
-      font-size: 13px;
-      padding-right: 7px;
-    }
-    .pass__alert {
-      @include pass__alert();
-    }
-    &::v-deep {
-      .pass__alert {
-        @include pass__alert();
-      }
-    }
-  }
-  .clear-input > img {
-    width: 17px;
-    height: 15px;
-  }
-  .splicer-line {
-    display: block;
-    width: 95%;
-    border: none;
-    margin: 16px 5px;
-    border-top: 1px solid $gray-border;
-    margin-bottom: 35px;
-  }
-  .p-modal-header-mobile {
-    display: flex;
-    flex-flow: column;
-  }
-  .p-modal-header-desktop {
-    display: none;
-  }
-  @mixin p-modal-wrapper-province_city-title() {
-    font-size: 14px;
-  }
-  .modal::v-deep {
-    .p-modal-wrapper-province_city-title {
-      @include p-modal-wrapper-province_city-title();
-    }
-  }
-  .p-modal-wrapper-province_city-title {
-    @include p-modal-wrapper-province_city-title();
-  }
-  .p-modal-wrapper-item {
-    width: 43%;
-    margin-left: 13%;
-    margin-bottom: 4px;
-  }
-  .p-modal-wrapper-item:nth-child(2n) {
-    margin-left: 0;
-  }
-  .p-modal-wrapper-item:nth-child(3n) {
-    margin-left: 13%;
-  }
-  .p-input-style__default {
-    width: 100%;
-  }
-  .p-modal_wrapper {
-    padding-right: 32px;
-    padding-left: 32px;
-    padding-top: 24px;
-  }
-  .splicer-line {
-    margin-bottom: 0;
-    margin-top: 20px;
-  }
-  .p-modal-header-icon-location {
-    width: 19px;
-  }
-  .p-modal-header-top-title {
-    font-size: 14px;
-    color: $gray;
-  }
-  .p-modal-header-top {
-    padding-top: 32px;
-  }
-  .p-modal-btns {
-    padding-top: 55px;
-  }
-}
 
-@media (max-width: 540px) {
-  .modal {
-    height: 688px;
-  }
-  .p-modal-btns {
-    padding-top: 25px;
-  }
-}
-
-@media screen and (max-width: 485px) {
-  .p-product-btn {
-    width: 47%;
-    margin-left: 0;
-  }
-  .p-favorite-product-btn-modal-delete {
-    margin-left: 4%;
-  }
-  .p-favorite-product-btn-modal-cancel {
-    margin-left: 0;
-  }
-  .p-modal-btns {
-    padding-top: 9px;
-  }
-  .modal {
-    height: 617px;
-  }
-  .p-modal-address {
-    margin-bottom: 6px;
-  }
-  .p-modal_wrapper {
-    padding-right: 29px;
-    padding-left: 29px;
-  }
-  @mixin pass__alert() {
-    height: 20px;
-  }
-  .modal .pass__alert {
-    @include pass__alert();
-  }
-  .modal::v-deep {
-    .pass__alert {
-      @include pass__alert();
-    }
-    .p-modal-wrapper-item {
-      margin-bottom: 0;
-    }
-  }
-  .splicer-line {
-    margin-top: 16px;
-  }
-  .p-modal-header-top {
-    padding-top: 33px;
-  }
-  .p-input-style__default {
-    height: 46px;
-  }
-  #form__modal--main::v-deep {
-    .search-section__items {
-      height: 46px !important;
-    }
-  }
-  .p-modal-wrapper-item {
-    margin-bottom: 0;
-  }
-  .modal__close-line {
-    margin-top: 21px;
-  }
-  .p-modal-validation-mobile {
-    display: flex !important;
-  }
-  .p-modal-validation-desktop {
-    display: none !important;
-  }
-}
-
-@media screen and (max-width: 320px) {
-  .modal-animation__open {
-    animation: modalOpen 600ms linear;
-  }
-  @keyframes modalOpen {
-    0% {
-      transform: translate(0, 470px);
-    }
-    100% {
-      transform: translate(0, 0);
-    }
-  }
-  .modal-animation__close {
-    animation: modalClose 600ms linear;
-  }
-  @keyframes modalClose {
-    0% {
-      transform: translate(0, 0);
-    }
-    100% {
-      transform: translate(0, 470px);
-    }
-  }
-  .modal {
-    height: 470px;
-    &__close-line {
-      margin-top: 20px;
-    }
-    &__title {
-      margin-top: 20px;
-    }
-    .pass__holder {
-      height: 70px;
-      width: 84vw;
-      margin-bottom: 25px;
-      label {
-        font-size: 13px;
-      }
-    }
-    .pass__old,
-    .pass__new,
-    .pass__new-repeat {
-      @include display-flex();
-      height: 40px;
-    }
-    .pass__old > input,
-    .pass__new > input,
-    .pass__new-repeat > input {
-      height: 40px;
-      width: 200px;
-    }
-    .pass__submitbtn {
-      width: 91vw;
-      margin-bottom: 37px;
-      margin-top: 15px;
-    }
-  }
-  .splicer-line {
-    margin-bottom: 17px;
-  }
-  @mixin pass__alert_style() {
-    font-size: 11px;
-  }
-  .modal .pass__alert {
-    @include pass__alert_style();
-  }
-  .modal::v-deep {
     .pass__alert {
       @include pass__alert_style();
     }
+
+    .pass__alert {
+      @include pass__alert_style();
+    }
+
+    .show--error .search__section--error {
+      visibility: visible;
+    }
+
+    .splicer-line {
+      display: none;
+    }
+
+
+    .p-modal-city_provence {
+      @include display-flex();
+    }
+
+    .p-modal-header-close-icon {
+      margin-left: 0;
+    }
+
+    .p-modal_wrapper {
+      @include display-flex();
+      padding: toRem(20) toRem(191) toRem(40) toRem(191);
+    }
+
+    .p-modal-wrapper-item {
+      width: 175px;
+      margin-left: 37px;
+      margin-bottom: 11px;
+    }
+
+    .p-modal-wrapper-item:last-of-type {
+      margin-left: 0;
+    }
+
+    .p-modal-wrapper-province_city-title {
+      @include p-modal-wrapper-province_city-title();
+    }
+
+    .p-margin-left-0 {
+      margin-left: 0;
+    }
+
+    .p-modal-header-desktop {
+      @include display-flex();
+    }
+
+    .p-modal-header-mobile {
+      display: none;
+    }
+
+    .p-modal-header-top {
+      flex-grow: 1;
+      @include display-flex();
+    }
+
+    .p-modal-header-icon-location {
+      width: 24px;
+    }
+
+    .p-modal-header-top-title {
+      color: $black;
+      font-size: 18px;
+      font-weight: 500;
+      margin-right: 11.5px;
+    }
+
+    .p-modal-header {
+      padding-right: 41px;
+      padding-left: 41px;
+    }
+
+    .p-modal-content {
+      @include display-flex();
+    }
+
+    .p-modal-content-items {
+      @include display-flex();
+    }
+
+    .p-modal-address-input {
+      width: 100%;
+    }
+
+    .p-modal-address {
+      margin-bottom: 19px;
+    }
+
+    .p-modal-header-line {
+      width: 95%;
+      margin-right: auto;
+      margin-left: auto;
+      height: 1px;
+      background: $gray-border;
+      @include display-flex();
+      margin-top: 2px;
+    }
+
+    .p-modal-header-top-main {
+      @include display-flex();
+      align-items: center;
+      padding-top: 20px;
+      padding-bottom: 11px;
+    }
+
+    .p-modal-btns {
+      padding-top: 49px;
+      @include display-flex();
+    }
+
+    .p-modal-show_error .pass__alert {
+      visibility: inherit;
+    }
+
+    .p-modal-show_error .p-modal-item-input {
+      border: solid 1px $red !important;
+    }
+
+    .p-modal-validation-mobile {
+      display: none !important;
+    }
+
+    .p-input-style__default:focus {
+      border: solid 1px $black;
+    }
+
+    .p-modal-header-close-icon::before {
+      font-size: 28px;
+    }
+
+    .form__modal--address .card-body .form-group {
+      height: 95px;
+      background: red;
+    }
+
+    .p-product-btn {
+      width: 150px;
+      height: 47px;
+      font-family: inherit;
+      transition: all 120ms ease-in;
+    }
+
+    .p-modal-wrapper-province_city-title {
+      @include p-modal-wrapper-province_city-title();
+    }
+
+    .search-section__items {
+      border: toRem(1) solid $input-border;
+      box-shadow: 0 toRem(4) toRem(4) $gray-border;
+      border-radius: toRem(15);
+      height: toRem(52);
+    }
+
+    .form__textara-item {
+      height: toRem(52);
+    }
+
+    .search-section__input {
+      padding-right: toRem(10);
+      padding-left: toRem(10);
+      color: $gray;
+    }
+
+    .search__section--error {
+      margin-bottom: 0;
+    }
+
+    .p-modal-header-icon {
+      @include display-flex();
+    }
+  }
+}
+
+
+@media (max-width: 960px) {
+
+  .modal-container::v-deep {
+    .modal {
+      width: 100%;
+      height: 723px;
+      background: $white;
+      box-shadow: 0 20px 24px $overlay__profile-mobile;
+      border-radius: 30px 30px 0 0;
+
+      &__close-cross {
+        display: none;
+      }
+
+      &__close-line {
+        display: block;
+        align-self: center;
+        margin-top: 24px;
+      }
+
+      &__title {
+        display: block;
+        font-size: 14px;
+        line-height: 140.62%;
+        color: $gray;
+        margin-top: 24px;
+        text-align: right;
+      }
+
+      .pass__holder {
+        height: 80px;
+        width: 84vw;
+        margin-bottom: 35px;
+
+        label {
+          font-size: 14px;
+        }
+      }
+
+      .pass__old,
+      .pass__new,
+      .pass__new-repeat {
+        @include display-flex();
+        height: 46px;
+      }
+
+      .pass__old > input,
+      .pass__new > input,
+      .pass__new-repeat > input {
+        height: 46px;
+        width: 200px;
+      }
+
+      .pass__submitbtn {
+        width: 91vw;
+        margin-bottom: 47px;
+      }
+
+      @mixin pass__alert() {
+        font-size: 13px;
+        padding-right: 7px;
+      }
+
+      .pass__alert {
+        @include pass__alert();
+      }
+
+        .pass__alert {
+          @include pass__alert();
+        }
+      .clear-input > img {
+        width: 17px;
+        height: 15px;
+      }
+      .splicer-line {
+        display: block;
+        width: 95%;
+        border: none;
+        margin: 16px 5px;
+        border-top: 1px solid $gray-border;
+        margin-bottom: 35px;
+      }
+      .p-modal-header-mobile {
+        display: flex;
+        flex-flow: column;
+      }
+      .p-modal-header-desktop {
+        display: none;
+      }
+      @mixin p-modal-wrapper-province_city-title() {
+        font-size: 14px;
+      }
+      .p-modal-wrapper-province_city-title {
+        @include p-modal-wrapper-province_city-title();
+      }
+      .p-modal-wrapper-item {
+        width: 43%;
+        margin-left: 13%;
+        margin-bottom: 4px;
+      }
+      .p-modal-wrapper-item:nth-child(2n) {
+        margin-left: 0;
+      }
+      .p-modal-wrapper-item:nth-child(3n) {
+        margin-left: 13%;
+      }
+      .p-input-style__default {
+        width: 100%;
+      }
+      .p-modal_wrapper {
+        padding-right: 32px;
+        padding-left: 32px;
+        padding-top: 24px;
+      }
+      .splicer-line {
+        margin-bottom: 0;
+        margin-top: 20px;
+      }
+      .p-modal-header-icon-location {
+        width: 19px;
+      }
+      .p-modal-header-top-title {
+        font-size: 14px;
+        color: $gray;
+      }
+      .p-modal-header-top {
+        padding-top: 31px;
+      }
+      .p-modal-btns {
+        padding-top: 55px;
+      }
+    }
   }
 
-  .splicer-line {
-    margin-bottom: 10px;
-    margin-top: 10px;
+
+}
+
+@media (max-width: 540px) {
+  .modal-container::v-deep {
+    .modal {
+      height: 688px;
+
+      .p-modal-btns {
+        padding-top: 25px;
+      }
+    }
   }
-  .modal {
-    height: 536px;
+
+}
+
+@media screen and (max-width: 485px) {
+  .modal-container::v-deep {
+    .modal {
+      height: 617px;
+
+      .p-product-btn {
+        width: 47%;
+        margin-left: 0;
+      }
+      .p-favorite-product-btn-modal-delete {
+        margin-left: 4%;
+      }
+      .p-favorite-product-btn-modal-cancel {
+        margin-left: 0;
+      }
+      .p-modal-btns {
+        padding-top: 9px;
+      }
+
+      .p-modal-address {
+        margin-bottom: 6px;
+      }
+
+      .p-modal_wrapper {
+        padding-right: 29px;
+        padding-left: 29px;
+      }
+
+      @mixin pass__alert() {
+        height: 20px;
+      }
+      .pass__alert {
+        @include pass__alert();
+      }
+
+      .splicer-line {
+        margin-top: 16px;
+      }
+      .p-modal-header-top {
+        padding-top: 18px;
+      }
+      .p-input-style__default {
+        height: 46px;
+      }
+      .search-section__items {
+        height: 46px !important;
+      }
+      .p-modal-wrapper-item {
+        margin-bottom: 0;
+      }
+      .p-modal-validation-mobile {
+        display: flex !important;
+      }
+      .p-modal-validation-desktop {
+        display: none !important;
+      }
+    }
+  }
+
+}
+
+@media screen and (max-width: 320px) {
+
+  .modal-container::v-deep {
+    .modal {
+      height: 470px;
+
+      .p-modal-wrapper-province_city-title {
+        margin-bottom: toRem(4.8);
+      }
+      &__close-line {
+        margin-top: 20px;
+      }
+
+      &__title {
+        margin-top: 20px;
+      }
+
+      .p-modal_wrapper {
+        padding-top: 0;
+      }
+      .pass__holder {
+        height: 70px;
+        width: 84vw;
+        margin-bottom: 25px;
+
+        label {
+          font-size: 13px;
+        }
+      }
+
+      .pass__old,
+      .pass__new,
+      .pass__new-repeat {
+        @include display-flex();
+        height: 40px;
+      }
+
+      .pass__old > input,
+      .pass__new > input,
+      .pass__new-repeat > input {
+        height: 40px;
+        width: 200px;
+      }
+
+      .pass__submitbtn {
+        width: 91vw;
+        margin-bottom: 37px;
+        margin-top: 15px;
+      }
+      .splicer-line {
+        margin-bottom: 10px;
+        margin-top: 10px;
+      }
+      @mixin pass__alert_style() {
+        font-size: 11px;
+      }
+      .pass__alert {
+        @include pass__alert_style();
+      }
+    }
+  }
+
+  .modal-container::v-deep {
+    .modal {
+      height: 536px;
+    }
   }
   .p-modal_wrapper {
     padding-top: 0;
@@ -1130,11 +1124,6 @@ export default {
   @mixin p-modal-wrapper-province_city-title() {
     margin-bottom: 8px;
   }
-  .modal::v-deep {
-    .p-modal-wrapper-province_city-title {
-      @include p-modal-wrapper-province_city-title();
-    }
-  }
   .p-modal-address {
     margin-bottom: 0;
   }
@@ -1144,38 +1133,37 @@ export default {
 }
 
 @media screen and (max-width: 280px) {
-  .modal {
-    height: 617px;
-  }
-  .p-favorite-product-btn-modal-delete {
-    margin-left: 3%;
-  }
-  .p-modal_wrapper {
-    padding-top: 24px;
-  }
-  .splicer-line {
-    margin-top: 17px;
-    margin-bottom: 0px;
-  }
-  @mixin p-modal-wrapper-province_city-title() {
-    margin-bottom: 16px;
-  }
-  @mixin p-modal-wrapper-item() {
-    margin-bottom: 6px;
-  }
-  .p-modal-wrapper-item {
-    margin-bottom: 6px;
-  }
-  .p-modal-wrapper-province_city-title {
-    @include p-modal-wrapper-province_city-title();
-  }
-  .modal::v-deep {
-    .p-modal-wrapper-province_city-title {
-      @include p-modal-wrapper-province_city-title();
-    }
-    .p-modal-wrapper-item {
-      @include p-modal-wrapper-item();
+  .modal-container::v-deep {
+    .modal {
+      height: 617px;
+
+      .p-favorite-product-btn-modal-delete {
+        margin-left: 3%;
+      }
+      .p-modal_wrapper {
+        padding-top: 24px;
+      }
+      .splicer-line {
+        margin-top: 17px;
+        margin-bottom: 0;
+      }
+      @mixin p-modal-wrapper-province_city-title() {
+        margin-bottom: 16px;
+      }
+      @mixin p-modal-wrapper-item() {
+        margin-bottom: 6px;
+      }
+      .p-modal-wrapper-item {
+        margin-bottom: 6px;
+      }
+      .p-modal-wrapper-province_city-title {
+        @include p-modal-wrapper-province_city-title();
+      }
+      .p-modal-wrapper-item {
+        @include p-modal-wrapper-item();
+      }
     }
   }
+
 }
 </style>

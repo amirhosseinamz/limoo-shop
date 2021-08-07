@@ -1,10 +1,9 @@
 <template>
-  <modal
-    id="p-profile-favorite-modal"
-    class="p-profile-favorite-modal d-rtl"
-    size="800px"
-    :show.sync="show"
-    :footer="false"
+  <base-modal
+    modal-class="p-profile-favorite-modal d-rtl"
+    :show-modal="show"
+    closable-from-backdrop
+    @close-from-backdrop="modalClose"
   >
     <div
       class="w-100 p-profile-favorite-wrapper flex-wrap align-items-start flex-column "
@@ -32,7 +31,7 @@
         </base-button>
       </div>
     </div>
-  </modal>
+  </base-modal>
 </template>
 
 <script>

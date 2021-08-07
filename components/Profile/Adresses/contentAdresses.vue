@@ -5,7 +5,7 @@
   >
     <transition moda="in-out">
       <div id="overlay" v-if="passChangeIsActive">
-        <addAddressModal
+        <add-address-modal
           :all-province="allProvince"
           :all-citys="allCitys"
           :form-data-original="formData"
@@ -15,7 +15,8 @@
           @selected-city="selectedCity"
           @submit-address-add="submitAddressAdd"
           @close-modal="closeModal"
-        />
+          :show-add-modal="showAddModal"
+        ></add-address-modal>
       </div>
     </transition>
     <div
@@ -170,6 +171,7 @@ export default {
       passChangeIsActive: false,
       dataEditAddress: {},
       userAddress: -1,
+      showAddModal: false
     };
   },
 
@@ -218,6 +220,8 @@ export default {
 
     closeModal() {
       this.dataEditAddress = {};
+      this.showAddModal = false
+      this.showEditModal = false;
       this.passChangeIsActive = false;
     },
 
@@ -230,23 +234,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-#overlay {
-  position: fixed; /* Sit on top of the page content */
-  @include display-flex();
-  justify-content: center;
-  align-items: center;
-  width: 100%; /* Full width (cover the whole page) */
-  height: 100%; /* Full height (cover the whole page) */
-  /* transition: opacity 200ms ease-out; */
-  /* top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0; */
-  z-index: 10;
-  background: $overlay__profile;
-  top: 0;
-  right: 0;
-}
 .user-adresses__empty-container {
   @include display-flex();
   flex-direction: column;

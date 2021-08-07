@@ -2,25 +2,6 @@
   <div class="comment__form-main">
     <form @submit="submitData" ref="form" class="w-100">
       <div class="w-100">
-        <!-- <div
-          :class="{ 'show--error': showErrorCommentTitle }"
-          class="w-100 comment__form-item "
-        >
-          <div class="comment__form-data">
-            <h3 class="comment__form-title">
-              {{ getTextByTextKey("product_comment_title") }}
-            </h3>
-            <span class="comment__form-star">*</span>
-          </div>
-          <input
-            @keyup="checkErrorCommentTitle"
-            v-model="formData.Title"
-            maxlength="20"
-            type="text"
-            class="p-modal-address-input p-input-style__default "
-          />
-          <span class="pass__alert ">{{ errorCommentTitle }}</span>
-        </div> -->
 
         <text-input
           class="comment__form-item"
@@ -55,27 +36,6 @@
           :label-text="getTextByTextKey('product_comment_title')"
         >
         </text-input>
-
-        <!-- <div
-          :class="{ 'show--error': showErrorCommentText }"
-          class="w-100 comment__form-item "
-        >
-          <div class="comment__form-data">
-            <h3 class="comment__form-title">
-              {{ getTextByTextKey("product_comment_text") }}
-            </h3>
-            <span class="comment__form-star">*</span>
-          </div>
-          <textarea
-            maxlength="450"
-            @keyup="checkErrorCommentText"
-            v-model="formData.Body"
-            class="comment__textara-item p-input-style__default p-modal-address-input"
-            rows="8"
-            cols="80"
-          ></textarea>
-          <span class="pass__alert ">{{ errorCommentText }}</span>
-        </div> -->
 
         <text-input
           class="comment__form-item"
@@ -125,8 +85,8 @@
               name="addComment"
               @value-changed="activeRadioBtn($event, data)"
               :title="data.title"
-              :value="data.value"
-              :selected="radioBtnData[0].value"
+              :value="toString(data.value)"
+              :selected="toString(radioBtnData[0].value)"
             ></base-radio-button>
           </div>
         </div>

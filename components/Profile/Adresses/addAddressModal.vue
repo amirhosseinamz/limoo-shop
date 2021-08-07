@@ -1,8 +1,10 @@
 <template>
-  <div
-    class="modal modal-animation__open"
-    :class="{ 'modal-animation__close': modalClose }"
-    dir="rtl"
+  <base-modal
+    class="modal-container"
+    :show-modal="true"
+    :mode="modalMode"
+    modal-class="modal"
+    @phone-modal-closed="closeModalMobile"
   >
     <div class="w-100 p-modal-header">
       <div class="w-100 p-modal-header-mobile">
@@ -11,11 +13,6 @@
             @click="closeModalDesktop"
             class="modal__close-cross"
             src="/icons/close.svg"
-          />
-          <img
-            @click="closeModalMobile"
-            class="modal__close-line"
-            src="/icons/line.svg"
           />
         </div>
 
@@ -62,22 +59,6 @@
       class="w-100 p-modal_wrapper align-items-start"
     >
       <div class="p-modal-content w-100 align-items-start flex-wrap">
-        <!-- <div
-          :class="{ 'p-modal-show_error': showErrorValidationAddress }"
-          class="w-100 p-modal-address"
-        >
-          <h3 class="p-modal-wrapper-province_city-title">
-            {{ getTextByTextKey("address_exact_postal_address") }}
-          </h3>
-          <input
-            maxlength="65"
-            @keyup="updateAddress"
-            v-model="formData.address"
-            type="text"
-            class="p-modal-address-input p-input-style__default "
-          />
-          <span class="pass__alert ">{{ errorValidationNumberAddress }}</span>
-        </div> -->
 
         <text-input
           labelNameClass="p-modal-wrapper-province_city-title"
@@ -269,26 +250,26 @@
       <div
         class="p-profile-favorite-btns w-100 justify-content-center p-modal-btns"
       >
-          <base-button
-            @button-clicked="submitAddressAdd"
-            classes="p-product-btn p-favorite-product-btn-modal-delete"
-            base-color="yellow"
-            no-box-shadow
-          >
+        <base-button
+          @button-clicked="submitAddressAdd"
+          classes="p-product-btn p-favorite-product-btn-modal-delete"
+          base-color="yellow"
+          no-box-shadow
+        >
           {{ getTextByTextKey("public_submit") }}
         </base-button>
 
-          <base-button
-            @button-clicked="closeModalMobile"
-            classes="p-product-btn p-favorite-product-btn-modal-cancel"
-            no-box-shadow
-            base-color="light-gray"
-          >
+        <base-button
+          @button-clicked="closeModalDesktop"
+          classes="p-product-btn p-favorite-product-btn-modal-cancel"
+          no-box-shadow
+          base-color="light-gray"
+        >
           {{ getTextByTextKey("public_back") }}
         </base-button>
       </div>
     </form>
-  </div>
+  </base-modal>
 </template>
 <script>
 import customeDropDown from "../../../modules/customeDropDown.vue";
@@ -303,6 +284,7 @@ export default {
     formDataOriginal: { type: [Object, Array], default: {} },
     dataEditAddress: { type: Object, default: {} },
     profilePhoneNumber: { type: [Number, String], default: "" },
+    showAddModal: { type: Boolean, require: true }
   },
   components: {
     customeDropDown,
@@ -321,11 +303,21 @@ export default {
       showErrorValidationProvince: false,
       checkInitialValidation: 0,
       textLabelCodePoste: "کد پستی (اختیاری):",
+      windowWidth: 0,
     };
   },
 
   watch: {
     dataEditAddress(data) {},
+  },
+  computed: {
+    modalMode() {
+      if (this.windowWidth > 960) {
+        return "form";
+      } else {
+        return "phone";
+      }
+    }
   },
 
   created() {
@@ -354,11 +346,16 @@ export default {
     this.detectedResizeBrowser();
   },
 
-  mounted() {},
+  mounted() {
+    window.addEventListener('resize', this.handleResize);
+    this.handleResize();
+  },
 
   methods: {
     getTextByTextKey,
-
+    handleResize() {
+      this.windowWidth = window.innerWidth;
+    },
     setDefaultValidationMsg() {
       this.notValidMsg = this.getTextByTextKey("address_not_valid");
       this.overLimitMsg = this.getTextByTextKey(
@@ -373,6 +370,7 @@ export default {
       this.validationCodePosteMsg = this.notValidMsg;
       this.errorValidationNumberAddress = this.onlyUseNumberMsg;
     },
+
 
     closeModalMobile() {
       this.modalClose = true;
@@ -472,12 +470,12 @@ export default {
 <style lang="scss" scoped>
 .p-modal-wrapper-item::v-deep {
   .birthday-item-main {
-    width: toRem(175);
+    width: toRem(181);
   }
 }
 .birthday-item-main::v-deep {
   &.p-modal-select-box-province_city {
-    width: toRem(175)!important;
+    width: 100%!important;
   }
 }
 
@@ -502,254 +500,242 @@ export default {
   visibility: hidden;
 }
 // custome input //
-.modal::v-deep {
-  .p-modal-wrapper-province_city-title {
-    @include p-modal-wrapper-province_city-title();
-  }
-  .search-section__items {
-    border: toRem(1) solid $input-border;
-    box-shadow: 0 toRem(4) toRem(4) $gray-border;
-    border-radius: toRem(15);
-    height: toRem(52);
-  }
-  .form__textara-item {
-    height: toRem(52);
-  }
-  .search-section__input {
-    padding-right: toRem(10);
-    padding-left: toRem(10);
-    color: $gray;
-  }
-  .search__section--error {
-    margin-bottom: 0;
-  }
-}
-.p-modal-header-icon {
-  @include display-flex();
-}
-.modal {
-  @include display-flex();
-  flex-direction: column;
-  align-items: center;
-  width: toRem(982);
-  height: toRem(623);
-  background: $white;
-  box-shadow: 0 toRem(8) toRem(16) $box__shadow;
-  border-radius: 15px;
-  &__close-cross {
-    align-self: flex-end;
-    width: toRem(30);
-    height: toRem(30);
-    margin-top: toRem(24);
-    margin-left: toRem(24);
-    cursor: pointer;
-  }
-  &__close-line {
-    display: none;
-    align-self: center;
-    margin-top: toRem(24);
-  }
-  &__title {
-    display: none;
-  }
-  form {
-    @include display-flex();
-    flex-direction: column;
-    align-items: center;
-  }
-  .pass__holder {
-    height: toRem(88);
-    margin-bottom: toRem(35);
-    width: 45%;
-    label {
-      font-size: toRem(16);
-      line-height: 140.62%;
-      span {
-        color: $red;
-        margin-right: toRem(3);
+.modal-container::v-deep {
+  .modal {
+    width: toRem(982);
+    height: toRem(623);
+    background: $white;
+    box-shadow: 0 toRem(8) toRem(16) $box__shadow;
+    border-radius: 15px;
+    &__close-cross {
+      align-self: flex-end;
+      width: toRem(30);
+      height: toRem(30);
+      margin-top: toRem(24);
+      margin-left: toRem(24);
+      cursor: pointer;
+    }
+    &__close-line {
+      display: none;
+      align-self: center;
+      margin-top: toRem(24);
+    }
+    &__title {
+      display: none;
+    }
+    form {
+      @include display-flex();
+      flex-direction: column;
+      align-items: center;
+    }
+    .pass__holder {
+      height: toRem(88);
+      margin-bottom: toRem(35);
+      width: 45%;
+      label {
+        font-size: toRem(16);
+        line-height: 140.62%;
+        span {
+          color: $red;
+          margin-right: toRem(3);
+        }
       }
     }
-  }
-  .pass__repeat {
-    margin-bottom: toRem(42);
-  }
-  .pass__old,
-  .pass__new,
-  .pass__new-repeat {
-    @include display-flex();
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    height: toRem(52);
-    flex-grow: 1;
-    background: $white;
-    border: toRem(1) solid $input-border;
-    box-sizing: border-box;
-    box-shadow: 0 toRem(4) toRem(4) $gray-border;
-    border-radius: toRem(15);
-    margin-top: toRem(15);
-  }
-  .pass__old > input,
-  .pass__new > input,
-  .pass__new-repeat > input {
-    height: toRem(52);
-    flex-grow: 1;
-    background: transparent;
-    padding: toRem(16);
-    line-height: 140.62%;
-    border: none;
-    border-radius: toRem(15);
-    font-family: inherit;
-    outline: none;
-    font-size: toRem(16);
-  }
-  .pass__submitbtn {
-    align-self: center;
-    margin-bottom: toRem(40);
-    height: toRem(57);
-    width: toRem(270);
-    background: $btn__green;
-    color: $white;
-    font-size: toRem(18);
-    font-family: inherit;
-    line-height: 140.62%;
-    text-align: center;
-    border-radius: toRem(10);
-    cursor: pointer;
-    outline: none;
-    border: none;
-  }
-  .pass__alert {
-    @include pass__alert_style();
-  }
-  &::v-deep {
-    .show--error .search__section--error {
-      visibility: visible;
+    .pass__repeat {
+      margin-bottom: toRem(42);
+    }
+    .pass__old,
+    .pass__new,
+    .pass__new-repeat {
+      @include display-flex();
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      height: toRem(52);
+      flex-grow: 1;
+      background: $white;
+      border: toRem(1) solid $input-border;
+      box-sizing: border-box;
+      box-shadow: 0 toRem(4) toRem(4) $gray-border;
+      border-radius: toRem(15);
+      margin-top: toRem(15);
+    }
+    .pass__old > input,
+    .pass__new > input,
+    .pass__new-repeat > input {
+      height: toRem(52);
+      flex-grow: 1;
+      background: transparent;
+      padding: toRem(16);
+      line-height: 140.62%;
+      border: none;
+      border-radius: toRem(15);
+      font-family: inherit;
+      outline: none;
+      font-size: toRem(16);
+    }
+    .pass__submitbtn {
+      align-self: center;
+      margin-bottom: toRem(40);
+      height: toRem(57);
+      width: toRem(270);
+      background: $btn__green;
+      color: $white;
+      font-size: toRem(18);
+      font-family: inherit;
+      line-height: 140.62%;
+      text-align: center;
+      border-radius: toRem(10);
+      cursor: pointer;
+      outline: none;
+      border: none;
+    }
+    .pass__alert {
+      @include pass__alert_style();
+    }
+      .show--error .search__section--error {
+        visibility: visible;
+      }
+
+    .p-modal-wrapper-province_city-title {
+      @include p-modal-wrapper-province_city-title();
+    }
+    .search-section__items {
+      border: toRem(1) solid $input-border;
+      box-shadow: 0 toRem(4) toRem(4) $gray-border;
+      border-radius: toRem(15);
+      height: toRem(52);
+    }
+    .form__textara-item {
+      height: toRem(52);
+    }
+    .search-section__input {
+      padding-right: toRem(10);
+      padding-left: toRem(10);
+      color: $gray;
+    }
+    .search__section--error {
+      margin-bottom: 0;
+    }
+    .p-modal-header-icon {
+      @include display-flex();
+    }
+
+    .splicer-line {
+      display: none;
+    }
+    .p-modal-city_provence {
+      @include display-flex();
+    }
+    .p-modal-header-close-icon {
+      margin-left: 0;
+    }
+    .p-modal_wrapper {
+      padding-right: toRem(191);
+      padding-left: toRem(191);
+      @include display-flex();
+      padding-top: toRem(51);
+    }
+    .p-modal-wrapper-item {
+      width: toRem(181);
+      margin-left: toRem(27);
+      margin-bottom: toRem(11);
+    }
+    .p-modal-wrapper-item:last-of-type {
+      margin-left: 0;
+    }
+    .p-modal-wrapper-province_city-title {
+      @include p-modal-wrapper-province_city-title();
+    }
+    .p-margin-left-0 {
+      margin-left: 0;
+    }
+    .p-modal-header-desktop {
+      @include display-flex();
+    }
+    .p-modal-header-mobile {
+      display: none;
+    }
+    .p-modal-header-top {
+      flex-grow: 1;
+      @include display-flex();
+    }
+    .p-modal-header-icon-location {
+      width: toRem(24);
+    }
+    .p-modal-header-top-title {
+      color: $black;
+      font-size: toRem(18);
+      font-weight: 500;
+      margin-right: toRem(11.5);
+    }
+    .p-modal-header {
+      padding-right: toRem(41);
+      padding-left: toRem(41);
+    }
+    .p-modal-content {
+      @include display-flex();
+    }
+    .p-modal-content-items {
+      @include display-flex();
+    }
+    .p-modal-address-input {
+      width: 100%;
+    }
+    .p-modal-address {
+      margin-bottom: toRem(19);
+    }
+    .p-modal-header-line {
+      width: 95%;
+      margin-right: auto;
+      margin-left: auto;
+      height: toRem(1);
+      background: $gray-border;
+      @include display-flex();
+      margin-top: toRem(2);
+    }
+    .p-modal-header-top-main {
+      @include display-flex();
+      align-items: center;
+      padding-top: toRem(20);
+      padding-bottom: toRem(11);
+    }
+    .p-modal-btns {
+      padding-top: toRem(49);
+    }
+    .p-modal-show_error .pass__alert {
+      visibility: inherit;
+    }
+
+    .p-modal-show_error .p-modal-item-input {
+      border: solid toRem(1) $red !important;
+    }
+    .p-favorite-product-btn-modal-delete {
+      font-size: toRem(16);
+    }
+    .p-favorite-product-btn-modal-cancel {
+      font-size: toRem(16);
+    }
+    .p-modal-validation-mobile {
+      display: none !important;
+    }
+    .p-input-style__default:focus {
+      border: solid toRem(1) $black;
+    }
+    .p-modal-header-close-icon::before {
+      font-size: toRem(28);
+    }
+    .form__modal--address .card-body .form-group {
+      height: toRem(95);
+      background: red;
+    }
+    .p-product-btn {
+      width: toRem(150);
+      height: toRem(47);
+      font-family: inherit;
+      transition: all 120ms ease-in;
     }
   }
-}
-.modal::v-deep {
-  .pass__alert {
-    @include pass__alert_style();
-  }
-}
-.splicer-line {
-  display: none;
-}
-.p-modal-city_provence {
-  @include display-flex();
-}
-.p-modal-header-close-icon {
-  margin-left: 0;
-}
-.p-modal_wrapper {
-  padding-right: toRem(191);
-  padding-left: toRem(191);
-  @include display-flex();
-  padding-top: toRem(51);
-}
-.p-modal-wrapper-item {
-  width: toRem(175);
-  margin-left: toRem(27);
-  margin-bottom: toRem(11);
-}
-.p-modal-wrapper-item:last-of-type {
-  margin-left: 0;
-}
-.p-modal-wrapper-province_city-title {
-  @include p-modal-wrapper-province_city-title();
-}
-.p-margin-left-0 {
-  margin-left: 0;
-}
-.p-modal-header-desktop {
-  @include display-flex();
-}
-.p-modal-header-mobile {
-  display: none;
-}
-.p-modal-header-top {
-  flex-grow: 1;
-  @include display-flex();
-}
-.p-modal-header-icon-location {
-  width: toRem(24);
-}
-.p-modal-header-top-title {
-  color: $black;
-  font-size: toRem(18);
-  font-weight: 500;
-  margin-right: toRem(11.5);
-}
-.p-modal-header {
-  padding-right: toRem(41);
-  padding-left: toRem(41);
-}
-.p-modal-content {
-  @include display-flex();
-}
-.p-modal-content-items {
-  @include display-flex();
-}
-.p-modal-address-input {
-  width: 100%;
-}
-.p-modal-address {
-  margin-bottom: toRem(19);
-}
-.p-modal-header-line {
-  width: 95%;
-  margin-right: auto;
-  margin-left: auto;
-  height: toRem(1);
-  background: $gray-border;
-  @include display-flex();
-  margin-top: toRem(2);
-}
-.p-modal-header-top-main {
-  @include display-flex();
-  align-items: center;
-  padding-top: toRem(20);
-  padding-bottom: toRem(11);
-}
-.p-modal-btns {
-  padding-top: toRem(49);
-}
-.p-modal-show_error .pass__alert {
-  visibility: inherit;
-}
-.modal::v-deep {
-  .p-modal-show_error .pass__alert {
-    visibility: inherit;
-  }
-}
-.p-modal-show_error .p-modal-item-input {
-  border: solid toRem(1) $red !important;
-}
-.p-favorite-product-btn-modal-delete {
-  font-size: toRem(16);
-}
-.p-favorite-product-btn-modal-cancel {
-  font-size: toRem(16);
-}
-.p-modal-validation-mobile {
-  display: none !important;
-}
-.p-input-style__default:focus {
-  border: solid toRem(1) $black;
-}
-.p-modal-header-close-icon::before {
-  font-size: toRem(28);
-}
-.form__modal--address .card-body .form-group {
-  height: toRem(95);
-  background: red;
-}
-.p-product-btn {
-  width: toRem(150);
-  height: toRem(47);
-  font-family: inherit;
-  transition: all 120ms ease-in;
 }
 @media (max-width: 960px) {
   .p-modal-wrapper-item::v-deep {
@@ -757,268 +743,208 @@ export default {
       width: 100%;
     }
   }
-  .modal-animation__open {
-    animation: modalOpen 600ms linear;
-  }
-  @keyframes modalOpen {
-    0% {
-      transform: translate(0, toRem(579));
-    }
-    100% {
-      transform: translate(0, 0);
-    }
-  }
-  .modal-animation__close {
-    animation: modalClose 600ms linear;
-  }
-  @keyframes modalClose {
-    0% {
-      transform: translate(0, 0);
-    }
-    100% {
-      transform: translate(0, toRem(579));
-    }
-  }
-  .modal {
-    align-self: flex-end;
-    position: absolute;
-    width: 100%;
-    height: toRem(723);
-    background: $white;
-    box-shadow: 0 toRem(20) toRem(24) $overlay__profile-mobile;
-    border-top-left-radius: toRem(30);
-    border-top-right-radius: toRem(30);
-    border-bottom-left-radius: 0;
-    border-bottom-right-radius: 0;
-    &__close-cross {
-      display: none;
-    }
-    &__close-line {
-      display: block;
-      align-self: center;
-      margin-top: toRem(24);
-    }
-    &__title {
-      display: block;
-      font-size: toRem(14);
-      line-height: 140.62%;
-      color: $gray;
-      margin-top: toRem(24);
-      text-align: right;
-    }
-    .pass__holder {
-      height: toRem(80);
-      width: 84vw;
-      margin-bottom: toRem(35);
-      label {
-        font-size: toRem(14);
-      }
-    }
+  .modal-container::v-deep {
+    .modal {
+      align-self: flex-end;
+      position: absolute;
+      width: 100%;
+      height: toRem(723);
+      background: $white;
+      box-shadow: 0 toRem(20) toRem(24) $overlay__profile-mobile;
+      border-radius: toRem(30) toRem(30) 0 0;
 
-    .pass__old,
-    .pass__new,
-    .pass__new-repeat {
-      @include display-flex();
-      height: toRem(46);
-    }
-    .pass__old > input,
-    .pass__new > input,
-    .pass__new-repeat > input {
-      height: toRem(46);
-      width: toRem(200);
-    }
-    .pass__submitbtn {
-      width: 91vw;
-      margin-bottom: toRem(47);
-    }
-    @mixin pass__alert() {
-      font-size: toRem(13);
-      padding-right: toRem(7);
-    }
-    .pass__alert {
-      @include pass__alert();
-    }
-    &::v-deep {
+      &__close-cross {
+        display: none;
+      }
+      &__close-line {
+        display: block;
+        align-self: center;
+        margin-top: toRem(24);
+      }
+      &__title {
+        display: block;
+        font-size: toRem(14);
+        line-height: 140.62%;
+        color: $gray;
+        margin-top: toRem(24);
+        text-align: right;
+      }
+      .pass__holder {
+        height: toRem(80);
+        width: 84vw;
+        margin-bottom: toRem(35);
+        label {
+          font-size: toRem(14);
+        }
+      }
+
+      .pass__old,
+      .pass__new,
+      .pass__new-repeat {
+        @include display-flex();
+        height: toRem(46);
+      }
+      .pass__old > input,
+      .pass__new > input,
+      .pass__new-repeat > input {
+        height: toRem(46);
+        width: toRem(200);
+      }
+      .pass__submitbtn {
+        width: 91vw;
+        margin-bottom: toRem(47);
+      }
+      @mixin pass__alert() {
+        font-size: toRem(13);
+        padding-right: toRem(7);
+      }
       .pass__alert {
         @include pass__alert();
       }
+      .clear-input > img {
+        width: toRem(17);
+        height: toRem(15);
+      }
+      .splicer-line {
+        display: block;
+        width: 95%;
+        border: none;
+        margin: toRem(16) toRem(5);
+        border-top: toRem(1) solid $gray-border;
+        margin-bottom: toRem(35);
+      }
+      .p-modal-header-mobile {
+        display: flex;
+        flex-flow: column;
+      }
+      .p-modal-header-desktop {
+        display: none;
+      }
+      @mixin p-modal-wrapper-province_city-title() {
+        font-size: toRem(14);
+      }
+      .p-modal-wrapper-province_city-title {
+        @include p-modal-wrapper-province_city-title();
+      }
+      .p-modal-wrapper-item {
+        width: 43%;
+        margin-left: 13%;
+        margin-bottom: toRem(4);
+      }
+      .p-modal-wrapper-item:nth-child(2n) {
+        margin-left: 0;
+      }
+      .p-modal-wrapper-item:nth-child(3n) {
+        margin-left: 13%;
+      }
+      .p-input-style__default {
+        width: 100%;
+      }
+      .p-modal_wrapper {
+        padding-right: toRem(32);
+        padding-left: toRem(32);
+        padding-top: toRem(24);
+      }
+      .splicer-line {
+        margin-bottom: 0;
+        margin-top: 20px;
+      }
+      .p-modal-header-icon-location {
+        width: toRem(19);
+      }
+      .p-modal-header-top-title {
+        font-size: toRem(14);
+        color: $gray;
+      }
+      .p-modal-header-top {
+        padding-top: toRem(32);
+      }
+      .p-modal-btns {
+        padding-top: toRem(55);
+      }
     }
   }
-  .clear-input > img {
-    width: toRem(17);
-    height: toRem(15);
-  }
-  .splicer-line {
-    display: block;
-    width: 95%;
-    border: none;
-    margin: toRem(16) toRem(5);
-    border-top: toRem(1) solid $gray-border;
-    margin-bottom: toRem(35);
-  }
-  .p-modal-header-mobile {
-    display: flex;
-    flex-flow: column;
-  }
-  .p-modal-header-desktop {
-    display: none;
-  }
-  @mixin p-modal-wrapper-province_city-title() {
-    font-size: toRem(14);
-  }
-  .modal::v-deep {
-    .p-modal-wrapper-province_city-title {
-      @include p-modal-wrapper-province_city-title();
-    }
-  }
-  .p-modal-wrapper-province_city-title {
-    @include p-modal-wrapper-province_city-title();
-  }
-  .p-modal-wrapper-item {
-    width: 43%;
-    margin-left: 13%;
-    margin-bottom: toRem(4);
-  }
-  .p-modal-wrapper-item:nth-child(2n) {
-    margin-left: 0;
-  }
-  .p-modal-wrapper-item:nth-child(3n) {
-    margin-left: 13%;
-  }
-  .p-input-style__default {
-    width: 100%;
-  }
-  .p-modal_wrapper {
-    padding-right: toRem(32);
-    padding-left: toRem(32);
-    padding-top: toRem(24);
-  }
-  .splicer-line {
-    margin-bottom: 0;
-    margin-top: 20px;
-  }
-  .p-modal-header-icon-location {
-    width: toRem(19);
-  }
-  .p-modal-header-top-title {
-    font-size: toRem(14);
-    color: $gray;
-  }
-  .p-modal-header-top {
-    padding-top: toRem(32);
-  }
-  .p-modal-btns {
-    padding-top: toRem(55);
-  }
+
 }
 
 @media (max-width: 540px) {
-  .modal {
-    height: toRem(688);
-  }
-  .p-modal-btns {
-    padding-top: toRem(25);
-  }
-  .p-modal-wrapper-item {
-    width: 100%;
-    margin-left: 0;
-    margin-bottom: toRem(4);
-  }
+  .modal-container::v-deep {
+    .modal {
+      height: toRem(688);
 
-  .p-modal-wrapper-item:nth-child(3n) {
-    margin-left: 0;
+      .p-modal-btns {
+        padding-top: toRem(25);
+      }
+
+    }
   }
 }
 
 @media screen and (max-width: 485px) {
-  .p-product-btn {
-    width: 47%;
-    margin-left: 0;
-  }
-  .p-favorite-product-btn-modal-delete {
-    margin-left: 4%;
-  }
-  .p-favorite-product-btn-modal-cancel {
-    margin-left: 0;
-  }
-  .p-modal-btns {
-    padding-top: toRem(9);
-  }
-  .modal {
-    height: toRem(617);
-  }
-  .p-modal-address {
-    margin-bottom: toRem(6);
-  }
-  .p-modal_wrapper {
-    padding-right: toRem(29);
-    padding-left: toRem(29);
-  }
-  @mixin pass__alert() {
-    height: toRem(20);
-  }
-  .modal .pass__alert {
-    @include pass__alert();
-  }
-  .modal::v-deep {
-    .pass__alert {
-      @include pass__alert();
+  .modal-container::v-deep {
+    .modal {
+      height: toRem(617);
+
+      .p-product-btn {
+        width: 47%;
+        margin-left: 0;
+      }
+      .p-favorite-product-btn-modal-delete {
+        margin-left: 4%;
+      }
+      .p-favorite-product-btn-modal-cancel {
+        margin-left: 0;
+      }
+      .p-modal-btns {
+        padding-top: toRem(9);
+      }
+      .p-modal-address {
+        margin-bottom: toRem(6);
+      }
+      .p-modal_wrapper {
+        padding-right: toRem(29);
+        padding-left: toRem(29);
+      }
+      @mixin pass__alert() {
+        height: toRem(20);
+      }
+      .pass__alert {
+        @include pass__alert();
+      }
+      .p-modal-wrapper-item {
+        margin-bottom: 0;
+      }
+      .splicer-line {
+        margin-top: toRem(16);
+      }
+      .p-modal-header-top {
+        padding-top: toRem(18);
+      }
+      .p-input-style__default {
+        height: toRem(46);
+      }
+      #form__modal--main::v-deep {
+        .search-section__items {
+          height: toRem(46) !important;
+        }
+      }
+      .p-modal-wrapper-item {
+        margin-bottom: 0;
+      }
+      .p-modal-validation-mobile {
+        display: flex !important;
+      }
+      .p-modal-validation-desktop {
+        display: none !important;
+      }
     }
-    .p-modal-wrapper-item {
-      margin-bottom: 0;
-    }
   }
-  .splicer-line {
-    margin-top: toRem(16);
-  }
-  .p-modal-header-top {
-    padding-top: toRem(33);
-  }
-  .p-input-style__default {
-    height: toRem(46);
-  }
-  #form__modal--main::v-deep {
-    .search-section__items {
-      height: toRem(46) !important;
-    }
-  }
-  .p-modal-wrapper-item {
-    margin-bottom: 0;
-  }
-  .modal__close-line {
-    margin-top: toRem(21);
-  }
-  .p-modal-validation-mobile {
-    display: flex !important;
-  }
-  .p-modal-validation-desktop {
-    display: none !important;
-  }
+
+
+
 }
 
 @media screen and (max-width: 320px) {
-  .modal-animation__open {
-    animation: modalOpen 600ms linear;
-  }
-  @keyframes modalOpen {
-    0% {
-      transform: translate(0, 470px);
-    }
-    100% {
-      transform: translate(0, 0);
-    }
-  }
-  .modal-animation__close {
-    animation: modalClose 600ms linear;
-  }
-  @keyframes modalClose {
-    0% {
-      transform: translate(0, 0);
-    }
-    100% {
-      transform: translate(0, 470px);
-    }
-  }
   .modal {
     height: toRem(470);
     &__close-line {

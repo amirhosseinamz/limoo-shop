@@ -27,6 +27,8 @@
                         <span class="user-cart__shipping-line"></span>
 
                         <The-shipping-address
+                            :show-add-modal="showAddModal"
+                            @close-modal="closeModal"
                             ref="TheShippingAddress"
                             @event-show-modal-delete-order="
                                 eventShowModalDeleteOrder
@@ -126,6 +128,7 @@ export default {
             currentOrders: {},
             updateAddress: 0,
             currentAddress: {},
+            showAddModal: false,
 
         };
     },
@@ -172,6 +175,9 @@ export default {
       tabChanged (val) {
         this.selected = val
       },
+      closeModal() {
+        this.showAddModal = false;
+      },
         submitTimesAdd() {
             this.allOrdersHasTimed.item = true;
         },
@@ -209,6 +215,7 @@ export default {
             // console.log(data,'selectedCitys');
         },
         addAddress() {
+            this.showAddModal = true
             this.$refs.TheShippingAddress.addAddress();
         },
         goBack() {

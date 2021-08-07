@@ -1,12 +1,10 @@
 <template>
-  <modal
-    id="p-profile-favorite-modal"
-    class="p-profile-favorite-modal"
-    size="800px"
-    :show.sync="show"
-    :footer="false"
+  <base-modal
+    class="modal-container"
+    modal-class="modal p-profile-favorite-modal"
+    :show-modal="show"
+    mode="scale"
   >
-
     <modalSignUpStepOne
       @btn-close-modal="modalClose"
       @btn-go-to-signup-step-two="gotoSignUpStepTwo"
@@ -43,7 +41,7 @@
       v-else-if="PassChange"
     />
     <!--  -->
-  </modal>
+  </base-modal>
 </template>
 
 <script>
