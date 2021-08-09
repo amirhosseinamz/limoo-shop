@@ -1,15 +1,15 @@
 <template>
   <div class="orders-content__main">
     <transition moda="in-out">
+      <div v-if="showModal">
         <shipping-add-address-modal
           :data-edit-address="dataEditAddress"
-          :show-add-modal="showAddModal"
-          :show-edit-modal="showEditModal"
           @selected-province="selectedProvince"
           @selected-city="selectedCity"
           @submit-address-add="submitAddressAdd"
           @close-modal="closeModal"
         />
+      </div>
     </transition>
     <div class="w-100 flex-wrap" :key="updateChosenAddress">
       <base-accordion
@@ -109,11 +109,16 @@ export default {
       passChangeIsActive: false,
       updateSelected: 0,
       dataEditAddress: {},
-      showEditModal: false,
+      showModal: false,
       modalEditSelected: {
         id: null,
       },
     };
+  },
+  watch: {
+    showAddModal(val) {
+      this.showModal = val;
+    }
   },
   computed: {
     addressData() {
@@ -163,8 +168,7 @@ export default {
         stateEditAdd = "edit";
       }
 
-      this.showAddModal = false;
-      this.showEditModal = false;
+      this.showModal = false;
       this.passChangeIsActive = false;
       this.$emit("submit-address-add", data, stateEditAdd);
       if (stateEditAdd == "edit") {
@@ -174,14 +178,14 @@ export default {
     closeModal() {
       this.dataEditAddress = {};
       this.passChangeIsActive = false;
-      this.showEditModal = false;
+      this.showModal = false;
       this.$emit("close-modal")
     },
 
     editAddress(data) {
       this.dataEditAddress = data;
       this.passChangeIsActive = true;
-      this.showEditModal = true;
+      this.showModal = true;
     },
     //
     checkCloseDropDown(e) {

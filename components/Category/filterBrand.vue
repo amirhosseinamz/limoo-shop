@@ -1,24 +1,34 @@
 <template>
-  <div :class="{'active--box':openBox}" class="w-100 modal-filter__box margin--top">
-        <div @click="toggleBox" class="modal-filter__box-title w-100">
-          <h3 class="modal-filter__box-text">{{title}}</h3>
-          <!-- <span class="modal-filter__box-arrow"></span> -->
-          <img class="modal-filter__box-arrow" src="/icons/arrow-down.svg" alt="">
-        </div>
-
-        <div class="modal-filter__box-content w-100">
-                  <div class="modal-filter__box-items w-100">
-                            <div  v-for="(data,index) in checkBoxData" :key="data.id" class="modal-filter__box-item">
-                                <label @change="addChecked($event,data)" class="container">
-                                  <input v-model="data.checked" type="checkbox">
-                                  <span class="checkmark"></span>
-                                  <h3 class="modal-filter__checkbox-title">{{data.title}}</h3>
-                                </label>
-                            </div>
-                  </div>
-        </div>
-
-  </div>
+  <sliding-drop-down title="انتخاب برند" class="modal-filter__box margin--top" :open="false">
+    <div class="modal-filter__box-content w-100">
+      <div class="modal-filter__box-items w-100">
+        <base-checkbox
+          class="brand-checkbox"
+          name="name"
+          val="first"
+          mode="square"
+          v-model="checkboxValues"
+          title="دنیس تریکو"
+        ></base-checkbox>
+        <base-checkbox
+          class="brand-checkbox"
+          name="name"
+          val="sec"
+          mode="square"
+          v-model="checkboxValues"
+          title="دنیس تریکو"
+        ></base-checkbox>
+        <base-checkbox
+          class="brand-checkbox"
+          name="name"
+          val="third"
+          mode="square"
+          v-model="checkboxValues"
+          title="دنیس تریکو"
+        ></base-checkbox>
+      </div>
+    </div>
+  </sliding-drop-down>
 </template>
 
 <script>
@@ -26,9 +36,7 @@
 
 export default {
   props: {
-    openDefaultBox  : { type: Boolean, default: false },
-    title           : { type: String, default: '' },
-    checkBoxData    : { type: [Array,Object], default: [] },
+    title: { type: String, default: "" },
   },
 
   components: {
@@ -39,6 +47,19 @@ export default {
       openBox              : false,
       checkedBrand         : [],
       lastChecked          : [],
+      checkboxData: {
+        title: [
+          'دنیس تریکو 1',
+          'دنیس تریکو 2',
+          'دنیس تریکو 3',
+        ],
+        value: [
+          'first',
+          'second',
+          'third'
+        ]
+      },
+      checkboxValues: []
     }
   },
 
@@ -76,32 +97,15 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.modal-filter__box{
+.modal-filter__box::v-deep {
   width: 98%;
-  margin-right: auto;
-  margin-left: auto;
-  background: $white;
-  padding-bottom: 15px;
-  // padding-top: 13px;
-  // padding-right: 16px;
-  // padding-left: 16px;
-  border:solid 1px $chinese_white;
-  @include display-flex();
-  align-items: flex-start;
-  border-radius: 10px;
-  flex-wrap: wrap;
-  max-height: 51px;
-  transition: max-height 0.5s cubic-bezier(0, 1, 0, 1);
-  overflow: hidden;
-  margin-top: 6px;
+  margin-top: toRem(6);
+  .dropdown-title {
+    font-size: toRem(16);
+  }
 }
-.modal-filter__box-content{
-  @include display-flex();
-  align-items: flex-start;
-  flex-wrap: wrap;
-  margin-top: 4px;
-  padding-right: 16px;
-  padding-left: 16px;
+.modal-filter__box-content {
+  margin-top: -1.5rem
 }
 .modal-filter__box-text{
   font-size: 16px;
@@ -109,6 +113,18 @@ export default {
   font-weight: 400;
   flex-grow: 1;
   @include display-flex();
+}
+.modal-filter__box-items {
+  @extend .d-flex;
+  flex-flow: column;
+  align-items: flex-start;
+
+  .brand-checkbox {
+    margin-bottom: toRem(20);
+  }
+  .brand-checkbox:last-child {
+    margin-bottom: toRem(6);
+  }
 }
 .modal-filter__box-arrow::before {
   content: "\e801";

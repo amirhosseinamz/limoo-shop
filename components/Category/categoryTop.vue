@@ -5,7 +5,6 @@
         <div class="products__top-title w-100 products__top-desktop">
           <h3 class="products__top-text">موبایل اندرویدی</h3>
         </div>
-        <base-signs type="confirmed"></base-signs>
         <div class="products__filter-btns w-100 ">
           <base-button no-box-shadow classes="products__filter-btn" @button-clicked="showBoxFilter">
             <img src="/icons/filter_search_icon.svg" alt="filter">
@@ -61,7 +60,8 @@ export default {
       allCategorySuggestion: [],
       selectedTab: 'limoo',
       activeItem_1: true,
-      activeItem_2: false
+      activeItem_2: false,
+      checkboxValues: []
     };
   },
 
@@ -78,6 +78,9 @@ export default {
   },
 
   methods: {
+    goGo(val) {
+      console.log(this.checkboxValues);
+    },
     selectTab(e, name) {
       this.selectedTab = name
       if (name === 'limoo') {

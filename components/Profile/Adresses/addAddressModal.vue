@@ -1,16 +1,18 @@
 <template>
   <base-modal
+    ref="modal"
     class="modal-container"
     :show-modal="true"
     :mode="modalMode"
     modal-class="modal"
-    @phone-modal-closed="closeModalMobile"
+    @phone-modal-closed="closeModalParent"
+    @close-from-backdrop="closeModalParent"
   >
     <div class="w-100 p-modal-header">
       <div class="w-100 p-modal-header-mobile">
         <div class="w-100 d-flex justify-content-center p-modal-header-icon">
           <img
-            @click="closeModalDesktop"
+            @click="closeModalParent"
             class="modal__close-cross"
             src="/icons/close.svg"
           />
@@ -18,7 +20,7 @@
 
         <div class="p-modal-header-top align-items-center">
           <img
-            @click="closeModalMobile"
+            @click="closeModalParent"
             class="p-modal-header-icon-location"
             src="/icons/location_adress.svg"
           />
@@ -43,7 +45,7 @@
           </div>
           <div class="p-modal-header-close ">
             <base-button
-              @button-clicked="closeModalDesktop"
+              @button-clicked="closeModalParent"
               classes="p-modal-header-close-icon"
               base-color="white"
               mode="close"></base-button>
@@ -260,7 +262,7 @@
         </base-button>
 
         <base-button
-          @button-clicked="closeModalDesktop"
+          @button-clicked="closeModalParent"
           classes="p-product-btn p-favorite-product-btn-modal-cancel"
           no-box-shadow
           base-color="light-gray"
@@ -284,7 +286,7 @@ export default {
     formDataOriginal: { type: [Object, Array], default: {} },
     dataEditAddress: { type: Object, default: {} },
     profilePhoneNumber: { type: [Number, String], default: "" },
-    showAddModal: { type: Boolean, require: true }
+    //showModal: { type: Boolean, require: true }
   },
   components: {
     customeDropDown,
@@ -308,7 +310,7 @@ export default {
   },
 
   watch: {
-    dataEditAddress(data) {},
+    dataEditAddress(data) {}
   },
   computed: {
     modalMode() {
@@ -372,15 +374,10 @@ export default {
     },
 
 
-    closeModalMobile() {
-      this.modalClose = true;
-      setTimeout(() => {
-        this.$emit("close-modal");
-      }, 280);
-    },
-
-    closeModalDesktop() {
-      this.$emit("close-modal");
+    closeModalParent() {
+        debugger;
+        this.$refs.modal.closeModal();
+        //this.$emit("close-modal");
     },
 
     checkShowErrorCityProvince() {
@@ -870,10 +867,13 @@ export default {
 @media (max-width: 540px) {
   .modal-container::v-deep {
     .modal {
-      height: toRem(688);
+      height: toRem(630);
 
       .p-modal-btns {
         padding-top: toRem(25);
+      }
+      .p-modal-wrapper-province_city-title {
+          margin-bottom: 0.2rem;
       }
 
     }
@@ -883,7 +883,7 @@ export default {
 @media screen and (max-width: 485px) {
   .modal-container::v-deep {
     .modal {
-      height: toRem(617);
+      height: toRem(560);
 
       .p-product-btn {
         width: 47%;

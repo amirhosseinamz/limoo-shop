@@ -67,11 +67,14 @@ export default {
         return;
       }
       this.localShowModal = false;
+      const body = document.querySelector("body");
+      body.style.overflowY = "";
       this.$emit("close-from-backdrop");
     },
     closeModal() {
       this.localShowModal = false;
-      this.$emit("phone-modal-closed");
+      const body = document.querySelector("body");
+      body.style.overflowY = "";
     },
   },
   watch: {
@@ -82,9 +85,9 @@ export default {
       const body = document.querySelector("body");
       if (val) {
         body.style.overflowY = "hidden";
-      } else {
-        body.style.overflowY = "";
       }
+      //console.log(val);
+
     }
   },
   mounted() {

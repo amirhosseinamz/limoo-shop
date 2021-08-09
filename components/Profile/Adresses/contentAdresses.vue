@@ -4,7 +4,7 @@
     class="p-adresses-content-main w-100 flex-column flex-wrap  d-rtl"
   >
     <transition moda="in-out">
-      <div id="overlay" v-if="passChangeIsActive">
+      <div v-if="showModal">
         <add-address-modal
           :all-province="allProvince"
           :all-citys="allCitys"
@@ -15,7 +15,6 @@
           @selected-city="selectedCity"
           @submit-address-add="submitAddressAdd"
           @close-modal="closeModal"
-          :show-add-modal="showAddModal"
         ></add-address-modal>
       </div>
     </transition>
@@ -171,7 +170,7 @@ export default {
       passChangeIsActive: false,
       dataEditAddress: {},
       userAddress: -1,
-      showAddModal: false
+      showModal: false
     };
   },
 
@@ -193,7 +192,8 @@ export default {
 
     addAddress() {
       this.dataEditAddress = {};
-      this.passChangeIsActive = !this.passChangeIsActive;
+      this.showModal = true;
+      debugger;
     },
 
     selectedProvince(data) {
@@ -220,14 +220,12 @@ export default {
 
     closeModal() {
       this.dataEditAddress = {};
-      this.showAddModal = false
-      this.showEditModal = false;
-      this.passChangeIsActive = false;
+      this.showModal = false
     },
 
     editAddress(data) {
       this.dataEditAddress = data;
-      this.passChangeIsActive = true;
+      this.showModal = true;
     },
   },
 };

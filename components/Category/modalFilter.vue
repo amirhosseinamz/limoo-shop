@@ -35,13 +35,9 @@
         ></filter-price>
 
         <filter-brand
-          v-for="(data, index) in checkBoxData"
-          :key="index"
-          :open-default-box="data.openDefault"
-          :title="data.title"
-          :check-box-data="data.children"
           @checked-brand-filter="checkedBrandFilter"
         ></filter-brand>
+
       </div>
 
       <div class="w-100 modal-filter__btn">
@@ -97,7 +93,10 @@ export default {
         from: 40000,
         to: 70000,
       },
-      checkBoxData: {},
+      checkBoxData: {
+        openDefault: true,
+        title: "انتخاب برند",
+      },
       windowWidth: 0
     };
   },

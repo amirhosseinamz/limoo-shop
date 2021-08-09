@@ -1,7 +1,7 @@
 <template>
   <base-modal
     class="modal-container"
-    :show-modal="showModal"
+    :show-modal="true"
     :mode="modalMode"
     modal-class="modal"
     @phone-modal-closed="closeModalMobile"
@@ -278,11 +278,7 @@ import textInput from "~/modules/textInput";
 export default {
   props: {
     dataEditAddress: { type: Object, default: {} },
-    showAddModal: {
-      type: Boolean,
-      require: true
-    },
-    showEditModal: {
+    showModal: {
       type: Boolean,
       require: true
     }
@@ -328,37 +324,13 @@ export default {
         return "phone";
       }
     },
-    showModal() {
-      return this.showAddModal || this.showEditModal;
-    }
   },
   watch: {
     dataEditAddress(data) {
     },
-    showEditModal(val) {
-      if (val) {
-        for (let key in this.dataEditAddress) {
-          this.formData[key] = this.dataEditAddress[key];
-        }
-        this.initialValueProvince = this.formData.province;
-        this.initialValueCity = this.formData.city;
-      }
-
-    },
-    showAddModal(val) {
-      if (val) {
-        const formDataOriginal = this.formDataOriginal;
-        for (let key in formDataOriginal) {
-          this.formData[key] = formDataOriginal[key];
-        }
-      }
-
-    }
   },
 
-  mounted() {
-    window.addEventListener('resize', this.handleResize);
-    this.handleResize();
+  created() {
     // پس از کلیک روی ویرایش آدرس کاندیشن زیر اجرا می شود //
     if (typeof this.dataEditAddress.id !== "undefined") {
       for (let key in this.dataEditAddress) {
@@ -382,6 +354,10 @@ export default {
     // this.formData.numberReceiver = this.profilePhoneNumber;
     this.setDefaultValidationMsg();
     this.detectedResizeBrowser();
+  },
+  mounted() {
+    window.addEventListener('resize', this.handleResize);
+    this.handleResize();
   },
 
   methods: {
@@ -426,25 +402,6 @@ export default {
         this.showErrorValidationCity = true;
       } else {
         this.showErrorValidationCity = false;
-      }
-    },
-    showModalData() {
-      if (typeof this.dataEditAddress.id != "undefined") {
-        for (let key in this.dataEditAddress) {
-          this.formData[key] = this.dataEditAddress[key];
-        }
-        this.initialValueProvince = this.formData.province;
-        this.initialValueCity = this.formData.city;
-      } else {
-        const formDataOriginal = this.formDataOriginal;
-        for (let key in formDataOriginal) {
-          this.formData[key] = formDataOriginal[key];
-        }
-        console.log(this.formData);
-      }
-
-      if (485 >= this.windowWidth) {
-        this.textLabelCodePoste = "کد پستی";
       }
     },
 
