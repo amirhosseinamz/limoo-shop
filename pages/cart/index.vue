@@ -21,7 +21,7 @@
         </div>
 <!--      Delete User Modal-->
       <transition name="backdrop-delete">
-        <div class="backdrop" v-if="showModalDeleteUser"></div>
+        <div class="backdrop" v-if="showModalDeleteUser" @click="modalDeleteUserClose"></div>
       </transition>
       <transition name="delete">
         <TheModalDeleteUserOrders

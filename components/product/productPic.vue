@@ -35,7 +35,7 @@
 
 <!--    Pics Modal-->
     <transition name="backdrop-scale">
-      <div class="backdrop" v-if="showModalPic"></div>
+      <div class="backdrop" v-if="showModalPic" @click="modalClose"></div>
     </transition>
     <transition :name="modalAnimation">
       <modal-pic-product

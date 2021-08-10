@@ -38,7 +38,7 @@
     </div>
     <!--      Filter Modal-->
     <transition name="backdrop-scale">
-      <div class="backdrop" :class="{ 'active--blur': activeBlur }" v-if="showFilterModal || showSortModal"></div>
+      <div class="backdrop" :class="{ 'active--blur': activeBlur }" v-if="showFilterModal" @click="modalFilterClose"></div>
     </transition>
     <transition name="scale">
       <modal-filter
@@ -48,7 +48,9 @@
     </transition>
 
     <!--      Filter Modal-->
-
+    <transition name="backdrop-scale">
+      <div class="backdrop" :class="{ 'active--blur': activeBlur }" v-if="showSortModal" @click="modalSortClose"></div>
+    </transition>
     <transition name="scale">
       <modal-sort
         v-if="showSortModal"
