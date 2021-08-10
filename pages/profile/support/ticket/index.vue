@@ -106,11 +106,19 @@
       </div>
     </div>
 
-    <modalDeleteTicket
-      :active.sync="statusShowModalDeleteProduct"
-      :current-product="currentProduct"
-      @btn-delete-modal="btnDeleteProduct"
-    />
+<!--    Delete Modal-->
+
+    <transition name="backdrop-delete">
+      <div class="backdrop" v-if="showModal" @click="modalClose"></div>
+    </transition>
+    <transition name="delete">
+      <modalDeleteTicket
+        v-if="showModal"
+        @close-modal="modalClose"
+        :current-product="currentProduct"
+        @btn-delete-modal="btnDeleteProduct"
+      />
+    </transition>
   </div>
 </template>
 <script>
@@ -136,7 +144,7 @@ export default {
       ],
       selected: this.getTextByTextKey("support_tab_send_ticket"),
       updateTicket: 0,
-      statusShowModalDeleteProduct: false
+      showModal: false,
     };
   },
   computed: {
@@ -166,6 +174,9 @@ export default {
     goToProfile() {
       this.$router.push("/profile");
     },
+    modalClose() {
+      this.showModal = false;
+    },
     goToSupport(page) {
       if (page === this.tabsNames[0]) {
         this.$router.push("/profile/support/ticket");
@@ -189,14 +200,14 @@ export default {
       };
 
       removeFavorite();
-      this.statusShowModalDeleteProduct = false;
+      this.showModal = false;
 
       // request //
     },
 
     showModalDeleteProduct(data) {
       this.currentProduct = data;
-      this.statusShowModalDeleteProduct = true;
+      this.showModal = true;
     },
 
     submitTicketsAdd(data, state) {
@@ -226,22 +237,13 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-#overlay {
-  position: fixed; /* Sit on top of the page content */
-  @include display-flex();
-  justify-content: center;
-  align-items: center;
-  width: 100%; /* Full width (cover the whole page) */
-  height: 100%; /* Full height (cover the whole page) */
-  /* transition: opacity 200ms ease-out; */
-  /* top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0; */
-  z-index: 1;
-  background: $overlay__profile;
-}
+@include delete-modal-animation();
+@include backdrop-delete-modal-animation();
 
+.backdrop {
+  @extend .modal-backdrop;
+  background-color: $overlay--profile;
+}
 .mobile-screen,
 .user-profile__support-mobile,
 .support__navbar-mobile {

@@ -31,11 +31,20 @@
       </div>
     </div>
 
-    <modalDeleteFav
-      :active.sync="showModalDeleteFavorite"
-      :current-favorite="currentFavorite"
-      @btn-delete-favorite="btnDeleteFavorite"
-    />
+<!--    Delete Modal-->
+
+    <transition name="backdrop-delete">
+      <div class="backdrop" v-if="showModal"></div>
+    </transition>
+    <transition name="delete">
+      <modalDeleteFav
+        v-if="showModal"
+        :current-favorite="currentFavorite"
+        @btn-delete-favorite="btnDeleteFavorite"
+        @close-modal="modalClose"
+      />
+    </transition>
+
   </div>
 </template>
 <script>
@@ -54,7 +63,7 @@ export default {
   },
   data() {
     return {
-      showModalDeleteFavorite: false,
+      showModal: false,
       favoriteData: [
         {
           id: 1,
@@ -107,9 +116,12 @@ export default {
     goToProfile() {
       this.$router.push("/profile");
     },
+    modalClose() {
+      this.showModal = false;
+    },
 
     eventShowModalDeleteFavorite(data) {
-      this.showModalDeleteFavorite = true;
+      this.showModal = true;
       this.currentFavorite = data;
     },
 
@@ -127,7 +139,7 @@ export default {
       };
 
       removeFavorite();
-      this.showModalDeleteFavorite = false;
+      this.showModal = false;
 
       // request //
     },
@@ -136,22 +148,13 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-#overlay {
-  position: fixed; /* Sit on top of the page content */
-  @include display-flex();
-  justify-content: center;
-  align-items: center;
-  width: 100%; /* Full width (cover the whole page) */
-  height: 100%; /* Full height (cover the whole page) */
-  /* transition: opacity 200ms ease-out; */
-  /* top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0; */
-  z-index: 1;
-  background: $overlay__profile;
-}
+@include delete-modal-animation();
+@include backdrop-delete-modal-animation();
 
+.backdrop {
+  @extend .modal-backdrop;
+  background-color: $overlay--profile;
+}
 .mobile-screen {
   display: none;
 }

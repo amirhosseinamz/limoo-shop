@@ -2,8 +2,8 @@
   <base-modal
     class="modal-container d-rtl"
     modal-class="modal d-rtl product--single__modal"
-    :show-modal="show"
     :mode="modalMode"
+    @close-modal="modalClose"
   >
     <div class="w-100  product__modal">
       <div class="w-100 product__modal-text">
@@ -12,12 +12,6 @@
             {{ getTextByTextKey("product_pic_text") }}
           </h3>
           <span @click="modalClose" class="product__modal-close"></span>
-          <!-- <img
-            @click="modalClose"
-            src="/icons/closeModalProduct.svg"
-            class="product__modal-close"
-            alt=""
-          /> -->
         </div>
         <span class="product__modal-line"></span>
       </div>
@@ -53,60 +47,7 @@
       </div>
     </div>
   </base-modal>
-<!--  <modal
-    class="d-rtl product&#45;&#45;single__modal"
-    size="1083px"
-    :show.sync="show"
-    :footer="false"
-  >
-    <div class="w-100  product__modal">
-      <div class="w-100 product__modal-text">
-        <div class="w-100 product__modal-top">
-          <h3 class="product__modal-title">
-            {{ getTextByTextKey("product_pic_text") }}
-          </h3>
-          <span @click="modalClose" class="product__modal-close"></span>
-          &lt;!&ndash; <img
-            @click="modalClose"
-            src="/icons/closeModalProduct.svg"
-            class="product__modal-close"
-            alt=""
-          /> &ndash;&gt;
-        </div>
-        <span class="product__modal-line"></span>
-      </div>
 
-      <div class="w-100 product__modal-container">
-        <div class="w-100 product__modal-pic">
-          <div class="product__modal-item w-100">
-            <img
-              class="product&#45;&#45;modal_pic-item"
-              :src="imageSelected.image"
-              alt=""
-            />
-          </div>
-        </div>
-
-        <div class="w-100 product&#45;&#45;modal_pic-all">
-          <div class=" main-carousel w-100 product_modal-main">
-            <div
-              :class="{ active: data.active }"
-              v-for="data in productSlider"
-              :key="data.id"
-              class="carousel-cell "
-            >
-              <img
-                :data-id="data.id"
-                class="carousel-pic"
-                :src="data.image"
-                alt=""
-              />
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </modal>-->
 </template>
 
 <script>
@@ -114,9 +55,9 @@ import { getTextByTextKey } from "~/modules/splitPartJsonResource.js";
 
 export default {
   props: {
-    active: { type: [Boolean, Number], default: false },
     productSlider: { type: [Object, Array], default: [] },
     imageSelected: { type: Object, default: {} },
+    modalMode: { type: Boolean, require: true }
   },
 
   components: {},
@@ -124,26 +65,7 @@ export default {
   data() {
     return {
       productSliderData: [],
-      windowWidth: 0,
     };
-  },
-
-  computed: {
-    show: {
-      set(val) {
-        this.$emit("update:active", !!val);
-      },
-      get() {
-        return !!this.active;
-      },
-    },
-    modalMode() {
-      if (this.windowWidth > 760) {
-        return "scale";
-      } else {
-        return "phone";
-      }
-    }
   },
 
   watch: {
@@ -157,18 +79,10 @@ export default {
     },
   },
 
-  mounted() {
-    window.addEventListener('resize', this.handleResize);
-    this.handleResize();
-  },
-
   methods: {
     getTextByTextKey,
-    handleResize() {
-      this.windowWidth = window.innerWidth;
-    },
     modalClose() {
-      this.show = false;
+      this.$emit('close-modal');
     },
 
     flickityOptions() {
@@ -216,6 +130,9 @@ export default {
   .modal {
     width: toRem(1083);
     padding: 0.5rem 1.5rem;
+    .main-carousel {
+      @extend .d-flex;
+    }
     .product__modal {
       width: 100%;
       flex-wrap: wrap;

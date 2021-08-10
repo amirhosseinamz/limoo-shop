@@ -1,9 +1,7 @@
 <template>
   <base-modal
-  modal-class="p-profile-favorite-modal d-rtl"
-  :show-modal="show"
-  closable-from-backdrop
-  @close-from-backdrop="modalClose"
+    modal-class="p-profile-favorite-modal d-rtl"
+    @close-modal="modalClose"
   >
     <div
       class="w-100 p-profile-favorite-wrapper flex-wrap align-items-start flex-column "
@@ -40,22 +38,12 @@ import { getTextByTextKey } from "~/modules/splitPartJsonResource.js";
 
 export default {
   props: {
-    active: { type: [Boolean, Number], default: false },
     currentProduct: { type: Object, default: {} },
+
   },
 
   components: {},
 
-  computed: {
-    show: {
-      set(val) {
-        this.$emit("update:active", !!val);
-      },
-      get() {
-        return !!this.active;
-      },
-    },
-  },
 
   methods: {
     deleteItem() {
@@ -63,7 +51,7 @@ export default {
     },
 
     modalClose() {
-      this.show = false;
+      this.$emit('close-modal');
     },
 
     getTextByTextKey,

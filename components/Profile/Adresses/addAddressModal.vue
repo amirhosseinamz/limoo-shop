@@ -1,12 +1,9 @@
 <template>
   <base-modal
-    ref="modal"
     class="modal-container"
-    :show-modal="true"
     :mode="modalMode"
     modal-class="modal"
-    @phone-modal-closed="closeModalParent"
-    @close-from-backdrop="closeModalParent"
+    @close-modal="closeModalParent"
   >
     <div class="w-100 p-modal-header">
       <div class="w-100 p-modal-header-mobile">
@@ -286,6 +283,7 @@ export default {
     formDataOriginal: { type: [Object, Array], default: {} },
     dataEditAddress: { type: Object, default: {} },
     profilePhoneNumber: { type: [Number, String], default: "" },
+    modalMode: {type: String, require: true}
     //showModal: { type: Boolean, require: true }
   },
   components: {
@@ -305,21 +303,11 @@ export default {
       showErrorValidationProvince: false,
       checkInitialValidation: 0,
       textLabelCodePoste: "کد پستی (اختیاری):",
-      windowWidth: 0,
     };
   },
 
   watch: {
     dataEditAddress(data) {}
-  },
-  computed: {
-    modalMode() {
-      if (this.windowWidth > 960) {
-        return "form";
-      } else {
-        return "phone";
-      }
-    }
   },
 
   created() {
@@ -348,16 +336,8 @@ export default {
     this.detectedResizeBrowser();
   },
 
-  mounted() {
-    window.addEventListener('resize', this.handleResize);
-    this.handleResize();
-  },
-
   methods: {
     getTextByTextKey,
-    handleResize() {
-      this.windowWidth = window.innerWidth;
-    },
     setDefaultValidationMsg() {
       this.notValidMsg = this.getTextByTextKey("address_not_valid");
       this.overLimitMsg = this.getTextByTextKey(
@@ -375,9 +355,7 @@ export default {
 
 
     closeModalParent() {
-        debugger;
-        this.$refs.modal.closeModal();
-        //this.$emit("close-modal");
+        this.$emit("close-modal");
     },
 
     checkShowErrorCityProvince() {

@@ -33,12 +33,19 @@
       </div>
     </div>
 
-    <modal-pic-product
-      :active.sync="showModalPicProduct"
-      :product-slider="productSlider"
-      :image-selected="imageSelected"
-      @active-item-slider-nav="activeItemSliderNav"
-    ></modal-pic-product>
+<!--    Pics Modal-->
+    <transition name="backdrop-scale">
+      <div class="backdrop" v-if="showModalPic"></div>
+    </transition>
+    <transition :name="modalAnimation">
+      <modal-pic-product
+        v-if="showModalPic"
+        :product-slider="productSlider"
+        :image-selected="imageSelected"
+        @active-item-slider-nav="activeItemSliderNav"
+        @close-modal="modalClose"
+      ></modal-pic-product>
+    </transition>
   </div>
 </template>
 <script>
@@ -51,12 +58,18 @@ export default {
   components: {
     modalPicProduct,
   },
+  computed: {
+    modalAnimation() {
+      return "scale";
+    }
+  },
   data() {
     return {
-      showModalPicProduct: false,
+      showModalPic: false,
       productLimitedShow: [],
       imageSelected: {},
       updateLimitedProduct: 0,
+      windowWidth: 0
     };
   },
 
@@ -65,10 +78,15 @@ export default {
   created() {},
 
   mounted() {
+    window.addEventListener('resize', this.handleResize);
+    this.handleResize();
     this.limitedProduct();
   },
 
   methods: {
+    modalClose() {
+      this.showModalPic = false;
+    },
     limitedProduct() {
       this.productSlider.map((content, index) => {
         content.show = false;
@@ -85,10 +103,12 @@ export default {
 
       this.updateLimitedProduct++;
     },
-
+    handleResize() {
+      this.windowWidth = window.innerWidth;
+    },
     showModal(data) {
       this.imageSelected = data;
-      this.showModalPicProduct = true;
+      this.showModalPic = true;
     },
 
     activeItemSliderNav(data) {
@@ -100,6 +120,13 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@include scale-modal-animation();
+@include backdrop-scale-animation();
+
+.backdrop {
+  @extend .modal-backdrop;
+  background-color: $overlay--profile;
+}
 .product__pic {
   @include display-flex();
   align-items: flex-start;

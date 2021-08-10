@@ -28,7 +28,7 @@
 
                         <The-shipping-address
                             :show-add-modal="showModal"
-                            @close-modal="closeModal"
+                            @close-modal="modalClose"
                             ref="TheShippingAddress"
                             @event-show-modal-delete-order="
                                 eventShowModalDeleteOrder
@@ -94,11 +94,19 @@
             </div>
         </div>
         <nuxt-link to="/cart" class="user-cart__go-back">بازگشت</nuxt-link>
+<!--      Delete Modal-->
+      <transition name="backdrop-delete">
+        <div class="backdrop" v-if="showDeleteModal" @click="modalClose"></div>
+      </transition>
+      <transition name="delete">
         <modalDeleteAddress
-            :active.sync="showModalDeleteAddress"
-            :current-address="currentAddress"
-            @btn-delete-modal="btnDeleteAddress"
+          v-if="showDeleteModal"
+          :current-address="currentAddress"
+          @btn-delete-modal="btnDeleteAddress"
+          @close-modal="modalClose"
         />
+      </transition>
+
     </div>
 </template>
 <script>
@@ -122,13 +130,13 @@ export default {
             tabsNames: ['ارسال پیشنهادی','ارسال فوری'],
             selected: 'ارسال پیشنهادی',
             allOrdersHasTimed: { item: false },
-            showModalDeleteAddress: false,
+            showModal: false,
+            showDeleteModal: false,
             userAddressData: -1,
             sendTime: true,
             currentOrders: {},
             updateAddress: 0,
             currentAddress: {},
-            showModal: false,
 
         };
     },
@@ -175,8 +183,9 @@ export default {
       tabChanged (val) {
         this.selected = val
       },
-      closeModal() {
+      modalClose() {
         this.showModal = false;
+        this.showDeleteModal = false;
       },
         submitTimesAdd() {
             this.allOrdersHasTimed.item = true;
@@ -222,7 +231,7 @@ export default {
             this.$router.push("/cart");
         },
         eventShowModalDeleteOrder(data) {
-            this.showModalDeleteAddress = true;
+            this.showDeleteModal = true;
             this.currentAddress = data;
         },
         btnDeleteAddress(data) {
@@ -237,7 +246,7 @@ export default {
             };
 
             removeOrder();
-            this.showModalDeleteAddress = false;
+            this.showDeleteModal = false;
 
             // request //
         },
@@ -276,6 +285,12 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
+@include delete-modal-animation();
+@include backdrop-delete-modal-animation();
+.backdrop {
+  @extend .modal-backdrop;
+  background-color: $overlay--profile;
+}
 .cart-container {
     margin: 0 auto;
     width: 100%;

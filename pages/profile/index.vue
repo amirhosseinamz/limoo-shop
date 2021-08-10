@@ -54,17 +54,27 @@
         </nuxt-link>
       </div>
       <!--  -->
-      <TheModalDeleteUserHistory
-        :active.sync="showModalDeleteHistory"
-        :current-history="currentHistory"
-        @btn-delete-history="btnDeleteHistory"
-      />
+      <transition name="backdrop-delete">
+        <div class="backdrop" v-if="showModal || showFavModal" @close="modalClose"></div>
+      </transition>
+      <transition name="delete">
+        <TheModalDeleteUserHistory
+          v-if="showModal"
+          :current-history="currentHistory"
+          @btn-delete-history="btnDeleteHistory"
+          @close-modal="modalClose"
+        />
+      </transition>
+
       <!--  -->
-      <modalDeleteFav
-        :active.sync="showModalDeleteFavorite"
-        :current-favorite="currentFavorite"
-        @btn-delete-favorite="btnDeleteFavorite"
-      />
+      <transition name="delete">
+        <modalDeleteFav
+          v-if="showFavModal"
+          :current-favorite="currentFavorite"
+          @btn-delete-favorite="btnDeleteFavorite"
+          @close-modal="modalClose"
+        />
+      </transition>
       <!--  -->
     </div>
   </div>
@@ -91,7 +101,8 @@ export default {
   },
   data() {
     return {
-      showModalDeleteHistory: false,
+      showModal: false,
+      showFavModal: false,
       showModalDeleteFavorite: false,
       userHistory: -1,
       userFavorite: -1,
@@ -168,8 +179,12 @@ export default {
     getTextByTextKey,
 
     eventShowModalDeleteHistory(data) {
-      this.showModalDeleteHistory = true;
+      this.showModal = true;
       this.currentHistory = data;
+    },
+    modalClose() {
+      this.showModal = false;
+      this.showFavModal = false;
     },
 
     btnDeleteHistory(data) {
@@ -186,12 +201,12 @@ export default {
       };
 
       removeHistory();
-      this.showModalDeleteHistory = false;
+      this.showModal = false;
 
       // request //
     },
     eventShowModalDeleteFavorite(data) {
-      this.showModalDeleteFavorite = true;
+      this.showFavModal = true;
       this.currentFavorite = data;
     },
 
@@ -209,7 +224,7 @@ export default {
       };
 
       removeFavorite();
-      this.showModalDeleteFavorite = false;
+      this.showFavModal = false;
 
       // request //
     },
@@ -218,6 +233,13 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@include delete-modal-animation();
+@include backdrop-delete-modal-animation();
+
+.backdrop {
+  @extend .modal-backdrop;
+  background-color: $overlay--profile;
+}
 .profile-container {
   margin: 0 auto;
   width: 100%;

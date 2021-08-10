@@ -1,15 +1,14 @@
 <template>
   <base-modal
     class="modal-container"
-    :show-modal="showModal"
     :mode="modalMode"
     modal-class="modal"
-    @phone-modal-closed="closeModalMobile"
+    @close-modal="closeModal"
   >
     <div class="w-100 p-ticket-modal-header">
       <div class="w-100 p-modal-header-mobile">
         <div class="w-100 d-flex justify-content-center p-modal-header-icon">
-          <span class="modal__close-line" @click="closeModalMobile"></span>
+          <span class="modal__close-line" @click="closeModal"></span>
         </div>
         <span class="p-modal-header-top-title-mobile">
           {{ getTextByTextKey("upport_send_request") }}
@@ -24,7 +23,7 @@
             </h3>
           </div>
           <base-button
-            @button-clicked="closeModalMobile"
+            @button-clicked="closeModal"
             classes="p-modal-header-close-icon"
             base-color="white"
             mode="close"></base-button>
@@ -106,8 +105,7 @@ export default {
   props: {
     formDataOriginal: { type: [Object, Array], default: {} },
     dataEditTicket: { type: Object, default: {} },
-    showAddModal: { type: Boolean, require: true },
-    showEditModal: { type: Boolean, require: true },
+    modalMode: { type: String, require }
   },
   components: {},
   data() {
@@ -120,39 +118,11 @@ export default {
       errorValidationNumberReceiverMsg: "عدد مجاز است",
       validationDescriptionMsg: "معتبر نیست",
       errorValidationTopicTicket: "عدد مجاز است",
-      windowWidth: 0,
     };
-  },
-  computed: {
-    modalMode() {
-      if (this.windowWidth > 960) {
-        return "form";
-      } else {
-        return "phone";
-      }
-    },
-    showModal() {
-      return this.showAddModal || this.showEditModal;
-    }
   },
 
   watch: {
     dataEditTicket(data) {},
-    showAddModal(val) {
-      if (val) {
-        const formDataOriginal = this.formDataOriginal;
-        for (let key in formDataOriginal) {
-          this.formData[key] = formDataOriginal[key];
-        }
-      }
-    },
-    showEditModal(val) {
-      if (val) {
-        for (let key in this.dataEditTicket) {
-          this.formData[key] = this.dataEditTicket[key];
-        }
-      }
-    }
   },
 
   created() {
@@ -172,16 +142,8 @@ export default {
     this.formData.numberReceiver = this.profilePhoneNumber;
   },
 
-  mounted() {
-    window.addEventListener('resize', this.handleResize);
-    this.handleResize();
-  },
-
   methods: {
     getTextByTextKey,
-    handleResize() {
-      this.windowWidth = window.innerWidth;
-    },
     isNotEmpty(str) {
       var pattern = /\S+/;
       return pattern.test(str); // returns a boolean
@@ -216,21 +178,10 @@ export default {
       }
     },
 
-    closeModalMobile() {
-      // this.$emit("close-modal");
-      if (screen.width < 950) {
-        this.modalClose = true;
-        setTimeout(() => {
-          this.$emit("close-modal");
-        }, 280);
-      } else {
+    closeModal() {
         this.$emit("close-modal");
-      }
     },
 
-    closeModalDesktop() {
-      this.$emit("close-modal");
-    },
 
     checkValidFormData() {},
 

@@ -2,7 +2,7 @@
   <base-modal
     class="modal-container"
     modal-class="modal p-profile-favorite-modal"
-    :show-modal="show"
+    @close-modal="modalClose"
     mode="scale"
   >
     <modalSignUpStepOne
@@ -77,22 +77,11 @@ export default {
     modalPassChange,
   },
 
-  computed: {
-    show: {
-      set(val) {
-        this.$emit("update:active", !!val);
-      },
-      get() {
-        return !!this.active;
-      },
-    },
-  },
-
   mounted() {},
 
   methods: {
     modalClose() {
-      this.show = false;
+      this.$emit('close-modal');
     },
     showWellcomeModal() {
       this.$emit("event-show-modal-wellcome");

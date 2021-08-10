@@ -2,9 +2,8 @@
   <base-modal
     class="modal-container d-rtl"
     modal-class="modal"
-    :show-modal="show"
     :mode="modalMode"
-    backdrop-class="backdrop"
+    @close-modal="modalClose"
   >
     <div class="modal-filter__main">
       <div class="w-100 modal-filter__filter-tools">
@@ -102,14 +101,6 @@ export default {
   },
 
   computed: {
-    show: {
-      set(val) {
-        this.$emit("update:active", !!val);
-      },
-      get() {
-        return !!this.active;
-      },
-    },
     modalMode() {
       if (this.windowWidth > 420) {
         return "right-side";
@@ -142,7 +133,7 @@ export default {
       this.windowWidth = window.innerWidth;
     },
     modalClose() {
-      this.show = false;
+      this.$emit('close-modal');
       // this.$store.state.category.submitFliterModal = false;
       this.$store.commit("category/updateStateModals", {
         submitFliterModal: false,

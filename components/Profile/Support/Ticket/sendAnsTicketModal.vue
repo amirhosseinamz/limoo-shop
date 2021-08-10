@@ -1,10 +1,9 @@
 <template>
   <base-modal
     class="modal-container"
-    :show-modal="showAnsModal"
     :mode="modalMode"
     modal-class="modal"
-    @phone-modal-closed="closeModalMobile"
+    @close-modal="closeModal"
   >
     <div class="w-100 p-ticket-modal-header">
       <div class="w-100 p-modal-header-mobile">
@@ -20,7 +19,7 @@
             </h3>
           </div>
           <base-button
-            @button-clicked="closeModalMobile"
+            @button-clicked="closeModal"
             classes="p-modal-header-close-icon"
             base-color="white"
             mode="close"></base-button>
@@ -159,20 +158,8 @@ export default {
       }
     },
 
-    closeModalMobile() {
-      // this.$emit("close-modal");
-      if (this.windowWidth < 950) {
-        this.modalClose = true;
-        setTimeout(() => {
-          this.$emit("close-modal");
-        }, 280);
-      } else {
+    closeModal() {
         this.$emit("close-modal");
-      }
-    },
-
-    closeModalDesktop() {
-      this.$emit("close-modal");
     },
 
     checkValidFormData() {},

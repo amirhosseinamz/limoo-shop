@@ -1,16 +1,21 @@
 <template>
   <div class="orders-content__main">
-    <transition moda="in-out">
-      <div v-if="showModal">
-        <shipping-add-address-modal
-          :data-edit-address="dataEditAddress"
-          @selected-province="selectedProvince"
-          @selected-city="selectedCity"
-          @submit-address-add="submitAddressAdd"
-          @close-modal="closeModal"
-        />
-      </div>
+<!--    Add and Edit Modal-->
+    <transition name="backdrop-form">
+      <div class="backdrop" v-if="showModal"></div>
     </transition>
+    <transition :name="modalAnimation">
+      <shipping-add-address-modal
+        v-if="showModal"
+        :data-edit-address="dataEditAddress"
+        :modal-mode="modalAnimation"
+        @selected-province="selectedProvince"
+        @selected-city="selectedCity"
+        @submit-address-add="submitAddressAdd"
+        @close-modal="closeModal"
+      />
+    </transition>
+
     <div class="w-100 flex-wrap" :key="updateChosenAddress">
       <base-accordion
         v-for="data in addressData"
@@ -104,6 +109,11 @@ export default {
   components: {
     shippingAddAddressModal,
   },
+  watch: {
+    showAddModal(val) {
+      this.showModal = val;
+    }
+  },
   data() {
     return {
       passChangeIsActive: false,
@@ -113,12 +123,8 @@ export default {
       modalEditSelected: {
         id: null,
       },
+      windowWidth: 0,
     };
-  },
-  watch: {
-    showAddModal(val) {
-      this.showModal = val;
-    }
   },
   computed: {
     addressData() {
@@ -139,17 +145,30 @@ export default {
     profilePhoneNumber() {
       return this.$store.getters["shipping/shipping/profilePhoneNumber"];
     },
+    modalAnimation() {
+      if (this.windowWidth > 960) {
+        return "form";
+      } else {
+        return "phone";
+      }
+    },
   },
   created() {
     document.addEventListener("click", this.checkCloseDropDown);
   },
-
+  mounted() {
+    window.addEventListener('resize', this.handleResize);
+    this.handleResize();
+  },
   destroyed() {
     document.removeEventListener("click", this.documentClick);
   },
   methods: {
     selectedProvince(data) {
       this.$emit("selected-province", data);
+    },
+    handleResize() {
+      this.windowWidth = window.innerWidth;
     },
     addAddress() {
       this.dataEditAddress = {};
@@ -177,14 +196,12 @@ export default {
     },
     closeModal() {
       this.dataEditAddress = {};
-      this.passChangeIsActive = false;
       this.showModal = false;
       this.$emit("close-modal")
     },
 
     editAddress(data) {
       this.dataEditAddress = data;
-      this.passChangeIsActive = true;
       this.showModal = true;
     },
     //
@@ -246,17 +263,13 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
+@include form-modal-animation();
+@include backdrop-form-modal-animation();
+@include phone-modal-animation();
 
-.v-leave-from {
-  opacity: 0.5;
-}
-
-.v-leave-active {
-  transition: all 300ms ease-in;
-}
-
-.v-leave-to {
-  opacity: 0;
+.backdrop {
+  @extend .modal-backdrop;
+  background-color: $overlay--profile;
 }
 
 .order-detail__choosed-adress .card-shape__circle {

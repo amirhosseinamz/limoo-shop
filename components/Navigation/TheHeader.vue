@@ -81,10 +81,17 @@
       </div>
     </header>
     <the-mega-menu />
-    <modalAuth
-      :active.sync="showModalAuth"
-      @event-show-modal-wellcome="showWellcomeModal"
-    />
+    <transition name="backdrop-scale">
+      <div class="backdrop" v-if="showModal" @click="modalClose"></div>
+    </transition>
+    <transition name="scale">
+      <modalAuth
+        v-if="showModal"
+        @event-show-modal-wellcome="showWellcomeModal"
+        @close-modal="modalClose"
+      />
+    </transition>
+
   </div>
 </template>
 
@@ -105,7 +112,7 @@ export default {
     return {
       showNavbar: true,
       lastScrollPosition: 0,
-      showModalAuth: false,
+      showModal: false,
       showModalWellcome: false,
       userIsAuth: false,
       authUpdated: 0,
@@ -164,18 +171,13 @@ export default {
   },
   methods: {
     showAuthModal() {
-      this.showModalAuth = true;
-
-      // console.log("hi");
-      // if (!this.userIsAuth) {
-      //   this.showModalAuth = true;
-      // } else if (this.userIsAuth) {
-      //   this.$router.push("/profile");
-      // }
+      this.showModal = true;
     },
-
+    modalClose() {
+      this.showModal = false;
+    },
     showWellcomeModal() {
-      this.showModalAuth = false;
+      this.showModal = false;
       this.$store.dispatch({
         type: "stateShowModalWellcome",
         value: true,
@@ -223,6 +225,13 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@include scale-modal-animation();
+@include backdrop-scale-animation();
+
+.backdrop {
+  @extend .modal-backdrop;
+  background: rgba(81,81,81,.6);
+}
 .header-container {
   position: fixed;
   @include display-flex();

@@ -37,12 +37,18 @@
       </div>
     </div>
 
-    <modalDeleteAdress
-      :active.sync="statusShowModalDeleteProduct"
-      :current-product="currentProduct"
-      @btn-delete-modal="btnDeleteProduct"
-    />
-  </div>
+        <transition name="backdrop">
+          <div v-if="showModal" class="backdrop" @click="modalClose"></div>
+        </transition>
+        <transition name="delete">
+          <modal-delete-adress
+            v-if="showModal"
+            :current-product="currentProduct"
+            @btn-delete-modal="btnDeleteProduct"
+            @close-modal="modalClose"
+          ></modal-delete-adress>
+        </transition>
+      </div>
 </template>
 <script>
 import TheProfileSideBar from "~/components/Profile/TheProfileSideBar.vue";
@@ -91,7 +97,7 @@ export default {
         },
       ],
       currentProduct: {},
-      statusShowModalDeleteProduct: false,
+      showModal: false,
       allProvince: [
         {
           id: 1,
@@ -140,6 +146,9 @@ export default {
     goToProfile() {
       this.$router.push("/profile");
     },
+    modalClose() {
+      this.showModal = false;
+    },
 
     btnDeleteProduct(data) {
       const removeFavorite = () => {
@@ -155,14 +164,13 @@ export default {
       };
 
       removeFavorite();
-      this.statusShowModalDeleteProduct = false;
-
+      this.showModal = false;
       // request //
     },
 
     showModalDeleteProduct(data) {
       this.currentProduct = data;
-      this.statusShowModalDeleteProduct = true;
+      this.showModal = true;
     },
 
     selectedProvince(data) {
@@ -200,20 +208,11 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-#overlay {
-  position: fixed; /* Sit on top of the page content */
-  @include display-flex();
-  justify-content: center;
-  align-items: center;
-  width: 100%; /* Full width (cover the whole page) */
-  height: 100%; /* Full height (cover the whole page) */
-  /* transition: opacity 200ms ease-out; */
-  /* top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0; */
-  z-index: 1;
-  background: $overlay__profile;
+@include backdrop-delete-modal-animation();
+@include delete-modal-animation();
+.backdrop {
+  @extend .modal-backdrop;
+  background-color: $overlay__profile;
 }
 .mobile-screen {
   display: none;
@@ -261,6 +260,8 @@ export default {
 .user-profile__topic {
   text-align: right;
 }
+
+
 
 @media (max-width: 1450px) {
 }

@@ -19,12 +19,19 @@
             </div>
             <The-cart-pay-detail :detail-price="detailPrice"></The-cart-pay-detail>
         </div>
+<!--      Delete User Modal-->
+      <transition name="backdrop-delete">
+        <div class="backdrop" v-if="showModalDeleteUser"></div>
+      </transition>
+      <transition name="delete">
         <TheModalDeleteUserOrders
-            :active.sync="showModalDeleteOrder"
-            :current-orders="currentOrders"
-            @btn-delete-order="btnDeleteOrder"
+          v-if="showModalDeleteUser"
+          @close-modal="modalDeleteUserClose"
+          :current-orders="currentOrders"
+          @btn-delete-order="btnDeleteOrder"
         />
-      <modal-delete-address active ></modal-delete-address>
+      </transition>
+
     </div>
 </template>
 <script>
@@ -45,7 +52,7 @@ export default {
     },
     data() {
         return {
-            showModalDeleteOrder : false,
+            showModalDeleteUser : false,
             ordersData           : [
                 {
                     id: 1,
@@ -144,6 +151,7 @@ export default {
               totalDiscount       : 142250,
               submitDeliveryPrice : 'رایگان',
               totalPrice          : 2587000,
+              showModal: false
             }
         };
     },
@@ -157,8 +165,11 @@ export default {
         goBack() {
             this.$router.push("/");
         },
+        modalDeleteUserClose() {
+            this.showModalDeleteUser = false;
+        },
         eventShowModalDeleteOrder(data) {
-            this.showModalDeleteOrder = true;
+            this.showModalDeleteUser = true;
             this.currentOrders = data;
         },
         btnDeleteOrder(data) {
@@ -175,7 +186,7 @@ export default {
             };
 
             removeOrder();
-            this.showModalDeleteOrder = false;
+            this.showModalDeleteUser = false;
 
             // request //
         },
@@ -214,6 +225,13 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
+@include delete-modal-animation();
+@include backdrop-delete-modal-animation();
+
+.backdrop {
+  @extend .modal-backdrop;
+  background: rgba(81,81,81,.6);
+}
 .cart-container {
     margin: 0 auto;
     width: 100%;

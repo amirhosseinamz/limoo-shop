@@ -36,6 +36,25 @@
         </base-button>
       </div>
     </div>
+    <!--      Filter Modal-->
+    <transition name="backdrop-scale">
+      <div class="backdrop" :class="{ 'active--blur': activeBlur }" v-if="showFilterModal || showSortModal"></div>
+    </transition>
+    <transition name="scale">
+      <modal-filter
+        v-if="showFilterModal"
+        @close-modal="modalFilterClose"
+      ></modal-filter>
+    </transition>
+
+    <!--      Filter Modal-->
+
+    <transition name="scale">
+      <modal-sort
+        v-if="showSortModal"
+        @close-modal="modalSortClose"
+      ></modal-sort>
+    </transition>
   </div>
 </template>
 
@@ -43,6 +62,8 @@
 import { getTextByTextKey } from "~/modules/splitPartJsonResource.js";
 import buttonFilter from "~/components/UI/buttonFilter";
 import Button from "~/components/UI/Button";
+import ModalFilter from "./modalFilter";
+import ModalSort from "./modalSort";
 
 export default {
   props: {
@@ -51,6 +72,8 @@ export default {
   },
 
   components: {
+    ModalSort,
+    ModalFilter,
     buttonFilter,
     Button,
   },
@@ -61,7 +84,10 @@ export default {
       selectedTab: 'limoo',
       activeItem_1: true,
       activeItem_2: false,
-      checkboxValues: []
+      checkboxValues: [],
+      showFilterModal: false,
+      showSortModal: false,
+      activeBlur: false
     };
   },
 
@@ -69,6 +95,12 @@ export default {
     categorySuggestion(data) {
       this.allCategorySuggestion = data;
     },
+    showFilterModal(val) {
+      this.activeBlur = !!val;
+    },
+    showSortModal(val) {
+      this.activeBlur = !!val;
+    }
   },
 
   mounted() {
@@ -80,6 +112,12 @@ export default {
   methods: {
     goGo(val) {
       console.log(this.checkboxValues);
+    },
+    modalFilterClose() {
+      this.showFilterModal = false;
+    },
+    modalSortClose() {
+      this.showSortModal = false;
     },
     selectTab(e, name) {
       this.selectedTab = name
@@ -109,10 +147,12 @@ export default {
     },
 
     showBoxFilter() {
+      this.showFilterModal = true;
       this.$emit("show-box-filter");
     },
 
     showModalSort() {
+      this.showSortModal = true;
       this.$emit("show-modal-sort");
     },
 
@@ -122,6 +162,18 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@include scale-modal-animation();
+@include backdrop-scale-animation();
+
+.backdrop {
+  @extend .modal-backdrop;
+  background: rgba(81,81,81,.6);
+}
+
+.active--blur {
+  filter: blur(2px);
+  overflow: hidden;
+}
 .button-tabs {
   li {
     &.active {

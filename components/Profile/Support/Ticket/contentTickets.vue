@@ -1,22 +1,28 @@
 <template>
   <div class="p-tickets-content-main w-100 flex-column flex-wrap  d-rtl">
-    <transition moda="in-out">
+<!--    Add and edit Modal-->
+    <transition name="backdrop-form">
+      <div v-if="showModal || showAnsModal" class="backdrop"></div>
+    </transition>
+    <transition :name="modalAnimation">
         <add-ticket-modal
+          v-if="showModal"
+          :modal-mode="modalAnimation"
           :form-data-original="formData"
           :data-edit-ticket="dataEditTicket"
           @submit-ticket-add="submitTicketAdd"
           @close-modal="closeModal"
-          :show-add-modal="showAddModal"
-          :show-edit-modal="showEditModal"
         />
     </transition>
-    <transition moda="in-out">
+<!--    Send Answer modal-->
+    <transition :name="modalAnimation">
         <send-ans-ticket-modal
+          v-if="showAnsModal"
+          :modal-mode="modalAnimation"
           :form-data-original="formData"
           :data-edit-ticket="dataEditTicket"
           @submit-ticket-add="submitTicketAdd"
           @close-modal="closeModal"
-          :show-ans-modal="showAnsModal"
         />
     </transition>
     <div class="w-100 flex-wrap p-tickets-content-btn-add-main">
@@ -134,25 +140,39 @@ export default {
       sendAnswerToTicket: false,
       dataEditTicket: {},
       userTicket: -1,
-      showAddModal: false,
-      showEditModal: false,
-      showAnsModal: false
+      showModal: false,
+      showAnsModal: false,
+      windowWidth: 0
     };
   },
-  computed: {},
+  computed: {
+    modalAnimation() {
+      if (this.windowWidth > 960) {
+        return "form";
+      } else {
+        return "phone";
+      }
+    }
+  },
   created() {
     this.userTicket = Object.values(this.ticketData).length;
   },
+  mounted() {
+    window.addEventListener('resize', this.handleResize);
+    this.handleResize();
+  },
   methods: {
     getTextByTextKey,
-
+    handleResize() {
+      this.windowWidth = window.innerWidth;
+    },
     showModalDeleteProduct(data) {
       this.$emit("show-modal-delete-product", data);
     },
 
     addTicket() {
       this.dataEditTicket = {};
-      this.showAddModal = !this.showAddModal;
+      this.showModal = !this.showModal;
     },
 
     selectedProvince(data) {
@@ -172,22 +192,20 @@ export default {
       } else {
         stateEditAdd = "edit";
       }
-      this.showAddModal = false;
-      this.showEditModal = false;
+      this.showModal = false;
       this.$emit("submit-ticket-add", data, stateEditAdd);
     },
 
     closeModal() {
       this.dataEditTicket = {};
-      this.showAddModal = false;
-      this.showEditModal = false;
+      this.showModal = false;
       this.showAnsModal = false;
       this.sendAnswerToTicket = false;
     },
 
     editTicket(data) {
       this.dataEditTicket = data;
-      this.showEditModal = true;
+      this.showModal = true;
     },
     sendAnswer(data) {
       this.showAnsModal = true;
@@ -198,6 +216,13 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@include phone-modal-animation();
+@include form-modal-animation();
+@include backdrop-form-modal-animation();
+.backdrop {
+  @extend .modal-backdrop;
+  background-color: $overlay--profile;
+}
 .user-Ticket__empty-container {
   @include display-flex();
   flex-direction: column;

@@ -26,11 +26,17 @@
       </div>
     </div>
 
-    <modalDeleteComment
-      :active.sync="statusShowModalDeleteProduct"
-      :current-product="currentProduct"
-      @btn-delete-modal="btnDeleteProduct"
-    />
+    <transition name="backdrop">
+      <div v-if="showModal" class="backdrop" @click="modalClose"></div>
+    </transition>
+    <transition name="delete">
+      <modalDeleteComment
+        v-if="showModal"
+        :current-product="currentProduct"
+        @btn-delete-modal="btnDeleteProduct"
+        @close-modal="modalClose"
+      />
+    </transition>
   </div>
 </template>
 <script>
@@ -74,36 +80,10 @@ export default {
             "این کالا به شدت قوی و با کیفیت هست و پیشنهاد میکنم در این رنج قیمت، حتما این کالارو خریداری کنید! این کالا به شدت قوی و با کیفیت هست و پیشنهاد میکنم در این رنج قیمت حتما این کالا رو خریداری کنید.",
           commentTime: "1 روز پیش",
           rate: 3.6,
-        },
-        // {
-        //     id: 3,
-        //     commentTitle: "همین الان به دستم رسید به نظر جذابه!",
-        //     state: "acceptting",
-        //     idea: "mid",
-        //     productTitle:
-        //         "اپل واچ سری 6 آتومینیوم آبی بند اسپرت سیلیکون آبی3",
-        //     img: "/img/apple-watch-3.png",
-        //     description:
-        //         "این کالا به شدت قوی و با کیفیت هست و پیشنهاد میکنم در این رنج قیمت، حتما این کالارو خریداری کنید! این کالا به شدت قوی و با کیفیت هست و پیشنهاد میکنم در این رنج قیمت حتما این کالا رو خریداری کنید.",
-        //     commentTime: "دقایقی قبل",
-        //     rate: 2.3
-        // },
-        // {
-        //     id: 4,
-        //     commentTitle: "همین الان به دستم رسید به نظر جذابه!",
-        //     state: "acceptting",
-        //     idea: "good",
-        //     productTitle:
-        //         "اپل واچ سری 6 آتومینیوم آبی بند اسپرت سیلیکون آبی4",
-        //     img: "/img/apple-watch-4.png",
-        //     description:
-        //         "این کالا به شدت قوی و با کیفیت هست و پیشنهاد میکنم در این رنج قیمت، حتما این کالارو خریداری کنید! این کالا به شدت قوی و با کیفیت هست و پیشنهاد میکنم در این رنج قیمت حتما این کالا رو خریداری کنید.",
-        //     commentTime: "دقایقی قبل",
-        //     rate: 4.1
-        // }
+        }
       ],
       currentProduct: {},
-      statusShowModalDeleteProduct: false,
+      showModal: false
     };
   },
 
@@ -116,6 +96,9 @@ export default {
 
     goToProfile() {
       this.$router.push("/profile");
+    },
+    modalClose() {
+      this.showModal = false;
     },
 
     btnDeleteProduct(data) {
@@ -132,36 +115,26 @@ export default {
       };
 
       removeFavorite();
-      this.statusShowModalDeleteProduct = false;
+      this.showModal = false;
 
       // request //
     },
 
     showModalDeleteProduct(data) {
       this.currentProduct = data;
-      this.statusShowModalDeleteProduct = true;
+      this.showModal = true;
     },
   },
 };
 </script>
 
 <style lang="scss" scoped>
-#overlay {
-  position: fixed; /* Sit on top of the page content */
-  @include display-flex();
-  justify-content: center;
-  align-items: center;
-  width: 100%; /* Full width (cover the whole page) */
-  height: 100%; /* Full height (cover the whole page) */
-  /* transition: opacity 200ms ease-out; */
-  /* top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0; */
-  z-index: 1;
-  background: $overlay__profile;
+@include backdrop-delete-modal-animation();
+@include delete-modal-animation();
+.backdrop {
+  @extend .modal-backdrop;
+  background-color: $overlay__profile;
 }
-
 .mobile-screen {
   display: none;
 }

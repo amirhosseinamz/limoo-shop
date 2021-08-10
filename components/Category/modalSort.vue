@@ -2,9 +2,7 @@
   <base-modal
     class="modal-container d-rtl"
     modal-class="modal"
-    :show-modal="show"
-    mode="scale"
-    backdropClass="backdrop"
+    @close-modal="modalClose"
   >
     <div class="modal-sort__main">
       <div class="modal-sort__close-item w-100">
@@ -54,9 +52,6 @@ import sortBox from "./sortBox";
 import { getTextByTextKey } from "~/modules/splitPartJsonResource.js";
 
 export default {
-  props: {
-    active: { type: [Boolean, Number], default: false },
-  },
 
   components: {
     sortBox,
@@ -84,18 +79,6 @@ export default {
       selectedRadioBtnData: {},
     };
   },
-
-  computed: {
-    show: {
-      set(val) {
-        this.$emit("update:active", !!val);
-      },
-      get() {
-        return !!this.active;
-      },
-    },
-  },
-
   watch: {
     active(data) {
       this.$emit("status-show-modal", data);
@@ -116,7 +99,7 @@ export default {
 
   methods: {
     modalClose() {
-      this.show = false;
+      this.$emit('close-modal');
       // this.$store.state.category.submitSortModal   = false;
       this.$store.commit("category/updateStateModals", {
         submitSortModal: false,

@@ -1,10 +1,9 @@
 <template>
   <base-modal
-    :show-modal="show"
     class="modal-container"
     modal-class="p-profile-favorite-modal d-rtl"
-    closable-from-backdrop
-    @close-from-backdrop="modalClose">
+    @close-modal="modalClose"
+  >
     <div
       class="w-100 p-profile-favorite-wrapper flex-wrap align-items-start flex-column "
     >
@@ -37,30 +36,15 @@
 <script>
 export default {
     props: {
-        active: { type: [Boolean, Number], default: false },
         currentFavorite: { type: Object, default: {} }
     },
-
-    components: {},
-
-    computed: {
-        show: {
-            set(val) {
-                this.$emit("update:active", !!val);
-            },
-            get() {
-                return !!this.active;
-            }
-        }
-    },
-
     methods: {
         DeleteFavorite() {
             this.$emit("btn-delete-favorite", this.currentFavorite);
         },
 
         modalClose() {
-            this.show = false;
+            this.$emit('close-modal');
         }
     }
 };

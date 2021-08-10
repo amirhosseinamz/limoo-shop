@@ -2,8 +2,8 @@
   <base-modal
   class="modal-container d-rtl"
   modal-class="modal"
-  :show-modal="show"
   :mode="modalMode"
+  @close-modal="modalClose"
   >
     <div class="w-100  product__modal">
       <div class="w-100 product__modal-text comment--mobile">
@@ -13,7 +13,7 @@
             {{ getTextByTextKey("product_technical_specifications") }}
           </h3>
 
-          <span @click="closeModal" class="product__modal-arrow"></span>
+          <span @click="modalClose" class="product__modal-arrow"></span>
 
         </div>
         <span class="product__modal-line"></span>
@@ -21,7 +21,7 @@
 
       <div class="comment--close__main comment--desktop">
         <base-button
-          @button-clicked="closeModal"
+          @button-clicked="modalClose"
           classes="comment__close"
           base-color="white"
           mode="close"></base-button>
@@ -58,7 +58,7 @@
 
         <comment-form
           @submit-data="submitData"
-          @close-modal="closeModal"
+          @close-modal="modalClose"
           :comments-data="commentsData"
           :value-renge-slider="valueRangeSlider"
           :comment-star="commentStar"
@@ -77,8 +77,8 @@ import textInput from "~/modules/textInput";
 
 export default {
   props: {
-    active: { type: [Boolean, Number], default: false },
     commentsData: { type: [Object, Array], default: {} },
+    modalMode: { type: String, require: true }
   },
 
   components: {
@@ -113,31 +113,7 @@ export default {
       currentStarActive: {},
       valueRangeSlider: 0,
       dotSize: 35,
-      windowWidth: 0
     };
-  },
-
-  computed: {
-    show: {
-      set(val) {
-        this.$emit("update:active", !!val);
-      },
-      get() {
-        return !!this.active;
-      },
-    },
-    modalMode() {
-      if (this.windowWidth > 760) {
-        return "rate";
-      } else {
-        return "full-screen";
-      }
-    }
-  },
-
-  mounted() {
-    window.addEventListener('resize', this.handleResize);
-    this.handleResize();
   },
 
   watch: {
@@ -156,8 +132,8 @@ export default {
   methods: {
     getTextByTextKey,
 
-    closeModal() {
-      this.show = false;
+    modalClose() {
+      this.$emit('close-modal');
     },
 
     activeStr(data) {
@@ -188,10 +164,6 @@ export default {
 
     submitData(data) {
       this.$emit("submit-data", data);
-    },
-
-    handleResize() {
-      this.windowWidth = window.innerWidth;
     },
   },
 };
@@ -338,6 +310,9 @@ export default {
 @media (max-width: 760px) {
   .modal-container::v-deep {
     .modal {
+      width: 100%;
+      height: 100%;
+      border-radius: 0;
       .comment--mobile {
         @include display-flex();
       }

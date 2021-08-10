@@ -3,9 +3,13 @@
     id="address__form--data"
     class="p-adresses-content-main w-100 flex-column flex-wrap  d-rtl"
   >
-    <transition moda="in-out">
-      <div v-if="showModal">
+    <transition name="backdrop-form">
+        <div class="backdrop" v-if="showModal"></div>
+    </transition>
+    <transition :name="modalAnimation">
         <add-address-modal
+          v-if="showModal"
+          :modal-mode="modalAnimation"
           :all-province="allProvince"
           :all-citys="allCitys"
           :form-data-original="formData"
@@ -16,7 +20,6 @@
           @submit-address-add="submitAddressAdd"
           @close-modal="closeModal"
         ></add-address-modal>
-      </div>
     </transition>
     <div
       class="w-100 flex-wrap p-adresses-content-btn-add-main p-adresses-content-item-desktop"
@@ -170,22 +173,43 @@ export default {
       passChangeIsActive: false,
       dataEditAddress: {},
       userAddress: -1,
-      showModal: false
+      showModal: false,
+      windowWidth: 0
     };
   },
 
   components: {
     addAddressModal,
   },
+  watch: {
+    showModal(val) {
+      console.log(val);
+    }
+  },
 
-  computed: {},
+  computed: {
+    modalAnimation() {
+      if (this.windowWidth > 960) {
+        return "form";
+      } else {
+        return "phone";
+      }
+    }
+  },
 
   created() {
     this.userAddress = Object.values(this.adressData).length;
   },
+  mounted() {
+    window.addEventListener('resize', this.handleResize);
+    this.handleResize();
+  },
 
   methods: {
     getTextByTextKey,
+    handleResize() {
+      this.windowWidth = window.innerWidth;
+    },
     showModalDeleteProduct(data) {
       this.$emit("show-modal-delete-product", data);
     },
@@ -193,7 +217,6 @@ export default {
     addAddress() {
       this.dataEditAddress = {};
       this.showModal = true;
-      debugger;
     },
 
     selectedProvince(data) {
@@ -220,7 +243,7 @@ export default {
 
     closeModal() {
       this.dataEditAddress = {};
-      this.showModal = false
+      this.showModal = false;
     },
 
     editAddress(data) {
@@ -232,6 +255,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@include phone-modal-animation();
+@include form-modal-animation();
+@include backdrop-form-modal-animation();
 .user-adresses__empty-container {
   @include display-flex();
   flex-direction: column;
@@ -253,14 +279,9 @@ export default {
   margin-top: 37px;
 }
 
-.v-leave-from {
-  opacity: 0.5;
-}
-.v-leave-active {
-  transition: all 300ms ease-in;
-}
-.v-leave-to {
-  opacity: 0;
+.backdrop {
+  @extend .modal-backdrop;
+  background-color: $overlay--profile;
 }
 .p-adresses-content-main {
   padding-right: 21px;

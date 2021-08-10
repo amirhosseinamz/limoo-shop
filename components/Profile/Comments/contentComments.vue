@@ -2,15 +2,7 @@
   <div class="p-comments-content-main w-100 flex-column flex-wrap  d-rtl">
     <transition moda="in-out">
       <div id="overlay" v-if="passChangeIsActive">
-        <!-- <add-address-modal
-                    :form-data-original="formData"
-                    :data-edit-address="dataEditAddress"
-                    :profile-phone-number="profilePhoneNumber"
-                    @selected-province="selectedProvince"
-                    @selected-city="selectedCity"
-                    @submit-address-add="submitAddressAdd"
-                    @close-modal="closeModal"
-                /> -->
+
       </div>
     </transition>
     <div class="user-comments__empty-container" v-show="userComments == 0">

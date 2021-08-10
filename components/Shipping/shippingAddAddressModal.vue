@@ -1,17 +1,16 @@
 <template>
   <base-modal
     class="modal-container"
-    :show-modal="true"
     :mode="modalMode"
     modal-class="modal"
-    @phone-modal-closed="closeModalMobile"
+    @close-modal="modalClose"
   >
 
     <div class="w-100 p-modal-header">
       <div class="w-100 p-modal-header-mobile">
         <div class="w-100 d-flex justify-content-center p-modal-header-icon">
           <img
-            @click="closeModalDesktop"
+            @click="modalClose"
             class="modal__close-cross"
             src="/icons/close.svg"
           />
@@ -19,7 +18,7 @@
 
         <div class="p-modal-header-top align-items-center">
           <img
-            @click="closeModalMobile"
+            @click="modalClose"
             class="p-modal-header-icon-location"
             src="/icons/location_adress.svg"
           />
@@ -44,7 +43,7 @@
           </div>
           <div class="p-modal-header-close ">
             <base-button
-              @button-clicked="closeModalDesktop"
+              @button-clicked="modalClose"
               classes="p-modal-header-close-icon"
               base-color="white"
               mode="close"></base-button>
@@ -258,7 +257,7 @@
         </base-button>
 
         <base-button
-          @button-clicked="closeModalMobile"
+          @button-clicked="modalClose"
           classes="p-product-btn p-favorite-product-btn-modal-cancel"
           no-box-shadow
           base-color="light-gray"
@@ -281,6 +280,10 @@ export default {
     showModal: {
       type: Boolean,
       require: true
+    },
+    modalMode: {
+      type: String,
+      require: true
     }
   },
   components: {
@@ -289,7 +292,6 @@ export default {
   },
   data() {
     return {
-      modalClose: false,
       msg: [],
       valueProvince: {},
       valueCitys: {},
@@ -317,13 +319,7 @@ export default {
     profilePhoneNumber() {
       return this.$store.getters["shipping/shipping/profilePhoneNumber"];
     },
-    modalMode() {
-      if (this.windowWidth > 960) {
-        return "form";
-      } else {
-        return "phone";
-      }
-    },
+
   },
   watch: {
     dataEditAddress(data) {
@@ -344,7 +340,6 @@ export default {
         this.formData[key] = formDataOriginal[key];
       }
     }
-    debugger;
 
     if (485 >= this.windowWidth) {
       this.textLabelCodePoste = "کد پستی";
@@ -355,16 +350,10 @@ export default {
     this.setDefaultValidationMsg();
     this.detectedResizeBrowser();
   },
-  mounted() {
-    window.addEventListener('resize', this.handleResize);
-    this.handleResize();
-  },
 
   methods: {
     getTextByTextKey,
-    handleResize() {
-      this.windowWidth = window.innerWidth;
-    },
+
     setDefaultValidationMsg() {
       this.notValidMsg = this.getTextByTextKey("address_not_valid");
       this.overLimitMsg = this.getTextByTextKey(
@@ -380,15 +369,8 @@ export default {
       this.errorValidationNumberAddress = this.onlyUseNumberMsg;
     },
 
-    closeModalMobile() {
-      this.modalClose = true;
-      setTimeout(() => {
+    modalClose() {
         this.$emit("close-modal");
-      }, 280);
-    },
-
-    closeModalDesktop() {
-      this.$emit("close-modal");
     },
 
     checkShowErrorCityProvince() {
