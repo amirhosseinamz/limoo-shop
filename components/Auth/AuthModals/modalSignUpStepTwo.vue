@@ -139,14 +139,14 @@ export default {
   watch: {},
   computed: {
     snackbarMode() {
-      return "success";
+      return "alert";
     },
     snackbarText() {
       console.log(this.snackbarMode);
       if (this.snackbarMode === "success") {
         return this.getTextByTextKey("auth_aignup_code_new");
       } else if (this.snackbarMode === "alert") {
-        return this.getTextByTextKey("auth_aignup_code_agin");
+        return "میتنب تینبت نیمتب منیت  بمنتبنم تبنیمت بنمیتمب مینبیمن بتنیمتب مینمبتمی";
       }
     }
   },
@@ -157,7 +157,7 @@ export default {
     setTimeout(() => {
       this.showSnackbar = false;
 
-    },8000)
+    },5000)
     this.userPhoneNumber = this.$store.getters.PhoneNumberPicker;
   },
   methods: {
