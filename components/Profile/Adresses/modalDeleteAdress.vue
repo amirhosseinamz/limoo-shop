@@ -1,6 +1,7 @@
 <template>
   <base-modal
-    modal-class="p-profile-favorite-modal d-rtl"
+    class="modal-container"
+    modal-class="p-profile-favorite-modal d-rtl modal"
     @close-modal="modalClose"
   >
     <div
@@ -60,6 +61,19 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.modal-container::v-deep {
+  .modal {
+    width: toRem(372);
+    height: toRem(182);
+
+    .p-profile-favorite-title {
+      @include display-flex();
+      margin-top: toRem(11);
+      font-size: toRem(20);
+      font-weight: 400;
+    }
+  }
+}
 .p-profile-favorite-wrapper {
   @include display-flex();
   padding: 1rem;
@@ -69,12 +83,7 @@ export default {
   margin-top: toRem(55);
   margin-bottom: toRem(5);
 }
-.p-profile-favorite-title {
-  @include display-flex();
-  margin-top: toRem(11);
-  font-size: toRem(21);
-  font-weight: 400 !important;
-}
+
 .p-favorite-product-btn-modal-delete {
   margin-left: 1rem;
 }
@@ -92,19 +101,57 @@ export default {
 }
 
 @media (max-width: 768px) {
+  .modal-container::v-deep {
+    .modal {
+      width: toRem(340);
+      height: toRem(167);
+
+      .p-profile-favorite-title {
+        font-size: toRem(18);
+      }
+    }
+  }
   .p-profile-favorite-title {
     font-size: toRem(16);
   }
   .p-product-btn {
-    width: toRem(130);
-    height: toRem(41);
+    width: toRem(140);
+    height: toRem(45);
   }
 }
 
 @media (max-width: 460px) {
+  .modal-container::v-deep {
+    .modal {
+      width: toRem(318);
+      height: toRem(156);
+
+      .p-profile-favorite-title {
+        font-size: toRem(16);
+        @include display-flex();
+        justify-content: flex-start;
+        padding-right: toRem(9);
+      }
+    }
+  }
+  .p-profile-favorite-btns {
+    margin-top: toRem(48);
+  }
   .p-product-btn {
-    width: toRem(116);
-    height: toRem(38);
+    width: toRem(130);
+    height: toRem(41.7);
+  }
+}
+@media (max-width: 320px) {
+  .modal-container::v-deep {
+    .modal {
+      width: toRem(270);
+      height: toRem(156);
+
+      .p-profile-favorite-title {
+        font-size: toRem(16);
+      }
+    }
   }
 }
 </style>

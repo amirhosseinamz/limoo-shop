@@ -34,7 +34,7 @@
 <!--    Delete Modal-->
 
     <transition name="backdrop-delete">
-      <div class="backdrop" v-if="showModal"></div>
+      <div class="backdrop" v-if="showModal" @click="modalClose"></div>
     </transition>
     <transition name="delete">
       <modalDeleteFav

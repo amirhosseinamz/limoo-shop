@@ -96,12 +96,24 @@ export default {
       formData: {
         phone: "",
       },
+      showSnackbar: false
     };
   },
   components: {
     textInput,
   },
   watch: {},
+  mounted() {
+    setTimeout(() => {
+      this.showSnackbar = true;
+      console.log(this.showSnackbar);
+    },3000)
+    setTimeout(() => {
+      this.showSnackbar = false;
+      console.log(this.showSnackbar);
+
+    },6000)
+  },
   created() {
     this.storePhone = this.$store.getters.PhoneNumberPicker;
     this.formData.phone = this.$store.getters.PhoneNumberPicker;
@@ -179,7 +191,7 @@ export default {
   flex-direction: column;
   justify-content: center;
   width: toRem(642);
-  height: toRem(524);
+  //height: toRem(524);
   background-color: $white;
   box-shadow: 0 toRem(8) toRem(16) $box__shadow;
   border-radius: toRem(15);

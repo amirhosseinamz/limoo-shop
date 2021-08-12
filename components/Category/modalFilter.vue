@@ -33,6 +33,22 @@
           @last-update-slider-range="lastUpdateSliderRenge"
         ></filter-price>
 
+        <filter-price
+          :open-default-box="true"
+          :title="getTextByTextKey('category_price_range_text')"
+          :minMax="{ min: 0, max: 100000 }"
+          :from-to-range="rengeFromTo"
+          @last-update-slider-range="lastUpdateSliderRenge"
+        ></filter-price>
+
+        <filter-price
+          :open-default-box="true"
+          :title="getTextByTextKey('category_price_range_text')"
+          :minMax="{ min: 0, max: 100000 }"
+          :from-to-range="rengeFromTo"
+          @last-update-slider-range="lastUpdateSliderRenge"
+        ></filter-price>
+
         <filter-brand
           @checked-brand-filter="checkedBrandFilter"
         ></filter-brand>
@@ -205,6 +221,9 @@ export default {
       font-size: toRem(16);
       color: $dark_gray;
       font-weight: 300;
+    }
+    .modal-filter__filter-tools {
+      overflow-y: scroll;
     }
 
     .modal-filter__item-close::before {

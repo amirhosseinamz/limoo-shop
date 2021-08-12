@@ -45,25 +45,7 @@
           class="profile-sidebar__arrow-left"
         ></span>
       </div>
-      <!-- =section3= -->
-      <!--/// notification section is ignored in version alpha ///-->
-      <!-- <div class=" profile-sidebar__flex profile-sidebar__notification">
-                <div class="profile-sidebar__flex-part">
-                    <img
-                        class="profile-sidebar__notification-icon"
-                        src="/icons/message.svg"
-                    />
-                    <NuxtLink to="">پیام های من</NuxtLink>
-                </div>
-                <div class="profile-sidebar__flex-part">
-                    <div class="message-holder">
-                        <span class="message-counter">2</span>
-                    </div>
-                    
-                    <span class="profile-sidebar__arrow-left"></span>
-                </div>
-            </div> -->
-      <!--/// ===================================================== ///-->
+
       <hr class="splicer" />
       <div class=" profile-sidebar__flex profile-sidebar__personal-info">
         <div class="profile-sidebar__flex-part d-rtl">
@@ -168,7 +150,7 @@
                     />
                     <NuxtLink to="">کارت هدیه</NuxtLink>
                 </div>
-                
+
                 <span class="profile-sidebar__arrow-left"></span>
             </div> -->
       <!--/// ===================================================== ///-->
@@ -529,8 +511,11 @@ export default {
     background: transparent;
     border-radius: 0;
     &__arrow-left {
-      display: block;
-      margin-left: 25px;
+      @include display-flex();
+      justify-content: center;
+      align-items: center;
+      width: toRem(50);
+      height: 100%;
     }
     &__arrow-left::before {
       content: "\e801";

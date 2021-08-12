@@ -1,6 +1,7 @@
 <template>
   <base-modal
-    modal-class="d-rtl"
+    class="modal-container"
+    modal-class="d-rtl modal"
     @close-modal="modalClose"
   >
     <div
@@ -51,49 +52,97 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.modal-container::v-deep {
+  .modal {
+    width: toRem(372);
+    height: toRem(182);
 
+    .p-profile-history-title {
+      @include display-flex();
+      margin-top: toRem(11);
+      font-size: toRem(20);
+      font-weight: 400;
+    }
+  }
+}
 .p-profile-history-wrapper {
-    @include display-flex();
-    padding: 1rem;
+  @include display-flex();
+  padding: 1rem;
 }
 .p-profile-history-btns {
-    @include display-flex();
-    margin-top: 55px;
-    margin-bottom: 5px;
+  @include display-flex();
+  margin-top: toRem(55);
+  margin-bottom: toRem(5);
 }
-.p-profile-history-title {
-    @include display-flex();
-    margin-top: 11px;
-    font-size: 20px;
-    font-weight: 400;
-}
+
 .p-history-product-btn-modal-delete {
-    margin-left: 1rem;
+  margin-left: 1rem;
 }
 .p-history-product-btn-modal-cancel {
-   margin-left: 0;
+  margin-left: 0;
+}
+.p-history-product-btn {
+  width: toRem(130);
 }
 .p-product-btn {
-  width: 150px;
-  height: 47px;
+  width: toRem(150);
+  height: toRem(47);
   font-family: inherit;
   transition: all 120ms ease-in;
 }
 
 @media (max-width: 768px) {
-    .p-profile-history-title {
-        font-size: 16px;
+  .modal-container::v-deep {
+    .modal {
+      width: toRem(340);
+      height: toRem(167);
+
+      .p-profile-history-title {
+        font-size: toRem(18);
+      }
     }
-    .p-product-btn {
-        width: 130px;
-        height: 41px;
-    }
+  }
+  .p-profile-history-title {
+    font-size: toRem(16);
+  }
+  .p-product-btn {
+    width: toRem(140);
+    height: toRem(45);
+  }
 }
 
 @media (max-width: 460px) {
-    .p-product-btn {
-        width: 116px;
-        height: 38px;
+  .modal-container::v-deep {
+    .modal {
+      width: toRem(318);
+      height: toRem(156);
+
+      .p-profile-history-title {
+        font-size: toRem(16);
+        @include display-flex();
+        justify-content: flex-start;
+        padding-right: toRem(9);
+      }
     }
+  }
+  .p-profile-history-btns {
+    margin-top: toRem(48);
+  }
+  .p-product-btn {
+    width: toRem(130);
+    height: toRem(41.7);
+  }
+}
+@media (max-width: 320px) {
+  .modal-container::v-deep {
+    .modal {
+      width: toRem(270);
+      height: toRem(172);
+
+      .p-profile-history-title {
+        font-size: toRem(16);
+      }
+    }
+  }
 }
 </style>

@@ -29,12 +29,19 @@
                 ></the-user-history>
             </div>
         </div>
-
+      <transition name="backdrop-delete">
+        <div class="backdrop" v-if="showModal"></div>
+      </transition>
+      <transition name="delete">
         <TheModalDeleteUserHistory
-            :active.sync="showModalDeleteHistory"
-            :current-history="currentHistory"
-            @btn-delete-history="btnDeleteHistory"
+          v-if="showModal"
+          @close-modal="modalClose"
+          :current-history="currentHistory"
+          @btn-delete-history="btnDeleteHistory"
         />
+      </transition>
+
+
     </div>
 </template>
 <script>
@@ -53,7 +60,7 @@ export default {
 
     data() {
         return {
-            showModalDeleteHistory: false,
+            showModal: false,
             historyData: [
                 // {
                 //     id: 1,
@@ -108,9 +115,12 @@ export default {
         goToProfile() {
             this.$router.push("/profile");
         },
+        modalCLose() {
+            this.showModal = false;
+        },
 
         eventShowModalDeleteHistory(data) {
-            this.showModalDeleteHistory = true;
+            this.showModal = true;
             this.currentHistory = data;
         },
 
@@ -128,7 +138,7 @@ export default {
             };
 
             removeHistory();
-            this.showModalDeleteHistory = false;
+            this.showModal = false;
 
             // request //
         }
@@ -137,6 +147,13 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@include delete-modal-animation();
+@include backdrop-delete-modal-animation();
+
+.backdrop {
+  @extend .modal-backdrop;
+  background-color: $overlay--profile;
+}
 .mobile-screen {
     display: none;
 }

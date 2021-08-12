@@ -2,7 +2,7 @@
   <base-modal
     class="modal-container d-rtl"
     modal-class="modal d-rtl product--single__modal"
-    :mode="modalMode"
+    mode="scale"
     @close-modal="modalClose"
   >
     <div class="w-100  product__modal">
@@ -55,9 +55,9 @@ import { getTextByTextKey } from "~/modules/splitPartJsonResource.js";
 
 export default {
   props: {
+    showModal: { type: [Boolean, Number], default: false },
     productSlider: { type: [Object, Array], default: [] },
     imageSelected: { type: Object, default: {} },
-    modalMode: { type: Boolean, require: true }
   },
 
   components: {},
@@ -67,16 +67,23 @@ export default {
       productSliderData: [],
     };
   },
+  mounted() {
 
+  },
   watch: {
-    active(showModal) {
-      if (showModal) {
-        setTimeout(() => {
-          this.flickityOptions();
-        }, 10);
-        this.activePicSelected(this.imageSelected);
-      }
-    },
+    showModal: {
+      deep: true,
+      handler(val) {
+        if (val) {
+          console.log('nooooooooooooooow');
+          setTimeout(() => {
+            this.flickityOptions();
+          }, 100);
+          this.activePicSelected(this.imageSelected);
+        }
+      },
+      immediate: true,
+    }
   },
 
   methods: {
@@ -130,15 +137,15 @@ export default {
   .modal {
     width: toRem(1083);
     padding: 0.5rem 1.5rem;
-    .main-carousel {
-      @extend .d-flex;
-    }
     .product__modal {
       width: 100%;
       flex-wrap: wrap;
       align-items: flex-start;
       @include display-flex();
       padding-bottom: 38px;
+    }
+    .main-carousel {
+      //@extend .d-flex;
     }
     .product__modal-close::after {
       content: "\e807";

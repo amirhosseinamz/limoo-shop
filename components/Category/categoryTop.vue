@@ -5,6 +5,7 @@
         <div class="products__top-title w-100 products__top-desktop">
           <h3 class="products__top-text">موبایل اندرویدی</h3>
         </div>
+
         <div class="products__filter-btns w-100 ">
           <base-button no-box-shadow classes="products__filter-btn" @button-clicked="showBoxFilter">
             <img src="/icons/filter_search_icon.svg" alt="filter">
@@ -89,7 +90,8 @@ export default {
       checkboxValues: [],
       showFilterModal: false,
       showSortModal: false,
-      activeBlur: false
+      activeBlur: false,
+      alll: false,
     };
   },
 
@@ -106,6 +108,13 @@ export default {
   },
 
   mounted() {
+    setTimeout(() => {
+      console.log('jj dar');
+      this.alll = true
+    }, 3000);
+    setTimeout(() => {
+      this.alll = false
+    }, 6000);
     if (this.categorySuggestion.length != 0) {
       this.allCategorySuggestion = this.categorySuggestion;
     }
@@ -176,6 +185,7 @@ export default {
   filter: blur(2px);
   overflow: hidden;
 }
+
 .button-tabs {
   li {
     &.active {

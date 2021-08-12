@@ -170,10 +170,21 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.range-slider::v-deep {
+  &.slider-wrapper {
+    height: 0.4rem;
+
+    .selector {
+      width: 1rem;
+      height: 1rem;
+    }
+  }
+
+}
 .modal-container::v-deep {
   .modal {
     width: toRem(642);
-    padding: 1.5rem;
+    padding: 1rem 0;
     .comment__close::before {
       font-size: toRem(30);
       opacity: 0.5;
@@ -192,6 +203,7 @@ export default {
       margin-top: toRem(15);
       margin-bottom: toRem(43);
     }
+
     .comment__modal-rating {
       @include display-flex();
       justify-content: center;
@@ -316,16 +328,25 @@ export default {
       .comment--mobile {
         @include display-flex();
       }
+      .comment--slider__main::v-deep {
+        .range-slider-dot {
+          width: 16px!important;
+          height: 16px!important;
+        }
+      }
       .comment--desktop {
         display: none;
       }
       .comment--modal__top {
         width: 74%;
       }
+      .comment--slider__main {
+        margin-top: toRem(16);
+      }
       .comment__rating-title {
         font-size: toRem(14);
         color: $gray;
-        margin: toRem(24) 0;
+        margin: toRem(8) 0 toRem(8) 0;
       }
       .comment__star::before {
         font-size: toRem(21);

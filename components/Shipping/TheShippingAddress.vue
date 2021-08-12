@@ -475,15 +475,18 @@ export default {
     @include display-flex();
     background-color: transparent;
     font-family: inherit;
-    /* width: 100%; */
-    font-size: toRem(14);
-    color: $gray;
+    width: 100%;
+    height: toRem(26);
+    font-size: 0.875rem;
+    color: #828282;
     border: none;
     box-sizing: border-box;
     cursor: pointer;
-    line-height: 140.62%;
-    text-align: right;
-    margin: toRem(12) toRem(12) toRem(10) 0;
+    margin-bottom: 0.75rem;
+    align-items: center;
+    justify-content: flex-start;
+    margin-right: toRem(12);
+
   }
   .address-detail__btn-edit__mobile {
     margin: toRem(10) toRem(12) toRem(10) 0;

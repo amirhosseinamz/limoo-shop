@@ -40,6 +40,7 @@
     <transition :name="modalAnimation">
       <modal-pic-product
         v-if="showModalPic"
+        :show-modal="showModalPic"
         :product-slider="productSlider"
         :image-selected="imageSelected"
         @active-item-slider-nav="activeItemSliderNav"
@@ -61,7 +62,7 @@ export default {
   computed: {
     modalAnimation() {
       return "scale";
-    }
+    },
   },
   data() {
     return {
