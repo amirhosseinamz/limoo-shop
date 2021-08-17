@@ -23,7 +23,7 @@
             </div>
           </div>
           <div :class="{'show--messageDiscount':messageDiscount.show}" class="w-100 pay-detail__message-main">
-            <img class="pay-detail__message" src="/icons/discountMessage-icon.svg" alt="">
+            <span class="pay-detail__message"></span>
             <h3 class="pay-detail__message-text">{{ messageDiscount.msg }}</h3>
           </div>
         </div>
@@ -48,7 +48,8 @@
             <div class="w-100 cart-detail__content">
               <div class="cart-detail__item">
                 <div class="cart-detail__right">
-                  <img src="/icons/coin.svg" class="cart-detail__icon" alt="">
+<!--                  <img src="/icons/coin.svg" class="cart-detail__icon" alt="">-->
+                  <span class="cart-detail__coin"></span>
                   <h3 class="cart-detail__right-title">قیمت محصولات:</h3>
                 </div>
                 <div class="cart-detail__left">
@@ -59,7 +60,8 @@
 
               <div class="cart-detail__item">
                 <div class="cart-detail__right">
-                  <img src="/icons/Discount-cart.svg" class="cart-detail__icon discount--icon" alt="">
+<!--                  <img src="/icons/Discount-cart.svg" class="cart-detail__icon discount&#45;&#45;icon" alt="">-->
+                  <span class="cart-detail__discount"></span>
                   <h3 class="cart-detail__right-title">تخفیف کل:</h3>
                 </div>
                 <div class="cart-detail__left">
@@ -70,7 +72,8 @@
 
               <div class="cart-detail__item">
                 <div class="cart-detail__right">
-                  <img src="/icons/car.svg" class="cart-detail__icon car--icon" alt="">
+<!--                  <img src="/icons/car.svg" class="cart-detail__icon car&#45;&#45;icon" alt="">-->
+                  <span class="cart-detail__car"></span>
                   <h3 class="cart-detail__right-title">هزینه ارسال:</h3>
                 </div>
                 <div class="cart-detail__left">
@@ -204,7 +207,29 @@ export default {
   align-items: flex-start;
   flex-grow: 1;
 }
-
+.cart-detail__coin,
+.cart-detail__car,
+.cart-detail__discount {
+  width: toRem(19);
+}
+.cart-detail__coin::after {
+  content: "\e809";
+  @include font-icon__limoo();
+  font-size: toRem(18);
+  color: $gray-2;
+}
+.cart-detail__discount::after {
+  content: "\e81e";
+  @include font-icon__limoo();
+  font-size: toRem(17);
+  color: $gray-2;
+}
+.cart-detail__car::after {
+  content: "\e80a";
+  @include font-icon__limoo();
+  font-size: toRem(13);
+  color: $gray-2;
+}
 .cart-detail__left {
   @include display-flex();
   align-items: flex-start;
@@ -264,21 +289,6 @@ export default {
 
 .red--pay {
   color: $red-color;
-}
-
-.cart-detail__icon {
-  width: toRem(18);
-  height: toRem(18);
-}
-
-.discount--icon {
-  width: toRem(21);
-  height: toRem(21);
-}
-
-.car--icon {
-  width: toRem(21);
-  height: toRem(21);
 }
 
 .cart-detail__btn-item{
@@ -455,7 +465,7 @@ export default {
   @include font-icon__limoo();
   content: "\e80d";
   font-size: toRem(16);
-  color: #bdbdbd;
+  color: $gray-3;
 }
 
 .pay-detail__discount-right {
@@ -480,6 +490,15 @@ export default {
   padding-right: toRem(3);
   opacity: 0;
   pointer-events: none;
+}
+.pay-detail__message {
+  line-height: toRem(18);
+  &::before {
+    content: "\e831";
+    @include font-icon__limoo();
+    font-size: toRem(14);
+    color: $green__answer;
+  }
 }
 
 .pay-discount__message-content {
@@ -628,18 +647,6 @@ export default {
     padding-left: toRem(16);
     box-shadow: 0 toRem(1) toRem(15) rgba(0, 0, 0, 0.09);
   }
-  .cart-detail__icon {
-    height: toRem(17);
-    width: toRem(17);
-  }
-  .car--icon {
-    width: toRem(19);
-    height: toRem(19);
-  }
-  .discount--icon {
-    width: toRem(17);
-    height: toRem(17);
-  }
   .cart-detail__text {
     @include display-flex();
   }
@@ -656,9 +663,15 @@ export default {
     margin-bottom: toRem(24);
   }
 }
-
-@media (max-width: 485px) {
-
-}
-
+@media (max-width: 768px) {
+  .cart-detail__coin::after {
+    font-size: toRem(15);
+  }
+  .cart-detail__discount::after {
+    font-size: toRem(14);
+  }
+  .cart-detail__car::after {
+    font-size: toRem(11);
+  }
+};
 </style>

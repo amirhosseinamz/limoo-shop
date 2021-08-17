@@ -80,7 +80,6 @@ export default {
     },
 
     props: {
-      products   : { type: [Object,Array], default: [] },
       title      : { type: Object, default: [] },
       moreText   : { type: String, default: '' },
     },
@@ -109,7 +108,9 @@ export default {
     },
 
     computed: {
-
+      products() {
+        return this.$store.getters["home/home/allProductVertical"];
+      }
     },
 
     methods: {
@@ -154,15 +155,10 @@ export default {
             counterTwice++;
 
           if (485 >= width) {
-              if (index <= 3) {
-                content.mobileShow = true;
-              }
-              else {
-                content.mobileShow = false;
-              }
+            this.$store.dispatch("home/home/itemCategorySplitTwice", { eachItem: content, eachIndex: index, mobileSize: true });
           }
           else {
-            content.mobileShow = true;
+            this.$store.dispatch("home/home/itemCategorySplitTwice", { eachItem: content, eachIndex: index, mobileSize: false });
           }
 
           if (counterTwice <= 2) {
@@ -181,7 +177,7 @@ export default {
 
 
         // پیدا کردن آیتم ای که در جدا سازی دوتایی آیتم ها اضافه آماده است //
-        if (this.products.length != levelSplit) {
+        if (this.products.length !== levelSplit) {
           const lastFindCatOutSideTwice = this.products[levelSplit];
           this.allDesktopSplitTwice.push( { children: [lastFindCatOutSideTwice] } );
         }

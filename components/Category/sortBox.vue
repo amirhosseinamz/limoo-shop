@@ -5,14 +5,7 @@
         </div>
 
         <div class="w-100 modal-sort__content">
-<!--            <div v-for="data in sortData" :key="data.id" class="modal-sort__item w-100">
-                <label @change="activeRadio($event,data)" class="container">
-                    <h3 class="modal-sort__title">{{data.title}}</h3>
-                    <input :checked="data.checked" type="radio" name="radio">
-                    <span  class="checkmark">
-                    </span>
-                </label>
-            </div>-->
+
           <base-radio-button
             name="payment"
             class="modal-sort__item w-100"

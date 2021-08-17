@@ -10,21 +10,21 @@
                             <div class="productContent__carouselData">
                             <div class="w-100">
 
-                              <h3 v-if="data.id == 1" class="productContent__carouselDataTitle">
+                              <h3 v-if="data.id === 1" class="productContent__carouselDataTitle">
                                 {{getTextByTextKey('home_quality_guarantee')}}
                               </h3>
 
-                               <h3 v-if="data.id == 2" class="productContent__carouselDataTitle">
+                               <h3 v-if="data.id === 2" class="productContent__carouselDataTitle">
                                  {{getTextByTextKey('home_immediate_sending')}}
                               </h3>
 
 
-                              <h3 v-if="data.id == 3" class="productContent__carouselDataTitle">
+                              <h3 v-if="data.id === 3" class="productContent__carouselDataTitle">
                                 {{getTextByTextKey('home_24_hour_support')}}
                               </h3>
 
 
-                              <h3 v-if="data.id == 4" class="productContent__carouselDataTitle">
+                              <h3 v-if="data.id === 4" class="productContent__carouselDataTitle">
                                 {{getTextByTextKey('home_7_days_warranty')}}
                               </h3>
 
@@ -43,29 +43,11 @@ import { getTextByTextKey } from "~/modules/splitPartJsonResource.js";
 
 
 export default {
-    components: {
-    },
-
-    props: {
-      products       : { type: [Object,Array], default: [] },
-    },
-
-    data() {
-      return {
-
+    computed: {
+      products() {
+        return this.$store.getters["home/home/brandIntroduction"];
       }
     },
-    
-    beforeCreate(){
-      
-    },
-
-    created(){
-    },
-
-    mounted() {
-    },
-
 
     methods: {
       getTextByTextKey,

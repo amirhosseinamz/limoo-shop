@@ -19,7 +19,6 @@
         <hr class="splicer-line" />
         <div class="w-100 user-profile-comments-main flex-column">
           <contentComments
-            :comments-data="commentsData"
             @show-modal-delete-product="showModalDeleteProduct"
           ></contentComments>
         </div>
@@ -56,40 +55,15 @@ export default {
 
   data() {
     return {
-      commentsData: [
-        {
-          id: 1,
-          commentTitle: "این سری از اپل واچ از سری قبلش خیلی بهتر شده!",
-          state: "accepted",
-          idea: "good",
-          productTitle: "اپل واچ سری 6 آتومینیوم آبی بند اسپرت سیلیکون آبی1",
-          img: "/img/apple-watch-1.png",
-          description:
-            "این کالا به شدت قوی و با کیفیت هست و پیشنهاد میکنم در این رنج قیمت، حتما این کالارو خریداری کنید! این کالا به شدت قوی و با کیفیت هست و پیشنهاد میکنم در این رنج قیمت حتما این کالا رو خریداری کنید.",
-          commentTime: "1 ساعت پیش",
-          rate: 4.5,
-        },
-        {
-          id: 2,
-          commentTitle: "واقعا نمیدونم چرا ایده جدید ندارن روی این محصول!",
-          state: "accepted",
-          idea: "bad",
-          productTitle: "اپل واچ سری 6 آتومینیوم آبی بند اسپرت سیلیکون آبی2",
-          img: "/img/apple-watch-2.png",
-          description:
-            "این کالا به شدت قوی و با کیفیت هست و پیشنهاد میکنم در این رنج قیمت، حتما این کالارو خریداری کنید! این کالا به شدت قوی و با کیفیت هست و پیشنهاد میکنم در این رنج قیمت حتما این کالا رو خریداری کنید.",
-          commentTime: "1 روز پیش",
-          rate: 3.6,
-        }
-      ],
       currentProduct: {},
       showModal: false
     };
   },
-
-  watch: {},
-
-  mounted() {},
+  computed: {
+    commentsData() {
+      return this.$store.getters["profile/comments/comments/commentsData"];
+    }
+  },
 
   methods: {
     getTextByTextKey,
@@ -102,22 +76,8 @@ export default {
     },
 
     btnDeleteProduct(data) {
-      const removeFavorite = () => {
-        let indexDelete = -1;
-
-        this.commentsData.map((content, index) => {
-          if (content.id == data.id) {
-            indexDelete = index;
-          }
-        });
-
-        this.commentsData.splice(indexDelete, 1);
-      };
-
-      removeFavorite();
+      this.$store.dispatch("profile/comments/comments/btnDeleteComment", data);
       this.showModal = false;
-
-      // request //
     },
 
     showModalDeleteProduct(data) {

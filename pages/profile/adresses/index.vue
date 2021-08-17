@@ -23,11 +23,6 @@
         <hr class="splicer-line" />
         <div class="w-100 user-profile-adresses-main flex-column">
           <contentAdresses
-            :adress-data="adressesData"
-            :all-province="allProvince"
-            :all-citys="allCitys"
-            :form-data="formData"
-            :profile-phone-number="profilePhoneNumber"
             @show-modal-delete-product="showModalDeleteProduct"
             @selected-province="selectedProvince"
             @selected-city="selectedCity"
@@ -67,79 +62,19 @@ export default {
 
   data() {
     return {
-      adressesData: [
-        {
-          id: 1,
-          address: "تهران ، خیابان ولیعصر ، تقاطع کوچه حسینی راد 1",
-          province: "تهران",
-          city: "جنت آباد",
-          codePoste: "90",
-          nameReceiver: "test",
-          numberReceiver: "10",
-        },
-        {
-          id: 2,
-          address: "تهران ، خیابان ولیعصر ، تقاطع کوچه حسینی راد 2",
-          province: "قم",
-          city: "قم",
-          codePoste: "2",
-          nameReceiver: "test",
-          numberReceiver: "10",
-        },
-        {
-          id: 3,
-          address: "تهران ، خیابان ولیعصر ، تقاطع کوچه حسینی راد 3",
-          province: "قم",
-          city: "قم",
-          codePoste: "3",
-          nameReceiver: "test",
-          numberReceiver: "10",
-        },
-      ],
       currentProduct: {},
       showModal: false,
-      allProvince: [
-        {
-          id: 1,
-          title: "تهران",
-          selected: false,
-        },
-        {
-          id: 2,
-          title: "قم",
-          selected: false,
-        },
-      ],
-      allCitys: [
-        {
-          id: 1,
-          parent_id: 2,
-          title: "قم",
-          selected: false,
-        },
-        {
-          id: 2,
-          parent_id: 1,
-          title: "جنت آباد",
-          selected: false,
-        },
-      ],
-      formData: {
-        province: "",
-        city: "",
-        codePoste: "",
-        nameReceiver: " ",
-        numberReceiver: "",
-        address: "",
-      },
       updateAddress: 0,
-      profilePhoneNumber: "",
     };
   },
-
-  watch: {},
-
-  mounted() {},
+  computed: {
+    addressesData() {
+      return this.$store.getters["profile/addresses/addresses/addressesData"];
+    },
+    allProvince() {
+      return this.$store.getters["profile/addresses/addresses/allProvince"];
+    },
+  },
 
   methods: {
     getTextByTextKey,
@@ -151,21 +86,8 @@ export default {
     },
 
     btnDeleteProduct(data) {
-      const removeFavorite = () => {
-        let indexDelete = -1;
-
-        this.adressesData.map((content, index) => {
-          if (content.id == data.id) {
-            indexDelete = index;
-          }
-        });
-
-        this.adressesData.splice(indexDelete, 1);
-      };
-
-      removeFavorite();
+      this.$store.dispatch("profile/addresses/addresses/btnDeleteAddress", data);
       this.showModal = false;
-      // request //
     },
 
     showModalDeleteProduct(data) {
@@ -186,19 +108,19 @@ export default {
       let findIndex = 0;
 
       const faceUpdatePage = () => {
-        this.adressesData.map((content, i) => {
-          if (content.id == data.id) {
-            this.adressesData[i] = data;
+        this.addressesData.map((content, i) => {
+          if (content.id === data.id) {
+            this.$store.dispatch("profile/addresses/addresses/editAddress", [i, data]);
           }
         });
       };
 
       // بعد از اتصال به بک این قسمت حذف شود //
-      if (state == "edit") {
+      if (state === "edit") {
         faceUpdatePage();
       } else {
         data.id = 20 + this.updateAddress;
-        this.adressesData.push(data);
+        this.$store.dispatch("profile/addresses/addresses/addAddress", data);
       }
 
       // send data server //

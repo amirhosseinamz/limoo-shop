@@ -1,10 +1,6 @@
 <template>
   <div class="p-comments-content-main w-100 flex-column flex-wrap  d-rtl">
-    <transition moda="in-out">
-      <div id="overlay" v-if="passChangeIsActive">
 
-      </div>
-    </transition>
     <div class="user-comments__empty-container" v-show="userComments == 0">
       <img
         src="/empty-pages/empty-comment-list.svg"
@@ -146,12 +142,10 @@ import { getTextByTextKey } from "~/modules/splitPartJsonResource.js";
 
 export default {
   props: {
-    commentsData: { type: [Object, Array], default: {} },
   },
   components: {},
   data() {
     return {
-      passChangeIsActive: false,
       dataEditAddress: {},
       updateSelected: 0,
       userComments: -1,
@@ -160,19 +154,16 @@ export default {
   created() {
     this.userComments = Object.values(this.commentsData).length;
   },
-  computed: {},
+  computed: {
+    commentsData() {
+      return this.$store.getters["profile/comments/comments/commentsData"];
+    }
+  },
 
   methods: {
     getTextByTextKey,
     showMoreDescription(data) {
-      this.commentsData.map((content) => {
-        if (content.id == data.id) {
-          content.selected = !content.selected;
-          // if we want open one paragraph in time
-          // } else {
-          //     content.selected = false;
-        }
-      });
+      this.$store.dispatch('profile/comments/comments/showMoreDescription', data);
       this.updateSelected++;
     },
     showModalDeleteProduct(data) {
@@ -180,12 +171,10 @@ export default {
     },
     closeModal() {
       this.dataEditAddress = {};
-      this.passChangeIsActive = false;
     },
 
     // editAddress(data) {
     //     this.dataEditAddress = data;
-    //     this.passChangeIsActive = true;
     // }
   },
 };

@@ -56,16 +56,7 @@
                                             >ایپک</span
                                         >
                                     </div>
-                                    <!-- <div class="order-detail__content-price">
-                                        <span
-                                            class="order-detail__content-price__title"
-                                            >هزینه ارسال:</span
-                                        >
-                                        <span
-                                            class="order-detail__content-price__name"
-                                            >20،000 تومان</span
-                                        >
-                                    </div> -->
+
                                 </div>
                             </div>
                         </div>
@@ -100,14 +91,7 @@
                                 >ایپک</span
                             >
                         </div>
-                        <!-- <div class="order-detail__content-price">
-                            <span class="order-detail__content-price__title"
-                                >هزینه ارسال:</span
-                            >
-                            <span class="order-detail__content-price__name"
-                                >20،000 تومان</span
-                            >
-                        </div> -->
+
                     </div>
                 </div>
                 <div class="order-detail__btns-price">
@@ -142,7 +126,11 @@
 <script>
 export default {
     props: {
-        ordersData: { type: [Object, Array], default: {} }
+    },
+    computed: {
+      ordersData() {
+        return this.$store.getters["cart/cart/ordersData"];
+      }
     },
     methods: {
         showModalDeleteOrder(data) {
@@ -158,9 +146,7 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
-/* .orders-content__main {
-    border: 1px solid red;
-} */
+
 .order-content-item {
     @include display-flex();
     flex-direction: column;

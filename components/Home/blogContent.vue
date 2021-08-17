@@ -2,7 +2,7 @@
   <div class="w-100 productContent">
 
       <div class="productContent__items w-100">
-              <blog-product-slider :name-element-find-slider="nameElementFindSlider" :products="products" :title="title" :more-text="moreText" :more-single-item-text="moreSingleItemText"></blog-product-slider>
+              <blog-product-slider :name-element-find-slider="nameElementFindSlider" :title="title" :more-text="moreText" :more-single-item-text="moreSingleItemText"></blog-product-slider>
               <div class="w-100 productContent__sliderMore">
                   <nuxt-link class="productContent__moreItem" to="/">
                     {{moreText}}
@@ -24,7 +24,6 @@ export default {
     },
 
     props: {
-      products                : { type: [Object,Array], default: [] },
       statusShowCounterDown   : { type: Boolean, default: true },
       nameElementFindSlider   : { type: String, default: '' },
       title                   : { type: Object, default: {} },

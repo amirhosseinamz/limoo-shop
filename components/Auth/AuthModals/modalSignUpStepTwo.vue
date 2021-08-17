@@ -8,33 +8,6 @@
             {{ snackbarText }}
           </base-snackbar>
         </transition>
-<!--        <div
-          class="success-message"
-          :class="{ 'success-message-animation': newCodeSent }"
-        >
-          <img class="success-icon" src="/icons/success.svg" />
-          <p dir="rtl" class="success-txt">
-            {{ getTextByTextKey("auth_aignup_code_new") }}
-          </p>
-        </div>
-        <div
-          class="alert-message "
-          :class="{ 'alert-message-animation': timerPassed }"
-        >
-          <img class="alert-icon " src="/icons/alarm.svg" />
-          <p dir="rtl" class="alert-txt">
-            {{ getTextByTextKey("auth_aignup_code_agin") }}
-          </p>
-        </div>
-        <div
-          class="alert-message "
-          :class="{ 'alert-message-animation': confirmCode }"
-        >
-          <img class="alert-icon " src="/icons/alarm.svg" />
-          <p dir="rtl" class="alert-txt">
-            {{ getTextByTextKey("auth_aignup_code_incorrect") }}
-          </p>
-        </div>-->
       </div>
 
 
@@ -139,25 +112,30 @@ export default {
   watch: {},
   computed: {
     snackbarMode() {
-      return "alert";
+      return "success";
     },
     snackbarText() {
-      console.log(this.snackbarMode);
       if (this.snackbarMode === "success") {
         return this.getTextByTextKey("auth_aignup_code_new");
       } else if (this.snackbarMode === "alert") {
-        return "میتنب تینبت نیمتب منیت  بمنتبنم تبنیمت بنمیتمب مینبیمن بتنیمتب مینمبتمی";
+        return this.getTextByTextKey("auth_aignup_code_agin");
       }
     }
   },
   mounted() {
+    let timeout;
+    if (this.snackbarMode === "success") {
+      timeout = 5000;
+    } else if (this.snackbarMode === "alert") {
+      timeout = 7000;
+    }
+    console.log(timeout);
     setTimeout(() => {
       this.showSnackbar = true;
     },3000)
     setTimeout(() => {
       this.showSnackbar = false;
-
-    },5000)
+    }, timeout)
     this.userPhoneNumber = this.$store.getters.PhoneNumberPicker;
   },
   methods: {
@@ -277,13 +255,14 @@ export default {
   width: toRem(463);
   height: toRem(58);
   margin: toRem(-24) toRem(90) 0 toRem(89);
-  //position: absolute;
+  position: absolute;
 }
 
 .alert-message {
   width: toRem(463);
   height: toRem(58);
   margin: toRem(-24) toRem(90) 0 toRem(89);
+  position: absolute;
 }
 /* add this animation to messages when we want to show them */
 

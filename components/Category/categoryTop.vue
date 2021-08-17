@@ -8,12 +8,12 @@
 
         <div class="products__filter-btns w-100 ">
           <base-button no-box-shadow classes="products__filter-btn" @button-clicked="showBoxFilter">
-            <img src="/icons/filter_search_icon.svg" alt="filter">
+            <span class="filter-search-icon"></span>
             {{ getTextByTextKey('category_filter_text') }}
           </base-button>
 
           <base-button no-box-shadow classes="products__filter-btn" base-color="dark" @button-clicked="showModalSort">
-            <img src="/icons/arrow-filter.svg" alt="news">
+            <span class="arrow-down-icon"></span>
             {{ getTextByTextKey('category_btn_new') }}
           </base-button>
 
@@ -70,8 +70,6 @@ import ModalSort from "./modalSort";
 
 export default {
   props: {
-    categorySuggestion: { type: [Object, Array], default: [] },
-    defaultSelectedSuggestion: { type: Object, default: {} },
   },
 
   components: {
@@ -94,6 +92,11 @@ export default {
       alll: false,
     };
   },
+  computed: {
+    categorySuggestion() {
+      return this.$store.getters["category/category/categorySuggestion"];
+    }
+  },
 
   watch: {
     categorySuggestion(data) {
@@ -115,7 +118,7 @@ export default {
     setTimeout(() => {
       this.alll = false
     }, 6000);
-    if (this.categorySuggestion.length != 0) {
+    if (this.categorySuggestion.length !== 0) {
       this.allCategorySuggestion = this.categorySuggestion;
     }
   },
@@ -144,7 +147,7 @@ export default {
     activeSuggestion(data) {
       let updateCategorySuggestion = [];
       this.allCategorySuggestion.map((content) => {
-        if (content.id == data.id) {
+        if (content.id === data.id) {
           content.active = true;
           this.$emit("active-cat-suggestion", content);
         } else {
@@ -173,6 +176,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+
 @include scale-modal-animation();
 @include backdrop-scale-animation();
 
@@ -220,9 +224,24 @@ export default {
   font-family: inherit;
   width: 207px;
   height: 47px;
-
-  img {
+  .filter-search-icon {
     margin: 0 1rem 0 0.6rem;
+    &::before {
+      content: "\e840";
+      @include font-icon__limoo();
+      font-size: 20px;
+      color: white;
+    }
+  }
+  .arrow-down-icon {
+    margin: 0 1rem 0 0.6rem;
+
+    &::before {
+      content: "\e83f";
+      @include font-icon__limoo();
+      font-size: 20px;
+      color: white;
+    }
   }
 }
 .products__filter-btn:last-of-type {
@@ -289,9 +308,20 @@ export default {
 }
 
 @media (max-width: 600px) {
+
   .products__filter-btn {
     width: 47%;
     margin-left: 4.5%;
+    .filter-search-icon {
+      &::before {
+        font-size: toRem(18);
+      }
+    }
+    .arrow-down-icon {
+      &::before {
+        font-size: toRem(18);
+      }
+    }
   }
 }
 
@@ -318,10 +348,18 @@ export default {
     width: 48%;
     height: 36px;
     margin-left: 3.5%;
-    font-size: 14px!important;
-    img {
-      margin: 0 0.3rem 0 0.6rem;
-      height: 19px;
+    font-size: toRem(14)!important;
+    .filter-search-icon {
+      margin: 0 0.8rem 0 0.6rem;
+      &::before {
+        font-size: toRem(15);
+      }
+    }
+    .arrow-down-icon {
+      margin: 0 0.8rem 0 0.6rem;
+      &::before {
+        font-size: toRem(15);
+      }
     }
   }
   .products__suggestions {
@@ -349,9 +387,9 @@ export default {
 
 @media (max-width: 330px) {
   .products__filter-btn {
-    padding-right: 8px;
-    padding-left: 8px;
-    font-size: 13px!important;
+    padding-right: toRem(8);
+    padding-left: toRem(8);
+    font-size: toRem(13)!important;
 
     img {
       margin: 0 0.1rem 0 0.6rem;

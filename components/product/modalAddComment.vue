@@ -170,17 +170,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.range-slider::v-deep {
-  &.slider-wrapper {
-    height: 0.4rem;
 
-    .selector {
-      width: 1rem;
-      height: 1rem;
-    }
-  }
-
-}
 .modal-container::v-deep {
   .modal {
     width: toRem(642);
@@ -192,6 +182,8 @@ export default {
     .comment--close__main {
       @include display-flex();
       justify-content: flex-end;
+      padding-left: toRem(22);
+      padding-top: toRem(9);
     }
     .comment--mobile {
       display: none;
@@ -320,6 +312,17 @@ export default {
 }
 
 @media (max-width: 760px) {
+  .range-slider::v-deep {
+    &.slider-wrapper {
+      height: 0.4rem;
+
+      .selector {
+        width: 1rem;
+        height: 1rem;
+      }
+    }
+
+  }
   .modal-container::v-deep {
     .modal {
       width: 100%;

@@ -8,20 +8,9 @@
 
     <div class="w-100 p-modal-header">
       <div class="w-100 p-modal-header-mobile">
-        <div class="w-100 d-flex justify-content-center p-modal-header-icon">
-          <img
-            @click="modalClose"
-            class="modal__close-cross"
-            src="/icons/close.svg"
-          />
-        </div>
 
         <div class="p-modal-header-top align-items-center">
-          <img
-            @click="modalClose"
-            class="p-modal-header-icon-location"
-            src="/icons/location_adress.svg"
-          />
+          <span @click="modalClose" class="location-icon"></span>
           <span class="p-modal-header-top-title">
             {{ getTextByTextKey("address_add_address") }}
           </span>
@@ -33,10 +22,7 @@
       <div class="p-modal-header-desktop w-100 flex-column">
         <div class="w-100 p-modal-header-top-main">
           <div class="p-modal-header-top align-items-center">
-            <img
-              class="p-modal-header-icon-location"
-              src="/icons/location_adress.svg"
-            />
+            <span @click="modalClose" class="location-icon"></span>
             <h3 class="p-modal-header-top-title">
               {{ getTextByTextKey("address_exact_postal_address") }}
             </h3>
@@ -655,8 +641,13 @@ export default {
       @include display-flex();
     }
 
-    .p-modal-header-icon-location {
-      width: 24px;
+    .location-icon {
+      &::before {
+        content: "\e817";
+        @include font-icon__limoo();
+        font-size: toRem(20);
+        color: $gray-3;
+      }
     }
 
     .p-modal-header-top-title {
@@ -891,8 +882,10 @@ export default {
         margin-bottom: 0;
         margin-top: 20px;
       }
-      .p-modal-header-icon-location {
-        width: 19px;
+      .location-icon {
+        &::before {
+          font-size: toRem(17);
+        }
       }
       .p-modal-header-top-title {
         font-size: 14px;

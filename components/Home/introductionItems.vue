@@ -48,7 +48,6 @@ export default {
     },
 
     props: {
-      introductionProduct    : { type: [Object,Array], default: [] },
       title                  : { type: Object, default: {} },
       leftSliderHeaderImg    : { type: [Object,Array], default: [] },
     },
@@ -92,6 +91,11 @@ export default {
 
       }
     },
+    computed: {
+      introductionProduct() {
+        return this.$store.getters["home/home/introductionProduct"];
+      }
+    },
 
     mounted() {
       this.createSizeImg();
@@ -99,7 +103,7 @@ export default {
 
       this.slider.on( 'staticClick', ( event, pointer, cellElement, cellIndex ) =>{
           this.introductionProduct.map((content,indexSlider)=>{
-              if (indexSlider == cellIndex) {
+              if (indexSlider === cellIndex) {
                   const linkCurrentItem = document.getElementById(`link--introduction${content.id}`);
                   linkCurrentItem.click();
                   // دلیل تغییر این قسمت به خاطر فهم گوگل برای سئو هستش //
@@ -116,16 +120,6 @@ export default {
       //     this.updateHightSlider();
       //   }, 1000);
       // }
-    },
-
-    watch: {
-      introductionProduct(data) {
-        console.log(data);
-      },
-    },
-
-    computed: {
-
     },
 
     methods: {
@@ -220,11 +214,7 @@ export default {
           const updateImg = (getSizeUpdate) => {
             this.sliderLastUpdateImg.map((contentLastGetImg,indexGetImg)=>{
                 const getCurrentSizeImg = contentLastGetImg[getSizeUpdate];
-                this.introductionProduct.map((contentSlider,indexSlider)=>{
-                  if (contentLastGetImg.id == contentSlider.id ) {
-                      contentSlider.image = getCurrentSizeImg;
-                  }
-                })
+              this.$store.dispatch("home/home/updateImg",  { contentLastGetImg, getCurrentSizeImg })
             })
 
           }
@@ -387,7 +377,7 @@ export default {
         this.updateSliderImg();
         this.updateSliderLeftTopImg();
 
-        if (this.introductionProduct.length != 0) {
+        if (this.introductionProduct.length !== 0) {
           setTimeout( () =>{
             this.updateHightSlider();
           }, 1000);

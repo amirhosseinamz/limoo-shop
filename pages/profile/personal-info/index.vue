@@ -267,23 +267,21 @@ export default {
   data() {
     return {
       passwordFieldType: "password",
-      // passFocusIsActive: false,
       passChangeIsActive: false,
       msg: [],
       // later we get it from store (in talk with back-end)
       selectedDate: "",
       checkInitialValidation: 0,
-      formData: {
-        phoneNumber: "09120121023",
-        passwordShowModal: "AB6565656509",
-        name: "مهدی",
-        family: "دادور",
-      },
+
     };
+  },
+  computed: {
+    formData() {
+      return this.$store.getters["profile/personal-info/personal-info/formData"];
+    }
   },
   watch: {
     selectedDate() {
-      console.log(this.selectedDate);
     },
   },
   methods: {

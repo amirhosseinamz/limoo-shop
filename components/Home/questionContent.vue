@@ -3,7 +3,7 @@
 
       <div class="productContent__items w-100 ">
             <div class="productContent__left">
-              <questions :all-question="allQuestion" :title="title" :more-text="moreText"></questions>
+              <questions :title="title" :more-text="moreText"></questions>
               <div class="w-100 productContent__sliderMore">
                   <nuxt-link class="productContent__moreItem" to="/">
                     {{moreText}}
@@ -26,7 +26,6 @@ export default {
     },
 
     props: {
-      allQuestion   : { type: [Object,Array], default: [] },
       title         : { type: String, default: '' },
       moreText      : { type: String, default: '' },
 

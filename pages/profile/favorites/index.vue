@@ -1,10 +1,5 @@
 <template>
   <div class="profile-container">
-    <!-- <transition moda="in-out">
-            <div id="overlay" v-if="passChangeIsActive">
-                <The-profile-pass-modal />
-            </div>
-        </transition> -->
 
     <the-profile-side-bar class="desktop-screen" />
 
@@ -26,7 +21,6 @@
 
         <favorite-product
           @event-show-modal-delete-favorite="eventShowModalDeleteFavorite"
-          :favorite-data="favoriteData"
         ></favorite-product>
       </div>
     </div>
@@ -64,51 +58,15 @@ export default {
   data() {
     return {
       showModal: false,
-      favoriteData: [
-        {
-          id: 1,
-          title: "Fake",
-          img: "../img/phone.jpg",
-        },
-        {
-          id: 2,
-          title: "Fake",
-          img: "../img/phoneApple.jpg",
-        },
-        {
-          id: 3,
-          title: "Fake",
-          img:
-            "../img/apple-watch-series-6-blue-aluminium-case-with-deep-navy-sport-band-16.jpg",
-        },
-        {
-          id: 4,
-          title: "Fake",
-          img: "/img/apple-watch-5.png",
-        },
-        {
-          id: 5,
-          title: "Fake",
-          img: "/img/apple-watch-1.png",
-        },
-        {
-          id: 6,
-          title: "Fake",
-          img: "/img/apple-watch-3.png",
-        },
-        {
-          id: 7,
-          title: "Fake",
-          img: "/img/apple-watch-5.png",
-        },
-      ],
       currentFavorite: {},
     };
   },
 
-  watch: {},
-
-  mounted() {},
+  computed: {
+    favoriteData() {
+      return this.$store.getters["profile/favorites/favorites/favoriteData"];
+    }
+  },
 
   methods: {
     getTextByTextKey,
@@ -126,19 +84,8 @@ export default {
     },
 
     btnDeleteFavorite(data) {
-      const removeFavorite = () => {
-        let indexDeleteFavoriteData = -1;
 
-        this.favoriteData.map((content, index) => {
-          if (content.id == data.id) {
-            indexDeleteFavoriteData = index;
-          }
-        });
-
-        this.favoriteData.splice(indexDeleteFavoriteData, 1);
-      };
-
-      removeFavorite();
+      this.$store.dispatch("profile/favorites/favorites/btnDeleteFavorite", data);
       this.showModal = false;
 
       // request //

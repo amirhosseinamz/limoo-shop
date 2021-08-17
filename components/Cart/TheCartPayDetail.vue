@@ -1,15 +1,15 @@
 <template>
     <div :key="updateCalcDetailPrice" class="cart-detail__container cart--parent" id="some-stickybit-parent" >
           <div  class="cart-detail__main" id="some-stickybit-nav">
-               <PayData :detail-price="detailPrice"></PayData>
-
+               <PayData></PayData>
+                <div class="behind-the-cart-detail"></div>
                 <div class="w-100 cart-detail__about">
                     <div class="cart-detail__about-item">
-                        <img class="cart-detail__about-icon" src="/icons/Warranty.svg" alt="">
+                        <span class="cart-detail__about-icon-warranty"></span>
                         <h3 class="cart-detail__about-title">ضمانت بازگشت وجه در صورت عدم رضایت</h3>
                     </div>
                     <div class="cart-detail__about-item">
-                        <img class="cart-detail__about-icon" src="/icons/Star.svg" alt="">
+                        <span class="cart-detail__about-icon-star"></span>
                         <h3 class="cart-detail__about-title">ضمانت بازگشت وجه در صورت عدم رضایت</h3>
                     </div>
                 </div>
@@ -25,7 +25,6 @@ import stickybits from 'stickybits';
 
 export default {
     props: {
-      detailPrice   : { type: [Object,Array], default: [] },
     },
 
     components: {
@@ -207,6 +206,11 @@ export default {
   margin-right: 8px;
   font-size: 16px;
 }
+.behind-the-cart-detail {
+  width: 100%;
+  height: toRem(155);
+  background-color: $white;
+}
 
 // @media (max-width: 1500px) {
 //   .cart-detail__payment{
@@ -218,9 +222,17 @@ export default {
   .cart-detail__about-title{
     font-size: 13px;
   }
-  .cart-detail__about-icon{
-    height: 22px;
-    margin-top: -12px;
+  .cart-detail__about-icon-star::before{
+    content: "\e824";
+    @include font-icon__limoo();
+    font-size: toRem(24);
+    color: $orange;
+  }
+  .cart-detail__about-icon-warranty::before{
+    content: "\e813";
+    @include font-icon__limoo();
+    font-size: toRem(29);
+    color: $orange;
   }
 
 }

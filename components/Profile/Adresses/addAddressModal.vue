@@ -16,11 +16,7 @@
         </div>
 
         <div class="p-modal-header-top align-items-center">
-          <img
-            @click="closeModalParent"
-            class="p-modal-header-icon-location"
-            src="/icons/location_adress.svg"
-          />
+          <span @click="closeModalParent" class="location-icon"></span>
           <span class="p-modal-header-top-title">
             {{ getTextByTextKey("address_add_address") }}
           </span>
@@ -32,10 +28,7 @@
       <div class="p-modal-header-desktop w-100 flex-column">
         <div class="w-100 p-modal-header-top-main">
           <div class="p-modal-header-top align-items-center">
-            <img
-              class="p-modal-header-icon-location"
-              src="/icons/location_adress.svg"
-            />
+            <span @click="closeModalParent" class="location-icon"></span>
             <h3 class="p-modal-header-top-title">
               {{ getTextByTextKey("address_exact_postal_address") }}
             </h3>
@@ -123,7 +116,7 @@
               {{ getTextByTextKey("address_validation_select_city") }}
             </h3>
             <customeDropDown
-              :options="allCitys"
+              :options="allCities"
               :initial-value="initialValueCity"
               label="title"
               className="p-modal-select-box-province_city"
@@ -278,13 +271,7 @@ import textInput from "~/modules/textInput";
 
 export default {
   props: {
-    allProvince: { type: [Object, Array], default: [] },
-    allCitys: { type: [Object, Array], default: [] },
-    formDataOriginal: { type: [Object, Array], default: {} },
-    dataEditAddress: { type: Object, default: {} },
-    profilePhoneNumber: { type: [Number, String], default: "" },
     modalMode: {type: String, require: true}
-    //showModal: { type: Boolean, require: true }
   },
   components: {
     customeDropDown,
@@ -305,15 +292,22 @@ export default {
       textLabelCodePoste: "کد پستی (اختیاری):",
     };
   },
-
-  watch: {
-    dataEditAddress(data) {}
+  computed: {
+    allProvince() {
+      return this.$store.getters["profile/addresses/addresses/allProvince"];
+    },
+    allCities() {
+      return this.$store.getters["shipping/shipping/allCities"];
+    },
+    dataEditAddress() {
+      return this.$store.getters["profile/addresses/addresses/dataEditAddress"];
+    }
   },
 
   created() {
     const width = window.innerWidth;
     // پس از کلیک روی ویرایش آدرس کاندیشن زیر اجرا می شود //
-    if (typeof this.dataEditAddress.id != "undefined") {
+    if (typeof this.dataEditAddress.id !== "undefined") {
       for (let key in this.dataEditAddress) {
         this.formData[key] = this.dataEditAddress[key];
       }
@@ -331,7 +325,6 @@ export default {
     }
 
     // // پس از اتصال به بک اند بعد از گرفتن پروفایل قسمت مورد آپدیت شود //
-    // this.formData.numberReceiver = this.profilePhoneNumber;
     this.setDefaultValidationMsg();
     this.detectedResizeBrowser();
   },
@@ -635,8 +628,14 @@ export default {
       flex-grow: 1;
       @include display-flex();
     }
-    .p-modal-header-icon-location {
-      width: toRem(24);
+
+    .location-icon {
+      &::before {
+        content: "\e817";
+        @include font-icon__limoo();
+        font-size: toRem(20);
+        color: $gray-3;
+      }
     }
     .p-modal-header-top-title {
       color: $black;
@@ -824,8 +823,10 @@ export default {
         margin-bottom: 0;
         margin-top: 20px;
       }
-      .p-modal-header-icon-location {
-        width: toRem(19);
+      .location-icon {
+        &::before {
+          font-size: toRem(17);
+        }
       }
       .p-modal-header-top-title {
         font-size: toRem(14);

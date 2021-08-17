@@ -33,7 +33,11 @@
 <script>
 export default {
     props: {
-        ordersData: { type: [Object, Array], default: {} }
+    },
+    computed: {
+      ordersData() {
+        return this.$store.getters["shipping/shipping/ordersData"];
+      }
     },
     methods: {
         showModalDeleteOrder(data) {

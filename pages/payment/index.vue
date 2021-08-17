@@ -15,7 +15,7 @@
                                 <div class="payment__header">
                                   <span class="user-shipping__title">انتخاب درگاه پرداخت</span>
                                   <span class="payment__line"></span>
-                                  <payment-gateway :key="updatePaymentGateway" :payment-gateway="paymentGateway"></payment-gateway>
+                                  <payment-gateway :key="updatePaymentGateway"></payment-gateway>
                                 </div>
 
                                 <div class="w-100 payment__address-main payment--desktop">
@@ -56,7 +56,7 @@
 </template>
 <script>
 import TheCartShippingDetail from "~/components/Payment/TheShippingPayDetail.vue";
-import addCamaPrice from "~/modules/addCamaPrice.js";
+import addCommaPrice from "~/modules/addCamaPrice.js";
 import paymentGateway from "~/components/Payment/paymentGateway.vue";
 
 
@@ -68,35 +68,17 @@ export default {
     },
     data() {
         return {
-            detailPrice  : {
-              price               : 12000,
-              totalDiscount       : 142250,
-              submitDeliveryPrice : 'رایگان',
-              totalPrice          : 2587000,
-            },
-            paymentGateway : [
-                {
-                  id    : 1,
-                  title : 'آسان پرداخت',
-                  value: 'asanPardakht'
-                },
-                {
-                  id    : 2,
-                  title : 'کیف پول دایور',
-                  value: 'diver'
-                },
-                {
-                  id    : 3,
-                  title : 'بانک ملت',
-                  value: 'mellat'
-                },
-            ],
             updatePaymentGateway : 0,
         };
     },
+  computed: {
+    detailPrice() {
+      return this.$store.getters["payment/payment/detailPrice"];
+    }
+  },
 
     mounted() {
-      this.addCama();
+      this.addComma();
     },
 
     methods: {
@@ -104,7 +86,7 @@ export default {
             this.$router.push("/shipping");
         },
 
-        addCama(){
+        addComma(){
           const getDetailPrice       = this.detailPrice;
           const setUpdateDetailPrice = {
           }
@@ -112,12 +94,11 @@ export default {
           for (let key in getDetailPrice) {
             setUpdateDetailPrice[key] = getDetailPrice[key];
 
-            if (getDetailPrice[key] != 'رایگان') {
-               setUpdateDetailPrice[key] = addCamaPrice(getDetailPrice[key]);
+            if (getDetailPrice[key] !== "رایگان") {
+               setUpdateDetailPrice[key] = addCommaPrice(getDetailPrice[key]);
             }
           }
-
-          this.detailPrice = setUpdateDetailPrice;
+          this.$store.dispatch("payment/payment/updateDetailPrice", setUpdateDetailPrice);
         }
 
     }

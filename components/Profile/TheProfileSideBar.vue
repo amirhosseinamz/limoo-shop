@@ -92,7 +92,7 @@
             {{ getTextByTextKey("profile_sidebar_comment") }}
           </NuxtLink>
         </div>
-        <span class="profile-sidebar__arrow-left"></span>
+        <span @click="goToComments" class="profile-sidebar__arrow-left"></span>
       </div>
       <hr class="splicer" />
       <div class=" profile-sidebar__flex profile-sidebar__support">
@@ -107,7 +107,7 @@
             {{ getTextByTextKey("proflie_sidebar_support") }}
           </NuxtLink>
         </div>
-        <span class="profile-sidebar__arrow-left"></span>
+        <span @click="goToSupport" class="profile-sidebar__arrow-left"></span>
       </div>
       <hr class="splicer" />
       <div class="splicer_down profile-sidebar__flex profile-sidebar__history">
@@ -127,34 +127,8 @@
           class="profile-sidebar__arrow-left"
         ></span>
       </div>
-      <!-- =section5= -->
-      <!--/// ceditCard and giftCard section are ignored in version alpha ///-->
-      <!-- <div class=" profile-sidebar__flex profile-sidebar__creditcard">
-                <div class="profile-sidebar__flex-part">
-                    <img
-                        class="profile-sidebar__creditcard-icon"
-                        src="/icons/credit-profile.svg"
-                    />
-                    <NuxtLink to="">ثبت کارت بانکی</NuxtLink>
-                </div>
-               <span class="profile-sidebar__arrow-left"></span>
-            </div>
-            <hr class="splicer" />
-            <div
-                class="splicer_down profile-sidebar__flex profile-sidebar__gifttcard"
-            >
-                <div class="profile-sidebar__flex-part">
-                    <img
-                        class="profile-sidebar__gifttcard-icon"
-                        src="/icons/discount.svg"
-                    />
-                    <NuxtLink to="">کارت هدیه</NuxtLink>
-                </div>
 
-                <span class="profile-sidebar__arrow-left"></span>
-            </div> -->
-      <!--/// ===================================================== ///-->
-      <!-- =section6= -->
+
       <!-- for mobile screen only -->
       <div class="mobile-screen profile-sidebar__flex profile-sidebar__privacy">
         <div class="profile-sidebar__flex-part d-rtl">
@@ -251,12 +225,6 @@ export default {
     } else if (curentRoute == "/profile/adresses") {
       this.adressActive = true;
     }
-
-    // else if (curentRoute == "/cart") {
-    //     this.basketIsActive = true;
-    // } else if (curentRoute == "/profile") {
-    //     this.profileIsActive = true;
-    // }
   },
   methods: {
     getTextByTextKey,
@@ -271,6 +239,12 @@ export default {
     },
     goToAdresses() {
       this.$router.push("/profile/adresses");
+    },
+    goToComments() {
+      this.$router.push("/profile/comments");
+    },
+    goToSupport() {
+      this.$router.push("/profile/support/ticket");
     },
     goToMyOrders() {
       this.$router.push("/profile/my-orders/in-progress");

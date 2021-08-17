@@ -7,13 +7,13 @@
             </div>
 
             <div class="productContent__left">
-              <product-slider :name-element-find-slider="nameElementFindSlider" :products="products" :title="title" :more-text="moreText"></product-slider>
+              <product-slider :name-element-find-slider="nameElementFindSlider" :title="title" :more-text="moreText"></product-slider>
               <div class="w-100 productContent__sliderMore">
                   <nuxt-link class="productContent__moreItem" to="/">
                     {{moreText}}
                     <span class=" productContent__moreIcon mobile-inprogress__arrow"></span>
                   </nuxt-link>
-              </div> 
+              </div>
             </div>
       </div>
 
@@ -31,7 +31,6 @@ export default {
     },
 
     props: {
-      products                : { type: [Object,Array], default: [] },
       statusShowCounterDown   : { type: Boolean, default: true },
       nameElementFindSlider   : { type: String, default: '' },
       title                   : { type: Object, default: {} },

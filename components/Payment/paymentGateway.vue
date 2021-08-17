@@ -1,15 +1,6 @@
 <template>
   <div  class="w-100 payment-gateway">
         <div class="w-100 payment__content">
-<!--            <div :class="{'payment&#45;&#45;active':data.selected}"
-                 @click="selectedGetway(data)"
-                 v-for="data in paymentGateway"
-                 :key="data.id"
-                 class="payment-gateway__item"
-            >
-              <span class="payment-gateway__circle"></span>
-              <h3 class="payment-gateway__title">{{data.title}}</h3>
-            </div>-->
           <base-radio-button
             name="payment"
             class="payment-gateway__item"
@@ -27,8 +18,10 @@
 <script>
 
 export default {
-    props: {
-      paymentGateway   : { type: [Object,Array], default: [] },
+    computed: {
+      paymentGateway() {
+        return this.$store.getters["payment/payment/paymentGateway"];
+      }
     }
 };
 </script>

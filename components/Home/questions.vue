@@ -54,7 +54,6 @@ export default {
   components: {},
 
   props: {
-    allQuestion: { type: [Object, Array], default: [] },
     title: { type: String, default: "" },
     moreText: { type: String, default: "" },
   },
@@ -70,21 +69,15 @@ export default {
     this.itemCategorySplitTwice();
   },
 
-  computed: {},
+  computed: {
+    allQuestion() {
+      return this.$store.getters["home/home/allQuestion"];
+    }
+  },
 
   methods: {
     showQuestion(data) {
-      this.allQuestion.map((t) => {
-        if (data.id == t.id) {
-          if (t.active) {
-            t.active = false;
-          } else {
-            t.active = true;
-          }
-        } else {
-          // t.active = false;
-        }
-      });
+      this.$store.dispatch("home/home/showQuestion", data);
     },
 
     itemCategorySplitTwice() {
@@ -111,7 +104,7 @@ export default {
       });
 
       // پیدا کردن آیتم ای که در جدا سازی دوتایی آیتم ها اضافه آماده است //
-      if (this.allQuestion.length != levelSplit) {
+      if (this.allQuestion.length !== levelSplit) {
         const lastFindCatOutSideTwice = this.allQuestion[levelSplit];
         this.allCategoryMobileSplitTwice.push({
           children: [lastFindCatOutSideTwice],

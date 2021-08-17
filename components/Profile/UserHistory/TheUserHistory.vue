@@ -160,42 +160,38 @@ export default {
   @include display-flex();
   flex-direction: column;
   justify-content: flex-start;
-  height: 278px;
+  height: toRem(278);
   background: $white;
-  border-radius: 10px;
-  /* border: 1px solid red; */
+  border-radius: toRem(10);
 }
 .user-history__empty-container img {
   opacity: 1;
 }
 .user-history__empty {
-  font-size: 18px;
+  font-size: toRem(18);
   line-height: 140.62%;
   text-align: center;
   color: $gray;
-  margin-top: 42px;
+  margin-top: toRem(42);
 }
 .user-history__empty-link {
   text-decoration: none;
-  font-size: 14px;
+  font-size: toRem(14);
   line-height: 140.62%;
   text-align: center;
-  margin-top: 24px;
+  margin-top: toRem(24);
   color: $code-request;
   cursor: pointer;
 }
-/*  */
 .p-history-product-item {
   @include display-flex();
-  /* border: 1px solid red; */
 }
 .p-history-product-items {
   @include display-flex();
   direction: rtl;
-  padding-right: 25px;
-  padding-left: 25px;
-  padding-top: 38px;
-  /* border: 1px solid red; */
+  padding-right: toRem(25);
+  padding-left: toRem(25);
+  padding-top: toRem(38);
 }
 .p-history-product-right {
   @include display-flex();
@@ -205,11 +201,11 @@ export default {
   @include display-flex();
   width: 30%;
   justify-content: flex-end;
-  padding-top: 19px;
+  padding-top: toRem(19);
 }
 .p-history-product-img {
-  width: 120px;
-  height: 120px;
+  width: toRem(120);
+  height: toRem(120);
 }
 .p-history-product-img-main {
   @include display-flex();
@@ -219,27 +215,27 @@ export default {
 }
 .p-history-product-content-left {
   @include display-flex();
-  padding-top: 19px;
+  padding-top: toRem(19);
   width: 72%;
 }
 .p-history-product-content-title {
-  font-size: 16px;
+  font-size: toRem(16);
   font-weight: 400;
   width: 70%;
 }
 .p-history-product-content-right {
-  width: 140px;
+  width: toRem(140);
 }
 .p-history-product-content-price {
   @include display-flex();
-  padding-top: 15px;
+  padding-top: toRem(15);
 }
 .p-history-product-content-price-title {
-  font-size: 15px;
+  font-size: toRem(15);
   color: $gray;
 }
 .p-history-product-content-price-unit {
-  margin-right: 6px;
+  margin-right: toRem(6);
   color: $gray;
 }
 
@@ -248,28 +244,27 @@ export default {
 }
 .p-history-product-btn-delete {
   background: $google-btn__bg;
-  border: 1px solid $google-btn__bg;
+  border: toRem(1) solid $google-btn__bg;
   box-sizing: border-box;
-  border-radius: 10px;
-  width: 47px;
-  height: 47px;
-  margin-right: 25px;
+  border-radius: toRem(10);
+  width: toRem(47);
+  height: toRem(47);
+  margin-right: 0.7rem;
 }
 .p-history-product-line {
   @include display-flex();
   background: $gray-border;
-  margin-top: 24px;
-  margin-bottom: 24px;
-  height: 1px;
+  margin-top: toRem(24);
+  margin-bottom: toRem(24);
+  height: toRem(1);
 }
 .p-history-product-item-main {
   @include display-flex();
 }
 .p-history-product-item-icon-delete::before {
-  /* width: 15px; */
   content: "\e826";
   @include font-icon__limoo();
-  font-size: 17px;
+  font-size: toRem(17);
   color: $gray-3;
 }
 .p-history-product-btn-link {
@@ -280,19 +275,17 @@ export default {
   text-decoration: none;
   width: 100%;
   height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  @extend .centered;
 }
 .btn-text-mobile {
   display: none;
 }
 .input__product--item {
-  margin-bottom: 24px;
+  margin-bottom: toRem(24);
 }
 .p-product-btn {
-  width: 150px;
-  height: 47px;
+  width: toRem(150);
+  height: toRem(47);
   font-family: inherit;
   transition: all 120ms ease-in;
 }
@@ -304,51 +297,51 @@ export default {
     display: block;
   }
   .p-history-product-btn {
-    width: 123px;
-    font-size: 13px;
-    height: 45px;
+    width: toRem(123);
+    font-size: toRem(13);
+    height: toRem(45);
   }
   .p-history-product-content-left {
     width: 70%;
   }
   .p-history-product-btn-delete {
-    width: 36px;
-    height: 36px;
-    margin-right: 16px;
+    width: toRem(36);
+    height: toRem(36);
+    margin-right: toRem(16);
   }
 }
 
 @media (max-width: 600px) {
   .user-history__empty-container {
-    height: 252px;
-    padding-top: 24px;
+    height: toRem(252);
+    padding-top: toRem(24);
   }
   .user-history__empty-container img {
     margin: 0 auto;
-    width: 78px;
-    height: 78px;
+    width: toRem(78);
+    height: toRem(78);
   }
   .user-history__empty {
-    font-size: 14px;
-    margin-top: 25px;
+    font-size: toRem(14);
+    margin-top: toRem(25);
   }
   .user-history__empty-link {
-    font-size: 13px;
-    margin-top: 8px;
+    font-size: toRem(13);
+    margin-top: toRem(8);
   }
   .p-history-product-content-right {
-    width: 91px;
+    width: toRem(91);
   }
   .p-history-product-img {
-    width: 80px;
-    height: 75px;
+    width: toRem(80);
+    height: toRem(75);
   }
   .p-history-product-content-title {
-    font-size: 14px;
+    font-size: toRem(14);
     color: $black-topic;
   }
   .p-history-product-content-price-title {
-    font-size: 12px;
+    font-size: toRem(12);
   }
   .p-history-product-item-main {
     flex-flow: column;
@@ -356,41 +349,41 @@ export default {
   }
   .p-history-product-left {
     width: 100%;
-    padding-left: 13px;
+    padding-left: toRem(13);
   }
   .p-history-product-right {
     width: 100%;
-    border-bottom: solid 1px $gray-border;
-    padding-bottom: 22px;
+    border-bottom: solid toRem(1) $gray-border;
+    padding-bottom: toRem(22);
   }
   .p-history-product-desktop {
     display: none;
   }
   .p-history-product-items {
-    padding-top: 0px;
-    padding-right: 3px;
-    padding-left: 3px;
+    padding-top: 0;
+    padding-right: toRem(3);
+    padding-left: toRem(3);
   }
   .p-history-product-item {
     background: $white;
-    border-radius: 10px;
-    margin-bottom: 10px;
-    box-shadow: 0px 8px 16px $box__shadow;
-    padding-top: 29px;
-    padding-bottom: 10px;
+    border-radius: toRem(10);
+    margin-bottom: toRem(10);
+    box-shadow: 0 toRem(8) toRem(16) $box__shadow;
+    padding-top: toRem(29);
+    padding-bottom: toRem(10);
   }
   .p-history-product-btn-delete {
-    width: 36px;
-    height: 36px;
+    width: toRem(36);
+    height: toRem(36);
   }
   .p-history-product-btn {
     background: $yellow;
     color: $white;
-    height: 40px;
-    width: 40px;
+    height: toRem(40);
+    width: toRem(40);
   }
   .p-history-product-content-left {
-    padding-top: 3px;
+    padding-top: toRem(3);
   }
 }
 
@@ -399,11 +392,11 @@ export default {
     width: 73%;
   }
   .p-history-product-btn-delete {
-    width: 36px;
-    height: 36px;
+    width: toRem(36);
+    height: toRem(36);
   }
   .p-history-product-btn-link {
-    font-size: 13px;
+    font-size: toRem(13);
   }
 }
 @media (max-width: 320px) {

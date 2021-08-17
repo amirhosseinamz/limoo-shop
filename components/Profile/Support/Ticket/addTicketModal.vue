@@ -150,11 +150,11 @@ export default {
     },
     updateDescription(e, submitValue) {
       const value = e.target.value;
-      if (value != "") {
+      if (value !== "") {
         if (this.isNotEmpty(value)) {
           this.showErrorValidationDescription = false;
         }
-        if (value.length == 500) {
+        if (value.length === 500) {
           this.showErrorValidationDescription = true;
           this.validationDescriptionMsg = "بیش از حد مجاز";
         }
@@ -165,11 +165,11 @@ export default {
     updateTicket(e, submitValue) {
       const value = e.target.value;
 
-      if (value != "") {
+      if (value !== "") {
         if (this.isNotEmpty(value)) {
           this.showErrorValidationTicket = false;
         }
-        if (value.length == 200) {
+        if (value.length === 200) {
           this.showErrorValidationTicket = true;
           this.errorValidationTopicTicket = "بیش از حد مجاز";
         }
@@ -189,11 +189,11 @@ export default {
       let checkVerifiSubmitForm = true;
 
       const checkEmptyForm = () => {
-        if (this.formData.ticketTitle == "") {
+        if (this.formData.ticketTitle === "") {
           this.showErrorValidationTicket = true;
           this.errorValidationTopicTicket = "معتبر نیست";
         }
-        if (this.formData.question == "") {
+        if (this.formData.question === "") {
           this.showErrorValidationDescription = true;
           this.validationDescriptionMsg = "معتبر نیست";
         }

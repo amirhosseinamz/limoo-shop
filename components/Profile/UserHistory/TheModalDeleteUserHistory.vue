@@ -57,11 +57,12 @@ export default {
 
 <style lang="scss" scoped>
 .modal-container::v-deep {
+  direction: rtl;
   .modal {
     width: toRem(372);
     height: toRem(182);
 
-    .p-profile-favorite-title {
+    .p-profile-history-title {
       @include display-flex();
       margin-top: toRem(11);
       font-size: toRem(20);
@@ -69,23 +70,23 @@ export default {
     }
   }
 }
-.p-profile-favorite-wrapper {
+.p-profile-history-wrapper {
   @include display-flex();
   padding: 1rem;
 }
-.p-profile-favorite-btns {
+.p-profile-history-btns {
   @include display-flex();
   margin-top: toRem(55);
   margin-bottom: toRem(5);
 }
 
-.p-favorite-product-btn-modal-delete {
+.p-history-product-btn-modal-delete {
   margin-left: 1rem;
 }
-.p-favorite-product-btn-modal-cancel {
+.p-history-product-btn-modal-cancel {
   margin-left: 0;
 }
-.p-favorite-product-btn {
+.p-history-product-btn {
   width: toRem(130);
 }
 .p-product-btn {
@@ -101,12 +102,12 @@ export default {
       width: toRem(340);
       height: toRem(167);
 
-      .p-profile-favorite-title {
+      .p-profile-history-title {
         font-size: toRem(18);
       }
     }
   }
-  .p-profile-favorite-title {
+  .p-profile-history-title {
     font-size: toRem(16);
   }
   .p-product-btn {
@@ -121,7 +122,7 @@ export default {
       width: toRem(318);
       height: toRem(156);
 
-      .p-profile-favorite-title {
+      .p-profile-history-title {
         font-size: toRem(16);
         @include display-flex();
         justify-content: flex-start;
@@ -129,7 +130,7 @@ export default {
       }
     }
   }
-  .p-profile-favorite-btns {
+  .p-profile-history-btns {
     margin-top: toRem(48);
   }
   .p-product-btn {
@@ -143,7 +144,7 @@ export default {
       width: toRem(270);
       height: toRem(156);
 
-      .p-profile-favorite-title {
+      .p-profile-history-title {
         font-size: toRem(16);
       }
     }

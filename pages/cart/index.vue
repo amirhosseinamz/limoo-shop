@@ -13,11 +13,10 @@
                     @event-show-modal-delete-order="eventShowModalDeleteOrder"
                     @add-more-order-to-card="addMoreOrderToCard"
                     @minus-order-from-card="minusOrderFromCart"
-                    :orders-data="ordersData"
                 ></The-cart-orders>
                 <nuxt-link to="/" class="user-cart__go-back">بازگشت</nuxt-link>
             </div>
-            <The-cart-pay-detail :detail-price="detailPrice"></The-cart-pay-detail>
+            <The-cart-pay-detail></The-cart-pay-detail>
         </div>
 <!--      Delete User Modal-->
       <transition name="backdrop-delete">
@@ -38,7 +37,7 @@
 import TheCartPayDetail from "~/components/Cart/TheCartPayDetail.vue";
 import TheCartOrders from "~/components/Cart/TheCartOrders.vue";
 import TheModalDeleteUserOrders from "~/components/Cart/TheModalDeleteUserOrders.vue";
-import addCamaPrice from "~/modules/addCamaPrice.js";
+import addCommaPrice from "~/modules/addCamaPrice.js";
 import ModalDeleteAddress from "../../components/Shipping/modalDeleteAddress";
 
 
@@ -53,112 +52,21 @@ export default {
     data() {
         return {
             showModalDeleteUser : false,
-            ordersData           : [
-                {
-                    id: 1,
-                    title:
-                        "اپل واچ سری 1 آلومینیوم آبی با بند اسپرت سیلیکون آبی",
-                    img: "/img/apple-watch-1.png",
-                    orderPrice: "113،000،000",
-                    orderPriceOff: "223،000",
-                    count: 2
-                },
-                {
-                    id: 2,
-                    title:
-                        "اپل واچ سری 2 آلومینیوم قرمز با بند اسپرت سیلیکون قرمز",
-                    img: "/img/apple-watch-2.png",
-                    orderPrice: "143،000،000",
-                    orderPriceOff: "123،000",
-                    count: 1
-                },
-                {
-                    id: 3,
-                    title:
-                        "اپل واچ سری 3 آلومینیوم زرد با بند اسپرت سیلیکون زرد",
-                    img: "/img/apple-watch-3.png",
-                    orderPrice: "103،000،000",
-                    orderPriceOff: "323،000",
-                    count: 1
-                },
-                {
-                    id: 4,
-                    title:
-                        "اپل واچ سری 3 آلومینیوم زرد با بند اسپرت سیلیکون زرد",
-                    img: "/img/apple-watch-3.png",
-                    orderPrice: "103،000،000",
-                    orderPriceOff: "323،000",
-                    count: 1
-                },
-                {
-                    id: 5,
-                    title:
-                        "اپل واچ سری 3 آلومینیوم زرد با بند اسپرت سیلیکون زرد",
-                    img: "/img/apple-watch-3.png",
-                    orderPrice: "103،000،000",
-                    orderPriceOff: "323،000",
-                    count: 1
-                },
-                {
-                    id: 6,
-                    title:
-                        "اپل واچ سری 3 آلومینیوم زرد با بند اسپرت سیلیکون زرد",
-                    img: "/img/apple-watch-3.png",
-                    orderPrice: "103،000،000",
-                    orderPriceOff: "323،000",
-                    count: 1
-                },
-                {
-                    id: 7,
-                    title:
-                        "اپل واچ سری 3 آلومینیوم زرد با بند اسپرت سیلیکون زرد",
-                    img: "/img/apple-watch-3.png",
-                    orderPrice: "103،000،000",
-                    orderPriceOff: "323،000",
-                    count: 1
-                },
-                {
-                    id: 8,
-                    title:
-                        "اپل واچ سری 3 آلومینیوم زرد با بند اسپرت سیلیکون زرد",
-                    img: "/img/apple-watch-3.png",
-                    orderPrice: "103،000،000",
-                    orderPriceOff: "323،000",
-                    count: 1
-                },
-                {
-                    id: 9,
-                    title:
-                        "اپل واچ سری 3 آلومینیوم زرد با بند اسپرت سیلیکون زرد",
-                    img: "/img/apple-watch-3.png",
-                    orderPrice: "103،000،000",
-                    orderPriceOff: "323،000",
-                    count: 1
-                },
-                {
-                    id: 10,
-                    title:
-                        "اپل واچ سری 3 آلومینیوم زرد با بند اسپرت سیلیکون زرد",
-                    img: "/img/apple-watch-3.png",
-                    orderPrice: "103،000،000",
-                    orderPriceOff: "323،000",
-                    count: 1
-                },
-            ],
             currentOrders        : {},
-            detailPrice          : {
-              price               : 12000,
-              totalDiscount       : 142250,
-              submitDeliveryPrice : 'رایگان',
-              totalPrice          : 2587000,
-              showModal: false
-            }
+
         };
     },
-
+    computed: {
+      ordersData() {
+        return this.$store.getters["cart/cart/ordersData"];
+      },
+      detailPrice() {
+        return this.$store.getters["cart/cart/detailPrice"];
+      }
+    },
     mounted() {
       // پس ار اتصال به بک این قسمت باید بعد از برگشت اطلاعات از سمت بک صدا زده شود //
-      this.addCama();
+      this.addComma();
     },
 
     methods: {
@@ -173,52 +81,30 @@ export default {
             this.currentOrders = data;
         },
         btnDeleteOrder(data) {
-            const removeOrder = () => {
-                let indexDeleteOrderData = -1;
-
-                this.ordersData.map((content, index) => {
-                    if (content.id == data.id) {
-                        indexDeleteOrderData = index;
-                    }
-                });
-
-                this.ordersData.splice(indexDeleteOrderData, 1);
-            };
-
-            removeOrder();
+            this.$store.dispatch("cart/cart/btnDeleteOrder", data);
             this.showModalDeleteUser = false;
-
-            // request //
         },
         addMoreOrderToCard(data) {
-            this.ordersData.map(content => {
-                if (content.id == data.id) {
-                    content.count++;
-                }
-            });
+            this.$store.dispatch("cart/cart/addOrderToCard", data);
         },
         minusOrderFromCart(data) {
-            this.ordersData.map(content => {
-                if (content.id == data.id) {
-                    content.count--;
-                }
-            });
+          this.$store.dispatch("cart/cart/minusOrderFromCard", data);
         },
 
-        addCama(){
-          const getDetailPrice       = this.detailPrice;
+        addComma(){
+          const getDetailPrice = this.detailPrice;
           const setUpdateDetailPrice = {
           }
 
           for (let key in getDetailPrice) {
             setUpdateDetailPrice[key] = getDetailPrice[key];
 
-            if (getDetailPrice[key] != 'رایگان') {
-               setUpdateDetailPrice[key] = addCamaPrice(getDetailPrice[key]);
+            if (getDetailPrice[key] !== 'رایگان') {
+               setUpdateDetailPrice[key] = addCommaPrice(getDetailPrice[key]);
             }
           }
 
-          this.detailPrice = setUpdateDetailPrice;
+          this.$store.dispatch("cart/cart/updateDetailPrice", setUpdateDetailPrice);
         },
 
     }

@@ -10,11 +10,6 @@
         <add-address-modal
           v-if="showModal"
           :modal-mode="modalAnimation"
-          :all-province="allProvince"
-          :all-citys="allCitys"
-          :form-data-original="formData"
-          :data-edit-address="dataEditAddress"
-          :profile-phone-number="profilePhoneNumber"
           @selected-province="selectedProvince"
           @selected-city="selectedCity"
           @submit-address-add="submitAddressAdd"
@@ -31,7 +26,7 @@
 
     <div class="w-100 flex-wrap p-adresses-content-items">
       <div
-        v-for="data in adressData"
+        v-for="data in addressData"
         :key="data.id"
         class="w-100 flex-wrap p-adresses-content-item"
       >
@@ -137,7 +132,7 @@
         </div>
       </div>
     </div>
-    <div class="user-adresses__empty-container" v-show="userAddress == 0">
+    <div class="user-adresses__empty-container" v-show="userAddress === 0">
       <img
         src="/empty-pages/empty-location.svg"
         :alt="getTextByTextKey('address_empty_address')"
@@ -162,16 +157,9 @@ import { getTextByTextKey } from "~/modules/splitPartJsonResource.js";
 
 export default {
   props: {
-    allProvince: { type: [Object, Array], default: [] },
-    allCitys: { type: [Object, Array], default: [] },
-    adressData: { type: [Object, Array], default: {} },
-    formData: { type: [Object, Array], default: {} },
-    profilePhoneNumber: { type: [Number, String], default: "" },
   },
   data() {
     return {
-      passChangeIsActive: false,
-      dataEditAddress: {},
       userAddress: -1,
       showModal: false,
       windowWidth: 0
@@ -183,7 +171,7 @@ export default {
   },
   watch: {
     showModal(val) {
-      console.log(val);
+      //console.log(val);
     }
   },
 
@@ -194,11 +182,17 @@ export default {
       } else {
         return "phone";
       }
+    },
+    addressData() {
+      return this.$store.getters["profile/addresses/addresses/addressesData"];
+    },
+    dataEditAddress() {
+      return this.$store.getters["profile/addresses/addresses/dataEditAddress"];
     }
   },
 
   created() {
-    this.userAddress = Object.values(this.adressData).length;
+    this.userAddress = Object.values(this.addressData).length;
   },
   mounted() {
     window.addEventListener('resize', this.handleResize);
@@ -215,7 +209,7 @@ export default {
     },
 
     addAddress() {
-      this.dataEditAddress = {};
+      this.$store.dispatch("profile/addresses/addresses/emptyDataEditAddress");
       this.showModal = true;
     },
 
@@ -236,18 +230,16 @@ export default {
       } else {
         stateEditAdd = "edit";
       }
-
-      this.passChangeIsActive = false;
       this.$emit("submit-address-add", data, stateEditAdd);
     },
 
     closeModal() {
-      this.dataEditAddress = {};
+      this.$store.dispatch("profile/addresses/addresses/emptyDataEditAddress");
       this.showModal = false;
     },
 
     editAddress(data) {
-      this.dataEditAddress = data;
+      this.$store.dispatch("profile/addresses/addresses/fillDataEditAddress", data);
       this.showModal = true;
     },
   },

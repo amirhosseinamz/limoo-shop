@@ -47,33 +47,12 @@ export default {
       openBox              : false,
       checkedBrand         : [],
       lastChecked          : [],
-      checkboxData: {
-        title: [
-          'دنیس تریکو 1',
-          'دنیس تریکو 2',
-          'دنیس تریکو 3',
-        ],
-        value: [
-          'first',
-          'second',
-          'third'
-        ]
-      },
       checkboxValues: []
     }
   },
 
-  watch: {
-
-  },
-
   mounted() {
-    if (this.openDefaultBox) {
-      this.openBox = true;
-    }
-    else {
-      this.openBox = false;
-    }
+    this.openBox = !!this.openDefaultBox;
   },
 
   methods: {

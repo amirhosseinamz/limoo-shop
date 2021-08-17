@@ -99,7 +99,6 @@ export default {
     },
 
     props: {
-      products          : { type: [Object,Array], default: [] },
       title             : { type: Object, default: [] },
       descriptionShow   : { type: Boolean, default: false },
       moreText          : { type: String, default: '' },
@@ -122,7 +121,9 @@ export default {
     },
 
     computed: {
-
+      products() {
+        return this.$store.getters["home/home/allProductMultiVertical"];
+      }
     },
 
     methods: {
@@ -142,7 +143,7 @@ export default {
             // محدود کردن تعداد نمایش محصولات //
           if (485 >= width) {
               if (index <= 3) {
-                content.mobileShow = true;
+                this.$store.dispatch("home/home/itemCategorySplitTwice2", { eachItem: content, eachIndex: index, mobileShow: true, mobileSize: true });
               }
               else {
                 content.mobileShow = false;
@@ -171,7 +172,7 @@ export default {
         });
 
         // پیدا کردن آیتم ای که در جدا سازی دوتایی آیتم ها اضافه آماده است //
-        if (this.products.length != levelSplit) {
+        if (this.products.length !== levelSplit) {
           const lastFindCatOutSideTwice = this.products[levelSplit];
           this.allDesktopSplitTwice.push( { children: [lastFindCatOutSideTwice] } );
         }
