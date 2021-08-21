@@ -8,7 +8,6 @@
         <add-ticket-modal
           v-if="showModal"
           :modal-mode="modalAnimation"
-          :form-data-original="formData"
           :data-edit-ticket="dataEditTicket"
           @submit-ticket-add="submitTicketAdd"
           @close-modal="closeModal"
@@ -19,7 +18,6 @@
         <send-ans-ticket-modal
           v-if="showAnsModal"
           :modal-mode="modalAnimation"
-          :form-data-original="formData"
           :data-edit-ticket="dataEditTicket"
           @submit-ticket-add="submitTicketAdd"
           @close-modal="closeModal"
@@ -128,8 +126,6 @@ import { getTextByTextKey } from "~/modules/splitPartJsonResource.js";
 
 export default {
   props: {
-    ticketData: { type: [Object, Array], default: {} },
-    formData: { type: [Object, Array], default: {} },
   },
   components: {
     addTicketModal,
@@ -152,6 +148,9 @@ export default {
       } else {
         return "phone";
       }
+    },
+    ticketData() {
+      return this.$store.getters["profile/ticket/ticket/ticketsData"];
     }
   },
   created() {

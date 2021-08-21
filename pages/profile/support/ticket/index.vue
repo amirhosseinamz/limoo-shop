@@ -97,8 +97,6 @@
         </div>
         <div class="w-100 user-profile-tickets-main flex-column">
           <contentTickets
-            :ticket-data="ticketsData"
-            :form-data="formData"
             @show-modal-delete-product="showModalDeleteProduct"
             @submit-ticket-add="submitTicketsAdd"
           ></contentTickets>
@@ -145,6 +143,7 @@ export default {
       selected: this.getTextByTextKey("support_tab_send_ticket"),
       updateTicket: 0,
       showModal: false,
+      currentProduct: {},
     };
   },
   computed: {
@@ -154,9 +153,6 @@ export default {
     formData () {
       return this.$store.getters["profile/ticket/ticket/formData"]
     },
-    currentProduct () {
-      return this.$store.getters["profile/ticket/ticket/currentProduct"]
-    }
   },
 
   mounted() {
@@ -187,19 +183,7 @@ export default {
       }
     },
     btnDeleteProduct(data) {
-      const removeFavorite = () => {
-        let indexDelete = -1;
-
-        this.ticketsData.map((content, index) => {
-          if (content.id == data.id) {
-            indexDelete = index;
-          }
-        });
-
-        this.ticketsData.splice(indexDelete, 1);
-      };
-
-      removeFavorite();
+      this.$store.dispatch("profile/ticket/ticket/btnDeleteProduct", data);
       this.showModal = false;
 
       // request //
@@ -214,20 +198,12 @@ export default {
       this.updateTicket++;
       let findIndex = 0;
 
-      const faceUpdatePage = () => {
-        this.ticketsData.map((content, i) => {
-          if (content.id == data.id) {
-            this.ticketsData[i] = data;
-          }
-        });
-      };
-
       // بعد از اتصال به بک این قسمت حذف شود //
-      if (state == "edit") {
-        faceUpdatePage();
+      if (state === "edit") {
+        this.$store.dispatch("profile/ticket/ticket/editTicket", data);
       } else {
         data.id = 20 + this.updateTicket;
-        this.ticketsData.push(data);
+        this.$store.dispatch("profile/ticket/ticket/addTicket", data);
       }
 
       // send data server //

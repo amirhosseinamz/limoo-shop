@@ -80,7 +80,6 @@ import { getTextByTextKey } from "~/modules/splitPartJsonResource.js";
 
 export default {
   props: {
-    formDataOriginal: { type: [Object, Array], default: {} },
     dataEditTicket: { type: Object, default: {} },
     showAnsModal: { type: Boolean, require: true }
   },
@@ -103,6 +102,9 @@ export default {
         return "phone";
       }
     },
+    formDataOriginal() {
+      return this.$store.getters["profile/ticket/ticket/formData"];
+    }
   },
   watch: {
     dataEditTicket(data) {},

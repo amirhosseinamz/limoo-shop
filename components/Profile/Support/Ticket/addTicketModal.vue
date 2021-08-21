@@ -103,7 +103,6 @@ import { getTextByTextKey } from "~/modules/splitPartJsonResource.js";
 
 export default {
   props: {
-    formDataOriginal: { type: [Object, Array], default: {} },
     dataEditTicket: { type: Object, default: {} },
     modalMode: { type: String, require }
   },
@@ -119,6 +118,11 @@ export default {
       validationDescriptionMsg: "معتبر نیست",
       errorValidationTopicTicket: "عدد مجاز است",
     };
+  },
+  computed: {
+    formDataOriginal() {
+      return this.$store.getters["profile/ticket/ticket/formData"];
+    }
   },
 
   watch: {
