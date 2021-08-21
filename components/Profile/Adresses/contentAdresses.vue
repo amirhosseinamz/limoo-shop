@@ -3,20 +3,18 @@
     id="address__form--data"
     class="p-adresses-content-main w-100 flex-column flex-wrap  d-rtl"
   >
-    <transition moda="in-out">
-      <div id="overlay" v-if="passChangeIsActive">
-        <addAddressModal
-          :all-province="allProvince"
-          :all-citys="allCitys"
-          :form-data-original="formData"
-          :data-edit-address="dataEditAddress"
-          :profile-phone-number="profilePhoneNumber"
+    <transition name="backdrop-form">
+        <div class="backdrop" v-if="showModal"></div>
+    </transition>
+    <transition :name="modalAnimation">
+        <add-address-modal
+          v-if="showModal"
+          :modal-mode="modalAnimation"
           @selected-province="selectedProvince"
           @selected-city="selectedCity"
           @submit-address-add="submitAddressAdd"
           @close-modal="closeModal"
-        />
-      </div>
+        ></add-address-modal>
     </transition>
     <div
       class="w-100 flex-wrap p-adresses-content-btn-add-main p-adresses-content-item-desktop"
@@ -28,7 +26,7 @@
 
     <div class="w-100 flex-wrap p-adresses-content-items">
       <div
-        v-for="data in adressData"
+        v-for="data in addressData"
         :key="data.id"
         class="w-100 flex-wrap p-adresses-content-item"
       >
@@ -134,7 +132,7 @@
         </div>
       </div>
     </div>
-    <div class="user-adresses__empty-container" v-show="userAddress == 0">
+    <div class="user-adresses__empty-container" v-show="userAddress === 0">
       <img
         src="/empty-pages/empty-location.svg"
         :alt="getTextByTextKey('address_empty_address')"
@@ -159,39 +157,60 @@ import { getTextByTextKey } from "~/modules/splitPartJsonResource.js";
 
 export default {
   props: {
-    allProvince: { type: [Object, Array], default: [] },
-    allCitys: { type: [Object, Array], default: [] },
-    adressData: { type: [Object, Array], default: {} },
-    formData: { type: [Object, Array], default: {} },
-    profilePhoneNumber: { type: [Number, String], default: "" },
   },
   data() {
     return {
-      passChangeIsActive: false,
-      dataEditAddress: {},
       userAddress: -1,
+      showModal: false,
+      windowWidth: 0
     };
   },
 
   components: {
     addAddressModal,
   },
+  watch: {
+    showModal(val) {
+      //console.log(val);
+    }
+  },
 
-  computed: {},
+  computed: {
+    modalAnimation() {
+      if (this.windowWidth > 960) {
+        return "form";
+      } else {
+        return "phone";
+      }
+    },
+    addressData() {
+      return this.$store.getters["profile/addresses/addresses/addressesData"];
+    },
+    dataEditAddress() {
+      return this.$store.getters["profile/addresses/addresses/dataEditAddress"];
+    }
+  },
 
   created() {
-    this.userAddress = Object.values(this.adressData).length;
+    this.userAddress = Object.values(this.addressData).length;
+  },
+  mounted() {
+    window.addEventListener('resize', this.handleResize);
+    this.handleResize();
   },
 
   methods: {
     getTextByTextKey,
+    handleResize() {
+      this.windowWidth = window.innerWidth;
+    },
     showModalDeleteProduct(data) {
       this.$emit("show-modal-delete-product", data);
     },
 
     addAddress() {
-      this.dataEditAddress = {};
-      this.passChangeIsActive = !this.passChangeIsActive;
+      this.$store.dispatch("profile/addresses/addresses/emptyDataEditAddress");
+      this.showModal = true;
     },
 
     selectedProvince(data) {
@@ -211,42 +230,26 @@ export default {
       } else {
         stateEditAdd = "edit";
       }
-
-      this.passChangeIsActive = false;
       this.$emit("submit-address-add", data, stateEditAdd);
     },
 
     closeModal() {
-      this.dataEditAddress = {};
-      this.passChangeIsActive = false;
+      this.$store.dispatch("profile/addresses/addresses/emptyDataEditAddress");
+      this.showModal = false;
     },
 
     editAddress(data) {
-      this.dataEditAddress = data;
-      this.passChangeIsActive = true;
+      this.$store.dispatch("profile/addresses/addresses/fillDataEditAddress", data);
+      this.showModal = true;
     },
   },
 };
 </script>
 
 <style lang="scss" scoped>
-#overlay {
-  position: fixed; /* Sit on top of the page content */
-  @include display-flex();
-  justify-content: center;
-  align-items: center;
-  width: 100%; /* Full width (cover the whole page) */
-  height: 100%; /* Full height (cover the whole page) */
-  /* transition: opacity 200ms ease-out; */
-  /* top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0; */
-  z-index: 10;
-  background: $overlay__profile;
-  top: 0;
-  right: 0;
-}
+@include phone-modal-animation();
+@include form-modal-animation();
+@include backdrop-form-modal-animation();
 .user-adresses__empty-container {
   @include display-flex();
   flex-direction: column;
@@ -268,14 +271,9 @@ export default {
   margin-top: 37px;
 }
 
-.v-leave-from {
-  opacity: 0.5;
-}
-.v-leave-active {
-  transition: all 300ms ease-in;
-}
-.v-leave-to {
-  opacity: 0;
+.backdrop {
+  @extend .modal-backdrop;
+  background-color: $overlay--profile;
 }
 .p-adresses-content-main {
   padding-right: 21px;

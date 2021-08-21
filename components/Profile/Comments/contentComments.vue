@@ -1,18 +1,6 @@
 <template>
   <div class="p-comments-content-main w-100 flex-column flex-wrap  d-rtl">
-    <transition moda="in-out">
-      <div id="overlay" v-if="passChangeIsActive">
-        <!-- <add-address-modal
-                    :form-data-original="formData"
-                    :data-edit-address="dataEditAddress"
-                    :profile-phone-number="profilePhoneNumber"
-                    @selected-province="selectedProvince"
-                    @selected-city="selectedCity"
-                    @submit-address-add="submitAddressAdd"
-                    @close-modal="closeModal"
-                /> -->
-      </div>
-    </transition>
+
     <div class="user-comments__empty-container" v-show="userComments == 0">
       <img
         src="/empty-pages/empty-comment-list.svg"
@@ -120,16 +108,16 @@
                       mode="secondary-outline"
                       classes="p-product-btn p-comment-content-btn-edit"
                     >
-                    <span
-                      class="p-favorite-product-btn-link p-comment-content-item-desktop"
-                    >
-                      {{ getTextByTextKey("public_edit") }}
-                    </span>
+                      <span
+                        class="p-favorite-product-btn-link p-comment-content-item-desktop"
+                      >
+                        {{ getTextByTextKey("public_edit") }}
+                      </span>
 
-                    <span
-                      class="p-favorite-product-btn-link p-comment-content-item-mobile "
-                    >
-                    </span>
+                      <span
+                        class="p-favorite-product-btn-link p-comment-content-item-mobile "
+                      >
+                      </span>
                     </base-button>
                     <base-button
                       @button-clicked="showModalDeleteProduct(data)"
@@ -154,12 +142,10 @@ import { getTextByTextKey } from "~/modules/splitPartJsonResource.js";
 
 export default {
   props: {
-    commentsData: { type: [Object, Array], default: {} },
   },
   components: {},
   data() {
     return {
-      passChangeIsActive: false,
       dataEditAddress: {},
       updateSelected: 0,
       userComments: -1,
@@ -168,19 +154,16 @@ export default {
   created() {
     this.userComments = Object.values(this.commentsData).length;
   },
-  computed: {},
+  computed: {
+    commentsData() {
+      return this.$store.getters["profile/comments/comments/commentsData"];
+    }
+  },
 
   methods: {
     getTextByTextKey,
     showMoreDescription(data) {
-      this.commentsData.map((content) => {
-        if (content.id == data.id) {
-          content.selected = !content.selected;
-          // if we want open one paragraph in time
-          // } else {
-          //     content.selected = false;
-        }
-      });
+      this.$store.dispatch('profile/comments/comments/showMoreDescription', data);
       this.updateSelected++;
     },
     showModalDeleteProduct(data) {
@@ -188,35 +171,16 @@ export default {
     },
     closeModal() {
       this.dataEditAddress = {};
-      this.passChangeIsActive = false;
     },
 
     // editAddress(data) {
     //     this.dataEditAddress = data;
-    //     this.passChangeIsActive = true;
     // }
   },
 };
 </script>
 
 <style lang="scss" scoped>
-#overlay {
-  position: fixed; /* Sit on top of the page content */
-  @include display-flex();
-  justify-content: center;
-  align-items: center;
-  width: 100%; /* Full width (cover the whole page) */
-  height: 100%; /* Full height (cover the whole page) */
-  /* transition: opacity 200ms ease-out; */
-  /* top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0; */
-  z-index: 1;
-  background: $overlay__profile;
-  top: 0;
-  right: 0;
-}
 .user-comments__empty-container {
   @include display-flex();
   flex-direction: column;

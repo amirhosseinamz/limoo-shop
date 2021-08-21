@@ -2,6 +2,7 @@
   get the same instance because on the server in node where does runs. if we have plain object
   stored well then we always get that object for every connected user. if we have a function
   that returns and you store as this does then every new user recives his owen store*/
+import addCommaPrice from "~/modules/addCamaPrice.js";
 export const state = () => ({
   // signUp: "stepOne",
   // signIn: "stepOne",
@@ -11,6 +12,28 @@ export const state = () => ({
   showModalWellcome: false,
   language: "",
 });
+
+export const getters = {
+  signUpPicker(state) {
+    return state.signUp;
+  },
+  signInPicker(state) {
+    return state.signIn;
+  },
+  PhoneNumberPicker(state) {
+    return state.phone;
+  },
+  CurentRoute(state) {
+    return state.CurentRoute;
+  },
+  stateShowModalWellcome(state) {
+    return state.showModalWellcome;
+  },
+  userIsAuth(state) {
+    return state.userAuth;
+  },
+
+};
 
 export const mutations = {
   walkInSignUpcomponents(state, payload) {
@@ -36,6 +59,7 @@ export const mutations = {
   currentLanguage(state, payload) {
     state.language = payload;
   },
+
 };
 export const actions = {
   userIsAuth(context, payload) {
@@ -44,25 +68,5 @@ export const actions = {
   stateShowModalWellcome(context, payload) {
     context.commit("stateShowModalWellcome", payload);
   },
-};
 
-export const getters = {
-  signUpPicker(state) {
-    return state.signUp;
-  },
-  signInPicker(state) {
-    return state.signIn;
-  },
-  PhoneNumberPicker(state) {
-    return state.phone;
-  },
-  CurentRoute(state) {
-    return state.CurentRoute;
-  },
-  stateShowModalWellcome(state) {
-    return state.showModalWellcome;
-  },
-  userIsAuth(state) {
-    return state.userAuth;
-  },
 };

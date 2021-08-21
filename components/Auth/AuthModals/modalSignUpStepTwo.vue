@@ -3,34 +3,14 @@
     <div class="card">
       <div>
         <button @click="nextPage" class="app-signin-next-btn"></button>
-        <div
-          class="success-message"
-          :class="{ 'success-message-animation': newCodeSent }"
-        >
-          <img class="success-icon" src="/icons/success.svg" />
-          <p dir="rtl" class="success-txt">
-            {{ getTextByTextKey("auth_aignup_code_new") }}
-          </p>
-        </div>
-        <div
-          class="alert-message "
-          :class="{ 'alert-message-animation': timerPassed }"
-        >
-          <img class="alert-icon " src="/icons/alarm.svg" />
-          <p dir="rtl" class="alert-txt">
-            {{ getTextByTextKey("auth_aignup_code_agin") }}
-          </p>
-        </div>
-        <div
-          class="alert-message "
-          :class="{ 'alert-message-animation': confirmCode }"
-        >
-          <img class="alert-icon " src="/icons/alarm.svg" />
-          <p dir="rtl" class="alert-txt">
-            {{ getTextByTextKey("auth_aignup_code_incorrect") }}
-          </p>
-        </div>
+        <transition name="snackbar" mode="out-in">
+          <base-snackbar :mode="snackbarMode" :class="snackbarMode+'-message'" v-if="showSnackbar">
+            {{ snackbarText }}
+          </base-snackbar>
+        </transition>
       </div>
+
+
       <div class="card-body">
         <form @submit.prevent="pressed">
           <div class="form-group">
@@ -126,10 +106,36 @@ export default {
       },
       checkInitialValidation: 0,
       startAgainTimer: 0,
+      showSnackbar: false,
     };
   },
   watch: {},
+  computed: {
+    snackbarMode() {
+      return "success";
+    },
+    snackbarText() {
+      if (this.snackbarMode === "success") {
+        return this.getTextByTextKey("auth_aignup_code_new");
+      } else if (this.snackbarMode === "alert") {
+        return this.getTextByTextKey("auth_aignup_code_agin");
+      }
+    }
+  },
   mounted() {
+    let timeout;
+    if (this.snackbarMode === "success") {
+      timeout = 5000;
+    } else if (this.snackbarMode === "alert") {
+      timeout = 7000;
+    }
+    console.log(timeout);
+    setTimeout(() => {
+      this.showSnackbar = true;
+    },3000)
+    setTimeout(() => {
+      this.showSnackbar = false;
+    }, timeout)
     this.userPhoneNumber = this.$store.getters.PhoneNumberPicker;
   },
   methods: {
@@ -244,62 +250,38 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+
 .success-message {
-  @include display-flex();
-  flex-direction: row-reverse;
-  width: 463px;
-  height: 58px;
-  background-color: $alert-massage__green;
-  margin: 8px 90px 0px 89px;
-  border-radius: 10px;
+  width: toRem(463);
+  height: toRem(58);
+  margin: toRem(-24) toRem(90) 0 toRem(89);
   position: absolute;
-  opacity: 0;
-  /* add .message-animation when we want to show it */
 }
 
 .alert-message {
-  @include display-flex();
-  flex-direction: row-reverse;
-  width: 463px;
-  height: 58px;
-  background-color: $alert-red;
-  margin: 44px 90px 0px 89px;
-  border-radius: 10px;
+  width: toRem(463);
+  height: toRem(58);
+  margin: toRem(-24) toRem(90) 0 toRem(89);
   position: absolute;
-  opacity: 0;
-  /* add .message-animation when we want to show it */
 }
 /* add this animation to messages when we want to show them */
-.success-message-animation {
-  animation: cssAnimation 1000ms 2 alternate;
-}
-.alert-message-animation {
-  animation: cssAnimation 2000ms 2 alternate;
-}
 
-@keyframes cssAnimation {
+.snackbar-enter-active {
+  animation: snackbarAnimation 0.8s ease-out;
+}
+.snackbar-leave-active {
+  animation: snackbarAnimation 0.8s ease-out reverse;
+}
+@keyframes snackbarAnimation {
   0% {
     opacity: 0;
-    transform: translate(0%, -170%);
-  }
-  70% {
-    opacity: 1;
-    transform: translate(0%, -60%);
-  }
-  80% {
-    opacity: 1;
-    transform: translate(0%, -60%);
-  }
-  90% {
-    opacity: 1;
-    transform: translate(0%, -60%);
+    transform: translate(0, -200%);
   }
   100% {
     opacity: 1;
-    transform: translate(0%, -60%);
+    transform: translate(0, 0);
   }
 }
-
 .signup-container {
   @include display-flex();
   flex-direction: column;
@@ -313,16 +295,10 @@ export default {
   flex-direction: column;
   justify-content: space-around;
   width: 642px;
-  height: 524px;
+  //height: 524px;
   background-color: $white;
   box-shadow: 0px 8px 16px $box__shadow;
   border-radius: 15px;
-}
-.success-icon {
-  width: 24px;
-  height: 24px;
-  margin-right: 18px;
-  margin-top: 17px;
 }
 .alert-icon {
   width: 24px;
@@ -404,11 +380,11 @@ export default {
   display: none;
 }
 .txt-header {
-  font-size: 24px;
-  line-height: 33.75px;
+  font-size: toRem(24);
+  line-height: toRem(33.75);
   font-weight: 400;
   text-align: right;
-  margin: 77px 90px 33px 0;
+  margin: toRem(27) toRem(90) toRem(33) 0;
 }
 .txt-content {
   font-size: 16px;
@@ -455,6 +431,21 @@ export default {
     margin-bottom: 0;
   }
 }
+@media screen and (max-width: 768px) {
+  .alert-message,
+  .success-message {
+    width: toRem(406);
+  }
+  .card {
+    width: toRem(530);
+  }
+  .txt-header {
+    margin: toRem(27) toRem(38) toRem(33) 0;
+  }
+  .txt-content {
+    margin-right: toRem(38);
+  }
+}
 
 @media screen and (max-width: 540px) {
   @keyframes cssAnimation {
@@ -489,14 +480,7 @@ export default {
     height: 72px;
     margin: 16px 16px 0px 16px;
   }
-  .alert-txt {
-    font-size: 14px;
-    padding-left: 50px;
-  }
-  .success-txt {
-    font-size: 14px;
-    margin-top: 20px;
-  }
+
   .card {
     width: 380px;
     height: 100vh;
@@ -529,7 +513,7 @@ export default {
     font-size: 20px;
     line-height: 140.62%;
     width: 328px;
-    margin: 128px 16px 24px 16px;
+    margin: 0 0 toRem(24) toRem(26)
   }
 
   @mixin txt-content {

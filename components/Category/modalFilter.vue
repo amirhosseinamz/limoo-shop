@@ -1,10 +1,9 @@
 <template>
-  <modal
-    id="modal-filter"
-    class="modal-filter d-rtl"
-    size="800px"
-    :show.sync="show"
-    :footer="false"
+  <base-modal
+    class="modal-container d-rtl"
+    modal-class="modal"
+    :mode="modalMode"
+    @close-modal="modalClose"
   >
     <div class="modal-filter__main">
       <div class="w-100 modal-filter__filter-tools">
@@ -34,14 +33,26 @@
           @last-update-slider-range="lastUpdateSliderRenge"
         ></filter-price>
 
+        <filter-price
+          :open-default-box="true"
+          :title="getTextByTextKey('category_price_range_text')"
+          :minMax="{ min: 0, max: 100000 }"
+          :from-to-range="rengeFromTo"
+          @last-update-slider-range="lastUpdateSliderRenge"
+        ></filter-price>
+
+        <filter-price
+          :open-default-box="true"
+          :title="getTextByTextKey('category_price_range_text')"
+          :minMax="{ min: 0, max: 100000 }"
+          :from-to-range="rengeFromTo"
+          @last-update-slider-range="lastUpdateSliderRenge"
+        ></filter-price>
+
         <filter-brand
-          v-for="(data, index) in checkBoxData"
-          :key="index"
-          :open-default-box="data.openDefault"
-          :title="data.title"
-          :check-box-data="data.children"
           @checked-brand-filter="checkedBrandFilter"
         ></filter-brand>
+
       </div>
 
       <div class="w-100 modal-filter__btn">
@@ -54,7 +65,7 @@
             base-color="yellow"
             no-box-shadow
           >
-            {{ getTextByTextKey('category_btn_submit_change') }}
+            {{ getTextByTextKey("category_btn_submit_change") }}
           </base-button>
           <base-button
             @button-clicked="modalClose"
@@ -62,16 +73,15 @@
             no-box-shadow
             base-color="light-gray"
           >
-            {{ getTextByTextKey('category_submit_cancelle') }}
+            {{ getTextByTextKey("category_submit_cancelle") }}
           </base-button>
         </div>
       </div>
     </div>
-  </modal>
+  </base-modal>
 </template>
 
 <script>
-import "~/assets/styles/_modal_filter_category.scss";
 import filterPrice from "./filterPrice";
 import filterToggleActiveBtn from "./filterToggleActiveBtn";
 import filterBrand from "./filterBrand";
@@ -98,18 +108,21 @@ export default {
         from: 40000,
         to: 70000,
       },
-      checkBoxData: {},
+      checkBoxData: {
+        openDefault: true,
+        title: "انتخاب برند",
+      },
+      windowWidth: 0
     };
   },
 
   computed: {
-    show: {
-      set(val) {
-        this.$emit("update:active", !!val);
-      },
-      get() {
-        return !!this.active;
-      },
+    modalMode() {
+      if (this.windowWidth > 420) {
+        return "right-side";
+      } else {
+        return "full-screen";
+      }
     },
   },
 
@@ -122,15 +135,21 @@ export default {
     // },
   },
 
-  created() {},
+  created() {
+  },
 
   mounted() {
+    window.addEventListener("resize", this.handleResize);
+    this.handleResize();
     this.getDefaultCheckbox();
   },
 
   methods: {
+    handleResize() {
+      this.windowWidth = window.innerWidth;
+    },
     modalClose() {
-      this.show = false;
+      this.$emit('close-modal');
       // this.$store.state.category.submitFliterModal = false;
       this.$store.commit("category/updateStateModals", {
         submitFliterModal: false,
@@ -168,132 +187,178 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.modal-filter__main {
-  width: 100%;
-  @include display-flex();
-  flex-wrap: wrap;
-  align-items: flex-start;
-  padding-right: toRem(18);
-  padding-left: toRem(18);
-  padding-top: toRem(30);
-  height: 100vh;
-  flex-flow: column;
-  justify-content: space-between;
-}
-.modal-filter__item {
-  width: 100%;
-  @include display-flex();
-  flex-wrap: wrap;
-  align-items: center;
-}
-.modal-filter__item-title {
-  font-size: toRem(16);
-  color: $dark_gray;
-  font-weight: 300;
-}
-.modal-filter__item-close::before {
-  font-size: toRem(22);
-  opacity: 0.5;
-}
-.modal-filter__close-item {
-  @include display-flex();
-  align-items: flex-start;
-}
-.modal-filter__item-left {
-  flex-grow: 1;
-  @include display-flex();
-  justify-content: flex-end;
-}
-.modal-filter__line {
-  height: toRem(1);
-  width: 100%;
-  @include display-flex();
-  margin-top: toRem(20);
-  margin-bottom: toRem(18);
-  background: $flash_white;
+.modal-container::v-deep {
+  .backdrop {
+    background-color: rgba(81,81,81,.6)!important;
+  }
+  .modal {
+    margin-right: 0;
+    min-height: auto;
+    max-width: 377px;
+    border-radius: toRem(10) 0 0 toRem(10);
+
+    .modal-filter__main {
+      width: 100%;
+      @include display-flex();
+      flex-wrap: wrap;
+      align-items: flex-start;
+      padding-right: toRem(18);
+      padding-left: toRem(18);
+      padding-top: toRem(30);
+      height: 100vh;
+      flex-flow: column;
+      justify-content: space-between;
+    }
+
+    .modal-filter__item {
+      width: 100%;
+      @include display-flex();
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .modal-filter__item-title {
+      font-size: toRem(16);
+      color: $dark_gray;
+      font-weight: 300;
+    }
+    .modal-filter__filter-tools {
+      overflow-y: scroll;
+    }
+
+    .modal-filter__item-close::before {
+      font-size: toRem(22);
+      opacity: 0.5;
+    }
+
+    .modal-filter__close-item {
+      @include display-flex();
+      align-items: flex-start;
+    }
+
+    .modal-filter__item-left {
+      flex-grow: 1;
+      @include display-flex();
+      justify-content: flex-end;
+    }
+
+    .modal-filter__line {
+      height: toRem(1);
+      width: 100%;
+      @include display-flex();
+      margin-top: toRem(20);
+      margin-bottom: toRem(18);
+      background: $flash_white;
+    }
+
+    .modal-cancel {
+      width: toRem(130);
+      height: toRem(47);
+      margin-left: 0;
+      font-family: inherit;
+    }
+
+    .modal-filter__btn {
+      padding-bottom: toRem(18);
+      justify-content: center;
+      @include display-flex();
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .modal-filter__close-item .modal-filter__item-title {
+      color: $color-price;
+    }
+
+    .modal-filter__main::v-deep .button__text {
+      margin-right: 0;
+      margin-right: auto;
+      margin-left: auto;
+    }
+
+    .modal__btn-main {
+      @include display-flex();
+      flex-wrap: wrap;
+      align-items: flex-start;
+      justify-content: center;
+    }
+
+    .p-product-btn {
+      width: toRem(130);
+      height: toRem(47);
+      margin-left: 1.5rem;
+      font-family: inherit;
+      font-size: 1rem;
+      padding: 0;
+    }
+  }
 }
 
-.modal-cancel {
-  width: toRem(130);
-  height: toRem(47);
-  margin-left: 0;
-  font-family: inherit;
-}
-.modal-filter__btn {
-  padding-bottom: toRem(18);
-  justify-content: center;
-  @include display-flex();
-  justify-content: center;
-  flex-wrap: wrap;
-}
-.modal-filter__close-item .modal-filter__item-title {
-  color: $color-price;
-}
-.modal-filter__main::v-deep .button__text {
-  margin-right: 0;
-  margin-right: auto;
-  margin-left: auto;
-}
-.modal__btn-main {
-  @include display-flex();
-  flex-wrap: wrap;
-  align-items: flex-start;
-  justify-content: center;
-}
-
-.p-product-btn {
-  width: toRem(130);
-  height: toRem(47);
-  margin-left: 1.5rem;
-  font-family: inherit;
-  font-size: 1rem;
-  padding: 0;
-}
 @media (max-width: 768px) {
 }
 
 @media (max-width: 485px) {
-  .modal-filter__item-title {
-    font-size: toRem(14);
-    align-items: flex-start;
+  .modal-container::v-deep {
+    .modal {
+
+      .modal-filter__item-title {
+        font-size: toRem(14);
+        align-items: flex-start;
+      }
+
+      .modal-filter__filter-tools {
+        margin-top: 0;
+      }
+
+      .p-product-btn {
+        width: toRem(150);
+        height: toRem(47);
+        font-family: inherit;
+        font-size: toRem(14);
+        transition: all 120ms ease-in;
+      }
+
+      .modal-filter__main::v-deep .button__text {
+        font-size: toRem(14);
+      }
+
+      .modal-filter__item-close::before {
+        content: "\e801";
+        @include font-icon__limoo();
+        font-size: toRem(17);
+        opacity: 1;
+      }
+
+      .modal-filter__line {
+        margin-top: toRem(12);
+      }
+
+      .modal-filter__btn {
+        padding-bottom: toRem(12);
+      }
+    }
+
   }
-  .modal-filter__filter-tools {
-    margin-top: 0;
-  }
-  .p-product-btn {
-    width: toRem(150);
-    height: toRem(47);
-    font-family: inherit;
-    font-size: toRem(14);
-    transition: all 120ms ease-in;
-  }
-  .modal-filter__main::v-deep .button__text {
-    font-size: toRem(14);
-  }
-  .modal-filter__item-close::before {
-    content: "\e801";
-    @include font-icon__limoo();
-    font-size: toRem(17);
-    opacity: 1;
-  }
-  .modal-filter__line {
-    margin-top: toRem(12);
-  }
-  .modal-filter__btn {
-    padding-bottom: toRem(12);
+}
+@media (max-width: 420px) {
+  .modal-container::v-deep {
+    .modal {
+      max-width: 100%;
+    }
   }
 }
 
 @media (max-width: 330px) {
-  // .modal-filter__item-close::before{
-  //   font-size: 17px;
-  // }
-  .p-product-btn {
-    width: 36%;
-    margin-left: 7%;
-  }
-  .modal-cancel {
-    width: 36%;
+  .modal-container::v-deep {
+    .modal {
+      .p-product-btn {
+        width: 36%;
+        margin-left: 7%;
+      }
+      .modal-cancel {
+        width: 36%;
+      }
+    }
   }
 }
 </style>

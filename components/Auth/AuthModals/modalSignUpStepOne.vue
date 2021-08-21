@@ -96,12 +96,24 @@ export default {
       formData: {
         phone: "",
       },
+      showSnackbar: false
     };
   },
   components: {
     textInput,
   },
   watch: {},
+  mounted() {
+    setTimeout(() => {
+      this.showSnackbar = true;
+      console.log(this.showSnackbar);
+    },3000)
+    setTimeout(() => {
+      this.showSnackbar = false;
+      console.log(this.showSnackbar);
+
+    },6000)
+  },
   created() {
     this.storePhone = this.$store.getters.PhoneNumberPicker;
     this.formData.phone = this.$store.getters.PhoneNumberPicker;
@@ -169,37 +181,34 @@ export default {
 
 <style lang="scss" scoped>
 .signup-container {
-  // height: 100vh;
-  @include display-flex();
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
   text-align: center;
+  @extend .centered;
 }
 
 .card {
   @include display-flex();
   flex-direction: column;
   justify-content: center;
-  width: 642px;
-  height: 524px;
+  width: toRem(642);
+  //height: toRem(524);
   background-color: $white;
-  box-shadow: 0px 8px 16px $box__shadow;
-  border-radius: 15px;
+  box-shadow: 0 toRem(8) toRem(16) $box__shadow;
+  border-radius: toRem(15);
 }
 
 .signup-close-btn {
   @include display-flex();
   justify-content: flex-start;
-  margin-top: 24px;
+  margin-top: toRem(24);
 }
 .app-signup-close-btn::before {
-  font-size: 28px;
+  font-size: toRem(28);
 }
 .signup-input {
-  padding-right: 24px;
+  padding-right: toRem(24);
   &-wrong {
-    padding-right: 24px;
+    padding-right: toRem(24);
   }
 }
 .form-control {
@@ -208,18 +217,18 @@ export default {
 }
 .signup-btn {
   font-family: inherit;
-  font-size: 18px;
-  height: 58px;
-  width: 463px;
+  font-size: toRem(18);
+  height: toRem(58);
+  width: toRem(463);
   margin-bottom: 2.5rem;
 }
 .err-text {
   font-family: inherit;
-  font-size: 13px;
+  font-size: toRem(13);
   text-align: right;
   color: $alert-red;
   line-height: 140.62%;
-  margin-bottom: 18px;
+  margin-bottom: toRem(18);
 }
 .btn-control {
   @include display-flex();
@@ -231,19 +240,19 @@ export default {
   display: none;
 }
 .txt-header {
-  font-size: 24px;
+  font-size: toRem(24);
   line-height: 33.75px;
   font-weight: 400;
   text-align: right;
-  margin: 37px 90px 33px 0;
+  margin: toRem(37) toRem(90) toRem(33) 0;
 }
 .txt-content {
-  font-size: 16px;
-  line-height: 22.5px;
+  font-size: toRem(16);
+  line-height: toRem(22.5);
   font-weight: 318;
   text-align: right;
-  margin-bottom: 25px;
-  margin-right: 90px;
+  margin-bottom: toRem(25);
+  margin-right: toRem(90);
 }
 .signup-container::v-deep {
   .txt-content {
@@ -263,6 +272,11 @@ export default {
     @extend .signup-input;
   }
 }
+@media screen and (max-width: 768px) {
+  .card {
+    width: toRem(530);
+  }
+}
 @media screen and (max-width: 600px) {
   .signup-close-btn {
     display: none;
@@ -277,22 +291,22 @@ export default {
 
 @media screen and (max-width: 540px) {
   @mixin signup-input {
-    margin-right: 18px;
+    margin-right: toRem(18);
     padding: 0;
-    width: 328px;
-    height: 60px;
-    margin-bottom: 8px;
+    width: toRem(328);
+    height: toRem(60);
+    margin-bottom: toRem(8);
     &-wrong {
-      margin-right: 18px;
+      margin-right: toRem(18);
       padding: 0;
-      width: 328px;
-      height: 60px;
-      margin-bottom: 8px;
+      width: toRem(328);
+      height: toRem(60);
+      margin-bottom: toRem(8);
     }
   }
 
   .card {
-    width: 360px;
+    width: toRem(360);
     height: 100vh;
     border-radius: 0;
   }
@@ -301,18 +315,18 @@ export default {
   }
 
   @mixin signup-input {
-    margin-right: 16px;
-    margin-left: 16px;
+    margin-right: toRem(16);
+    margin-left: toRem(16);
     padding: 0;
-    width: 328px;
-    height: 60px;
-    margin-bottom: 8px;
+    width: toRem(328);
+    height: toRem(60);
+    margin-bottom: toRem(8);
     &-wrong {
-      margin-right: 16px;
-      margin-left: 16px;
-      width: 328px;
-      height: 60px;
-      margin-bottom: 8px;
+      margin-right: toRem(16);
+      margin-left: toRem(16);
+      width: toRem(328);
+      height: toRem(60);
+      margin-bottom: toRem(8);
     }
   }
 
@@ -321,25 +335,25 @@ export default {
   }
 
   .signup-btn {
-    width: 328px;
+    width: toRem(328);
   }
   .txt-header {
-    font-size: 20px;
+    font-size: toRem(20);
     line-height: 140.62%;
-    width: 328px;
-    margin-right: 16px;
-    margin-left: 16px;
+    width: toRem(328);
+    margin-right: toRem(16);
+    margin-left: toRem(16);
   }
   @mixin txt-content {
-    width: 328px;
-    margin-right: 16px;
-    margin-left: 16px;
+    width: toRem(328);
+    margin-right: toRem(16);
+    margin-left: toRem(16);
   }
   .txt-content {
     @include txt-content();
   }
   @mixin err-text {
-    margin-right: 16px;
+    margin-right: toRem(16);
   }
   .err-text {
     @include err-text();
@@ -368,30 +382,30 @@ export default {
 }
 @media screen and (max-width: 350px) {
   @mixin signup-input {
-    margin-right: 10px;
-    margin-left: 10px;
-    width: 280px;
+    margin-right: toRem(10);
+    margin-left: toRem(10);
+    width: toRem(280);
     &-wrong {
-      margin-right: 10px;
-      margin-left: 10px;
-      width: 280px;
-      margin-bottom: 42px;
+      margin-right: toRem(10);
+      margin-left: toRem(10);
+      width: toRem(280);
+      margin-bottom: toRem(42);
     }
   }
 
   @mixin input-holder {
-    margin-right: 10px;
-    margin-left: 10px;
+    margin-right: toRem(10);
+    margin-left: toRem(10);
     padding: 0;
-    width: 280px;
-    height: 60px;
-    margin-bottom: 8px;
+    width: toRem(280);
+    height: toRem(60);
+    margin-bottom: toRem(8);
     &-wrong {
-      margin-right: 10px;
-      margin-left: 10px;
-      width: 280px;
-      height: 60px;
-      margin-bottom: 8px;
+      margin-right: toRem(10);
+      margin-left: toRem(10);
+      width: toRem(280);
+      height: toRem(60);
+      margin-bottom: toRem(8);
     }
   }
 
@@ -399,19 +413,19 @@ export default {
     @include input-holder();
   }
   .signup-btn {
-    width: 280px;
+    width: toRem(280);
   }
   .txt-header {
-    font-size: 20px;
+    font-size: toRem(20);
     line-height: 140.62%;
-    width: 280px;
+    width: toRem(280);
     margin-right: auto;
     margin-left: auto;
   }
 
   @mixin txt-content {
-    width: 280px;
-    margin-right: 10px;
+    width: toRem(280);
+    margin-right: toRem(10);
   }
 
   .txt-content {
@@ -439,10 +453,10 @@ export default {
 }
 @media screen and (max-width: 280px) {
   @mixin signup-input {
-    margin-right: 5px;
-    margin-left: 5px;
-    width: 270px;
-    padding-right: 0px;
+    margin-right: toRem(5);
+    margin-left: toRem(5);
+    width: toRem(270);
+    padding-right: 0;
   }
 
   .signup-input,
@@ -451,10 +465,10 @@ export default {
   }
 
   @mixin input-holder {
-    margin-right: 5px;
-    margin-left: 5px;
-    width: 270px;
-    margin-bottom: 8px;
+    margin-right: toRem(5);
+    margin-left: toRem(5);
+    width: toRem(270);
+    margin-bottom: toRem(8);
     padding-right: 0;
   }
 
@@ -463,17 +477,17 @@ export default {
     @include input-holder();
   }
   .signup-btn {
-    width: 270px;
+    width: toRem(270);
   }
   .txt-header {
-    font-size: 20px;
+    font-size: toRem(20);
     line-height: 140.62%;
-    width: 270px;
+    width: toRem(270);
   }
 
   @mixin txt-content {
-    width: 270px;
-    margin-right: 15px;
+    width: toRem(270);
+    margin-right: toRem(15);
   }
 
   .txt-content {
@@ -493,7 +507,7 @@ export default {
       @include signup-input();
     }
     .form__item--error {
-      margin-right: 6px;
+      margin-right: toRem(6);
     }
   }
 }

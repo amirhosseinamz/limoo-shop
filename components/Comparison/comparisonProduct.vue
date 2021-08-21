@@ -15,11 +15,12 @@
       <div class="comparison__product-add">
         <div class="product__add-main">
           <div @click="showAddProductComparison" class="product__add-data">
-            <img
+<!--            <img
               class="product__add-icon"
               src="/img/add-product-comparison.svg"
               alt=""
-            />
+            />-->
+            <span class="product__add-icon"></span>
             <h3 class="product__add-title">افزودن محصول دیگر</h3>
           </div>
         </div>
@@ -127,5 +128,13 @@ export default {
   align-items: center;
   flex-flow: column;
   cursor: pointer;
+}
+.product__add-icon {
+  &::before {
+    content: "\e86b";
+    @include font-icon__limoo();
+    font-size: toRem(50);
+    color: $color-blue;
+  }
 }
 </style>

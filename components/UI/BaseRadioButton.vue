@@ -103,8 +103,7 @@ export default {
 
 <style lang="scss" scoped>
 .radio-button-wrapper {
-  display: flex;
-  align-items: center;
+  @extend .align-center;
   &.button {
     display: inline-flex;
     border: toRem(1) solid $gray-4;

@@ -19,10 +19,11 @@
         <div class="user-info__wallet">
             <div class="user-info__wallet__holder">
                 <div class="user-info__wallet__imgholder">
-                    <img
+<!--                    <img
                         class="user-info__wallet__imgholder-img"
                         src="/icons/wallet.svg"
-                    />
+                    />-->
+                  <span class="user-info__wallet__imgholder-icon"></span>
                 </div>
                 <div class="user-info__wallet__nameholder">
                     <div class="user-info__name">موجودی دایور</div>
@@ -51,7 +52,7 @@ export default {
     width: 100%;
     height: 227px;
     background: $white;
-    box-shadow: 0px 8px 16px $box__shadow;
+    box-shadow: 0 8px 16px $box__shadow;
     border-radius: 10px;
     margin-bottom: 25px;
     &__wallet,
@@ -129,9 +130,14 @@ export default {
             @include display-flex();
             justify-content: center;
             align-items: center;
-            &-img {
-                width: 39px;
-                height: 39px;
+            &-icon {
+              @extend .align-center;
+              &::before {
+                content: "\e833";
+                @include font-icon__limoo();
+                font-size: toRem(30);
+                color: $green-2;
+              }
             }
         }
         &__nameholder {
@@ -204,9 +210,10 @@ export default {
             &__imgholder {
                 width: 42px;
                 height: 42px;
-                &-img {
-                    width: 24px;
-                    height: 24px;
+                &-icon {
+                  &::before {
+                    font-size: toRem(19);
+                  }
                 }
             }
             &__nameholder {

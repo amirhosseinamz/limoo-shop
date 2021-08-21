@@ -211,7 +211,7 @@ export default {
   flex-direction: column;
   justify-content: space-around;
   width: 642px;
-  height: 524px;
+  //height: 524px;
   background-color: $white;
   box-shadow: 0px 8px 16px $box__shadow;
   border-radius: 15px;

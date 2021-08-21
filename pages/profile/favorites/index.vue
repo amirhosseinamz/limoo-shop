@@ -1,10 +1,5 @@
 <template>
   <div class="profile-container">
-    <!-- <transition moda="in-out">
-            <div id="overlay" v-if="passChangeIsActive">
-                <The-profile-pass-modal />
-            </div>
-        </transition> -->
 
     <the-profile-side-bar class="desktop-screen" />
 
@@ -26,16 +21,24 @@
 
         <favorite-product
           @event-show-modal-delete-favorite="eventShowModalDeleteFavorite"
-          :favorite-data="favoriteData"
         ></favorite-product>
       </div>
     </div>
 
-    <modalDeleteFav
-      :active.sync="showModalDeleteFavorite"
-      :current-favorite="currentFavorite"
-      @btn-delete-favorite="btnDeleteFavorite"
-    />
+<!--    Delete Modal-->
+
+    <transition name="backdrop-delete">
+      <div class="backdrop" v-if="showModal" @click="modalClose"></div>
+    </transition>
+    <transition name="delete">
+      <modalDeleteFav
+        v-if="showModal"
+        :current-favorite="currentFavorite"
+        @btn-delete-favorite="btnDeleteFavorite"
+        @close-modal="modalClose"
+      />
+    </transition>
+
   </div>
 </template>
 <script>
@@ -54,52 +57,16 @@ export default {
   },
   data() {
     return {
-      showModalDeleteFavorite: false,
-      favoriteData: [
-        {
-          id: 1,
-          title: "Fake",
-          img: "../img/phone.jpg",
-        },
-        {
-          id: 2,
-          title: "Fake",
-          img: "../img/phoneApple.jpg",
-        },
-        {
-          id: 3,
-          title: "Fake",
-          img:
-            "../img/apple-watch-series-6-blue-aluminium-case-with-deep-navy-sport-band-16.jpg",
-        },
-        {
-          id: 4,
-          title: "Fake",
-          img: "/img/apple-watch-5.png",
-        },
-        {
-          id: 5,
-          title: "Fake",
-          img: "/img/apple-watch-1.png",
-        },
-        {
-          id: 6,
-          title: "Fake",
-          img: "/img/apple-watch-3.png",
-        },
-        {
-          id: 7,
-          title: "Fake",
-          img: "/img/apple-watch-5.png",
-        },
-      ],
+      showModal: false,
       currentFavorite: {},
     };
   },
 
-  watch: {},
-
-  mounted() {},
+  computed: {
+    favoriteData() {
+      return this.$store.getters["profile/favorites/favorites/favoriteData"];
+    }
+  },
 
   methods: {
     getTextByTextKey,
@@ -107,27 +74,19 @@ export default {
     goToProfile() {
       this.$router.push("/profile");
     },
+    modalClose() {
+      this.showModal = false;
+    },
 
     eventShowModalDeleteFavorite(data) {
-      this.showModalDeleteFavorite = true;
+      this.showModal = true;
       this.currentFavorite = data;
     },
 
     btnDeleteFavorite(data) {
-      const removeFavorite = () => {
-        let indexDeleteFavoriteData = -1;
 
-        this.favoriteData.map((content, index) => {
-          if (content.id == data.id) {
-            indexDeleteFavoriteData = index;
-          }
-        });
-
-        this.favoriteData.splice(indexDeleteFavoriteData, 1);
-      };
-
-      removeFavorite();
-      this.showModalDeleteFavorite = false;
+      this.$store.dispatch("profile/favorites/favorites/btnDeleteFavorite", data);
+      this.showModal = false;
 
       // request //
     },
@@ -136,22 +95,13 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-#overlay {
-  position: fixed; /* Sit on top of the page content */
-  @include display-flex();
-  justify-content: center;
-  align-items: center;
-  width: 100%; /* Full width (cover the whole page) */
-  height: 100%; /* Full height (cover the whole page) */
-  /* transition: opacity 200ms ease-out; */
-  /* top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0; */
-  z-index: 1;
-  background: $overlay__profile;
-}
+@include delete-modal-animation();
+@include backdrop-delete-modal-animation();
 
+.backdrop {
+  @extend .modal-backdrop;
+  background-color: $overlay--profile;
+}
 .mobile-screen {
   display: none;
 }

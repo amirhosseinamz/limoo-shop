@@ -2,25 +2,6 @@
   <div class="comment__form-main">
     <form @submit="submitData" ref="form" class="w-100">
       <div class="w-100">
-        <!-- <div
-          :class="{ 'show--error': showErrorCommentTitle }"
-          class="w-100 comment__form-item "
-        >
-          <div class="comment__form-data">
-            <h3 class="comment__form-title">
-              {{ getTextByTextKey("product_comment_title") }}
-            </h3>
-            <span class="comment__form-star">*</span>
-          </div>
-          <input
-            @keyup="checkErrorCommentTitle"
-            v-model="formData.Title"
-            maxlength="20"
-            type="text"
-            class="p-modal-address-input p-input-style__default "
-          />
-          <span class="pass__alert ">{{ errorCommentTitle }}</span>
-        </div> -->
 
         <text-input
           class="comment__form-item"
@@ -55,27 +36,6 @@
           :label-text="getTextByTextKey('product_comment_title')"
         >
         </text-input>
-
-        <!-- <div
-          :class="{ 'show--error': showErrorCommentText }"
-          class="w-100 comment__form-item "
-        >
-          <div class="comment__form-data">
-            <h3 class="comment__form-title">
-              {{ getTextByTextKey("product_comment_text") }}
-            </h3>
-            <span class="comment__form-star">*</span>
-          </div>
-          <textarea
-            maxlength="450"
-            @keyup="checkErrorCommentText"
-            v-model="formData.Body"
-            class="comment__textara-item p-input-style__default p-modal-address-input"
-            rows="8"
-            cols="80"
-          ></textarea>
-          <span class="pass__alert ">{{ errorCommentText }}</span>
-        </div> -->
 
         <text-input
           class="comment__form-item"
@@ -125,8 +85,8 @@
               name="addComment"
               @value-changed="activeRadioBtn($event, data)"
               :title="data.title"
-              :value="data.value"
-              :selected="radioBtnData[0].value"
+              :value="toString(data.value)"
+              :selected="toString(radioBtnData[0].value)"
             ></base-radio-button>
           </div>
         </div>
@@ -344,7 +304,7 @@ export default {
 .comment__suggest-title {
   font-size: toRem(16);
   color: $black-topic;
-  margin-bottom: toRem(38);
+  margin-bottom: toRem(16);
   font-weight: 400;
 }
 .comment__suggest-main {
@@ -360,7 +320,7 @@ export default {
   @include display-flex();
   align-items: center;
   justify-content: space-between;
-  margin-bottom: toRem(32);
+  margin-bottom: toRem(16);
 }
 .comment__suggest-btns {
   justify-content: center;
@@ -433,10 +393,10 @@ export default {
     padding-top: toRem(25);
   }
   .comment__suggest-main {
-    margin-top: toRem(25);
+    margin-top: 0;
   }
   .comment__form-item {
-    margin-bottom: toRem(20);
+    //margin-bottom: toRem(20);
   }
   .comment__form-main::v-deep {
     .comment__form-title {
@@ -456,7 +416,7 @@ export default {
     width: 100%;
     padding-right: toRem(19);
     padding-left: toRem(19);
-    padding-top: toRem(27);
+    padding-top: 1.4rem;
   }
 
   .comment__suggest-data {
@@ -465,22 +425,22 @@ export default {
   }
   .comment__suggest-title {
     font-size: toRem(14);
-    margin-bottom: toRem(18);
+    //margin-bottom: toRem(18);
   }
   .comment__suggest-text {
     font-size: toRem(14);
   }
   .comment__suggest-main {
-    margin-top: toRem(24);
+    //margin-top: toRem(24);
   }
   .comment__suggest-item {
-    margin-bottom: toRem(26);
+    margin-bottom: toRem(16);
   }
   .comment__suggest-item:last-of-type {
     margin-bottom: 0;
   }
   .comment__suggest-btns {
-    margin-top: toRem(38);
+    margin-top: toRem(32);
     margin-bottom: toRem(19);
   }
   .p-product-btn {
@@ -492,11 +452,21 @@ export default {
       font-size: toRem(14);
     }
     .comment__textara-item {
-      height: toRem(101);
+      height: toRem(68);
     }
     .p-modal-address-input {
       height: toRem(46);
     }
+  }
+}
+@media (max-height: 600px) {
+  .comment__suggest-btns {
+    margin-top: toRem(-8);
+    margin-bottom: toRem(19);
+  }
+  .p-product-btn {
+    height: toRem(36);
+    width: toRem(110);
   }
 }
 </style>

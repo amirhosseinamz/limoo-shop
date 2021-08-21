@@ -1,9 +1,9 @@
 <template>
-  <modal
-    class="d-rtl product--single__modal"
-    size="1083px"
-    :show.sync="show"
-    :footer="false"
+  <base-modal
+    class="modal-container d-rtl"
+    modal-class="modal d-rtl product--single__modal"
+    mode="scale"
+    @close-modal="modalClose"
   >
     <div class="w-100  product__modal">
       <div class="w-100 product__modal-text">
@@ -12,12 +12,6 @@
             {{ getTextByTextKey("product_pic_text") }}
           </h3>
           <span @click="modalClose" class="product__modal-close"></span>
-          <!-- <img
-            @click="modalClose"
-            src="/icons/closeModalProduct.svg"
-            class="product__modal-close"
-            alt=""
-          /> -->
         </div>
         <span class="product__modal-line"></span>
       </div>
@@ -52,16 +46,16 @@
         </div>
       </div>
     </div>
-  </modal>
+  </base-modal>
+
 </template>
 
 <script>
-import "~/assets/styles/_modal_single_product.scss";
 import { getTextByTextKey } from "~/modules/splitPartJsonResource.js";
 
 export default {
   props: {
-    active: { type: [Boolean, Number], default: false },
+    showModal: { type: [Boolean, Number], default: false },
     productSlider: { type: [Object, Array], default: [] },
     imageSelected: { type: Object, default: {} },
   },
@@ -73,35 +67,29 @@ export default {
       productSliderData: [],
     };
   },
+  mounted() {
 
-  computed: {
-    show: {
-      set(val) {
-        this.$emit("update:active", !!val);
-      },
-      get() {
-        return !!this.active;
-      },
-    },
   },
-
   watch: {
-    active(showModal) {
-      if (showModal) {
-        setTimeout(() => {
-          this.flickityOptions();
-        }, 10);
-        this.activePicSelected(this.imageSelected);
-      }
-    },
+    showModal: {
+      deep: true,
+      handler(val) {
+        if (val) {
+          console.log('nooooooooooooooow');
+          setTimeout(() => {
+            this.flickityOptions();
+          }, 100);
+          this.activePicSelected(this.imageSelected);
+        }
+      },
+      immediate: true,
+    }
   },
-
-  mounted() {},
 
   methods: {
     getTextByTextKey,
     modalClose() {
-      this.show = false;
+      this.$emit('close-modal');
     },
 
     flickityOptions() {
@@ -145,115 +133,147 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.product__modal {
-  width: 100%;
-  flex-wrap: wrap;
-  align-items: flex-start;
-  @include display-flex();
-  padding-bottom: 38px;
-}
-.product__modal-close::after {
-  content: "\e807";
-  @include font-icon__limoo();
-  font-size: 30px;
-  color: $color-gray;
-  cursor: pointer;
-}
-.product__modal-close {
-  width: 30px;
-  height: 30px;
-  cursor: pointer;
-}
-.product__modal-text {
-  @include display-flex();
-  align-items: center;
-  flex-wrap: wrap;
-}
-.product__modal-title {
-  font-size: 18px;
-  color: $black;
-  font-weight: 400;
-  flex-grow: 1;
-  min-height: 27px;
-}
-.product__modal {
-  padding-top: 24px;
-}
-.product__modal-line {
-  margin-bottom: 24px;
-  margin-top: 16px;
-}
-.product__modal-line {
-  background: $gray-border;
-  width: 100%;
-  height: 1px;
-  @include display-flex();
-}
-.product__modal-top {
-  @include display-flex();
-  align-items: flex-start;
-}
-.product__modal-item {
-  @include display-flex();
-  align-content: center;
-  border: solid 1px $light-gray;
-  border-radius: 10px;
-}
-.product__modal-container {
-  padding-right: 50px;
-  padding-left: 50px;
-  width: 100%;
-  @include display-flex();
-  align-items: flex-start;
-  flex-wrap: wrap;
-}
-.product--modal_pic-item {
-  width: 514px;
-  height: 514px;
-  margin-right: auto;
-  margin-left: auto;
-  padding: 11px;
-}
-.carousel-cell {
-  width: 87px;
-  height: 87px;
-  border: solid 1px $light-gray;
-  margin-left: 7px;
-  border-radius: 10px;
-  cursor: pointer;
-}
-.carousel-pic {
-  width: 100%;
-  height: 100%;
-  border-radius: 10px;
-}
-.product_modal-main {
-  padding-top: 24px;
-}
-.active {
-  border-color: $black-topic;
+.modal-container::v-deep {
+  .modal {
+    width: toRem(1083);
+    padding: 0.5rem 1.5rem;
+    .product__modal {
+      width: 100%;
+      flex-wrap: wrap;
+      align-items: flex-start;
+      @include display-flex();
+      padding-bottom: 38px;
+    }
+    .main-carousel {
+      //@extend .d-flex;
+    }
+    .product__modal-close::after {
+      content: "\e807";
+      @include font-icon__limoo();
+      font-size: 30px;
+      color: $color-gray;
+      cursor: pointer;
+    }
+    .product__modal-close {
+      width: 30px;
+      height: 30px;
+      cursor: pointer;
+    }
+    .product__modal-text {
+      @include display-flex();
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    .product__modal-title {
+      font-size: 18px;
+      color: $black;
+      font-weight: 400;
+      flex-grow: 1;
+      min-height: 27px;
+    }
+    .product__modal {
+      padding-top: 24px;
+    }
+    .product__modal-line {
+      margin-bottom: 24px;
+      margin-top: 16px;
+    }
+    .product__modal-line {
+      background: $gray-border;
+      width: 100%;
+      height: 1px;
+      @include display-flex();
+    }
+    .product__modal-top {
+      @include display-flex();
+      align-items: flex-start;
+    }
+    .product__modal-item {
+      @include display-flex();
+      align-content: center;
+      border: solid 1px $light-gray;
+      border-radius: 10px;
+    }
+    .product__modal-container {
+      padding-right: 50px;
+      padding-left: 50px;
+      width: 100%;
+      @include display-flex();
+      align-items: flex-start;
+      flex-wrap: wrap;
+    }
+    .product--modal_pic-item {
+      width: 514px;
+      height: 514px;
+      margin-right: auto;
+      margin-left: auto;
+      padding: 11px;
+    }
+    .carousel-cell {
+      width: 87px;
+      height: 87px;
+      border: solid 1px $light-gray;
+      margin-left: 7px;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+    .carousel-pic {
+      width: 100%;
+      height: 100%;
+      border-radius: 10px;
+    }
+    .product_modal-main {
+      padding-top: 24px;
+    }
+    .active {
+      border-color: $black-topic;
+    }
+  }
 }
 
+
 @media (max-width: 1366px) {
-  .product--modal_pic-item {
-    height: 400px;
+  .modal-container::v-deep {
+    .modal {
+      width: 900px;
+      .product--modal_pic-item {
+        height: 400px;
+      }
+    }
+  }
+}
+@media (max-width: 960px) {
+  .modal-container::v-deep {
+    .modal {
+      width: 760px;
+    }
   }
 }
 
 @media (max-width: 768px) {
-  .p-profile-history-title {
-    font-size: 16px;
+  .modal-container::v-deep {
+    .modal {
+      .p-profile-history-title {
+        font-size: toRem(16);
+      }
+      .p-product-btn {
+        width: toRem(130);
+        height: toRem(41);
+      }
+    }
   }
-  .p-product-btn {
-    width: 130px;
-    height: 41px;
-  }
+
 }
 
 @media (max-width: 460px) {
-  .p-product-btn {
-    width: 116px;
-    height: 38px;
+  .modal-container::v-deep {
+    .modal {
+      .p-product-btn {
+        width: toRem(116);
+        height: toRem(38);
+      }
+    }
   }
+
 }
 </style>

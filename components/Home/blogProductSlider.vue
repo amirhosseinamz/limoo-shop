@@ -1,6 +1,6 @@
 <template>
   <div class="w-100 productContent__sliderWrapper">
-      <div v-if="title.title != '' " class="w-100 productContent__catTop">
+      <div v-if="title.title !== '' " class="w-100 productContent__catTop">
           <div class="productContent__topRight ">
               <h3 class="w-100 productContent__catTitle">{{title.title}}</h3>
               <h3 class="productContent__titleVisit w-100">{{title.titleVisit}}</h3>
@@ -78,7 +78,6 @@ export default {
     },
 
     props: {
-      products                 : { type: [Object,Array], default: [] },
       nameElementFindSlider    : { type: String, default: '' },
       title                    : { type: Object, default: {} },
       moreText                 : { type: String, default: '' },
@@ -97,7 +96,9 @@ export default {
     },
 
     computed: {
-
+      products() {
+        return this.$store.getters["home/home/allBlogProduct"];
+      }
     },
 
     methods: {

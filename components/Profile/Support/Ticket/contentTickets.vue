@@ -1,24 +1,27 @@
 <template>
   <div class="p-tickets-content-main w-100 flex-column flex-wrap  d-rtl">
-    <transition moda="in-out">
-      <div id="overlay" v-if="passChangeIsActive">
-        <add-ticket-modal
-          :form-data-original="formData"
-          :data-edit-ticket="dataEditTicket"
-          @submit-ticket-add="submitTicketAdd"
-          @close-modal="closeModal"
-        />
-      </div>
+<!--    Add and edit Modal-->
+    <transition name="backdrop-form">
+      <div v-if="showModal || showAnsModal" class="backdrop"></div>
     </transition>
-    <transition moda="in-out">
-      <div id="ansoverlay" v-if="sendAnswerToTicket">
-        <send-ans-ticket-modal
-          :form-data-original="formData"
+    <transition :name="modalAnimation">
+        <add-ticket-modal
+          v-if="showModal"
+          :modal-mode="modalAnimation"
           :data-edit-ticket="dataEditTicket"
           @submit-ticket-add="submitTicketAdd"
           @close-modal="closeModal"
         />
-      </div>
+    </transition>
+<!--    Send Answer modal-->
+    <transition :name="modalAnimation">
+        <send-ans-ticket-modal
+          v-if="showAnsModal"
+          :modal-mode="modalAnimation"
+          :data-edit-ticket="dataEditTicket"
+          @submit-ticket-add="submitTicketAdd"
+          @close-modal="closeModal"
+        />
     </transition>
     <div class="w-100 flex-wrap p-tickets-content-btn-add-main">
       <base-button
@@ -123,8 +126,6 @@ import { getTextByTextKey } from "~/modules/splitPartJsonResource.js";
 
 export default {
   props: {
-    ticketData: { type: [Object, Array], default: {} },
-    formData: { type: [Object, Array], default: {} },
   },
   components: {
     addTicketModal,
@@ -132,26 +133,45 @@ export default {
   },
   data() {
     return {
-      passChangeIsActive: false,
       sendAnswerToTicket: false,
       dataEditTicket: {},
       userTicket: -1,
+      showModal: false,
+      showAnsModal: false,
+      windowWidth: 0
     };
   },
-  computed: {},
+  computed: {
+    modalAnimation() {
+      if (this.windowWidth > 960) {
+        return "form";
+      } else {
+        return "phone";
+      }
+    },
+    ticketData() {
+      return this.$store.getters["profile/ticket/ticket/ticketsData"];
+    }
+  },
   created() {
     this.userTicket = Object.values(this.ticketData).length;
   },
+  mounted() {
+    window.addEventListener('resize', this.handleResize);
+    this.handleResize();
+  },
   methods: {
     getTextByTextKey,
-
+    handleResize() {
+      this.windowWidth = window.innerWidth;
+    },
     showModalDeleteProduct(data) {
       this.$emit("show-modal-delete-product", data);
     },
 
     addTicket() {
       this.dataEditTicket = {};
-      this.passChangeIsActive = !this.passChangeIsActive;
+      this.showModal = !this.showModal;
     },
 
     selectedProvince(data) {
@@ -171,22 +191,23 @@ export default {
       } else {
         stateEditAdd = "edit";
       }
-
-      this.passChangeIsActive = false;
+      this.showModal = false;
       this.$emit("submit-ticket-add", data, stateEditAdd);
     },
 
     closeModal() {
       this.dataEditTicket = {};
-      this.passChangeIsActive = false;
+      this.showModal = false;
+      this.showAnsModal = false;
       this.sendAnswerToTicket = false;
     },
 
     editTicket(data) {
       this.dataEditTicket = data;
-      this.passChangeIsActive = true;
+      this.showModal = true;
     },
     sendAnswer(data) {
+      this.showAnsModal = true;
       this.sendAnswerToTicket = true;
     },
   },
@@ -194,23 +215,12 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-#overlay,
-#ansoverlay {
-  position: fixed; /* Sit on top of the page content */
-  @include display-flex();
-  justify-content: center;
-  align-items: center;
-  width: 100%; /* Full width (cover the whole page) */
-  height: 100%; /* Full height (cover the whole page) */
-  /* transition: opacity 200ms ease-out; */
-  /* top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0; */
-  z-index: 10;
-  background: $overlay__profile;
-  top: 0;
-  right: 0;
+@include phone-modal-animation();
+@include form-modal-animation();
+@include backdrop-form-modal-animation();
+.backdrop {
+  @extend .modal-backdrop;
+  background-color: $overlay--profile;
 }
 .user-Ticket__empty-container {
   @include display-flex();
@@ -219,7 +229,6 @@ export default {
   height: toRem(220);
   background: $white;
   border-radius: toRem(10);
-  /* border: 1px solid red; */
 }
 .user-Ticket__empty-container img {
   opacity: 1;

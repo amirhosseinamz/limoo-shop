@@ -10,13 +10,8 @@
         class="carousel-cell productContent__carousel "
       >
         <div class="productContent__carouselContent w-100">
-          <!-- <NuxtLink
-                          class="w-100 productContent__carousel-link"
-                          :to=" '/' + title.sliderItemHref + '/' + data.id "
-                          target="_blank"
-                          >
-                          </NuxtLink>
-                           -->
+
+
           <div class="productContent__carouselImgMain w-100">
             <img
               class="productContent__carouselImgItem"
@@ -78,13 +73,8 @@
         class="carousel-cell productContent__carousel "
       >
         <div class="productContent__carouselContent w-100">
-          <!-- <NuxtLink
-                          class="w-100 productContent__carousel-link"
-                          :to=" '/' + title.sliderItemHref + '/' + data.id "
-                          target="_blank"
-                          >
-                          </NuxtLink>
-                           -->
+
+
           <div class="productContent__carouselImgMain w-100">
             <img
               class="productContent__carouselImgItem"
@@ -148,8 +138,6 @@ export default {
   },
 
   props: {
-    categoryProducts: { type: [Object, Array], default: [] },
-    categoryProductMobile: { type: [Object, Array], default: [] },
   },
 
   data() {
@@ -171,7 +159,14 @@ export default {
     this.detectedResizeBrowser();
   },
 
-  computed: {},
+  computed: {
+    categoryProducts() {
+      return this.$store.getters["category/category/categoryProducts"];
+    },
+    categoryProductMobile() {
+      return this.$store.getters["category/category/categoryProductMobile"];
+    }
+  },
 
   methods: {
     switchLink(event) {
@@ -186,10 +181,8 @@ export default {
           let temp = [];
           for (let i = this.list.length; i < this.list.length + 10; i++) {
             temp.push(i);
-            if (typeof this.categoryProductMobile[i] != "undefined") {
-              this.scrollDataCategoryProduct.push(
-                this.categoryProductMobile[i]
-              );
+            if (typeof this.categoryProductMobile[i] !== "undefined") {
+              this.scrollDataCategoryProduct.push(this.categoryProductMobile[i]);
             }
           }
           this.list.push(...temp);

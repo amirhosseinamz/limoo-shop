@@ -1,5 +1,5 @@
 <template>
-    <sliding-drop-down :title="title" class="modal-filter__box">
+    <sliding-drop-down :title="title" class="modal-filter__box" :open="false">
     <div class="modal-filter__box-content w-100">
       <div class="modal-filter__box-items w-100">
         <div class="modal-filter__box-item">

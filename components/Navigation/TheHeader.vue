@@ -81,10 +81,17 @@
       </div>
     </header>
     <the-mega-menu />
-    <modalAuth
-      :active.sync="showModalAuth"
-      @event-show-modal-wellcome="showWellcomeModal"
-    />
+    <transition name="backdrop-scale">
+      <div class="backdrop" v-if="showModal" @click="modalClose"></div>
+    </transition>
+    <transition name="scale">
+      <modalAuth
+        v-if="showModal"
+        @event-show-modal-wellcome="showWellcomeModal"
+        @close-modal="modalClose"
+      />
+    </transition>
+
   </div>
 </template>
 
@@ -105,7 +112,7 @@ export default {
     return {
       showNavbar: true,
       lastScrollPosition: 0,
-      showModalAuth: false,
+      showModal: false,
       showModalWellcome: false,
       userIsAuth: false,
       authUpdated: 0,
@@ -164,18 +171,13 @@ export default {
   },
   methods: {
     showAuthModal() {
-      this.showModalAuth = true;
-
-      // console.log("hi");
-      // if (!this.userIsAuth) {
-      //   this.showModalAuth = true;
-      // } else if (this.userIsAuth) {
-      //   this.$router.push("/profile");
-      // }
+      this.showModal = true;
     },
-
+    modalClose() {
+      this.showModal = false;
+    },
     showWellcomeModal() {
-      this.showModalAuth = false;
+      this.showModal = false;
       this.$store.dispatch({
         type: "stateShowModalWellcome",
         value: true,
@@ -223,12 +225,19 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@include scale-modal-animation();
+@include backdrop-scale-animation();
+
+.backdrop {
+  @extend .modal-backdrop;
+  background: rgba(81,81,81,.6);
+}
 .header-container {
   position: fixed;
   @include display-flex();
   flex-direction: column;
   width: 100%;
-  height: 135px;
+  height: toRem(135);
   background-color: $white;
   z-index: 2;
 }
@@ -249,10 +258,10 @@ export default {
   align-self: center;
   align-items: center;
   width: 100%;
-  max-width: 1920px;
-  height: 81px;
+  max-width: toRem(1920);
+  height: toRem(81);
   background-color: $white;
-  border-bottom: 1px solid $gray-border;
+  border-bottom: toRem(1) solid $gray-border;
   &__items {
     @include display-flex();
     flex-direction: row-reverse;
@@ -261,39 +270,39 @@ export default {
 }
 
 .logo {
-  margin: 16px;
+  margin: toRem(16);
   &-img {
-    width: 102px;
-    height: 49px;
+    width: toRem(102);
+    height: toRem(49);
   }
 }
 
 .search-section {
   &__items {
-    height: 49px;
-    line-height: 28px;
-    border: 1px solid $input-border;
-    border-radius: 10px;
+    height: toRem(49);
+    line-height: toRem(28);
+    border: toRem(1) solid $input-border;
+    border-radius: toRem(10);
     display: flex;
     justify-content: flex-end;
     flex-direction: row;
-    width: 492px;
+    width: toRem(492);
   }
   &__input {
     @extend .sass-input__default;
     font-family: inherit;
-    font-size: 14px;
+    font-size: toRem(14);
     font-weight: 300;
     flex-grow: 2;
   }
 
   &__btn {
     @extend .sass-input__default;
-    margin: 14px 16px 15px 4px;
+    margin: toRem(14) toRem(16) toRem(15) toRem(4);
   }
   &__btn::before {
     @include font-icon__limoo();
-    font-size: 17px;
+    font-size: toRem(17);
     content: "\e869";
     cursor: pointer;
     color: $input-border;
@@ -306,19 +315,19 @@ export default {
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  width: 129px;
-  height: 49px;
+  width: toRem(129);
+  height: toRem(49);
   outline: none;
-  border: 1px solid $gray-border;
-  border-radius: 10px;
-  margin: 16px 8px;
+  border: toRem(1) solid $gray-border;
+  border-radius: toRem(10);
+  margin: toRem(16) toRem(8);
   &__btn-holder {
     @include display-flex();
     flex-direction: row;
     align-items: center;
   }
   &__btn {
-    font-size: 14px;
+    font-size: toRem(14);
     font-family: inherit;
     border: none;
     outline: none;
@@ -327,21 +336,20 @@ export default {
   &__arrow::before {
     @include display-flex();
     @include font-icon__limoo();
-    font-size: 13px;
+    font-size: toRem(13);
     content: "\e801";
-    margin-left: 10px;
+    margin-left: toRem(10);
     cursor: pointer;
     color: $input-border;
     transform: rotate(270deg);
   }
   &__location::before {
-    margin-right: 8px;
-    margin-left: 6px;
+    margin-right: toRem(8);
+    margin-left: toRem(6);
     content: "\e817";
     @include font-icon__limoo();
-    font-size: 17px;
+    font-size: toRem(17);
     color: $code;
-    /* vertical-align: middle; */
   }
 }
 .navigation-items {
@@ -353,9 +361,9 @@ export default {
   flex-direction: row-reverse;
   align-items: center;
   justify-content: center;
-  height: 49px;
-  border: 1px solid $gray-border;
-  border-radius: 10px;
+  height: toRem(49);
+  border: toRem(1) solid $gray-border;
+  border-radius: toRem(10);
   cursor: pointer;
   &__cart-basket::before,
   &__profile-person::before,
@@ -363,7 +371,7 @@ export default {
   &__sell-person::before {
     content: "\e802";
     @include font-icon__limoo();
-    font-size: 15px;
+    font-size: toRem(15);
     color: $code;
   }
   &__profile-person::before {
@@ -371,78 +379,73 @@ export default {
   }
   &__call-person::before {
     content: "\e81f";
-
-    font-size: 14px;
+    font-size: toRem(14);
   }
   &__sell-person::before {
     content: "\e821";
-    font-size: 14px;
     color: $yellow;
   }
   &__cart {
-    width: 115px;
-    margin-left: 16px;
+    width: toRem(115);
+    margin-left: toRem(16);
     &-btn {
-      font-size: 14px;
+      font-size: toRem(14);
       font-family: inherit;
       border: none;
       outline: none;
       background: transparent;
-      margin-left: 8px;
+      margin-left: toRem(8);
       cursor: pointer;
     }
   }
   &__profile {
-    width: 134px;
-    margin-left: 8px;
+    width: toRem(134);
+    margin-left: toRem(8);
     &-btn {
-      font-size: 14px;
+      font-size: toRem(14);
       font-family: inherit;
       border: none;
       outline: none;
       background: transparent;
-      margin-right: 8px;
+      margin-right: toRem(8);
       cursor: pointer;
     }
   }
   &__call {
-    width: 109px;
-    margin-left: 8px;
+    width: toRem(109);
+    margin-left: toRem(8);
     &-btn {
-      font-size: 14px;
+      font-size: toRem(14);
       font-family: inherit;
       border: none;
       outline: none;
       background: transparent;
-      margin-right: 8px;
+      margin-right: toRem(8);
       cursor: pointer;
     }
   }
   &__sell {
-    width: 151px;
-    margin-left: 8px;
+    width: toRem(151);
+    margin-left: toRem(8);
     background: #fff9ea;
     &-btn {
-      font-size: 14px;
+      font-size: toRem(14);
       font-family: inherit;
       border: none;
       outline: none;
       background: transparent;
-      margin-right: 8px;
+      margin-right: toRem(8);
       cursor: pointer;
     }
   }
 }
-/* .spacer {
-    flex: 1;
-} */
 
 @media (max-width: 1300px) {
   /* .navigation-items {
         display: block;
     } */
   .search-section__items {
-    width: 250px;
+    width: toRem(250);
   }
 }
 @media (max-width: 960px) {
@@ -467,14 +470,14 @@ export default {
   /**/
   .header-container,
   .the-header {
-    height: 47px;
+    height: toRem(47);
   }
 
   .logo {
-    margin: 12px 16px 6px 9px;
+    margin: toRem(12) toRem(16) toRem(6) toRem(9);
     &-img {
-      width: 70px;
-      height: 31px;
+      width: toRem(70);
+      height: toRem(31);
     }
   }
   .city-label {
@@ -482,23 +485,23 @@ export default {
   }
   .search-section {
     &__items {
-      height: 19px;
-      line-height: 18px;
+      height: toRem(19);
+      line-height: toRem(18);
       border: none;
       border-radius: 0;
-      border-right: 1px solid $gray-border;
-      width: 137px;
+      border-right: toRem(1) solid $gray-border;
+      width: toRem(137);
     }
     &__input {
       @extend .sass-input__default;
       font-family: inherit;
-      font-size: 13px;
+      font-size: toRem(13);
       font-weight: 300;
       flex-grow: 2;
     }
     &__btn {
       @extend .sass-input__default;
-      margin: 0px 8px 13px 4px;
+      margin: 0 toRem(8) toRem(13) toRem(4);
     }
   }
   .navigation-item {
@@ -508,15 +511,15 @@ export default {
       display: none;
     }
     &__call {
-      width: 28px;
-      height: 21px;
-      margin: 14px 8px 13px 16px;
+      width: toRem(28);
+      height: toRem(21);
+      margin: toRem(14) toRem(8) toRem(13) toRem(16);
       border: none;
       border-radius: 0;
-      border-right: 1px solid $gray-border;
+      border-right: toRem(1) solid $gray-border;
       &-person {
-        width: 20px;
-        height: 20px;
+        width: toRem(20);
+        height: toRem(20);
       }
       &-btn {
         display: none;
@@ -527,20 +530,20 @@ export default {
 
 @media (max-width: 720px) {
   .search-section__items {
-    width: 200px;
+    width: toRem(200);
   }
 }
 
 @media (max-width: 350px) {
   .logo {
-    margin: 12px 10px 6px 4px;
+    margin: toRem(12) toRem(10) toRem(6) toRem(4);
   }
   .search-section {
     &__items {
-      width: 110px;
+      width: toRem(110);
     }
     &__btn {
-      margin: 0px 2px 13px 4px;
+      margin: 0 toRem(2) toRem(13) toRem(4);
     }
   }
 }

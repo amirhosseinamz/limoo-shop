@@ -1,22 +1,20 @@
 <template>
-  <modal
-    id="p-profile-favorite-modal"
-    class="p-profile-favorite-modal"
-    size="800px"
-    :show.sync="show"
-    :footer="false"
+  <base-modal
+    class="modal-container"
+    modal-class="modal p-profile-favorite-modal"
+    @close-modal="modalClose"
+    mode="scale"
   >
-
     <modalSignUpStepOne
       @btn-close-modal="modalClose"
       @btn-go-to-signup-step-two="gotoSignUpStepTwo"
       @btn-go-to-signin-step-one="gotoSignInStepone"
-      v-if="SignUpStepOne"
+      v-if="false"
     />
     <modalSignUpStepTwo
       @btn-go-back-signup-step-one="gotoSignUpStepOne"
       @event-show-modal-wellcome="showWellcomeModal"
-      v-else-if="SignUpStepTwo"
+      v-else-if="true"
     />
     <modalSignInStepOne
       @btn-go-back-signup-step-one="gotoSignUpStepOne"
@@ -43,7 +41,7 @@
       v-else-if="PassChange"
     />
     <!--  -->
-  </modal>
+  </base-modal>
 </template>
 
 <script>
@@ -79,22 +77,11 @@ export default {
     modalPassChange,
   },
 
-  computed: {
-    show: {
-      set(val) {
-        this.$emit("update:active", !!val);
-      },
-      get() {
-        return !!this.active;
-      },
-    },
-  },
-
   mounted() {},
 
   methods: {
     modalClose() {
-      this.show = false;
+      this.$emit('close-modal');
     },
     showWellcomeModal() {
       this.$emit("event-show-modal-wellcome");

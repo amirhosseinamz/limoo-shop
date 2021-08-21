@@ -1,6 +1,6 @@
 <template>
   <div class="p-favorite-product-items w-100 flex-column flex-wrap">
-    <div class="user-favorite__empty-container" v-show="userFavorite == 0">
+    <div class="user-favorite__empty-container" v-show="userFavorite === 0">
       <img
         src="/empty-pages/empty-favorite-list.svg"
         alt="فعلا لیست علاقه مندی های شما خالی است"
@@ -84,7 +84,6 @@
 <script>
 export default {
   props: {
-    favoriteData: { type: [Object, Array], default: {} },
   },
   data() {
     return {
@@ -95,7 +94,11 @@ export default {
   created() {
     this.userFavorite = Object.values(this.favoriteData).length;
   },
-  computed: {},
+  computed: {
+    favoriteData() {
+      return this.$store.getters["profile/favorites/favorites/favoriteData"];
+    }
+  },
 
   methods: {
     deleteFav(data) {

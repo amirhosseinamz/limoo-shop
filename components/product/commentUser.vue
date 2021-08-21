@@ -76,11 +76,7 @@
               <div class="w-100 flex-column p-comment-content-data-main">
                 <div class="w-100 p-commentedproduct-main text-right">
                   <div class="p-commented-default-main">
-                    <!-- <img
-                                            :src="data.img"
-                                            class="p-commented-product-img"
-                                            alt=""
-                                        /> -->
+
                     <div
                       class="p-commented-default-pic p-commented-product-img"
                     ></div>
@@ -116,10 +112,6 @@
                     {{ data.Body }}
                   </div>
 
-                  <!-- <span
-                                        @click="showMoreDescription(data)"
-                                        class="show-more-description"
-                                    ></span> -->
                   <span
                     v-if="data.showCircle"
                     @click="showMoreDescription(data)"
@@ -145,13 +137,21 @@
         <base-pagination class="comment-pagination" @pageChanged="pageChanged"></base-pagination>
       </div>
     </div>
+<!--    Add Comment Modal-->
+    <transition name="backdrop-scale">
+      <div class="backdrop" v-if="showModal"></div>
+    </transition>
+    <transition :name="modalAnimation">
+      <modal-add-comment
+        v-if="showModal"
+        :modal-mode="modalAnimation"
+        class="comment__modal--data"
+        @submit-data="submitData"
+        :comments-data="commentsData"
+        @close-modal="modalClose"
+      ></modal-add-comment>
+    </transition>
 
-    <modal-add-comment
-      class="comment__modal--data"
-      @submit-data="submitData"
-      :comments-data="commentsData"
-      :active.sync="statusShowModalAddComment"
-    ></modal-add-comment>
   </div>
 </template>
 
@@ -176,17 +176,21 @@ export default {
       dataEditAddress: {},
       updateSelected: 0,
       userComments: -1,
-      statusShowModalAddComment: false,
+      showModal: false,
+      windowWidth: 0,
     };
   },
   computed: {
     closeModalAddComment() {
       return this.$store.getters["product/single/single/closeModalAddComment"]
+    },
+    modalAnimation() {
+      return "scale";
     }
   },
   watch: {
     closeModalAddComment() {
-      this.statusShowModalAddComment = false;
+      this.showModal = false;
     },
   },
 
@@ -195,6 +199,8 @@ export default {
   },
 
   mounted() {
+    window.addEventListener('resize', this.handleResize);
+    this.handleResize();
     setTimeout(() => {
       const el = document.querySelectorAll(".p-commentedproduct-description");
       var elementList = el;
@@ -203,7 +209,6 @@ export default {
           elementList.item(idx).className =
             elementList.item(idx).className + " ellipsis-active";
           elementList.item(idx).title = elementList.item(idx).innerHTML;
-          console.log(elementList.item(idx), elementList.item(idx).className);
         }
       }
     }, 100);
@@ -219,7 +224,12 @@ export default {
       });
       // this.updateSelected++;
     },
-
+    handleResize() {
+      this.windowWidth = window.innerWidth;
+    },
+    modalClose() {
+      this.showModal = false;
+    },
     showModalDeleteProduct(data) {
       this.$emit("show-modal-delete-product", data);
     },
@@ -241,7 +251,7 @@ export default {
     },
 
     showModalAddComment() {
-      this.statusShowModalAddComment = true;
+      this.showModal = true;
     },
 
     submitData(data) {
@@ -252,22 +262,12 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-#overlay {
-  position: fixed; /* Sit on top of the page content */
-  @include display-flex();
-  justify-content: center;
-  align-items: center;
-  width: 100%; /* Full width (cover the whole page) */
-  height: 100%; /* Full height (cover the whole page) */
-  /* transition: opacity 200ms ease-out; */
-  /* top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0; */
-  z-index: 1;
-  background: $overlay__profile;
-  top: 0;
-  right: 0;
+@include scale-modal-animation();
+@include backdrop-scale-animation();
+
+.backdrop {
+  @extend .modal-backdrop;
+  background-color: $overlay--profile;
 }
 .user-comments__empty-container {
   @include display-flex();

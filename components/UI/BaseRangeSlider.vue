@@ -66,9 +66,8 @@ export default {
 <style lang="scss" scoped>
 .slider-wrapper {
   position: relative;
-  @include display-flex();
-  align-items: center;
-  width: toRem(372);
+  @extend .align-center;
+  //width: toRem(372);
   height: toRem(8.5);
   border-radius: toRem(40);
   background-color: $gray-5;

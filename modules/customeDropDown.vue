@@ -350,9 +350,7 @@ export default {
     background: $white;
     height: 200px;
     overflow: auto;
-    border-top: none;
-    border-bottom-left-radius: 15px;
-    border-bottom-right-radius: 15px;
+    border-radius: 15px;
     position: absolute;
 }
 .birthday-item-selected {
@@ -397,6 +395,7 @@ export default {
     outline: none;
     /* margin: 5px; */
     margin-bottom: 5px;
+    margin-top: 8px;
     max-width: 100%;
     max-height: 40px;
 }
@@ -418,6 +417,7 @@ export default {
     display: flex;
 }
 .birthday-item-main {
+    width: 100%;
     @include display-flex();
 }
 .dropdown-active .birthday-item__days {

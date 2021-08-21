@@ -14,3 +14,108 @@
 @mixin font-icon__new() {
   font-family: "arrow-filter";
 }
+@mixin phone-modal-animation() {
+  .phone-enter-active {
+    animation: modalOpen 0.6s linear;
+  }
+
+  .phone-leave-active {
+    animation: modalClose 0.6s linear;
+  }
+
+  @keyframes modalOpen {
+    0% {
+      transform: translateY(0);
+      top: 100%;
+    }
+    100% {
+      transform: translateY(-100%);
+      top: 100%;
+    }
+  }
+  @keyframes modalClose {
+    0% {
+      transform: translateY(-100%);
+      top: 100%;
+    }
+    100% {
+      transform: translateY(0);
+      top: 100%;
+    }
+  }
+}
+@mixin form-modal-animation() {
+  .form-enter-active,
+  .form-leave-active {
+    transition: opacity 0.4s;
+  }
+
+  .form-leave-to {
+    opacity: 0;
+  }
+}
+@mixin backdrop-form-modal-animation() {
+  .backdrop-form-enter-active,
+  .backdrop-form-leave-active {
+    transition: opacity 0.4s;
+  }
+  .backdrop-form-leave-to {
+    opacity: 0;
+  }
+}
+@mixin delete-modal-animation() {
+  .delete-leave-to,
+  .delete-enter {
+    opacity: 0;
+    transform: scale(0.5, 0.5);
+  }
+
+  .delete-enter-active,
+  .delete-leave-active {
+    transition: all 0.4s cubic-bezier(0.25, 0.1, 0.17, 1.84);
+  }
+}
+@mixin backdrop-delete-modal-animation() {
+  .backdrop-delete-enter,
+  .backdrop-delete-leave-to {
+    opacity: 0;
+  }
+
+  .backdrop-delete-enter-active,
+  .backdrop-delete-leave-active {
+    transition: opacity 0.4s linear;
+  }
+
+  .backdrop-delete-enter-to,
+  .backdrop-delete-leave-from {
+    opacity: 1;
+  }
+}
+@mixin scale-modal-animation() {
+  .scale-leave-to,
+  .scale-enter {
+    opacity: 0;
+    transform: scale(0.5, 0.5);
+  }
+
+  .scale-enter-active,
+  .scale-leave-active {
+    transition: all 0.4s cubic-bezier(0.25, 0.1, 0.17, 1.84);
+  }
+}
+@mixin backdrop-scale-animation() {
+  .backdrop-scale-enter,
+  .backdrop-scale-leave-to {
+    opacity: 0;
+  }
+
+  .backdrop-scale-enter-active,
+  .backdrop-scale-leave-active {
+    transition: opacity 0.4s linear;
+  }
+
+  .backdrop-scale-enter-to,
+  .backdrop-scale-leave-from {
+    opacity: 1;
+  }
+}

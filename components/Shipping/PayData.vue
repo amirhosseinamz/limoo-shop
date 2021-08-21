@@ -1,5 +1,59 @@
 <template>
   <div class="cart-detail__payment">
+
+    <div class="w-100 cart-detail__text shipping--mobile">
+      <h3 class="cart-detail__title">فاکتور</h3>
+    </div>
+
+    <div class="cart-detail__items">
+      <div class="w-100 cart-detail__text shipping--desktop">
+        <h3 class="cart-detail__title">صورتحساب</h3>
+      </div>
+
+      <span class="cart-detail__line "></span>
+
+      <div class="w-100 cart-detail__content">
+        <div class="cart-detail__item">
+          <div class="cart-detail__right">
+            <span class="cart-detail__coin"></span>
+            <h3 class="cart-detail__right-title">قیمت محصولات:</h3>
+          </div>
+          <div class="cart-detail__left">
+            <h3 class="cart-detail__left-title">
+              {{ detailPrice.price }}
+            </h3>
+            <h3 class="cart-detail__left-title">تومان</h3>
+          </div>
+        </div>
+
+        <div class="cart-detail__item">
+          <div class="cart-detail__right">
+            <span class="cart-detail__discount"></span>
+            <h3 class="cart-detail__right-title">تخفیف کل:</h3>
+          </div>
+          <div class="cart-detail__left">
+            <h3 class="cart-detail__left-title">
+              {{ detailPrice.totalDiscount }}
+            </h3>
+            <h3 class="cart-detail__left-title">تومان</h3>
+          </div>
+        </div>
+
+        <div class="cart-detail__item">
+          <div class="cart-detail__right">
+            <span class="cart-detail__car"></span>
+            <h3 class="cart-detail__right-title">هزینه ارسال:</h3>
+          </div>
+          <div class="cart-detail__left">
+            <h3 class="cart-detail__left-title">
+              {{ detailPrice.submitDeliveryPrice }}
+            </h3>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
     <div class="cart-detail__btn w-100">
       <div class="w-100">
         <div class="shipping-btn__item">
@@ -25,77 +79,12 @@
                         <span class="show-text__go-to-payment"
                         >ادامه فرآیند خرید</span
                         >
-            <span class="show-text__choose-time"
-            >زمان ارسال را انتخاب کنید</span
-            >
+          <span class="show-text__choose-time"
+          >زمان ارسال را انتخاب کنید</span
+          >
         </base-button>
       </div>
     </div>
-
-    <div class="w-100 cart-detail__text shipping--mobile">
-      <h3 class="cart-detail__title">فاکتور</h3>
-    </div>
-
-    <div class="cart-detail__items">
-      <div class="w-100 cart-detail__text shipping--desktop">
-        <h3 class="cart-detail__title">صورتحساب</h3>
-      </div>
-
-      <span class="cart-detail__line "></span>
-
-      <div class="w-100 cart-detail__content">
-        <div class="cart-detail__item">
-          <div class="cart-detail__right">
-            <img
-              src="/icons/coin.svg"
-              class="cart-detail__icon"
-              alt=""
-            />
-            <h3 class="cart-detail__right-title">قیمت محصولات:</h3>
-          </div>
-          <div class="cart-detail__left">
-            <h3 class="cart-detail__left-title">
-              {{ detailPrice.price }}
-            </h3>
-            <h3 class="cart-detail__left-title">تومان</h3>
-          </div>
-        </div>
-
-        <div class="cart-detail__item">
-          <div class="cart-detail__right">
-            <img
-              src="/icons/Discount-cart.svg"
-              class="cart-detail__icon discount--icon"
-              alt=""
-            />
-            <h3 class="cart-detail__right-title">تخفیف کل:</h3>
-          </div>
-          <div class="cart-detail__left">
-            <h3 class="cart-detail__left-title">
-              {{ detailPrice.totalDiscount }}
-            </h3>
-            <h3 class="cart-detail__left-title">تومان</h3>
-          </div>
-        </div>
-
-        <div class="cart-detail__item">
-          <div class="cart-detail__right">
-            <img
-              src="/icons/car.svg"
-              class="cart-detail__icon car--icon"
-              alt=""
-            />
-            <h3 class="cart-detail__right-title">هزینه ارسال:</h3>
-          </div>
-          <div class="cart-detail__left">
-            <h3 class="cart-detail__left-title">
-              {{ detailPrice.submitDeliveryPrice }}
-            </h3>
-          </div>
-        </div>
-      </div>
-    </div>
-
   </div>
 </template>
 
@@ -130,7 +119,7 @@ export default {
 .cart-detail__container {
   width: 30%;
   /* border: 1px solid red; */
-  height: 600px;
+  height: toRem(600);
   text-align: center;
   @include display-flex();
   flex-wrap: wrap;
@@ -140,20 +129,20 @@ export default {
 .cart-detail__payment {
   width: 100%;
   background-color: $white;
-  border-radius: 10px;
-  padding-right: 24px;
-  padding-left: 24px;
+  border-radius: toRem(10);
+  padding-right: toRem(24);
+  padding-left: toRem(24);
   @include display-flex();
   align-items: flex-start;
   flex-flow: column;
-  padding-bottom: 32px;
+  padding-bottom: toRem(32);
 }
 
 .cart-detail__item {
   @include display-flex();
   align-items: center;
   flex-wrap: wrap;
-  margin-top: 28px;
+  margin-top: toRem(28);
   width: 100%;
 }
 
@@ -165,6 +154,31 @@ export default {
   @include display-flex();
   align-items: flex-start;
   flex-grow: 1;
+
+  .cart-detail__coin,
+  .cart-detail__car,
+  .cart-detail__discount {
+    width: toRem(17);
+  }
+
+  .cart-detail__coin::after {
+    content: "\e809";
+    @include font-icon__limoo();
+    font-size: toRem(18);
+    color: $gray-2;
+  }
+  .cart-detail__discount::after {
+    content: "\e81e";
+    @include font-icon__limoo();
+    font-size: toRem(17);
+    color: $gray-2;
+  }
+  .cart-detail__car::after {
+    content: "\e80a";
+    @include font-icon__limoo();
+    font-size: toRem(13);
+    color: $gray-2;
+  }
 }
 
 .cart-detail__left {
@@ -173,17 +187,17 @@ export default {
 }
 
 .cart-detail__right-title {
-  margin-right: 8px;
-  font-size: 16px;
+  margin-right: toRem(8);
+  font-size: toRem(16);
   color: $color_discount;
   font-weight: 300;
 }
 
 .cart-detail__left-title {
-  font-size: 16px;
+  font-size: toRem(16);
   color: $color_discount;
   font-weight: 300;
-  margin-left: 6px;
+  margin-left: toRem(6);
 }
 
 .cart-detail__left-title:last-of-type {
@@ -195,12 +209,12 @@ export default {
   align-items: flex-start;
   flex-wrap: wrap;
   width: 100%;
-  margin-top: 79px;
-  border: 1px solid $chinese_white;
-  padding-right: 18px;
-  padding-left: 18px;
-  padding-bottom: 24px;
-  border-radius: 10px;
+  margin-top: toRem(79);
+  border: toRem(1) solid $chinese_white;
+  padding-right: toRem(18);
+  padding-left: toRem(18);
+  padding-bottom: toRem(24);
+  border-radius: toRem(10);
 }
 
 .cart-detail__total {
@@ -213,7 +227,7 @@ export default {
 .cart-detail__line {
   background: $chinese_white;
   width: 94%;
-  height: 1px;
+  height: toRem(1);
   @include display-flex();
   margin-right: auto;
   margin-left: auto;
@@ -221,33 +235,18 @@ export default {
 }
 
 .cart-detail__total .cart-detail__item {
-  margin-top: 18px;
+  margin-top: toRem(18);
 }
 
 .red--pay {
   color: $red-color;
 }
 
-.cart-detail__icon {
-  width: 18px;
-  height: 18px;
-}
-
-.discount--icon {
-  width: 21px;
-  height: 21px;
-}
-
-.car--icon {
-  width: 21px;
-  height: 21px;
-}
-
 .cart-detail__btn-item {
   width: 85%;
-  height: 57px;
+  height: toRem(57);
   font-family: inherit;
-  font-size: 16px;
+  font-size: toRem(16);
   margin-top: 1.5rem;
 
   &.disabled {
@@ -283,26 +282,26 @@ export default {
 }
 
 .cart-detail__btn {
-  margin-top: 56px;
+  margin-top: toRem(56);
 }
 
 .cart-detail__about {
   @include display-flex();
   align-items: flex-start;
   flex-wrap: wrap;
-  margin-top: 27px;
+  margin-top: toRem(27);
 }
 
 .cart-detail__about-item {
   width: 100%;
-  height: 72px;
+  height: toRem(72);
   background: $white;
-  border-radius: 10px;
-  margin-bottom: 16px;
+  border-radius: toRem(10);
+  margin-bottom: toRem(16);
   @include display-flex();
   align-items: center;
-  padding-right: 16px;
-  padding-left: 16px;
+  padding-right: toRem(16);
+  padding-left: toRem(16);
 }
 
 .cart-detail__about-item:last-of-type {
@@ -314,27 +313,27 @@ export default {
   align-items: flex-start;
   @include display-flex();
   flex-wrap: wrap;
-  box-shadow: 0px 4px 4px $gray-border;
+  box-shadow: 0 toRem(16) toRem(16) $gray-border;
   z-index: 1;
 }
 
 .cart-detail__about-title {
   color: $gray;
   font-weight: 400;
-  margin-right: 8px;
-  font-size: 16px;
+  margin-right: toRem(8);
+  font-size: toRem(16);
 }
 
 .cart-detail__title {
-  font-size: 18px;
+  font-size: toRem(18);
   color: $black-topic;
   font-weight: 400;
   text-align: right;
 }
 
 .cart-detail__text {
-  margin-top: 16px;
-  margin-bottom: 16px;
+  margin-top: toRem(16);
+  margin-bottom: toRem(16);
 }
 
 .cart-detail__total .cart-detail__right-title {
@@ -344,11 +343,11 @@ export default {
 .cart-detail__btn-link {
   color: $white;
   text-decoration: none;
-  height: 53px;
+  height: toRem(53);
   @include display-flex();
   justify-content: center;
   align-items: center;
-  font-size: 16px;
+  font-size: toRem(16);
 }
 
 .cart-detail__btn-link__hastimed {
@@ -359,12 +358,12 @@ export default {
   @include display-flex();
   align-items: flex-start;
   justify-content: center;
-  margin-bottom: 26px;
+  margin-bottom: toRem(26);
 }
 
 .shipping-btn__left {
   @include display-flex();
-  margin-right: 10px;
+  margin-right: toRem(10);
 }
 
 .shipping-btn__item .cart-detail__left-title {
@@ -376,84 +375,31 @@ export default {
 }
 
 .cart-detail__content {
-  margin-top: 16px;
+  margin-top: toRem(16);
 }
 
 .shipping--mobile {
   display: none;
 }
 
-// @media (max-width: 1300px) {
-//   .cart-detail__right-title{
-//     font-size: 13px;
-//   }
-//   .cart-detail__left-title{
-//     font-size: 13px;
-//   }
-//   .cart-detail__icon{
-//     width: 14px;
-//     height: 14px;
-//   }
-//   .cart-detail__btn-item{
-//     width: 100%;
-//   }
-//   .cart-detail__title{
-//     font-size: 16px;
-//   }
-// }
-
 @media (max-width: 960px) {
-  // .cart-detail__btn-item {
-  //   width: 395px;
-  // }
-  // .cart-detail__right-title{
-  //   font-size: 16px;
-  // }
-  // .cart-detail__title{
-  //   font-size: 18px;
-  // }
-  // .cart-detail__left-title{
-  //   font-size: 18px;
-  // }
-  // .cart-detail__icon{
-  //   width: 18px;
-  //   height: 18px;
-  // }
-  // .discount--icon{
-  //   width: 21px;
-  //   height: 21px;
-  // }
-  // .car--icon{
-  //   width: 21px;
-  //   height: 21px;
-  // }
-  // .cart-detail__items{
-  //   padding-bottom: 12px;
-  // }
-  // .shipping-btn__right .cart-detail__right-title{
-  //   font-size: 16px;
-  // }
-  // .shipping-btn__item .cart-detail__left-title{
-  //   font-size: 16px;
-  // }
-
   .shipping-btn__right .cart-detail__right-title {
-    font-size: 13px;
+    font-size: toRem(13);
   }
   .shipping-btn__item .cart-detail__left-title {
-    font-size: 13px;
+    font-size: toRem(13);
   }
   .cart-detail__right-title {
-    font-size: 13px;
+    font-size: toRem(13);
   }
   .cart-detail__left-title {
-    font-size: 13px;
+    font-size: toRem(13);
   }
   .cart-detail__btn-item {
     width: 100%;
   }
   .cart-detail__title {
-    font-size: 14px;
+    font-size: toRem(14);
   }
   .shipping-btn__right {
     flex-grow: 1;
@@ -461,10 +407,10 @@ export default {
     @include display-flex();
   }
   .shipping-btn__item {
-    margin-bottom: 10px;
-    margin-top: 16px;
-    padding-right: 6px;
-    padding-left: 13px;
+    margin-bottom: toRem(10);
+    margin-top: toRem(16);
+    padding-right: toRem(6);
+    padding-left: toRem(13);
   }
   .shipping--mobile {
     @include display-flex();
@@ -473,34 +419,34 @@ export default {
     margin-top: 0;
   }
   .cart-detail__item {
-    margin-top: 22px;
+    margin-top: toRem(22);
   }
   .cart-detail__container {
     width: 100%;
     margin-top: 0;
   }
   .cart-detail__items {
-    border: solid 1px $google-btn__bg;
-    border-radius: 10px;
-    padding-right: 0px;
-    padding-left: 0px;
-    padding-bottom: 22px;
+    border: solid toRem(1) $google-btn__bg;
+    border-radius: toRem(10);
+    padding-right: 0;
+    padding-left: 0;
+    padding-bottom: toRem(22);
     margin-top: 0;
   }
   .cart-detail__total {
-    margin-bottom: 16px;
-    padding-right: 12px;
-    padding-left: 12px;
+    margin-bottom: toRem(16);
+    padding-right: toRem(12);
+    padding-left: toRem(12);
   }
   .cart-detail__content {
-    padding-right: 12px;
-    padding-left: 12px;
+    padding-right: toRem(12);
+    padding-left: toRem(12);
   }
   .cart-detail__line {
     width: 100%;
     background: $google-btn__bg;
-    height: 1px;
-    margin-top: 16px;
+    height: toRem(1);
+    margin-top: toRem(16);
   }
   .btn--debtor {
     display: none;
@@ -508,25 +454,13 @@ export default {
   .cart-detail__btn {
     z-index: 11;
     position: fixed;
-    bottom: 58px;
+    bottom: toRem(58);
     right: 0;
     background: $white;
-    padding-bottom: 8px;
-    padding-right: 16px;
-    padding-left: 16px;
-    box-shadow: 0px 1px 15px rgba(0, 0, 0, 0.09);
-  }
-  .cart-detail__icon {
-    height: 17px;
-    height: 17px;
-  }
-  .car--icon {
-    width: 19px;
-    height: 19px;
-  }
-  .discount--icon {
-    width: 17px;
-    height: 17px;
+    padding-bottom: toRem(8);
+    padding-right: toRem(16);
+    padding-left: toRem(16);
+    box-shadow: 0 toRem(1) toRem(15) rgba(0, 0, 0, 0.09);
   }
   .cart-detail__text {
     @include display-flex();
@@ -539,6 +473,18 @@ export default {
   }
 }
 
-@media (max-width: 485px) {
+@media (max-width: 768px) {
+  .cart-detail__right {
+    .cart-detail__coin::after {
+      font-size: toRem(15);
+    }
+    .cart-detail__discount::after {
+      font-size: toRem(14);
+    }
+    .cart-detail__car::after {
+      font-size: toRem(11);
+    }
+  }
+
 }
 </style>

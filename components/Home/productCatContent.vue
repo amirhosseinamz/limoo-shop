@@ -56,7 +56,7 @@
                             class="w-100 productContent__carousel-link"
                             :href="data.href"
                             target="_blank"
-                            v-if="title.sliderItemHref == 'brand' "
+                            v-if="title.sliderItemHref === 'brand' "
                             >
                             </a>
 
@@ -100,7 +100,6 @@ export default {
     },
 
     props: {
-      allCategory              : { type: [Object,Array], default: [] },
       nameElementFindSlider    : { type: String, default: '' },
       title                    : { type: Object, default: {} },
       moreText                 : { type: String, default: '' },
@@ -112,6 +111,11 @@ export default {
         allCategoryMobileSplitTwice : [],
         flkty                       : {},
         updateSlider                : 0,
+      }
+    },
+    computed: {
+      allCategory() {
+        return this.$store.getters["home/home/allCategory"];
       }
     },
 
@@ -133,9 +137,6 @@ export default {
 
     },
 
-    computed: {
-
-    },
 
     methods: {
       flickityOptions(){
@@ -209,7 +210,7 @@ export default {
 
 
         // پیدا کردن آیتم ای که در جدا سازی دوتایی آیتم ها اضافه آماده است //
-        if (this.allCategory.length != levelSplit) {
+        if (this.allCategory.length !== levelSplit) {
           const lastFindCatOutSideTwice = this.allCategory[levelSplit];
           this.allCategoryMobileSplitTwice.push( { children: [lastFindCatOutSideTwice] } );
         }

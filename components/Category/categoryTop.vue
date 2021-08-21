@@ -5,15 +5,15 @@
         <div class="products__top-title w-100 products__top-desktop">
           <h3 class="products__top-text">موبایل اندرویدی</h3>
         </div>
-        <base-signs type="confirmed"></base-signs>
+
         <div class="products__filter-btns w-100 ">
           <base-button no-box-shadow classes="products__filter-btn" @button-clicked="showBoxFilter">
-            <img src="/icons/filter_search_icon.svg" alt="filter">
+            <span class="filter-search-icon"></span>
             {{ getTextByTextKey('category_filter_text') }}
           </base-button>
 
           <base-button no-box-shadow classes="products__filter-btn" base-color="dark" @button-clicked="showModalSort">
-            <img src="/icons/arrow-filter.svg" alt="news">
+            <span class="arrow-down-icon"></span>
             {{ getTextByTextKey('category_btn_new') }}
           </base-button>
 
@@ -37,6 +37,27 @@
         </base-button>
       </div>
     </div>
+    <!--      Filter Modal-->
+    <transition name="backdrop-scale">
+      <div class="backdrop" :class="{ 'active--blur': activeBlur }" v-if="showFilterModal" @click="modalFilterClose"></div>
+    </transition>
+    <transition name="scale">
+      <modal-filter
+        v-if="showFilterModal"
+        @close-modal="modalFilterClose"
+      ></modal-filter>
+    </transition>
+
+    <!--      Filter Modal-->
+    <transition name="backdrop-scale">
+      <div class="backdrop" :class="{ 'active--blur': activeBlur }" v-if="showSortModal" @click="modalSortClose"></div>
+    </transition>
+    <transition name="scale">
+      <modal-sort
+        v-if="showSortModal"
+        @close-modal="modalSortClose"
+      ></modal-sort>
+    </transition>
   </div>
 </template>
 
@@ -44,14 +65,16 @@
 import { getTextByTextKey } from "~/modules/splitPartJsonResource.js";
 import buttonFilter from "~/components/UI/buttonFilter";
 import Button from "~/components/UI/Button";
+import ModalFilter from "./modalFilter";
+import ModalSort from "./modalSort";
 
 export default {
   props: {
-    categorySuggestion: { type: [Object, Array], default: [] },
-    defaultSelectedSuggestion: { type: Object, default: {} },
   },
 
   components: {
+    ModalSort,
+    ModalFilter,
     buttonFilter,
     Button,
   },
@@ -61,23 +84,55 @@ export default {
       allCategorySuggestion: [],
       selectedTab: 'limoo',
       activeItem_1: true,
-      activeItem_2: false
+      activeItem_2: false,
+      checkboxValues: [],
+      showFilterModal: false,
+      showSortModal: false,
+      activeBlur: false,
+      alll: false,
     };
+  },
+  computed: {
+    categorySuggestion() {
+      return this.$store.getters["category/category/categorySuggestion"];
+    }
   },
 
   watch: {
     categorySuggestion(data) {
       this.allCategorySuggestion = data;
     },
+    showFilterModal(val) {
+      this.activeBlur = !!val;
+    },
+    showSortModal(val) {
+      this.activeBlur = !!val;
+    }
   },
 
   mounted() {
-    if (this.categorySuggestion.length != 0) {
+    setTimeout(() => {
+      console.log('jj dar');
+      this.alll = true
+    }, 3000);
+    setTimeout(() => {
+      this.alll = false
+    }, 6000);
+    if (this.categorySuggestion.length !== 0) {
       this.allCategorySuggestion = this.categorySuggestion;
     }
   },
 
   methods: {
+    goGo(val) {
+      console.log(this.checkboxValues);
+    },
+    modalFilterClose() {
+      this.showFilterModal = false;
+    },
+    modalSortClose() {
+      this.showSortModal = false;
+    },
     selectTab(e, name) {
       this.selectedTab = name
       if (name === 'limoo') {
@@ -92,7 +147,7 @@ export default {
     activeSuggestion(data) {
       let updateCategorySuggestion = [];
       this.allCategorySuggestion.map((content) => {
-        if (content.id == data.id) {
+        if (content.id === data.id) {
           content.active = true;
           this.$emit("active-cat-suggestion", content);
         } else {
@@ -106,10 +161,12 @@ export default {
     },
 
     showBoxFilter() {
+      this.showFilterModal = true;
       this.$emit("show-box-filter");
     },
 
     showModalSort() {
+      this.showSortModal = true;
       this.$emit("show-modal-sort");
     },
 
@@ -119,6 +176,20 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+
+@include scale-modal-animation();
+@include backdrop-scale-animation();
+
+.backdrop {
+  @extend .modal-backdrop;
+  background: rgba(81,81,81,.6);
+}
+
+.active--blur {
+  filter: blur(2px);
+  overflow: hidden;
+}
+
 .button-tabs {
   li {
     &.active {
@@ -153,9 +224,24 @@ export default {
   font-family: inherit;
   width: 207px;
   height: 47px;
-
-  img {
+  .filter-search-icon {
     margin: 0 1rem 0 0.6rem;
+    &::before {
+      content: "\e840";
+      @include font-icon__limoo();
+      font-size: 20px;
+      color: white;
+    }
+  }
+  .arrow-down-icon {
+    margin: 0 1rem 0 0.6rem;
+
+    &::before {
+      content: "\e83f";
+      @include font-icon__limoo();
+      font-size: 20px;
+      color: white;
+    }
   }
 }
 .products__filter-btn:last-of-type {
@@ -222,9 +308,20 @@ export default {
 }
 
 @media (max-width: 600px) {
+
   .products__filter-btn {
     width: 47%;
     margin-left: 4.5%;
+    .filter-search-icon {
+      &::before {
+        font-size: toRem(18);
+      }
+    }
+    .arrow-down-icon {
+      &::before {
+        font-size: toRem(18);
+      }
+    }
   }
 }
 
@@ -251,10 +348,18 @@ export default {
     width: 48%;
     height: 36px;
     margin-left: 3.5%;
-    font-size: 14px!important;
-    img {
-      margin: 0 0.3rem 0 0.6rem;
-      height: 19px;
+    font-size: toRem(14)!important;
+    .filter-search-icon {
+      margin: 0 0.8rem 0 0.6rem;
+      &::before {
+        font-size: toRem(15);
+      }
+    }
+    .arrow-down-icon {
+      margin: 0 0.8rem 0 0.6rem;
+      &::before {
+        font-size: toRem(15);
+      }
     }
   }
   .products__suggestions {
@@ -282,9 +387,9 @@ export default {
 
 @media (max-width: 330px) {
   .products__filter-btn {
-    padding-right: 8px;
-    padding-left: 8px;
-    font-size: 13px!important;
+    padding-right: toRem(8);
+    padding-left: toRem(8);
+    font-size: toRem(13)!important;
 
     img {
       margin: 0 0.1rem 0 0.6rem;

@@ -20,6 +20,11 @@ export default {
     title: {
       type: String,
       require: true
+    },
+    open: {
+      type: Boolean,
+      require: false,
+      default: false
     }
   },
   data () {
@@ -31,6 +36,9 @@ export default {
     toggleDropdown () {
       this.isOpen = !this.isOpen
     }
+  },
+  mounted() {
+    this.isOpen = this.open;
   }
 };
 </script>
@@ -46,6 +54,7 @@ export default {
     overflow: hidden;
     padding: 0.8125rem 1rem;
     transition: max-height 0.5s cubic-bezier(0, 1, 0, 1);
+    cursor: pointer;
 
 
     &.open {
@@ -67,6 +76,7 @@ export default {
       .arrow-icon {
         height: toRem(18);
         transition: all 0.3s ease-in-out;
+        @extend .align-center;
         &::before {
           content: "\e800";
           @include font-icon__arrow();

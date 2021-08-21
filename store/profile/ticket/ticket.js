@@ -23,7 +23,6 @@ const state = () => ({
     ticketTitle: "",
     question: "",
   },
-  currentProduct: {},
 
 })
 const getters = {
@@ -33,12 +32,40 @@ const getters = {
   formData (state) {
     return state.formData
   },
-  currentProduct (state) {
-    return state.currentProduct
+}
+const mutations = {
+  btnDeleteProduct(state, payload) {
+    state.ticketsData.splice(payload, 1);
+  },
+  editTicket(state, payload) {
+    state.ticketsData[payload.index] = payload.data;
+  },
+  addTicket(state, payload) {
+    state.ticketsData.push(payload);
   }
 }
-const mutations = {}
-const actions = {}
+const actions = {
+  btnDeleteProduct(context, payload) {
+    let indexDelete = -1;
+
+    context.getters.ticketsData.map((content, index) => {
+      if (content.id === payload.id) {
+        indexDelete = index;
+      }
+    });
+    context.commit('btnDeleteProduct', indexDelete);
+  },
+  editTicket(context, payload) {
+    context.getters.ticketsData.map((content, i) => {
+      if (content.id === payload.id) {
+        context.commit('editTicket', { index: i, data: payload });
+      }
+    });
+  },
+  addTicket(context, payload) {
+    context.commit('addTicket', payload);
+  }
+}
 
 export default {
   namespaced: true,

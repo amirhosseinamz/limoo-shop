@@ -1,16 +1,21 @@
 <template>
   <div class="orders-content__main">
-    <transition moda="in-out">
-      <div id="overlay" v-if="passChangeIsActive">
-        <shipping-add-address-modal
-          :data-edit-address="dataEditAddress"
-          @selected-province="selectedProvince"
-          @selected-city="selectedCity"
-          @submit-address-add="submitAddressAdd"
-          @close-modal="closeModal"
-        />
-      </div>
+<!--    Add and Edit Modal-->
+    <transition name="backdrop-form">
+      <div class="backdrop" v-if="showModal"></div>
     </transition>
+    <transition :name="modalAnimation">
+      <shipping-add-address-modal
+        v-if="showModal"
+        :data-edit-address="dataEditAddress"
+        :modal-mode="modalAnimation"
+        @selected-province="selectedProvince"
+        @selected-city="selectedCity"
+        @submit-address-add="submitAddressAdd"
+        @close-modal="closeModal"
+      />
+    </transition>
+
     <div class="w-100 flex-wrap" :key="updateChosenAddress">
       <base-accordion
         v-for="data in addressData"
@@ -26,25 +31,11 @@
       >
         <div class="order-detail" :key="updateSelected">
           <div class="order-detail__desktop-holder">
-<!--            <div class="order-detail__holder">
-                                        <span
-                                          @click="pickAddress(data)"
-                                          class="card-shape__circle"
-                                        >
-                                            <span class="card-shape__circle-inner"></span>
-                                        </span>
-              <span class="order-detail__title">
-                                            {{ data.address }}</span
-              >
-            </div>-->
+
             <div class="address-detail__user-container">
               <div class="address-detail__user-holder">
-                                            <span class="address-detail__user-reciver">{{
-                                                data.nameReceiver
-                                              }}</span>
-                <span class="address-detail__user-phone">{{
-                    data.numberReceiver
-                  }}</span>
+                <span class="address-detail__user-reciver">{{ data.nameReceiver }}</span>
+                <span class="address-detail__user-phone">{{ data.numberReceiver }}</span>
               </div>
               <div
                 class="address-detail__three-point__btn order-detail__closer"
@@ -64,9 +55,7 @@
             <div
               @click="showEditDeleteOption(data)"
               class="order-detail__btn-holder__mobile"
-              :class="{
-                                            'order-detail__btn-show': data.selected
-                                        }"
+              :class="{ 'order-detail__btn-show': data.selected }"
             >
               <button
                 class="address-detail__btn-delete"
@@ -104,95 +93,6 @@
           ></base-button>
         </div>
       </base-accordion>
-      <!--                <div
-                            :class="{
-                                'order-detail__choosed-adress': data.defultAddress
-                            }"
-                            v-for="data in addressData"
-                            :key="data.id"
-                            class="w-100 flex-wrap order-content-item"
-                        >
-                            <div class="order-detail" :key="updateSelected">
-                                <div class="order-detail__desktop-holder">
-                                    <div class="order-detail__holder">
-                                        <span
-                                            @click="pickAddress(data)"
-                                            class="card-shape__circle"
-                                        >
-                                            <span class="card-shape__circle-inner"></span>
-                                        </span>
-                                        <span class="order-detail__title">
-                                            {{ data.address }}</span
-                                        >
-                                    </div>
-                                    <div class="address-detail__user-container">
-                                        <div class="address-detail__user-holder">
-                                            <span class="address-detail__user-reciver">{{
-                                                data.nameReceiver
-                                            }}</span>
-                                            <span class="address-detail__user-phone">{{
-                                                data.numberReceiver
-                                            }}</span>
-                                        </div>
-                                        <div
-                                            class="address-detail__three-point__btn order-detail__closer"
-                                            @click="showEditDeleteOption(data)"
-                                        >
-                                            <span
-                                                class="address-detail__point order-detail__closer"
-                                            ></span>
-                                            <span
-                                                class="address-detail__point order-detail__closer"
-                                            ></span>
-                                            <span
-                                                class="address-detail__point order-detail__closer"
-                                            ></span>
-                                        </div>
-                                    </div>
-                                    <div
-                                        @click="showEditDeleteOption(data)"
-                                        class="order-detail__btn-holder__mobile"
-                                        :class="{
-                                            'order-detail__btn-show': data.selected
-                                        }"
-                                    >
-                                        <button
-                                            class="address-detail__btn-delete"
-                                            @click="showModalDeleteOrder(data)"
-                                            name="button"
-                                        >
-                                            حذف
-                                        </button>
-                                        <span class="order-detail__btn-holder__line"></span>
-                                        <button
-                                            @click="editAddress(data)"
-                                            class="address-detail__btn-edit__mobile"
-                                            name="button"
-                                        >
-                                            ویرایش
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="order-detail__btns-container">
-                                &lt;!&ndash; edit btn &ndash;&gt;
-                                <base-button
-                                    @button-clicked="showModalDeleteOrder(data)"
-                                    classes="order-detail__btn-delete"
-                                    base-color="light-gray"
-                                    no-box-shadow
-                                ></base-button>
-                                <base-button
-                                    @button-clicked="editAddress(data)"
-                                    classes="address-detail__btn-edit"
-                                    no-box-shadow
-                                    no-hover
-                                    base-color="yellow"
-                                    mode="secondary-inline"
-                                ></base-button>
-                            </div>
-                        </div>-->
     </div>
   </div>
 </template>
@@ -200,17 +100,30 @@
 import shippingAddAddressModal from "./shippingAddAddressModal.vue";
 
 export default {
+  props: {
+    showAddModal: {
+      type: Boolean,
+      require: true
+    }
+  },
   components: {
     shippingAddAddressModal,
+  },
+  watch: {
+    showAddModal(val) {
+      this.showModal = val;
+    }
   },
   data() {
     return {
       passChangeIsActive: false,
       updateSelected: 0,
       dataEditAddress: {},
+      showModal: false,
       modalEditSelected: {
         id: null,
       },
+      windowWidth: 0,
     };
   },
   computed: {
@@ -232,17 +145,30 @@ export default {
     profilePhoneNumber() {
       return this.$store.getters["shipping/shipping/profilePhoneNumber"];
     },
+    modalAnimation() {
+      if (this.windowWidth > 960) {
+        return "form";
+      } else {
+        return "phone";
+      }
+    },
   },
   created() {
     document.addEventListener("click", this.checkCloseDropDown);
   },
-
+  mounted() {
+    window.addEventListener('resize', this.handleResize);
+    this.handleResize();
+  },
   destroyed() {
     document.removeEventListener("click", this.documentClick);
   },
   methods: {
     selectedProvince(data) {
       this.$emit("selected-province", data);
+    },
+    handleResize() {
+      this.windowWidth = window.innerWidth;
     },
     addAddress() {
       this.dataEditAddress = {};
@@ -261,6 +187,7 @@ export default {
         stateEditAdd = "edit";
       }
 
+      this.showModal = false;
       this.passChangeIsActive = false;
       this.$emit("submit-address-add", data, stateEditAdd);
       if (stateEditAdd == "edit") {
@@ -269,12 +196,13 @@ export default {
     },
     closeModal() {
       this.dataEditAddress = {};
-      this.passChangeIsActive = false;
+      this.showModal = false;
+      this.$emit("close-modal")
     },
 
     editAddress(data) {
       this.dataEditAddress = data;
-      this.passChangeIsActive = true;
+      this.showModal = true;
     },
     //
     checkCloseDropDown(e) {
@@ -315,7 +243,6 @@ export default {
     showModalEditAddress(data) {
     },
     showEditDeleteOption(data) {
-      console.log("aldkfsd");
       this.addressData.map(content => {
         if (content.id == data.id) {
           content.selected = !content.selected;
@@ -336,30 +263,13 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
+@include form-modal-animation();
+@include backdrop-form-modal-animation();
+@include phone-modal-animation();
 
-#overlay {
-  position: fixed;
-  @include display-flex();
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  height: 100%;
-  z-index: 10;
-  background: $overlay__profile;
-  top: 0;
-  right: 0;
-}
-
-.v-leave-from {
-  opacity: 0.5;
-}
-
-.v-leave-active {
-  transition: all 300ms ease-in;
-}
-
-.v-leave-to {
-  opacity: 0;
+.backdrop {
+  @extend .modal-backdrop;
+  background-color: $overlay--profile;
 }
 
 .order-detail__choosed-adress .card-shape__circle {
@@ -531,10 +441,11 @@ export default {
     .accordion-description {
       order: 1;
     }
+
     .accordion-radio {
       order: 2;
       font-size: toRem(14);
-      align-items: flex-start!important;
+      align-items: flex-start !important;
     }
   }
   .order-detail__btn-holder__mobile {
@@ -564,15 +475,18 @@ export default {
     @include display-flex();
     background-color: transparent;
     font-family: inherit;
-    /* width: 100%; */
-    font-size: toRem(14);
-    color: $gray;
+    width: 100%;
+    height: toRem(26);
+    font-size: 0.875rem;
+    color: #828282;
     border: none;
     box-sizing: border-box;
     cursor: pointer;
-    line-height: 140.62%;
-    text-align: right;
-    margin: toRem(12) toRem(12) toRem(10) 0;
+    margin-bottom: 0.75rem;
+    align-items: center;
+    justify-content: flex-start;
+    margin-right: toRem(12);
+
   }
   .address-detail__btn-edit__mobile {
     margin: toRem(10) toRem(12) toRem(10) 0;

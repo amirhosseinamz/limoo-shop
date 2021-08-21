@@ -5,16 +5,12 @@
       <div class=" w-100">
         <div class="w-100 content__wrapper">
           <category-top
-            :category-suggestion="categorySuggestion"
-            :default-selected-suggestion="defaultSelectedSuggestion"
             @active-cat-suggestion="activeCatSuggestion"
             @show-box-filter="showBoxFilter"
             @show-modal-sort="showModalSort"
           ></category-top>
           <div class="content__bg w-100">
             <category-products
-              :category-product-mobile="categoryProductMobile"
-              :category-products="categoryProducts"
               @update-infinite-cat-mobile="updateInfiniteCatMobile"
             ></category-products>
             <base-pagination class="category-pagination" @pageChanged="pageChanged"></base-pagination>
@@ -33,10 +29,6 @@ import categoryTop from "./categoryTop";
 export default {
   props: {
     category: { type: [Object, Array], default: [] },
-    categorySuggestion: { type: [Object, Array], default: [] },
-    defaultSelectedSuggestion: { type: Object, default: {} },
-    categoryProducts: { type: [Object, Array], default: [] },
-    categoryProductMobile: { type: [Object, Array], default: [] },
   },
 
   components: {
