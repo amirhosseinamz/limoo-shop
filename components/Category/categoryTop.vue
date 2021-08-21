@@ -393,7 +393,7 @@ export default {
 
     img {
       margin: 0 0.1rem 0 0.6rem;
-      height: 17px;
+      height: toRem(17);
     }
   }
 }
