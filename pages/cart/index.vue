@@ -121,50 +121,47 @@ export default {
 .cart-container {
     margin: 0 auto;
     width: 100%;
-    max-width: 1920px;
+    max-width: toRem(1920);
     min-height: 100vh;
 }
 .user-cart__container {
-    padding: 166px 16px 0 16px;
-    margin-bottom: 60px;
+    padding: toRem(166) toRem(16) 0 16px;
+    margin-bottom: toRem(60);
     width: 100%;
     height: fit-content;
     @include display-flex();
     flex-direction: row;
-    /* border: 1px solid red; */
 }
 .user-cart__orders-container {
     @include display-flex();
     flex-direction: column;
     width: 70%;
-    /* border: 1px solid blue; */
-    margin-left: 31px;
+    margin-left: toRem(31);
 }
 .user-cart__title {
     font-family: inherit;
-    font-size: 18px;
+    font-size: toRem(18);
     line-height: 140.62%;
     text-align: right;
     color: $black-topic;
-    margin-bottom: 24px;
-    /* border: 1px solid blue; */
+    margin-bottom: toRem(24);
 }
 .user-cart__go-back {
     @include display-flex();
     text-decoration: none;
     color: $code-request;
-    font-size: 16px;
+    font-size: toRem(16);
     line-height: 140.62%;
     text-align: right;
-    margin-top: 8px;
+    margin-top: toRem(8);
 }
 .user-cart__go-back::before {
     @include font-icon__limoo();
     @include display-flex();
     content: "\e801";
     color: $code-request;
-    font-size: 12px;
-    margin-left: 6px;
+    font-size: toRem(12);
+    margin-left: toRem(6);
     transform: rotate(180deg);
 }
 .mobile-screen__holder {
@@ -173,7 +170,7 @@ export default {
 
 
 
-@media (max-width: 1400px) {
+@include xl {
   .user-cart__orders-container {
     width: 62%;
     margin-left: 2.2%
@@ -183,18 +180,17 @@ export default {
   }
 }
 
-@media (max-width: 960px) {
+@include md {
     .cart-detail__container{
       width: 100%;
     }
     .user-cart__container {
-        padding: 47px 0 0 0;
-        margin-bottom: 60px;
+        padding: toRem(47) 0 0 0;
+        margin-bottom: toRem(60);
         flex-direction: column;
     }
     .user-cart__orders-container {
         width: 100%;
-        /* border: 1px solid blue; */
         margin-left: 0;
     }
     .user-cart__go-back {
@@ -208,19 +204,17 @@ export default {
         flex-direction: row;
         justify-content: space-between;
         align-items: center;
-        height: 56px;
+        height: toRem(56);
         background: $white;
-        margin-bottom: 8px;
-        padding: 0 16px;
+        margin-bottom: toRem(8);
+        padding: 0 toRem(16);
     }
     .mobile-screen__arrow::before {
         content: "\e801";
         @include font-icon__limoo();
-        font-size: 16px;
+        font-size: toRem(16);
         color: $gray;
         font-weight: bold;
-        /* margin-right: 4px;
-        margin-left: 8px; */
     }
 }
 </style>

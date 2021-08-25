@@ -75,8 +75,9 @@
 
 <script>
 import { getTextByTextKey } from "~/modules/splitPartJsonResource.js";
-import textInput from "~/modules/textInput";
 import BaseButton from "../../UI/BaseButton";
+import textInput from "~/components/UI/textInput";
+
 
 export default {
   data() {

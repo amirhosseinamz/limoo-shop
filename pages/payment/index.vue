@@ -296,16 +296,14 @@ export default {
     .user-cart__shipping-container{
       min-height: auto;
     }
-    .payment__address-main{
+    .payment__address-main {
       margin-top: 0;
-      padding-right: 0px;
-      padding-left: 0px;
+      padding-right: 0;
+      padding-left: 0;
       min-height: 109px;
     }
     .payment__header{
-      border-radius: 0;
-      border-top-right-radius: 10px;
-      border-top-left-radius: 10px;
+      border-radius: 10px 10px 0 0;
     }
     .payment__address-text{
       font-size: 14px;

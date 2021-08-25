@@ -142,17 +142,16 @@ export default {
 .profile-container {
   margin: 0 auto;
   width: 100%;
-  max-width: 1920px;
+  max-width: toRem(1920);
   min-height: 100vh;
   display: flex;
   flex-direction: row-reverse;
 }
 .user-profile__holder {
-  margin: 166px 0 50px 17px;
+  margin: toRem(166) 0 toRem(50) toRem(17);
   width: 100%;
   min-height: 100vh;
   height: max-content;
-  /* border: 5px solid #2f0404; */
 }
 .user-profile {
   width: 100%;
@@ -164,16 +163,15 @@ export default {
   align-items: center;
   text-align: center;
   background: $white;
-  border-radius: 10px;
-  box-shadow: 0px 8px 16px $box__shadow;
-  /* border: 1px solid #f00808; */
+  border-radius: toRem(10);
+  box-shadow: 0 toRem(8) toRem(16) $box__shadow;
   &__topic {
-    font-size: 18px;
+    font-size: toRem(18);
     line-height: 140.62%;
     color: $black-topic;
     align-self: flex-end;
-    margin-top: 23px;
-    margin-right: 25px;
+    margin-top: toRem(23);
+    margin-right: toRem(25);
   }
 }
 .splicer-line {
@@ -183,15 +181,7 @@ export default {
   text-align: right;
 }
 
-
-
-@media (max-width: 1450px) {
-}
-
-@media (max-width: 1220px) {
-}
-
-@media (max-width: 960px) {
+@include md {
   .desktop-screen {
     display: none;
   }
@@ -232,20 +222,15 @@ export default {
   }
 }
 
-@media (max-width: 600px) {
+@include xs {
   .user-profile {
     background: none;
     border: none;
     box-shadow: none;
   }
   .user-profile__holder {
-    padding: 0 5px;
+    padding: 0 toRem(5);
   }
 }
 
-@media (max-width: 350px) {
-}
-
-@media (max-width: 320px) {
-}
 </style>

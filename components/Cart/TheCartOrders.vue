@@ -151,23 +151,23 @@ export default {
     @include display-flex();
     flex-direction: column;
     background-color: $white;
-    box-shadow: 0px 8px 16px $box__shadow;
+    box-shadow: 0 toRem(8) toRem(16) $box__shadow;
     border-radius: 10px;
     height: fit-content;
-    min-height: 270px;
-    margin-bottom: 16px;
+    min-height: toRem(270);
+    margin-bottom: toRem(16);
 }
 .order-detail {
-    height: 192px;
+    height: toRem(192);
     width: 100%;
-    border-bottom: 1px solid $gray-border;
+    border-bottom: toRem(1) solid $gray-border;
 }
 .order-detail__btns-price {
     @include display-flex();
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    height: 77px;
+    height: toRem(77);
     width: 100%;
 }
 .order-detail__desktop-holder {
@@ -175,27 +175,27 @@ export default {
     flex-direction: row;
 }
 .order-detail__img {
-    height: 120px;
-    width: 120px;
-    margin: 36px 16px 0 8px;
+    height: toRem(120);
+    width: toRem(120);
+    margin: toRem(36) toRem(16) 0 toRem(8);
 }
 .order-detail__holder {
     @include display-flex();
     flex-direction: column;
 }
 .order-detail__title {
-    font-size: 16px;
+    font-size: toRem(16);
     line-height: 140.62%;
     text-align: right;
     color: $black-topic;
-    margin: 24px 17px 17px 0;
+    margin: toRem(24) toRem(17) toRem(17) 0;
 }
 .order-detail__content-holder {
     @include display-flex();
     flex-direction: column;
-    height: 91px;
-    padding-right: 16px;
-    border-right: 2px solid $gray-border;
+    height: toRem(91);
+    padding-right: toRem(16);
+    border-right: toRem(2) solid $gray-border;
 }
 .order-detail__content-color {
     @include display-flex();
@@ -205,42 +205,42 @@ export default {
 .order-detail__content-guarantee__title,
 .order-detail__content-seller__title,
 .order-detail__content-price__title {
-    font-size: 14px;
+    font-size: toRem(14);
     line-height: 140.62%;
     color: $gray;
-    margin-left: 5px;
+    margin-left: toRem(5);
 }
 .order-detail__content-price__title {
     color: $code;
 }
 .order-detail__content-color__name {
-    font-size: 14px;
+    font-size: toRem(14);
     line-height: 140.62%;
     color: $black-topic;
-    margin-left: 8px;
+    margin-left: toRem(8);
 }
 .order-detail__content-guarantee,
 .order-detail__content-seller {
     @include display-flex();
     flex-direction: row;
-    margin-top: 16px;
-    margin-left: 16px;
+    margin-top: toRem(16);
+    margin-left: toRem(16);
 }
 .order-detail__content-price {
     @include display-flex();
     flex-direction: row;
-    margin-top: 16px;
+    margin-top: toRem(16);
 }
 .order-detail__content-color__circle {
     background-color: $red-logout;
-    height: 18px;
-    width: 18px;
+    height: toRem(18);
+    width: toRem(18);
     border-radius: 50%;
 }
 .order-detail__content-guarantee__name,
 .order-detail__content-seller__name,
 .order-detail__content-price__name {
-    font-size: 14px;
+    font-size: toRem(14);
     line-height: 140.62%;
     color: $black-topic;
 }
@@ -258,79 +258,78 @@ export default {
     @include display-flex();
     flex-direction: row;
     justify-content: space-between;
-    width: 190px;
-    /* border: 1px solid red; */
-    margin-right: 16px;
+    width: toRem(190);
+    margin-right: toRem(16);
 }
 .order-detail__btn-delete {
-    width: 43px;
-    height: 43px;
+    width: toRem(43);
+    height: toRem(43);
 }
 .order-detail__btn-delete::before {
     @include font-icon__limoo();
     content: "\e826";
-    font-size: 16px;
+    font-size: toRem(16);
     color: $gray-3;
 }
 .order-detail__price-container {
     @include display-flex();
     flex-direction: row;
     justify-content: space-between;
-    margin-left: 25px;
+    margin-left: toRem(25);
     width: fit-content;
 }
 .order-detail__orderPrice {
-    font-size: 16px;
+    font-size: toRem(16);
     font-family: inherit;
     text-decoration: line-through;
     color: $color-gray;
-    padding-left: 15px;
+    padding-left: toRem(15);
 }
 .order-detail__orderPriceOff {
-    font-size: 16px;
+    font-size: toRem(16);
     font-family: inherit;
     color: $code;
-    padding-right: 15px;
-    border-right: 1px solid $light-gray;
+    padding-right: toRem(15);
+    border-right: toRem(1) solid $light-gray;
 }
 .order-detail__price-container__mobile {
     display: none;
 }
-@media (max-width: 960px) {
+@include md{
     .orders-content__main {
-        padding: 0 5px;
+        padding: 0 toRem(5);
     }
     .order-content-item {
-        min-height: 314px;
-        margin-bottom: 8px;
+        min-height: toRem(314);
+        margin-bottom: toRem(8);
     }
     .order-detail__content-holder {
         display: none;
     }
     .order-detail__btns-price {
-        height: 68px;
+        height: toRem(68);
     }
     .order-detail {
-        height: 114px;
+        height: toRem(114);
     }
     .order-detail__img {
-        height: 80px;
-        width: 80px;
-        margin: 16px 6px 0 0;
+        height: toRem(80);
+        width: toRem(80);
+        margin: toRem(16) toRem(16) 0 0;
     }
     .order-detail__title {
-        font-size: 14px;
-        margin: 23px 16px 16px 19px;
+        font-size: toRem(14);
+        margin: toRem(23) toRem(16) toRem(16) toRem(19);
     }
     .order-detail__content-holder__mobile {
         @include display-flex();
         flex-direction: column;
-        height: 132px;
-        border-bottom: 1px solid $gray-border;
-        padding-right: 12px;
+        height: toRem(132);
+        border-bottom: toRem(1) solid $gray-border;
+        padding-right: toRem(12);
     }
     .order-detail__content-color {
-        margin-top: 16px;
+        margin-top: toRem(16);
     }
     .order-detail__content-color__title,
     .order-detail__content-guarantee__title,
@@ -340,25 +339,25 @@ export default {
     .order-detail__content-guarantee__name,
     .order-detail__content-seller__name,
     .order-detail__content-price__name {
-        font-size: 13px;
-        margin-left: 3px;
+        font-size: toRem(13);
+        margin-left: toRem(3);
     }
     .order-detail__content-color__name {
-        margin-left: 8px;
+        margin-left: toRem(8);
     }
     .order-detail__content-seller {
-        margin-left: 7px;
+        margin-left: toRem(7);
     }
     .order-detail__btns-container {
         width: 100%;
-        margin-left: 16px;
+        margin-left: toRem(16);
     }
     .order-detail__btn-delete {
-        width: 36px;
-        height: 36px;
+        width: toRem(36);
+        height: toRem(36);
     }
     .order-detail__btn-delete::before {
-        font-size: 14px;
+        font-size: toRem(14);
     }
     .order-detail__price-container {
         display: none;
@@ -367,40 +366,40 @@ export default {
         @include display-flex();
         flex-direction: row;
         justify-content: space-between;
-        margin: 0 16px 16px 19px;
+        margin: 0 toRem(16) toRem(16) toRem(19);
         width: fit-content;
     }
     .order-detail__orderPrice {
-        font-size: 13px;
+        font-size: toRem(13);
         padding-left: 8px;
         white-space: nowrap;
     }
     .order-detail__orderPriceOff {
-        font-size: 13px;
-        padding-right: 8px;
+        font-size: toRem(13);
+        padding-right: toRem(8);
         white-space: nowrap;
     }
 }
-@media (max-width: 280px) {
+@include xxs {
     .order-detail__img {
-        height: 70px;
-        width: 70px;
-        margin: 16px 5px 0 0;
+        height: toRem(70);
+        width: toRem(70);
+        margin: toRem(16) toRem(5) 0 0;
     }
     .order-detail__title {
-        font-size: 14px;
-        margin: 20px 6px 16px 19px;
+        font-size: toRem(14);
+        margin: toRem(20) toRem(6) toRem(16) toRem(19);
     }
     .order-detail__price-container__mobile {
-        margin: 0 6px 16px 19px;
+        margin: 0 toRem(6) toRem(16) toRem(19);
     }
     .order-detail__orderPrice {
-        font-size: 12px;
-        padding-left: 5px;
+        font-size: toRem(12);
+        padding-left: toRem(5);
     }
     .order-detail__orderPriceOff {
-        font-size: 12px;
-        padding-right: 5px;
+        font-size: toRem(12);
+        padding-right: toRem(5);
     }
 }
 </style>

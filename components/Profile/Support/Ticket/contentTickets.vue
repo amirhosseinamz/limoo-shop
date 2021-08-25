@@ -280,7 +280,6 @@ export default {
   height: fit-content;
   min-height: toRem(247);
   margin-bottom: toRem(16);
-  /* border: 1px solid red; */
 }
 .p-tickets-content-header {
   @include display-flex();
@@ -375,13 +374,7 @@ export default {
   margin-bottom: toRem(34);
 }
 
-@media (max-width: 1220px) {
-}
-
-@media (max-width: 1024px) {
-}
-
-@media (max-width: 960px) {
+@include md {
   .p-tickets-content-main {
     border-radius: toRem(10);
     padding: 0 toRem(21) toRem(18) toRem(21);
@@ -406,7 +399,7 @@ export default {
   }
 }
 
-@media (max-width: 600px) {
+@include xs {
   .p-tickets-content-btn-add-main::v-deep {
       .p-tickets-content-btn-data {
         width: 70%;
@@ -507,7 +500,8 @@ export default {
     margin-bottom: 0;
   }
 }
-@media (max-width: 280px) {
+
+@include xxxs {
   .p-tickets-content-btn-data {
     width: toRem(200);
   }

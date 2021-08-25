@@ -421,11 +421,7 @@ export default {
 .user-profile__topic {
   text-align: right;
 }
-
-@media (max-width: 1450px) {
-}
-
-@media (max-width: 1220px) {
+@include xl {
   .support-contact__holder {
     padding: 0 toRem(5);
   }
@@ -450,7 +446,7 @@ export default {
   }
 }
 
-@media (max-width: 960px) {
+@include md {
   .desktop-screen,
   .support__navbar-desktop {
     display: none;
@@ -570,7 +566,7 @@ export default {
 
 }
 
-@media (max-width: 600px) {
+@include sm {
   .support__navbar-mobile::v-deep {
     .support-nav__mobile-items {
       font-size: toRem(14);
@@ -582,7 +578,7 @@ export default {
     box-shadow: none;
   }
   .support__navbar-mobile {
-    padding: 0 toRem(41);
+    padding: 0 toRem(80);
   }
   .user-profile__holder {
     padding: 0 toRem(5);
@@ -592,13 +588,18 @@ export default {
   }
 }
 
-@media (max-width: 350px) {
+@include xs {
+  .support__navbar-mobile {
+    padding: 0 toRem(50);
+  }
+}
+@include xxs {
+  .support__navbar-mobile {
+    padding: 0 toRem(20);
+  }
 }
 
-@media (max-width: 320px) {
-}
-
-@media (max-width: 280px) {
+@include xxxs {
   .support-contact__mobile-title {
     font-size: toRem(13);
   }

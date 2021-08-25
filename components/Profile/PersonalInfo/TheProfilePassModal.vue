@@ -131,7 +131,7 @@
 </template>
 <script>
 import { getTextByTextKey } from "~/modules/splitPartJsonResource.js";
-import textInput from "~/modules/textInput";
+import textInput from "~/components/UI/textInput";
 
 export default {
   name: "TheProfilePassModal",
@@ -209,23 +209,23 @@ export default {
   @include display-flex();
   flex-direction: column;
   align-items: center;
-  width: 642px;
-  height: 524px;
+  width: toRem(642);
+  height: toRem(524);
   background: $white;
-  box-shadow: 0px 8px 16px $box__shadow;
-  border-radius: 15px;
+  box-shadow: 0 toRem(8) toRem(16) $box__shadow;
+  border-radius: toRem(15);
   &__close-cross {
     align-self: flex-end;
-    width: 30px;
-    height: 30px;
-    margin-top: 24px;
-    margin-left: 24px;
+    width: toRem(30);
+    height: toRem(30);
+    margin-top: toRem(24);
+    margin-left: toRem(24);
     cursor: pointer;
   }
   &__close-cross::before {
     content: "\e807";
     @include font-icon__limoo();
-    font-size: 28px;
+    font-size: toRem(28);
     color: $gray;
   }
   &__close-line {
@@ -235,7 +235,7 @@ export default {
   &__close-line::before {
     content: "\e81b";
     @include font-icon__limoo();
-    font-size: 28px;
+    font-size: toRem(28);
     color: $gray;
   }
   &__title {
@@ -247,27 +247,27 @@ export default {
     align-items: center;
   }
   .pass__holder {
-    height: 88px;
-    width: 390px;
-    margin-bottom: 35px;
+    height: toRem(88);
+    width: toRem(390);
+    margin-bottom: toRem(35);
     label {
-      font-size: 16px;
+      font-size: toRem(16);
       line-height: 140.62%;
       span {
         color: $red;
-        margin-right: 3px;
+        margin-right: toRem(3);
       }
     }
   }
   &::v-deep {
     .pass__repeat {
-      height: 88px;
-      width: 390px;
-      margin-bottom: 35px;
+      height: toRem(88);
+      width: toRem(390);
+      margin-bottom: toRem(35);
     }
   }
   .pass__repeat {
-    margin-bottom: 42px;
+    margin-bottom: toRem(42);
   }
   .pass__old,
   .pass__new,
@@ -276,72 +276,70 @@ export default {
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    height: 52px;
+    height: toRem(52);
     flex-grow: 1;
     background: $white;
-    border: 1px solid $input-border;
+    border: toRem(1) solid $input-border;
     box-sizing: border-box;
-    box-shadow: 0px 4px 4px $gray-border;
-    border-radius: 15px;
-    margin-top: 15px;
+    box-shadow: 0 toRem(4) toRem(4) $gray-border;
+    border-radius: toRem(15);
+    margin-top: toRem(15);
   }
   /* ======================================= */
 
   .signin__close-eye::before {
     content: "\e810";
     @include font-icon__limoo();
-    font-size: 17px;
+    font-size: toRem(17);
     color: $gray;
     vertical-align: middle;
   }
   .signin__close-eye,
   .signin__open-eye {
-    margin-bottom: 2px;
+    margin-bottom: toRem(2);
   }
   .signin__open-eye::before {
     content: "\e811";
     @include font-icon__limoo();
-    font-size: 17px;
+    font-size: toRem(17);
     color: $gray;
     vertical-align: middle;
   }
   .pass__old > input,
   .pass__new > input,
   .pass__new-repeat > input {
-    height: 52px;
+    height: toRem(52);
     flex-grow: 1;
     background: transparent;
-    /* border: 1px solid red; */
     padding: 16px;
     line-height: 140.62%;
     border: none;
-    border-radius: 15px;
+    border-radius: toRem(15);
     font-family: inherit;
     outline: none;
-    /* letter-spacing: 5px; */
-    font-size: 16px;
+    font-size: toRem(16);
   }
   .pass__submitbtn {
     align-self: center;
-    margin-bottom: 40px;
-    height: 57px;
-    width: 270px;
+    margin-bottom: toRem(40);
+    height: toRem(57);
+    width: toRem(270);
     background: $btn__green;
     color: $white;
-    font-size: 18px;
+    font-size: toRem(18);
     font-family: inherit;
     line-height: 140.62%;
     text-align: center;
-    border-radius: 10px;
+    border-radius: toRem(10);
     cursor: pointer;
     outline: none;
     border: none;
   }
   .pass__alert {
-    margin-top: 4px;
+    margin-top: toRem(4);
     color: $alert-red;
     text-align: right;
-    font-size: 14px;
+    font-size: toRem(14);
     line-height: 140.62%;
   }
 }
@@ -351,30 +349,30 @@ export default {
 
 .modal::v-deep {
   .txt-content {
-    margin-bottom: 16px;
+    margin-bottom: toRem(16);
     line-height: 140.62%;
   }
   .input-holder {
-    box-shadow: 0px 4px 4px $flash_white;
-    height: 52px;
+    box-shadow: 0 toRem(4) toRem(4) $flash_white;
+    height: toRem(52);
     background: $white;
-    border-radius: 15px;
-    margin-bottom: 4px;
+    border-radius: toRem(15);
+    margin-bottom: toRem(4);
   }
   .form__item--error {
     margin-bottom: 0;
-    font-size: 14px;
+    font-size: toRem(14);
   }
   .signup-input {
     color: $gray;
-    font-size: 16px;
-    padding: 16px;
+    font-size: toRem(16);
+    padding: toRem(16);
   }
   .signin__close-eye::before {
-    font-size: 16px;
+    font-size: toRem(16);
   }
   .signin-eye::before {
-    font-size: 16px;
+    font-size: toRem(16);
   }
   .signin-eye {
     margin-bottom: 0;
@@ -392,7 +390,7 @@ export default {
   }
 }
 
-@media (max-width: 960px) {
+@include md {
   .modal-animation__open {
     animation: modalOpen 600ms linear;
   }
@@ -419,56 +417,52 @@ export default {
     align-self: flex-end;
     position: absolute;
     width: 100%;
-    height: 570px;
+    height: toRem(570);
     background: $white;
-    box-shadow: 0px 20px 24px $overlay__profile-mobile;
-    border-top-left-radius: 30px;
-    border-top-right-radius: 30px;
-    border-bottom-left-radius: 0;
-    border-bottom-right-radius: 0;
+    box-shadow: 0 toRem(20) toRem(24) $overlay__profile-mobile;
+    border-radius: toRem(30) toRem(30) 0 0;
+
     &__close-cross {
       display: none;
     }
     &__close-line {
       display: block;
       align-self: center;
-      margin-top: 20px;
-      line-height: 0px;
+      margin-top: toRem(20);
+      line-height: 0;
     }
     &__title {
       display: block;
-      font-size: 14px;
+      font-size: toRem(14);
       line-height: 140.62%;
       color: $gray;
-      margin-top: 20px;
+      margin-top: toRem(20);
       text-align: center;
     }
-    /* form {
-            margin-top: 5px;
-        } */
+
     .pass__holder {
-      height: 80px;
+      height: toRem(80);
       width: 84vw;
-      margin-bottom: 35px;
+      margin-bottom: toRem(35);
       label {
-        font-size: 14px;
+        font-size: toRem(14);
       }
     }
 
     &::v-deep {
       .pass__repeat {
-        height: 80px;
+        height: toRem(80);
         width: 84vw;
-        margin-bottom: 35px;
+        margin-bottom: toRem(35);
       }
       .txt-content {
-        font-size: 14px;
+        font-size: toRem(14);
       }
       .input-holder {
-        height: 46px;
+        height: toRem(46);
       }
       .form__item--error {
-        font-size: 13px;
+        font-size: toRem(13);
       }
     }
 
@@ -476,42 +470,42 @@ export default {
     .pass__new,
     .pass__new-repeat {
       @include display-flex();
-      height: 46px;
+      height: toRem(46);
     }
     .pass__old > input,
     .pass__new > input,
     .pass__new-repeat > input {
-      height: 46px;
-      width: 200px;
+      height: toRem(46);
+      width: toRem(200);
     }
     .pass__submitbtn {
       width: 91vw;
-      margin-bottom: 47px;
+      margin-bottom: toRem(47);
     }
     .pass__alert {
-      font-size: 13px;
+      font-size: toRem(13);
     }
   }
   .clear-input > img {
-    width: 17px;
-    height: 15px;
+    width: toRem(17);
+    height: toRem(15);
   }
   .splicer-line {
     display: block;
     width: 95%;
     border: none;
-    margin: 16px 5px;
-    border-top: 1px solid $gray-border;
-    margin-bottom: 35px;
+    margin: toRem(16) toRem(5);
+    border-top: toRem(1) solid $gray-border;
+    margin-bottom: toRem(35);
   }
 }
-@media screen and (max-width: 320px) {
+@include xxs {
   .modal-animation__open {
     animation: modalOpen 600ms linear;
   }
   @keyframes modalOpen {
     0% {
-      transform: translate(0, 470px);
+      transform: translate(0, toRem(470));
     }
     100% {
       transform: translate(0, 0);
@@ -525,58 +519,58 @@ export default {
       transform: translate(0, 0);
     }
     100% {
-      transform: translate(0, 470px);
+      transform: translate(0, toRem(470));
     }
   }
   .modal {
-    height: 470px;
+    height: toRem(470);
     &__close-line {
-      margin-top: 20px;
+      margin-top: toRem(20);
     }
     &__title {
-      margin-top: 20px;
+      margin-top: toRem(20);
     }
     .pass__holder {
-      height: 70px;
+      height: toRem(70);
       width: 84vw;
-      margin-bottom: 25px;
+      margin-bottom: toRem(25);
       label {
-        font-size: 13px;
+        font-size: toRem(13);
       }
     }
     .pass__old,
     .pass__new,
     .pass__new-repeat {
       @include display-flex();
-      height: 40px;
+      height: toRem(40);
     }
     .pass__old > input,
     .pass__new > input,
     .pass__new-repeat > input {
-      height: 40px;
-      width: 200px;
+      height: toRem(40);
+      width: toRem(200);
     }
     .pass__submitbtn {
       width: 91vw;
-      margin-bottom: 37px;
-      margin-top: 15px;
+      margin-bottom: toRem(37);
+      margin-top: toRem(15);
     }
     &::v-deep {
       .input-holder {
-        height: 40px;
+        height: toRem(40);
       }
       .pass__repeat {
-        height: 70px;
+        height: toRem(70);
         width: 84vw;
-        margin-bottom: 25px;
+        margin-bottom: toRem(25);
       }
       .txt-content {
-        font-size: 13px;
+        font-size: toRem(13);
       }
     }
   }
   .splicer-line {
-    margin-bottom: 17px;
+    margin-bottom: toRem(17);
   }
 }
 </style>

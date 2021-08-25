@@ -253,7 +253,7 @@ import TheProfileSideBar from "~/components/Profile/TheProfileSideBar.vue";
 import TheProfilePassModal from "~/components/Profile/PersonalInfo/TheProfilePassModal.vue";
 import TheDateDropdown from "~/components/Profile/PersonalInfo/TheDateDropdown.vue";
 import { getTextByTextKey } from "~/modules/splitPartJsonResource.js";
-import textInput from "~/modules/textInput";
+import textInput from "~/components/UI/textInput";
 
 export default {
   middleware: "authentication",
@@ -536,7 +536,7 @@ export default {
     }
   }
 }
-@media (max-width: 1220px) {
+@include xl {
   .user-profile {
     &__info {
       @include display-flex();
@@ -555,27 +555,21 @@ export default {
     }
   }
   .user-profile {
-    @mixin name {
-      width: 250px;
-    }
-    @mixin family {
-      width: 290px;
-    }
     #name {
-      @include name;
+      width: toRem(250);
     }
     #family {
-      @include family;
+      width: toRem(290);
     }
     .name::v-deep {
-      @include name;
+      width: toRem(250);
     }
     .family::v-deep {
-      @include family;
+      width: toRem(290);
     }
   }
 }
-@media (max-width: 960px) {
+@include md {
   #overlay {
     background: $overlay__profile-mobile;
   }
@@ -736,7 +730,7 @@ export default {
     }
   }
 }
-@media (max-width: 600px) {
+@include sm{
   .user-profile__holder {
     padding: 0 5px;
   }
@@ -771,7 +765,7 @@ export default {
     }
   }
 }
-@media (max-width: 530px) {
+@include xs {
   .user-profile {
     #name {
       width: 120px;
@@ -789,7 +783,7 @@ export default {
     }
   }
 }
-@media (max-width: 350px) {
+@include xxs {
   .user-profile {
     #name {
       width: 110px;
@@ -813,7 +807,7 @@ export default {
     }
   }
 }
-@media (max-width: 280px) {
+@include xxxs {
   .user-profile {
     #name {
       width: 105px;

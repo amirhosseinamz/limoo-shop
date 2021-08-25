@@ -180,32 +180,6 @@ export default {
   margin-top: toRem(79);
 }
 
-/*.cart-detail__about {
-  @include display-flex();
-  align-items: flex-start;
-  flex-wrap: wrap;
-  margin-top: toRem(27);
-}*/
-
-/*
-.cart-detail__about-item {
-  width: 100%;
-  height: toRem(72);
-  background: $white;
-  box-shadow: 0 toRem(4) toRem(4) $gray-border;
-  border-radius: toRem(10);
-  margin-bottom: toRem(16);
-  @include display-flex();
-  align-items: center;
-  padding-right: toRem(16);
-  padding-left: toRem(16);
-}
-
-.cart-detail__about-item:last-of-type {
-  margin-bottom: 0;
-}
-*/
-
 .cart-detail__main {
   width: 100%;
   align-items: flex-start;
@@ -214,15 +188,6 @@ export default {
   box-shadow: 0 toRem(8) toRem(16) rgba(17, 17, 17, 0.03);
   z-index: 1;
 }
-/*
-
-.cart-detail__about-title {
-  color: $gray;
-  font-weight: 400;
-  margin-right: toRem(8);
-  font-size: toRem(16);
-}
-*/
 
 .behind-the-cart-detail {
   width: 100%;
@@ -230,24 +195,18 @@ export default {
   background-color: $white;
 }
 
-@media (max-width: 1400px) {
+@include xl{
   .cart-detail__container {
     width: 35%;
   }
 }
 
-@media (max-width: 1300px) {
 
-}
-
-@media (max-width: 960px) {
+@include md {
   .cart-detail__container {
     width: 100%;
     margin-top: toRem(8);
   }
-  /*.cart-detail__about {
-    display: none;
-  }*/
   .cart-detail__payment {
     padding-right: toRem(11);
     padding-left: toRem(11);
