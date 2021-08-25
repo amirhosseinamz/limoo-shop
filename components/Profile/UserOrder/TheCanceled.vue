@@ -116,22 +116,22 @@ export default {
     @include display-flex();
     flex-direction: column;
     justify-content: flex-start;
-    height: 374px;
+    height: toRem(374);
     background: $white;
-    margin-top: 24px;
-    border-radius: 10px;
-    box-shadow: 0px 8px 16px $box__shadow;
+    margin-top: toRem(24);
+    border-radius: toRem(10);
+    box-shadow: 0 toRem(8) toRem(16) $box__shadow;
 }
 .user-canceled__empty-container img {
-    margin-top: 38px;
+    margin-top: toRem(38);
     opacity: 1;
 }
 .user-canceled__empty {
-    font-size: 18px;
+    font-size: toRem(18);
     line-height: 140.62%;
     text-align: center;
     color: $gray;
-    margin-top: 38px;
+    margin-top: toRem(38);
 }
 .paid-holder {
     @include display-flex();
@@ -141,93 +141,81 @@ export default {
     @include display-flex();
     flex-direction: row;
     justify-content: space-between;
-    margin-top: 24px;
+    margin-top: toRem(24);
     width: 100%;
     background: $white;
     height: max-content;
-    border-radius: 10px;
-    /* border: 1px solid red; */
+    border-radius: toRem(10);
 }
 .paid-order {
     @include display-flex();
     flex-direction: row;
-    /* border: 1px solid red; */
-    margin: 8px 26px;
+    margin: toRem(8) toRem(26);
     align-items: center;
 }
 .paid-container {
     @include display-flex();
     flex-direction: column;
-    margin: 26px 0;
-    /* border: 1px solid red; */
+    margin: toRem(26) 0;
 }
 .paid-order-product-img {
-    width: 90px;
-    height: 90px;
+    width: toRem(90);
+    height: toRem(90);
 }
 .p-history-product-content-title {
-    font-size: 16px;
+    font-size: toRem(16);
     color: $black-topic;
 }
 .p-history-product-content-price {
     @include display-flex();
     flex-direction: row;
     justify-content: flex-start;
-    margin-top: 16px;
+    margin-top: toRem(16);
 }
 .p-history-product-content-price-title {
-    font-size: 16px;
+    font-size: toRem(16);
     line-height: 140.62%;
     color: $gray;
 }
 .price-unit {
-    margin-right: 5px;
+    margin-right: toRem(5);
 }
 .paid-detail {
     @include display-flex();
     flex-direction: column;
-    width: 335px;
-    height: 364px;
+    width: toRem(335);
+    height: toRem(364);
     background-color: $order__detail-bg;
-    /* opacity init in color ⇑ */
-    border-radius: 10px;
-    margin-top: 38px;
-    margin-bottom: 24px;
-    margin-left: 38px;
-    padding-top: 23px;
-    /* border: 1px solid blue; */
+    border-radius: toRem(10);
+    margin-top: toRem(38);
+    margin-bottom: toRem(24);
+    margin-left: toRem(38);
+    padding-top: toRem(23);
 }
 .order-detail {
     @include display-flex();
     flex-direction: row;
     justify-content: space-between;
-    /* border: 1px solid blue; */
-    margin: 18px 0;
-    padding: 0 38px;
+    margin: toRem(18) 0;
+    padding: 0 toRem(38);
 }
 .order-code__title::before {
     content: "\e896";
     @include font-icon__limoo();
     color: $gray;
-    margin-left: 8px;
+    margin-left: toRem(8);
     line-height: 1em;
     align-self: center;
-    /* transform: rotate(30deg); for test*/
 }
-/* .order-code__title:hover::before {
-    color: $yellow;
-                                 for test 
-   
-} */
+
 .order-code {
     &__value,
     &__title {
         @include display-flex();
         flex-direction: row;
         width: 40%;
-        /* border: 1px solid red; */
         justify-self: flex-start;
-        font-size: 14px;
+        font-size: toRem(14);
         line-height: 140.62%;
         color: $black-topic;
     }
@@ -237,14 +225,13 @@ export default {
     @include display-flex();
     flex-direction: row;
     justify-self: flex-start;
-    /* border: 1px solid red; */
     width: 40%;
 }
 .order-price__title::before {
     content: "\e897";
     @include font-icon__limoo();
     color: $gray;
-    margin-left: 8px;
+    margin-left: toRem(8);
     line-height: 1em;
     align-self: center;
 }
@@ -252,7 +239,7 @@ export default {
     content: "\e804";
     @include font-icon__limoo();
     color: $gray;
-    margin-left: 8px;
+    margin-left: toRem(8);
     line-height: 1em;
     align-self: center;
 }
@@ -260,7 +247,7 @@ export default {
     content: "\e898";
     @include font-icon__limoo();
     color: $gray;
-    margin-left: 8px;
+    margin-left: toRem(8);
     line-height: 1em;
     align-self: center;
 }
@@ -268,13 +255,13 @@ export default {
     &__value,
     &__toman,
     &__title {
-        font-size: 14px;
+        font-size: toRem(14);
         line-height: 140.62%;
         color: $black-topic;
     }
 }
 .order-price__toman {
-    margin-right: 4px;
+    margin-right: toRem(4);
 }
 .order-date__title,
 .order-date__jalali,
@@ -283,9 +270,8 @@ export default {
     @include display-flex();
     flex-direction: row;
     justify-self: flex-start;
-    /* border: 1px solid red; */
     width: 40%;
-    font-size: 14px;
+    font-size: toRem(14);
     line-height: 140.62%;
     color: $black-topic;
 }
@@ -294,82 +280,75 @@ export default {
     @include display-flex();
     align-items: center;
     justify-content: center;
-    width: 270px;
-    height: 57px;
+    width: toRem(270);
+    height: toRem(57);
     color: $white;
     background-color: $btn__green;
-    font-size: 16px;
+    font-size: toRem(16);
     text-align: center;
     line-height: 140.62%;
     font-family: inherit;
-    border-radius: 10px;
+    border-radius: toRem(10);
     text-decoration: none;
-    margin: 41px auto 19px auto;
+    margin: toRem(41) auto toRem(19) auto;
 }
 .btn-mobile__order-detail,
 .p-history-product-line {
     display: none;
 }
-@media (max-width: 1220px) {
+@include lg {
     .paid-detail {
-        width: 320px;
-        margin-left: 10px;
-        padding-top: 13px;
+        width: toRem(320);
+        margin-left: toRem(10);
+        padding-top: toRem(13);
     }
     .paid-order {
-        margin: 5px 10px;
+        margin: toRem(5) toRem(10);
     }
     .order-situation__title,
     .order-date__title,
     .order-code__title,
     .order-price__title {
-        font-size: 13px;
+        font-size: toRem(13);
     }
     .order-detail {
         justify-content: center;
-        margin: 18px 0;
-        padding: 0 20px;
+        margin: toRem(18) 0;
+        padding: 0 toRem(20);
     }
     .paid-order-product-img {
-        width: 60px;
-        height: 60px;
+        width: toRem(60);
+        height: toRem(60);
     }
     .p-history-product-content-title,
     .p-history-product-content-price-title {
-        font-size: 14px;
+        font-size: toRem(14);
     }
     .p-history-product-btn-link {
-        font-size: 15px;
+        font-size: toRem(15);
     }
     .p-history-product-btn-link {
-        width: 250px;
+        width: toRem(250);
     }
 }
-@media (max-width: 960px) {
+@include md {
     .user-canceled__empty-container {
         display: none;
     }
     .paid-progress {
-        /* @include display-flex(); */
         flex-direction: column-reverse;
-        /* justify-content: space-between; */
         margin-top: 0;
-        /* width: 100%; */
-        /* background: $white;
-        height: max-content;*/
-        border-radius: 0px;
-        /* border: 1px solid blue; */
+        border-radius: 0;
     }
     .paid-progress:last-of-type {
-        border-bottom-left-radius: 10px;
-        border-bottom-right-radius: 10px;
+        border-bottom-left-radius: toRem(10);
+        border-bottom-right-radius: toRem(10);
     }
     .mobile-paid-holder {
         @include display-flex();
         flex-direction: row;
         justify-content: space-between;
-        padding: 0 15px 0 8px;
-        /* border: 1px solid blue; */
+        padding: 0 toRem(15) 0 toRem(8);
     }
     .paid-detail {
         @include display-flex();
@@ -377,13 +356,10 @@ export default {
         width: 100%;
         height: fit-content;
         background-color: transparent;
-        /* opacity init in color ⇑ */
-        /* border-radius: 10px; */
-        margin-top: 0px;
-        margin-bottom: 0px;
-        margin-left: 0px;
-        padding: 11px 15px 0 15px;
-        /* border: 1px solid blue; */
+        margin-top: 0;
+        margin-bottom: 0;
+        margin-left: 0;
+        padding: toRem(11) toRem(15) 0 toRem(15);
     }
     .p-history-product-btn-link,
     .order-situation,
@@ -393,11 +369,11 @@ export default {
     .btn-mobile__order-detail {
         align-self: flex-end;
         display: block;
-        font-size: 13px;
+        font-size: toRem(13);
         line-height: 140.62%;
         color: $gray;
-        margin-bottom: 14px;
-        margin-right: 4px;
+        margin-bottom: toRem(14);
+        margin-right: toRem(4);
         text-decoration: none;
         white-space: nowrap;
     }
@@ -407,26 +383,24 @@ export default {
         line-height: 1em;
         color: $yellow;
         vertical-align: middle;
-        font-size: 18px;
-        margin-left: 8px;
+        font-size: toRem(18);
+        margin-left: toRem(8);
     }
     .order-detail {
         justify-content: flex-start;
-        /* border: 1px solid blue; */
-        margin: 5px 0;
-        padding: 0 5px;
+        margin: toRem(5) 0;
+        padding: 0 toRem(5);
     }
     .order-code {
         order: 1;
         &__value {
-            margin-right: 4px;
+            margin-right: toRem(4);
         }
         &__value,
         &__title {
             width: fit-content;
-            /* border: 1px solid red; */
             justify-self: flex-start;
-            font-size: 13px;
+            font-size: toRem(13);
             color: $black-topic;
         }
         &__title::before {
@@ -434,18 +408,15 @@ export default {
         }
     }
     .order-date {
-        /* order: 1; */
         &__title,
         &__jalali {
             justify-self: flex-start;
-            /* border: 1px solid red; */
             width: fit-content;
-            font-size: 13px;
-
+            font-size: toRem(13);
             color: $black-topic;
         }
         &__jalali {
-            margin-right: 4px;
+            margin-right: toRem(4);
         }
         &__title::before {
             content: "";
@@ -458,72 +429,69 @@ export default {
         width: 55%;
         margin: 0;
         height: fit-content;
-        /* border: 1px solid red; */
-        padding-right: 11px;
+        padding-right: toRem(11);
     }
     .p-history-product-content-title,
     .p-history-product-content-price {
         display: none;
     }
     .paid-order-product-img {
-        width: 40px;
-        height: 40px;
-        margin-left: 5px;
-        border: 1px solid $gray-border;
-        border-radius: 5px;
+        width: toRem(40);
+        height: toRem(40);
+        margin-left: toRem(5);
+        border: toRem(1) solid $gray-border;
+        border-radius: toRem(5);
     }
     .paid-order {
         @include display-flex();
         flex-direction: row;
-        /* border: 1px solid red; */
         height: fit-content;
         margin: 0;
-        margin-top: 8px;
+        margin-top: toRem(8);
         align-items: center;
         padding: 0;
     }
     .p-history-product-line {
         @include display-flex();
         background: $gray-border;
-
-        height: 1px;
+        height: toRem(1);
     }
 }
-@media (max-width: 700px) {
+@include sm {
     .mobile-paid-holder {
         padding: 0;
     }
     .paid-detail {
-        padding: 11px 0 0 0;
+        padding: toRem(11) 0 0 0;
     }
 }
-@media (max-width: 350px) {
+@include xxs {
     .paid-container {
         width: fit-content;
-        padding-right: 5px;
+        padding-right: toRem(5);
     }
     .paid-order-product-img {
-        margin-left: 1px;
+        margin-left: toRem(1);
     }
     .btn-mobile__order-detail {
-        font-size: 12px;
-        margin-right: 1px;
+        font-size: toRem(12);
+        margin-right: toRem(1);
     }
     .btn-mobile__order-detail::after {
-        font-size: 15px;
-        margin-left: 7px;
+        font-size: toRem(15);
+        margin-left: toRem(7);
     }
 }
-@media (max-width: 280px) {
+@include xxxs {
     .paid-container {
-        padding-right: 2px;
+        padding-right: toRem(2);
     }
 
     .btn-mobile__order-detail {
-        font-size: 11px;
+        font-size: toRem(11);
     }
     .btn-mobile__order-detail::after {
-        margin-left: 2px;
+        margin-left: toRem(2);
     }
 }
 </style>

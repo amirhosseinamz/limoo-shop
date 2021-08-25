@@ -82,7 +82,7 @@
 
 <script>
 import { getTextByTextKey } from "~/modules/splitPartJsonResource.js";
-import textInput from "~/modules/textInput";
+import textInput from "~/components/UI/textInput";
 
 export default {
   props: {

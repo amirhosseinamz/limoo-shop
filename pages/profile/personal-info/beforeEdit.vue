@@ -162,7 +162,6 @@ import TheProfileSideBar from "~/components/Profile/TheProfileSideBar.vue";
 import TheProfilePassModal from "~/components/Profile/PersonalInfo/TheProfilePassModal.vue";
 import TheDateDropdown from "~/components/Profile/PersonalInfo/TheDateDropdown.vue";
 import { getTextByTextKey } from "~/modules/splitPartJsonResource.js";
-import textInput from "~/modules/textInput";
 
 export default {
   middleware: "authentication",

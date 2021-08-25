@@ -382,7 +382,7 @@ export default {
   display: none;
 }
 
-@media (max-width: 960px) {
+@include md{
   .shipping-btn__right .cart-detail__right-title {
     font-size: toRem(13);
   }
@@ -473,7 +473,7 @@ export default {
   }
 }
 
-@media (max-width: 768px) {
+@include sm {
   .cart-detail__right {
     .cart-detail__coin::after {
       font-size: toRem(15);

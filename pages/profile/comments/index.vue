@@ -101,17 +101,16 @@ export default {
 .profile-container {
   margin: 0 auto;
   width: 100%;
-  max-width: 1920px;
+  max-width: toRem(1920);
   min-height: 100vh;
   display: flex;
   flex-direction: row-reverse;
 }
 .user-profile__holder {
-  margin: 166px 0 50px 17px;
+  margin: toRem(166) 0 toRem(50) toRem(17);
   width: 100%;
   min-height: 100vh;
   height: max-content;
-  /* border: 5px solid #2f0404; */
 }
 .user-profile {
   width: 100%;
@@ -119,19 +118,17 @@ export default {
   height: max-content;
   @include display-flex();
   flex-direction: column;
-  /* justify-content: center; */
   align-items: center;
   text-align: center;
   background: $white;
-  border-radius: 10px;
-  box-shadow: 0px 8px 16px $box__shadow;
-  /* border: 1px solid #f00808; */
+  border-radius: toRem(10);
+  box-shadow: 0 toRem(8) toRem(16) $box__shadow;
   &__topic {
-    font-size: 18px;
+    font-size: toRem(18);
     line-height: 140.62%;
     color: $black-topic;
     align-self: flex-end;
-    margin: 23px 25px 34px 0;
+    margin: toRem(23) toRem(25) toRem(34) 0;
   }
 }
 .splicer-line {
@@ -141,13 +138,8 @@ export default {
   text-align: right;
 }
 
-@media (max-width: 1450px) {
-}
 
-@media (max-width: 1220px) {
-}
-
-@media (max-width: 960px) {
+@include md {
   .desktop-screen {
     display: none;
   }
@@ -158,60 +150,55 @@ export default {
       flex-direction: row-reverse;
       justify-content: space-between;
       align-items: center;
-      height: 56px;
+      height: toRem(56);
       background: $white;
-      margin-top: 47px;
+      margin-top: toRem(47);
       &-txt {
-        font-size: 14px;
+        font-size: toRem(14);
         line-height: 140.62%;
-        margin-right: 16px;
+        margin-right: toRem(16);
         color: $black-topic;
       }
       &-arrow {
-        margin-left: 16px;
+        margin-left: toRem(16);
       }
       &-arrow::before {
         content: "\e801";
         @include font-icon__limoo();
-        font-size: 14px;
+        font-size: toRem(14);
         color: $input-border;
-        margin-right: 4px;
-        margin-left: 8px;
+        margin-right: toRem(4);
+        margin-left: toRem(8);
       }
     }
   }
   .profile-container {
     @include display-flex();
     flex-direction: column;
-    margin-bottom: 58px;
+    margin-bottom: toRem(58);
   }
   .user-profile__holder {
-    margin: 8px 0;
-    padding: 0 16px;
+    margin: toRem(8) 0;
+    padding: 0 toRem(16);
   }
   .user-profile {
     background: transparent;
-    box-shadow: 0px 8px 16px transparent;
+    box-shadow: 0 toRem(8) toRem(16) transparent;
     &__topic {
       display: none;
     }
   }
 }
 
-@media (max-width: 600px) {
+@include sm {
   .user-profile {
     background: none;
     border: none;
     box-shadow: none;
   }
   .user-profile__holder {
-    padding: 0 5px;
+    padding: 0 toRem(5);
   }
 }
 
-@media (max-width: 350px) {
-}
-
-@media (max-width: 320px) {
-}
 </style>

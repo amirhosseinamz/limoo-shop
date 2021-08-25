@@ -608,7 +608,7 @@ export default {
     width: 100%;
     color: $gray;
     box-sizing: border-box;
-    box-shadow: 0px 4px 4px $gray-border;
+    box-shadow: 0 toRem(4) toRem(4) $gray-border;
     border: 1px solid $input-border;
     padding: 0 5px;
     background: $white;
@@ -647,27 +647,24 @@ export default {
     color: $mid_gray;
 }
 .p-birthday-select-box-search {
-    border-radius: 4px;
+    border-radius: toRem(4);
     background: $white;
-    border: 1px solid $gray-border;
+    border: toRem(1) solid $gray-border;
     color: $mid-dark_gray;
-    /* font-size: 14px; */
     font-family: inherit;
     font-size: 1rem;
     line-height: 1.571;
-    padding: 11px 12px;
+    padding: toRem(11) toRem(12);
     outline: none;
-    /* margin: 5px; */
-    margin-bottom: 5px;
+    margin-bottom: toRem(5);
     max-width: 100%;
-    max-height: 40px;
+    max-height: toRem(40);
 }
 .p-birthday-select-box-overflow {
     overflow: auto;
-    height: 145px;
+    height: toRem(145);
 }
-/* .birthday-item-selected-arrow {
-} */
+
 /* ======================== */
 .birthday-item-selected-arrow::before {
     @include display-flex();
@@ -676,8 +673,8 @@ export default {
     font-size: 12px;
     color: $input-border;
     transform: rotate(-90deg);
-    margin-right: 4px;
-    margin-left: 8px;
+    margin-right: toRem(4);
+    margin-left: toRem(8);
 }
 
 .birthday-active .birthday-item-selected-arrow::before {
@@ -686,13 +683,12 @@ export default {
 .birthday-item-icons {
     position: absolute;
     top: 0;
-    left: -5px;
+    left: toRem(-5);
     height: 100%;
     align-items: center;
     display: flex;
 }
 .birthday-item-main {
-    // width: 91px;
     @include display-flex();
 }
 .birthday-active .birthday-item__days {
@@ -702,12 +698,9 @@ export default {
 }
 
 .birthday-item-content {
-    width: 91px;
+    width: toRem(91);
 }
 
-/* .item-year {
-  width: 190px;
-} */
 
 .item-year .birthday-item-content {
     width: 150px;
@@ -715,31 +708,31 @@ export default {
 .item-year .birthday-item__days {
     width: 100%;
 }
-@media (max-width: 1220px) {
+@include lg {
     .birthday-item-content,
     .item-day .birthday-item__days,
     .p-birthday-select-box {
-        width: 74px;
+        width: toRem(74);
     }
     .item-year .birthday-item-content,
     .item-year .p-birthday-select-box {
-        width: 140px;
+        width: toRem(140);
     }
-    /*  */
+
     .birthday {
         &-item {
             &__days,
             &__months,
             &__years {
-                width: 74px;
+                width: toRem(74);
             }
             &__years {
-                width: 120px;
+                width: toRem(120);
             }
         }
     }
 }
-@media (max-width: 960px) {
+@include md {
     .p-birthday-select-box-search {
         font-size: 13px;
     }
@@ -780,43 +773,43 @@ export default {
         }
     }
 }
-@media (max-width: 700px) {
+@include sm {
     .birthday-item-content,
     .item-day .birthday-item__days,
     .p-birthday-select-box {
-        width: 110px;
+        width: toRem(110);
     }
     .item-year .birthday-item-content,
     .item-year .p-birthday-select-box {
-        width: 140px;
+        width: toRem(140);
     }
     .birthday {
         &-title {
-            font-size: 14px;
+            font-size: toRem(14);
         }
         &-item {
             &__days,
             &__months,
             &__years {
-                font-size: 13px;
-                height: 46px;
-                width: 110px;
+                font-size: toRem(13);
+                height: toRem(46);
+                width: toRem(110);
                 &-select {
-                    font-size: 13px;
-                    padding: 5px;
+                    font-size: toRem(13);
+                    padding: toRem(5);
                     padding-right: 20%;
                 }
             }
             &__years {
-                width: 120px;
+                width: toRem(120);
             }
             &__spliter {
-                height: 15px;
+                height: toRem(15);
             }
         }
     }
 }
-@media (max-width: 530px) {
+@include xs {
     .birthday-item-content,
     .item-day .birthday-item__days,
     .p-birthday-select-box {
@@ -838,7 +831,7 @@ export default {
         }
     }
 }
-@media (max-width: 350px) {
+@include xxs {
     .birthday-item-content,
     .item-day .birthday-item__days,
     .p-birthday-select-box {
@@ -870,7 +863,7 @@ export default {
         }
     }
 }
-@media (max-width: 280px) {
+@include xxxs {
     .birthday-item-content,
     .item-day .birthday-item__days,
     .p-birthday-select-box {

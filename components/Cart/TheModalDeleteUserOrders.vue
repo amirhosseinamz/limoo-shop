@@ -91,7 +91,7 @@ export default {
   transition: all 120ms ease-in;
 }
 
-@media (max-width: 768px) {
+@include sm{
   .modal-container::v-deep {
     .modal {
       width: toRem(340);
@@ -111,7 +111,7 @@ export default {
   }
 }
 
-@media (max-width: 460px) {
+@include xs {
   .modal-container::v-deep {
     .modal {
       width: toRem(318);
@@ -133,7 +133,7 @@ export default {
     height: toRem(41.7);
   }
 }
-@media (max-width: 320px) {
+@include xxs {
   .modal-container::v-deep {
     .modal {
       width: toRem(270);
