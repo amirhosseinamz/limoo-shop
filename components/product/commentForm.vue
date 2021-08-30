@@ -241,12 +241,12 @@ export default {
     checkErrorCommentText(e, submitValue) {
       const value = e.target.value;
 
-      if (value != "") {
+      if (value !== "") {
         if (this.isNotEmpty(value)) {
           this.showErrorCommentText = false;
         }
 
-        if (value.length == 450) {
+        if (value.length === 450) {
           this.showErrorCommentText = true;
           this.errorCommentText = this.getTextByTextKey(
             "address_validation_over_limit"
@@ -260,12 +260,12 @@ export default {
     checkErrorCommentTitle(e, submitValue) {
       const value = e.target.value;
 
-      if (value != "") {
+      if (value !== "") {
         if (this.isNotEmpty(value)) {
           this.showErrorCommentTitle = false;
         }
 
-        if (value.length == 20) {
+        if (value.length === 20) {
           this.showErrorCommentTitle = true;
           this.errorCommentTitle = this.getTextByTextKey(
             "address_validation_over_limit"
@@ -385,30 +385,7 @@ export default {
   }
 }
 
-@media (max-width: 1600px) {
-  .comment__suggest-btns {
-    margin-top: toRem(17);
-  }
-  .comment__form-main {
-    padding-top: toRem(25);
-  }
-  .comment__suggest-main {
-    margin-top: 0;
-  }
-  .comment__form-item {
-    //margin-bottom: toRem(20);
-  }
-  .comment__form-main::v-deep {
-    .comment__form-title {
-      margin-bottom: toRem(9);
-    }
-    .comment__textara-item {
-      height: toRem(100);
-    }
-  }
-}
-
-@media (max-width: 760px) {
+@include sm {
   .comment__form-main::v-deep {
     .comment__suggest-item {
       font-size: toRem(14);
@@ -425,13 +402,11 @@ export default {
   }
   .comment__suggest-title {
     font-size: toRem(14);
-    //margin-bottom: toRem(18);
   }
   .comment__suggest-text {
     font-size: toRem(14);
   }
   .comment__suggest-main {
-    //margin-top: toRem(24);
   }
   .comment__suggest-item {
     margin-bottom: toRem(16);

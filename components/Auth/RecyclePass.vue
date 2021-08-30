@@ -1,16 +1,15 @@
 <template>
   <div class="recycle-container">
-    <div class="card">
-      <div class="signup-close-btn">
+    <authentication-card class="card">
+      <template #top-icon>
         <button @click="nextPage" class="app-signup-close-btn"></button>
-      </div>
-
-      <div class="card-body">
+      </template>
+      <template #card-title class="txt-header">
+        {{ getTextByTextKey("auth_password_recovery") }}
+      </template>
+      <template #card-body>
         <form @submit.prevent="goToNextStepofRecyclePass">
           <div class="form-group">
-            <p class="txt-header">
-              {{ getTextByTextKey("auth_password_recovery") }}
-            </p>
             <text-input
               class="user--item user-profile__info-pass"
               labelNameClass=""
@@ -50,13 +49,13 @@
           </div>
 
           <div class="btn-control">
-              <base-button classes="signup-btn" button-type="submit" base-color="yellow" no-box-shadow :disabled="btnIsDisabled">
-                {{ getTextByTextKey("home_blog_single_more") }}
-              </base-button>
+            <base-button classes="signup-btn" button-type="submit" base-color="yellow" no-box-shadow :disabled="btnIsDisabled">
+              {{ getTextByTextKey("home_blog_single_more") }}
+            </base-button>
           </div>
         </form>
-      </div>
-    </div>
+      </template>
+    </authentication-card>
   </div>
 </template>
 
@@ -136,36 +135,23 @@ export default {
 }
 .signup-input-wrong,
 .signup-input {
-  margin-right: 24px;
+  margin-right: toRem(24);
 }
 .signup-btn {
   font-family: inherit;
-  font-size: 18px;
-  height: 58px;
-  width: 463px;
+  font-size: toRem(18);
+  height: toRem(58);
+  width: 100%;
 }
 .card {
-  @include display-flex();
-  flex-direction: column;
-  justify-content: space-around;
-  width: 642px;
-  height: 524px;
-  background-color: $white;
-  box-shadow: 0px 8px 16px $box__shadow;
-  border-radius: 15px;
-}
-
-.signup-close-btn {
-  @include display-flex();
-  justify-content: flex-start;
-  width: 30px;
-  height: 30px;
-  margin-top: 24px;
+  width: 45%;
+  height: fit-content;
+  padding: 0 4%;
 }
 .app-signup-close-btn::before {
   content: "\e801";
   @include font-icon__limoo();
-  font-size: 24px;
+  font-size: toRem(24);
   color: $black-icon;
 }
 .form-control {
@@ -173,16 +159,16 @@ export default {
   font-family: inherit;
 }
 .signup-btn {
-  margin-bottom: 126px;
+  margin-bottom: toRem(100);
 }
 .err-text {
   font-family: inherit;
-  font-size: 13px;
+  font-size: toRem(13);
   text-align: right;
   color: $alert-red;
   line-height: 140.62%;
-  margin-right: 90px;
-  margin-bottom: 18px;
+  margin-right: toRem(90);
+  margin-bottom: toRem(18);
 }
 .btn-control {
   @include display-flex();
@@ -193,20 +179,13 @@ export default {
 .min-display {
   display: none;
 }
-.txt-header {
-  font-size: 24px;
-  line-height: 33.75px;
-  font-weight: 400;
-  text-align: right;
-  margin: 77px 90px 33px 0;
-}
 .txt-content {
-  font-size: 16px;
-  line-height: 22.5px;
+  font-size: toRem(16);
+  line-height: toRem(22.5);
   font-weight: 400;
   text-align: right;
-  margin-bottom: 25px;
-  margin-right: 90px;
+  margin-bottom: toRem(25);
+  margin-right: 0;
 }
 
 .recycle-container::v-deep {
@@ -214,9 +193,7 @@ export default {
     @extend .txt-content;
   }
   .input-holder {
-    @extend .input-holder;
-    margin-right: auto;
-    margin-left: auto;
+    width: 100%;
   }
   .form__main--item {
     justify-content: center;
@@ -229,180 +206,45 @@ export default {
     background: $bg_festival_counrer_down;
   }
   .signup-input {
-    padding-right: 24px;
+    padding-right: toRem(24);
+  }
+}
+@include xl {
+  .card {
+    width: 55%;
+    padding: 0 5%;
+  }
+}
+@include md {
+  .card {
+    width: 70%;
+    padding: 0 6%;
   }
 }
 
-@media screen and (max-width: 540px) {
+@include sm {
   .card {
-    width: 360px;
-    height: 100vh;
-    border-radius: 0;
+      width: 85%;
+      padding: 0 7%;
   }
+}
 
-  .signup-input {
-    margin-right: 16px;
-    margin-left: 16px;
-    width: 328px;
-    height: 60px;
-    margin-bottom: 8px;
-    &-wrong {
-      margin-right: 16px;
-      margin-left: 16px;
-      width: 328px;
-      height: 60px;
-      margin-bottom: 8px;
-    }
-  }
-
-  .input-holder {
-    padding: 0;
-    width: 328px;
-    height: 60px;
-    margin-bottom: 8px;
-    &-wrong {
-      margin-right: 16px;
-      margin-left: 16px;
-      width: 328px;
-      height: 60px;
-      margin-bottom: 8px;
-    }
-  }
-
-  .signup-btn {
-    margin-top: 15px;
-    width: 328px;
-    margin-bottom: 184px;
-  }
-  .txt-header {
-    font-size: 20px;
-    line-height: 140.62%;
-    width: 328px;
-    margin: 120px 16px 33px 16px;
+@include xs {
+  .card {
+    width: 100%;
+    padding: 0 10%;
+    height: 100%;
   }
   .err-text {
-    margin-right: 16px;
+    margin-right: toRem(16);
   }
   .recycle-container::v-deep {
     .signup-input {
-      width: 328px;
-      height: 60px;
-      margin-bottom: 8px;
-      padding-right: 16px;
-      padding-left: 16px;
+      height: toRem(60);
+      margin-bottom: toRem(8);
     }
     .txt-content {
-      font-size: 14px;
-      width: 328px;
-      margin-right: 16px;
-      margin-left: 16px;
-    }
-  }
-}
-@media screen and (max-width: 350px) {
-  .signup-input {
-    margin-right: 10px;
-    margin-left: 10px;
-    width: 280px;
-    margin-bottom: 42px;
-    &-wrong {
-      margin-right: 10px;
-      margin-left: 10px;
-      width: 280px;
-      margin-bottom: 42px;
-    }
-  }
-
-  .input-holder {
-    padding: 0;
-    width: 280px;
-    height: 60px;
-    margin-bottom: 8px;
-    &-wrong {
-      margin-right: 10px;
-      margin-left: 10px;
-      width: 280px;
-      height: 60px;
-      margin-bottom: 8px;
-    }
-  }
-
-  .signup-btn {
-    width: 280px;
-  }
-  .txt-header {
-    font-size: 20px;
-    line-height: 140.62%;
-    width: 280px;
-    margin-right: auto;
-    margin-left: auto;
-  }
-
-  .recycle-container::v-deep {
-    .input-holder {
-      margin-right: auto;
-      margin-left: auto;
-    }
-    .signup-input {
-      margin-right: 5px;
-      margin-left: 5px;
-      width: 270px;
-      padding-right: 16px;
-    }
-    .txt-content {
-      width: 280px;
-    }
-  }
-  .card {
-    width: auto;
-  }
-}
-@media screen and (max-width: 321px) and (min-width: 299px) {
-  .card {
-    @include display-flex();
-    flex-direction: column;
-    justify-content: space-between;
-  }
-}
-@media screen and (max-width: 280px) {
-  .signup-input,
-  .signup-input-wrong {
-    margin-right: 5px;
-    margin-left: 5px;
-    width: 270px;
-    margin-bottom: 42px;
-    padding-right: 16px;
-  }
-  .input-holder,
-  .input-holder-wrong {
-    margin-right: 5px;
-    margin-left: 5px;
-    width: 270px;
-    margin-bottom: 8px;
-    padding-right: 0;
-  }
-  .signup-btn {
-    width: 270px;
-  }
-  .txt-header {
-    font-size: 20px;
-    line-height: 140.62%;
-    width: 270px;
-  }
-  .txt-content {
-    width: 270px;
-    margin-right: 23px;
-  }
-  .recycle-container::v-deep {
-    .input-holder {
-      margin-right: auto;
-      margin-left: auto;
-    }
-    .signup-input {
-      margin-right: 5px;
-      margin-left: 5px;
-      width: 270px;
-      padding-right: 16px;
+      font-size: toRem(14);
     }
   }
 }

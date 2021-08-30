@@ -75,7 +75,6 @@ export default {
       deep: true,
       handler(val) {
         if (val) {
-          console.log('nooooooooooooooow');
           setTimeout(() => {
             this.flickityOptions();
           }, 100);
@@ -117,7 +116,7 @@ export default {
           const getIdCurrentImg = event.target.getAttribute("data-id");
 
           this.productSlider.map((content) => {
-            if (content.id == getIdCurrentImg) {
+            if (content.id === getIdCurrentImg) {
               this.activePicSelected(content);
             }
           });
@@ -150,13 +149,13 @@ export default {
     .product__modal-close::after {
       content: "\e807";
       @include font-icon__limoo();
-      font-size: 30px;
+      font-size: toRem(30);
       color: $color-gray;
       cursor: pointer;
     }
     .product__modal-close {
-      width: 30px;
-      height: 30px;
+      width: toRem(30);
+      height: toRem(30);
       cursor: pointer;
     }
     .product__modal-text {
@@ -165,23 +164,23 @@ export default {
       flex-wrap: wrap;
     }
     .product__modal-title {
-      font-size: 18px;
+      font-size: toRem(18);
       color: $black;
       font-weight: 400;
       flex-grow: 1;
-      min-height: 27px;
+      min-height: toRem(27);
     }
     .product__modal {
-      padding-top: 24px;
+      padding-top: toRem(24);
     }
     .product__modal-line {
-      margin-bottom: 24px;
-      margin-top: 16px;
+      margin-bottom: toRem(24);
+      margin-top: toRem(16);
     }
     .product__modal-line {
       background: $gray-border;
       width: 100%;
-      height: 1px;
+      height: toRem(1);
       @include display-flex();
     }
     .product__modal-top {
@@ -191,8 +190,8 @@ export default {
     .product__modal-item {
       @include display-flex();
       align-content: center;
-      border: solid 1px $light-gray;
-      border-radius: 10px;
+      border: solid toRem(1) $light-gray;
+      border-radius: toRem(10);
     }
     .product__modal-container {
       padding-right: 50px;
@@ -203,15 +202,15 @@ export default {
       flex-wrap: wrap;
     }
     .product--modal_pic-item {
-      width: 514px;
-      height: 514px;
+      width: toRem(514);
+      height: toRem(514);
       margin-right: auto;
       margin-left: auto;
-      padding: 11px;
+      padding: toRem(11);
     }
     .carousel-cell {
-      width: 87px;
-      height: 87px;
+      width: toRem(87);
+      height: toRem(87);
       border: solid 1px $light-gray;
       margin-left: 7px;
       border-radius: 10px;
@@ -232,7 +231,7 @@ export default {
 }
 
 
-@media (max-width: 1366px) {
+@include xl {
   .modal-container::v-deep {
     .modal {
       width: 900px;
@@ -242,7 +241,7 @@ export default {
     }
   }
 }
-@media (max-width: 960px) {
+@include md {
   .modal-container::v-deep {
     .modal {
       width: 760px;
@@ -250,7 +249,7 @@ export default {
   }
 }
 
-@media (max-width: 768px) {
+@include sm {
   .modal-container::v-deep {
     .modal {
       .p-profile-history-title {
@@ -265,7 +264,7 @@ export default {
 
 }
 
-@media (max-width: 460px) {
+@include xs {
   .modal-container::v-deep {
     .modal {
       .p-product-btn {

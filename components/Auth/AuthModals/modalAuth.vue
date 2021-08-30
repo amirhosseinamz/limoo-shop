@@ -9,12 +9,12 @@
       @btn-close-modal="modalClose"
       @btn-go-to-signup-step-two="gotoSignUpStepTwo"
       @btn-go-to-signin-step-one="gotoSignInStepone"
-      v-if="false"
+      v-if="SignUpStepOne"
     />
     <modalSignUpStepTwo
       @btn-go-back-signup-step-one="gotoSignUpStepOne"
       @event-show-modal-wellcome="showWellcomeModal"
-      v-else-if="true"
+      v-else-if="SignUpStepTwo"
     />
     <modalSignInStepOne
       @btn-go-back-signup-step-one="gotoSignUpStepOne"

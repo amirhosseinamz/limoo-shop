@@ -22,15 +22,12 @@
           </div>
 
           <sliderSingleProduct :products="productSliderMobile"></sliderSingleProduct>
-          <!-- <productTools></productTools> -->
           <productDetail :product-data="productData"></productDetail>
         </div>
       </div>
     </div>
 
     <div class="tab--content product__single-content w-100">
-<!--      <product-tab :product-tab="introductionAndDetailTechnicalTab"
-                   :product-data="productDetailTechnical"></product-tab>-->
       <base-tabs
         :tabs="tabsNames"
         :selected="selected"
@@ -71,9 +68,7 @@
 <script>
 import productPic from "./productPic";
 import productDetail from "./productDetail";
-import productTools from "./productTools";
 import sliderSingleProduct from "./sliderSingleProduct";
-import productTab from "./productTab";
 import commentQuestionMain from "./commentQuestionMain";
 import FullPresentation from "./fullPresentation";
 import DetailTechnical from "./detailTechnical";
@@ -94,9 +89,7 @@ export default {
     FullPresentation,
     productPic,
     productDetail,
-    productTools,
     sliderSingleProduct,
-    productTab,
     commentQuestionMain,
   },
 
@@ -131,12 +124,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-/*
-.tabs {
-  @include display-flex();
-  align-content: flex-start;
-  flex-flow: column;
-}*/
 .tabs__main {
   width: 100%;
   @include display-flex();
@@ -230,14 +217,11 @@ export default {
   padding: 0 toRem(24);
 }
 .tab--content:nth-child(2) {
-  padding-right: 0;
-  padding-left: 0;
-  padding-bottom: toRem(24);
-  padding-top: toRem(24);
+  padding: toRem(24) 0;
 }
 
 
-@media (max-width: 1300px) {
+@include lg {
   .product__top-title {
     font-size: toRem(17);
   }
@@ -249,10 +233,7 @@ export default {
   }
 }
 
-@media (max-width: 1200px) {
-}
-
-@media (max-width: 960px) {
+@include md {
   .product__single {
     margin-top: toRem(8);
   }
@@ -262,7 +243,7 @@ export default {
   }
 }
 
-@media (max-width: 760px) {
+@include sm {
   .tab--content::v-deep {
     .tabs__main {
       display: none;

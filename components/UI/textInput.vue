@@ -14,7 +14,7 @@
     <div
       class="w-100"
       :class="{ 'show--error': showError }"
-      v-if="state == 'standard'"
+      v-if="state === 'standard'"
     >
       <!-- <h3  :class="inputNameClass" class="txt-content">
         {{ labelText }}
@@ -26,7 +26,7 @@
       </h3>
 
       <div class="w-100">
-        <div v-if="tagHtml == 'input'" class="search-section__items">
+        <div v-if="tagHtml === 'input'" class="search-section__items">
           <input
             class="search-section__input"
             :class="inputNameClass"

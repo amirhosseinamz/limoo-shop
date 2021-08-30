@@ -189,7 +189,7 @@ export default {
             )
             .then((result) => {
               // console.log(result);
-              if (result.response_code == 1) {
+              if (result.response_code === 1) {
                 this.$store.dispatch({
                   type: "userIsAuth",
                   value: true,
@@ -198,7 +198,7 @@ export default {
                 this.$store.commit("PhoneNumber", { value: "" });
                 this.$emit("event-show-modal-wellcome");
                 // console.log(result.token);
-              } else if (result.response_code == 2222) {
+              } else if (result.response_code === 2222) {
                 this.confirmCodeIsWrong = true;
                 setTimeout(() => {
                   this.confirmCodeIsWrong = false;
@@ -229,7 +229,7 @@ export default {
         )
         .then((result) => {
           // console.log(result.response_code);
-          if (result.response_code == 2208) {
+          if (result.response_code === 2208) {
             this.startAgainTimer++;
 
             this.countdownTimer(2, 60);

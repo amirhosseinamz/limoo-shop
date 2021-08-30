@@ -89,7 +89,6 @@ export default {
       showFilterModal: false,
       showSortModal: false,
       activeBlur: false,
-      alll: false,
     };
   },
   computed: {
@@ -111,13 +110,6 @@ export default {
   },
 
   mounted() {
-    setTimeout(() => {
-      console.log('jj dar');
-      this.alll = true
-    }, 3000);
-    setTimeout(() => {
-      this.alll = false
-    }, 6000);
     if (this.categorySuggestion.length !== 0) {
       this.allCategorySuggestion = this.categorySuggestion;
     }
@@ -186,7 +178,7 @@ export default {
 }
 
 .active--blur {
-  filter: blur(2px);
+  filter: blur(toRem(2));
   overflow: hidden;
 }
 
@@ -194,13 +186,13 @@ export default {
   li {
     &.active {
       button {
-        border: 2px solid $orange;
+        border: toRem(2) solid $orange;
       }
     }
   }
 }
 .buttons__example {
-  margin-bottom: 100px;
+  margin-bottom: toRem(100);
 }
 .products__filter-btns {
   @include display-flex();
@@ -209,11 +201,11 @@ export default {
 }
 .products__top {
   background: $white;
-  padding-top: 24px;
-  padding-right: 24px;
-  padding-left: 24px;
-  border-top-right-radius: 10px;
-  border-top-left-radius: 10px;
+  padding-top: toRem(24);
+  padding-right: toRem(24);
+  padding-left: toRem(24);
+  border-top-right-radius: toRem(10);
+  border-top-left-radius: toRem(10);
   @include display-flex();
   align-items: flex-start;
   flex-wrap: wrap;
@@ -222,14 +214,14 @@ export default {
   justify-content: start!important;
   margin-left: 1.3125rem;
   font-family: inherit;
-  width: 207px;
-  height: 47px;
+  width: toRem(207);
+  height: toRem(47);
   .filter-search-icon {
     margin: 0 1rem 0 0.6rem;
     &::before {
       content: "\e840";
       @include font-icon__limoo();
-      font-size: 20px;
+      font-size: toRem(20);
       color: white;
     }
   }
@@ -239,7 +231,7 @@ export default {
     &::before {
       content: "\e83f";
       @include font-icon__limoo();
-      font-size: 20px;
+      font-size: toRem(20);
       color: white;
     }
   }
@@ -251,26 +243,26 @@ export default {
   background: $dark_gray;
 }
 .products__filter-text {
-  font-size: 16px;
+  font-size: toRem(16);
   color: $white;
   font-weight: 400;
   font-family: inherit;
-  margin-right: 10px;
+  margin-right: toRem(10);
 }
 .products__top-text {
-  font-size: 18px;
+  font-size: toRem(18);
   color: $dark_gray;
   font-weight: 400;
   font-family: inherit;
 }
 .products__top-title {
-  padding-bottom: 24px;
+  padding-bottom: toRem(24);
 }
 .products__suggestions {
   @include display-flex();
   align-items: flex-start;
   flex-wrap: wrap;
-  margin-top: 30px;
+  margin-top: toRem(30);
 }
 .products__suggestion-item {
   font-family: inherit;
@@ -284,7 +276,7 @@ export default {
 }
 .products__suggestion-title {
   color: $gray;
-  font-size: 13px;
+  font-size: toRem(13);
   font-weight: 300;
 }
 .products__suggestions-active {
@@ -297,17 +289,7 @@ export default {
 .products__top-mobile {
   display: none;
 }
-
-@media (max-width: 1220px) {
-}
-
-@media (max-width: 1024px) {
-}
-
-@media (max-width: 960px) {
-}
-
-@media (max-width: 600px) {
+@include sm {
 
   .products__filter-btn {
     width: 47%;
@@ -325,28 +307,25 @@ export default {
   }
 }
 
-@media (max-width: 485px) {
+@include xs {
   .products__filter-main {
-    padding-right: 8px;
-    padding-left: 8px;
+    padding-right: toRem(8);
+    padding-left: toRem(8);
   }
   .products__suggestion-item {
-    padding-top: 6px;
-    padding-bottom: 6px;
     flex-shrink: 0;
-    padding-right: 12px;
-    padding-left: 12px;
+    padding: toRem(6) toRem(12);
   }
   .products__suggestions {
     overflow: auto;
     flex-flow: row;
-    padding-bottom: 12px;
-    margin-top: 22px;
-    padding-right: 0px;
+    padding-bottom: toRem(12);
+    margin-top: toRem(22);
+    padding-right: 0;
   }
   .products__filter-btn {
     width: 48%;
-    height: 36px;
+    height: toRem(36);
     margin-left: 3.5%;
     font-size: toRem(14)!important;
     .filter-search-icon {
@@ -363,7 +342,7 @@ export default {
     }
   }
   .products__suggestions {
-    padding-right: 8px;
+    padding-right: toRem(8);
   }
   .products__top-desktop {
     display: none;
@@ -372,11 +351,11 @@ export default {
     @include display-flex();
   }
   .products__top-title {
-    padding-top: 26px;
+    padding-top: toRem(26);
     padding-bottom: 0;
   }
   .products__top-text {
-    font-size: 14px;
+    font-size: toRem(14);
   }
   .products__top {
     padding-right: 0;
@@ -385,7 +364,7 @@ export default {
   }
 }
 
-@media (max-width: 330px) {
+@include xxs {
   .products__filter-btn {
     padding-right: toRem(8);
     padding-left: toRem(8);

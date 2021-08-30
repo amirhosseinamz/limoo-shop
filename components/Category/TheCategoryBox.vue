@@ -58,12 +58,12 @@ export default {
 .category-items {
     display: none;
 }
-@media (max-width: 960px) {
+@include md {
     .category-items {
         @include display-flex();
         flex-direction: column;
         align-items: center;
-        margin: 12px 11px;
+        margin: toRem(12) toRem(11);
     }
     .category-item {
         @include display-flex();
@@ -71,25 +71,24 @@ export default {
         justify-content: space-between;
         align-items: center;
         line-height: 126.12%;
-        border: 1px solid $gray-border;
-        border-radius: 10px;
-        margin: 4px 0;
+        border: toRem(1) solid $gray-border;
+        border-radius: toRem(10);
+        margin: toRem(4) 0;
         width: 89vw;
         height: 49px;
         &__title {
-            margin-right: 8px;
-            font-size: 13px;
+            margin-right: toRem(8);
+            font-size: toRem(13);
             line-height: 140.62%;
             color: $code;
         }
         &__btn {
-            height: 18px;
-            width: 18px;
+            height: toRem(18);
+            width: toRem(18);
             outline: none;
             border: none;
-            margin-left: 8px;
+            margin-left: toRem(8);
             background: transparent url("/icons/arrow-down.svg") center;
-            /* transform: rotate(180deg); */
         }
     }
     .category-item a {

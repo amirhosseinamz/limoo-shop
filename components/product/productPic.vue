@@ -16,7 +16,7 @@
         @click="showModal(data)"
         :class="{ 'active--pic': data.lastItemLimitedProduct }"
         v-for="(data, index) in productSlider"
-        v-if="data.show && index != 0"
+        v-if="data.show && index !== 0"
         :key="data.id"
         class="product__pic-items"
       >
@@ -97,7 +97,7 @@ export default {
           content.show = true;
         }
 
-        if (index == 4) {
+        if (index === 4) {
           content.lastItemLimitedProduct = true;
         }
       });
@@ -132,7 +132,7 @@ export default {
   @include display-flex();
   align-items: flex-start;
   justify-content: center;
-  padding-top: 16px;
+  padding-top: toRem(16);
   flex-wrap: wrap;
 }
 .product__pic-main {
@@ -144,7 +144,7 @@ export default {
   width: 100%;
   height: 1px;
   background: $gray-border;
-  margin-top: 16px;
+  margin-top: toRem(16);
   margin-right: 8px;
   margin-left: 8px;
 }
@@ -158,10 +158,7 @@ export default {
 .product__pic-content {
   @include display-flex();
   align-items: flex-start;
-  padding-top: 16px;
-  padding-bottom: 16px;
-  padding-right: 16px;
-  padding-left: 16px;
+  padding: toRem(16);
   justify-content: center;
 }
 .product__pic-box {
@@ -234,7 +231,7 @@ export default {
   @include display-flex();
 }
 
-@media (max-width: 1300px) {
+@include xl {
   .product__pic-item {
     height: auto;
     width: 100%;

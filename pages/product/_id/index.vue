@@ -6,10 +6,6 @@
           <span class="mobile-screen__holder-txt">آدرس های شما</span>
           <span class="icon-location"></span>
         </div>
-        <!-- <img
-                  class="mobile-screen__holder-arrow"
-                  src="/icons/arrow-left.svg"
-              /> -->
       </div>
     </div>
     <contentSingleProduct
@@ -241,10 +237,8 @@ export default {
     activeItemSliderNav(data) {
       let updateSlider = [];
       this.productSlider.map((content, index) => {
-        content.active = false;
-        if (content.id === data.id) {
-          content.active = true;
-        }
+
+        content.active = content.id === data.id;
         updateSlider = [...updateSlider, content];
       });
 
@@ -360,7 +354,7 @@ export default {
 .profile-container {
   margin: 0 auto;
   width: 100%;
-  max-width: 1920px;
+  max-width: toRem(1920);
   min-height: 100vh;
   display: flex;
   flex-direction: row-reverse;
@@ -372,38 +366,27 @@ export default {
 .page-wrapper {
   @include display-flex();
   align-items: flex-start;
-  width: 1381px;
-  margin-right: auto;
-  margin-left: auto;
+  padding-right: toRem(26);
+  padding-left: toRem(26);
+  width: 100%;
 }
 .icon-location::after {
   content: "\e817";
   @include font-icon__limoo();
-  font-size: 16px;
-  margin-top: 1px;
+  font-size: toRem(16);
+  margin-top: toRem(1);
   color: $color_festival;
 }
 .screen__holder-data {
   @include display-flex();
   justify-content: flex-end;
-  padding-right: 18.5px;
-  padding-left: 18.5px;
+  padding-right: toRem(18.5);
+  padding-left: toRem(18.5);
   align-items: center;
   height: 100%;
 }
 
-@media (max-width: 1450px) {
-  .page-wrapper {
-    padding-right: 26px;
-    padding-left: 26px;
-    width: 100%;
-  }
-}
-
-@media (max-width: 1220px) {
-}
-
-@media (max-width: 960px) {
+@include md {
   .desktop-screen {
     display: none;
   }
@@ -414,28 +397,28 @@ export default {
       flex-direction: row-reverse;
       justify-content: space-between;
       align-items: center;
-      height: 33px;
+      height: toRem(33);
       background: $white;
-      margin-top: 47px;
+      margin-top: toRem(47);
       &-txt {
-        font-size: 13px;
+        font-size: toRem(13);
         line-height: 140.62%;
-        margin-right: 6.5px;
+        margin-right: toRem(6.5);
         color: $black-topic;
       }
       &-arrow {
-        margin-left: 16px;
+        margin-left: toRem(16);
       }
     }
   }
   .profile-container {
     @include display-flex();
     flex-direction: column;
-    margin-bottom: 58px;
+    margin-bottom: toRem(58);
   }
   .user-profile__holder {
-    margin: 8px 0;
-    padding: 0 5px;
+    margin: toRem(8) 0;
+    padding: 0 toRem(5);
   }
   .user-profile {
     &__topic {
@@ -447,19 +430,11 @@ export default {
   }
 }
 
-@media (max-width: 600px) {
-}
-
-@media (max-width: 485px) {
+@include xs {
   .page-wrapper {
-    padding-right: 11px;
-    padding-left: 11px;
+    padding-right: toRem(11);
+    padding-left: toRem(11);
   }
 }
 
-@media (max-width: 350px) {
-}
-
-@media (max-width: 320px) {
-}
 </style>

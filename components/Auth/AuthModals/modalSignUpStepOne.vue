@@ -1,24 +1,20 @@
 <template>
   <div class="signup-container">
-    <div class="card">
-      <div class="signup-close-btn">
-        <base-button
-          @button-clicked="closePage"
-          classes="app-signup-close-btn"
-          base-color="white"
-          mode="close"></base-button>
-      </div>
-
-      <div class="signup-limoo-logo">
-        <img src="/logos/limoo-logo1.png" alt="" />
-      </div>
-
-      <div class="card-body">
+    <authentication-card class="card" :has-main-icon="true">
+      <template #top-icon>
+        <button @click="closePage" class="app-signup-close-btn"></button>
+      </template>
+      <template #card-title class="txt-header">
+        {{ getTextByTextKey("auth_registration_and_membership") }}
+      </template>
+      <template #main-icon>
+        <div class="signup-limoo-logo">
+          <img src="/logos/limoo-logo1.png" alt="Logo" />
+        </div>
+      </template>
+      <template #card-body>
         <form @submit.prevent="goToNextStepofSignUp">
           <div class="form-group">
-            <p class="txt-header">
-              {{ getTextByTextKey("auth_registration_and_membership") }}
-            </p>
             <text-input
               class="user--item user-profile__info-pass"
               labelNameClass=""
@@ -69,14 +65,15 @@
                 {{ getTextByTextKey("auth_login") }}
               </span>
             </base-button>
-<!--
-            <button class="google-signup-btn" type="submit">
-              {{ getTextByTextKey("auth_login_google") }}
-            </button>-->
+            <!--
+                        <button class="google-signup-btn" type="submit">
+                          {{ getTextByTextKey("auth_login_google") }}
+                        </button>-->
           </div>
         </form>
-      </div>
-    </div>
+      </template>
+    </authentication-card>
+
   </div>
 </template>
 
@@ -185,30 +182,25 @@ export default {
   text-align: center;
   @extend .centered;
 }
-
 .card {
-  @include display-flex();
-  flex-direction: column;
-  justify-content: center;
   width: toRem(642);
-  //height: toRem(524);
-  background-color: $white;
-  box-shadow: 0 toRem(8) toRem(16) $box__shadow;
-  border-radius: toRem(15);
+  padding: 0 7%;
 }
 
 .signup-close-btn {
   @include display-flex();
   justify-content: flex-start;
-  margin-top: toRem(24);
 }
 .app-signup-close-btn::before {
-  font-size: toRem(28);
-}
+   content: "\e807";
+   @include font-icon__limoo();
+   font-size: toRem(28);
+   color: $gray;
+ }
 .signup-input {
-  padding-right: toRem(24);
+  width: 100%;
   &-wrong {
-    padding-right: toRem(24);
+    width: 100%;
   }
 }
 .form-control {
@@ -219,7 +211,7 @@ export default {
   font-family: inherit;
   font-size: toRem(18);
   height: toRem(58);
-  width: toRem(463);
+  width: 100%;
   margin-bottom: 2.5rem;
 }
 .err-text {
@@ -239,26 +231,20 @@ export default {
 .min-display {
   display: none;
 }
-.txt-header {
-  font-size: toRem(24);
-  line-height: 33.75px;
-  font-weight: 400;
-  text-align: right;
-  margin: toRem(37) toRem(90) toRem(33) 0;
-}
 .txt-content {
+  width: 100%;
   font-size: toRem(16);
   line-height: toRem(22.5);
   font-weight: 318;
   text-align: right;
   margin-bottom: toRem(25);
-  margin-right: toRem(90);
 }
 .signup-container::v-deep {
   .txt-content {
     @extend .txt-content;
   }
   .input-holder {
+    width: 100%;
     @extend .input-holder;
   }
   .form__item--error {
@@ -266,19 +252,19 @@ export default {
   }
   .form__main--item {
     justify-content: center;
-    width: auto;
   }
   .signup-input {
     @extend .signup-input;
   }
 }
-@media screen and (max-width: 768px) {
+@include sm {
   .card {
-    width: toRem(530);
+    width: toRem(520);
   }
 }
-@media screen and (max-width: 600px) {
-  .signup-close-btn {
+
+@include xs {
+  .app-signup-close-btn {
     display: none;
   }
   .min-display {
@@ -287,227 +273,61 @@ export default {
   .desk-display {
     display: none;
   }
-}
-
-@media screen and (max-width: 540px) {
-  @mixin signup-input {
-    margin-right: toRem(18);
-    padding: 0;
-    width: toRem(328);
-    height: toRem(60);
-    margin-bottom: toRem(8);
-    &-wrong {
-      margin-right: toRem(18);
-      padding: 0;
-      width: toRem(328);
-      height: toRem(60);
-      margin-bottom: toRem(8);
-    }
+  .signup-limoo-logo {
+    margin-top: toRem(20);
   }
 
   .card {
-    width: toRem(360);
+    width: toRem(400);
     height: 100vh;
     border-radius: 0;
   }
   .signup-input {
-    @include signup-input();
-  }
-
-  @mixin signup-input {
-    margin-right: toRem(16);
-    margin-left: toRem(16);
-    padding: 0;
-    width: toRem(328);
     height: toRem(60);
     margin-bottom: toRem(8);
     &-wrong {
-      margin-right: toRem(16);
-      margin-left: toRem(16);
-      width: toRem(328);
       height: toRem(60);
       margin-bottom: toRem(8);
     }
   }
 
   .input-holder {
-    @include signup-input();
-  }
-
-  .signup-btn {
-    width: toRem(328);
-  }
-  .txt-header {
-    font-size: toRem(20);
-    line-height: 140.62%;
-    width: toRem(328);
-    margin-right: toRem(16);
-    margin-left: toRem(16);
-  }
-  @mixin txt-content {
-    width: toRem(328);
-    margin-right: toRem(16);
-    margin-left: toRem(16);
-  }
-  .txt-content {
-    @include txt-content();
-  }
-  @mixin err-text {
-    margin-right: toRem(16);
+    height: toRem(60);
+    margin-bottom: toRem(8);
+    &-wrong {
+      height: toRem(60);
+      margin-bottom: toRem(8);
+    }
   }
   .err-text {
-    @include err-text();
+    margin-right: toRem(16);
   }
   .signup-limoo-logo {
     margin-top: 0.5rem;
   }
   .signup-container::v-deep {
-    .txt-content {
-      @include txt-content();
-    }
+
     .input-holder {
-      @include signup-input();
+      height: toRem(60);
+      margin-bottom: toRem(8);
+      &-wrong {
+        height: toRem(60);
+        margin-bottom: toRem(8);
+      }
     }
     .form__item--error {
-      @include err-text();
+      margin-right: toRem(16);
     }
     .form__main--item {
       justify-content: center;
-      width: auto;
     }
     .signup-input {
-      @include signup-input();
-    }
-  }
-}
-@media screen and (max-width: 350px) {
-  @mixin signup-input {
-    margin-right: toRem(10);
-    margin-left: toRem(10);
-    width: toRem(280);
-    &-wrong {
-      margin-right: toRem(10);
-      margin-left: toRem(10);
-      width: toRem(280);
-      margin-bottom: toRem(42);
-    }
-  }
-
-  @mixin input-holder {
-    margin-right: toRem(10);
-    margin-left: toRem(10);
-    padding: 0;
-    width: toRem(280);
-    height: toRem(60);
-    margin-bottom: toRem(8);
-    &-wrong {
-      margin-right: toRem(10);
-      margin-left: toRem(10);
-      width: toRem(280);
       height: toRem(60);
       margin-bottom: toRem(8);
-    }
-  }
-
-  .input-holder {
-    @include input-holder();
-  }
-  .signup-btn {
-    width: toRem(280);
-  }
-  .txt-header {
-    font-size: toRem(20);
-    line-height: 140.62%;
-    width: toRem(280);
-    margin-right: auto;
-    margin-left: auto;
-  }
-
-  @mixin txt-content {
-    width: toRem(280);
-    margin-right: toRem(10);
-  }
-
-  .txt-content {
-    @include txt-content();
-  }
-
-  .signup-limoo-logo {
-    margin-top: 0;
-  }
-  .signup-container::v-deep {
-    .txt-content {
-      @include txt-content();
-    }
-    .input-holder {
-      @include signup-input();
-    }
-
-    .signup-input {
-      @include signup-input();
-    }
-  }
-  .card {
-    width: auto;
-  }
-}
-@media screen and (max-width: 280px) {
-  @mixin signup-input {
-    margin-right: toRem(5);
-    margin-left: toRem(5);
-    width: toRem(270);
-    padding-right: 0;
-  }
-
-  .signup-input,
-  .signup-input-wrong {
-    @include signup-input();
-  }
-
-  @mixin input-holder {
-    margin-right: toRem(5);
-    margin-left: toRem(5);
-    width: toRem(270);
-    margin-bottom: toRem(8);
-    padding-right: 0;
-  }
-
-  .input-holder-wrong,
-  .input-holder {
-    @include input-holder();
-  }
-  .signup-btn {
-    width: toRem(270);
-  }
-  .txt-header {
-    font-size: toRem(20);
-    line-height: 140.62%;
-    width: toRem(270);
-  }
-
-  @mixin txt-content {
-    width: toRem(270);
-    margin-right: toRem(15);
-  }
-
-  .txt-content {
-    @include txt-content();
-  }
-  .signup-limoo-logo {
-    margin-top: 0.2rem;
-  }
-  .signup-container::v-deep {
-    .txt-content {
-      @include txt-content();
-    }
-    .input-holder {
-      @include signup-input();
-    }
-    .signup-input {
-      @include signup-input();
-    }
-    .form__item--error {
-      margin-right: toRem(6);
+      &-wrong {
+        height: toRem(60);
+        margin-bottom: toRem(8);
+      }
     }
   }
 }
