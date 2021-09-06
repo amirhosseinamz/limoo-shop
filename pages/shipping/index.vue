@@ -483,14 +483,14 @@ export default {
     display: none;
 }
 
-@media (max-width: 1400px) {
+@include xl {
     .user-cart__shipping-container {
         width: 62%;
         margin-left: 2.2%;
     }
 }
 
-@media (max-width: 960px) {
+@include md {
     .user-shipping__address-btn__empty {
         width: toRem(259);
         height: toRem(47);
@@ -602,7 +602,7 @@ export default {
         font-weight: bold;
     }
 }
-@media (max-width: 540px) {
+@include xs {
     .user-cart__time-nav__holder::v-deep {
         justify-content: space-between;
         padding: 0;
@@ -621,14 +621,14 @@ export default {
     }
 
 }
-@media (max-width: 321px) {
+@include xxs {
   .user-cart__time-nav__holder::v-deep {
     .user-cart__time-nav__items {
       font-size: toRem(12);
     }
   }
 }
-@media (max-width: 280px) {
+@include xxxs {
     .user-cart__shipping-address {
         padding: 0 toRem(3);
     }

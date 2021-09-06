@@ -1,33 +1,15 @@
 <template>
   <div class="signup-container">
-    <div class="card">
-      <div>
+    <authentication-card class="card">
+      <template #top-icon>
         <button @click="nextPage" class="app-signin-next-btn"></button>
-        <div
-          class="success-message"
-          :class="{ 'success-message-animation': newCodeSent }"
-        >
-          <img class="success-icon" src="/icons/success.svg" />
-          <p dir="rtl" class="success-txt">
-            {{ getTextByTextKey("auth_aignup_code_new") }}
-          </p>
-        </div>
-        <div
-          class="alert-message "
-          :class="{ 'alert-message-animation': timerPassed }"
-        >
-          <img class="alert-icon " src="/icons/alarm.svg" />
-          <p dir="rtl" class="alert-txt">
-            {{ getTextByTextKey("auth_aignup_code_agin") }}
-          </p>
-        </div>
-      </div>
-      <div class="card-body">
+      </template>
+      <template #card-title class="txt-header">
+        {{ getTextByTextKey("auth_forget_password") }}
+      </template>
+      <template #card-body>
         <form @submit.prevent="pressed">
           <div class="form-group">
-            <p class="txt-header">
-              {{ getTextByTextKey("auth_forget_password") }}
-            </p>
             <text-input
               class="user--item user-profile__info-pass"
               labelNameClass=""
@@ -75,14 +57,14 @@
             </base-button>
           </div>
         </form>
-      </div>
-    </div>
+      </template>
+    </authentication-card>
   </div>
 </template>
 
 <script>
 import { getTextByTextKey } from "~/modules/splitPartJsonResource.js";
-import textInput from "~/modules/textInput";
+import textInput from "~/components/UI/textInput";
 
 export default {
   props: {
@@ -180,11 +162,11 @@ export default {
         this.Tcounter--;
         // console.log(this.Tcounter);
         ss--;
-        if (ss == 0) {
+        if (ss === 0) {
           ss = 59;
           mm--;
         }
-        if (this.Tcounter == 0) {
+        if (this.Tcounter === 0) {
           // console.log("TimerPassed");
           this.animateTimerPassed();
           clearInterval(interval);
@@ -207,61 +189,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.success-message {
-  @include display-flex();
-  flex-direction: row-reverse;
-  width: 463px;
-  height: 58px;
-  background-color: $alert-massage__green;
-  margin: 8px 90px 0px 89px;
-  border-radius: 10px;
-  position: absolute;
-  opacity: 0;
-  /* add .message-animation when we want to show it */
-}
-
-.alert-message {
-  @include display-flex();
-  flex-direction: row-reverse;
-  width: 463px;
-  height: 58px;
-  background-color: $alert-red;
-  margin: 44px 90px 0px 89px;
-  border-radius: 10px;
-  position: absolute;
-  opacity: 0;
-  /* add .message-animation when we want to show it */
-}
-/* add this animation to messages when we want to show them */
-.success-message-animation {
-  animation: cssAnimation 1000ms 2 alternate;
-}
-.alert-message-animation {
-  animation: cssAnimation 2000ms 2 alternate;
-}
-
-@keyframes cssAnimation {
-  0% {
-    opacity: 0;
-    transform: translate(0%, -170%);
-  }
-  70% {
-    opacity: 1;
-    transform: translate(0%, -60%);
-  }
-  80% {
-    opacity: 1;
-    transform: translate(0%, -60%);
-  }
-  90% {
-    opacity: 1;
-    transform: translate(0%, -60%);
-  }
-  100% {
-    opacity: 1;
-    transform: translate(0%, -60%);
-  }
-}
 
 .signup-container {
   height: 100vh;
@@ -273,64 +200,15 @@ export default {
 }
 
 .card {
-  @include display-flex();
-  flex-direction: column;
-  justify-content: space-around;
-  width: 642px;
-  height: 524px;
-  background-color: $white;
-  box-shadow: 0px 8px 16px $box__shadow;
-  border-radius: 15px;
-}
-.success-icon {
-  width: 24px;
-  height: 24px;
-  margin-right: 18px;
-  margin-top: 17px;
-}
-.alert-icon {
-  width: 24px;
-  height: 24px;
-  margin-right: 18px;
-  margin-top: 17px;
-}
-.app-signin-next-btn {
-  @include display-flex();
-  margin: 24px 11.5px 0 24px;
-  width: 13.5px;
-  height: 24px;
-  cursor: pointer;
+  width: 45%;
+  height: fit-content;
+  padding: 0 4%;
 }
 .app-signin-next-btn::before {
   content: "\e801";
   @include font-icon__limoo();
-  font-size: 25px;
+  font-size: toRem(24);
   color: $black-icon;
-}
-.signup-btn {
-  font-family: inherit;
-  font-size: 18px;
-  height: 58px;
-  width: 463px;
-}
-.success-txt {
-  font-weight: 500;
-  font-size: 16px;
-  line-height: 140.62%;
-  margin-right: 8px;
-  text-align: right;
-  margin-top: 17px;
-  color: $white;
-}
-.alert-txt {
-  font-weight: 500;
-  font-size: 16px;
-  line-height: 140.62%;
-  margin-right: 8px;
-  text-align: right;
-  margin-top: 17px;
-  color: $white;
-  direction: ltr;
 }
 .form-control {
   direction: rtl;
@@ -374,32 +252,20 @@ export default {
 .min-display {
   display: none;
 }
-.txt-header {
-  font-size: 24px;
-  line-height: 33.75px;
-  font-weight: 400;
-  text-align: right;
-  margin: 63px 90px 33px 0;
-}
 .txt-content {
-  font-size: 16px;
-  line-height: 22.5px;
+  font-size: toRem(16);
+  width: 100%;
+  line-height: toRem(22.5);
   font-weight: 318;
   text-align: right;
-  margin-bottom: 25px;
-  margin-right: 90px;
+  margin-bottom: toRem(25);
 }
 .signup-input {
   color: $code;
   text-align: center;
   text-align: -moz-center;
   font-size: 20px;
-  max-width: 461px;
   letter-spacing: 0.7em;
-}
-.signup-btn {
-  margin-top: 0.875rem;
-  margin-bottom: 5rem;
 }
 .google-signup-btn {
   display: none;
@@ -426,108 +292,53 @@ export default {
   }
 }
 
-@media screen and (max-width: 540px) {
+@include xl {
+  .card {
+    width: 55%;
+    padding: 0 5%;
+  }
+}
+@include md {
+  .card {
+    width: 70%;
+    padding: 0 6%;
+  }
+}
+
+@include sm {
+  .card {
+    width: 85%;
+    padding: 0 7%;
+  }
+  .signup-close-btn {
+    margin-top: toRem(-15);
+  }
+}
+@include xs {
   .google-signup-btn {
     @include display-flex();
   }
-  @keyframes cssAnimation {
-    0% {
-      opacity: 0;
-      transform: translate(0%, -170%);
-    }
-    70% {
-      opacity: 1;
-      transform: translate(0%, -80%);
-    }
-    80% {
-      opacity: 1;
-      transform: translate(0%, -80%);
-    }
-    90% {
-      opacity: 1;
-      transform: translate(0%, -80%);
-    }
-    100% {
-      opacity: 1;
-      transform: translate(0%, -80%);
-    }
-  }
-  .success-message {
-    width: 328px;
-    height: 56px;
-    margin: 16px 16px 0px 16px;
-  }
-  .alert-message {
-    width: 328px;
-    height: 72px;
-    margin: 16px 16px 0px 16px;
-  }
-  .alert-txt {
-    font-size: 14px;
-    padding-left: 50px;
-  }
-  .success-txt {
-    font-size: 14px;
-    margin-top: 20px;
-  }
   .card {
-    width: 360px;
-    height: 100vh;
-    border-radius: 0;
-  }
-  @mixin signup-input {
-    margin-right: 16px;
-    margin-left: 16px;
-    width: 328px;
-    height: 60px;
-    margin-bottom: 8px;
-  }
-  @mixin input-holder {
-    margin-right: 16px;
-    margin-left: 16px;
-    padding: 0;
-    width: 328px;
-    height: 60px;
-    margin-bottom: 8px;
+    width: 100%;
+    padding: 0 10%;
+    height: 100%;
   }
   .input-holder {
-    @include input-holder();
+    padding: 0;
+    margin-bottom: 8px;
   }
   .signup-btn {
-    width: 328px;
     margin-top: 2rem;
     margin-bottom: 6.6875rem;
-  }
-  .txt-header {
-    font-size: 20px;
-    line-height: 140.62%;
-    width: 328px;
-    margin: 120px 16px 24px 16px;
-  }
-
-  @mixin txt-content {
-    width: 328px;
-    font-size: 14px;
-    margin-bottom: 17px;
-    margin-right: 16px;
-    margin-left: 16px;
   }
 
   .signup-container::v-deep {
     .txt-content {
-      @include txt-content();
-    }
-    .input-holder {
-      @include signup-input();
+      font-size: toRem(14);
     }
     .form__main--item {
       justify-content: center;
       width: auto;
-    }
-    .signup-input {
-      @include signup-input();
-      margin-right: 0;
-      margin-left: 0;
     }
     .timer {
       margin-right: 16px;
@@ -539,101 +350,6 @@ export default {
     .code-request {
       margin-right: 16px;
     }
-  }
-}
-@media screen and (max-width: 321px) and (min-width: 299px) {
-  .card {
-    @include display-flex();
-    flex-direction: column;
-    justify-content: space-between;
-  }
-}
-@media screen and (max-width: 350px) {
-  .success-message {
-    width: 280px;
-  }
-  .alert-message {
-    width: 280px;
-  }
-  @mixin signup-input {
-    margin-right: 10px;
-    margin-left: 10px;
-    width: 280px;
-  }
-  @mixin input-holder {
-    width: 280px;
-  }
-  .signup-btn {
-    width: 280px;
-  }
-  .txt-header {
-    font-size: 20px;
-    line-height: 140.62%;
-    width: 280px;
-    margin-right: auto;
-    margin-left: Auto;
-  }
-  .signup-limoo-logo {
-    margin-top: 0;
-  }
-  @mixin txt-content {
-    width: 280px;
-    margin-right: 10px;
-    margin-left: 0;
-  }
-  .signup-container::v-deep {
-    .txt-content {
-      @include txt-content();
-    }
-    .input-holder {
-      @include signup-input();
-    }
-    .form__main--item {
-      justify-content: center;
-      width: auto;
-    }
-    .signup-input {
-      @include signup-input();
-    }
-  }
-  .card {
-    width: auto;
-  }
-}
-@media screen and (max-width: 280px) {
-  .success-message {
-    width: 270px;
-  }
-  .alert-message {
-    width: 270px;
-    height: 60px;
-    margin-right: 5px;
-  }
-  .alert-txt {
-    padding-left: 30px;
-  }
-  .signup-input {
-    width: 270px;
-  }
-  .input-holder {
-    width: 270px;
-  }
-  .signup-btn {
-    width: 270px;
-  }
-  .txt-header {
-    font-size: 20px;
-    line-height: 140.62%;
-    width: 280px;
-    margin-right: 5px;
-    margin-left: 0px;
-  }
-  .txt-content {
-    width: 270px;
-    margin-right: 5px;
-  }
-  .signup-limoo-logo {
-    margin-top: 0.2rem;
   }
 }
 </style>

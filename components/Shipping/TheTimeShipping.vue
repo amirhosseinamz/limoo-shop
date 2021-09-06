@@ -327,15 +327,6 @@ export default {
   right: 0;
 }
 
-/* .v-enter-from {
-    opacity: 0;
-}
-.v-enter-active {
-    transition: opacity 300ms ease-in;
-}
-.v-enter-to {
-    opacity: 1;
-} */
 .v-leave-from {
   opacity: 0.5;
 }
@@ -559,7 +550,7 @@ export default {
   display: none;
 }
 
-@media (max-width: 960px) {
+@include md {
   .mobile-shipping__time-detail-active {
     display: block;
   }
@@ -628,7 +619,7 @@ export default {
   }
 }
 
-@media (max-width: 545px) {
+@include xs {
   .shipping-order__heavy,
   .shipping-sendby__seller {
     margin-right: toRem(10);
@@ -743,7 +734,7 @@ export default {
   }
 }
 
-@media (max-width: 321px) {
+@include xxs {
   .shipping-btn__limoo {
     padding: toRem(5);
   }
@@ -795,7 +786,7 @@ export default {
   }
 }
 
-@media (max-width: 281px) {
+@include xxxs {
   .shipping-btn__seller-title {
     font-size: toRem(11);
   }

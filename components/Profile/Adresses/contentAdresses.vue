@@ -254,21 +254,20 @@ export default {
   @include display-flex();
   flex-direction: column;
   justify-content: flex-start;
-  height: 273px;
+  height: toRem(273);
   background: $white;
-  padding-top: 25px;
-  border-radius: 10px;
-  /* border: 1px solid red; */
+  padding-top: toRem(25);
+  border-radius: toRem(10);
 }
 .user-adresses__empty-container img {
   opacity: 1;
 }
 .user-adresses__empty {
-  font-size: 18px;
+  font-size: toRem(18);
   line-height: 140.62%;
   text-align: center;
   color: $gray;
-  margin-top: 37px;
+  margin-top: toRem(37);
 }
 
 .backdrop {
@@ -276,82 +275,82 @@ export default {
   background-color: $overlay--profile;
 }
 .p-adresses-content-main {
-  padding-right: 21px;
-  padding-left: 21px;
+  padding-right: toRem(21);
+  padding-left: toRem(21);
 }
 .p-adresses-content-btn-add-main {
   @include display-flex();
 }
 .p-adresses-content-btn-data {
-  margin-top: 45px;
-  margin-bottom: 38px;
-  font-size: 16px;
+  margin-top: toRem(45);
+  margin-bottom: toRem(38);
+  font-size: toRem(16);
 }
 .p-adresses-content-item {
   @include display-flex();
-  border: 1px solid $light-gray;
-  border-radius: 10px;
-  height: 241px;
-  margin-bottom: 24px;
+  border: toRem(1) solid $light-gray;
+  border-radius: toRem(10);
+  height: toRem(241);
+  margin-bottom: toRem(24);
 }
 .p-adresses-content-header {
   @include display-flex();
-  padding-right: 23px;
-  padding-left: 23px;
+  padding-right: toRem(23);
+  padding-left: toRem(23);
 }
 .p-adresses-content-header {
   background: $google-btn__bg;
-  height: 73px;
-  border-top-left-radius: 10px;
-  border-top-right-radius: 10px;
+  height: toRem(73);
+  border-top-left-radius: toRem(10);
+  border-top-right-radius: toRem(10);
 }
 .p-adresses-content-header-icon {
-  width: 23px;
-  height: 23px;
+  width: toRem(23);
+  height: toRem(23);
 }
 .p-adresses-content-filter-icon::after {
   content: "\e802";
   @include font-icon__new();
-  font-size: 28px;
+  font-size: toRem(28);
   color: $gray-3;
   cursor: pointer;
 }
 .p-adresses-content-header-item {
   @include display-flex();
-  margin-left: 85px;
+  margin-left: toRem(85);
 }
 .p-adresses-content-header-item-title {
   font-family: inherit;
-  font-size: 16px;
-  margin-right: 10px;
+  font-size: toRem(16);
+  margin-right: toRem(10);
   color: $black-topic;
   font-weight: 400;
   text-align: right;
 }
 .p-adresses-content-data {
   @include display-flex();
-  padding-right: 27px;
-  padding-left: 27px;
+  padding-right: toRem(27);
+  padding-left: toRem(27);
 }
 .p-adresses-content-text-data {
   font-family: inherit;
-  font-size: 16px;
+  font-size: toRem(16);
   color: $black-topic;
   font-weight: 400;
 }
 .p-adresses-content-text-main {
   @include display-flex();
-  margin-top: 25px;
-  margin-bottom: 36px;
+  margin-top: toRem(25);
+  margin-bottom: toRem(36);
 }
 .p-adresses-content-data-btns {
   @include display-flex();
-  padding-left: 16px;
-  height: 83px;
+  padding-left: toRem(16);
+  height: toRem(83);
   align-items: flex-end;
 }
 .p-adresses-content-btn-edit {
-  width: 130px!important;
+  width: toRem(130)!important;
 }
 .p-adresses-content-wrapper {
   @include display-flex();
@@ -360,8 +359,8 @@ export default {
   @include display-flex();
 }
 .p-adresses-content-edit-icon {
-  width: 16px;
-  height: 16px;
+  width: toRem(16);
+  height: toRem(16);
 }
 .p-adresses-content-header-item-desktop {
   align-items: flex-start;
@@ -375,48 +374,48 @@ export default {
   margin-top: 1.5rem;
 }
 .p-adresses-content-data-wrapper {
-  height: 167px;
+  height: toRem(167);
   @include display-flex();
   align-content: flex-start;
 }
 .p-favorite-product-btn-main {
-  margin-bottom: 37px;
+  margin-bottom: toRem(37);
 }
 .p-favorite-product-item-icon-delete::before {
   @include font-icon__limoo();
-  font-size: 16px;
+  font-size: toRem(16);
   content: "\e826";
   color: $gray-3;
 }
 .p-adresses-icon::before {
   content: "\e823";
   @include font-icon__limoo();
-  font-size: 19px;
+  font-size: toRem(19);
   color: $gray;
   cursor: pointer;
 }
 .location--icon::before {
   content: "\e817";
-  font-size: 21px;
+  font-size: toRem(21);
   color: $gray;
 }
 .phone--icon::before {
   content: "\e81f";
-  font-size: 19px;
+  font-size: toRem(19);
   color: $gray;
 }
 .message--icon::before {
   content: "\e81a";
-  font-size: 19px;
+  font-size: toRem(19);
   color: $gray;
 }
 .p-product-btn {
-  width: 150px!important;
-  height: 47px!important;
+  width: toRem(150)!important;
+  height: toRem(47)!important;
   font-family: inherit;
   transition: all 120ms ease-in;
 }
-@media (max-width: 1220px) {
+@include xl {
   .p-adresses-content-header-item {
     margin-left: 10%;
   }
@@ -425,19 +424,19 @@ export default {
   }
 }
 
-@media (max-width: 1024px) {
+@include lg {
   .p-adresses-content-header-item {
     margin-left: 6%;
   }
 }
 
-@media (max-width: 960px) {
+@include md {
   .p-adresses-content-header-item {
     margin-left: 10%;
   }
 }
 
-@media (max-width: 600px) {
+@include xs {
   .user-adresses__empty-container {
     @include display-flex();
     flex-direction: column;

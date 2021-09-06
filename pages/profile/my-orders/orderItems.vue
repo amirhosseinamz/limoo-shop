@@ -324,9 +324,4 @@ export default {
   }
 }
 
-@media (max-width: 350px) {
-}
-
-@media (max-width: 320px) {
-}
 </style>

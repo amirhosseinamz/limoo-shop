@@ -108,11 +108,7 @@ export default {
 
     submitModal() {
       this.sortData.map((content, index) => {
-        if (content.id == this.selectedRadioBtnData.id) {
-          content.checked = true;
-        } else {
-          content.checked = false;
-        }
+        content.checked = content.id === this.selectedRadioBtnData.id;
       });
 
       // this.$store.state.category.submitSortModal     = true;
@@ -207,11 +203,7 @@ export default {
   }
 }
 
-
-@media (max-width: 768px) {
-}
-
-@media (max-width: 485px) {
+@include xs {
   .modal-container::v-deep {
     .modal {
       max-width: 90%;
@@ -267,10 +259,8 @@ export default {
 
 }
 
-@media (max-width: 330px) {
-  // .modal-filter__item-close::before{
-  //   font-size: 17px;
-  // }
+@include xxs {
+
   .modal-container::v-deep {
     .modal {
       .p-product-btn {
@@ -285,7 +275,7 @@ export default {
 
 }
 
-@media (max-width: 320px) {
+@include xxs {
   .modal-container::v-deep {
     .modal {
       .p-product-btn {

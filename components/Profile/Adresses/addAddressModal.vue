@@ -7,14 +7,6 @@
   >
     <div class="w-100 p-modal-header">
       <div class="w-100 p-modal-header-mobile">
-        <div class="w-100 d-flex justify-content-center p-modal-header-icon">
-          <img
-            @click="closeModalParent"
-            class="modal__close-cross"
-            src="/icons/close.svg"
-          />
-        </div>
-
         <div class="p-modal-header-top align-items-center">
           <span @click="closeModalParent" class="location-icon"></span>
           <span class="p-modal-header-top-title">
@@ -267,7 +259,7 @@
 import customeDropDown from "../../../modules/customeDropDown.vue";
 import "../../../assets/styles/_adresses.scss";
 import { getTextByTextKey } from "~/modules/splitPartJsonResource.js";
-import textInput from "~/modules/textInput";
+import textInput from "~/components/UI/textInput";
 
 export default {
   props: {
@@ -352,17 +344,9 @@ export default {
     },
 
     checkShowErrorCityProvince() {
-      if (this.formData.province == "") {
-        this.showErrorValidationProvince = true;
-      } else {
-        this.showErrorValidationProvince = false;
-      }
+      this.showErrorValidationProvince = this.formData.province === "";
 
-      if (this.formData.city == "") {
-        this.showErrorValidationCity = true;
-      } else {
-        this.showErrorValidationCity = false;
-      }
+      this.showErrorValidationCity = this.formData.city === "";
     },
 
     submitAddressAdd() {
@@ -711,7 +695,7 @@ export default {
     }
   }
 }
-@media (max-width: 960px) {
+@include md {
   .p-modal-wrapper-item::v-deep {
     .birthday-item-main {
       width: 100%;
@@ -722,7 +706,7 @@ export default {
       align-self: flex-end;
       position: absolute;
       width: 100%;
-      height: toRem(723);
+      height: toRem(632);
       background: $white;
       box-shadow: 0 toRem(20) toRem(24) $overlay__profile-mobile;
       border-radius: toRem(30) toRem(30) 0 0;
@@ -768,12 +752,9 @@ export default {
         width: 91vw;
         margin-bottom: toRem(47);
       }
-      @mixin pass__alert() {
+      .pass__alert {
         font-size: toRem(13);
         padding-right: toRem(7);
-      }
-      .pass__alert {
-        @include pass__alert();
       }
       .clear-input > img {
         width: toRem(17);
@@ -794,11 +775,9 @@ export default {
       .p-modal-header-desktop {
         display: none;
       }
-      @mixin p-modal-wrapper-province_city-title() {
-        font-size: toRem(14);
-      }
       .p-modal-wrapper-province_city-title {
-        @include p-modal-wrapper-province_city-title();
+        font-size: toRem(14);
+        margin-bottom: toRem(10);
       }
       .p-modal-wrapper-item {
         width: 43%;
@@ -836,33 +815,37 @@ export default {
         padding-top: toRem(32);
       }
       .p-modal-btns {
-        padding-top: toRem(55);
+        padding-top: 0;
       }
     }
   }
 
 }
 
-@media (max-width: 540px) {
+@include xs {
   .modal-container::v-deep {
     .modal {
-      height: toRem(630);
+      height: toRem(617);
 
       .p-modal-btns {
-        padding-top: toRem(25);
+        padding-top: toRem(9);
       }
       .p-modal-wrapper-province_city-title {
-          margin-bottom: 0.2rem;
+          margin-bottom: toRem(7);
       }
+        .search-section__items {
+          height: toRem(46);
+        }
+
 
     }
   }
 }
 
-@media screen and (max-width: 485px) {
+@include xxs {
   .modal-container::v-deep {
     .modal {
-      height: toRem(560);
+      height: toRem(536);
 
       .p-product-btn {
         width: 47%;
@@ -883,18 +866,17 @@ export default {
       .p-modal_wrapper {
         padding-right: toRem(29);
         padding-left: toRem(29);
-      }
-      @mixin pass__alert() {
-        height: toRem(20);
+        padding-top: 0;
       }
       .pass__alert {
-        @include pass__alert();
+        height: toRem(20);
       }
       .p-modal-wrapper-item {
         margin-bottom: 0;
       }
       .splicer-line {
-        margin-top: toRem(16);
+        margin-top: toRem(10);
+        margin-bottom: toRem(10);
       }
       .p-modal-header-top {
         padding-top: toRem(18);
@@ -902,11 +884,7 @@ export default {
       .p-input-style__default {
         height: toRem(46);
       }
-      #form__modal--main::v-deep {
-        .search-section__items {
-          height: toRem(46) !important;
-        }
-      }
+
       .p-modal-wrapper-item {
         margin-bottom: 0;
       }
@@ -916,96 +894,17 @@ export default {
       .p-modal-validation-desktop {
         display: none !important;
       }
-    }
-  }
-
-
-
-}
-
-@media screen and (max-width: 320px) {
-  .modal {
-    height: toRem(470);
-    &__close-line {
-      margin-top: toRem(20);
-    }
-    &__title {
-      margin-top: toRem(20);
-    }
-    .pass__holder {
-      height: toRem(70);
-      width: 84vw;
-      margin-bottom: toRem(25);
-      label {
-        font-size: toRem(13);
+      .p-modal-wrapper-province_city-title {
+        margin-bottom: toRem(4.8);
       }
     }
-    .pass__old,
-    .pass__new,
-    .pass__new-repeat {
-      @include display-flex();
-      height: toRem(40);
-    }
-    .pass__old > input,
-    .pass__new > input,
-    .pass__new-repeat > input {
-      height: toRem(40);
-      width: toRem(200);
-    }
-    .pass__submitbtn {
-      width: 91vw;
-      margin-bottom: toRem(37);
-      margin-top: toRem(15);
-    }
-  }
-  .splicer-line {
-    margin-bottom: toRem(17);
-  }
-  @mixin pass__alert_style() {
-    font-size: toRem(11);
-  }
-  .modal .pass__alert {
-    @include pass__alert_style();
-  }
-  .modal::v-deep {
-    .pass__alert {
-      @include pass__alert_style();
-    }
   }
 
-  .splicer-line {
-    margin-bottom: toRem(10);
-    margin-top: toRem(10);
-  }
-  .modal {
-    height: toRem(536);
-  }
-  .p-modal_wrapper {
-    padding-top: 0;
-  }
-  .p-modal-header-top {
-    padding-top: toRem(16);
-  }
-  .p-modal-btns {
-    padding-top: toRem(9);
-  }
-  @mixin p-modal-wrapper-province_city-title() {
-    margin-bottom: toRem(8);
-  }
-  .modal::v-deep {
-    .p-modal-wrapper-province_city-title {
-      @include p-modal-wrapper-province_city-title();
-    }
-  }
-  .p-modal-address {
-    margin-bottom: 0;
-  }
-  .p-modal-wrapper-item {
-    margin-bottom: toRem(1);
-  }
+
+
 }
 
-@media screen and (max-width: 280px) {
+@include xxxs {
   .modal {
     height: toRem(617);
   }
@@ -1019,24 +918,15 @@ export default {
     margin-top: toRem(17);
     margin-bottom: 0;
   }
-  @mixin p-modal-wrapper-province_city-title() {
-    margin-bottom: toRem(16);
-  }
-  @mixin p-modal-wrapper-item() {
-    margin-bottom: toRem(6);
-  }
   .p-modal-wrapper-item {
     margin-bottom: toRem(6);
   }
-  .p-modal-wrapper-province_city-title {
-    @include p-modal-wrapper-province_city-title();
-  }
   .modal::v-deep {
     .p-modal-wrapper-province_city-title {
-      @include p-modal-wrapper-province_city-title();
+      margin-bottom: toRem(16);
     }
     .p-modal-wrapper-item {
-      @include p-modal-wrapper-item();
+      margin-bottom: toRem(6);
     }
   }
 }

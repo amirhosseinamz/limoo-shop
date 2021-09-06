@@ -301,9 +301,6 @@ export default {
   cursor: pointer;
 }
 
-/* .orders-content__main {
-    border: 1px solid red;
-} */
 .order-content-item {
   height: fit-content;
   margin-bottom: toRem(8);
@@ -312,7 +309,6 @@ export default {
 .order-detail {
   height: 70px;
   width: 100%;
-  /* border-bottom: 1px solid $gray-border; */
 }
 
 .order-detail__desktop-holder {
@@ -436,7 +432,7 @@ export default {
   @include display-flex();
 }
 
-@media (max-width: 960px) {
+@include md {
   .order-content-item::v-deep {
     .accordion-description {
       order: 1;
@@ -574,7 +570,7 @@ export default {
   }
 }
 
-@media (max-width: 280px) {
+@include xxs {
   .address-detail__user-reciver,
   .address-detail__user-phone {
     font-size: toRem(12);

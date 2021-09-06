@@ -113,11 +113,11 @@ export default {
   @include display-flex();
   content: "\e801";
   @include font-icon__limoo();
-  font-size: 12px;
+  font-size: toRem(12);
 }
 .product__modal-close {
-  width: 30px;
-  height: 30px;
+  width: toRem(30);
+  height: toRem(30);
   cursor: pointer;
 }
 .product__modal-text {
@@ -126,15 +126,14 @@ export default {
   flex-wrap: wrap;
 }
 .product__modal-title {
-  font-size: 14px;
-  color: $black;
+  font-size: toRem(14);
   font-weight: 400;
   flex-grow: 1;
-  min-height: 18px;
+  min-height: toRem(18);
   color: $black-topic;
 }
 .product__modal {
-  padding-top: 15px;
+  padding-top: toRem(15);
 }
 .product__modal-line {
   margin-bottom: 15px;
@@ -212,11 +211,11 @@ export default {
   border: none;
 }
 
-@media (max-width: 760px) {
+@include sm {
   .tabs__content-items {
     border: none;
-    padding-right: 0px;
-    padding-left: 0px;
+    padding-right: 0;
+    padding-left: 0;
   }
   .tabs__content-item:nth-child(n + 4) {
     @include display-flex();

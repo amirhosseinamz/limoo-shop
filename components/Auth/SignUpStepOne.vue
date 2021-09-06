@@ -1,20 +1,20 @@
 <template>
   <div class="signup-container">
-    <div class="card">
-      <div class="signup-close-btn">
+    <authentication-card class="card" :has-main-icon="true">
+      <template #top-icon>
         <button @click="closePage" class="app-signup-close-btn"></button>
-      </div>
-
-      <div class="signup-limoo-logo">
-        <img src="/logos/limoo-logo1.png" alt="" />
-      </div>
-
-      <div class="card-body">
+      </template>
+      <template #card-title class="txt-header">
+        {{ getTextByTextKey("auth_registration_and_membership") }}
+      </template>
+      <template #main-icon>
+        <div class="signup-limoo-logo">
+          <img src="/logos/limoo-logo1.png" alt="Logo" />
+        </div>
+      </template>
+      <template #card-body>
         <form @submit.prevent="goToNextStepofSignUp">
           <div class="form-group">
-            <p class="txt-header">
-              {{ getTextByTextKey("auth_registration_and_membership") }}
-            </p>
             <text-input
               class="user--item user-profile__info-pass"
               labelNameClass=""
@@ -68,14 +68,15 @@
             </base-button>
           </div>
         </form>
-      </div>
-    </div>
+      </template>
+    </authentication-card>
+
   </div>
 </template>
 
 <script>
 import { getTextByTextKey } from "~/modules/splitPartJsonResource.js";
-import textInput from "~/modules/textInput";
+import textInput from "~/components/UI/textInput";
 
 export default {
   data() {
@@ -152,40 +153,23 @@ export default {
   align-items: center;
   text-align: center;
 }
-
 .card {
-  @include display-flex();
-  flex-direction: column;
-  justify-content: center;
-  width: 642px;
-  height: 524px;
-  background-color: $white;
-  box-shadow: 0px 8px 16px $box__shadow;
-  border-radius: 15px;
+  width: 45%;
+  height: fit-content;
+  padding: 0 4%;
 }
 
-.signup-close-btn {
-  @include display-flex();
-  justify-content: flex-start;
-  margin-top: 24px;
-}
 .app-signup-close-btn::before {
   content: "\e807";
   @include font-icon__limoo();
-  font-size: 28px;
+  font-size: toRem(28);
   color: $gray;
 }
 .signup-btn {
   font-family: inherit;
-  font-size: 18px;
-  height: 58px;
-  width: 463px;
-}
-.signup-input {
-  padding-right: 24px;
-  &-wrong {
-    padding-right: 24px;
-  }
+  font-size: toRem(18);
+  height: toRem(58);
+  width: 100%;
 }
 .form-control {
   direction: rtl;
@@ -196,11 +180,11 @@ export default {
 }
 .err-text {
   font-family: inherit;
-  font-size: 13px;
+  font-size: toRem(13);
   text-align: right;
   color: $alert-red;
   line-height: 140.62%;
-  margin-bottom: 18px;
+  margin-bottom: toRem(18);
 }
 .btn-control {
   @include display-flex();
@@ -211,41 +195,58 @@ export default {
 .min-display {
   display: none;
 }
-.txt-header {
-  font-size: 24px;
-  line-height: 33.75px;
-  font-weight: 400;
-  text-align: right;
-  margin: 37px 90px 33px 0;
-}
 .txt-content {
-  font-size: 16px;
+  font-size: toRem(16);
+  width: 100%;
   line-height: 22.5px;
   font-weight: 318;
   text-align: right;
   margin-bottom: 25px;
-  margin-right: 90px;
 }
 .signup-container::v-deep {
   .txt-content {
     @extend .txt-content;
   }
   .input-holder {
-    @extend .input-holder;
+    width: 100%;
   }
   .form__item--error {
     @extend .err-text;
   }
   .form__main--item {
     justify-content: center;
-    width: auto;
   }
   .signup-input {
     @extend .signup-input;
   }
 }
-@media screen and (max-width: 600px) {
-  .signup-close-btn {
+@include xl {
+  .card {
+    width: 55%;
+    padding: 0 5%;
+  }
+}
+@include md {
+  .card {
+    width: 70%;
+    padding: 0 6%;
+  }
+}
+
+@include sm {
+  .card {
+    width: 85%;
+    padding: 0 7%;
+  }
+}
+
+@include xs {
+  .card {
+    width: 100%;
+    padding: 0 10%;
+    height: 100%;
+  }
+  .app-signup-close-btn {
     display: none;
   }
   .min-display {
@@ -254,227 +255,43 @@ export default {
   .desk-display {
     display: none;
   }
-}
-
-@media screen and (max-width: 540px) {
-  @mixin signup-input {
-    margin-right: 18px;
-    padding: 0;
-    width: 328px;
-    height: 60px;
-    margin-bottom: 8px;
-    &-wrong {
-      margin-right: 18px;
-      padding: 0;
-      width: 328px;
-      height: 60px;
-      margin-bottom: 8px;
-    }
-  }
-
-  .card {
-    width: 360px;
-    height: 100vh;
-    border-radius: 0;
-  }
   .signup-input {
-    @include signup-input();
-  }
-
-  @mixin signup-input {
-    margin-right: 16px;
-    margin-left: 16px;
-    padding: 0;
-    width: 328px;
-    height: 60px;
     margin-bottom: 8px;
     &-wrong {
-      margin-right: 16px;
-      margin-left: 16px;
-      width: 328px;
+      padding: 0;
       height: 60px;
       margin-bottom: 8px;
     }
   }
 
-  .input-holder {
-    @include signup-input();
-  }
-
-  .signup-btn {
-    width: 328px;
-  }
-  .txt-header {
-    font-size: 20px;
-    line-height: 140.62%;
-    width: 328px;
-    margin-right: 16px;
-    margin-left: 16px;
-  }
-  @mixin txt-content {
-    width: 328px;
-    margin-right: 16px;
-    margin-left: 16px;
-  }
-  .txt-content {
-    @include txt-content();
-  }
-  @mixin err-text {
-    margin-right: 16px;
-  }
   .err-text {
-    @include err-text();
+    margin-right: 16px;
   }
   .signup-limoo-logo {
     margin-top: 0.5rem;
   }
   .signup-container::v-deep {
-    .txt-content {
-      @include txt-content();
-    }
     .input-holder {
-      @include signup-input();
+      height: 60px;
+      margin-bottom: 8px;
+      &-wrong {
+        height: toRem(60);
+        margin-bottom: 8px;
+      }
     }
     .form__item--error {
-      @include err-text();
+      margin-right: toRem(16);
     }
     .form__main--item {
       justify-content: center;
-      width: auto;
     }
     .signup-input {
-      @include signup-input();
-    }
-  }
-}
-@media screen and (max-width: 350px) {
-  @mixin signup-input {
-    margin-right: 10px;
-    margin-left: 10px;
-    width: 280px;
-    &-wrong {
-      margin-right: 10px;
-      margin-left: 10px;
-      width: 280px;
-      margin-bottom: 42px;
-    }
-  }
-
-  @mixin input-holder {
-    margin-right: 10px;
-    margin-left: 10px;
-    padding: 0;
-    width: 280px;
-    height: 60px;
-    margin-bottom: 8px;
-    &-wrong {
-      margin-right: 10px;
-      margin-left: 10px;
-      width: 280px;
       height: 60px;
       margin-bottom: 8px;
-    }
-  }
-
-  .input-holder {
-    @include input-holder();
-  }
-  .signup-btn {
-    width: 280px;
-  }
-  .txt-header {
-    font-size: 20px;
-    line-height: 140.62%;
-    width: 280px;
-    margin-right: auto;
-    margin-left: auto;
-  }
-
-  @mixin txt-content {
-    width: 280px;
-    margin-right: 10px;
-  }
-
-  .txt-content {
-    @include txt-content();
-  }
-
-  .signup-limoo-logo {
-    margin-top: 0;
-  }
-  .signup-container::v-deep {
-    .txt-content {
-      @include txt-content();
-    }
-    .input-holder {
-      @include signup-input();
-    }
-
-    .signup-input {
-      @include signup-input();
-    }
-  }
-  .card {
-    width: auto;
-  }
-}
-@media screen and (max-width: 280px) {
-  @mixin signup-input {
-    margin-right: 5px;
-    margin-left: 5px;
-    width: 270px;
-    padding-right: 0px;
-  }
-
-  .signup-input,
-  .signup-input-wrong {
-    @include signup-input();
-  }
-
-  @mixin input-holder {
-    margin-right: 5px;
-    margin-left: 5px;
-    width: 270px;
-    margin-bottom: 8px;
-    padding-right: 0;
-  }
-
-  .input-holder-wrong,
-  .input-holder {
-    @include input-holder();
-  }
-  .signup-btn {
-    width: 270px;
-  }
-  .txt-header {
-    font-size: 20px;
-    line-height: 140.62%;
-    width: 270px;
-  }
-
-  @mixin txt-content {
-    width: 270px;
-    margin-right: 15px;
-  }
-
-  .txt-content {
-    @include txt-content();
-  }
-  .signup-limoo-logo {
-    margin-top: 0.2rem;
-  }
-  .signup-container::v-deep {
-    .txt-content {
-      @include txt-content();
-    }
-    .input-holder {
-      @include signup-input();
-    }
-    .signup-input {
-      @include signup-input();
-    }
-    .form__item--error {
-      margin-right: 6px;
+      &-wrong {
+        height: 60px;
+        margin-bottom: 8px;
+      }
     }
   }
 }

@@ -56,8 +56,6 @@ export default {
     },
 
     showBoxFilter() {
-      // this.$store.state.category.showModal         = true;
-      // this.$store.state.category.submitFliterModal = false;
       this.$store.commit("category/updateStateModals", {
         showModal: true,
         submitFliterModal: false,
@@ -65,8 +63,6 @@ export default {
     },
 
     showModalSort() {
-      // this.$store.state.category.showModalSort     = true;
-      // this.$store.state.category.submitSortModal   = false;
       this.$store.commit("category/updateStateModals", {
         showModalSort: true,
         submitSortModal: false,
@@ -106,13 +102,8 @@ export default {
   align-items: flex-start;
 }
 
-@media (max-width: 1220px) {
-}
 
-@media (max-width: 1024px) {
-}
-
-@media (max-width: 960px) {
+@include md {
   .content {
     margin-top: 0;
   }
@@ -126,11 +117,8 @@ export default {
   }
 }
 
-@media (max-width: 600px) {
 
-}
-
-@media (max-width: 485px) {
+@include xs {
   .content__bg {
     padding-right: toRem(8);
     padding-left: toRem(8);

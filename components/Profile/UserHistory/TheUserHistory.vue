@@ -75,8 +75,9 @@
 
 <script>
 import { getTextByTextKey } from "~/modules/splitPartJsonResource.js";
-import textInput from "~/modules/textInput";
 import BaseButton from "../../UI/BaseButton";
+import textInput from "~/components/UI/textInput";
+
 
 export default {
   data() {
@@ -289,7 +290,7 @@ export default {
   font-family: inherit;
   transition: all 120ms ease-in;
 }
-@media (max-width: 768px) {
+@include sm {
   .btn-text-desktop {
     display: none;
   }
@@ -399,13 +400,13 @@ export default {
     font-size: toRem(13);
   }
 }
-@media (max-width: 320px) {
+@include xxs {
   .p-history-product-content-left {
     width: 69%;
   }
 }
 
-@media (max-width: 280px) {
+@include xxxs {
   .p-history-product-content-left {
     width: 60%;
   }

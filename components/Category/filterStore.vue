@@ -1,8 +1,5 @@
 <template>
     <div  class="w-100 modal-filter__store margin--top">
-          <!-- <div class="w-100 modal__store-item">
-              <h3 class="modal-filter__box-text store--text">{{title}}</h3>
-          </div> -->
 
           <div :class="{'active--box':openBox}"  class="w-100 modal-filter__box ">
                 <div @click="toggleBox" class="modal-filter__box-title w-100">
@@ -64,17 +61,11 @@ export default {
 
   methods: {
     toggleBox(){
-      if (this.openBox) {
-        this.openBox = false;
-      }
-      else {
-        this.openBox = true;
-      }
+      this.openBox = !this.openBox;
     },
 
     addChecked(e,data){
-      const checked = e.target.checked;
-      data.checked  = checked;
+      data.checked  = e.target.checked;
       this.$emit('checked-brand-filter',this.checkBoxData);
     },
 
@@ -88,30 +79,27 @@ export default {
   margin-right: auto;
   margin-left: auto;
   background: $white;
-  // padding-top: 13px;
-  padding-bottom: 15px;
-  // padding-right: 16px;
-  // padding-left: 16px;
+  padding-bottom: toRem(15);
   border:solid 1px $chinese_white;
   @include display-flex();
   align-items: flex-start;
-  border-radius: 10px;
+  border-radius: toRem(10);
   flex-wrap: wrap;
-  max-height: 51px;
+  max-height: toRem(51);
   transition: max-height 0.5s cubic-bezier(0, 1, 0, 1);
   overflow: hidden;
-  margin-top: 6px;
+  margin-top: toRem(6);
 }
 .modal-filter__box-content{
   @include display-flex();
   align-items: flex-start;
   flex-wrap: wrap;
-  padding-right: 16px;
-  padding-left: 16px;
-  padding-top: 4px;
+  padding-right: toRem(16);
+  padding-left: toRem(16);
+  padding-top: toRem(4);
 }
 .modal-filter__box-text{
-  font-size: 16px;
+  font-size: toRem(16);
   color: $dark_gray;
   font-weight: 400;
   flex-grow: 1;
@@ -120,34 +108,31 @@ export default {
 .modal-filter__box-arrow::before {
   content: "\e801";
   @include font-icon__limoo();
-  font-size: 13px;
+  font-size: toRem(13);
   color: $gray;
   cursor: pointer;
 }
 .modal-filter__box-arrow{
-  height:19px;
+  height: toRem(19);
   transition  : all .3s ease-in-out;
-  margin-top: 3px;
+  margin-top: toRem(3);
 }
 .modal-filter__box-title{
   @include display-flex();
   align-items: center;
   cursor: pointer;
-  padding-right: 16px;
-  padding-left: 16px;
-  padding-top: 13px;
-  padding-bottom: 13px;
+  padding: toRem(13) toRem(16);
 }
 .active--box .modal-filter__box-arrow{
   transform:rotate(-180deg);
   transition  : all .3s ease-in-out;
 }
 .active--box {
-  max-height: 1000px;
+  max-height: toRem(1000);
   transition: max-height 1s ease-in-out;
 }
 .modal-filter__box-item{
-  margin-bottom: 26px;
+  margin-bottom: toRem(26);
 }
 .modal-filter__box-item:last-of-type{
   margin-bottom: 0;
@@ -159,7 +144,7 @@ export default {
   display: block;
   position: relative;
   cursor: pointer;
-  font-size: 22px;
+  font-size: toRem(22);
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
@@ -176,10 +161,10 @@ export default {
   position: absolute;
   top: 0;
   right: 0;
-  height: 18px;
-  width: 18px;
-  border:solid 1px $color-gray;
-  border-radius: 5px;
+  height: toRem(18);
+  width: toRem(18);
+  border:solid toRem(1) $color-gray;
+  border-radius: toRem(5);
 }
 .container input:checked ~ .checkmark {
   background-color: $yellow;
@@ -197,25 +182,25 @@ export default {
   color: $black-topic;
 }
 .container .checkmark:after {
-  left: 4px;
-  top: 5px;
+  left: toRem(4);
+  top: toRem(5);
   content: "\e82b";
   @include font-icon__limoo();
-  font-size: 6px;
+  font-size: toRem(6);
   color: $white;
 }
 .modal-filter__checkbox-title{
-  font-size: 14px;
+  font-size: toRem(14);
   color: $gray;
   font-weight: 400;
-  margin-right:28px;
+  margin-right: toRem(28);
 }
 .margin--top{
-  margin-top: 24px;
+  margin-top: toRem(24);
 }
 .store--text{
-  margin-bottom: 16px;
-  margin-right: 4px;
+  margin-bottom: toRem(16);
+  margin-right: toRem(4);
 }
 .modal-filter__store{
   width: 98%;
@@ -225,19 +210,16 @@ export default {
 
 
 
-@media (max-width: 485px) {
+@include xs {
   .modal-filter__box-text{
-    font-size: 14px;
+    font-size: toRem(14);
   }
   .store--text{
-    font-size: 14px;
-    margin-bottom: 8px;
+    font-size: toRem(14);
+    margin-bottom: toRem(8);
   }
 }
 
-@media (max-width: 350px) {
-
-}
 
 
 

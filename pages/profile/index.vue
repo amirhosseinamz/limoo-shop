@@ -249,16 +249,12 @@ export default {
   flex-direction: row-reverse;
 }
 .user-profile {
-  margin: 166px 0 50px 17px;
+  margin: toRem(166) 0 toRem(50) toRem(17);
   width: 100%;
   height: fit-content;
   @include display-flex();
   flex-direction: column;
-  /* justify-content: center; */
-  /* align-items: center; */
-  /* align-items: flex-end; */
   text-align: center;
-  /* border: 1px solid red; */
 }
 .user-profile__lastseen-product,
 .user-profile__fav-product,
@@ -268,61 +264,60 @@ export default {
   height: fit-content;
   width: 100%;
   background-color: $white;
-  border-radius: 10px;
-  box-shadow: 0px 8px 16px $box__shadow;
-  margin-bottom: 38px;
+  border-radius: toRem(10);
+  box-shadow: 0 toRem(8) toRem(16) $box__shadow;
+  margin-bottom: toRem(38);
 }
 .user-profile__list-title {
   color: $black-topic;
   text-align: right;
   line-height: 140.62%;
   font-weight: 400;
-  font-size: 18px;
-  margin: 24px 24px 0 0;
+  font-size: toRem(18);
+  margin: toRem(24) toRem(24) 0 0;
 }
 .user-profile__continue-list__btn,
 .user-profile__continue-orderslist__btn {
   width: fit-content;
   text-decoration: none;
   color: $gray;
-  font-size: 18px;
+  font-size: toRem(18);
   line-height: 140.62%;
-  margin: 14px auto 38px auto;
+  margin: toRem(14) auto toRem(38) auto;
 }
 .user-profile__continue-orderslist__btn {
-  margin: 38px auto 38px auto;
+  margin: toRem(38) auto toRem(38) auto;
 }
 .p-list-product-line {
   @include display-flex();
   background: $border-gray-bg;
   width: 95%;
   margin: 0 auto;
-  height: 1px;
+  height: toRem(1);
 }
-@media (max-width: 960px) {
+@include md {
   .profile-container {
     margin: 0 auto;
     width: 100%;
     @include display-flex();
     flex-direction: column;
-    margin-bottom: 58px;
+    margin-bottom: toRem(58);
   }
   .user-profile {
     display: none;
-    /* margin: 16px 0 0 0; */
   }
 }
-@media (max-width: 1220px) {
+@include xl {
   .user-profile__list-title {
-    font-size: 16px;
+    font-size: toRem(16);
   }
   .user-profile__continue-list__btn {
-    font-size: 16px;
-    margin: 10px auto 34px auto;
+    font-size: toRem(16);
+    margin: toRem(10) auto toRem(34) auto;
   }
   .user-profile__continue-orderslist__btn {
-    font-size: 16px;
-    margin: 34px auto 34px auto;
+    font-size: toRem(16);
+    margin: toRem(34) auto toRem(34) auto;
   }
 }
 </style>

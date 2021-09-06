@@ -236,23 +236,23 @@ export default {
     @include display-flex();
     flex-direction: column;
     align-items: center;
-    width: 642px;
-    height: 524px;
+    width: toRem(642);
+    height: toRem(524);
     background: $white;
-    box-shadow: 0 8px 16px $box__shadow;
-    border-radius: 15px;
+    box-shadow: 0 toRem(8) toRem(16) $box__shadow;
+    border-radius: toRem(15);
     &__close-cross {
       align-self: flex-end;
-      width: 30px;
-      height: 30px;
-      margin-top: 24px;
-      margin-left: 24px;
+      width: toRem(30);
+      height: toRem(30);
+      margin-top: toRem(24);
+      margin-left: toRem(24);
       cursor: pointer;
     }
     &__close-line {
       display: none;
       align-self: center;
-      margin-top: 24px;
+      margin-top: toRem(24);
     }
     &__title {
       display: none;
@@ -263,22 +263,22 @@ export default {
       align-items: center;
     }
     .pass__holder {
-      height: 88px;
-      margin-bottom: 35px;
+      height: toRem(88);
+      margin-bottom: toRem(35);
       width: 45%;
       label {
-        font-size: 16px;
+        font-size: toRem(16);
         line-height: 140.62%;
         span {
           color: $red;
-          margin-right: 3px;
+          margin-right: toRem(3);
         }
       }
     }
     .btn__send-ticket,
     .btn__cancel-ticket {
-      width: 130px;
-      height: 47px;
+      width: toRem(130);
+      height: toRem(47);
       font-family: inherit;
       margin-left: 1.5rem;
     }
@@ -286,7 +286,7 @@ export default {
       margin-left: 0;
     }
     .pass__repeat {
-      margin-bottom: 42px;
+      margin-bottom: toRem(42);
     }
     .pass__old,
     .pass__new,
@@ -295,51 +295,50 @@ export default {
       flex-direction: row;
       justify-content: space-between;
       align-items: center;
-      height: 52px;
+      height: toRem(52);
       flex-grow: 1;
       background: $white;
-      border: 1px solid $input-border;
+      border: toRem(1) solid $input-border;
       box-sizing: border-box;
-      box-shadow: 0px 4px 4px $gray-border;
-      border-radius: 15px;
-      margin-top: 15px;
+      box-shadow: 0 toRem(4) toRem(4) $gray-border;
+      border-radius: toRem(15);
+      margin-top: toRem(15);
     }
     .pass__old > input,
     .pass__new > input,
     .pass__new-repeat > input {
-      height: 52px;
+      height: toRem(52);
       flex-grow: 1;
       background: transparent;
-      padding: 16px;
+      padding: toRem(16);
       line-height: 140.62%;
       border: none;
-      border-radius: 15px;
+      border-radius: toRem(15);
       font-family: inherit;
       outline: none;
-      /* letter-spacing: 5px; */
-      font-size: 16px;
+      font-size: toRem(16);
     }
     .pass__submitbtn {
       align-self: center;
-      margin-bottom: 40px;
-      height: 57px;
-      width: 270px;
+      margin-bottom: toRem(40);
+      height: toRem(57);
+      width: toRem(270);
       background: $btn__green;
       color: $white;
-      font-size: 18px;
+      font-size: toRem(18);
       font-family: inherit;
       line-height: 140.62%;
       text-align: center;
-      border-radius: 10px;
+      border-radius: toRem(10);
       cursor: pointer;
       outline: none;
       border: none;
     }
     .pass__alert {
-      margin-top: 4px;
+      margin-top: toRem(4);
       color: $alert-red;
       text-align: right;
-      font-size: 14px;
+      font-size: toRem(14);
       line-height: 140.62%;
       @include display-flex();
       width: 100%;
@@ -349,7 +348,7 @@ export default {
 
     .p-modal-header-icon {
       @include display-flex();
-      height: 22px;
+      height: toRem(22);
     }
     .splicer-line {
       display: none;
@@ -361,13 +360,13 @@ export default {
       margin-top: 1.5rem;
     }
     .p-modal-header-close-icon::before {
-      font-size: 28px;
+      font-size: toRem(28);
     }
     .p-modal_wrapper {
-      padding-right: 99px;
-      padding-left: 93px;
+      padding-right: toRem(99);
+      padding-left: toRem(93);
       @include display-flex();
-      padding-top: 38px;
+      padding-top: toRem(38);
     }
     .p-modal-wrapper-item {
       width: 100%;
@@ -377,14 +376,14 @@ export default {
     .p-modal-wrapper-province_city-title,
     .p-modal-wrapper__description-title {
       font-family: inherit;
-      font-size: 14px;
+      font-size: toRem(14);
       font-weight: 500;
-      margin-bottom: 16px;
+      margin-bottom: toRem(16);
       color: $code;
       text-align: right;
     }
     .p-modal-wrapper__description-title {
-      margin-top: 24px;
+      margin-top: toRem(24);
     }
     .p-margin-left-0 {
       margin-left: 0;
@@ -398,27 +397,27 @@ export default {
     .p-modal-header-top {
       flex-grow: 1;
       @include display-flex();
-      padding-top: 32px;
+      padding-top: toRem(32);
     }
     .p-modal-header-icon-location {
-      width: 24px;
+      width: toRem(24);
     }
     .p-modal-header-top-title {
       color: $black;
-      font-size: 18px;
+      font-size: toRem(18);
       font-weight: 500;
-      margin-bottom: 11px;
+      margin-bottom: toRem(11);
     }
     .p-modal-header-top-title-mobile {
-      margin-top: 21px;
-      margin-bottom: 16px;
-      font-size: 14px;
+      margin-top: toRem(21);
+      margin-bottom: toRem(16);
+      font-size: toRem(14);
       color: $gray;
     }
     .p-ticket-modal-header {
-      height: 67px;
-      padding-right: 99px;
-      padding-left: 21px;
+      height: toRem(67);
+      padding-right: toRem(99);
+      padding-left: toRem(21);
     }
     .p-modal-content {
       @include display-flex();
@@ -428,34 +427,33 @@ export default {
     }
     .p-modal-ticket-input {
       font-family: inherit;
-      border: 1px solid $input-border;
+      border: toRem(1) solid $input-border;
       width: 100%;
-      height: 47px;
+      height: toRem(47);
       background-color: $gray-border;
       color: $gray;
-      border-radius: 10px;
+      border-radius: toRem(10);
       outline: none;
-      padding-right: 10px;
-      padding-left: 10px;
+      padding-right: toRem(10);
+      padding-left: toRem(10);
     }
     .p-modal-ticket {
-      height: 90px;
+      height: toRem(90);
     }
     .p-modal-header-line {
       width: 85%;
-      height: 1px;
+      height: toRem(1);
       background: $gray-border;
       @include display-flex();
-      /* margin-top: 2px; */
     }
     .p-modal-header-top-main {
       @include display-flex();
     }
     .p-modal-header-top {
-      height: 67px;
+      height: toRem(67);
     }
     .p-modal-btns {
-      padding-top: 24px;
+      padding-top: toRem(24);
     }
 
     .p-modal-show_error .pass__alert {
@@ -463,20 +461,20 @@ export default {
     }
     .p-modal-show_error .p-input-style__description,
     .p-modal-show_error .p-modal-ticket-input {
-      border: solid 1px $red !important;
+      border: solid toRem(1) $red !important;
     }
     .p-input-style__description {
       @include display-flex();
       width: 100%;
-      height: 161px;
+      height: toRem(161);
       resize: none;
-      border-radius: 10px;
-      border: 1px solid $input-border;
+      border-radius: toRem(10);
+      border: toRem(1) solid $input-border;
       background-color: $gray-border;
       outline: none;
-      padding: 5px 10px;
+      padding: toRem(5) toRem(10);
       font-family: inherit;
-      font-size: 14px;
+      font-size: toRem(14);
       color: $gray;
     }
 
@@ -485,13 +483,13 @@ export default {
     }
     .p-input-style__default:focus,
     .p-input-style__description:focus {
-      border: solid 1px $black;
+      border: solid toRem(1) $black;
     }
   }
 }
 
 
-@media (max-width: 960px) {
+@include md {
   .modal-container::v-deep {
     .modal {
       width: 100%;
@@ -626,39 +624,9 @@ export default {
     }
   }
 
-
-}
-@media (max-width: 720px) {
 }
 
-@media (max-width: 540px) {
-}
-
-@media screen and (max-width: 485px) {
-  .modal-container::v-deep {
-    .modal {
-      .splicer-line {
-        margin-top: toRem(16);
-      }
-
-      .p-input-style__default {
-        height: toRem(46);
-      }
-      .modal__close-line {
-        margin-top: toRem(21);
-      }
-      .p-modal-validation-mobile {
-        display: flex !important;
-      }
-      .p-modal-validation-desktop {
-        display: none !important;
-      }
-    }
-  }
-
-}
-
-@media screen and (max-width: 320px) {
+@include xxs {
   .modal-container::v-deep {
     .modal {
       height: toRem(470);
@@ -727,7 +695,7 @@ export default {
   }
 }
 
-@media screen and (max-width: 280px) {
+@include xxxs {
   .modal-container::v-deep {
     .modal {
       .p-modal-wrapper-province_city-title {

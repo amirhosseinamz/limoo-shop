@@ -33,22 +33,6 @@
           @last-update-slider-range="lastUpdateSliderRenge"
         ></filter-price>
 
-        <filter-price
-          :open-default-box="true"
-          :title="getTextByTextKey('category_price_range_text')"
-          :minMax="{ min: 0, max: 100000 }"
-          :from-to-range="rengeFromTo"
-          @last-update-slider-range="lastUpdateSliderRenge"
-        ></filter-price>
-
-        <filter-price
-          :open-default-box="true"
-          :title="getTextByTextKey('category_price_range_text')"
-          :minMax="{ min: 0, max: 100000 }"
-          :from-to-range="rengeFromTo"
-          @last-update-slider-range="lastUpdateSliderRenge"
-        ></filter-price>
-
         <filter-brand
           @checked-brand-filter="checkedBrandFilter"
         ></filter-brand>
@@ -294,13 +278,10 @@ export default {
   }
 }
 
-@media (max-width: 768px) {
-}
-
-@media (max-width: 485px) {
+@include xs {
   .modal-container::v-deep {
     .modal {
-
+      max-width: 100%;
       .modal-filter__item-title {
         font-size: toRem(14);
         align-items: flex-start;
@@ -340,15 +321,9 @@ export default {
 
   }
 }
-@media (max-width: 420px) {
-  .modal-container::v-deep {
-    .modal {
-      max-width: 100%;
-    }
-  }
-}
 
-@media (max-width: 330px) {
+
+@include xxs {
   .modal-container::v-deep {
     .modal {
       .p-product-btn {

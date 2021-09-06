@@ -258,7 +258,7 @@
 import customeDropDown from "~/modules/customeDropDown.vue";
 import "~/assets/styles/_adresses.scss";
 import { getTextByTextKey } from "~/modules/splitPartJsonResource.js";
-import textInput from "~/modules/textInput";
+import textInput from "~/components/UI/textInput";
 
 export default {
   props: {
@@ -360,17 +360,9 @@ export default {
     },
 
     checkShowErrorCityProvince() {
-      if (this.formData.province == "") {
-        this.showErrorValidationProvince = true;
-      } else {
-        this.showErrorValidationProvince = false;
-      }
+      this.showErrorValidationProvince = this.formData.province === "";
 
-      if (this.formData.city == "") {
-        this.showErrorValidationCity = true;
-      } else {
-        this.showErrorValidationCity = false;
-      }
+      this.showErrorValidationCity = this.formData.city === "";
     },
 
     submitAddressAdd() {
@@ -446,16 +438,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@mixin p-modal-wrapper-province_city-title() {
-  font-family: inherit;
-  font-size: toRem(16);
-  font-weight: 500;
-  margin-bottom: toRem(16);
-  color: $black;
-  text-align: right;
-  padding-right: toRem(7);
-  line-height: 140.62%;
-}
 
 @mixin pass__alert_style() {
   margin-top: toRem(4);
@@ -621,7 +603,14 @@ export default {
     }
 
     .p-modal-wrapper-province_city-title {
-      @include p-modal-wrapper-province_city-title();
+      font-family: inherit;
+      font-size: toRem(16);
+      font-weight: 500;
+      margin-bottom: toRem(16);
+      color: $black;
+      text-align: right;
+      padding-right: toRem(7);
+      line-height: 140.62%;
     }
 
     .p-margin-left-0 {
@@ -705,7 +694,7 @@ export default {
     }
 
     .p-modal-show_error .p-modal-item-input {
-      border: solid 1px $red !important;
+      border: solid toRem(1) $red !important;
     }
 
     .p-modal-validation-mobile {
@@ -713,27 +702,23 @@ export default {
     }
 
     .p-input-style__default:focus {
-      border: solid 1px $black;
+      border: solid toRem(1) $black;
     }
 
     .p-modal-header-close-icon::before {
-      font-size: 28px;
+      font-size: toRem(28);
     }
 
     .form__modal--address .card-body .form-group {
-      height: 95px;
+      height: toRem(95);
       background: red;
     }
 
     .p-product-btn {
-      width: 150px;
-      height: 47px;
+      width: toRem(150);
+      height: toRem(47);
       font-family: inherit;
       transition: all 120ms ease-in;
-    }
-
-    .p-modal-wrapper-province_city-title {
-      @include p-modal-wrapper-province_city-title();
     }
 
     .search-section__items {
@@ -764,12 +749,12 @@ export default {
 }
 
 
-@media (max-width: 960px) {
+@include md {
 
   .modal-container::v-deep {
     .modal {
       width: 100%;
-      height: 723px;
+      height: toRem(632);
       background: $white;
       box-shadow: 0 20px 24px $overlay__profile-mobile;
       border-radius: 30px 30px 0 0;
@@ -822,18 +807,11 @@ export default {
         margin-bottom: 47px;
       }
 
-      @mixin pass__alert() {
-        font-size: 13px;
-        padding-right: 7px;
-      }
-
       .pass__alert {
-        @include pass__alert();
+        font-size: toRem(13);
+        padding-right: toRem(7);
       }
 
-        .pass__alert {
-          @include pass__alert();
-        }
       .clear-input > img {
         width: 17px;
         height: 15px;
@@ -842,9 +820,9 @@ export default {
         display: block;
         width: 95%;
         border: none;
-        margin: 16px 5px;
-        border-top: 1px solid $gray-border;
-        margin-bottom: 35px;
+        margin: toRem(16) toRem(5);
+        border-top: toRem(1) solid $gray-border;
+        margin-bottom: toRem(35);
       }
       .p-modal-header-mobile {
         display: flex;
@@ -853,16 +831,14 @@ export default {
       .p-modal-header-desktop {
         display: none;
       }
-      @mixin p-modal-wrapper-province_city-title() {
-        font-size: 14px;
-      }
       .p-modal-wrapper-province_city-title {
-        @include p-modal-wrapper-province_city-title();
+        font-size: toRem(14);
+        margin-bottom: toRem(10);
       }
       .p-modal-wrapper-item {
         width: 43%;
         margin-left: 13%;
-        margin-bottom: 4px;
+        margin-bottom: toRem(4);
       }
       .p-modal-wrapper-item:nth-child(2n) {
         margin-left: 0;
@@ -874,13 +850,13 @@ export default {
         width: 100%;
       }
       .p-modal_wrapper {
-        padding-right: 32px;
-        padding-left: 32px;
-        padding-top: 24px;
+        padding-right: toRem(32);
+        padding-left: toRem(32);
+        padding-top: toRem(24);
       }
       .splicer-line {
         margin-bottom: 0;
-        margin-top: 20px;
+        margin-top: toRem(20);
       }
       .location-icon {
         &::before {
@@ -888,14 +864,14 @@ export default {
         }
       }
       .p-modal-header-top-title {
-        font-size: 14px;
+        font-size: toRem(14);
         color: $gray;
       }
       .p-modal-header-top {
-        padding-top: 31px;
+        padding-top: toRem(31);
       }
       .p-modal-btns {
-        padding-top: 55px;
+        padding-top: 0;
       }
     }
   }
@@ -903,23 +879,10 @@ export default {
 
 }
 
-@media (max-width: 540px) {
+@include xs {
   .modal-container::v-deep {
     .modal {
-      height: 688px;
-
-      .p-modal-btns {
-        padding-top: 25px;
-      }
-    }
-  }
-
-}
-
-@media screen and (max-width: 485px) {
-  .modal-container::v-deep {
-    .modal {
-      height: 617px;
+      height: toRem(617);
 
       .p-product-btn {
         width: 47%;
@@ -932,7 +895,7 @@ export default {
         margin-left: 0;
       }
       .p-modal-btns {
-        padding-top: 9px;
+        padding-top: toRem(9);
       }
 
       .p-modal-address {
@@ -940,15 +903,12 @@ export default {
       }
 
       .p-modal_wrapper {
-        padding-right: 29px;
-        padding-left: 29px;
+        padding-right: toRem(29);
+        padding-left: toRem(29);
       }
 
-      @mixin pass__alert() {
-        height: 20px;
-      }
       .pass__alert {
-        @include pass__alert();
+        height: toRem(20);
       }
 
       .splicer-line {
@@ -969,6 +929,9 @@ export default {
       .p-modal-validation-mobile {
         display: flex !important;
       }
+      .p-modal-wrapper-province_city-title {
+        margin-bottom: toRem(16);
+      }
       .p-modal-validation-desktop {
         display: none !important;
       }
@@ -977,33 +940,33 @@ export default {
 
 }
 
-@media screen and (max-width: 320px) {
+@include xxs {
 
   .modal-container::v-deep {
     .modal {
-      height: 470px;
+       height: toRem(536);
 
       .p-modal-wrapper-province_city-title {
         margin-bottom: toRem(4.8);
       }
       &__close-line {
-        margin-top: 20px;
+        margin-top: toRem(20);
       }
 
       &__title {
-        margin-top: 20px;
+        margin-top: toRem(20);
       }
 
       .p-modal_wrapper {
         padding-top: 0;
       }
       .pass__holder {
-        height: 70px;
+        height: toRem(70);
         width: 84vw;
-        margin-bottom: 25px;
+        margin-bottom: toRem(25);
 
         label {
-          font-size: 13px;
+          font-size: toRem(13);
         }
       }
 
@@ -1011,37 +974,28 @@ export default {
       .pass__new,
       .pass__new-repeat {
         @include display-flex();
-        height: 40px;
+        height: toRem(40);
       }
 
       .pass__old > input,
       .pass__new > input,
       .pass__new-repeat > input {
-        height: 40px;
-        width: 200px;
+        height: toRem(40);
+        width: toRem(200);
       }
 
       .pass__submitbtn {
         width: 91vw;
-        margin-bottom: 37px;
-        margin-top: 15px;
+        margin-bottom: toRem(37);
+        margin-top: toRem(15);
       }
       .splicer-line {
-        margin-bottom: 10px;
-        margin-top: 10px;
-      }
-      @mixin pass__alert_style() {
-        font-size: 11px;
+        margin-bottom: toRem(10);
+        margin-top: toRem(10);
       }
       .pass__alert {
-        @include pass__alert_style();
+        font-size: toRem(11);
       }
-    }
-  }
-
-  .modal-container::v-deep {
-    .modal {
-      height: 536px;
     }
   }
   .p-modal_wrapper {
@@ -1053,49 +1007,11 @@ export default {
   .p-modal-btns {
     padding-top: 9px;
   }
-  @mixin p-modal-wrapper-province_city-title() {
-    margin-bottom: 8px;
-  }
   .p-modal-address {
     margin-bottom: 0;
   }
   .p-modal-wrapper-item {
-    margin-bottom: 1px;
+    margin-bottom: toRem(1);
   }
-}
-
-@media screen and (max-width: 280px) {
-  .modal-container::v-deep {
-    .modal {
-      height: 617px;
-
-      .p-favorite-product-btn-modal-delete {
-        margin-left: 3%;
-      }
-      .p-modal_wrapper {
-        padding-top: 24px;
-      }
-      .splicer-line {
-        margin-top: 17px;
-        margin-bottom: 0;
-      }
-      @mixin p-modal-wrapper-province_city-title() {
-        margin-bottom: 16px;
-      }
-      @mixin p-modal-wrapper-item() {
-        margin-bottom: 6px;
-      }
-      .p-modal-wrapper-item {
-        margin-bottom: 6px;
-      }
-      .p-modal-wrapper-province_city-title {
-        @include p-modal-wrapper-province_city-title();
-      }
-      .p-modal-wrapper-item {
-        @include p-modal-wrapper-item();
-      }
-    }
-  }
-
 }
 </style>

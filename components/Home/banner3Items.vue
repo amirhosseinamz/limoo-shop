@@ -51,12 +51,12 @@ export default {
 
         const getImg    = (getSizeImg,getSizeUpdate) => {
             this.banners.map((content,index)=>{
-              if (content[getSizeUpdate] == '') {
+              if (content[getSizeUpdate] === '') {
                   for (let key in content) {
-                      if (key == getSizeUpdate) {
+                      if (key === getSizeUpdate) {
                         // فقط یک بار اجرا شده و پس از گرفتن عکس مورد نظر اجرا نخواهد شد //
 
-                        if (index == 0) {
+                        if (index === 0) {
                           const pic2Size   = getSizeImg.pic1;
                           const width      = pic2Size.width;
                           const height     = pic2Size.height;
@@ -77,7 +77,7 @@ export default {
           this.banners.map((contentLastGetImg)=>{
               const getCurrentSizeImg = contentLastGetImg[getSizeUpdate];
               this.bannerBlog.map((contentOriginal)=>{
-                if (contentOriginal.id == contentLastGetImg.id) {
+                if (contentOriginal.id === contentLastGetImg.id) {
 
                   contentOriginal.image = getCurrentSizeImg;
                 }
@@ -108,18 +108,6 @@ export default {
             updateImg('larg');
           }
 
-
-        // if (1024 >= getWindowWidth) {
-        //   const sizeImg = {
-        //     pic1 : {
-        //       width  : 876,
-        //       height : 200,
-        //     },
-        //   }
-        //
-        //   getImg(sizeImg,'medium');
-        //   updateImg('medium');
-        // }
 
         if (768 >= getWindowWidth) {
           const sizeImg = {
@@ -161,17 +149,17 @@ export default {
     @include display-flex();
     align-items: flex-start;
     flex-wrap: wrap;
-    margin-bottom: 36px;
+    margin-bottom: toRem(36);
   }
   .bannerItems__item{
     width: 100%;
-    height: 200px;
+    height: toRem(200);
     @include display-flex();
   }
   .bannerItems__itemPic{
     width: 100%;
     height: 100%;
-    border-radius: 14px;
+    border-radius: toRem(14);
 
   }
 
@@ -183,20 +171,20 @@ export default {
     }
   }
 
-  @media (max-width: 960px) {
+  @include md {
     .bannerItems{
       margin-bottom:40px;
       margin-top: 40px;
     }
   }
 
-  @media (max-width: 768px) {
+  @include sm {
     .bannerItems{
       display: none;
     }
   }
 
-  @media (max-width: 485px) {
+  @include xs {
     .bannerItems{
       margin-bottom: 0;
       margin-top: 0;

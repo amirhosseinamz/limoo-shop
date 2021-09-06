@@ -139,17 +139,17 @@ export default {
     },
 
     isNotEmpty(str) {
-      var pattern = /\S+/;
+      let pattern = /\S+/;
       return pattern.test(str); // returns a boolean
     },
 
     updateUserAnswer(e, submitValue) {
       const value = e.target.value;
-      if (value != "") {
+      if (value !== "") {
         if (this.isNotEmpty(value)) {
           this.showErrorValidationUserAnswer = false;
         }
-        if (value.length == 500) {
+        if (value.length === 500) {
           this.showErrorValidationUserAnswer = true;
           this.validationUserAnswerMsg = this.getTextByTextKey(
             "address_validation_over_limit"
@@ -170,7 +170,7 @@ export default {
       let checkVerifiSubmitForm = true;
 
       const checkEmptyForm = () => {
-        if (this.formData.userAnswer == "") {
+        if (this.formData.userAnswer === "") {
           this.showErrorValidationUserAnswer = true;
           this.validationUserAnswerMsg = this.getTextByTextKey(
             "address_not_valid"
@@ -302,9 +302,9 @@ export default {
       margin-bottom: toRem(11);
     }
     .p-modal-header-top-title-mobile {
-      margin-top: 21px;
-      margin-bottom: 16px;
-      font-size: 14px;
+      margin-top: toRem(21);
+      margin-bottom: toRem(16);
+      font-size: toRem(14);
       color: $gray;
     }
     .p-ticket-modal-header {
@@ -367,7 +367,7 @@ export default {
   }
 }
 
-@media (max-width: 960px) {
+@include md {
   .modal-container::v-deep {
     .modal {
       width: 100%;
@@ -410,7 +410,7 @@ export default {
       }
       .btn__send-ticket,
       .btn__cancel-ticket {
-        font-size: toRem(14) !important;
+        font-size: toRem(14);
       }
       .splicer-line {
         display: block;
@@ -463,37 +463,9 @@ export default {
   }
 
 }
-@media (max-width: 720px) {
-}
 
-@media (max-width: 540px) {
-}
 
-@media screen and (max-width: 485px) {
-  .modal-container::v-deep {
-    .modal {
-      .splicer-line {
-        margin-top: toRem(16);
-      }
-
-      .p-input-style__default {
-        height: toRem(46);
-      }
-      .modal__close-line {
-        margin-top: toRem(21);
-      }
-      .p-modal-validation-mobile {
-        display: flex !important;
-      }
-      .p-modal-validation-desktop {
-        display: none !important;
-      }
-    }
-  }
-
-}
-
-@media screen and (max-width: 320px) {
+@include xxs {
   .modal-container::v-deep {
     .modal {
       height: toRem(470);
@@ -519,19 +491,19 @@ export default {
       }
 
       .p-modal-btns {
-        padding-top: toRem(100);
+        padding-top: toRem(80);
       }
       .btn__send-ticket,
       .btn__cancel-ticket {
-        width: toRem(100) !important;
-        font-size: toRem(13) !important;
+        width: toRem(100);
+        font-size: toRem(13);
       }
     }
   }
 
 }
 
-@media screen and (max-width: 280px) {
+@include xxxs {
   .modal-container::v-deep {
     .modal {
       .p-modal-wrapper__description-title {

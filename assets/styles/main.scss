@@ -1,6 +1,7 @@
 @import "_variables.scss";
 @import "_colors.scss";
-@import "_functions";
+@import "_functions.scss";
+@import "_breakpoints.scss";
 
 * {
   margin: 0;
@@ -90,13 +91,9 @@ input::-webkit-inner-spin-button {
 }
 .app-signup-close-btn {
   @extend .sass-input__default;
-  cursor: pointer;
-  margin-left: 24px;
 }
 .app-signin-next-btn {
   @extend .sass-input__default;
-  cursor: pointer;
-  margin-left: 24px;
 }
 .google-signup-btn {
   font-family: inherit;

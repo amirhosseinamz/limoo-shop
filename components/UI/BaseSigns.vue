@@ -80,7 +80,7 @@ export default {
       margin-right: toRem(10);
     }
   }
-  @media (max-width: 601px) {
+  @include sm{
     .sign-container {
       .sign-title {
         font-size: toRem(13);

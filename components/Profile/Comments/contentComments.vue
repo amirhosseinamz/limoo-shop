@@ -185,46 +185,44 @@ export default {
   @include display-flex();
   flex-direction: column;
   justify-content: flex-start;
-  height: 233px;
+  height: toRem(233);
   background: $white;
-  border-radius: 10px;
-  /* border: 1px solid red; */
+  border-radius: toRem(10);
 }
 .user-comments__empty-container img {
   opacity: 1;
 }
 .user-comments__empty {
-  font-size: 18px;
+  font-size: toRem(18);
   line-height: 140.62%;
   text-align: center;
   color: $gray;
-  margin-top: 37px;
+  margin-top: toRem(37);
 }
 .p-comments-content-main {
-  padding-right: 24px;
-  padding-left: 24px;
+  padding-right: toRem(24);
+  padding-left: toRem(24);
 }
 .p-comment-content-btn-add-main {
   @include display-flex();
 }
 .p-comment-content-btn-data {
-  margin-top: 45px;
-  margin-bottom: 38px;
-  font-size: 16px;
+  margin-top: toRem(45);
+  margin-bottom: toRem(38);
+  font-size: toRem(16);
 }
 
 .p-comment-content-item {
   @include display-flex();
   flex-direction: column;
-  border: 1px solid $light-gray;
-  border-radius: 10px;
+  border: toRem(1) solid $light-gray;
+  border-radius: toRem(10);
   height: fit-content;
-  margin-bottom: 24px;
+  margin-bottom: toRem(24);
 }
 .p-commented-product-img {
-  /* border: 1px solid red; */
-  width: 80px;
-  height: 80px;
+  width: toRem(80);
+  height: toRem(80);
 }
 /* ============================== */
 .stars-outer {
@@ -234,8 +232,7 @@ export default {
 
 .stars-inner {
   position: absolute;
-  /* top: 6px; */
-  bottom: 4.7px;
+  bottom: toRem(4.7);
   left: 0;
   white-space: nowrap;
   overflow: hidden;
@@ -248,27 +245,27 @@ export default {
   content: "\e825 \e825 \e825 \e825 \e825";
   @include font-icon__limoo();
   font-weight: 400;
-  font-size: 16px;
+  font-size: toRem(16);
   color: $light-gray;
-  letter-spacing: 2px;
+  letter-spacing: toRem(2);
 }
 
 .stars-inner::before {
   content: "\e825 \e825 \e825 \e825 \e825";
   @include font-icon__limoo();
   font-weight: 400;
-  font-size: 16px;
+  font-size: toRem(16);
   color: $yellow;
-  letter-spacing: 2px;
+  letter-spacing: toRem(2);
 }
 .rate-count,
 .rate-counter {
   color: $gray;
-  font-size: 14px;
+  font-size: toRem(14);
   line-height: 140.62%;
 }
 .rate-counter {
-  margin-right: 8px;
+  margin-right: toRem(8);
 }
 /* ////////////////////////////// */
 
@@ -276,9 +273,8 @@ export default {
   @include display-flex();
   flex-direction: row;
   justify-content: space-between;
-  padding-right: 26px;
-  padding-left: 26px;
-  /* border: 1px solid red; */
+  padding-right: toRem(26);
+  padding-left: toRem(26);
 }
 .p-comments__header-holder {
   @include display-flex();
@@ -288,23 +284,22 @@ export default {
   /* border: 1px solid blue; */
   @include display-flex();
   justify-self: flex-start;
-  font-size: 16px;
+  font-size: toRem(16);
   font-family: inherit;
   line-height: 140.62%;
   color: $black-topic;
-  margin-top: 16px;
+  margin-top: toRem(16);
   text-decoration: none;
 }
 .p-comments-idea__title {
-  /* border: 1px solid green; */
   @include display-flex();
   justify-self: flex-start;
   justify-content: space-between;
-  margin-top: 8px;
-  margin-bottom: 16px;
+  margin-top: toRem(8);
+  margin-bottom: toRem(16);
 }
 .ideas-title {
-  font-size: 16px;
+  font-size: toRem(16);
   font-family: inherit;
   line-height: 140.62%;
 }
@@ -318,7 +313,6 @@ export default {
   color: $code-request;
 }
 .p-comments__state-desktop {
-  /* border: 1px solid black; */
   margin: auto 0;
 }
 .p-comments__state-mobile {
@@ -327,86 +321,84 @@ export default {
 /* =========================== */
 .p-favorite-product-item-icon-delete::before {
   @include font-icon__limoo();
-  font-size: 16px;
+  font-size: toRem(16);
   content: "\e826";
   color: $gray-3;
 }
 .p-comments-content-header {
   background: $white;
-  border-bottom: 1px solid $light-gray;
-  height: 86px;
-  border-top-left-radius: 10px;
-  border-top-right-radius: 10px;
+  border-bottom: toRem(1) solid $light-gray;
+  height: toRem(86);
+  border-top-left-radius: toRem(10);
+  border-top-right-radius: toRem(10);
 }
 .p-comments-content-header-icon {
-  width: 23px;
-  height: 23px;
+  width: toRem(23);
+  height: toRem(23);
 }
 .p-comments-content-header-item {
   @include display-flex();
-  margin-left: 85px;
+  margin-left: toRem(85);
 }
 .p-comments-content-header-item-title {
   font-family: inherit;
-  font-size: 16px;
-  margin-right: 10px;
+  font-size: toRem(16);
+  margin-right: toRem(10);
   color: $black-topic;
   font-weight: 400;
   text-align: right;
 }
 .p-comment-content-data {
   @include display-flex();
-  padding-right: 27px;
-  padding-left: 27px;
+  padding-right: toRem(27);
+  padding-left: toRem(27);
 }
 .p-product-content-data {
   @include display-flex();
   flex-direction: column;
-  margin-top: 10px;
-  margin-right: 16px;
-  /* border: 1px solid blueviolet; */
+  margin-top: toRem(10);
+  margin-right: toRem(16);
 }
 .p-product-content-text-data {
   font-family: inherit;
-  font-size: 16px;
+  font-size: toRem(16);
   color: $black-topic;
   font-weight: 400;
 
-  /* */
 }
 .p-product-content-rating-data {
-  margin-top: 16px;
+  margin-top: toRem(16);
 }
 .p-commentedproduct-description {
   color: $black-topic;
   font-family: inherit;
   text-align: right;
-  font-size: 16px;
+  font-size: toRem(16);
   line-height: 140.62%;
-  margin: 24px 24px 16px 96px;
+  margin: toRem(24) toRem(24) toRem(16) toRem(96);
 }
 .p-commentedproduct-main {
   @include display-flex();
-  margin-top: 20px;
-  margin-right: 24px;
+  margin-top: toRem(20);
+  margin-right: toRem(24);
 }
 .p-commentedproduct__time {
   @include display-flex();
   align-self: center;
-  margin-right: 24px;
-  font-size: 14px;
+  margin-right: toRem(24);
+  font-size: toRem(14);
   line-height: 140.62%;
   color: $gray;
 }
 .p-comment-content-data-btns {
   @include display-flex();
   justify-content: space-between;
-  padding-left: 16px;
-  height: 77px;
+  padding-left: toRem(16);
+  height: toRem(77);
   align-items: flex-start;
 }
 .p-comment-content-btn-edit {
-  width: 130px!important;
+  width: toRem(130)!important;
 }
 .p-comment-content-wrapper {
   @include display-flex();
@@ -414,12 +406,12 @@ export default {
 .p-comment-content-data-main {
   @include display-flex();
   background-color: $white;
-  border-bottom-left-radius: 10px;
-  border-bottom-right-radius: 10px;
+  border-bottom-left-radius: toRem(10);
+  border-bottom-right-radius: toRem(10);
 }
 .p-comment-content-edit-icon {
-  width: 16px;
-  height: 16px;
+  width: toRem(16);
+  height: toRem(16);
 }
 .p-comments-content-header-item-desktop {
   align-items: flex-start;
@@ -428,12 +420,12 @@ export default {
   display: none;
 }
 .p-product-btn {
-  width: 150px;
-  height: 47px;
+  width: toRem(150);
+  height: toRem(47);
   font-family: inherit;
   transition: all 120ms ease-in;
 }
-@media (max-width: 1220px) {
+@include xl {
   .p-comments-content-header-item {
     margin-left: 10%;
   }
@@ -442,16 +434,16 @@ export default {
   }
 }
 
-@media (max-width: 1024px) {
+@include lg {
   .p-comments-content-header-item {
     margin-left: 6%;
   }
 }
 
-@media (max-width: 960px) {
+@include md {
   .user-comments__empty-container {
-    padding-top: 24px;
-    height: 280px;
+    padding-top: toRem(24);
+    height: toRem(280);
   }
   .p-comments-content-header-item {
     margin-left: 10%;
@@ -460,23 +452,23 @@ export default {
     padding: 0;
   }
   .p-commentedproduct-description {
-    font-size: 14px;
+    font-size: toRem(14);
   }
 }
 
-@media (max-width: 600px) {
+@include sm {
   .user-comments__empty-container {
-    height: 252px;
-    padding-top: 24px;
+    height: toRem(252);
+    padding-top: toRem(24);
   }
   .user-comments__empty-container img {
     margin: 0 auto;
-    height: 74px;
-    width: 74px;
+    height: toRem(74);
+    width: toRem(74);
   }
   .user-comments__empty {
-    font-size: 14px;
-    margin-top: 24px;
+    font-size: toRem(14);
+    margin-top: toRem(24);
   }
   .p-comments__state-desktop {
     display: none;
@@ -486,37 +478,36 @@ export default {
   }
   .p-comments__title,
   .ideas-title {
-    font-size: 13px;
+    font-size: toRem(13);
   }
   .stars-outer::before,
   .stars-inner::before {
-    font-size: 10px;
+    font-size: toRem(10);
   }
 
   .rate-count,
   .rate-counter {
-    font-size: 13px;
+    font-size: toRem(13);
   }
   .p-comments-content-header {
     flex-flow: column;
     height: auto;
     background: $white;
-    padding-right: 11px;
-    padding-left: 19px;
+    padding-right: toRem(11);
+    padding-left: toRem(19);
   }
   .p-comment-content-item {
     border: none;
-    box-shadow: 0px 8px 16px $box__shadow;
+    box-shadow: 0 toRem(8) toRem(16) $box__shadow;
     background: $white;
     height: auto;
-    margin-bottom: 8px;
+    margin-bottom: toRem(8);
   }
   /* 00000000000000000000000000 */
   .p-commentedproduct-description {
-    font-size: 13px;
-    /* border: 1px solid red; */
-    margin: 24px 11px 0 37px;
-    height: 30px;
+    font-size: toRem(13);
+    margin: toRem(24) toRem(11) 0 toRem(37);
+    height: toRem(30);
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -530,7 +521,6 @@ export default {
   }
   .show-more-description {
     @include display-flex();
-    /* align-self: flex-start; */
     margin-right: 93%;
     margin-bottom: 10px;
   }
@@ -538,12 +528,10 @@ export default {
     @include display-flex();
     content: "\e801";
     @include font-icon__limoo();
-    font-size: 12px;
+    font-size: toRem(12);
     color: $input-border;
-    /* position: absolute; */
     transform: rotate(-90deg);
-    /* margin-right: 4px; */
-    /* border: 1px solid red; */
+
   }
   .full-description__active .show-more-description::before {
     transform: rotate(90deg);
@@ -552,45 +540,44 @@ export default {
   .p-comments-content-header-item {
     margin-left: 0;
     width: 100%;
-    margin-top: 19px;
+    margin-top: toRem(19);
   }
   .p-comments-content-header-item-title {
-    font-size: 14px;
+    font-size: toRem(14);
   }
   .p-product-content-data {
-    margin-top: 7px;
+    margin-top: toRem(7);
   }
   .p-product-content-text-data {
-    font-size: 14px;
+    font-size: toRem(14);
   }
   .p-product-content-rating-data {
-    margin-top: 8px;
+    margin-top: toRem(8);
   }
   .p-commentedproduct__time {
-    margin-right: 11px;
-    font-size: 13px;
+    margin-right: toRem(11);
+    font-size: toRem(13);
   }
   .p-comment-content-data-btns {
-    border-top: 1px solid $light-gray;
-    padding-top: 16px;
-    margin-bottom: 16px;
-    /* margin-top: 26px; */
+    border-top: toRem(1) solid $light-gray;
+    padding-top: toRem(16);
+    margin-bottom: toRem(16);
     height: auto;
   }
   .p-favorite-product-btn-delete {
-    width: 37px!important;
-    height: 37px!important;
+    width: toRem(37)!important;
+    height: toRem(37)!important;
   }
   .p-comment-content-btn-edit {
     background: $yellow!important;
     color: $white!important;
-    height: 36px!important;
-    width: 36px!important;
+    height: toRem(36)!important;
+    width: toRem(36)!important;
     border: none!important;
   }
   .p-comments-content-header-icon {
-    width: 18px;
-    height: 18px;
+    width: toRem(18);
+    height: toRem(18);
   }
   .p-comment-content-item-desktop {
     display: none;
@@ -606,9 +593,9 @@ export default {
     align-items: center;
   }
   .p-commentedproduct-main {
-    margin-right: 6px;
-    margin-top: 16px;
-    padding-left: 19px;
+    margin-right: toRem(6);
+    margin-top: toRem(16);
+    padding-left: toRem(19);
   }
 
   .p-favorite-product-btn-main {
@@ -618,30 +605,30 @@ export default {
     margin-bottom: 0;
   }
 }
-@media (max-width: 280px) {
+@include xxxs {
   .p-comments__title,
   .ideas-title {
-    font-size: 12px;
+    font-size: toRem(12);
     text-align: right;
   }
   .p-product-content-data {
-    margin-top: 3px;
-    margin-right: 10px;
+    margin-top: toRem(3);
+    margin-right: toRem(10);
   }
   .p-product-content-text-data {
-    font-size: 13px;
+    font-size: toRem(13);
   }
   .p-product-content-rating-data {
-    margin-top: 5px;
+    margin-top: toRem(5);
   }
   .p-comments-content-header {
-    padding-left: 11px;
+    padding-left: toRem(11);
   }
   .p-comments-idea__title {
-    margin-bottom: 10px;
+    margin-bottom: toRem(10);
   }
   .p-commentedproduct-description {
-    margin: 14px 11px 10px 27px;
+    margin: toRem(14) toRem(11) toRem(10) toRem(27);
   }
 }
 </style>

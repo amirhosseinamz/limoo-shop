@@ -129,7 +129,7 @@ export default {
                 let indexDeleteHistoryData = -1;
 
                 this.historyData.map((content, index) => {
-                    if (content.id == data.id) {
+                    if (content.id === data.id) {
                         indexDeleteHistoryData = index;
                     }
                 });
@@ -197,11 +197,7 @@ export default {
 .splicer-line {
     display: none;
 }
-@media (max-width: 1450px) {
-}
-@media (max-width: 1220px) {
-}
-@media (max-width: 960px) {
+@include md {
     .desktop-screen {
         display: none;
     }
@@ -257,13 +253,7 @@ export default {
         box-shadow: none;
     }
     .user-profile__holder {
-        padding: 0 5px;
+        padding: 0 toRem(5);
     }
-}
-
-@media (max-width: 350px) {
-}
-
-@media (max-width: 320px) {
 }
 </style>

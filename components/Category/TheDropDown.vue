@@ -34,26 +34,25 @@
 }
 .seperator {
     border: none;
-    border-top: 2px solid $gray-border;
+    border-top: toRem(2) solid $gray-border;
     opacity: 0.5;
-    border-radius: 8px;
+    border-radius: toRem(8);
     width: 100%;
 }
 .arrow {
-    width: 17px;
-    height: 17px;
-    /* vertical-align: middle; */
+    width: toRem(17);
+    height: toRem(17);
     float: left;
     z-index: 0;
-    margin: 16px 0 15px 8px;
+    margin: toRem(16) 0 toRem(15) toRem(8);
 }
 .nested-arrow {
-    width: 17px;
-    height: 17px;
+    width: toRem(17);
+    height: toRem(17);
     vertical-align: middle;
     float: right;
     z-index: 0;
-    margin: 17px 24px 10px 4px;
+    margin: toRem(17) toRem(24) toRem(10) toRem(4);
 }
 .item input + .arrow,
 .item input + .nested-arrow {
@@ -67,7 +66,7 @@
     transform: rotate(180deg);
 }
 #menu:checked + .arrow + #menu-header {
-    font-size: 14px;
+    font-size: toRem(14);
     color: $black-topic;
 }
 label {
@@ -78,34 +77,34 @@ label {
 }
 .nav {
     width: 89vw;
-    border-radius: 10px;
-    margin: 4px 0;
-    border: 1px solid $gray-border;
+    border-radius: toRem(10);
+    margin: toRem(4) 0;
+    border: toRem(1) solid $gray-border;
     overflow-x: hidden;
 }
 
 .nav ul,
 .nav li,
 label {
-    line-height: 50px;
+    line-height: toRem(50);
     margin: 0;
-    padding: 0 8px;
+    padding: 0 toRem(8);
     list-style: none;
     text-decoration: none;
     color: $code;
-    font-size: 13px;
+    font-size: toRem(13);
     width: 100%;
 }
 .item ul {
     padding: 0 0.25em;
 }
 .nav li a {
-    line-height: 50px;
+    line-height: toRem(50);
     margin: 0;
-    padding: 0 47px;
+    padding: 0 toRem(47);
     list-style: none;
     text-decoration: none;
     color: $gray;
-    font-size: 13px;
+    font-size: toRem(13);
 }
 </style>

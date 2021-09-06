@@ -274,16 +274,8 @@ export default {
   color: $gray-2;
 }
 
-@media (max-width: 1500px) {
-  // .cart-detail__total .cart-detail__item{
-  //   margin-top: 16px;
-  // }
-  // .cart-detail__item:nth-child(1){
-  //   margin-top: 16px;
-  // }
-}
 
-@media (max-width: 1300px) {
+@include xl{
   .cart-detail__right-title {
     font-size: toRem(13);
   }
@@ -295,7 +287,7 @@ export default {
   }
 }
 
-@media (max-width: 960px) {
+@include md {
   .cart-detail__item:nth-child(1) {
     margin-top: 16px;
   }
@@ -348,7 +340,7 @@ export default {
     @include display-flex();
   }
 }
-@media (max-width: 768px) {
+@include sm{
 .cart-detail__coin::after {
   font-size: toRem(15);
 }

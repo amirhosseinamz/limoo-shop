@@ -117,7 +117,7 @@ export default {
   display: none;
 }
 
-@media (max-width: 760px) {
+@include sm {
   .tabs__item-title {
     font-size: toRem(14);
   }
@@ -138,7 +138,7 @@ export default {
   }
 }
 
-@media (max-width: 285px) {
+@include xxxs {
   .tabs__item {
     margin-left: toRem(60);
   }

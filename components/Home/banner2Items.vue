@@ -26,7 +26,7 @@ export default {
 
     data() {
       return {
-        sizeImgBanner : {  
+        sizeImgBanner : {
             extraLarg      : '',
             larg           : '',
             medium         : '',
@@ -63,7 +63,7 @@ export default {
         this.banners.map((content)=>{
           for (let key in this.sizeImgBanner) {
              content[key] = this.sizeImgBanner[key];
-          } 
+          }
         });
 
       },
@@ -287,36 +287,23 @@ export default {
     }
   }
 
-  @media (max-width: 960px) {
-
-
-  }
-
-  @media (max-width: 485px) {
+  @include xs {
     .bannerItems{
       margin-bottom: 0;
-      margin-top: 8px;
+      margin-top: toRem(8);
     }
     .bannerItems__item{
       display: none;
       width: 100%;
       margin-left: 0;
-      max-height: auto;
     }
     .bannerItems__item:first-child{
       display: flex;
     }
     .bannerItems{
-      margin-top: 8px;
+      margin-top: toRem(8);
     }
   }
-
-
-  // @media (max-width: 420px) {
-  //   .bannerItems__item{
-  //     height: 180px;
-  //   }
-  // }
 
 
 

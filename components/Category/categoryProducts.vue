@@ -27,7 +27,7 @@
             </div>
             <div
               class="w-100 productContent__carouselPriceMain"
-              :class="{ productContent__noneDiscount: data.discount == '' }"
+              :class="{ productContent__noneDiscount: data.discount === '' }"
             >
               <div class="productContent__discount">
                 <div class="productContent__pricePercent">
@@ -90,7 +90,7 @@
             </div>
             <div
               class="w-100 productContent__carouselPriceMain"
-              :class="{ productContent__noneDiscount: data.discount == '' }"
+              :class="{ productContent__noneDiscount: data.discount === '' }"
             >
               <div class="productContent__discount">
                 <div class="productContent__pricePercent">
@@ -146,14 +146,21 @@ export default {
       list: [],
       scrollDataCategoryProduct: [],
       infiniteStartDetected: 0,
+      categoryProductMobileLocal: []
     };
+  },
+  watch: {
+    categoryProductMobile(val) {
+      this.categoryProductMobileLocal = val;
+    }
   },
 
   mounted() {
+    this.categoryProductMobileLocal = this.categoryProductMobile;
     const width = window.innerWidth;
 
-    if (485 < width) {
-      this.scrollDataCategoryProduct = this.categoryProductMobile;
+    if (520 < width) {
+      this.scrollDataCategoryProduct = this.categoryProductMobileLocal;
     }
 
     this.detectedResizeBrowser();
@@ -181,8 +188,8 @@ export default {
           let temp = [];
           for (let i = this.list.length; i < this.list.length + 10; i++) {
             temp.push(i);
-            if (typeof this.categoryProductMobile[i] !== "undefined") {
-              this.scrollDataCategoryProduct.push(this.categoryProductMobile[i]);
+            if (typeof this.categoryProductMobileLocal[i] !== "undefined") {
+              this.scrollDataCategoryProduct.push(this.categoryProductMobileLocal[i]);
             }
           }
           this.list.push(...temp);
@@ -218,8 +225,8 @@ export default {
         () => {
           const width = window.innerWidth;
 
-          if (485 < width) {
-            this.scrollDataCategoryProduct = this.categoryProductMobile;
+          if (520 < width) {
+            this.scrollDataCategoryProduct = this.categoryProductMobileLocal;
           } else {
             this.scrollDataCategoryProduct = [];
             this.list = [];
@@ -242,12 +249,12 @@ export default {
 
 <style lang="scss" scoped>
 .productContent__carousel {
-  width: 260px;
-  height: 374px;
+  height: toRem(374);
   background: $white;
   position: relative;
-  margin-left: 8px;
-  margin-bottom: 8px;
+  margin-bottom: toRem(8);
+  margin-left: 0.6%;
+  width: 19.52%;
 }
 .productContent__carousel:nth-child(5n) {
   margin-left: 0;
@@ -256,7 +263,7 @@ export default {
   position: relative;
   @include display-flex();
   flex-wrap: wrap;
-  min-height: 400px;
+  min-height: toRem(400);
 }
 .productContent__carouselContent {
   align-items: flex-start;
@@ -264,40 +271,39 @@ export default {
   @include display-flex();
   flex-flow: column;
   cursor: pointer;
-  border: solid 1px $light-gray;
-  border-radius: 10px;
+  border: solid toRem(1) $light-gray;
+  border-radius: toRem(10);
   height: 100%;
 }
 .productContent__carouselDataTitle {
-  font-size: 14px;
+  font-size: toRem(14);
   line-height: 2.4em;
   color: $black-topic;
-  font-size: 14px;
   text-align: right;
   font-weight: 500;
   overflow: hidden;
-  height: 58px;
+  height: toRem(58);
 }
 .productContent__carouselImgMain {
   @include display-flex();
   flex-wrap: wrap;
   justify-content: center;
-  margin-top: 16px;
+  margin-top: toRem(16);
 }
 .productContent__carouselImgItem {
-  height: 170px;
-  width: 170px;
+  height: toRem(170);
+  width: toRem(170);
 }
 .productContent__carouselData {
-  margin-top: 25px;
-  width: 228px;
+  margin-top: toRem(25);
   margin-right: auto;
   margin-left: auto;
+  width: 88.5%;
 }
 .productContent__carouselPriceMain {
-  padding-right: 3px;
-  padding-left: 3px;
-  margin-top: 25px;
+  padding-right: toRem(3);
+  padding-left: toRem(3);
+  margin-top: toRem(25);
   @include display-flex();
   flex-wrap: wrap;
   align-items: center;
@@ -305,12 +311,12 @@ export default {
 }
 .productContent__percentTitle {
   font-family: inherit;
-  font-size: 14px;
+  font-size: toRem(14);
   color: $color_discount;
-  width: 44px;
-  height: 29px;
+  width: toRem(44);
+  height: toRem(29);
   background: $yellow;
-  border-radius: 15px;
+  border-radius: toRem(15);
   @include display-flex();
   align-items: center;
   justify-content: center;
@@ -319,9 +325,9 @@ export default {
 .productContent__discountTitle {
   font-family: inherit;
   @include display-flex();
-  font-size: 16px;
+  font-size: toRem(16);
   font-weight: 400;
-  margin-right: 8px;
+  margin-right: toRem(8);
   color: $color-gray;
   position: relative;
 }
@@ -330,31 +336,31 @@ export default {
   width: 100%;
   background: $color-gray;
   position: absolute;
-  top: 9px;
+  top: toRem(9);
   right: 0;
-  height: 1px;
+  height: toRem(1);
 }
 .productContent__discount {
   margin-left: auto;
   @include display-flex();
   flex-wrap: wrap;
   align-items: center;
-  height: 29px;
+  height: toRem(29);
 }
 .productContent__priceTitle {
-  font-size: 16px;
+  font-size: toRem(16);
   color: $color-price;
   font-weight: 500;
-  margin-top: 11px;
+  margin-top: toRem(11);
 }
 .productContent__carouselLine {
   @include display-flex();
   background: $border-gray-bg;
-  width: 1px;
+  width: toRem(1);
   height: 98%;
   position: absolute;
   right: 0;
-  border-radius: 8px;
+  border-radius: toRem(8);
   top: 0;
 }
 .productContent__noneDiscount .productContent__discount {
@@ -365,14 +371,14 @@ export default {
   align-items: flex-start;
   @include display-flex();
   flex-wrap: wrap;
-  padding-right: 4px;
+  padding-right: toRem(4);
 }
 .productContent__line {
   position: absolute;
   left: 0;
   top: 0;
-  width: 54px;
-  height: 316px;
+  width: toRem(54);
+  height: toRem(316);
   background: linear-gradient(
     90deg,
     #ffffff -41.48%,
@@ -385,37 +391,37 @@ export default {
   @include display-flex();
   flex-wrap: wrap;
   position: relative;
-  margin-top: 34px;
+  margin-top: toRem(34);
 }
 .productContent__sliderWrapper .infinite-loading-container {
   width: 100%;
-  margin-bottom: 10px;
+  margin-bottom: toRem(10);
   display: none;
   justify-content: center;
   text-align: center;
 }
 .productContent__catTitle {
   color: $black;
-  font-size: 18px;
+  font-size: toRem(18);
   font-weight: 500;
 }
 .productContent__catTop {
   @include display-flex();
   flex-wrap: wrap;
-  padding-right: 24px;
-  padding-left: 24px;
+  padding-right: toRem(24);
+  padding-left: toRem(24);
   align-items: flex-start;
-  margin-bottom: 31px;
+  margin-bottom: toRem(31);
 }
 .productContent__sliderMore {
   align-items: flex-start;
   @include display-flex();
   flex-wrap: wrap;
   justify-content: flex-end;
-  padding-left: 13px;
+  padding-left: toRem(13);
 }
 .productContent__moreItem {
-  font-size: 16px;
+  font-size: toRem(16);
   color: $gray;
   border-bottom: none;
   text-decoration: none;
@@ -424,13 +430,13 @@ export default {
 }
 .productContent__moreIcon {
   @include display-flex();
-  margin-right: 11px;
+  margin-right: toRem(11);
 }
 .mobile-inprogress__arrow::after {
   content: "\e801";
   @include font-icon__limoo();
-  font-size: 14px;
-  margin-top: 1px;
+  font-size: toRem(14);
+  margin-top: toRem(1);
 }
 .productContent__topRight {
   flex-grow: 1;
@@ -444,11 +450,10 @@ export default {
   text-decoration: none;
 }
 .productContent__titleVisit {
-  margin-top: 13px;
+  margin-top: toRem(13);
   color: $gray;
-  font-size: 17px;
+  font-size: toRem(17);
   font-weight: 300;
-  // display: none;
 }
 .productContent__carousel-link {
   position: absolute;
@@ -461,17 +466,7 @@ export default {
   display: none;
 }
 
-@media (max-width: 1500px) {
-  .productContent__carousel {
-    margin-left: 0.6%;
-    width: 19.52%;
-  }
-  .productContent__carouselData {
-    width: 88.5%;
-  }
-}
-
-@media (max-width: 1300px) {
+@include xl {
   .productContent__carousel {
     width: 24.5%;
   }
@@ -483,10 +478,8 @@ export default {
   }
 }
 
-@media (max-width: 1024px) {
-}
 
-@media (max-width: 960px) {
+@include md {
   .productContent__carousel {
     width: 32.5%;
     margin-left: 1%;
@@ -502,15 +495,15 @@ export default {
   }
 }
 
-@media (max-width: 760px) {
+@include sm {
   .productContent__carouselImgItem {
-    height: 148px;
+    height: toRem(148);
   }
   .productContent__catTitle {
-    font-size: 16px;
+    font-size: toRem(16);
   }
   .productContent__moreItem {
-    font-size: 14px;
+    font-size: toRem(14);
   }
   .productContent__topRight {
     width: 100%;
@@ -520,7 +513,7 @@ export default {
     width: 100%;
   }
   .productContent__titleVisit {
-    font-size: 15px;
+    font-size: toRem(15);
   }
   .productContent__carousel {
     width: 49.5%;
@@ -539,89 +532,85 @@ export default {
   }
 }
 
-@media (max-width: 600px) {
-}
-
-@media (max-width: 485px) {
+@include xs {
   .productContent__titleVisit {
     @include display-flex();
-    font-size: 13px;
+    font-size: toRem(13);
   }
   .productContent__catTop {
-    margin-bottom: 14px;
-    padding-right: 11px;
-    padding-left: 11px;
+    margin-bottom: toRem(14);
+    padding-right: toRem(11);
+    padding-left: toRem(11);
   }
   .productContent__catTitle {
-    font-size: 14px;
+    font-size: toRem(14);
   }
   .productContent__carouselData {
     width: 60%;
-    margin-top: 0px;
+    margin-top: 0;
     margin-left: auto;
     margin-right: inherit;
-    padding-right: 16px;
-    padding-left: 0px;
+    padding-right: toRem(16);
+    padding-left: 0;
     flex-grow: 1;
   }
   .productContent__carouselImgItem {
-    height: 80px;
-    width: 80px;
-    // margin-top: 2px;
+    height: toRem(80);
+    width: toRem(80);
     margin-right: auto;
     margin-left: auto;
   }
   .productContent__carousel {
     width: 100%;
-    height: 134px;
+    height: toRem(134);
     margin-left: 0;
   }
   .productContent__priceTitle {
-    margin-top: 8px;
-    font-size: 14px;
+    margin-top: toRem(8);
+    font-size: toRem(14);
     color: $red-color;
   }
   .productContent__carouselLine {
-    width: 2px;
+    width: toRem(2);
   }
   .productContent__discountTitle {
-    font-size: 13px;
+    font-size: toRem(13);
   }
   .productContent__carouselDataTitle {
-    line-height: 26.69px;
-    height: 50px;
+    line-height: toRem(26.69);
+    height: toRem(50);
     text-align: right;
   }
   .productContent__line {
-    height: 242px;
-    width: 44px;
+    height: toRem(242);
+    width: toRem(44);
   }
   .productContent__carouselPriceMain {
     padding-right: 0;
     padding-left: 0;
-    margin-top: 8px;
+    margin-top: toRem(8);
     position: relative;
   }
   .productContent__topLeft {
     display: none;
   }
   .productContent__carouselImgMain {
-    width: 80px;
+    width: toRem(80);
     margin-top: 0;
   }
   .productContent__carouselContent {
     flex-flow: inherit;
-    padding-top: 16px;
-    padding-right: 8px;
-    padding-left: 20px;
+    padding-top: toRem(16);
+    padding-right: toRem(8);
+    padding-left: toRem(20);
   }
   .productContent__pricePercent {
     position: absolute;
     left: 0;
-    top: 8px;
+    top: toRem(8);
   }
   .productContent__discount {
-    height: 14px;
+    height: toRem(14);
   }
   .productContent__sliderWrapper .infinite-loading-container {
     @include display-flex();
@@ -640,20 +629,17 @@ export default {
   }
 }
 
-@media (max-width: 280px) {
+@include xxxs {
   .productContent__carouselImgMain {
-    width: 70px;
-    height: 70px;
+    width: toRem(70);
+    height: toRem(70);
   }
   .productContent__carouselImgItem {
-    width: 70px;
-    height: 70px;
+    width: toRem(70);
+    height: toRem(70);
   }
-  // .productContent__carouselContent{
-  //   padding-left: 8px;
-  // }
   .productContent__carouselDataTitle {
-    font-size: 13px;
+    font-size: toRem(13);
   }
 }
 </style>

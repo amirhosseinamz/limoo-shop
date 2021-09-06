@@ -130,7 +130,7 @@ export default {
     }
   }
 
-  @media (max-width: 960px) {
+  @include md {
     .stepper-container {
       &.cart {
         width: toRem(105);

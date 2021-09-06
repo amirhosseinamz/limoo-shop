@@ -1,15 +1,14 @@
 <template>
   <div class="signin-container">
-    <div class="card">
-      <div class="signin-next-btn">
+    <authentication-card class="card">
+      <template #top-icon>
         <button @click="previousPage" class="app-signin-next-btn"></button>
-      </div>
-
-      <div class="card-body">
+      </template>
+      <template #card-title class="txt-header">
+        {{ getTextByTextKey("auth_password") }}
+      </template>
+      <template #card-body>
         <form @submit.prevent="pressed">
-          <p class="txt-header">
-            {{ getTextByTextKey("auth_password") }}
-          </p>
           <text-input
             class="user--item user-profile__info-pass"
             labelNameClass=""
@@ -65,14 +64,14 @@
             </p>
           </div>
         </form>
-      </div>
-    </div>
+      </template>
+    </authentication-card>
   </div>
 </template>
 
 <script>
 import { getTextByTextKey } from "~/modules/splitPartJsonResource.js";
-import textInput from "~/modules/textInput";
+import textInput from "~/components/UI/textInput";
 
 export default {
   data() {
@@ -152,56 +151,35 @@ export default {
 }
 
 .card {
-  @include display-flex();
-  flex-direction: column;
-  justify-content: space-around;
-  width: 642px;
-  height: 524px;
-  background-color: $white;
-  box-shadow: 0px 8px 16px $box__shadow;
-  border-radius: 15px;
+  width: 45%;
+  height: toRem(524);
+  padding: 0 4%;
 }
 .btn-control {
   @include display-flex();
   justify-content: center;
 }
-.signin-next-btn {
-  @include display-flex();
-  justify-content: flex-start;
-  width: 30px;
-  height: 30px;
-  margin-top: 30px;
-  margin-bottom: 8px;
-}
 .app-signin-next-btn::before {
   content: "\e801";
   @include font-icon__limoo();
-  font-size: 24px;
+  font-size: toRem(24);
   color: $black-icon;
 }
 
 .signin-btn {
   font-family: inherit;
-  font-size: 18px;
-  height: 58px;
-  width: 463px;
-}
-
-.txt-header {
-  font-size: 24px;
-  line-height: 33.75px;
-  font-weight: 400;
-  text-align: right;
-  margin: 37px 90px 33px 15px;
+  font-size: toRem(18);
+  height: toRem(58);
+  width: 100%;
 }
 
 .txt-content {
-  font-size: 16px;
-  line-height: 22.5px;
+  font-size: toRem(16);
+  line-height: toRem(22.5);
   font-weight: 318;
   text-align: right;
-  margin-bottom: 25px;
-  margin-right: 90px;
+  margin-bottom: toRem(25);
+  margin-right: 0;
 }
 
 .signin-container::v-deep {
@@ -209,13 +187,8 @@ export default {
     @extend .txt-content;
   }
   .input-holder {
-    @extend .input-holder;
-    margin-right: auto;
-    margin-left: auto;
+    width: 100%;
   }
-  // .input-holder:focus {
-  //   border: 1px solid rgb(81, 81, 81);
-  // }
   .form__item--error {
     display: none;
   }
@@ -236,7 +209,7 @@ export default {
   margin-top: 2rem;
 }
 .signin-input {
-  padding-right: 24px;
+  padding-right: toRem(24);
 }
 .forget-pass-section {
   @include display-flex();
@@ -246,86 +219,83 @@ export default {
 .forget-pass {
   color: $code-request;
   font-weight: 500;
-  font-size: 14px;
+  font-size: toRem(14);
   line-height: 140.62%;
-  margin: 24px 90px 16px 0;
+  margin: toRem(24) 0 toRem(16) 0;
   cursor: pointer;
 }
 .arrow {
-  margin-left: 8px;
+  margin-left: toRem(8);
   cursor: pointer;
 }
 .arrow::before {
   content: "\e83a";
   @include font-icon__limoo();
-  font-size: 10px;
+  font-size: toRem(10);
   color: $gray;
   vertical-align: middle;
 }
 .disposable-pass {
   color: $code-request;
   font-weight: 500;
-  font-size: 14px;
+  font-size: toRem(14);
   line-height: 140.62%;
-  margin: 0 90px 86px 0;
+  margin: 0 0 3.25rem 0;
   cursor: pointer;
 }
-
-@media screen and (max-width: 540px) {
+@include xl {
   .card {
-    width: auto;
-    height: 100vh;
-    border-radius: 0;
-    padding-right: 5px;
+    width: 55%;
+    padding: 0 5%;
   }
-  @mixin signin-input() {
-    padding-right: 0px;
-    width: 328px;
-    height: 60px;
-    margin-bottom: 8px;
+}
+@include md {
+  .card {
+    width: 70%;
+    padding: 0 6%;
   }
-  .signin-input {
-    @include signin-input();
-  }
-  .signin-container::v-deep {
-    .signin-input {
-      @include signin-input();
-    }
+}
+@include sm {
+  .card {
+    width: 85%;
+    padding: 0 7%;
   }
   .input-holder {
-    margin-right: 16px;
-    margin-left: 16px;
-    padding: 0;
-    width: 328px;
-    height: 60px;
-    margin-bottom: 8px;
+    margin-right: 0;
+    margin-left: 0;
+    width: 100%;
   }
-
+}
+@include xs {
+  .card {
+    width: 100%;
+    padding: 0 10%;
+    height: 100%;
+  }
   .signin-btn {
-    width: 328px;
     margin-top: 1.875rem;
   }
-  .txt-header {
-    font-size: 20px;
-    line-height: 140.62%;
-    width: 328px;
-    margin: 100px 16px 33px 16px;
+  .input-holder {
+    margin-right: 0;
+    margin-left: 0;
+    width: 100%;
+    height: toRem(60);
+    margin-bottom: toRem(8);
   }
   .txt-content {
-    width: 328px;
-    font-size: 14px;
-    margin-bottom: 15px;
-    margin-right: 16px;
-    margin-left: 16px;
+    font-size: toRem(14);
+    margin-bottom: toRem(15);
+    width: 100%;
   }
   .forget-pass {
-    font-size: 13px;
-    margin: 16px 16px 16px 0;
+    font-size: toRem(13);
+    margin: toRem(16) toRem(16) toRem(16) 0;
   }
   .disposable-pass {
-    font-size: 13px;
-    margin: 0 16px 143px 0;
+    font-size: toRem(13);
+    margin: 0 toRem(16) toRem(143) 0;
   }
+
   .arrow {
     display: none;
   }
@@ -333,113 +303,13 @@ export default {
     margin-top: 0.5rem;
   }
   .forget-pass-section {
-    width: 328px;
-    margin-right: auto;
-    margin-left: auto;
+    width: 100%;
   }
   .forget-pass {
-    margin-right: 6px;
+    margin-right: toRem(6);
   }
   .disposable-pass {
-    margin-right: 6px;
-  }
-  .card {
-    width: 360px;
-  }
-}
-@media screen and (max-width: 350px) {
-  .card {
-    padding-right: 0px;
-  }
-  @mixin signin-input() {
-    margin-right: 10px;
-    margin-left: 10px;
-    width: 280px;
-    margin-bottom: 42px;
-  }
-  .signin-input {
-    @include signin-input();
-  }
-  .form-group::v-deep {
-    .signin-input {
-      @include signin-input();
-    }
-  }
-  .input-holder {
-    margin-right: 16px;
-    margin-left: 16px;
-    padding: 0;
-    width: 280px;
-    height: 60px;
-    margin-bottom: 8px;
-  }
-  .signin-btn {
-    width: 280px;
-  }
-  .txt-header {
-    font-size: 20px;
-    line-height: 140.62%;
-    width: 280px;
-    margin: 37px 10px 20px 10px;
-    margin-right: auto;
-    margin-left: auto;
-  }
-  .txt-content {
-    width: 280px;
-    margin-right: 20px;
-  }
-  .signup-limoo-logo {
-    margin-top: 0;
-  }
-  .forget-pass-section {
-    width: 280px;
-  }
-  .card {
-    width: auto;
-  }
-}
-@media screen and (max-width: 280px) {
-  @mixin signin-input() {
-    margin-right: 5px;
-    margin-left: 5px;
-    width: 270px;
-    margin-bottom: 42px;
-  }
-  .signin-input {
-    @include signin-input();
-  }
-  .form-group::v-deep {
-    .signin-input {
-      background: red;
-      @include signin-input();
-    }
-  }
-  .input-holder {
-    margin-right: 10px;
-    margin-left: 10px;
-    padding: 0;
-    width: 270px;
-    height: 60px;
-    margin-bottom: 8px;
-  }
-  .signin-btn {
-    width: 270px;
-  }
-  .txt-header {
-    font-size: 20px;
-    line-height: 140.62%;
-    width: 270px;
-    margin-right: 10px;
-  }
-  .txt-content {
-    width: 270px;
-    margin-right: 10px;
-  }
-  .signup-limoo-logo {
-    margin-top: 0.2rem;
-  }
-  .forget-pass-section {
-    width: 270px;
+    margin-right: toRem(6);
   }
 }
 </style>

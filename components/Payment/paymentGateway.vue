@@ -62,7 +62,7 @@ export default {
     align-items: flex-start;
     flex-wrap: wrap;
   }
-  @media (max-width: 960px) {
+  @include md {
     .payment-gateway__item::v-deep{
         .radio-title {
           font-size: toRem(13);
@@ -83,10 +83,7 @@ export default {
   }
 
 
-  @media (max-width: 385px) {
-  }
-
-  @media (max-width: 330px) {
+  @include xxs {
     .payment__content{
       flex-direction: column;
     }

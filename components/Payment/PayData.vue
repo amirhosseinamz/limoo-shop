@@ -48,7 +48,6 @@
             <div class="w-100 cart-detail__content">
               <div class="cart-detail__item">
                 <div class="cart-detail__right">
-<!--                  <img src="/icons/coin.svg" class="cart-detail__icon" alt="">-->
                   <span class="cart-detail__coin"></span>
                   <h3 class="cart-detail__right-title">قیمت محصولات:</h3>
                 </div>
@@ -60,7 +59,6 @@
 
               <div class="cart-detail__item">
                 <div class="cart-detail__right">
-<!--                  <img src="/icons/Discount-cart.svg" class="cart-detail__icon discount&#45;&#45;icon" alt="">-->
                   <span class="cart-detail__discount"></span>
                   <h3 class="cart-detail__right-title">تخفیف کل:</h3>
                 </div>
@@ -72,7 +70,6 @@
 
               <div class="cart-detail__item">
                 <div class="cart-detail__right">
-<!--                  <img src="/icons/car.svg" class="cart-detail__icon car&#45;&#45;icon" alt="">-->
                   <span class="cart-detail__car"></span>
                   <h3 class="cart-detail__right-title">هزینه ارسال:</h3>
                 </div>
@@ -170,7 +167,6 @@ export default {
 <style lang="scss" scoped>
 .cart-detail__container {
   width: 30%;
-  /* border: 1px solid red; */
   height: toRem(600);
   text-align: center;
   @include display-flex();
@@ -529,7 +525,7 @@ export default {
 }
 
 
-@media (max-width: 1280px) {
+@include lg {
   .pay-detail__discount-item {
     height: auto;
   }
@@ -540,7 +536,7 @@ export default {
 }
 
 
-@media (max-width: 960px) {
+@include md {
   .pay-detail__discount-item {
     height: toRem(57);
     padding-top: toRem(4);
@@ -663,7 +659,7 @@ export default {
     margin-bottom: toRem(24);
   }
 }
-@media (max-width: 768px) {
+@include sm {
   .cart-detail__coin::after {
     font-size: toRem(15);
   }
