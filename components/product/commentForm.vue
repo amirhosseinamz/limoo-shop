@@ -434,14 +434,4 @@ export default {
     }
   }
 }
-@media (max-height: 600px) {
-  .comment__suggest-btns {
-    margin-top: toRem(-8);
-    margin-bottom: toRem(19);
-  }
-  .p-product-btn {
-    height: toRem(36);
-    width: toRem(110);
-  }
-}
 </style>

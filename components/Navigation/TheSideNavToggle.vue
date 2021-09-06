@@ -9,17 +9,17 @@
   </div>
 </template>
 
-<style scoped>
+<style lang="scss" scoped>
 .drawer-toggle {
   display: flex;
   flex-direction: column;
   justify-content: space-around;
   height: 50%;
-  width: 35px;
+  width: toRem(35);
   cursor: pointer;
 }
 
-@media (min-width: 768px) {
+@include sm {
   .drawer-toggle {
     display: none;
   }
@@ -27,7 +27,7 @@
 
 .drawer-toggle .bar {
   width: 90%;
-  height: 2px;
+  height: toRem(2);
   background-color: white;
 }
 </style>

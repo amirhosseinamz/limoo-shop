@@ -32,7 +32,7 @@ export default {
 </script>
 
 
-<style scoped>
+<style lang="scss" scoped>
 .sidenav-container {
   height: 100%;
   width: 100%;
@@ -50,14 +50,14 @@ export default {
 
 .sidenav {
   height: 100%;
-  width: 300px;
+  width: toRem(300);
   background-color: white;
   z-index: 10000;
   position: fixed;
   top: 0;
   left: 0;
   box-sizing: border-box;
-  padding: 30px;
+  padding: toRem(30);
 }
 
 .slide-side-enter-active,
@@ -76,7 +76,7 @@ export default {
 }
 
 .nav-item {
-  margin: 20px 0;
+  margin: toRem(20) 0;
 }
 
 .nav-item a {

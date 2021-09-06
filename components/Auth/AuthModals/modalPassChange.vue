@@ -1,25 +1,15 @@
 <template>
   <div class="pass-container">
-    <div class="card">
-      <div class="signin-next-btn">
+    <authentication-card class="card">
+      <template #top-icon>
         <button @click="nextPage" class="app-signin-next-btn"></button>
-        <div
-          class="success-message"
-          :class="{ 'message-animation': passChenged }"
-        >
-          <img class="success-icon" src="/icons/success.svg" />
-          <p dir="rtl" class="success-txt">
-            {{ getTextByTextKey("auth_success_password") }}
-          </p>
-        </div>
-      </div>
-
-      <div class="card-body">
+      </template>
+      <template #card-title class="txt-header">
+        {{ getTextByTextKey("auth_change_password") }}
+      </template>
+      <template #card-body>
         <form @submit.prevent="pressed">
           <div class="form-group">
-            <p class="txt-header">
-              {{ getTextByTextKey("auth_change_password") }}
-            </p>
 
             <text-input
               class="w-100  pass__repeat"
@@ -100,12 +90,12 @@
           </div>
 
           <div class="btn-control">
-              <base-button
-                :base-color="buttonColor"
-                button-type="submit"
-                class="signup-btn desk-display"
-                no-effect no-box-shadow
-              >
+            <base-button
+              :base-color="buttonColor"
+              button-type="submit"
+              class="signup-btn desk-display"
+              no-effect no-box-shadow
+            >
               {{
                 passChenged
                   ? getTextByTextKey("home_blog_single_more")
@@ -122,8 +112,8 @@
             </base-button>
           </div>
         </form>
-      </div>
-    </div>
+      </template>
+    </authentication-card>
   </div>
 </template>
 
@@ -204,69 +194,41 @@ export default {
 }
 
 .card {
-  @include display-flex();
-  flex-direction: column;
-  justify-content: space-around;
-  width: 642px;
-  //height: 524px;
-  background-color: $white;
-  box-shadow: 0px 8px 16px $box__shadow;
-  border-radius: 15px;
-}
-.success-icon {
-  width: 24px;
-  height: 24px;
-  margin-right: 18px;
-  margin-top: 17px;
-}
-.success-txt {
-  font-weight: 500;
-  font-size: 16px;
-  line-height: 140.62%;
-  margin-right: 8px;
-  text-align: right;
-  margin-top: 17px;
-  color: $white;
+  width: toRem(642);
+  padding: 0 toRem(89.5);
 }
 .signup-btn {
   font-family: inherit;
-  font-size: 18px;
-  height: 58px;
-  width: 463px;
-}
-.signin-next-btn {
-  @include display-flex();
-  justify-content: flex-start;
-  width: 30px;
-  height: 30px;
-  margin-top: 24px;
+  font-size: toRem(18);
+  height: toRem(58);
+  width: 100%;
 }
 .app-signin-next-btn::before {
   content: "\e801";
   @include font-icon__limoo();
-  font-size: 24px;
+  font-size: toRem(24);
   color: $black-icon;
 }
 .signin__close-eye::before {
   content: "\e810";
   @include font-icon__limoo();
-  font-size: 20px;
+  font-size: toRem(20);
   color: $gray;
   vertical-align: middle;
 }
 .signin__close-eye,
 .signin__open-eye {
-  margin-bottom: 2px;
+  margin-bottom: toRem(2);
 }
 .signin__open-eye::before {
   content: "\e811";
   @include font-icon__limoo();
-  font-size: 20px;
+  font-size: toRem(20);
   color: $gray;
   vertical-align: middle;
 }
 .input-holder-verify {
-  margin-bottom: 42px;
+  margin-bottom: toRem(42);
 }
 .form-control {
   direction: rtl;
@@ -284,8 +246,7 @@ export default {
   }
   .input-holder {
     @extend .input-holder;
-    margin-right: auto;
-    margin-left: auto;
+    width: 100%;
   }
   .signup-input {
     @extend .signup-input;
@@ -295,7 +256,6 @@ export default {
   }
   .form__main--item {
     justify-content: center;
-    width: 463px;
   }
   .show--error .input-holder {
     border-color: $red;
@@ -315,26 +275,15 @@ export default {
   }
 }
 
-.txt-header {
-  font-size: 24px;
-  line-height: 33.75px;
-  font-weight: 400;
-  text-align: right;
-  margin: 8px 90px 38px 15px;
-}
 .txt-content {
-  font-size: 16px;
-  line-height: 22.5px;
+  font-size: toRem(16);
+  line-height: toRem(22.5);
   font-weight: 318;
   text-align: right;
-  margin-bottom: 24px;
-  margin-right: 90px;
+  margin-bottom: toRem(24);
 }
 .signup-btn {
   margin-bottom: 3.5rem;
-}
-.signup-input {
-  padding-right: 24px;
 }
 
 .min-display {
@@ -344,7 +293,13 @@ export default {
   display: block;
 }
 
-@media screen and (max-width: 600px) {
+@include sm {
+  .card {
+    width: toRem(520);
+  }
+}
+
+@include xs {
   .app-signin-next-btn {
     visibility: hidden;
   }
@@ -354,211 +309,41 @@ export default {
   .desk-display {
     display: none;
   }
-}
-@media screen and (max-width: 540px) {
-  .success-message {
-    @include display-flex();
-    flex-direction: row-reverse;
-    width: 463px;
-    height: 58px;
-    background-color: $alert-massage__green;
-    margin: 44px 90px 0px 89px;
-    border-radius: 10px;
-    position: absolute;
-    opacity: 0;
-    /* add .message-animation when we want to show them */
-  }
-
-  /* add this animation to messages when we want to show them */
-  .message-animation {
-    animation: cssAnimation 1000ms 2 alternate;
-  }
-  @keyframes cssAnimation {
-    0% {
-      opacity: 0;
-      transform: translate(0%, -100%);
-    }
-    70% {
-      opacity: 1;
-      transform: translate(0%, -20%);
-    }
-    80% {
-      opacity: 1;
-      transform: translate(0%, -20%);
-    }
-    90% {
-      opacity: 1;
-      transform: translate(0%, -20%);
-    }
-    100% {
-      opacity: 1;
-      transform: translate(0%, -20%);
-    }
-  }
   .card {
-    width: 360px;
+    width: toRem(400);
+    padding: 0 toRem(36);
     height: 100vh;
     border-radius: 0;
-    padding-right: 1px;
-  }
-  .success-message {
-    width: 328px;
-    height: 56px;
-    margin: 16px 16px 0px 16px;
-  }
-  .success-txt {
-    font-size: 14px;
-    margin-top: 20px;
   }
   .signup-input {
-    margin-right: 16px;
-    margin-left: 16px;
-    padding-right: 0px;
-    width: 328px;
-    height: 60px;
-    margin-bottom: 8px;
+    height: toRem(60);
+    margin-bottom: toRem(8);
   }
   .input-holder {
-    padding: 0;
-    width: 328px;
-    height: 60px;
+    height: toRem(60);
+    margin-bottom: toRem(8);
   }
   .input-holder-verify {
-    margin-right: 16px;
-    margin-left: 16px;
-    padding: 0;
-    width: 328px;
-    height: 60px;
+    height: toRem(60);
   }
   .signup-btn {
-    width: 328px;
     margin-top: 0.375rem;
     margin-bottom: 8.25rem;
   }
-  .txt-header {
-    font-size: 20px;
-    line-height: 140.62%;
-    width: 328px;
-    margin-top: 100px;
-    margin-left: auto;
-    margin-right: auto;
-  }
   .txt-content {
-    width: 328px;
-    font-size: 14px;
-    margin-bottom: 15px;
-    margin-right: 16px;
-    margin-left: 16px;
+    font-size: toRem(14);
+    margin-bottom: toRem(15);
   }
   .signup-limoo-logo {
     margin-top: 0.5rem;
   }
   .card::v-deep {
     .txt-content {
-      font-size: 14px;
+      font-size: toRem(14);
     }
     .form__item--error {
-      font-size: 13px;
-      margin-bottom: 24px;
-    }
-    .form__error--main {
-      width: 328px;
-      margin-right: auto;
-      margin-left: auto;
-    }
-  }
-}
-@media screen and (max-width: 350px) {
-  .card {
-    padding-right: 0px;
-    width: auto;
-  }
-  .success-message {
-    width: 280px;
-  }
-  .signup-input {
-    margin-right: 10px;
-    margin-left: 10px;
-    width: 280px;
-    margin-bottom: 42px;
-  }
-  .input-holder {
-    padding: 0;
-    width: 280px;
-    height: 60px;
-  }
-  .input-holder-verify {
-    width: 280px;
-  }
-  .signup-btn {
-    width: 280px;
-  }
-  .txt-header {
-    font-size: 20px;
-    line-height: 140.62%;
-    width: 280px;
-    margin: 37px 10px 20px 10px;
-    margin-right: auto;
-    margin-left: auto;
-  }
-  .txt-content {
-    width: 280px;
-    margin-right: 20px;
-  }
-  .signup-limoo-logo {
-    margin-top: 0;
-  }
-  .form__item--error {
-    font-size: 13px;
-    margin-bottom: 8px;
-  }
-  .card::v-deep {
-    .form__error--main {
-      width: 280px;
-    }
-  }
-}
-@media screen and (max-width: 280px) {
-  .success-message {
-    width: 270px;
-  }
-  .signup-input {
-    margin-right: 5px;
-    margin-left: 5px;
-    width: 270px;
-    margin-bottom: 42px;
-  }
-  .input-holder {
-    padding: 0 10px 0 0;
-    width: 270px;
-    height: 60px;
-    margin-bottom: 8px;
-  }
-  .input-holder-verify {
-    margin-right: 15px;
-    padding: 0 10px 0 0;
-    margin-left: 15px;
-    width: 270px;
-  }
-  .signup-btn {
-    width: 270px;
-  }
-  .txt-header {
-    font-size: 20px;
-    line-height: 140.62%;
-    width: 270px;
-  }
-  .txt-content {
-    width: 270px;
-    margin-right: 10px;
-  }
-  .signup-limoo-logo {
-    margin-top: 0.2rem;
-  }
-
-  .card::v-deep {
-    .form__error--main {
-      width: 270px;
+      font-size: toRem(13);
+      margin-bottom: toRem(24);
     }
   }
 }

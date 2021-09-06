@@ -119,47 +119,47 @@ export default {
         {
           id: 1,
           image:
-            "https://statics-develop.diver.ir/1/fill/512/512/sm/true/plain/s3://limoo/product/picTest1.jpg",
+            "https://dkstatics-public.digikala.com/digikala-products/cbd437b5ba4a0c942ae8967fa3954da2fd30c54c_1626014199.jpg?x-oss-process=image/resize,m_lfit,h_600,w_600/quality,q_80",
         },
         {
           id: 2,
           image:
-            "https://statics-develop.diver.ir/1/fill/512/512/sm/true/plain/s3://limoo/product/new-baner-web4.jpg",
+            "https://dkstatics-public.digikala.com/digikala-products/be7a0e9bf7866759fa3cea7648b149f589a01040_1609660142.jpg?x-oss-process=image/resize,m_lfit,h_600,w_600/quality,q_80",
         },
         {
           id: 3,
           image:
-            "https://statics-develop.diver.ir/1/fill/512/512/sm/true/plain/s3://limoo/product/bahare web.jpg",
+            "https://dkstatics-public.digikala.com/digikala-products/9f5d8f6583a7289a096a9180ac88708856f4bd8f_1607433653.jpg?x-oss-process=image/resize,m_lfit,h_600,w_600/quality,q_80",
         },
         {
           id: 4,
           image:
-            "https://statics-develop.diver.ir/1/fill/512/512/sm/true/plain/s3://limoo/product/picTest1.jpg",
+            "https://dkstatics-public.digikala.com/digikala-products/d48f70d64f989092aa9493a40ab90ae47e0667c4_1626014826.jpg?x-oss-process=image/resize,m_lfit,h_600,w_600/quality,q_80",
         },
         {
           id: 5,
           image:
-            "https://statics-develop.diver.ir/1/fill/512/512/sm/true/plain/s3://limoo/product/apple-watch-series-6-gps-cellurar2%20.png",
+            "https://dkstatics-public.digikala.com/digikala-products/3049dd8c073305e494f86d2959ac679febba7467_1624253960.jpg?x-oss-process=image/resize,m_lfit,h_600,w_600/quality,q_80",
         },
         {
           id: 6,
           image:
-            "https://statics-develop.diver.ir/1/fill/512/512/sm/true/plain/s3://limoo/product/single_pic_slider.jpg",
+            "https://dkstatics-public.digikala.com/digikala-products/17b055a0f2eee543f3b25a1bd4ced02032278d23_1626014129.jpg?x-oss-process=image/resize,m_lfit,h_600,w_600/quality,q_80",
         },
         {
           id: 7,
           image:
-            "https://statics-develop.diver.ir/1/fill/512/512/sm/true/plain/s3://limoo/product/single_pic_slider.jpg",
+            "https://dkstatics-public.digikala.com/digikala-products/17b055a0f2eee543f3b25a1bd4ced02032278d23_1626014129.jpg?x-oss-process=image/resize,m_lfit,h_600,w_600/quality,q_80",
         },
         {
           id: 8,
           image:
-            "https://statics-develop.diver.ir/1/fill/512/512/sm/true/plain/s3://limoo/product/single_pic_slider.jpg",
+            "https://dkstatics-public.digikala.com/digikala-products/6f24e6893b9a16143533c323b024c6a021b507aa_1626014891.jpg?x-oss-process=image/resize,m_lfit,h_600,w_600/quality,q_80",
         },
         {
           id: 9,
           image:
-            "https://statics-develop.diver.ir/1/fill/512/512/sm/true/plain/s3://limoo/product/single_pic_slider.jpg",
+            "https://dkstatics-public.digikala.com/digikala-products/be7a0e9bf7866759fa3cea7648b149f589a01040_1609660142.jpg?x-oss-process=image/resize,m_lfit,h_600,w_600/quality,q_80",
         },
         {
           id: 10,

@@ -88,15 +88,15 @@ export default {
   watch: {},
   created() {
     const curentRoute = this.$route.path;
-    if (curentRoute.search("/profile") == 0) {
+    if (curentRoute.search("/profile") === 0) {
       this.profileIsActive = true;
     } else if (
-      curentRoute == "/cart" ||
-      curentRoute == "/shipping" ||
-      curentRoute == "/payment"
+      curentRoute === "/cart" ||
+      curentRoute === "/shipping" ||
+      curentRoute === "/payment"
     ) {
       this.basketIsActive = true;
-    } else if (curentRoute == "/") {
+    } else if (curentRoute === "/") {
       this.homeIsActive = true;
     }
   },
@@ -137,7 +137,7 @@ export default {
   display: none;
   z-index: 5;
 }
-@media (max-width: 960px) {
+@include md {
   #overlay {
     position: fixed; /* Sit on top of the page content */
     width: 100%; /* Full width (cover the whole page) */
@@ -153,22 +153,20 @@ export default {
     @include display-flex();
     flex-direction: row;
     justify-content: space-between;
-    padding: 0 30px;
+    padding: 0 toRem(30);
     background: rgba(255, 255, 255, 0.95);
-    backdrop-filter: blur(5px);
+    backdrop-filter: blur(toRem(5));
     opacity: 0.99;
-    box-shadow: -2px -6px 16px -3px rgba(0, 0, 0, 0.06);
+    box-shadow: toRem(-2) toRem(-6) toRem(16) toRem(-3) rgba(0, 0, 0, 0.06);
     color: $gray;
-    /* text-align: center; */
     width: 100%;
-    height: 58px;
+    height: toRem(58);
     position: fixed;
     bottom: 0;
     z-index: 5;
     /* we have issue --> the main page content stay behind nav */
     &__items {
-      /* border: 1px solid red; */
-      width: 73px;
+      width: toRem(73);
       @include display-flex();
       flex-direction: column;
       align-items: center;
@@ -178,7 +176,7 @@ export default {
     &__cart-basket,
     &__category-icon,
     &__home-icon {
-      margin-bottom: 4px;
+      margin-bottom: toRem(4);
     }
     &__profile-btn,
     &__cart-btn,
@@ -188,7 +186,7 @@ export default {
       border: none;
       background: transparent;
       font-family: inherit;
-      font-size: 13px;
+      font-size: toRem(13);
       color: $gray;
     }
     /* ================================ */
@@ -197,9 +195,9 @@ export default {
     &__category-icon::before,
     &__home-icon::before {
       @include font-icon__limoo();
-      font-size: 17px;
+      font-size: toRem(17);
       vertical-align: middle;
-      margin-left: 5px;
+      margin-left: toRem(5);
     }
     &__profile-person::before {
       content: "\e823";
@@ -216,9 +214,9 @@ export default {
     /* ================================ */
   }
 }
-@media (max-width: 700px) {
+@include sm {
   .mobile-mega-menu {
-    padding: 0 10px;
+    padding: 0 toRem(10);
   }
 }
 @media (max-width: 280px) {

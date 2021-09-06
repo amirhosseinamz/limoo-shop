@@ -6,7 +6,7 @@
     <div class="main-icon" v-if="hasMainIcon">
       <slot name="main-icon"></slot>
     </div>
-    <p class="card-title">
+    <p class="card-title" :class="{ 'lower-margin': hasMainIcon }">
       <slot name="card-title"></slot>
     </p>
     <div class="card-body">
@@ -35,19 +35,25 @@ export default {
   background-color: $white;
   box-shadow: 0 toRem(8) toRem(16) $box__shadow;
   border-radius: toRem(15);
+  position: relative;
   .auth-next-btn {
     @include display-flex();
     justify-content: flex-start;
-    margin-top: 8%;
-
+    position: absolute;
+    top: toRem(24);
+    left: toRem(24);
   }
   .card-title {
     width: 100%;
     font-size: toRem(24);
     font-weight: 400;
     text-align: right;
-    margin-top: toRem(50);
+    margin-top: toRem(85);
     margin-bottom: toRem(30);
+
+    &.lower-margin {
+      margin-top: toRem(35);
+    }
 
     @include xs {
       margin-top: toRem(132);

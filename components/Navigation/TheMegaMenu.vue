@@ -138,7 +138,7 @@ export default {
     justify-content: center;
     width: 100%;
     background-color: $white;
-    box-shadow: 0px 8px 16px $box__shadow;
+    box-shadow: 0 toRem(8) toRem(16) $box__shadow;
 }
 
 .mega-menu {
@@ -148,48 +148,44 @@ export default {
     align-self: center;
     align-items: center;
     width: 100%;
-    max-width: 1800px;
-    /* background-color: red; */
-    height: 54px;
-    margin-right: 16px;
-    margin-left: 100px;
+    max-width: toRem(1800);
+    height: toRem(54);
+    margin-right: toRem(16);
+    margin-left: toRem(100);
 
     &__item {
-        padding: 16px 0 14px 0;
-        /* cursor: pointer; */
-        font-size: 14px;
+        padding: toRem(16) 0 toRem(14) 0;
+        font-size: toRem(14);
     }
     &__item a {
         color: $code;
     }
     &__item:hover {
-        border-bottom: 3px solid $yellow;
+        border-bottom: toRem(3) solid $yellow;
         font-weight: 500;
-        border-top: 3px solid transparent;
+        border-top: toRem(3) solid transparent;
     }
     &__item:hover a {
         color: $black-topic;
     }
     .section-header {
-        width: 130px;
-        font-size: 14px;
-        /* border: 1px solid black; */
+        width: toRem(130);
+        font-size: toRem(14);
         text-align: right;
     }
     &__section {
-        top: 135px;
+        top: toRem(135);
         right: 0;
-        height: 337px;
+        height: toRem(337);
         width: 100vw;
         opacity: 0;
-        box-shadow: 0px 8px 16px $box__shadow;
-        border-bottom-left-radius: 10px;
-        border-bottom-right-radius: 10px;
+        box-shadow: 0 toRem(8) toRem(16) $box__shadow;
+        border-bottom-left-radius: toRem(10);
+        border-bottom-right-radius: toRem(10);
         position: absolute;
         visibility: hidden;
         background: $white;
         z-index: -1;
-        opacity: 0;
         left: 0;
     }
     &__item:hover &__section {
@@ -197,7 +193,7 @@ export default {
         opacity: 1;
     }
     &__seperator {
-        border-top: 1px solid $gray-border;
+        border-top: toRem(1) solid $gray-border;
         width: 100%;
     }
 }
@@ -209,41 +205,40 @@ export default {
         @include display-flex();
         flex-direction: row-reverse;
         align-items: flex-end;
-        padding-right: 25px;
-        padding-bottom: 15px;
+        padding-right: toRem(25);
+        padding-bottom: toRem(15);
         width: 100%;
-        height: 69px;
+        height: toRem(69);
     }
     &-header a {
         color: $code;
-        margin-left: 45px;
+        margin-left: toRem(45);
     }
     &-items {
         @include display-flex();
         flex-direction: row-reverse;
-        margin-top: 16px;
-        padding-right: 25px;
+        margin-top: toRem(16);
+        padding-right: toRem(25);
     }
     &-items a {
         color: $gray;
-        margin-bottom: 16px;
+        margin-bottom: toRem(16);
     }
     &-items a:hover {
         color: $yellow;
     }
 }
 .section-item-holder {
-    /* border: 1px solid black; */
     @include display-flex();
     flex-direction: column;
     align-items: flex-end;
-    margin-left: 45px;
-    width: 130px;
+    margin-left: toRem(45);
+    width: toRem(130);
 }
 a {
     text-decoration: none;
 }
-@media (max-width: 960px) {
+@include md {
     .nav-holder {
         display: none;
     }

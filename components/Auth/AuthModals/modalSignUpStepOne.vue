@@ -1,6 +1,6 @@
 <template>
   <div class="signup-container">
-    <authentication-card class="card" :has-main-icon="true">
+    <authentication-card class="card" has-main-icon>
       <template #top-icon>
         <button @click="closePage" class="app-signup-close-btn"></button>
       </template>
@@ -158,7 +158,7 @@ export default {
             )
             .then((result) => {
               // console.log(result.response_code);
-              if (result.response_code == 2208) {
+              if (result.response_code === 2208) {
                 this.$emit("btn-go-to-signup-step-two");
               }
             })
@@ -184,7 +184,7 @@ export default {
 }
 .card {
   width: toRem(642);
-  padding: 0 7%;
+  padding: 0 toRem(89.5);
 }
 
 .signup-close-btn {
@@ -256,6 +256,9 @@ export default {
   .signup-input {
     @extend .signup-input;
   }
+  .signup-limoo-logo {
+    margin-top: toRem(50);
+  }
 }
 @include sm {
   .card {
@@ -302,11 +305,11 @@ export default {
   .err-text {
     margin-right: toRem(16);
   }
-  .signup-limoo-logo {
-    margin-top: 0.5rem;
-  }
-  .signup-container::v-deep {
 
+  .signup-container::v-deep {
+    .signup-limoo-logo {
+      margin-top: toRem(82);
+    }
     .input-holder {
       height: toRem(60);
       margin-bottom: toRem(8);

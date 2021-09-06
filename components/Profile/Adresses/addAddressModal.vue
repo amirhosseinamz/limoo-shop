@@ -7,14 +7,6 @@
   >
     <div class="w-100 p-modal-header">
       <div class="w-100 p-modal-header-mobile">
-        <div class="w-100 d-flex justify-content-center p-modal-header-icon">
-          <img
-            @click="closeModalParent"
-            class="modal__close-cross"
-            src="/icons/close.svg"
-          />
-        </div>
-
         <div class="p-modal-header-top align-items-center">
           <span @click="closeModalParent" class="location-icon"></span>
           <span class="p-modal-header-top-title">
@@ -352,17 +344,9 @@ export default {
     },
 
     checkShowErrorCityProvince() {
-      if (this.formData.province == "") {
-        this.showErrorValidationProvince = true;
-      } else {
-        this.showErrorValidationProvince = false;
-      }
+      this.showErrorValidationProvince = this.formData.province === "";
 
-      if (this.formData.city == "") {
-        this.showErrorValidationCity = true;
-      } else {
-        this.showErrorValidationCity = false;
-      }
+      this.showErrorValidationCity = this.formData.city === "";
     },
 
     submitAddressAdd() {

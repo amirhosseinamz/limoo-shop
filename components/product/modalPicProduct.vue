@@ -202,7 +202,7 @@ export default {
       flex-wrap: wrap;
     }
     .product--modal_pic-item {
-      width: toRem(514);
+      //width: toRem(514);
       height: toRem(514);
       margin-right: auto;
       margin-left: auto;

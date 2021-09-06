@@ -306,12 +306,12 @@ export default {
     @include display-flex();
     align-items: flex-start;
     flex-wrap: wrap;
-    margin-top: 40px;
+    margin-top: toRem(40);
   }
   .bannerItems__item{
     margin-left: 1.1%;
     width: 32.5%;
-    height: 244px;
+    height: toRem(244);
     @include display-flex();
   }
   .bannerItems__item:last-of-type{
@@ -320,7 +320,7 @@ export default {
   .bannerItems__itemPic{
     width: 100%;
     height: 100%;
-    border-radius: 14px;
+    border-radius: toRem(14);
   }
 
 
@@ -335,7 +335,7 @@ export default {
 
   }
 
-  @media (max-width: 960px) {
+  @include md {
     .bannerItems__item:last-of-type{
       display: none;
     }
@@ -345,13 +345,6 @@ export default {
     .bannerItems__item:nth-child(2){
       margin-left: 0;
     }
-  }
-
-
-  @media (max-width: 768px) {
-    // .bannerItems{
-    //   max-width: 540px;
-    // }
   }
 
   @media (max-width: 600px) {

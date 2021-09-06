@@ -143,6 +143,7 @@ export default {
     height: toRem(1);
     background: $gray-border;
     margin-top: toRem(50);
+    margin-bottom: toRem(30);
   }
 
   @include xl {

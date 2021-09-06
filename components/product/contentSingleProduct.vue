@@ -23,10 +23,11 @@
 
           <sliderSingleProduct :products="productSliderMobile"></sliderSingleProduct>
           <productDetail :product-data="productData"></productDetail>
+          <product-colors></product-colors>
+
         </div>
       </div>
     </div>
-
     <div class="tab--content product__single-content w-100">
       <base-tabs
         :tabs="tabsNames"
@@ -72,6 +73,7 @@ import sliderSingleProduct from "./sliderSingleProduct";
 import commentQuestionMain from "./commentQuestionMain";
 import FullPresentation from "./fullPresentation";
 import DetailTechnical from "./detailTechnical";
+import ProductColors from "./productColors";
 
 
 export default {
@@ -85,6 +87,7 @@ export default {
   },
 
   components: {
+    ProductColors,
     DetailTechnical,
     FullPresentation,
     productPic,
@@ -176,7 +179,7 @@ export default {
   line-height: toRem(42.75);
   color: $black;
   font-weight: 400;
-  width: 80%;
+  width: 95%;
 }
 
 .product__top-brand {
@@ -195,7 +198,7 @@ export default {
 }
 
 .product__single-top {
-  width: toRem(766);
+  width: 100%;
 }
 
 .product--single__right-content {
@@ -239,7 +242,6 @@ export default {
   }
   .product__top-title {
     font-size: toRem(14);
-    width: 94%;
   }
 }
 
@@ -258,6 +260,7 @@ export default {
   .product__data-content {
     padding-right: 0;
     padding-left: 0;
+    display: inline;
   }
   .product__single-content {
     padding: toRem(8) toRem(11);

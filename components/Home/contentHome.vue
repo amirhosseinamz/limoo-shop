@@ -167,17 +167,6 @@ export default {
     productVertical2Content,
   },
 
-  data() {
-    return {
-    };
-  },
-
-  created() {
-  },
-
-  mounted() {
-  },
-
   methods: {
     getTextByTextKey,
   },
@@ -187,7 +176,7 @@ export default {
 
 <style lang="scss" scoped>
 .page__home-wrapper-main {
-  margin-top: 175px;
+  margin-top: toRem(175);
 }
 
 .product__vertical-main {
@@ -196,17 +185,9 @@ export default {
 }
 
 .product__vertical-right {
-  margin-left: 30px;
+  margin-left: toRem(30);
 }
 
-
-@media (max-width: 1220px) {
-
-}
-
-@media (max-width: 1024px) {
-
-}
 
 @media (max-width: 985px) {
   .product__vertical-desktop {
@@ -214,7 +195,7 @@ export default {
   }
 }
 
-@media (max-width: 960px) {
+@include md {
   .page__home-wrapper-main {
     margin-top: 8px;
   }
@@ -224,10 +205,6 @@ export default {
   .product__vertical-right {
     margin-left: 0px;
   }
-
-}
-
-@media (max-width: 600px) {
 
 }
 
