@@ -136,7 +136,7 @@ export default {
 
   }
 
-  @media (min-width: 576px) {
+  @include xs {
     dialog {
       &.delete {
         max-width: toRem(417);

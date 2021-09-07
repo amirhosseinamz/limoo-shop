@@ -14,13 +14,13 @@
     <modalSignUpStepTwo
       @btn-go-back-signup-step-one="gotoSignUpStepOne"
       @event-show-modal-wellcome="showWellcomeModal"
-      v-else-if="true"
+      v-else-if="false"
     />
     <modalSignInStepOne
       @btn-go-back-signup-step-one="gotoSignUpStepOne"
       @btn-go-to-signin-step-two="gotoSignInSteptwo"
       @btn-go-to-recycle-pass="goToRecyclePass"
-      v-else-if="SignInStepone"
+      v-else-if="false"
     />
     <modalSignInStepTwo
       @btn-go-back-signin-step-one="gotoSignInStepone"
@@ -38,7 +38,7 @@
     />
     <modalPassChange
       @btn-go-back-recycle-pass-step-two="goToRecyclePassStepTwo"
-      v-else-if="PassChange"
+      v-else-if="true"
     />
     <!--  -->
   </base-modal>

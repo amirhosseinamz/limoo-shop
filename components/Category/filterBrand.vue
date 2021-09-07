@@ -57,12 +57,7 @@ export default {
 
   methods: {
     toggleBox(){
-      if (this.openBox) {
-        this.openBox = false;
-      }
-      else {
-        this.openBox = true;
-      }
+      this.openBox = !this.openBox;
     },
 
     addChecked(e,data){
@@ -87,7 +82,7 @@ export default {
   margin-top: -1.5rem
 }
 .modal-filter__box-text{
-  font-size: 16px;
+  font-size: toRem(16);
   color: $dark_gray;
   font-weight: 400;
   flex-grow: 1;
@@ -108,23 +103,20 @@ export default {
 .modal-filter__box-arrow::before {
   content: "\e801";
   @include font-icon__limoo();
-  font-size: 13px;
+  font-size: toRem(13);
   color: $gray;
   cursor: pointer;
 }
 .modal-filter__box-arrow{
-  height:19px;
+  height: toRem(19);
   transition  : all .3s ease-in-out;
-  margin-top: 3px;
+  margin-top: toRem(3);
 }
 .modal-filter__box-title{
   @include display-flex();
   align-items: center;
   cursor: pointer;
-  padding-right: 16px;
-  padding-left: 16px;
-  padding-top: 13px;
-  padding-bottom: 13px;
+  padding: toRem(13) toRem(16);
 }
 .active--box .modal-filter__box-arrow{
   transform:rotate(-180deg);
@@ -135,7 +127,7 @@ export default {
   transition: max-height 1s ease-in-out;
 }
 .modal-filter__box-item{
-  margin-bottom: 26px;
+  margin-bottom: toRem(26);
 }
 .modal-filter__box-item:last-of-type{
   margin-bottom: 0;
@@ -147,7 +139,7 @@ export default {
   display: block;
   position: relative;
   cursor: pointer;
-  font-size: 22px;
+  font-size: toRem(22);
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
@@ -164,10 +156,10 @@ export default {
   position: absolute;
   top: 0;
   right: 0;
-  height: 18px;
-  width: 18px;
-  border:solid 1px $color-gray;
-  border-radius: 5px;
+  height: toRem(18);
+  width: toRem(18);
+  border:solid toRem(1) $color-gray;
+  border-radius: toRem(5);
 }
 .container input:checked ~ .checkmark {
   background-color: $yellow;
@@ -185,34 +177,29 @@ export default {
   color: $black-topic;
 }
 .container .checkmark:after {
-  left: 4px;
-  top: 5px;
+  left: toRem(4);
+  top: toRem(5);
   content: "\e82b";
   @include font-icon__limoo();
-  font-size: 6px;
+  font-size: toRem(6);
   color: $white;
 }
 .modal-filter__checkbox-title{
-  font-size: 14px;
+  font-size: toRem(14);
   color: $gray;
   font-weight: 400;
-  margin-right:28px;
+  margin-right:toRem(28);
 }
 .margin--top{
-  margin-top: 24px;
+  margin-top: toRem(24);
 }
 
-
-
-@media (max-width: 485px) {
+@include xs {
   .modal-filter__box-text{
-    font-size: 14px;
+    font-size: toRem(14);
   }
 }
 
-@media (max-width: 350px) {
-
-}
 
 
 

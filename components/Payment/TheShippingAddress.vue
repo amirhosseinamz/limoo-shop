@@ -53,29 +53,26 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
-/* .orders-content__main {
-    border: 1px solid red;
-} */
 .order-content-item {
     @include display-flex();
     flex-direction: column;
-    border-radius: 10px;
+    border-radius: toRem(10);
     height: fit-content;
-    min-height: 140px;
-    margin-bottom: 8px;
-    border: 1px solid $light-gray;
+    min-height: toRem(140);
+    margin-bottom: toRem(8);
+    border: toRem(1) solid $light-gray;
 }
 .order-detail {
-    height: 50px;
+    height: toRem(50);
     width: 100%;
-    border-bottom: 1px solid $gray-border;
+    border-bottom: toRem(1) solid $gray-border;
 }
 .order-detail__btns-price {
     @include display-flex();
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    height: 77px;
+    height: toRem(77);
     width: 100%;
 }
 .order-detail__desktop-holder {
@@ -88,81 +85,80 @@ export default {
     flex-direction: column;
 }
 .order-detail__title {
-    font-size: 16px;
+    font-size: toRem(16);
     line-height: 140.62%;
     text-align: right;
     color: $black-topic;
-    margin: 24px 17px 17px 0;
+    margin: toRem(24) toRem(17) toRem(17) 0;
 }
 .order-detail__content-holder {
     @include display-flex();
     flex-direction: column;
-    height: 91px;
-    padding-right: 16px;
-    border-right: 2px solid $gray-border;
+    height: toRem(91);
+    padding-right: toRem(16);
+    border-right: toRem(2) solid $gray-border;
 }
 
 .order-detail__btns-container {
     @include display-flex();
     flex-direction: row;
     justify-content: space-between;
-    width: 190px;
-    /* border: 1px solid red; */
-    margin-right: 16px;
+    width: toRem(190);
+    margin-right: toRem(16);
 }
 .order-detail__btn-delete {
-    width: 43px;
-    height: 43px;
+    width: toRem(43);
+    height: toRem(43);
     background-color: $circle-bg;
     box-sizing: border-box;
-    border-radius: 10px;
+    border-radius: toRem(10);
     border: none;
     cursor: pointer;
 }
 .order-detail__btn-delete::before {
     @include font-icon__limoo();
     content: "\e826";
-    font-size: 16px;
+    font-size: toRem(16);
     color: $color-gray;
 }
 
-@media (max-width: 960px) {
+@include md {
     .order-content-item {
-        min-height: 133px;
-        margin-bottom: 8px;
+        min-height: toRem(133);
+        margin-bottom: toRem(8);
     }
     .order-detail__content-holder {
         display: none;
     }
     .order-detail__btns-price {
-        height: 68px;
+        height: toRem(68);
     }
     .order-detail {
-        height: 50px;
+        height: toRem(50);
     }
 
     .order-detail__title {
-        font-size: 14px;
-        margin: 23px 16px 16px 19px;
+        font-size: toRem(14);
+        margin: toRem(23) toRem(16) toRem(16) toRem(19);
     }
 
     .order-detail__btns-container {
         width: 100%;
-        margin-left: 16px;
+        margin-left: toRem(16);
     }
     .order-detail__btn-delete {
-        width: 36px;
-        height: 36px;
+        width: toRem(36);
+        height: toRem(36);
     }
 
     .order-detail__btn-delete::before {
-        font-size: 14px;
+        font-size: toRem(14);
     }
 }
-@media (max-width: 280px) {
+@include xxxs {
     .order-detail__title {
-        font-size: 14px;
-        margin: 20px 6px 16px 19px;
+        font-size: toRem(14);
+        margin: toRem(20) toRem(6) toRem(16) toRem(19);
     }
 }
 </style>

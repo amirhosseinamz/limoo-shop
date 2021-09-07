@@ -82,7 +82,6 @@ export default {
 
   components: {
     commentForm,
-    textInput,
   },
 
   data() {

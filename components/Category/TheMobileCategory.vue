@@ -25,7 +25,7 @@ export default {
 .mobile-category {
     display: none;
 }
-@media (max-width: 960px) {
+@include md {
     .mobile-category {
         overflow-y: scroll;
         @include display-flex();
@@ -33,19 +33,18 @@ export default {
         align-items: flex-end;
         width: 95%;
         height: 80%;
-        margin: 55px 5px 75px 5px;
+        margin: toRem(55) toRem(5) toRem(75) toRem(5);
         background: $white;
-        border-radius: 10px;
+        border-radius: toRem(10);
         position: fixed;
         top: 0;
         z-index: 3;
-        /* z-index: 200; */
         &__header {
-            font-size: 14px;
+            font-size: toRem(14);
             line-height: 140.62%;
             color: $black-topic;
-            margin-top: 16px;
-            margin-right: 11px;
+            margin-top: toRem(16);
+            margin-right: toRem(11);
         }
     }
 }

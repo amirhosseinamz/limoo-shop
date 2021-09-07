@@ -440,23 +440,22 @@ export default {
   }
 }
 
-@media (max-width: 1300px) {
-  /* .navigation-items {
-        display: block;
-    } */
+@include xl {
   .search-section__items {
-    width: toRem(250);
+    width: toRem(191);
   }
 }
-@media (max-width: 960px) {
+@include lg {
+  .search-section__items {
+    width: toRem(191);
+  }
+}
+@include md {
   /* make header scrolable with main page in mobile screen */
   .header-container {
     background-color: transparent;
     z-index: 7;
   }
-  /* #overlay {
-        display: none;
-    } */
   .the-header {
     background-color: $white;
     z-index: 5;

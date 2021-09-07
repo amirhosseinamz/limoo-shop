@@ -108,20 +108,20 @@ export default {
   width:100%;
   @include display-flex();
   align-items:flex-start;
-  border-bottom:solid 1px $gray-border;
+  border-bottom:solid toRem(1) $gray-border;
 }
 .tabs__item{
-  margin-left:70px;
+  margin-left: toRem(70);
   cursor: pointer;
 }
 .tabs__item-title{
-  font-size:18px;
+  font-size: toRem(18);
   color: $gray;
   font-weight: 400;
 }
 .tab__main-wrapper{
-  padding-right: 24px;
-  padding-left:24px;
+  padding-right: toRem(24);
+  padding-left: toRem(24);
 }
 .tab__main-wrapper{
   @include display-flex();
@@ -131,12 +131,12 @@ export default {
 }
 .tabs__item-line{
   width:100%;
-  height: 5px;
+  height: toRem(5);
   background:$yellow;
-  border-top-left-radius: 20px;
-  border-top-right-radius: 20px;
+  border-top-left-radius: toRem(20);
+  border-top-right-radius: toRem(20);
   @include display-flex();
-  margin-top:19px;
+  margin-top: toRem(19);
 }
 .tab--active .tabs__item-line{
   visibility:visible;
@@ -145,21 +145,21 @@ export default {
   color: $black-topic;
 }
 .tabs__content{
-  padding-top:38px;
+  padding-top: toRem(38);
 }
 .tabs__content-title{
-  font-size: 16px;
+  font-size: toRem(16);
   font-weight: 400;
   color:$black-topic;
-  height: 29px;
-  margin-bottom:16px;
+  height: toRem(29);
+  margin-bottom: toRem(16);
   width:100%;
 }
 .tabs__content-item{
   background:$white;
-  height: 53px;
-  padding-right:18px;
-  padding-left: 18px;
+  height: toRem(53);
+  padding-right:toRem(18);
+  padding-left: toRem(18);
   background:rgb(242,242,242,.4);
   @include display-flex();
 }
@@ -167,21 +167,21 @@ export default {
   background:$white;
 }
 .tabs__content-right{
-  width:349px;
+  width: toRem(349);
   position: relative;
 }
 .tabs__content-left{
   @include display-flex();
   flex-grow: 1;
-  padding-right:24px;
+  padding-right: toRem(24);
 }
 .tabs__content-data:nth-child(1){
   padding-top:0;
 }
 .tabs__content-data{
-  padding-right:24px;
-  padding-left:24px;
-  padding-top:38px;
+  padding-right: toRem(24);
+  padding-left: toRem(24);
+  padding-top: toRem(38);
   flex-wrap: wrap;
 }
 .tabs__content-data:last-of-type .tabs__content-items{
@@ -192,10 +192,10 @@ export default {
   @include display-flex();
 }
 .tabs__content-text{
-  font-size: 16px;
+  font-size: toRem(16);
   color:$color_discount;
   font-weight: 400;
-  margin-top:16px;
+  margin-top:toRem(16);
 }
 .tabs__content-line{
   @include display-flex();
@@ -207,49 +207,46 @@ export default {
   top:0;
 }
 .tabs__content-items{
-  padding-bottom:38px;
+  padding-bottom:toRem(38);
   border-bottom:solid 2px rgba(242,242,242,.5);
-  border-radius: 8px;
+  border-radius: toRem(8);
   width:100%;
 }
 .tab__more{
-  font-size: 13px;
+  font-size: toRem(13);
   color: $gray;
   border-bottom: none;
   text-decoration: none;
   @include display-flex();
   align-items: center;
   justify-content: flex-end;
-  margin-top:16px;
-  margin-bottom:16px;
-  padding-left:15px;
+  margin-top:toRem(16);
+  margin-bottom:toRem(16);
+  padding-left:toRem(15);
   cursor: pointer;
 }
 .tab__more-icon{
   @include display-flex();
-  margin-right: 5px;
+  margin-right: toRem(5);
 }
 .mobile--arrow::after {
   content: "\e801";
   @include font-icon__limoo();
-  font-size: 12px;
+  font-size: toRem(12);
 }
 .tab__more-main{
   display: none;
   justify-content: flex-end;
 }
 
-
-
-
-@media (max-width: 760px) {
+@include sm {
   .tab__more-main{
     @include display-flex();
   }
   .tabs__content-items{
     padding-bottom: 0;
-    border:solid 1px $border-gray-bg;
-    border-radius: 10px;
+    border:solid toRem(1) $border-gray-bg;
+    border-radius: toRem(10);
   }
   .tabs__content-item:nth-child(n+4){
     display: none;
@@ -258,31 +255,31 @@ export default {
     display: none;
   }
   .tabs__content{
-    padding-top:16px;
+    padding-top:toRem(16);
   }
   .tabs__content-title{
-    font-size: 14px;
-    height:24px;
+    font-size: toRem(14);
+    height:toRem(24);
   }
   .tabs__content-data{
     padding-right: 0;
-    padding-left:0;
+    padding-left: 0;
   }
   .tabs__content-text{
-    font-size: 13px;
-    margin-top:0;
-    color:$gray;
+    font-size: toRem(13);
+    margin-top: 0;
+    color: $gray;
   }
   .tabs__content-item{
-    height: 39px;
-    padding-right: 16px;
-    padding-left:16px;
+    height: toRem(39);
+    padding-right: toRem(16);
+    padding-left: toRem(16);
   }
   .tab__content-wrapper{
-    align-items:center;
+    align-items: center;
   }
   .tabs__content-right{
-    width:148px;
+    width: toRem(148);
   }
 
 }

@@ -159,10 +159,7 @@ export default {
   width: 100%;
   min-height: toRem(106);
   height: fit-content;
-
   padding: toRem(16) toRem(15) 0 toRem(15);
-
-  /* border: 1px solid red; */
 }
 .paid-order-product-img {
   width: toRem(90);
@@ -176,7 +173,6 @@ export default {
   height: fit-content;
   padding-top: toRem(16);
   padding-right: toRem(16);
-  /* border: 1px solid red; */
 }
 .p-product-content-title {
   font-size: toRem(16);
@@ -188,7 +184,6 @@ export default {
   flex-direction: row;
   width: 100%;
   margin-top: toRem(16);
-  /* border: 1px solid red; */
 }
 .p-product-content-price-title {
   font-size: toRem(16);
@@ -207,14 +202,22 @@ export default {
   color: $black-topic;
   margin-right: toRem(15);
   margin-top: toRem(38);
-  /* border: 1px solid red; */
 }
-@media (max-width: 1220px) {
+@include xl {
+  .steps::v-deep {
+    font-size: toRem(14);
+    .circle {
+      width: toRem(22)!important;
+      height: toRem(22)!important;
+    }
+  }
+}
+@include lg {
   .order-detail__timeline {
     margin: toRem(32) toRem(64) toRem(8) toRem(48);
   }
 }
-@media (max-width: 960px) {
+@include md {
   .order-detail__shipment-date {
     display: none;
   }
@@ -262,15 +265,12 @@ export default {
     font-size: toRem(13);
   }
 }
-@media (max-width: 700px) {
-  .p-product-content-price {
-    margin-top: toRem(4);
-  }
+@include sm {
   .order-detail__timeline {
     margin: toRem(32) toRem(64) toRem(8) toRem(48);
   }
 }
-@media (max-width: 500px) {
+@include xs {
   .order-detail__timeline {
     margin: toRem(32) toRem(48) toRem(8) toRem(32);
   }
@@ -281,11 +281,5 @@ export default {
       height: toRem(11)!important;
     }
   }
-}
-@media (max-width: 340px) {
-
-}
-@media (max-width: 280px) {
-
 }
 </style>

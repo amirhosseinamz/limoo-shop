@@ -1,35 +1,15 @@
 <template>
   <div class="signin-container">
-    <div class="card">
-      <div>
-        <button @click="nextPage" class="app-signin-next-btn">
-          <img src="/icons/next.svg" />
-        </button>
-        <div
-          class="success-message"
-          :class="{ 'success-message-animation': newCodeSent }"
-        >
-          <img class="success-icon" src="/icons/success.svg" />
-          <p dir="rtl" class="success-txt">
-            {{ getTextByTextKey("auth_aignup_code_new") }}
-          </p>
-        </div>
-        <div
-          class="alert-message "
-          :class="{ 'alert-message-animation': timerPassed }"
-        >
-          <img class="alert-icon " src="/icons/alarm.svg" />
-          <p class="alert-txt">
-            {{ getTextByTextKey("auth_aignup_code_agin") }}
-          </p>
-        </div>
-      </div>
-      <div class="card-body">
+    <authentication-card class="card">
+      <template #top-icon>
+        <button @click="nextPage" class="app-signin-next-btn"></button>
+      </template>
+      <template #card-title class="txt-header">
+        {{ getTextByTextKey("auth_aignup_code_agin") }}
+      </template>
+      <template #card-body>
         <form @submit.prevent="pressed">
           <div class="form-group">
-            <p class="txt-header">
-              {{ getTextByTextKey("auth_aignup_code_agin") }}
-            </p>
 
             <p dir="rtl" class="txt-content">
               {{ getTextByTextKey("auth_aignup_phone_enter_code") }}
@@ -75,8 +55,8 @@
             </base-button>
           </div>
         </form>
-      </div>
-    </div>
+      </template>
+    </authentication-card>
   </div>
 </template>
 
@@ -96,9 +76,6 @@ export default {
         codePhoneNumber: "",
       },
     };
-  },
-  components: {
-    textInput,
   },
   mounted() {
     this.userPhoneNumber = this.$store.getters.PhoneNumberPicker;
@@ -144,60 +121,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.success-message {
-  @include display-flex();
-  flex-direction: row-reverse;
-  width: 463px;
-  height: 58px;
-  background-color: $alert-massage__green;
-  margin: 44px 90px 0px 89px;
-  border-radius: 10px;
-  position: absolute;
-  opacity: 0;
-  /* add .message-animation when we want to show it */
-}
-
-.alert-message {
-  @include display-flex();
-  flex-direction: row-reverse;
-  width: 463px;
-  height: 58px;
-  background-color: $alert-red;
-  margin: 44px 90px 0px 89px;
-  border-radius: 10px;
-  position: absolute;
-  opacity: 0;
-  /* add .message-animation when we want to show it */
-}
-/* add this animation to messages when we want to show them */
-.success-message-animation {
-  animation: cssAnimation 1000ms 2 alternate;
-}
-.alert-message-animation {
-  animation: cssAnimation 2000ms 2 alternate;
-}
-@keyframes cssAnimation {
-  0% {
-    opacity: 0;
-    transform: translate(0%, -170%);
-  }
-  70% {
-    opacity: 1;
-    transform: translate(0%, -120%);
-  }
-  80% {
-    opacity: 1;
-    transform: translate(0%, -120%);
-  }
-  90% {
-    opacity: 1;
-    transform: translate(0%, -120%);
-  }
-  100% {
-    opacity: 1;
-    transform: translate(0%, -120%);
-  }
-}
 
 .signin-container {
   height: 100vh;
@@ -210,58 +133,22 @@ export default {
 }
 
 .card {
-  @include display-flex();
-  flex-direction: column;
-  justify-content: space-around;
-  width: 642px;
-  height: 524px;
-  background-color: $white;
-  box-shadow: 0px 8px 16px $box__shadow;
-  border-radius: 15px;
+  width: 45%;
+  height: fit-content;
+  padding: 0 4%;
 }
-.success-icon {
-  width: 24px;
-  height: 24px;
-  margin-right: 18px;
-  margin-top: 17px;
-}
-.alert-icon {
-  width: 24px;
-  height: 24px;
-  margin-right: 18px;
-  margin-top: 17px;
+.app-signin-next-btn::before {
+  content: "\e801";
+  @include font-icon__limoo();
+  font-size: toRem(24);
+  color: $black-icon;
 }
 
-.app-signin-next-btn {
-  @include display-flex();
-  margin: 24px 11.5px 0 24px;
-  width: 13.5px;
-  height: 24px;
-  cursor: pointer;
-}
 .signup-btn {
   font-family: inherit;
-  font-size: 18px;
-  height: 58px;
-  width: 463px;
-}
-.success-txt {
-  font-weight: 500;
-  font-size: 16px;
-  line-height: 140.62%;
-  margin-right: 8px;
-  text-align: right;
-  margin-top: 17px;
-  color: $white;
-}
-.alert-txt {
-  font-weight: 500;
-  font-size: 16px;
-  line-height: 140.62%;
-  margin-right: 8px;
-  text-align: right;
-  margin-top: 17px;
-  color: $white;
+  font-size: toRem(18);
+  height: toRem(58);
+  width: 100%;
 }
 .form-control {
   direction: rtl;
@@ -272,19 +159,18 @@ export default {
   justify-content: flex-end;
 }
 .timer {
-  font-size: 14px;
+  font-size: toRem(14);
   line-height: 140.62%;
   color: $gray;
-  margin-right: 90px;
+  margin-right: toRem(90);
   display: none;
 }
 .code-request {
   font-weight: 500;
-  font-size: 13px;
+  font-size: toRem(13);
   line-height: 140.62%;
   text-align: right;
   color: $code-request;
-  margin-right: 90px;
   cursor: pointer;
   display: block;
 }
@@ -297,41 +183,31 @@ export default {
 .min-display {
   display: none;
 }
-.txt-header {
-  font-size: 24px;
-  line-height: 33.75px;
-  font-weight: 400;
-  text-align: right;
-  margin: 37px 90px 33px 0;
-}
 .txt-content {
-  font-size: 16px;
-  line-height: 22.5px;
+  font-size: toRem(16);
+  width: 100%;
+  line-height: toRem(22.5);
   font-weight: 318;
   text-align: right;
-  margin-bottom: 25px;
-  margin-right: 90px;
+  margin-bottom: toRem(25);
 }
 .signup-input {
   color: $code;
   text-align: center;
   text-align: -moz-center;
-  font-size: 20px;
-  max-width: 461px;
+  font-size: toRem(20);
   letter-spacing: 0.7em;
 }
 .signup-btn {
   margin-top: 2rem;
-  margin-bottom: 9rem;
+  margin-bottom: toRem(103);
 }
 .signin-container::v-deep {
   .txt-content {
     @extend .txt-content;
   }
   .input-holder {
-    @extend .input-holder;
-    margin-right: auto;
-    margin-left: auto;
+    width: 100%;
   }
   .signup-input {
     @extend .signup-input;
@@ -355,167 +231,56 @@ export default {
   }
 }
 
-@media (max-width: 540px) {
-  @keyframes cssAnimation {
-    0% {
-      opacity: 0;
-      transform: translate(0%, -170%);
-    }
-    70% {
-      opacity: 1;
-      transform: translate(0%, -70%);
-    }
-    80% {
-      opacity: 1;
-      transform: translate(0%, -70%);
-    }
-    90% {
-      opacity: 1;
-      transform: translate(0%, -70%);
-    }
-    100% {
-      opacity: 1;
-      transform: translate(0%, -70%);
-    }
-  }
-  .success-message {
-    width: 328px;
-    height: 56px;
-    margin: 16px 16px 0px 16px;
-  }
-  .alert-message {
-    width: 328px;
-    height: 72px;
-    margin: 16px 16px 0px 16px;
-  }
-  .alert-txt {
-    font-size: 14px;
-    padding-left: 50px;
-  }
-  .success-txt {
-    font-size: 14px;
-    margin-top: 20px;
-  }
+@include xl {
   .card {
-    width: auto;
-    height: 100vh;
-    border-radius: 0;
+    width: 55%;
+    padding: 0 5%;
+  }
+}
+@include md {
+  .card {
+    width: 70%;
+    padding: 0 6%;
+  }
+}
+@include sm {
+  .card {
+    width: 85%;
+    padding: 0 7%;
+  }
+
+  .input-holder {
+    margin-right: 0;
+    margin-left: 0;
+  }
+  .signup-btn {
+    margin-bottom: 7.5rem;
+  }
+}
+@include xs {
+  .card {
+    width: 100%;
+    padding: 0 10%;
+    height: 100%;
   }
   .signup-input {
-    margin-right: 16px;
-    margin-left: 16px;
-    width: 328px;
-    height: 60px;
-    margin-bottom: 8px;
+    height: toRem(60);
+    margin-bottom: toRem(8);
   }
   .input-holder {
-    margin-right: 16px;
-    margin-left: 16px;
     padding: 0;
-    width: 328px;
-    height: 60px;
-    margin-bottom: 8px;
+    height: toRem(60);
+    margin-bottom: toRem(8);
   }
 
   .signup-btn {
-    width: 328px;
-    margin: 2rem 1rem 11.5rem 1rem;
-  }
-  .txt-header {
-    font-size: 20px;
-    line-height: 140.62%;
-    width: 328px;
-    margin: 128px 16px 33px 16px;
+    margin: 2rem 0 7.5rem 0;
   }
   .txt-content {
-    font-size: 14px;
-    width: 328px;
-    margin-right: 16px;
-    margin-left: 16px;
+    font-size: toRem(14);
   }
   .timer {
-    margin-right: 16px;
-  }
-  .code-request {
-    margin-right: 16px;
-  }
-}
-@media screen and (max-width: 350px) {
-  .success-message {
-    width: 280px;
-  }
-  .alert-message {
-    width: 280px;
-  }
-  .signup-input {
-    margin-right: 10px;
-    margin-left: 10px;
-    width: 280px;
-    margin-bottom: 42px;
-  }
-  .input-holder {
-    width: 280px;
-  }
-  .signup-btn {
-    width: 280px;
-  }
-  .txt-header {
-    font-size: 20px;
-    line-height: 140.62%;
-    width: 280px;
-    margin-right: 10px;
-  }
-  .txt-content {
-    width: 280px;
-    margin-right: 10px;
-  }
-  .signup-limoo-logo {
-    margin-top: 0;
-  }
-}
-@media screen and (max-width: 321px) and (min-width: 299px) {
-  .card {
-    @include display-flex();
-    flex-direction: column;
-    justify-content: space-between;
-  }
-}
-@media screen and (max-width: 280px) {
-  .success-message {
-    width: 270px;
-  }
-  .alert-message {
-    width: 270px;
-    height: 60px;
-    margin-right: 5px;
-  }
-  .alert-txt {
-    padding-left: 30px;
-  }
-  .signup-input {
-    margin-right: 5px;
-    margin-left: 15px;
-    width: 270px;
-    margin-bottom: 42px;
-  }
-  .input-holder {
-    width: 270px;
-  }
-  .signup-btn {
-    width: 270px;
-  }
-  .txt-header {
-    font-size: 20px;
-    line-height: 140.62%;
-    width: 270px;
-    margin-right: 15px;
-  }
-  .txt-content {
-    width: 270px;
-    margin-right: 15px;
-  }
-  .signup-limoo-logo {
-    margin-top: 0.2rem;
+    margin-right: toRem(16);
   }
 }
 </style>

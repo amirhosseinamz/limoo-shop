@@ -268,6 +268,7 @@ export default {
   margin-left: 0;
 }
 
+
 .modal-filter__box-titlePrice {
   font-size: toRem(16);
   color: $gray;
@@ -310,7 +311,7 @@ export default {
 }
 
 
-@media (max-width: 420px) {
+@include xs {
   .modal-filter__box-renge {
    margin: 0;
   }
@@ -340,15 +341,6 @@ export default {
     font-size: toRem(13);
   }
 
-}
-
-@media (max-width: 350px) {
-  // .modal-filter__box-items{
-  //   overflow-x: auto;
-  //   flex-shrink: 0;
-  //   height: 72px;
-  //   @include display-flex();
-  // }
 }
 
 

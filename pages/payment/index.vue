@@ -109,33 +109,30 @@ export default {
     @include display-flex();
     justify-content: center;
     align-items: center;
-    width: 19px;
-    height: 19px;
+    width: toRem(19);
+    height: toRem(19);
     border-radius: 50%;
     background-color: $yellow;
-    /* background-color: $light-gray; */
 }
 .card-shape__circle-inner {
-    width: 9.5px;
-    height: 9.5px;
+    width: toRem(9.5);
+    height: toRem(9.5);
     border-radius: 50%;
     background-color: $white;
 }
-/*  */
+
 .cart-container {
     margin: 0 auto;
     width: 100%;
-    max-width: 1920px;
+    max-width: toRem(1920);
     height: fit-content;
 }
 .user-cart__container {
-    padding: 166px 16px 0 16px;
-    /* margin-bottom: 60px; */
+    padding: toRem(166) toRem(16) 0 toRem(16);
     width: 100%;
     height: fit-content;
     @include display-flex();
     flex-direction: column;
-    /* border: 1px solid red; */
 }
 .user-cart__shipping-holder {
     @include display-flex();
@@ -144,37 +141,35 @@ export default {
     height: fit-content;
 }
 .user-cart__shipping-topic {
-    font-size: 18px;
+    font-size: toRem(18);
     line-height: 140.62%;
     text-align: right;
-    margin-bottom: 24px;
+    margin-bottom: toRem(24);
 }
 .user-cart__shipping-container {
     @include display-flex();
     flex-direction: column;
     width: 70%;
-    /* border: 1px solid blue; */
-    margin-left: 30px;
-    border-radius: 10px;
-    min-height: 192px;
+    margin-left: toRem(30);
+    border-radius: toRem(10);
+    min-height: toRem(192);
     height: fit-content;
 }
 .user-shipping__title {
     font-family: inherit;
-    font-size: 18px;
+    font-size: toRem(18);
     line-height: 140.62%;
     text-align: right;
     color: $black-topic;
-    margin: 38px 0 38px 0;
-    /* border: 1px solid blue; */
+    margin: toRem(38) 0 toRem(38) 0;
     margin-right: 26px;
 }
 .user-shipping__address-btn,
 .user-shipping__address-btn__mobile {
     font-family: inherit;
-    font-size: 16px;
+    font-size: toRem(16);
     line-height: 140.62%;
-    margin: 24px 0 24px 0;
+    margin: toRem(24) 0 toRem(24) 0;
     color: $gray;
     cursor: pointer;
 }
@@ -183,9 +178,9 @@ export default {
     @include font-icon__limoo();
     content: "\e821";
     color: $yellow;
-    font-size: 24px;
-    margin-left: 23px;
-    margin-right: 8px;
+    font-size: toRem(24);
+    margin-left: toRem(23);
+    margin-right: toRem(8);
     vertical-align: middle;
 }
 .user-shipping__address-btn__mobile {
@@ -195,18 +190,18 @@ export default {
     @include display-flex();
     text-decoration: none;
     color: $code-request;
-    font-size: 16px;
+    font-size: toRem(16);
     line-height: 140.62%;
     text-align: right;
-    margin: 24px 18px 60px 0;
+    margin: toRem(24) toRem(18) toRem(60) 0;
 }
 .user-cart__go-back::before {
     @include font-icon__limoo();
     @include display-flex();
     content: "\e801";
     color: $code-request;
-    font-size: 12px;
-    margin-left: 6px;
+    font-size: toRem(12);
+    margin-left: toRem(6);
     transform: rotate(180deg);
 }
 .mobile-screen__holder {
@@ -217,7 +212,7 @@ export default {
 }
 .payment__line{
   width: 100%;
-  height: 1px;
+  height: toRem(1);
   background: $light-gray;
   @include display-flex();
 }
@@ -235,58 +230,55 @@ export default {
 .payment__address-main{
   background: $white;
   width: 100%;
-  min-height: 134px;
-  padding-right: 24px;
-  padding-left: 24px;
-  padding-top: 24px;
-  padding-bottom: 24px;
-  margin-top: 16px;
-  border-radius: 10px;
+  min-height: toRem(134);
+  padding: toRem(24);
+  margin-top: toRem(16);
+  border-radius: toRem(10);
 }
 .payment__address-place::after{
   color: $gray;
   content: "\e817";
   @include font-icon__limoo();
-  font-size: 21px;
+  font-size: toRem(21);
 }
 .payment__address-place{
-  margin-left: 11px;
+  margin-left: toRem(11);
 }
 .payment__address-title{
-  font-size: 16px;
+  font-size: toRem(16);
   color: $color-price;
   font-weight: 400;
   width: 91%;
 }
 .payment__address-item{
-  margin-top: 25px;
+  margin-top: toRem(25);
   @include display-flex();
   align-items: flex-start;
   flex-wrap: wrap;
 }
 .payment__address-text{
-  font-size: 18px;
+  font-size: toRem(18);
   font-weight: 400;
 }
 .payment--mobile{
   display: none;
 }
 .payment__address-line{
-  border-bottom:solid 1px $gray-border;
+  border-bottom:solid toRem(1) $gray-border;
   width: 100%;
-  padding-bottom: 16px;
+  padding-bottom: toRem(16);
 }
 
 
 
-@media (max-width: 1400px) {
+@include xl {
   .user-cart__shipping-container{
     width: 62.9%;
     margin-left: 2.1%;
   }
 }
 
-@media (max-width: 960px) {
+@include md {
     .user-shipping__address-btn {
         display: none;
     }
@@ -300,67 +292,65 @@ export default {
       margin-top: 0;
       padding-right: 0;
       padding-left: 0;
-      min-height: 109px;
+      min-height: toRem(109);
     }
     .payment__header{
-      border-radius: 10px 10px 0 0;
+      border-radius: toRem(10) toRem(10) 0 0;
     }
     .payment__address-text{
-      font-size: 14px;
-      margin-right: 11px;
+      font-size: toRem(14);
+      margin-right: toRem(11);
     }
     .payment__address-title{
-      font-size: 14px;
+      font-size: toRem(14);
       width: 90%;
     }
     .payment__address-place{
-      margin-left: 11px;
+      margin-left: toRem(11);
     }
     .payment__address-place::after{
-      font-size: 16px;
+      font-size: toRem(16);
     }
     .user-shipping__address-btn__mobile {
         display: block;
         font-family: inherit;
-        font-size: 13px;
+        font-size: toRem(13);
         line-height: 140.62%;
-        margin: 8px 0 24px 0;
+        margin: toRem(8) 0 toRem(24) 0;
         color: $gray;
         text-align: left;
         cursor: pointer;
     }
     .user-shipping__address-btn__mobile::after {
-        font-size: 19px;
-        margin-left: 2px;
-        margin-right: 4px;
+        font-size: toRem(19);
+        margin-left: toRem(2);
+        margin-right: toRem(4);
     }
     .user-cart__shipping-line {
         display: block;
-        margin: 0 auto 16px auto;
+        margin: 0 auto toRem(16) auto;
         width: 100%;
-        border-top: 1px solid $gray-border;
+        border-top: toRem(1) solid $gray-border;
     }
     .user-cart__container {
-        padding: 47px 0 0 0;
-        margin-bottom: 60px;
+        padding: toRem(47) 0 0 0;
+        margin-bottom: toRem(60);
         flex-direction: column;
     }
     .user-cart__shipping-holder {
         flex-direction: column;
-        padding: 0 5px;
+        padding: 0 toRem(5);
     }
     .user-cart__shipping-container {
         width: 100%;
-        /* border: 1px solid blue; */
         margin-left: 0;
     }
     .user-cart__go-back {
         display: none;
     }
     .user-shipping__title {
-        font-size: 14px;
-        margin: 16px 11px 0px 0;
-        /* border: 1px solid blue; */
+        font-size: toRem(14);
+        margin: toRem(16) toRem(11) 0 0;
     }
     .user-cart__shipping-topic {
         display: none;
@@ -370,19 +360,17 @@ export default {
         flex-direction: row;
         justify-content: space-between;
         align-items: center;
-        height: 56px;
+        height: toRem(56);
         background: $white;
-        margin-bottom: 8px;
-        padding: 0 16px;
+        margin-bottom: toRem(8);
+        padding: 0 toRem(16);
     }
     .mobile-screen__arrow::before {
         content: "\e801";
         @include font-icon__limoo();
-        font-size: 16px;
+        font-size: toRem(16);
         color: $gray;
         font-weight: bold;
-        /* margin-right: 4px;
-        margin-left: 8px; */
     }
     .payment__line{
       display: none;
@@ -390,16 +378,16 @@ export default {
     .payment--mobile{
       display: flex;
       flex-wrap: wrap;
-      margin-top: 8px;
+      margin-top: toRem(8);
     }
     .payment__address-main{
-      padding-bottom: 16px;
-      padding-top: 16px;
+      padding-bottom: toRem(16);
+      padding-top: toRem(16);
     }
     .payment__address-item{
-      margin-top: 18px;
-      padding-left: 11px;
-      padding-right: 11px;
+      margin-top: toRem(18);
+      padding-left: toRem(11);
+      padding-right: toRem(11);
     }
 
 }

@@ -477,14 +477,16 @@ export default {
 <style lang="scss" scoped>
 .theFooter {
   background: $white;
-  padding-top: 44px;
+  padding-top: toRem(44);
+  padding-right: 1rem;
+  padding-left: 1rem;
   @include display-flex();
   flex-wrap: wrap;
   align-items: flex-start;
-  border-bottom: solid 1px $light-gray;
+  border-bottom: solid toRem(1) $light-gray;
 }
 .theFooter-right {
-  width: 547px;
+  width: toRem(547);
   align-items: flex-start;
   @include display-flex();
   position: relative;
@@ -493,34 +495,33 @@ export default {
   @include display-flex();
   flex-grow: 1;
   align-items: flex-start;
-  padding-right: 45px;
-  padding-left: 45px;
+  padding-right: toRem(45);
 }
 .theFooter-Line {
   position: absolute;
   left: 0;
   top: 0;
   background: $gray-border;
-  width: 1px;
+  width: toRem(1);
   height: 100%;
 }
 .theFooter-rightItems {
   @include display-flex();
   align-items: flex-start;
-  margin-top: 8px;
+  margin-top: toRem(8);
   flex-wrap: wrap;
-  width: 465px;
-  margin-left: 80px;
+  width: toRem(465);
+  margin-left: toRem(80);
 }
 .theFooter-introductionTitle {
-  font-size: 14px;
+  font-size: toRem(14);
   font-weight: 400;
   color: #515151;
   line-height: 2.3em;
   text-align: justify;
 }
 .logo-img {
-  height: 59px;
+  height: toRem(59);
 }
 .theFooter-rightLogo {
   @include display-flex();
@@ -529,16 +530,16 @@ export default {
 .theFooter-introductionContent {
   @include display-flex();
   align-items: flex-start;
-  margin-top: 20px;
+  margin-top: toRem(20);
 }
 .theFooter-logoLicense {
   width: 100%;
   @include display-flex();
   align-items: flex-start;
-  margin-top: 22px;
+  margin-top: toRem(22);
 }
 .theFooter-licenseLink {
-  margin-left: 47px;
+  margin-left: toRem(47);
   @include display-flex();
 }
 .theFooter-licenseLink:last-of-type {
@@ -548,27 +549,24 @@ export default {
   @include display-flex();
   align-items: flex-start;
   flex-wrap: wrap;
+  justify-content: space-between;
 }
 .theFooter-itemText {
   color: $black-topic;
   font-weight: 500;
-  margin-bottom: 38px;
-  font-size: 16px;
-}
-.theFooter-itemRight {
-  margin-left: 156px;
-  flex-grow: 1;
+  margin-bottom: toRem(38);
+  font-size: toRem(16);
 }
 .theFooter-leftItem {
-  margin-bottom: 24px;
-  font-size: 14px;
+  margin-bottom: toRem(24);
+  font-size: toRem(14);
   list-style-type: none;
   @include display-flex();
   align-items: center;
 }
 .theFooter-itemTitle {
   color: $color_li_gray;
-  font-size: 14px;
+  font-size: toRem(14);
   font-weight: 500;
   cursor: pointer;
   width: 100%;
@@ -579,56 +577,55 @@ export default {
 .icon-telegram::after {
   content: "\e82a";
   @include font-icon__limoo();
-  font-size: 15px;
+  font-size: toRem(15);
   color: #666666;
 }
 .theFooter__LeftIcon {
-  width: 19px;
-  height: 19px;
+  width: toRem(19);
+  height: toRem(19);
   @include display-flex();
   align-items: center;
-  margin-left: 8px;
+  margin-left: toRem(8);
 }
 .icon-instagram::after {
   content: "\e815";
   @include font-icon__limoo();
-  font-size: 15px;
+  font-size: toRem(15);
   color: #666666;
 }
 .icon-play::after {
   content: "\e820";
   @include font-icon__limoo();
-  font-size: 15px;
+  font-size: toRem(15);
   color: #666666;
 }
 .icon-twitter::after {
   content: "\e82f";
   @include font-icon__limoo();
-  font-size: 15px;
+  font-size: toRem(15);
   color: #666666;
 }
 .theFooter-itemLink {
   text-decoration: none;
   @include display-flex();
-  text-decoration: none;
 }
 .theFooter-leftPhone {
   @include display-flex();
   align-items: flex-start;
-  border-bottom: solid 2px $yellow;
-  padding-bottom: 8px;
+  border-bottom: solid toRem(2) $yellow;
+  padding-bottom: toRem(8);
 }
 .w-auto {
   width: auto;
 }
 .theFooter-titlePhone {
-  margin-left: 5px;
+  margin-left: toRem(5);
 }
 .theFooter-phoneNumberMain {
-  margin-bottom: 16px;
+  margin-bottom: toRem(16);
 }
 .theFooter-wrapper {
-  width: 1394px;
+  width: toRem(1394);
   margin-right: auto;
   margin-left: auto;
   @include display-flex();
@@ -639,15 +636,15 @@ export default {
   @include display-flex();
   align-items: flex-start;
   flex-wrap: wrap;
-  padding-bottom: 34px;
+  padding-bottom: toRem(34);
 }
 .theFooter-about {
-  border-top: solid 1px $light-gray;
-  padding-top: 26px;
-  padding-bottom: 26px;
+  border-top: solid toRem(1) $light-gray;
+  padding-top: toRem(26);
+  padding-bottom: toRem(26);
 }
 .theFooter-aboutWrapper {
-  width: 1394px;
+  width: toRem(1394);
   margin-right: auto;
   margin-left: auto;
   @include display-flex();
@@ -655,7 +652,7 @@ export default {
   flex-wrap: wrap;
 }
 .theFooter-aboutTitle {
-  font-size: 14px;
+  font-size: toRem(14);
   color: $color-gray-footer;
   font-weight: 300;
 }
@@ -666,10 +663,10 @@ export default {
 .theFooter-aboutLine {
   @include display-flex();
   background: $color-gray;
-  width: 2px;
-  height: 23px;
-  margin-right: 16px;
-  margin-left: 16px;
+  width: toRem(2);
+  height: toRem(23);
+  margin-right: toRem(16);
+  margin-left: toRem(16);
 }
 .theFooter-aboutWallet {
   @include display-flex();
@@ -681,7 +678,7 @@ export default {
   @include display-flex();
 }
 .theFooter-aboutBottomWrapper {
-  width: 1394px;
+  width: toRem(1394);
   margin-right: auto;
   margin-left: auto;
   @include display-flex();
@@ -703,12 +700,12 @@ export default {
   content: "\e805";
   color: $yellow;
   @include display-flex();
-  margin-top: -6px;
-  font-size: 16px;
+  margin-top: toRem(-6);
+  font-size: toRem(16);
 }
 .theFooter-itemRightTitle {
   @include display-flex();
-  padding-right: 11px;
+  padding-right: toRem(11);
   align-items: center;
 }
 .theFooter-iconShare::after {
@@ -716,36 +713,36 @@ export default {
   content: "\e832";
   color: $yellow;
   @include display-flex();
-  font-size: 14px;
-  margin-top: 1px;
+  font-size: toRem(14);
+  margin-top: toRem(1);
 }
 .theFooter-iconPhone::after {
   @include font-icon__limoo();
   content: "\e81f";
   color: $yellow;
   @include display-flex();
-  font-size: 16px;
-  margin-top: 1px;
+  font-size: toRem(16);
+  margin-top: toRem(1);
 }
 .theFooter-WrapperItem {
-  padding-right: 11px;
-  padding-left: 11px;
-  padding-top: 14px;
+  padding-right: toRem(11);
+  padding-left: toRem(11);
+  padding-top: toRem(14);
   width: 100%;
 }
 .mobile-inprogress__arrow::after {
   content: "\e801";
   @include font-icon__limoo();
-  font-size: 11px;
-  margin-top: 1px;
+  font-size: toRem(11);
+  margin-top: toRem(1);
   color: $gray;
 }
 .mobile-inprogress__arrow {
-  margin-right: 7px;
+  margin-right: toRem(7);
   transform: rotate(274deg);
 }
 .theFooter-moreTitle {
-  font-size: 13px;
+  font-size: toRem(13);
   color: $gray;
   font-weight: 500;
 }
@@ -753,28 +750,28 @@ export default {
   @include display-flex();
   align-items: center;
   justify-content: center;
-  margin-top: 4px;
+  margin-top: toRem(4);
 }
 .theFooter-goUp {
   @include display-flex();
   align-items: center;
-  margin-top: 38px;
-  height: 43px;
-  border-top: solid 1px $gray-border;
-  border-bottom: solid 1px $gray-border;
-  margin-bottom: 24px;
+  margin-top: toRem(38);
+  height: toRem(43);
+  border-top: solid toRem(1) $gray-border;
+  border-bottom: solid toRem(1) $gray-border;
+  margin-bottom: toRem(24);
 }
 .theFooter-goUpTitle {
-  font-size: 13px;
+  font-size: toRem(13);
   color: $gray;
   font-weight: 500;
 }
 .theFooter-moreArrow {
-  margin-top: 3px;
+  margin-top: toRem(3);
 }
 .theFooter-goUpArrow {
-  margin-right: 11px;
-  margin-left: 7px;
+  margin-right: toRem(11);
+  margin-left: toRem(7);
 }
 .theFooter-aboutColorChange {
   color: $gray;
@@ -795,35 +792,17 @@ export default {
   transform: rotate(91deg);
 }
 
-@media (max-width: 1400px) {
+@include xl {
   .theFooter-wrapper {
     width: 100%;
-    padding-right: 24px;
-    padding-left: 24px;
-  }
-  .theFooter-itemRight {
-    margin-left: 17%;
+    padding-right: toRem(24);
+    padding-left: toRem(24);
   }
   .theFooter-aboutBottomWrapper {
     width: 96%;
   }
-}
-
-@media (max-width: 1300px) {
-  .theFooter-introductionTitle {
-    font-size: 13px;
-  }
-  .theFooter-itemRight {
-    margin-left: auto;
-  }
-  .theFooter-left {
-    padding-left: 0;
-  }
-}
-
-@media (max-width: 1200px) {
   .theFooter__licenseItem {
-    max-height: 120px;
+    max-height: toRem(100);
   }
   .theFooter-right {
     width: 44%;
@@ -833,28 +812,34 @@ export default {
   }
 }
 
-@media (max-width: 1024px) {
+@include lg {
   .theFooter__licenseItem {
-    max-height: 77px;
+    max-height: toRem(75);
   }
   .theFooter-right {
     width: 38%;
   }
   .theFooter-left {
-    padding-right: 26px;
+    padding-right: toRem(26);
+  }
+  .theFooter-introductionTitle {
+    font-size: toRem(13);
+  }
+  .theFooter-left {
+    padding-left: 0;
   }
 }
 
-@media (max-width: 960px) {
+@include md {
   .theFooter-right {
     width: 100%;
     background: $white;
-    border-radius: 10px;
+    border-radius: toRem(10);
     margin-top: 8px;
   }
   .theFooter {
     background: none;
-    margin-top: 8px;
+    margin-top: toRem(8);
     padding-top: 0;
   }
   .theFooter-top {
@@ -865,28 +850,28 @@ export default {
     width: 100%;
     padding-right: 0;
     background: $white;
-    border-radius: 10px;
+    border-radius: toRem(10);
   }
   .theFooter-leftPhone {
     width: auto;
   }
   .theFooter-itemRight {
     width: 100%;
-    border-bottom: solid 1px $gray-border;
+    border-bottom: solid toRem(1) $gray-border;
   }
   .theFooter-itemText {
-    margin-bottom: 24px;
-    margin-top: 24px;
-    padding-right: 10px;
-    padding-left: 10px;
+    margin-bottom: toRem(24);
+    margin-top: toRem(24);
+    padding-right: toRem(10);
+    padding-left: toRem(10);
   }
   .theFooter-leftItem {
-    margin-bottom: 20px;
-    padding-right: 11px;
-    padding-left: 11px;
+    margin-bottom: toRem(20);
+    padding-right: toRem(11);
+    padding-left: toRem(11);
   }
   .theFooter-itemRight:nth-child(1) .theFooter-itemText {
-    margin-top: 16px;
+    margin-top: toRem(16);
   }
   .theFooter__LeftIcon {
     display: none;
@@ -915,29 +900,29 @@ export default {
   }
   .theFooter-logoLicense {
     justify-content: center;
-    margin-top: 39px;
+    margin-top: toRem(39);
+    overflow-x: scroll;
   }
   .theFooter-about {
-    margin-bottom: 43px;
+    margin-bottom: toRem(43);
     padding-top: 0;
     border-top: none;
-    padding-right: 11px;
-    padding-left: 11px;
+    padding-right: toRem(11);
+    padding-left: toRem(11);
   }
   .theFooter-aboutLeft {
-    margin-top: 11px;
+    margin-top: toRem(11);
   }
   .theFooter-aboutTitle {
-    font-size: 13px;
+    font-size: toRem(13);
   }
   .theFooter-licenseLink {
-    margin-left: 24px;
+    margin-left: toRem(24);
   }
   .logo-img {
-    max-height: 56px;
+    max-height: toRem(56);
   }
   .theFooter-introductionTitle {
-    // height: 77px;
     overflow: hidden;
     text-overflow: ellipsis;
     line-height: 1.9em;
@@ -945,22 +930,22 @@ export default {
   }
 }
 
-@media (max-width: 485px) {
+@include xs {
   .theFooter__licenseItem {
-    max-height: 80px;
+    max-height: toRem(80);
   }
   .theFooter-licenseLink {
-    margin-left: 16px;
+    margin-left: toRem(16);
   }
   .theFooter-wrapper {
-    padding-right: 11px;
-    padding-left: 11px;
+    padding-right: toRem(11);
+    padding-left: toRem(11);
   }
 }
 
-@media (max-width: 385px) {
+@include xxs {
   .theFooter-introductionTitle {
-    width: 298px;
+    width: toRem(298);
   }
 }
 </style>

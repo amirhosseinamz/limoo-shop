@@ -36,19 +36,6 @@ export default {
 
   methods: {
     activeRadio($event,data){
-
-      // this.sortData.map((content,index)=>{
-      //   if (content.id == data.id) {
-      //     content.selected = true;
-      //   }
-      //   else {
-      //     content.selected = false;
-      //   }
-      // })
-
-      console.log($event.target.checked);
-
-
       this.$emit("active-radio",data)
     },
 
@@ -66,16 +53,16 @@ export default {
   }
   .modal-sort__item{
     @include display-flex();
-    padding-right: 18px;
-    padding-left: 18px;
-    box-shadow: 0 8px 16px rgba(17, 17, 17, 0.03);
+    padding-right: toRem(18);
+    padding-left: toRem(18);
+    box-shadow: 0 toRem(8) toRem(16) rgba(17, 17, 17, 0.03);
     margin-bottom: 16px;
   }
   .modal-sort__title{
     color: $gray;
-    font-size: 16px;
+    font-size: toRem(16);
     font-weight: 300;
-    margin-right: 30px;
+    margin-right: toRem(30);
   }
   .modal-sort__item:last-of-type{
     margin-bottom: 0;
@@ -85,7 +72,7 @@ export default {
     display: block;
     position: relative;
     cursor: pointer;
-    font-size: 22px;
+    font-size: toRem(22);
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
@@ -100,12 +87,12 @@ export default {
   }
   .checkmark {
     position: absolute;
-    top: 3px;
+    top: toRem(3);
     right: 0;
-    height: 17px;
-    width: 17px;
-    border:solid 5px $color-gray;
-    border-radius: 100px;
+    height: toRem(17);
+    width: toRem(17);
+    border:solid toRem(5) $color-gray;
+    border-radius: toRem(100);
   }
   .container input[type="radio"]:checked ~ .checkmark {
     border-color: $yellow;
@@ -127,25 +114,23 @@ export default {
     display: block;
   }
 
-  @media (max-width: 485px) {
+  @include xs {
     .modal-sort__item{
       border:none!important;
       box-shadow: none;
-      margin-bottom: 39px;
-      height: 24px!important;
+      margin-bottom: toRem(39);
+      height: toRem(24)!important;
     }
     .modal-sort__items{
-      padding-right: 24px;
-      padding-left: 24px;
+      padding-right: toRem(24);
+      padding-left: toRem(24);
     }
     .modal-sort__title{
-      font-size: 14px;
+      font-size: toRem(14);
     }
     .checkmark{
-      top: 1px;
+      top: toRem(1);
     }
-
-
   }
 
 

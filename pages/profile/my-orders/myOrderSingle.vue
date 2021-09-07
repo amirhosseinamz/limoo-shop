@@ -154,9 +154,7 @@
               <span class="shipment-detail__address-mobile">
                 {{ getTextByTextKey("orders_detail_mobile_status_adresss") }}
               </span>
-              <span class="order-status__show-mobile">{{
-                userOrderData.address
-              }}</span>
+              <span class="order-status__show-mobile">{{ userOrderData.address }}</span>
             </div>
             <!--  -->
           </div>

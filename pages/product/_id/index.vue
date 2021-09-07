@@ -6,10 +6,6 @@
           <span class="mobile-screen__holder-txt">آدرس های شما</span>
           <span class="icon-location"></span>
         </div>
-        <!-- <img
-                  class="mobile-screen__holder-arrow"
-                  src="/icons/arrow-left.svg"
-              /> -->
       </div>
     </div>
     <contentSingleProduct
@@ -123,47 +119,47 @@ export default {
         {
           id: 1,
           image:
-            "https://statics-develop.diver.ir/1/fill/512/512/sm/true/plain/s3://limoo/product/picTest1.jpg",
+            "https://dkstatics-public.digikala.com/digikala-products/cbd437b5ba4a0c942ae8967fa3954da2fd30c54c_1626014199.jpg?x-oss-process=image/resize,m_lfit,h_600,w_600/quality,q_80",
         },
         {
           id: 2,
           image:
-            "https://statics-develop.diver.ir/1/fill/512/512/sm/true/plain/s3://limoo/product/new-baner-web4.jpg",
+            "https://dkstatics-public.digikala.com/digikala-products/be7a0e9bf7866759fa3cea7648b149f589a01040_1609660142.jpg?x-oss-process=image/resize,m_lfit,h_600,w_600/quality,q_80",
         },
         {
           id: 3,
           image:
-            "https://statics-develop.diver.ir/1/fill/512/512/sm/true/plain/s3://limoo/product/bahare web.jpg",
+            "https://dkstatics-public.digikala.com/digikala-products/9f5d8f6583a7289a096a9180ac88708856f4bd8f_1607433653.jpg?x-oss-process=image/resize,m_lfit,h_600,w_600/quality,q_80",
         },
         {
           id: 4,
           image:
-            "https://statics-develop.diver.ir/1/fill/512/512/sm/true/plain/s3://limoo/product/picTest1.jpg",
+            "https://dkstatics-public.digikala.com/digikala-products/d48f70d64f989092aa9493a40ab90ae47e0667c4_1626014826.jpg?x-oss-process=image/resize,m_lfit,h_600,w_600/quality,q_80",
         },
         {
           id: 5,
           image:
-            "https://statics-develop.diver.ir/1/fill/512/512/sm/true/plain/s3://limoo/product/apple-watch-series-6-gps-cellurar2%20.png",
+            "https://dkstatics-public.digikala.com/digikala-products/3049dd8c073305e494f86d2959ac679febba7467_1624253960.jpg?x-oss-process=image/resize,m_lfit,h_600,w_600/quality,q_80",
         },
         {
           id: 6,
           image:
-            "https://statics-develop.diver.ir/1/fill/512/512/sm/true/plain/s3://limoo/product/single_pic_slider.jpg",
+            "https://dkstatics-public.digikala.com/digikala-products/17b055a0f2eee543f3b25a1bd4ced02032278d23_1626014129.jpg?x-oss-process=image/resize,m_lfit,h_600,w_600/quality,q_80",
         },
         {
           id: 7,
           image:
-            "https://statics-develop.diver.ir/1/fill/512/512/sm/true/plain/s3://limoo/product/single_pic_slider.jpg",
+            "https://dkstatics-public.digikala.com/digikala-products/17b055a0f2eee543f3b25a1bd4ced02032278d23_1626014129.jpg?x-oss-process=image/resize,m_lfit,h_600,w_600/quality,q_80",
         },
         {
           id: 8,
           image:
-            "https://statics-develop.diver.ir/1/fill/512/512/sm/true/plain/s3://limoo/product/single_pic_slider.jpg",
+            "https://dkstatics-public.digikala.com/digikala-products/6f24e6893b9a16143533c323b024c6a021b507aa_1626014891.jpg?x-oss-process=image/resize,m_lfit,h_600,w_600/quality,q_80",
         },
         {
           id: 9,
           image:
-            "https://statics-develop.diver.ir/1/fill/512/512/sm/true/plain/s3://limoo/product/single_pic_slider.jpg",
+            "https://dkstatics-public.digikala.com/digikala-products/be7a0e9bf7866759fa3cea7648b149f589a01040_1609660142.jpg?x-oss-process=image/resize,m_lfit,h_600,w_600/quality,q_80",
         },
         {
           id: 10,
@@ -241,10 +237,8 @@ export default {
     activeItemSliderNav(data) {
       let updateSlider = [];
       this.productSlider.map((content, index) => {
-        content.active = false;
-        if (content.id === data.id) {
-          content.active = true;
-        }
+
+        content.active = content.id === data.id;
         updateSlider = [...updateSlider, content];
       });
 
@@ -360,7 +354,7 @@ export default {
 .profile-container {
   margin: 0 auto;
   width: 100%;
-  max-width: 1920px;
+  max-width: toRem(1920);
   min-height: 100vh;
   display: flex;
   flex-direction: row-reverse;
@@ -372,38 +366,27 @@ export default {
 .page-wrapper {
   @include display-flex();
   align-items: flex-start;
-  width: 1381px;
-  margin-right: auto;
-  margin-left: auto;
+  padding-right: toRem(26);
+  padding-left: toRem(26);
+  width: 100%;
 }
 .icon-location::after {
   content: "\e817";
   @include font-icon__limoo();
-  font-size: 16px;
-  margin-top: 1px;
+  font-size: toRem(16);
+  margin-top: toRem(1);
   color: $color_festival;
 }
 .screen__holder-data {
   @include display-flex();
   justify-content: flex-end;
-  padding-right: 18.5px;
-  padding-left: 18.5px;
+  padding-right: toRem(18.5);
+  padding-left: toRem(18.5);
   align-items: center;
   height: 100%;
 }
 
-@media (max-width: 1450px) {
-  .page-wrapper {
-    padding-right: 26px;
-    padding-left: 26px;
-    width: 100%;
-  }
-}
-
-@media (max-width: 1220px) {
-}
-
-@media (max-width: 960px) {
+@include md {
   .desktop-screen {
     display: none;
   }
@@ -414,28 +397,28 @@ export default {
       flex-direction: row-reverse;
       justify-content: space-between;
       align-items: center;
-      height: 33px;
+      height: toRem(33);
       background: $white;
-      margin-top: 47px;
+      margin-top: toRem(47);
       &-txt {
-        font-size: 13px;
+        font-size: toRem(13);
         line-height: 140.62%;
-        margin-right: 6.5px;
+        margin-right: toRem(6.5);
         color: $black-topic;
       }
       &-arrow {
-        margin-left: 16px;
+        margin-left: toRem(16);
       }
     }
   }
   .profile-container {
     @include display-flex();
     flex-direction: column;
-    margin-bottom: 58px;
+    margin-bottom: toRem(58);
   }
   .user-profile__holder {
-    margin: 8px 0;
-    padding: 0 5px;
+    margin: toRem(8) 0;
+    padding: 0 toRem(5);
   }
   .user-profile {
     &__topic {
@@ -447,19 +430,11 @@ export default {
   }
 }
 
-@media (max-width: 600px) {
-}
-
-@media (max-width: 485px) {
+@include xs {
   .page-wrapper {
-    padding-right: 11px;
-    padding-left: 11px;
+    padding-right: toRem(11);
+    padding-left: toRem(11);
   }
 }
 
-@media (max-width: 350px) {
-}
-
-@media (max-width: 320px) {
-}
 </style>

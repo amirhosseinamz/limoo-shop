@@ -77,7 +77,7 @@ export default {
 
 
         // پیدا کردن آیتم ای که در جدا سازی دوتایی آیتم ها اضافه آماده است //
-        if (this.detailProduct.length != levelSplit) {
+        if (this.detailProduct.length !== levelSplit) {
           const lastFindCatOutSideTwice = this.detailProduct[levelSplit];
           this.resultSeparate.push( { children: [lastFindCatOutSideTwice] } );
         }
@@ -91,7 +91,7 @@ export default {
 
 <style lang="scss" scoped>
   .product__property{
-    margin-top: 45px;
+    margin-top: toRem(45);
     @include display-flex();
     align-items: flex-start;
     flex-flow: column;
@@ -105,15 +105,11 @@ export default {
     @include display-flex();
     align-items: flex-start;
     flex-flow: column;
-    border-left: solid 1px $gray-border;
-    padding-right: 28px;
-    padding-left: 28px;
-    // width: 33%;
-    padding-top: 11px;
-    padding-bottom: 11px;
+    border-left: solid toRem(1) $gray-border;
+    padding: toRem(11) toRem(28);
   }
   .product__property-item:nth-child(1){
-    padding-right: 0px;
+    padding-right: 0;
   }
   .product__property-item:nth-child(4n){
     padding-right: 0;
@@ -126,46 +122,45 @@ export default {
     @include display-flex();
     align-items: flex-start;
     width: 100%;
-    margin-bottom: 22px;
+    margin-bottom: toRem(22);
   }
   .product__property-content:last-of-type{
     margin-bottom: 0;
   }
   .product__property-detail{
-    font-size: 14px;
+    font-size: toRem(14);
     font-weight: 400;
-    margin-right: 6px;
+    margin-right: toRem(6);
     color: $color_discount;
   }
   .product__property-title{
-    font-size: 14px;
+    font-size: toRem(14);
     font-weight: 400;
     color: $gray;
   }
   .product__line{
     width: 100%;
-    height: 1px;
+    height: toRem(1);
     background: $gray-border;
-    margin-top: 50px;
+    margin-top: toRem(50);
+    margin-bottom: toRem(30);
   }
 
-  @media (max-width: 1300px) {
+  @include xl {
     .product__property-title{
-      font-size: 13px;
+      font-size: toRem(13);
     }
     .product__property-detail{
-      font-size: 13px;
+      font-size: toRem(13);
     }
     .product__property-item{
-      padding-right: 14px;
-      padding-left: 14px;
+      padding-right: toRem(14);
+      padding-left: toRem(14);
     }
 
   }
 
-
-
-  @media (max-width: 760px) {
+  @include sm {
     .product__property{
       display: none;
     }

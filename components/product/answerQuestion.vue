@@ -23,12 +23,6 @@
 import { getTextByTextKey } from "~/modules/splitPartJsonResource.js";
 
 export default {
-  components: {},
-
-  data() {
-    return {};
-  },
-
   methods: {
     getTextByTextKey,
   },
@@ -45,20 +39,20 @@ export default {
   width: 100%;
   @include display-flex();
   align-items: flex-start;
-  border-bottom: solid 1px $gray-border;
+  border-bottom: solid toRem(1) $gray-border;
 }
 .tabs__item {
-  margin-left: 70px;
+  margin-left: toRem(70);
   cursor: pointer;
 }
 .tabs__item-title {
-  font-size: 18px;
+  font-size: toRem(18);
   color: $gray;
   font-weight: 400;
 }
 .tab__main-wrapper {
-  padding-right: 24px;
-  padding-left: 24px;
+  padding-right: toRem(24);
+  padding-left: toRem(24);
 }
 .tab__main-wrapper {
   @include display-flex();
@@ -68,32 +62,32 @@ export default {
 }
 .tabs__item-line {
   width: 100%;
-  height: 5px;
+  height: toRem(5);
   background: $yellow;
-  border-top-left-radius: 20px;
-  border-top-right-radius: 20px;
+  border-top-left-radius: toRem(20);
+  border-top-right-radius: toRem(20);
   @include display-flex();
-  margin-top: 19px;
+  margin-top: toRem(19);
 }
 .tab--active .tabs__item-title {
   color: $black-topic;
 }
 .tabs__content {
-  padding-top: 38px;
+  padding-top: toRem(38);
   position: absolute;
 }
 .tabs__content-title {
-  font-size: 16px;
+  font-size: toRem(16);
   font-weight: 400;
   color: $black-topic;
-  height: 29px;
-  margin-bottom: 16px;
+  height: toRem(29);
+  margin-bottom: toRem(16);
 }
 .tabs__content-item {
   background: $white;
-  height: 53px;
-  padding-right: 18px;
-  padding-left: 18px;
+  height: toRem(53);
+  padding-right: toRem(18);
+  padding-left: toRem(18);
   background: rgb(242, 242, 242, 0.4);
   @include display-flex();
 }
@@ -101,21 +95,21 @@ export default {
   background: $white;
 }
 .tabs__content-right {
-  width: 349px;
+  width: toRem(349);
   position: relative;
 }
 .tabs__content-left {
   @include display-flex();
   flex-grow: 1;
-  padding-right: 24px;
+  padding-right: toRem(24);
 }
 .tabs__content-data:nth-child(1) {
   padding-top: 0;
 }
 .tabs__content-data {
-  padding-right: 24px;
-  padding-left: 24px;
-  padding-top: 38px;
+  padding-right: toRem(24);
+  padding-left: toRem(24);
+  padding-top: toRem(38);
 }
 .tabs__content-data:last-of-type .tabs__content-items {
   border-bottom: none;
@@ -125,23 +119,23 @@ export default {
   @include display-flex();
 }
 .tabs__content-text {
-  font-size: 16px;
+  font-size: toRem(16);
   color: $color_discount;
   font-weight: 400;
-  margin-top: 16px;
+  margin-top: toRem(16);
 }
 .tabs__content-line {
   @include display-flex();
   background: rgba(242, 242, 242, 0.4);
   position: absolute;
   left: 0;
-  width: 1px;
+  width: toRem(1);
   height: 100%;
   top: 0;
 }
 .tabs__content-items {
-  padding-bottom: 38px;
-  border-bottom: solid 2px rgba(242, 242, 242, 0.5);
-  border-radius: 8px;
+  padding-bottom: toRem(38);
+  border-bottom: solid toRem(2) rgba(242, 242, 242, 0.5);
+  border-radius: toRem(8);
 }
 </style>

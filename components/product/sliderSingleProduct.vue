@@ -5,13 +5,7 @@
               <div :style="heightSliderImg" class="page__home__introduction-slider-main main-carousel w-100">
                       <div :style="heightSliderImg" @click="switchLink($event,data)" v-for="data in products" :key="data.id" class="carousel-cell w-100">
                                 <div class="page__home__introduction__slider w-100">
-                                    <!-- <NuxtLink
-                                    class="w-100 pageHome__Slider-link"
-                                    :to=" '/' + title.sliderItemHref + '/' + data.id"
-                                    target="_blank"
-                                    > -->
                                       <img  ref="imgCarouselCellSlider" class="page__home__introduction__slider-pic " :src="data.image" alt="">
-                                    <!-- </NuxtLink> -->
                                 </div>
                       </div>
               </div>
@@ -74,7 +68,7 @@ export default {
       this.detectedResizeBrowser();
       this.updateSliderImg();
 
-      if (this.products.length != 0) {
+      if (this.products.length !== 0) {
         setTimeout( () =>{
           this.updateHightSlider();
         }, 1000);
@@ -143,24 +137,21 @@ export default {
           const getImg    = (width,height,getSizeUpdate) => {
               this.sliderLastUpdateImg.map((content,index)=>{
 
-                if (content[getSizeUpdate] == '') {
+                if (content[getSizeUpdate] === '') {
                     for (let key in content) {
-                        if (key == getSizeUpdate) {
+                        if (key === getSizeUpdate) {
                           // فقط یک بار اجرا شده و پس از گرفتن عکس مورد نظر اجرا نخواهد شد //
 
-                          if (index == 0) {
-                            const url    = `https://statics-develop.diver.ir/1/fill/${width}/${height}/sm/true/plain/s3://limoo/product/single_product_img2.jpg`;
-                            content[key] = url;
+                          if (index === 0) {
+                            content[key] = `https://statics-develop.diver.ir/1/fill/${width}/${height}/sm/true/plain/s3://limoo/product/single_product_img2.jpg`;
                           }
 
-                          if (index == 1) {
-                            const url      = `https://statics-develop.diver.ir/1/fill/${width}/${height}/sm/true/plain/s3://limoo/product/apple-watch-series-6-gps-cellurar2%20.png`;
-                            content[key]   = url;
+                          if (index === 1) {
+                            content[key]   = `https://statics-develop.diver.ir/1/fill/${width}/${height}/sm/true/plain/s3://limoo/product/apple-watch-series-6-gps-cellurar2%20.png`;
                           }
 
-                          if (index == 2) {
-                            const url      = `https://statics-develop.diver.ir/1/fill/${width}/${height}/sm/true/plain/s3://limoo/product/apple-watch-series-6-gps-cellurar2%20.png`;
-                            content[key]   = url;
+                          if (index === 2) {
+                            content[key]   = `https://statics-develop.diver.ir/1/fill/${width}/${height}/sm/true/plain/s3://limoo/product/apple-watch-series-6-gps-cellurar2%20.png`;
                           }
 
 
@@ -176,7 +167,7 @@ export default {
             this.sliderLastUpdateImg.map((contentLastGetImg,indexGetImg)=>{
                   const getCurrentSizeImg = contentLastGetImg[getSizeUpdate];
                   this.products.map((contentSlider,indexSlider)=>{
-                      if (contentLastGetImg.id == contentSlider.id ) {
+                      if (contentLastGetImg.id === contentSlider.id ) {
                         contentSlider.image = getCurrentSizeImg;
                       }
                   })
@@ -206,25 +197,23 @@ export default {
     align-items: flex-start;
     position: relative;
     width: 100%;
-    margin-top: 8px;
+    margin-top: toRem(8);
   }
   .page__home__introduction__slider{
-    border-radius: 12px;
+    border-radius: toRem(12);
     width: 100%;
     cursor: pointer;
-    height: 457px;
-    // height: 100%;
+    height: toRem(457);
   }
   .page__home__introduction__slider-pic{
     height: 100%;
-    border-radius: 12px;
+    border-radius: toRem(12);
     pointer-events: none;
     object-position: 50% 50%;
     object-fit: cover;
   }
   .page__home__introduction-item-slider-content {
-    // width: 61.7%;
-    height: 460px;
+    height: toRem(460);
     grid-column: 1/span 2;
     grid-row: 1/span 2;
     position: relative;
@@ -234,21 +223,12 @@ export default {
     align-items: flex-start;
     width: 514px;
     flex-flow: column;
-    margin-right: 19px;
-  }
-  .introduction__leftitem2{
-    // height: 294px;
-  }
-  .introduction__leftitem{
-    // height: 150px;
-    // margin-bottom: 16px;
+    margin-right: toRem(19);
   }
   .introduction__leftimg{
     border-radius: 12px;
     height: 100%;
     width: 100%;
-    // object-position: 50% 50%;
-    // object-fit: cover;
   }
   .carousel-cell {
     width: 100%;
@@ -278,37 +258,25 @@ export default {
     display: none;
   }
 
-
-  @media (max-width: 1330px) {
-
-  }
-
   @media (max-width: 1220px) {
     .page__home-introduction-items{
-      height: 336px;
+      height: toRem(336);
     }
     .page__home__introduction-item-slider-content{
-      height: 336px;
+      height: toRem(336);
     }
     .page__home__introduction__slider{
-      height: 336px;
+      height: toRem(336);
     }
   }
 
-  @media (max-width: 960px) {
+  @include md {
     .page__home-introduction-items{
-      max-width: auto;
       height: auto;
     }
     .page__home__introduction-item-slider-content{
-      max-width: auto;
       height: auto;
     }
-
-  }
-
-
-  @media (max-width: 960px) {
     .introduction__left{
       display: none;
     }
@@ -335,21 +303,16 @@ export default {
 
   }
 
-  @media (max-width: 760px) {
+  @include sm {
     .page__home-introduction-items{
       @include display-flex();
-      width: 328px;
+      width: toRem(328);
       margin-right: auto;
       margin-left: auto;
     }
 
   }
-
-  @media (max-width: 600px) {
-
-  }
-
-  @media (max-width: 460px) {
+  @include xs {
     .page__home__introduction__slider{
       height: auto;
     }

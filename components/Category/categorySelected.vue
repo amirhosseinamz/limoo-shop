@@ -15,31 +15,9 @@
 
 
 export default {
-    components: {
-    },
-
     props: {
       category  : { type: [Object,Array], default: [] },
     },
-
-    data() {
-      return {
-
-      }
-    },
-
-    mounted() {
-
-    },
-
-    computed: {
-
-    },
-
-    methods: {
-
-    },
-
 };
 </script>
 
@@ -48,8 +26,8 @@ export default {
     @include display-flex();
     flex-wrap: wrap;
     align-items: flex-start;
-    margin-top: 20px;
-    margin-bottom: 20px;
+    margin-top: toRem(20);
+    margin-bottom: toRem(20);
   }
   .category__wrapper{
     @include display-flex();
@@ -65,43 +43,36 @@ export default {
     justify-content: center;
   }
   .category__title{
-    font-size: 12px;
+    font-size: toRem(12);
     color: $color_category;
     font-weight: 300;
   }
   .category--arrow::after {
     content: "\e801";
     @include font-icon__limoo();
-    font-size: 9px;
-    margin-top: 1px;
+    font-size: toRem(9);
+    margin-top: toRem(1);
     color: $color-gray;
   }
   .category__icon{
     @include display-flex();
-    margin-right: 7px;
-    margin-left: 5px;
+    margin-right: toRem(7);
+    margin-left: toRem(5);
   }
   .category__item:last-of-type .category__icon{
     display: none;
   }
 
-  @media (max-width: 960px) {
-
-  }
-
-  @media (max-width: 485px) {
+  @include xs {
     .category{
       background: $white;
       margin:0;
-      padding-top: 8px;
-      padding-bottom: 17px;
-      padding-right: 14px;
-      padding-left: 14px;
-      border-top-right-radius: 10px;
-      border-top-left-radius: 10px;
+      padding: toRem(8) toRem(14) toRem(17);
+      border-top-right-radius: toRem(10);
+      border-top-left-radius: toRem(10);
     }
     .category__title{
-      font-size: 10px;
+      font-size: toRem(10);
     }
   }
 

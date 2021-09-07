@@ -137,38 +137,26 @@ export default {
 .icon-location::after {
   content: "\e817";
   @include font-icon__limoo();
-  font-size: 16px;
-  margin-top: 1px;
+  font-size: toRem(16);
+  margin-top: toRem(1);
   color: $color_festival;
 }
 .screen__holder-data {
   @include display-flex();
   justify-content: flex-end;
-  padding-right: 18.5px;
-  padding-left: 18.5px;
+  padding-right: toRem(18.5);
+  padding-left: toRem(18.5);
   align-items: center;
   height: 100%;
 }
 .page__wrapper {
   @include display-flex();
   align-items: flex-start;
-  width: 1381px;
-  margin-right: auto;
-  margin-left: auto;
+  width: 100%;
+  padding: 0 toRem(25);
 }
 
-@media (max-width: 1450px) {
-  .page__wrapper {
-    padding-right: 30px;
-    padding-left: 30px;
-    width: 100%;
-  }
-}
-
-@media (max-width: 1220px) {
-}
-
-@media (max-width: 960px) {
+@include md {
   .desktop-screen {
     display: none;
   }
@@ -179,23 +167,23 @@ export default {
       flex-direction: row-reverse;
       justify-content: space-between;
       align-items: center;
-      height: 33px;
+      height: toRem(33);
       background: $white;
-      margin-top: 47px;
+      margin-top: toRem(47);
       &-txt {
-        font-size: 13px;
+        font-size: toRem(13);
         line-height: 140.62%;
-        margin-right: 6.5px;
+        margin-right: toRem(6.5);
         color: $black-topic;
       }
       &-arrow {
-        margin-left: 16px;
+        margin-left: toRem(16);
       }
     }
   }
   .user-profile__holder {
-    margin: 8px 0;
-    padding: 0 5px;
+    margin: toRem(8) 0;
+    padding: 0 toRem(5);
   }
   .user-profile {
     &__topic {
@@ -207,19 +195,10 @@ export default {
   }
 }
 
-@media (max-width: 600px) {
-}
-
-@media (max-width: 485px) {
+@include xs {
   .page__wrapper {
-    padding-right: 5px;
-    padding-left: 5px;
+    padding-right: toRem(5);
+    padding-left: toRem(5);
   }
-}
-
-@media (max-width: 350px) {
-}
-
-@media (max-width: 320px) {
 }
 </style>

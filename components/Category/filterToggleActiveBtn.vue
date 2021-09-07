@@ -30,18 +30,6 @@
 import { getTextByTextKey } from "~/modules/splitPartJsonResource.js";
 
 export default {
-  props: {},
-
-  components: {},
-
-  data() {
-    return {};
-  },
-
-  watch: {},
-
-  mounted() {},
-
   methods: {
     getTextByTextKey,
   },
@@ -57,33 +45,33 @@ export default {
   justify-content: space-between;
 }
 .modal-filter__item-title {
-  font-size: 16px;
+  font-size: toRem(16);
   color: $dark_gray;
   font-weight: 300;
 }
 .tools--title {
-  font-size: 16px;
+  font-size: toRem(16);
 }
 .modal-filter__line {
-  height: 1px;
+  height: toRem(1);
   width: 100%;
   @include display-flex();
-  margin-top: 20px;
-  margin-bottom: 18px;
+  margin-top: toRem(20);
+  margin-bottom: toRem(18);
   background: $flash_white;
 }
 
-@media (max-width: 485px) {
+@include xs {
   .modal-filter__item {
     align-items: flex-start;
   }
   .tools--title {
-    font-size: 14px;
-    margin-top: 1px;
+    font-size: toRem(14);
+    margin-top: toRem(1);
   }
   .modal-filter__line {
-    margin-top: 18px;
-    margin-bottom: 18px;
+    margin-top: toRem(18);
+    margin-bottom: toRem(18);
   }
 }
 </style>

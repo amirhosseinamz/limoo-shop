@@ -4,8 +4,8 @@
   that returns and you store as this does then every new user recives his owen store*/
 import addCommaPrice from "~/modules/addCamaPrice.js";
 export const state = () => ({
-  // signUp: "stepOne",
-  // signIn: "stepOne",
+  signUp: "stepOne",
+  signIn: "stepOne",
   phone: "",
   // password: "",
   userAuth: true,
