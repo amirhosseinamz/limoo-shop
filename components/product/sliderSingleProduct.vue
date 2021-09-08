@@ -63,8 +63,6 @@ export default {
 
     mounted() {
       this.getOptionSLider();
-
-
       this.detectedResizeBrowser();
       this.updateSliderImg();
 
@@ -78,7 +76,7 @@ export default {
 
     watch: {
       introductionProduct(data) {
-        console.log(data);
+        //console.log(data);
       },
     },
 

@@ -27,7 +27,11 @@
       </div>
     </div>
     <div class="modal-body">
-      <color-item class="color-item" v-for="item in colorsData" :key="item.id" :background-color="item.color" @item-selected="colorSelected">
+      <color-item class="color-item"
+        :class="'modal-items'+ modalItems"
+        v-for="item in colorsData" :key="item.id"
+        :background-color="item.color"
+        @item-selected="colorSelected">
         {{ item.name }}
       </color-item>
     </div>
@@ -90,8 +94,44 @@ export default {
           color: "red",
           name: "قرمز",
         },
+        {
+          id: 67,
+          color: "purple",
+          name: "بنفش",
+        },
+        {
+          id: 77,
+          color: "purple",
+          name: "بنفش بادمجونی",
+        },
+        {
+          id: 55,
+          color: "green",
+          name: "سبز لیمویی پسته ای",
+        },
+        {
+          id: 45,
+          color: "red",
+          name: "قرمز آلبالویی",
+        },
+        {
+          id: 787,
+          color: "purple",
+          name: "بنفش بادمجونی",
+        },
+        {
+          id: 585,
+          color: "green",
+          name: "سبز لیمویی پسته ای",
+        },
+        {
+          id: 485,
+          color: "red",
+          name: "قرمز آلبالویی",
+        },
       ],
-      windowWidth: window.innerWidth,
+      windowWidth: 0,
+      modalItems: "9ce71d78-1c1e-448f-991d-b9e936f944e8",
     };
   },
   computed: {
@@ -108,21 +148,34 @@ export default {
       this.$emit("close-modal");
     },
     handleResize() {
-      this.windowWidth = window.innerWidth;
+      this.windowWidth = window.outerWidth;
     },
     colorSelected(backgroundColor) {
       this.$emit('color-selected', backgroundColor);
     }
   },
   mounted() {
+    setTimeout(() => {
+      const modalItems = document.querySelectorAll('.modal-items'+ this.modalItems);
+      for (let i = 0; i < modalItems.length; i++) {
+        let item = modalItems[i].querySelector('.color-name');
+        let itemTextLetters = item.textContent.trim().length;
+        if (itemTextLetters > 10) {
+          item.style.fontSize = "0.75rem"
+        }
+        if (itemTextLetters > 15) {
+          item.style.fontSize = "0.6rem";
+        }
+      }
+    }, 500);
     window.addEventListener('resize', this.handleResize);
     this.handleResize();
-  },
+
+  }
 };
 </script>
 
 <style lang="scss" scoped>
-
 .modal-container::v-deep {
   .modal {
     width: toRem(642);
@@ -193,10 +246,12 @@ export default {
       }
     }
     .modal-body {
-      @extend .d-flex;
+      @extend .justify-center;
       flex-wrap: wrap;
       margin-bottom: toRem(42);
       padding-right: toRem(24);
+      max-height: toRem(380);
+      overflow-y: scroll;
       .color-item {
         margin-left: toRem(8);
         margin-bottom: toRem(16);
@@ -232,8 +287,9 @@ export default {
         color: $gray-3;
       }
       .modal-body {
-        justify-content: center;
-        padding-bottom: toRem(60);
+        padding-bottom: toRem(10);
+        max-height: toRem(350);
+        overflow-y: scroll;
         .color-item {
           margin-left: toRem(16);
           margin-bottom: toRem(24);

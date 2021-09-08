@@ -23,7 +23,8 @@
 
           <sliderSingleProduct :products="productSliderMobile"></sliderSingleProduct>
           <productDetail :product-data="productData"></productDetail>
-          <product-colors></product-colors>
+          <product-colors class="product-colors"></product-colors>
+          <product-warranty></product-warranty>
 
         </div>
       </div>
@@ -64,7 +65,6 @@
 
 
   </div>
-
 </template>
 <script>
 import productPic from "./productPic";
@@ -73,7 +73,8 @@ import sliderSingleProduct from "./sliderSingleProduct";
 import commentQuestionMain from "./commentQuestionMain";
 import FullPresentation from "./fullPresentation";
 import DetailTechnical from "./detailTechnical";
-import ProductColors from "./productColors";
+import ProductColors from "./ProductColors";
+import ProductWarranty from "./ProductWarranty";
 
 
 export default {
@@ -87,6 +88,7 @@ export default {
   },
 
   components: {
+    ProductWarranty,
     ProductColors,
     DetailTechnical,
     FullPresentation,
@@ -123,6 +125,9 @@ export default {
     },
 
   },
+  mounted() {
+    //console.log(window.innerWidth);
+  }
 };
 </script>
 
@@ -222,7 +227,9 @@ export default {
 .tab--content:nth-child(2) {
   padding: toRem(24) 0;
 }
-
+.product-colors {
+  margin-bottom: toRem(24);
+}
 
 @include lg {
   .product__top-title {
