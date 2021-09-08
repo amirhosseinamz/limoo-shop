@@ -125,13 +125,11 @@ export default {
 
             let indexShowSelectOption = -1;
             if (this.showDropDown) {
-                if (this.lastUpdateValue != "") {
+                if (this.lastUpdateValue !== "") {
                     this.valueOptions.map((content, index) => {
                       content.selected      = false;
 
-                        if (
-                            content[this.label] == this.lastUpdateValue
-                        ) {
+                        if (content[this.label] === this.lastUpdateValue) {
                             indexShowSelectOption = index;
                             content.selected      = true;
                             this.selectedOption   = content;
@@ -246,7 +244,7 @@ export default {
       // آپدیت مقدار پیش فرض Select box //
       this.lastUpdateValue = this.initialValue;
 
-      if (this.options.length != 0) {
+      if (this.options.length !== 0) {
         this.valueOptions = this.options;
       }
 
