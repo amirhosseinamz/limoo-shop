@@ -78,7 +78,7 @@ export default {
   },
   methods: {
     handleResize() {
-      this.windowWidth = window.innerWidth;
+      this.windowWidth = window.outerWidth;
     },
     closeModal() {
       this.showModal = false;
@@ -92,8 +92,11 @@ export default {
     }
   },
   mounted() {
-    window.addEventListener('resize', this.handleResize);
-    this.handleResize();
+    // setTimeout(() => {
+      window.addEventListener('resize', this.handleResize);
+      this.handleResize();
+      console.log(window.outerWidth);
+    // }, 1000)
   },
 };
 </script>
@@ -103,6 +106,8 @@ export default {
 @include form-modal-animation();
 @include backdrop-form-modal-animation();
 .product-colors-container {
+  @extend .d-flex;
+  flex-wrap: nowrap;
   .backdrop {
     @extend .modal-backdrop;
     background-color: $overlay--profile;
@@ -114,23 +119,30 @@ export default {
     color: $gray-2;
   }
 
-  @extend .d-flex;
 
   .desktop-display {
     @extend .d-flex;
+    flex-wrap: wrap;
 
     .colors {
       @extend .d-flex;
 
       .color-item {
         margin-left: toRem(8);
+        width: toRem(100);
+        height: toRem(40);
+        padding: 0 toRem(6) 0 toRem(10);
+        margin-bottom: toRem(10);
       }
     }
 
     .more-colors {
       color: $gray-3;
       font-size: toRem(14);
-
+      width: toRem(128);
+      height: toRem(40);
+      padding: 0 toRem(6) 0 toRem(10);
+      max-width: unset;
       &-icon {
         &::before {
           content: "\e822";
@@ -192,6 +204,7 @@ export default {
     .mobile-display {
       @include display-flex();
       margin-top: toRem(8);
+
     }
 
     .more-colors::v-deep {
@@ -200,6 +213,7 @@ export default {
         height: toRem(45);
         border: toRem(1) solid $gray-5;
         color: $gray-3;
+        max-width: unset;
       }
     }
   }

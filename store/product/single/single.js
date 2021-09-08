@@ -148,6 +148,16 @@ const state = () => ({
     },
   ],
   closeModalAddComment: 0,
+  warrantyData: [
+    {
+      id: 1,
+      name: "18 ماه گارانتی شرکت مجاز مشترک",
+    },
+    {
+      id: 2,
+      name: "9 ماه گارانتی شرکتی",
+    },
+  ]
 })
 const getters = {
   productSlider(state) {
@@ -161,6 +171,9 @@ const getters = {
   },
   closeModalAddComment(state) {
     return state.closeModalAddComment
+  },
+  warrantyData(state) {
+    return state.warrantyData;
   }
 }
 const mutations = {

@@ -58,8 +58,11 @@ export default {
 <style lang="scss" scoped>
   .color-item-container {
     border: toRem(1) solid $gray-6;
+    width: toRem(120);
+    height: toRem(45);
+    max-width: toRem(120);
     border-radius: toRem(10);
-    padding: toRem(7) toRem(11) toRem(7) toRem(16);
+    padding: 0 toRem(8) 0 toRem(3);
     @extend .align-center;
     cursor: pointer;
 
@@ -85,6 +88,7 @@ export default {
     .color-name {
       font-size: toRem(16);
       color: $gray-3;
+      white-space: nowrap;
       @include md {
         font-size: toRem(14);
       }
