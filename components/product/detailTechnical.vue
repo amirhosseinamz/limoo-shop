@@ -62,7 +62,7 @@ export default {
     };
   },
   created () {
-    console.log(this.productData);
+
   },
   mounted() {
     // بسته شدن مودال در سایز های تبلت //

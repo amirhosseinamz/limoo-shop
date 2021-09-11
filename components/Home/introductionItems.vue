@@ -188,18 +188,20 @@ export default {
           const getImg    = (width,height,getSizeUpdate) => {
               this.sliderLastUpdateImg.map((content,index)=>{
 
-                if (content[getSizeUpdate] == '') {
+                if (content[getSizeUpdate] === '') {
                     for (let key in content) {
-                        if (key == getSizeUpdate) {
+                        if (key === getSizeUpdate) {
                           // فقط یک بار اجرا شده و پس از گرفتن عکس مورد نظر اجرا نخواهد شد //
 
-                          if (index == 0) {
-                            const url    = `https://statics-develop.diver.ir/1/fill/${width}/${height}/sm/true/plain/s3://limoo/product/picTest1.jpg`;
+                          if (index === 0) {
+                            //let url    = `https://statics-develop.diver.ir/1/fill/${width}/${height}/sm/true/plain/s3://limoo/product/picTest1.jpg`;
+                            let url = `https://dkstatics-public.digikala.com/digikala-adservice-banners/a6fe0dc88044a86a29bdf15e8712dccd12c96846_1630843228.jpg?x-oss-process=image/quality,q_80`;
                             content[key] = url;
                           }
 
-                          if (index == 1) {
-                            const url      = `https://statics-develop.diver.ir/1/fill/${width}/${height}/sm/true/plain/s3://limoo/product/apple-watch-series-6-gps-cellurar2%20.png`;
+                          if (index === 1) {
+                            //let url      = `https://statics-develop.diver.ir/1/fill/${width}/${height}/sm/true/plain/s3://limoo/product/apple-watch-series-6-gps-cellurar2%20.png`;
+                            let url = `https://dkstatics-public.digikala.com/digikala-adservice-banners/1abc5cba71e8daf0abbe98f692bb43bca58969c2_1630497108.jpg?x-oss-process=image/quality,q_80`;
                             content[key]   = url;
                           }
 
@@ -257,23 +259,25 @@ export default {
 
         const getImg    = (getSizeImg,getSizeUpdate) => {
             this.coverLeftLastUpdateImg.map((content,index)=>{
-              if (content[getSizeUpdate] == '') {
+              if (content[getSizeUpdate] === '') {
                   for (let key in content) {
-                      if (key == getSizeUpdate) {
+                      if (key === getSizeUpdate) {
                         // فقط یک بار اجرا شده و پس از گرفتن عکس مورد نظر اجرا نخواهد شد //
 
-                        if (index == 0) {
+                        if (index === 0) {
                           const pic1Size   = getSizeImg.pic1;
-                          const url        = `https://statics-develop.diver.ir/1/fill/${pic1Size.width}/${pic1Size.height}/sm/true/plain/s3://limoo/product/bahare web.jpg`;
+                          //const url        = `https://statics-develop.diver.ir/1/fill/${pic1Size.width}/${pic1Size.height}/sm/true/plain/s3://limoo/product/bahare web.jpg`;
+                          const url = `https://dkstatics-public.digikala.com/digikala-adservice-banners/cd4bbc9e83e8b4e83d0ce2333b18ffd6a87dbc51_1631276561.jpg?x-oss-process=image/quality,q_80`;
                           content[key]     = url;
                         }
 
-                        if (index == 1) {
+                        if (index === 1) {
                           const pic2Size   = getSizeImg.pic2;
                           const width      = pic2Size.width;
                           const height     = pic2Size.height;
 
-                          const url      = `https://statics-develop.diver.ir/1/fill/${width}/${height}/sm/true/plain/s3://limoo/product/new-baner-web4.jpg`;
+                          //const url      = `https://statics-develop.diver.ir/1/fill/${width}/${height}/sm/true/plain/s3://limoo/product/new-baner-web4.jpg`;
+                          const url = `https://dkstatics-public.digikala.com/digikala-adservice-banners/d4a5250311c36b764bc76e039d741d832306a1ae_1631272605.jpg?x-oss-process=image/quality,q_80`;
                           content[key]     = url;
                         }
 
@@ -407,8 +411,8 @@ export default {
     border-radius: 12px;
     width: 100%;
     cursor: pointer;
-    height: 457px;
-    // height: 100%;
+    height: toRem(460);
+    //height: 100%;
   }
   .page__home__introduction__slider-pic{
     height: 100%;

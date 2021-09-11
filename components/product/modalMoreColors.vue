@@ -29,7 +29,8 @@
     <div class="modal-body">
       <color-item class="color-item"
         :class="'modal-items'+ modalItems"
-        v-for="item in colorsData" :key="item.id"
+        :index="index"
+        v-for="(item, index) in colorsExceptFirstThree" :key="item.id"
         :background-color="item.color"
         @item-selected="colorSelected">
         {{ item.name }}
@@ -48,88 +49,6 @@ export default {
   },
   data() {
     return {
-      colorsData: [
-        {
-          id: 1,
-          color: "red",
-          name: "قرمز",
-        },
-        {
-          id: 2,
-          color: "purple",
-          name: "بنفش",
-        },
-        {
-          id: 3,
-          color: "green",
-          name: "سبز",
-        },
-        {
-          id: 4,
-          color: "red",
-          name: "قرمز",
-        },
-        {
-          id: 5,
-          color: "green",
-          name: "سبز",
-        },
-        {
-          id: 6,
-          color: "purple",
-          name: "بنفش",
-        },
-        {
-          id: 7,
-          color: "purple",
-          name: "بنفش",
-        },
-        {
-          id: 8,
-          color: "green",
-          name: "سبز",
-        },
-        {
-          id: 9,
-          color: "red",
-          name: "قرمز",
-        },
-        {
-          id: 67,
-          color: "purple",
-          name: "بنفش",
-        },
-        {
-          id: 77,
-          color: "purple",
-          name: "بنفش بادمجونی",
-        },
-        {
-          id: 55,
-          color: "green",
-          name: "سبز لیمویی پسته ای",
-        },
-        {
-          id: 45,
-          color: "red",
-          name: "قرمز آلبالویی",
-        },
-        {
-          id: 787,
-          color: "purple",
-          name: "بنفش بادمجونی",
-        },
-        {
-          id: 585,
-          color: "green",
-          name: "سبز لیمویی پسته ای",
-        },
-        {
-          id: 485,
-          color: "red",
-          name: "قرمز آلبالویی",
-        },
-      ],
       windowWidth: 0,
       modalItems: "9ce71d78-1c1e-448f-991d-b9e936f944e8",
     };
@@ -141,6 +60,12 @@ export default {
       } else {
         return "رنگ مورد نظر را انتخاب کنید";
       }
+    },
+    colorsData() {
+      return this.$store.getters["product/single/single/colorsData"];
+    },
+    colorsExceptFirstThree() {
+      return this.colorsData.slice(-(this.colorsData.length-3));
     }
   },
   methods: {
@@ -150,27 +75,13 @@ export default {
     handleResize() {
       this.windowWidth = window.outerWidth;
     },
-    colorSelected(backgroundColor) {
-      this.$emit('color-selected', backgroundColor);
+    colorSelected(backgroundColor, index) {
+      this.$emit('color-selected', backgroundColor, index+3);
     }
   },
   mounted() {
-    setTimeout(() => {
-      const modalItems = document.querySelectorAll('.modal-items'+ this.modalItems);
-      for (let i = 0; i < modalItems.length; i++) {
-        let item = modalItems[i].querySelector('.color-name');
-        let itemTextLetters = item.textContent.trim().length;
-        if (itemTextLetters > 10) {
-          item.style.fontSize = "0.75rem"
-        }
-        if (itemTextLetters > 15) {
-          item.style.fontSize = "0.6rem";
-        }
-      }
-    }, 500);
     window.addEventListener('resize', this.handleResize);
     this.handleResize();
-
   }
 };
 </script>
@@ -251,7 +162,8 @@ export default {
       margin-bottom: toRem(42);
       padding-right: toRem(24);
       max-height: toRem(380);
-      overflow-y: scroll;
+      overflow-y: auto;
+      justify-content: flex-start;
       .color-item {
         margin-left: toRem(8);
         margin-bottom: toRem(16);
@@ -288,21 +200,36 @@ export default {
       }
       .modal-body {
         padding-bottom: toRem(10);
+        padding-right: 0;
         max-height: toRem(350);
         overflow-y: scroll;
+        justify-content: center;
         .color-item {
-          margin-left: toRem(16);
           margin-bottom: toRem(24);
+          width: 45%;
+          font-size: toRem(13);
         }
       }
     }
   }
 }
 @include xxs {
-  .modal-body {
-    padding-right: toRem(15);
-    padding-left: toRem(15);
+  .modal-container::v-deep {
+    .modal {
+      .modal-body {
+        padding-right: toRem(15);
+        padding-left: toRem(15);
+        .color-item {
+          margin-bottom: toRem(24);
+          margin-right: auto;
+          margin-left: auto;
+          width: 90%;
+          font-size: toRem(14);
+        }
+      }
+    }
   }
+
 }
 
 </style>

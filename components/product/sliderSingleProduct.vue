@@ -201,7 +201,7 @@ export default {
     border-radius: toRem(12);
     width: 100%;
     cursor: pointer;
-    height: toRem(457);
+    height: toRem(460);
   }
   .page__home__introduction__slider-pic{
     height: 100%;
@@ -211,7 +211,7 @@ export default {
     object-fit: cover;
   }
   .page__home__introduction-item-slider-content {
-    height: toRem(460);
+    //height: toRem(460);
     grid-column: 1/span 2;
     grid-row: 1/span 2;
     position: relative;

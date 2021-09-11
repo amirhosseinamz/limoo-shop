@@ -1,20 +1,21 @@
 <template>
     <div class="dropdown-container" :class="{ 'open': isOpen }" ref="dropdown">
-      <div class="backdrop" v-show="isOpen"  @click="toggleDropdown"></div>
+<!--      <div class="backdrop" v-show="isOpen"  @click="toggleDropdown"></div>-->
       <div class="box" @click="toggleDropdown">
         <span class="arrow-down-icon right-side"></span>
         <span class="selected-item">
         {{ selectedWarranty }}
       </span>
       </div>
-      <div class="content" v-show="isOpen">
+<!--      the content of dropdown, maybe we shouldn't show this.-->
+<!--      <div class="content" v-show="isOpen">
         <ul>
           <li v-for="item in warrantyData" :key="item.id" @click="selectItem(item.id)" class="warranty-item"
               :class="{ 'selected': item.name === selectedWarranty }">
             {{ item.name }}
           </li>
         </ul>
-      </div>
+      </div>-->
     </div>
 </template>
 
@@ -34,7 +35,7 @@ export default {
   },
   methods: {
     toggleDropdown() {
-      this.isOpen = !this.isOpen;
+      //this.isOpen = !this.isOpen;
     },
     selectItem(itemId) {
       let selectedItem = this.warrantyData.find(item => item.id === itemId);
@@ -57,7 +58,7 @@ export default {
   cursor: pointer;
   overflow: hidden;
   position: relative;
-  z-index: 50;
+  //z-index: 50;
 
   .backdrop {
     position: fixed;
@@ -74,7 +75,7 @@ export default {
     @extend .align-center;
     width: 100%;
     height: 100%;
-    z-index: 50;
+    //z-index: 50;
   }
 
   .content {
@@ -86,7 +87,7 @@ export default {
     flex-direction: column;
     max-height: toRem(140);
     overflow-y: scroll;
-    z-index: 50;
+    //z-index: 50;
   }
 
   ul {
