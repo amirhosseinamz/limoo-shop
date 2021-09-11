@@ -23,7 +23,7 @@
 
           <sliderSingleProduct :products="productSliderMobile"></sliderSingleProduct>
           <productDetail :product-data="productData"></productDetail>
-          <product-colors class="product-colors"></product-colors>
+          <product-colors class="product-colors w-100"></product-colors>
           <product-warranty></product-warranty>
 
         </div>
