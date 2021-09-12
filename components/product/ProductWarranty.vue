@@ -18,7 +18,7 @@ export default {
 <style lang="scss" scoped>
   .product-warranty-container {
     @extend .d-flex;
-    max-height: toRem(45);
+    //max-height: toRem(45);
     align-items: flex-start;
     .title {
       font-size: toRem(16);

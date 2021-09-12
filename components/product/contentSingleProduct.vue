@@ -24,7 +24,8 @@
           <sliderSingleProduct :products="productSliderMobile"></sliderSingleProduct>
           <productDetail :product-data="productData"></productDetail>
           <product-colors class="product-colors w-100"></product-colors>
-          <product-warranty></product-warranty>
+          <product-warranty class="product-warranty w-100"></product-warranty>
+          <product-specification></product-specification>
 
         </div>
       </div>
@@ -75,6 +76,7 @@ import FullPresentation from "./fullPresentation";
 import DetailTechnical from "./detailTechnical";
 import ProductColors from "./ProductColors";
 import ProductWarranty from "./ProductWarranty";
+import ProductSpecification from "./ProductSpecification";
 
 
 export default {
@@ -88,6 +90,7 @@ export default {
   },
 
   components: {
+    ProductSpecification,
     ProductWarranty,
     ProductColors,
     DetailTechnical,
@@ -230,6 +233,9 @@ export default {
 .product-colors {
   margin-bottom: toRem(24);
 }
+.product-warranty {
+  margin-bottom: toRem(40);
+}
 
 @include lg {
   .product__top-title {
@@ -287,6 +293,11 @@ export default {
   .tab--comment {
     padding-right: 0;
     padding-left: 0;
+  }
+}
+@include xs {
+  .product-warranty {
+    margin-bottom: toRem(16);
   }
 }
 
