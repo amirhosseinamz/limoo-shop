@@ -94,13 +94,11 @@ export default {
       .seller {
         color: $gray-2;
         &-icon {
-          &::before {
-            content: "\e81e";
-            font-size: toRem(18);
-            @include font-icon__limoo();
-            color: $gray-5;
-            margin-left: toRem(20);
-          }
+          width: toRem(20);
+          height: toRem(20);
+          background-color: $gray-6;
+          border-radius: 50%;
+          margin-left: toRem(20);
         }
       }
       .sending-info {

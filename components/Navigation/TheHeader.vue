@@ -442,7 +442,30 @@ export default {
 
 @include xl {
   .search-section__items {
-    width: toRem(191);
+    //width: toRem(191);
+  }
+  .navigation-item {
+    &__sell {
+      width: toRem(135);
+      &-btn {
+        font-size: toRem(13);
+      }
+    }
+    &__profile {
+      width: toRem(118);
+      &-btn {
+        font-size: toRem(13);
+      }
+    }
+    &__cart {
+      width: toRem(99);
+      &-btn {
+        font-size: toRem(13);
+      }
+    }
+    &__call {
+      display: none;
+    }
   }
 }
 @include lg {

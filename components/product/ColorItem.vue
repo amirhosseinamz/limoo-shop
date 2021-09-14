@@ -72,6 +72,12 @@ export default {
     padding: toRem(11) toRem(11) toRem(11) toRem(16);
     @extend .align-center;
     cursor: pointer;
+    @include xs {
+      padding: toRem(11) toRem(4) toRem(11) toRem(16);
+    }
+    @include xxs {
+      padding: toRem(11) toRem(11) toRem(11) toRem(16);
+    }
 
     &.selected {
       border: toRem(1) solid $gray-2;

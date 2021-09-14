@@ -69,7 +69,7 @@ export default {
   },
   methods: {
     handleResize() {
-      this.windowWidth = window.outerWidth
+      this.windowWidth = window.innerWidth
     },
     closeModal() {
       this.showModal = false;
