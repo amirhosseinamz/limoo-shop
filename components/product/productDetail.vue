@@ -91,7 +91,6 @@ export default {
 
 <style lang="scss" scoped>
   .product__property{
-    margin-top: toRem(45);
     @include display-flex();
     align-items: flex-start;
     flex-flow: column;

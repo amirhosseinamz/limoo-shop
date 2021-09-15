@@ -73,7 +73,7 @@ export default {
       this.$emit("close-modal");
     },
     handleResize() {
-      this.windowWidth = window.outerWidth;
+      this.windowWidth = window.innerWidth;
     },
     colorSelected(backgroundColor, index) {
       this.$emit('color-selected', backgroundColor, index+3);
@@ -200,10 +200,10 @@ export default {
       }
       .modal-body {
         padding-bottom: toRem(10);
-        padding-right: 0;
+        padding-right: toRem(30);
         max-height: toRem(350);
         overflow-y: scroll;
-        justify-content: center;
+        justify-content: flex-start;
         .color-item {
           margin-bottom: toRem(24);
           width: 45%;

@@ -2,7 +2,7 @@
     <div class="dropdown-container" :class="{ 'open': isOpen }" ref="dropdown">
 <!--      <div class="backdrop" v-show="isOpen"  @click="toggleDropdown"></div>-->
       <div class="box" @click="toggleDropdown">
-        <span class="arrow-down-icon right-side"></span>
+<!--        <span class="arrow-down-icon right-side"></span>-->
         <span class="selected-item">
         {{ selectedWarranty }}
       </span>
@@ -58,6 +58,7 @@ export default {
   cursor: pointer;
   overflow: hidden;
   position: relative;
+  padding-right: toRem(10);
   //z-index: 50;
 
   .backdrop {
@@ -158,11 +159,12 @@ export default {
 @include xs {
   .dropdown-container {
     width: 100%;
-    flex-direction: row-reverse;
+    //flex-direction: row-reverse;
     font-size: toRem(14);
+    padding-right: 0;
 
     .box {
-      flex-direction: inherit;
+      //flex-direction: inherit;
     }
 
     &.open {
@@ -185,7 +187,8 @@ export default {
     }
 
     .selected-item {
-      padding-right: toRem(20);
+      //padding-right: toRem(20);
+      padding-right: toRem(10);
     }
 
   }
