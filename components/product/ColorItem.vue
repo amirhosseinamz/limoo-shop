@@ -1,5 +1,5 @@
 <template>
-  <div class="color-item-container" @click="selectItem">
+  <div class="color-item-container" @click="selectItem" :class="{ 'selected': selected }">
     <span v-if="colorPreview" @click="selectItemFromChild" class="color-preview" :class="backgroundColor"></span>
     <span @click="selectItemFromChild" class="color-name">
       <slot></slot>
@@ -24,6 +24,15 @@ export default {
       type: Boolean,
       require: false,
       default: true
+    },
+    index: {
+      type: Number,
+      require: false
+    },
+    selected: {
+      type: Boolean,
+      require: false,
+      default: false
     }
   },
   methods: {
@@ -38,7 +47,7 @@ export default {
       if (this.selectable) {
         this.removeSelectedItem();
         target.classList.add('selected');
-        this.$emit('item-selected', this.backgroundColor);
+        this.$emit('item-selected', this.backgroundColor, this.index);
       }
       this.$emit('item-clicked');
     },
@@ -58,13 +67,17 @@ export default {
 <style lang="scss" scoped>
   .color-item-container {
     border: toRem(1) solid $gray-6;
-    width: toRem(120);
-    height: toRem(45);
-    max-width: toRem(120);
+    height: toRem(38);
     border-radius: toRem(10);
-    padding: 0 toRem(8) 0 toRem(3);
+    padding: toRem(11) toRem(11) toRem(11) toRem(16);
     @extend .align-center;
     cursor: pointer;
+    @include xs {
+      padding: toRem(11) toRem(4) toRem(11) toRem(16);
+    }
+    @include xxs {
+      padding: toRem(11) toRem(11) toRem(11) toRem(16);
+    }
 
     &.selected {
       border: toRem(1) solid $gray-2;
@@ -73,6 +86,7 @@ export default {
     .color-preview {
       width: toRem(16);
       height: toRem(16);
+      min-width: toRem(16);
       border-radius: 50%;
       margin-left: toRem(4);
       &.red {
@@ -84,19 +98,32 @@ export default {
       &.purple {
         background-color: $product-purple-color;
       }
+      &.blue {
+        background-color: #1199ff;
+      }
+      &.yellow {
+        background-color: yellow;
+      }
     }
     .color-name {
-      font-size: toRem(16);
+      font-size: toRem(14);
       color: $gray-3;
       white-space: nowrap;
       @include md {
         font-size: toRem(14);
       }
       @include xs {
-        font-size: toRem(15);
+        font-size: toRem(12);
       }
       @include xxs {
         font-size: toRem(14);
+      }
+    }
+  }
+  @include xxs {
+    .color-item-container {
+      .color-preview {
+        margin-left: toRem(8);
       }
     }
   }

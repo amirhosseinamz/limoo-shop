@@ -20,14 +20,20 @@
               مدل 2019 طرح جدید</h3>
             <h3 class="product__top-brand">Apple AirPods Max- Sliver - MGYJ3</h3>
           </div>
+          <product-actions class="product-actions desktop"></product-actions>
 
           <sliderSingleProduct :products="productSliderMobile"></sliderSingleProduct>
           <productDetail :product-data="productData"></productDetail>
-          <product-colors class="product-colors"></product-colors>
-          <product-warranty></product-warranty>
+          <product-colors class="product-colors w-100"></product-colors>
+          <product-warranty class="product-warranty w-100"></product-warranty>
+          <product-specification></product-specification>
+          <product-actions class="product-actions mobile"></product-actions>
 
         </div>
       </div>
+    </div>
+    <div class="product-seller">
+      <product-seller></product-seller>
     </div>
     <div class="tab--content product__single-content w-100">
       <base-tabs
@@ -75,6 +81,9 @@ import FullPresentation from "./fullPresentation";
 import DetailTechnical from "./detailTechnical";
 import ProductColors from "./ProductColors";
 import ProductWarranty from "./ProductWarranty";
+import ProductSpecification from "./ProductSpecification";
+import ProductActions from "./ProductActions";
+import ProductSeller from "./ProductSeller";
 
 
 export default {
@@ -88,6 +97,9 @@ export default {
   },
 
   components: {
+    ProductSeller,
+    ProductActions,
+    ProductSpecification,
     ProductWarranty,
     ProductColors,
     DetailTechnical,
@@ -164,6 +176,7 @@ export default {
   flex-wrap: wrap;
   padding-right: toRem(16);
   border-radius: toRem(10);
+  box-shadow: 0 toRem(8) toRem(16) rgba(17, 17, 17, 0.03);
 }
 
 .product__single-right {
@@ -227,8 +240,38 @@ export default {
 .tab--content:nth-child(2) {
   padding: toRem(24) 0;
 }
+.product-actions {
+  &.desktop {
+    margin-top: toRem(38);
+    margin-bottom: toRem(45);
+    @include md {
+      margin-top: toRem(8);
+    }
+    @include xs {
+      display: none;
+    }
+  }
+  &.mobile {
+    display: none;
+    @include xs {
+      @include display-flex();
+    }
+  }
+
+}
 .product-colors {
   margin-bottom: toRem(24);
+}
+.product-warranty {
+  margin-bottom: toRem(40);
+}
+.product-seller {
+  @include display-flex();
+  background: $white;
+  margin-bottom: toRem(24);
+  flex-wrap: wrap;
+  border-radius: toRem(10);
+  box-shadow: 0 toRem(8) toRem(16) rgba(17, 17, 17, 0.03);
 }
 
 @include lg {
@@ -287,6 +330,11 @@ export default {
   .tab--comment {
     padding-right: 0;
     padding-left: 0;
+  }
+}
+@include xs {
+  .product-warranty {
+    margin-bottom: toRem(16);
   }
 }
 

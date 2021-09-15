@@ -14,7 +14,7 @@
     <span class="title">رنگ: </span>
     <div class="desktop-display">
       <div class="colors">
-        <color-item class="color-item" v-for="item in colorsData" :key="item.id" :background-color="item.color">
+        <color-item :class="'color-item-'+colorItemUUID" v-for="item in firstThreeOfColors" :key="item.id" :background-color="item.color">
           {{ item.name }}
         </color-item>
       </div>
@@ -26,7 +26,8 @@
       </color-item>
     </div>
     <div class="mobile-display">
-      <color-item class="more-colors" :background-color="moreColorsBackground" :selectable="false" @item-clicked="showMoreColors">
+      <color-item class="more-colors" :background-color="moreColorsBackground" :selectable="false"
+                  @item-clicked="showMoreColors">
         <span class="more-colors-icon"></span>
         <span class="more-icon-text">
         7 رنگ موجود است
@@ -45,26 +46,10 @@ export default {
   components: { ModalMoreColors, ColorItem },
   data() {
     return {
-      colorsData: [
-        {
-          id: 1,
-          color: "red",
-          name: "قرمز",
-        },
-        {
-          id: 2,
-          color: "green",
-          name: "سبز",
-        },
-        {
-          id: 3,
-          color: "purple",
-          name: "بنفش",
-        },
-      ],
       windowWidth: 0,
       showModal: false,
       moreColorsBackground: "green",
+      colorItemUUID: "98a46b71-02ce-4586-9c51-e2f41dd64323",
     };
   },
   computed: {
@@ -75,10 +60,16 @@ export default {
         return "phone";
       }
     },
+    colorsData() {
+      return this.$store.getters["product/single/single/colorsData"];
+    },
+    firstThreeOfColors() {
+      return this.colorsData.slice(0, 3);
+    },
   },
   methods: {
     handleResize() {
-      this.windowWidth = window.outerWidth;
+      this.windowWidth = window.innerWidth
     },
     closeModal() {
       this.showModal = false;
@@ -86,32 +77,39 @@ export default {
     showMoreColors() {
       this.showModal = true;
     },
-    colorSelected(backgroundColor) {
+    colorSelected(backgroundColor, index) {
       this.moreColorsBackground = backgroundColor;
+      this.$store.dispatch('product/single/single/changeColorArrayElements', index);
       this.showModal = false;
-    }
+      setTimeout(() => {
+        document.querySelector('.color-item-'+this.colorItemUUID).classList.add('selected');
+      }, 1);
+    },
+
+
   },
   mounted() {
-    // setTimeout(() => {
-      window.addEventListener('resize', this.handleResize);
-      this.handleResize();
-      console.log(window.outerWidth);
-    // }, 1000)
+    window.addEventListener("resize", this.handleResize);
+    this.handleResize();
+    document.querySelector('.color-item-'+this.colorItemUUID).classList.add('selected');
   },
 };
 </script>
 
 <style lang="scss" scoped>
+$colorItemUUID: "98a46b71-02ce-4586-9c51-e2f41dd64323";
 @include phone-modal-animation();
 @include form-modal-animation();
 @include backdrop-form-modal-animation();
 .product-colors-container {
   @extend .d-flex;
   flex-wrap: nowrap;
+
   .backdrop {
     @extend .modal-backdrop;
     background-color: $overlay--profile;
   }
+
   .title {
     font-size: toRem(16);
     line-height: 190%;
@@ -127,11 +125,8 @@ export default {
     .colors {
       @extend .d-flex;
 
-      .color-item {
+      .color-item-#{$colorItemUUID} {
         margin-left: toRem(8);
-        width: toRem(100);
-        height: toRem(40);
-        padding: 0 toRem(6) 0 toRem(10);
         margin-bottom: toRem(10);
       }
     }
@@ -143,6 +138,7 @@ export default {
       height: toRem(40);
       padding: 0 toRem(6) 0 toRem(10);
       max-width: unset;
+
       &-icon {
         &::before {
           content: "\e822";
@@ -205,6 +201,9 @@ export default {
       @include display-flex();
       margin-top: toRem(8);
 
+      .more-icon-text {
+        font-size: toRem(14);
+      }
     }
 
     .more-colors::v-deep {
@@ -214,6 +213,15 @@ export default {
         border: toRem(1) solid $gray-5;
         color: $gray-3;
         max-width: unset;
+      }
+    }
+  }
+}
+@include xxs {
+  .product-colors-container {
+    .mobile-display {
+      .more-icon-text {
+        font-size: toRem(13);
       }
     }
   }

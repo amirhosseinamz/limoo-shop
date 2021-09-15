@@ -148,6 +148,90 @@ const state = () => ({
     },
   ],
   closeModalAddComment: 0,
+  colorsData: [
+    {
+      id: 1,
+      color: "red",
+      name: "قرمز",
+    },
+    {
+      id: 2,
+      color: "green",
+      name: "سبز",
+    },
+    {
+      id: 3,
+      color: "purple",
+      name: "بنفش",
+    },
+    {
+      id: 4,
+      color: "blue",
+      name: "آبی",
+    },
+    {
+      id: 5,
+      color: "green",
+      name: "سبز",
+    },
+    {
+      id: 6,
+      color: "purple",
+      name: "بنفش",
+    },
+    {
+      id: 7,
+      color: "yellow",
+      name: "زرد",
+    },
+    {
+      id: 12,
+      color: "green",
+      name: "سبز لیمویی پسته ای",
+    },
+    {
+      id: 8,
+      color: "green",
+      name: "سبز",
+    },
+    {
+      id: 9,
+      color: "red",
+      name: "قرمز",
+    },
+
+    {
+      id: 10,
+      color: "blue",
+      name: "آبی دریایی",
+    },
+    {
+      id: 11,
+      color: "purple",
+      name: "بنفش بادمجونی",
+    },
+
+    {
+      id: 13,
+      color: "red",
+      name: "قرمز آلبالویی",
+    },
+    {
+      id: 14,
+      color: "yellow",
+      name: "زرد پررنگ",
+    },
+    {
+      id: 15,
+      color: "green",
+      name: "سبز لیمویی پسته ای",
+    },
+    {
+      id: 16,
+      color: "red",
+      name: "قرمز آلبالویی",
+    },
+  ],
   warrantyData: [
     {
       id: 1,
@@ -170,11 +254,14 @@ const getters = {
     return state.radioBtnData
   },
   closeModalAddComment(state) {
-    return state.closeModalAddComment
+    return state.closeModalAddComment;
+  },
+  colorsData(state) {
+    return state.colorsData;
   },
   warrantyData(state) {
     return state.warrantyData;
-  }
+  },
 }
 const mutations = {
   increaseCloseModalAddComment (state) {
@@ -183,7 +270,13 @@ const mutations = {
   changeRadioBtnDataActivation (state, payload) {
     const theItem = state.radioBtnData.find(item => item.id === payload)
     theItem.checked = !!theItem;
-  }
+  },
+  changeColorArrayElements(state, payload) {
+      let selectedItemIndex = payload;
+      let selectedItem = state.colorsData[selectedItemIndex];
+      state.colorsData.splice(selectedItemIndex, 1, state.colorsData[0]);
+      state.colorsData.splice(0, 1, selectedItem);
+  },
 }
 const actions = {
   increaseCloseModalAddComment (context) {
@@ -202,7 +295,10 @@ const actions = {
   },
   changeRadioBtnDataActivation (context, payload) {
     context.commit('changeRadioBtnDataActivation', payload)
-  }
+  },
+  changeColorArrayElements(context, payload) {
+    context.commit('changeColorArrayElements', payload);
+  },
 }
 
 export default {
