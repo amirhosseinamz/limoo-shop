@@ -28,6 +28,7 @@
           <product-warranty class="product-warranty w-100"></product-warranty>
           <product-specification></product-specification>
           <product-actions class="product-actions mobile"></product-actions>
+          <product-seller class="mobile-product-seller"></product-seller>
 
         </div>
       </div>
@@ -135,11 +136,10 @@ export default {
     submitData(data) {
       this.$emit("submit-data", data);
     },
-
+    handleResize() {
+      this.windowWidth = window.innerWidth;
+    }
   },
-  mounted() {
-    //console.log(window.innerWidth);
-  }
 };
 </script>
 
@@ -213,6 +213,9 @@ export default {
   margin-bottom: toRem(30);
   padding-right: toRem(24);
   padding-left: toRem(24);
+  @include xs {
+    margin: 0;
+  }
 }
 
 .product__single-top {
@@ -268,10 +271,20 @@ export default {
 .product-seller {
   @include display-flex();
   background: $white;
+  margin-top: toRem(19);
   margin-bottom: toRem(24);
   flex-wrap: wrap;
   border-radius: toRem(10);
   box-shadow: 0 toRem(8) toRem(16) rgba(17, 17, 17, 0.03);
+  @include xs {
+    display: none;
+  }
+}
+.mobile-product-seller {
+  display: none;
+  @include xs {
+    display: block;
+  }
 }
 
 @include lg {
