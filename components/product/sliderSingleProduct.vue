@@ -177,13 +177,7 @@ export default {
             getImg(328,328,'mobile');
             updateImg('mobile');
           }
-
-
-
-
       },
-
-
     },
 
 };

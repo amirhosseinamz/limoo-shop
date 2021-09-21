@@ -3,7 +3,7 @@
     <div class="action-item category">
       دسته: موبایل
     </div>
-    <div class="action-item action share">
+    <div class="action-item action share" @click="showShareModal">
       <span class="icon"></span>
       اشتراک گذاری
     </div>
@@ -19,26 +19,65 @@
       <span class="icon"></span>
       مقایسه
     </div>
+    <transition name="backdrop-form">
+      <div class="backdrop" v-if="shareModalIsOpen" @click="closeShareModal"></div>
+    </transition>
+    <transition :name="shareModalMode">
+      <modal-share-product
+        v-if="shareModalIsOpen"
+        :modal-mode="shareModalMode"
+        @close-modal="closeShareModal"
+      ></modal-share-product>
+    </transition>
   </div>
 </template>
 
 <script>
+import ModalShareProduct from "./ModalShareProduct";
 export default {
   name: "ProductActions",
+  components: { ModalShareProduct },
+  props: {
+    shareModalMode: { type: String, require: true }
+  },
   data() {
     return {
-      isFavorite: false
+      isFavorite: false,
+      shareModalIsOpen: false,
+      windowWidth: 0
     }
+  },
+  computed: {
   },
   methods: {
     toggleFavorite() {
       this.isFavorite = !this.isFavorite;
+    },
+    showShareModal() {
+      this.shareModalIsOpen = true;
+    },
+    closeShareModal() {
+      this.shareModalIsOpen = false;
+    },
+    handleResize() {
+      this.windowWidth = window.innerWidth;
     }
+  },
+  mounted() {
+    window.addEventListener('resize', this.handleResize);
+    this.handleResize();
   }
 };
 </script>
 
 <style lang="scss" scoped>
+@include form-modal-animation();
+@include backdrop-form-modal-animation();
+
+.backdrop {
+  @extend .modal-backdrop;
+  background-color: $overlay--profile;
+}
   .actions-container {
     @extend .align-center;
     flex-wrap: wrap;
