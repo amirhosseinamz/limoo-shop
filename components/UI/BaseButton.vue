@@ -137,6 +137,7 @@ a {
   cursor: pointer;
   font-size: toRem(16);
   border-radius: toRem(10);
+  font-family: inherit;
 
   &.no-box-shadow:hover {
     box-shadow: none !important;

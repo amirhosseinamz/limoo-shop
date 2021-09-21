@@ -20,14 +20,15 @@
               مدل 2019 طرح جدید</h3>
             <h3 class="product__top-brand">Apple AirPods Max- Sliver - MGYJ3</h3>
           </div>
-          <product-actions class="product-actions desktop"></product-actions>
+          <product-actions v-if="shareModalMode === 'form'" :share-modal-mode="shareModalMode" class="product-actions desktop"></product-actions>
 
-          <sliderSingleProduct :products="productSliderMobile"></sliderSingleProduct>
+<!--          <sliderSingleProduct :products="productSliderMobile"></sliderSingleProduct>-->
           <productDetail :product-data="productData"></productDetail>
           <product-colors class="product-colors w-100"></product-colors>
           <product-warranty class="product-warranty w-100"></product-warranty>
           <product-specification></product-specification>
-          <product-actions class="product-actions mobile"></product-actions>
+          <product-seller class="mobile-product-seller"></product-seller>
+          <product-actions class="product-actions mobile" :share-modal-mode="shareModalMode" v-if="shareModalMode === 'full-screen'"></product-actions>
 
         </div>
       </div>
@@ -114,7 +115,17 @@ export default {
     return {
       tabsNames: ["معرفی کامل محصول", "مشخصات فنی محصول"],
       selected: "معرفی کامل محصول",
+      windowWidth: 0
     };
+  },
+  computed: {
+    shareModalMode() {
+      if (this.windowWidth > 520) {
+        return "form";
+      } else {
+        return "full-screen";
+      }
+    }
   },
   methods: {
     tabChanged(val) {
@@ -135,10 +146,14 @@ export default {
     submitData(data) {
       this.$emit("submit-data", data);
     },
-
+    handleResize() {
+      this.windowWidth = window.innerWidth;
+    }
   },
   mounted() {
-    //console.log(window.innerWidth);
+    window.addEventListener('resize', this.handleResize);
+    this.handleResize();
+    console.log(this.windowWidth);
   }
 };
 </script>
@@ -213,6 +228,9 @@ export default {
   margin-bottom: toRem(30);
   padding-right: toRem(24);
   padding-left: toRem(24);
+  @include xs {
+    margin: 0;
+  }
 }
 
 .product__single-top {
@@ -248,11 +266,11 @@ export default {
       margin-top: toRem(8);
     }
     @include xs {
-      display: none;
+      //display: none;
     }
   }
   &.mobile {
-    display: none;
+    //display: none;
     @include xs {
       @include display-flex();
     }
@@ -268,10 +286,20 @@ export default {
 .product-seller {
   @include display-flex();
   background: $white;
+  margin-top: toRem(19);
   margin-bottom: toRem(24);
   flex-wrap: wrap;
   border-radius: toRem(10);
   box-shadow: 0 toRem(8) toRem(16) rgba(17, 17, 17, 0.03);
+  @include xs {
+    display: none;
+  }
+}
+.mobile-product-seller {
+  display: none;
+  @include xs {
+    display: block;
+  }
 }
 
 @include lg {
