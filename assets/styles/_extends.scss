@@ -6,27 +6,15 @@
   display: -webkit-flex;
 }
 .align-center {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  display: -moz-flex;
-  display: -webkit-flex;
+  @extend .d-flex;
   align-items: center;
 }
 .justify-center {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  display: -moz-flex;
-  display: -webkit-flex;
+  @extend .d-flex;
   justify-content: center;
 }
 .centered {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  display: -moz-flex;
-  display: -webkit-flex;
+  @extend .d-flex;
   justify-content: center;
   align-items: center;
 }

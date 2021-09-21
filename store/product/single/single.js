@@ -248,21 +248,27 @@ const state = () => ({
       name: "اپل ان ای سی",
       sendingInfo: "آماده ارسال",
       warranty: "گارانتی 18 ماهه",
-      price: "478,000",
+      price: "478,000,000",
+      discountedPrice: "123,000,000",
+      remaining: 3
     },
     {
       id: 2,
       name: "ماهان سنتر",
       sendingInfo: "آماده ارسال",
       warranty: "گارانتی 9 ماهه",
-      price: "359,000",
+      price: "359,000,000",
+      discountedPrice: "123,000,000",
+      remaining: 2
     },
     {
       id: 3,
       name: "جینوس کالا",
       sendingInfo: "آماده ارسال",
       warranty: "گارانتی 9 ماهه",
-      price: "415,000",
+      price: "415,000,000",
+      discountedPrice: "123,000,000",
+      remaining: 5
     },
   ],
 })

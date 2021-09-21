@@ -5,30 +5,6 @@
         <div class="products__top-title w-100 products__top-desktop">
           <h3 class="products__top-text">موبایل اندرویدی</h3>
         </div>
-        <dropdown-accordion>
-          <template #title>
-            فروشنده: اپل ان ای سی
-          </template>
-          <template #default>
-            قیمت فلان فلان فلان
-          </template>
-        </dropdown-accordion>
-        <dropdown-accordion>
-          <template #title>
-            فروشنده: اپل ان ای سی
-          </template>
-          <template #default>
-            قیمت فلان فلان فلان
-          </template>
-        </dropdown-accordion>
-        <dropdown-accordion>
-          <template #title>
-            فروشنده: اپل ان ای سی
-          </template>
-          <template #default>
-            قیمت فلان فلان فلان
-          </template>
-        </dropdown-accordion>
         <div class="products__filter-btns w-100 ">
           <base-button no-box-shadow classes="products__filter-btn" @button-clicked="showBoxFilter">
             <span class="filter-search-icon"></span>
@@ -90,14 +66,12 @@ import buttonFilter from "~/components/UI/buttonFilter";
 import Button from "~/components/UI/Button";
 import ModalFilter from "./modalFilter";
 import ModalSort from "./modalSort";
-import DropdownAccordion from "../product/DropdownAccordion";
 
 export default {
   props: {
   },
 
   components: {
-    DropdownAccordion,
     ModalSort,
     ModalFilter,
     buttonFilter,

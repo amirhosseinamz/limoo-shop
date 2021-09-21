@@ -20,15 +20,15 @@
               مدل 2019 طرح جدید</h3>
             <h3 class="product__top-brand">Apple AirPods Max- Sliver - MGYJ3</h3>
           </div>
-          <product-actions class="product-actions desktop"></product-actions>
+          <product-actions v-if="shareModalMode === 'form'" :share-modal-mode="shareModalMode" class="product-actions desktop"></product-actions>
 
-          <sliderSingleProduct :products="productSliderMobile"></sliderSingleProduct>
+<!--          <sliderSingleProduct :products="productSliderMobile"></sliderSingleProduct>-->
           <productDetail :product-data="productData"></productDetail>
           <product-colors class="product-colors w-100"></product-colors>
           <product-warranty class="product-warranty w-100"></product-warranty>
           <product-specification></product-specification>
-          <product-actions class="product-actions mobile"></product-actions>
           <product-seller class="mobile-product-seller"></product-seller>
+          <product-actions class="product-actions mobile" :share-modal-mode="shareModalMode" v-if="shareModalMode === 'full-screen'"></product-actions>
 
         </div>
       </div>
@@ -115,7 +115,17 @@ export default {
     return {
       tabsNames: ["معرفی کامل محصول", "مشخصات فنی محصول"],
       selected: "معرفی کامل محصول",
+      windowWidth: 0
     };
+  },
+  computed: {
+    shareModalMode() {
+      if (this.windowWidth > 520) {
+        return "form";
+      } else {
+        return "full-screen";
+      }
+    }
   },
   methods: {
     tabChanged(val) {
@@ -140,6 +150,11 @@ export default {
       this.windowWidth = window.innerWidth;
     }
   },
+  mounted() {
+    window.addEventListener('resize', this.handleResize);
+    this.handleResize();
+    console.log(this.windowWidth);
+  }
 };
 </script>
 
@@ -251,11 +266,11 @@ export default {
       margin-top: toRem(8);
     }
     @include xs {
-      display: none;
+      //display: none;
     }
   }
   &.mobile {
-    display: none;
+    //display: none;
     @include xs {
       @include display-flex();
     }

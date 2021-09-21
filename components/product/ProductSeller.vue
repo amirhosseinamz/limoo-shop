@@ -29,51 +29,64 @@
       </div>
     </div>
     <div class="mobile-display">
-      <dropdown-accordion
-        class="sellers-dropdown"
-        name="seller"
-        v-for="seller in sellersData"
-        :key="seller.id"
-        :each-value="seller.id.toString()"
-        :selected="sellersData[0].id.toString()"
-      >
-        <template #title>
-          فروشنده:
-          {{ seller.name }}
-        </template>
-        <template #default>
-          <div class="dropdown-content">
-            <div class="dropdown-content-items">
-              {{ seller.sendingInfo }}
-            </div>
-            <div class="dropdown-content-items">
-              قیمت:
-              {{ seller.price }}
-            </div>
-            <div class="dropdown-content-items">
-              {{ seller.warranty }}
-            </div>
-          </div>
-        </template>
-      </dropdown-accordion>
+      <div class="seller">
+        <div class="seller-name">
+          <span class="icon"></span>
+          فروشنده: اپل ان ای سی
+        </div>
+        <div class="seller-other-sellers" @click="showSellerModal">
+          3 فروشنده دیگر
+          <span class="icon"></span>
+        </div>
+      </div>
     </div>
+    <transition name="backdrop-form">
+      <div class="backdrop" v-if="sellerModalIsOpen" @click="closeSellerModal"></div>
+    </transition>
+    <transition name="full-screen">
+      <modal-seller
+        v-if="sellerModalIsOpen"
+        @close-modal="closeSellerModal"
+      ></modal-seller>
+    </transition>
   </div>
 </template>
 
 <script>
 import DropdownAccordion from "./DropdownAccordion";
+import ModalSeller from "./ModalSeller";
 export default {
   name: "ProductSeller",
-  components: { DropdownAccordion },
+  components: { ModalSeller, DropdownAccordion },
+  data() {
+    return {
+      sellerModalIsOpen: false,
+    }
+  },
   computed: {
     sellersData() {
       return this.$store.getters["product/single/single/sellersData"];
+    }
+  },
+  methods: {
+    closeSellerModal() {
+      this.sellerModalIsOpen = false;
+    },
+    showSellerModal() {
+      this.sellerModalIsOpen = true;
     }
   }
 };
 </script>
 
 <style lang="scss" scoped>
+@include form-modal-animation();
+@include backdrop-form-modal-animation();
+
+.backdrop {
+  @extend .modal-backdrop;
+  background-color: $overlay--profile;
+}
 .product-seller-container {
   width: 100%;
   padding: toRem(24);
@@ -171,20 +184,45 @@ export default {
       width: 100%;
       margin-top: toRem(16);
     }
-    .sellers-dropdown {
-      margin-bottom: toRem(8);
-      .dropdown-content {
-        @extend .d-flex;
-        flex-direction: column;
+    .seller {
+      @extend .d-flex;
+      flex-direction: column;
+      width: 100%;
+      border: toRem(1) solid $gray-5;
+      border-radius: toRem(10);
+      padding: toRem(12) toRem(8) toRem(16) toRem(21);
+
+      &-name {
+        @extend .align-center;
+        font-size: toRem(15);
+        color: $black-topic;
+        margin-bottom: toRem(15);
         @include xs {
-          padding-right: toRem(25);
+          font-size: toRem(14);
         }
-        &-items {
-          font-size: toRem(15);
-          color: $gray-3;
-          margin: toRem(8) 0;
-          @include xs {
-            font-size: toRem(13);
+        .icon {
+          width: toRem(29);
+          height: toRem(29);
+          border-radius: 50%;
+          background-color: $gray-6;
+          margin-left: toRem(8);
+        }
+      }
+      &-other-sellers {
+        @extend .align-center;
+        font-size: toRem(14);
+        color: $code-request;
+        margin-right: auto;
+        @include xs {
+          font-size: toRem(13);
+        }
+        .icon {
+          &::before {
+            content: "\e801";
+            @include font-icon__limoo();
+            color: $code-request;
+            font-size: toRem(10);
+            margin-right: toRem(9);
           }
         }
       }
