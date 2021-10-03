@@ -144,47 +144,47 @@
 
 
 
-    @media (max-width: 760px) {
-        .tab__more-main{
-            @include display-flex();
-        }
-        .tabs__content-items{
-            padding-bottom: 0;
-            border:solid 1px $border-gray-bg;
-            border-radius: 10px;
-        }
-        .tabs__content-item:nth-child(n+4){
-            display: none;
-        }
-        .tabs__content-data:nth-child(n+2){
-            display: none;
-        }
-        .tabs__content{
-            padding-top:16px;
-        }
-        .tabs__content-title{
-            font-size: 14px;
-            height:24px;
-        }
-        .tabs__content-data{
-            padding-right: 0;
-            padding-left:0;
-        }
-        .tabs__content-text{
-            font-size: 13px;
-            margin-top:0;
-            color:$gray;
-        }
-        .tabs__content-item{
-            height: 39px;
-            padding-right: 16px;
-            padding-left:16px;
-        }
-        .tab__content-wrapper{
-            align-items:center;
-        }
-        .tabs__content-right{
-            width:148px;
-        }
-
-    }
+    //@media (max-width: 760px) {
+    //    .tab__more-main{
+    //        @include display-flex();
+    //    }
+    //    .tabs__content-items{
+    //        padding-bottom: 0;
+    //        border:solid 1px $border-gray-bg;
+    //        border-radius: 10px;
+    //    }
+    //    .tabs__content-item:nth-child(n+4){
+    //        display: none;
+    //    }
+    //    .tabs__content-data:nth-child(n+2){
+    //        display: none;
+    //    }
+    //    .tabs__content{
+    //        padding-top:16px;
+    //    }
+    //    .tabs__content-title{
+    //        font-size: 14px;
+    //        height:24px;
+    //    }
+    //    .tabs__content-data{
+    //        padding-right: 0;
+    //        padding-left:0;
+    //    }
+    //    .tabs__content-text{
+    //        font-size: 13px;
+    //        margin-top:0;
+    //        color:$gray;
+    //    }
+    //    .tabs__content-item{
+    //        height: 39px;
+    //        padding-right: 16px;
+    //        padding-left:16px;
+    //    }
+    //    .tab__content-wrapper{
+    //        align-items:center;
+    //    }
+    //    .tabs__content-right{
+    //        width:148px;
+    //    }
+    //
+    //}

@@ -15,11 +15,6 @@
       <div class="comparison__product-add">
         <div class="product__add-main">
           <div @click="showAddProductComparison" class="product__add-data">
-<!--            <img
-              class="product__add-icon"
-              src="/img/add-product-comparison.svg"
-              alt=""
-            />-->
             <span class="product__add-icon"></span>
             <h3 class="product__add-title">افزودن محصول دیگر</h3>
           </div>
@@ -27,10 +22,17 @@
       </div>
     </div>
 
-    <modal-add-product-comparison
-      :active.sync="showModalAddProduct"
-      :products="products"
-    ></modal-add-product-comparison>
+    <transition name="backdrop-delete">
+      <div class="backdrop" v-if="showModalAddProduct" @click="closeAddProductModal"></div>
+    </transition>
+    <transition name="delete">
+      <modal-add-product-comparison
+        v-if="showModalAddProduct"
+        @close-modal="closeAddProductModal"
+        :modal-mode="modalMode"
+        :products="products"
+      ></modal-add-product-comparison>
+    </transition>
   </div>
 </template>
 
@@ -51,20 +53,46 @@ export default {
   data() {
     return {
       showModalAddProduct: false,
+      windowWidth: 0
     };
   },
+  computed: {
+    modalMode() {
+      if (this.windowWidth > 520) {
+        return "delete";
+      } else {
+        return "full-screen";
+      }
+    }
+  },
 
-  mounted() {},
+  mounted() {
+    window.addEventListener('resize', this.handleResize);
+    this.handleResize();
+  },
 
   methods: {
     showAddProductComparison() {
       this.showModalAddProduct = true;
     },
+    closeAddProductModal() {
+      this.showModalAddProduct = false;
+    },
+    handleResize() {
+      this.windowWidth = window.innerWidth;
+    }
   },
 };
 </script>
 
 <style lang="scss" scoped>
+@include backdrop-delete-modal-animation();
+@include delete-modal-animation();
+
+.backdrop {
+  @extend .modal-backdrop;
+  background-color: $overlay--profile;
+}
 .comparison__product-main {
   @include display-flex();
   flex-wrap: wrap;
