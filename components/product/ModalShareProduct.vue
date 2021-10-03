@@ -32,10 +32,10 @@
             تلگرام
           </a>
         </div>
-        <div class="social-media-item youtube">
+        <div class="social-media-item whatsapp">
           <a href="#">
             <span class="icon"></span>
-            یوتیوب
+            واتساپ
           </a>
         </div>
         <div class="social-media-item twitter">
@@ -56,13 +56,14 @@
       </div>
       <div class="copy-link">
         <base-button
-          @button-clicked="copyLink"
+          @button-clicked="copyLink('localhost:3000/product/1432')"
           classes="copy-link-btn"
           base-color="yellow"
           no-box-shadow
         >
           کپی کردن لینک
         </base-button>
+        <textarea ref="copy" name="copy" class="copy-link-textarea" cols="30" rows="10"></textarea>
         <transition>
           <div class="copy-link-message" :class="{ 'show-message': showMessage }" v-if="showMessage">
             <span class="icon"></span>
@@ -89,7 +90,11 @@ export default {
     closeModal() {
       this.$emit("close-modal");
     },
-    copyLink() {
+    copyLink(url) {
+      let _textarea = this.$refs.copy;
+      _textarea.value = url;
+      _textarea.select();
+      document.execCommand("copy");
       this.showMessage = true;
     }
   }
@@ -226,7 +231,7 @@ export default {
                }
              }
            }
-           &.youtube {
+           &.whatsapp {
              .icon {
                &::before {
                  content: "\e82a";
@@ -292,6 +297,9 @@ export default {
                }
              }
            }
+         }
+         &-textarea {
+           display: none;
          }
        }
        .v-leave-to,

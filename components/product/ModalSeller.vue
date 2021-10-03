@@ -93,6 +93,9 @@ export default {
     @include sm {
       width: 90%;
     }
+    @include xs {
+      padding: toRem(24) toRem(10);
+    }
 
     .header {
       @extend .align-center;
@@ -124,6 +127,7 @@ export default {
       }
     }
     .modal-body {
+      padding-bottom: 1rem;
       .sellers-mobile-view {
         width: 100%;
         border: toRem(1) solid $gray-5;
@@ -135,6 +139,9 @@ export default {
 
         .properties {
           padding: toRem(11);
+          @include xxs {
+            padding: toRem(11) toRem(5);
+          }
           .seller {
             &-name {
               @extend .align-center;
@@ -209,6 +216,9 @@ export default {
           @extend .align-center;
           justify-content: space-between;
           padding: toRem(16);
+          @include xxs {
+            padding: toRem(16) toRem(12);
+          }
           .amount {
             @extend .d-flex;
             flex-direction: column;
@@ -217,10 +227,16 @@ export default {
               color: $gray-4;
               text-decoration: line-through;
               margin-bottom: toRem(4);
+              @include xxs {
+                font-size: toRem(12);
+              }
             }
             .original {
               font-size: toRem(14);
               color: $black-topic;
+              @include xxs {
+                font-size: toRem(13);
+              }
             }
           }
           .add-to-cart {
@@ -228,6 +244,10 @@ export default {
               width: toRem(143);
               height: toRem(45);
               font-size: toRem(13);
+              @include xxs {
+                width: toRem(120);
+                font-size: toRem(12);
+              }
             }
           }
         }

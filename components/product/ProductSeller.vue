@@ -186,19 +186,22 @@ export default {
     }
     .seller {
       @extend .d-flex;
-      flex-direction: column;
       width: 100%;
       border: toRem(1) solid $gray-5;
       border-radius: toRem(10);
-      padding: toRem(12) toRem(8) toRem(16) toRem(21);
+      padding: toRem(12) toRem(8) toRem(12) toRem(21);
+      @include xs {
+        flex-direction: column;
+        padding: toRem(12) toRem(8) toRem(16) toRem(21);
+      }
 
       &-name {
         @extend .align-center;
-        font-size: toRem(15);
+        font-size: toRem(16);
         color: $black-topic;
-        margin-bottom: toRem(15);
         @include xs {
           font-size: toRem(14);
+          margin-bottom: toRem(15);
         }
         .icon {
           width: toRem(29);
@@ -210,9 +213,10 @@ export default {
       }
       &-other-sellers {
         @extend .align-center;
-        font-size: toRem(14);
+        font-size: toRem(15);
         color: $code-request;
         margin-right: auto;
+        cursor: pointer;
         @include xs {
           font-size: toRem(13);
         }
