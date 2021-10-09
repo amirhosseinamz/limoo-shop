@@ -239,7 +239,7 @@ export default {
   width: 100%;
   height: toRem(135);
   background-color: $white;
-  z-index: 2;
+  z-index: 5;
 }
 #overlay {
   position: fixed; /* Sit on top of the page content */

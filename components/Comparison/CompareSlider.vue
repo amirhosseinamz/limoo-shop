@@ -12,19 +12,19 @@
       <span class="icon"></span>
     </div>
     <div class="slider-wrapper" ref="sliderWrapper">
-      <ul class="slider-list" ref="sliderList" @dragstart="dragStart" @touchstart="dragAction" draggable="true">
-          <li class="item" v-for="item in sliderProductsData" :key="item.id">
-            <div class="item-image-wrapper">
-              <img :src="item.image" alt="Image">
-            </div>
-            <div class="item-name">
-              {{ item.title }}
-            </div>
-            <div class="item-price">
-              {{ item.realPrice }}
-              تومان
-            </div>
-          </li>
+      <ul class="slider-list" ref="sliderList" @mousedown="dragStart" @mousemove="dragAction" @mouseup="dragEnd" draggable="true">
+        <li class="item" v-for="item in sliderProductsData" :key="item.id">
+          <div class="item-image-wrapper">
+            <img :src="item.image" alt="Image">
+          </div>
+          <div class="item-name">
+            {{ item.title }}
+          </div>
+          <div class="item-price">
+            {{ item.realPrice }}
+            تومان
+          </div>
+        </li>
       </ul>
     </div>
 
@@ -32,42 +32,45 @@
       <span class="icon"></span>
     </div>
     <div class="left-content">
-      <span class="add-icon"></span>
+      <span class="add-icon" @click="openAddProductModal"></span>
       <span class="add-txt">
         افزودن محصول دیگر
       </span>
     </div>
+    <transition name="backdrop-delete">
+      <div class="backdrop" v-if="showModalAddProduct" @click="closeAddProductModal"></div>
+    </transition>
+    <transition name="delete">
+      <modal-add-product-comparison
+        v-if="showModalAddProduct"
+        @close-modal="closeAddProductModal"
+        modal-mode="delete"
+        :products="modalProducts"
+      ></modal-add-product-comparison>
+    </transition>
   </div>
 </template>
 
 <script>
+import ModalAddProductComparison from "./modalAddProductComparison";
 export default {
   name: "CompareSlider",
+  components: { ModalAddProductComparison },
   props: {
-    leftValue: {
-      type: String,
-      require: false
-    },
     moveDirection: {
       type: String,
       require: false,
     },
-    previousLeft: {
+    anotherSliderCounter: {
       type: Number,
       require: false,
     },
-    nextButtonShow: {
-      type: Boolean,
-      require: false
-    },
-    previousButtonShow: {
-      type: Boolean,
-      require: false,
-    },
+    modalProducts: { type: [Object, Array], default: [] },
   },
   data() {
     return {
       windowWidth: 0,
+      showModalAddProduct: false,
       showPrevButton: true,
       showNextButton: true,
       sliderItemsLength: 0,
@@ -79,6 +82,9 @@ export default {
       posInitial: 0,
       posX1: 0,
       posX2: 0,
+      posFinal: 0,
+      threshold: 100,
+      sliderPressed: false,
     };
   },
   computed: {
@@ -87,7 +93,7 @@ export default {
     },
   },
   methods: {
-    nextSlide() {
+    nextSlide(e, fromAnotherSlider) {
       this.showPrevButton = true;
       const sliderList = this.$refs.sliderList;
       let previousLeftPercentNumber = +sliderList.style.left.split("%")[0];
@@ -97,16 +103,14 @@ export default {
       this.previousMovePercent = this.movePercent;
       this.checkNextButton();
       let sliderData = {
-        left: sliderList.style.left,
-        direction: 'next',
-        previousLeft: this.previousMovePercent,
-        nextButtonDisplay: this.showNextButton,
-        previousButtonDisplay: this.showPrevButton,
-        movePercent: this.movePercent
+        direction: "next",
+      };
+
+      if (!fromAnotherSlider) {
+        this.$emit("slider-changed", sliderData);
       }
-      this.$emit('slider-changed', sliderData);
     },
-    previousSlide() {
+    previousSlide(e, fromAnotherSlider) {
       this.showNextButton = true;
       const sliderList = this.$refs.sliderList;
       //in the last slide, if slider only slides one item, then user pressed previous button, it should go back
@@ -123,15 +127,11 @@ export default {
       this.previousMovePercent = 0;
       this.checkPrevButton();
       let sliderData = {
-        left: sliderList.style.left,
-        direction: 'previous',
-        previousLeft: null,
-        nextButtonDisplay: this.showNextButton,
-        previousButtonDisplay: this.showPrevButton,
-        movePercent: null
+        direction: "previous",
+      };
+      if (!fromAnotherSlider) {
+        this.$emit("slider-changed", sliderData);
       }
-
-      this.$emit('slider-changed', sliderData);
 
     },
     calculateMovePercent() {
@@ -171,7 +171,7 @@ export default {
     },
     checkPrevButton() {
       const sliderList = this.$refs.sliderList;
-      if (!sliderList.style.left || sliderList.style.left === '0%') {
+      if (!sliderList.style.left || sliderList.style.left === "0%") {
         this.showPrevButton = false;
       }
     },
@@ -188,53 +188,83 @@ export default {
         this.showedItemsPerSlide = 2;
       }
     },
-    dragStart (e) {
-      console.log(e);
+    closeAddProductModal() {
+      this.showModalAddProduct = false;
+    },
+    openAddProductModal() {
+      this.showModalAddProduct = true;
+    },
+    dragStart(e) {
       e = e || window.event;
+      this.sliderPressed = true;
       const sliderList = this.$refs.sliderList;
+      let sliderWidth = sliderList.clientWidth;
+
       e.preventDefault();
-       this.posInitial = sliderList.offsetLeft;
+      this.posInitial = sliderList.offsetLeft;
 
-      if (e.type === 'touchstart') {
+      if (e.type === "touchstart") {
         this.posX1 = e.touches[0].clientX;
       } else {
-        this.posX1 = e.clientX;
-        // sliderList.onmouseup = dragEnd;
-        // document.onmousemove = dragAction;
+        console.log(e.offsetX);
+        this.posX1 = ((e.offsetX - sliderList.offsetLeft) / sliderWidth) * 100;
+        window.addEventListener('mouseup', () => {
+          this.sliderPressed = false;
+        })
+        // sliderList.addEventListener("mousemove", this.dragAction);
+        // sliderList.addEventListener("mouseup", this.dragEnd);
       }
     },
-    dragAction (e) {
-      e = e || window.event;
-      console.log(e);
+    dragAction(e) {
       const sliderList = this.$refs.sliderList;
-      if (e.type === 'touchmove') {
-        this.posX2 = this.posX1 - e.touches[0].clientX;
-        this.posX1 = e.touches[0].clientX;
-      } else {
-        this.posX2 = this.posX1 - e.clientX;
-        this.posX1 = e.clientX;
+      if (!this.sliderPressed) {
+        sliderList.style.cursor = "pointer";
+        return;
       }
-      sliderList.style.left = (sliderList.offsetLeft - this.posX2) + "px";
+      e.preventDefault();
+      let sliderWidth = sliderList.clientWidth;
+      sliderList.style.cursor = "grabbing";
+      let x = (e.offsetX / sliderWidth) * 100;
+      sliderList.style.left = `${ (x - this.posX1).toString() }%`;
+      //console.log(sliderList.style.left);
     },
-    // dragEnd (e) {
-    //   posFinal = items.offsetLeft;
-    //   if (posFinal - posInitial < -threshold) {
-    //     shiftSlide(1, 'drag');
-    //   } else if (posFinal - posInitial > threshold) {
-    //     shiftSlide(-1, 'drag');
-    //   } else {
-    //     items.style.left = (posInitial) + "px";
+    // dragAction(e) {
+    //   if (!this.sliderPressed) {
+    //     return;
     //   }
+    //   e = e || window.event;
+    //   const sliderList = this.$refs.sliderList;
+    //   let sliderWidth = sliderList.clientWidth;
+    //   if (e.type === "touchmove") {
+    //     this.posX2 = this.posX1 - e.touches[0].clientX;
+    //     this.posX1 = e.touches[0].clientX;
+    //   } else {
+    //     this.posX2 = this.posX1 - e.clientX;
+    //     this.posX1 = e.clientX;
+    //   }
+    //   sliderList.style.left = (sliderList.offsetLeft - this.posX2) + "px";
     //
-    //   document.onmouseup = null;
-    //   document.onmousemove = null;
-    // }
+    // },
+    dragEnd(e) {
+      this.sliderPressed = false;
+      const sliderList = this.$refs.sliderList;
+      this.posFinal = sliderList.offsetLeft;
+      if (this.posFinal - this.posInitial < -this.threshold) {
+        this.nextSlide();
+      } else if (this.posFinal - this.posInitial > this.threshold) {
+        this.previousSlide();
+      } else {
+        sliderList.style.left = (this.posInitial) + "px";
+      }
 
+      sliderList.addEventListener("mousemove", null);
+      sliderList.addEventListener("mouseup", null);
+    },
   },
   mounted() {
     window.addEventListener("resize", this.handleResize);
     this.handleResize();
-    this.sliderItemsLength = this.sliderProductsData.length
+    this.sliderItemsLength = this.sliderProductsData.length;
     this.sliderSlidesLength = Math.ceil(this.sliderItemsLength / this.showedItemsPerSlide);
     this.checkPrevButton();
     this.checkNextButton();
@@ -248,31 +278,27 @@ export default {
       }
       this.sliderSlidesLength = Math.ceil(this.sliderItemsLength / this.showedItemsPerSlide);
     },
-    leftValue(val) {
-      let slider = this.$refs.sliderList;
-      slider.style.left = val;
-    },
-    moveDirection(val) {
-      if (val === 'next') {
-        this.currentSlide++;
-      } else if (val === 'previous') {
-        this.currentSlide--;
+    anotherSliderCounter() {
+      switch (this.moveDirection) {
+        case "next":
+          this.nextSlide(null, "fromAnotherSlider");
+          break;
+        case "previous":
+          this.previousSlide(null, "fromAnotherSlider");
+          break;
       }
     },
-    previousLeft(val) {
-      this.previousMovePercent = val;
-    },
-    nextButtonShow(val) {
-      this.showNextButton = val;
-    },
-    previousButtonShow(val) {
-      this.showPrevButton = val;
-    },
-  }
+  },
 };
 </script>
 
 <style lang="scss" scoped>
+@include backdrop-delete-modal-animation();
+@include delete-modal-animation();
+.backdrop {
+  @extend .modal-backdrop;
+  background-color: $overlay--profile;
+}
 .compare-slider-container {
   display: grid;
   grid-template-columns: 1fr 3fr 1fr;
@@ -333,7 +359,6 @@ export default {
         -webkit-transition: all 0.5s ease;
 
 
-
         @include xl {
           min-width: 50%;
         }
@@ -345,6 +370,11 @@ export default {
 
           img {
             max-height: toRem(164);
+            -webkit-user-select: none;
+            -khtml-user-select: none;
+            -moz-user-select: none;
+            -o-user-select: none;
+            user-select: none;
           }
         }
 
@@ -375,6 +405,7 @@ export default {
 
     .add-icon {
       margin-bottom: toRem(16);
+      cursor: pointer;
 
       &::before {
         content: "\e86b";
@@ -392,7 +423,7 @@ export default {
 
   .previous-btn {
     position: absolute;
-    margin: auto 0;
+    top: toRem(145);
     right: toRem(290);
     z-index: 1;
     cursor: pointer;
@@ -420,7 +451,7 @@ export default {
 
   .next-btn {
     position: absolute;
-    margin: auto 0;
+    top: toRem(145);
     left: toRem(290);
     z-index: 1;
     cursor: pointer;
