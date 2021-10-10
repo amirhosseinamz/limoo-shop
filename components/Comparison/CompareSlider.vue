@@ -79,10 +79,8 @@ export default {
       currentSlide: 1,
       movePercent: 0,
       previousMovePercent: 0,
-      posInitial: 0,
       posX1: 0,
       posX2: 0,
-      posFinal: 0,
       threshold: 100,
       sliderPressed: false,
     };
@@ -96,6 +94,7 @@ export default {
     nextSlide(e, fromAnotherSlider) {
       this.showPrevButton = true;
       const sliderList = this.$refs.sliderList;
+      sliderList.style.transition = "all 0.5s ease";
       let previousLeftPercentNumber = +sliderList.style.left.split("%")[0];
       this.currentSlide++;
       this.calculateMovePercent();
@@ -113,6 +112,7 @@ export default {
     previousSlide(e, fromAnotherSlider) {
       this.showNextButton = true;
       const sliderList = this.$refs.sliderList;
+      sliderList.style.transition = "all 0.5s ease";
       //in the last slide, if slider only slides one item, then user pressed previous button, it should go back
       // as much as previous value. and if there is no previous value, go back completely 3 Items.
       let _movePercent;
@@ -198,6 +198,7 @@ export default {
       e = e || window.event;
       this.sliderPressed = true;
       const sliderList = this.$refs.sliderList;
+      const sliderWrapper = this.$refs.sliderWrapper;
       let sliderWidth = sliderList.clientWidth;
 
       e.preventDefault();
@@ -206,28 +207,55 @@ export default {
       if (e.type === "touchstart") {
         this.posX1 = e.touches[0].clientX;
       } else {
-        console.log(e.offsetX);
-        this.posX1 = ((e.offsetX - sliderList.offsetLeft) / sliderWidth) * 100;
+        let sliderLeftPosition = sliderWrapper.getBoundingClientRect().x;
+        let clickedPosition = e.clientX;
+        console.log(clickedPosition);
+        let clickedPositionOffsetLeft = clickedPosition - sliderLeftPosition;
+        this.posX1 = (clickedPositionOffsetLeft / sliderWidth) * 100;
+        //console.log(this.posX1);
+
         window.addEventListener('mouseup', () => {
           this.sliderPressed = false;
         })
-        // sliderList.addEventListener("mousemove", this.dragAction);
-        // sliderList.addEventListener("mouseup", this.dragEnd);
       }
     },
     dragAction(e) {
       const sliderList = this.$refs.sliderList;
+      const sliderWrapper = this.$refs.sliderWrapper;
       if (!this.sliderPressed) {
         sliderList.style.cursor = "pointer";
         return;
       }
+      sliderList.style.transition = "none";
       e.preventDefault();
       let sliderWidth = sliderList.clientWidth;
       sliderList.style.cursor = "grabbing";
-      let x = (e.offsetX / sliderWidth) * 100;
-      sliderList.style.left = `${ (x - this.posX1).toString() }%`;
-      //console.log(sliderList.style.left);
+      let sliderLeftPosition = sliderWrapper.getBoundingClientRect().x;
+      let movedPosition = e.screenX;
+      let movedPositionOffsetLeft = movedPosition - sliderLeftPosition;
+      this.posX2 = (movedPositionOffsetLeft / sliderWidth) * 100;
+      let sliderMoveDistance = this.posX2 - this.posX1;
+      this.calculateMovePercent();
+      let movedPercent;
+      if (this.currentSlide > 1) {
+        movedPercent = this.movePercent;
+      } else {
+        movedPercent = 0;
+      }
+      console.log(movedPercent);
+      sliderList.style.left = `${ (sliderMoveDistance + movedPercent).toString() }%`;
+
     },
+    dragEnd() {
+      const sliderList = this.$refs.sliderList;
+      let sliderMoveDistance = this.posX2 - this.posX1;
+      this.calculateMovePercent();
+      // if (sliderMoveDistance > 20) {
+      //   sliderList.style.left = "100%";
+      // }
+      //sliderList.style.left = this.movePercent.toString() + "%";
+
+    }
     // dragAction(e) {
     //   if (!this.sliderPressed) {
     //     return;
@@ -245,21 +273,21 @@ export default {
     //   sliderList.style.left = (sliderList.offsetLeft - this.posX2) + "px";
     //
     // },
-    dragEnd(e) {
-      this.sliderPressed = false;
-      const sliderList = this.$refs.sliderList;
-      this.posFinal = sliderList.offsetLeft;
-      if (this.posFinal - this.posInitial < -this.threshold) {
-        this.nextSlide();
-      } else if (this.posFinal - this.posInitial > this.threshold) {
-        this.previousSlide();
-      } else {
-        sliderList.style.left = (this.posInitial) + "px";
-      }
-
-      sliderList.addEventListener("mousemove", null);
-      sliderList.addEventListener("mouseup", null);
-    },
+    // dragEnd(e) {
+    //   this.sliderPressed = false;
+    //   const sliderList = this.$refs.sliderList;
+    //   this.posFinal = sliderList.offsetLeft;
+    //   if (this.posFinal - this.posInitial < -this.threshold) {
+    //     this.nextSlide();
+    //   } else if (this.posFinal - this.posInitial > this.threshold) {
+    //     this.previousSlide();
+    //   } else {
+    //     sliderList.style.left = (this.posInitial) + "px";
+    //   }
+    //
+    //   sliderList.addEventListener("mousemove", null);
+    //   sliderList.addEventListener("mouseup", null);
+    // },
   },
   mounted() {
     window.addEventListener("resize", this.handleResize);
@@ -343,9 +371,7 @@ export default {
       @extend .d-flex;
       width: 100%;
       left: 0;
-      position: relative;
-      transition: all 0.5s ease;
-      -webkit-transition: all 0.5s ease;
+      position: absolute;
 
       .item {
         @extend .align-center;
@@ -355,8 +381,6 @@ export default {
         flex-direction: column;
         min-width: 33.333%;
         height: toRem(264);
-        transition: all 0.5s ease;
-        -webkit-transition: all 0.5s ease;
 
 
         @include xl {
