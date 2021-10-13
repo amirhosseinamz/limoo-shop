@@ -12,8 +12,9 @@
       <span class="icon"></span>
     </div>
     <div class="slider-wrapper" ref="sliderWrapper">
-      <ul class="slider-list" ref="sliderList" @mousedown="dragStart" @mousemove="dragAction" @mouseup="dragEnd" draggable="true">
-        <li class="item" v-for="item in sliderProductsData" :key="item.id">
+      <ul class="slider-list" ref="sliderList" @mousedown="dragStart"
+          draggable="true">
+        <li class="item"  v-for="item in sliderProductsData" :key="item.id">
           <div class="item-image-wrapper">
             <img :src="item.image" alt="Image">
           </div>
@@ -53,6 +54,7 @@
 
 <script>
 import ModalAddProductComparison from "./modalAddProductComparison";
+
 export default {
   name: "CompareSlider",
   components: { ModalAddProductComparison },
@@ -83,6 +85,11 @@ export default {
       posX2: 0,
       threshold: 100,
       sliderPressed: false,
+      transition: 300,
+      initialized: false,
+      containerWidth: null,
+      slideWidth: null,
+      itemsToShow: 3,//prop
     };
   },
   computed: {
@@ -95,9 +102,10 @@ export default {
       this.showPrevButton = true;
       const sliderList = this.$refs.sliderList;
       sliderList.style.transition = "all 0.5s ease";
+      console.log(this.$el);
       let previousLeftPercentNumber = +sliderList.style.left.split("%")[0];
       this.currentSlide++;
-      this.calculateMovePercent();
+      //this.calculateMovePercent();
       sliderList.style.left = (previousLeftPercentNumber + this.movePercent).toString() + "%";
       this.previousMovePercent = this.movePercent;
       this.checkNextButton();
@@ -115,15 +123,15 @@ export default {
       sliderList.style.transition = "all 0.5s ease";
       //in the last slide, if slider only slides one item, then user pressed previous button, it should go back
       // as much as previous value. and if there is no previous value, go back completely 3 Items.
-      let _movePercent;
-      if (this.previousMovePercent) {
-        _movePercent = this.previousMovePercent;
-      } else {
-        _movePercent = 100;
-      }
+      // let _movePercent;
+      // if (this.previousMovePercent) {
+      //   _movePercent = this.previousMovePercent;
+      // } else {
+      //   _movePercent = 100;
+      // }
       let previousLeftPercentNumber = +sliderList.style.left.split("%")[0];
       this.currentSlide--;
-      sliderList.style.left = (previousLeftPercentNumber - _movePercent).toString() + "%";
+      sliderList.style.left = (previousLeftPercentNumber - this.movePercent).toString() + "%";
       this.previousMovePercent = 0;
       this.checkPrevButton();
       let sliderData = {
@@ -134,44 +142,44 @@ export default {
       }
 
     },
-    calculateMovePercent() {
-      if (this.windowWidth > 1366) {
-        let remainder = (this.sliderItemsLength % this.showedItemsPerSlide);
-        if (this.currentSlide === this.sliderSlidesLength) {
-          switch (remainder) {
-            case 0:
-              this.movePercent = 100;
-              break;
-            case 1:
-              this.movePercent = 33.333;
-              break;
-            case 2:
-              this.movePercent = 66.666;
-              break;
-          }
-        } else {
-          this.movePercent = 100;// It's not last slide
-        }
-
-      } else {
-        let remainder = (this.sliderItemsLength % this.showedItemsPerSlide);
-        if (this.currentSlide === this.sliderSlidesLength) {
-          switch (remainder) {
-            case 0:
-              this.movePercent = 100;
-              break;
-            case 1:
-              this.movePercent = 50;
-              break;
-          }
-        } else {
-          this.movePercent = 100; // It's not last slide
-        }
-      }
-    },
+    // calculateMovePercent() {
+    //   if (this.windowWidth > 1366) {
+    //     let remainder = (this.sliderItemsLength % this.showedItemsPerSlide);
+    //     if (this.currentSlide === this.sliderSlidesLength) {
+    //       switch (remainder) {
+    //         case 0:
+    //           this.movePercent = 100;
+    //           break;
+    //         case 1:
+    //           this.movePercent = 33.333;
+    //           break;
+    //         case 2:
+    //           this.movePercent = 66.666;
+    //           break;
+    //       }
+    //     } else {
+    //       this.movePercent = 100;// It's not last slide
+    //     }
+    //
+    //   } else {
+    //     let remainder = (this.sliderItemsLength % this.showedItemsPerSlide);
+    //     if (this.currentSlide === this.sliderSlidesLength) {
+    //       switch (remainder) {
+    //         case 0:
+    //           this.movePercent = 100;
+    //           break;
+    //         case 1:
+    //           this.movePercent = 50;
+    //           break;
+    //       }
+    //     } else {
+    //       this.movePercent = 100; // It's not last slide
+    //     }
+    //   }
+    // },
     checkPrevButton() {
       const sliderList = this.$refs.sliderList;
-      if (!sliderList.style.left || sliderList.style.left === "0%") {
+      if (!sliderList.style.left || sliderList.style.left === "0%" || +sliderList.style.left.split("%")[0] < 0) {
         this.showPrevButton = false;
       }
     },
@@ -202,100 +210,100 @@ export default {
       let sliderWidth = sliderList.clientWidth;
 
       e.preventDefault();
-      this.posInitial = sliderList.offsetLeft;
-
       if (e.type === "touchstart") {
         this.posX1 = e.touches[0].clientX;
       } else {
         let sliderLeftPosition = sliderWrapper.getBoundingClientRect().x;
         let clickedPosition = e.clientX;
-        console.log(clickedPosition);
         let clickedPositionOffsetLeft = clickedPosition - sliderLeftPosition;
-        this.posX1 = (clickedPositionOffsetLeft / sliderWidth) * 100;
+        let sliderOffset = sliderList.offsetLeft;
+        this.posX1 = ((clickedPositionOffsetLeft + sliderOffset) / sliderWidth) * 100;
         //console.log(this.posX1);
 
-        window.addEventListener('mouseup', () => {
-          this.sliderPressed = false;
-        })
+        document.addEventListener('mousemove', this.dragAction);
+        document.addEventListener("mouseup", this.dragEnd);
       }
     },
     dragAction(e) {
       const sliderList = this.$refs.sliderList;
       const sliderWrapper = this.$refs.sliderWrapper;
       if (!this.sliderPressed) {
-        sliderList.style.cursor = "pointer";
+        //sliderList.style.cursor = "pointer";
         return;
       }
-      sliderList.style.transition = "none";
+      //sliderList.style.transition = "none";
       e.preventDefault();
       let sliderWidth = sliderList.clientWidth;
-      sliderList.style.cursor = "grabbing";
+      //sliderList.style.cursor = "grabbing";
       let sliderLeftPosition = sliderWrapper.getBoundingClientRect().x;
-      let movedPosition = e.screenX;
+      let movedPosition = e.clientX;
       let movedPositionOffsetLeft = movedPosition - sliderLeftPosition;
-      this.posX2 = (movedPositionOffsetLeft / sliderWidth) * 100;
-      let sliderMoveDistance = this.posX2 - this.posX1;
-      this.calculateMovePercent();
-      let movedPercent;
-      if (this.currentSlide > 1) {
-        movedPercent = this.movePercent;
-      } else {
-        movedPercent = 0;
-      }
-      console.log(movedPercent);
-      sliderList.style.left = `${ (sliderMoveDistance + movedPercent).toString() }%`;
-
+      let sliderOffset = sliderList.offsetLeft;
+      let sliderOffsetPercent = (sliderList.offsetLeft / sliderWidth) * 100;
+      this.posX2 = ((movedPositionOffsetLeft + sliderOffset) / sliderWidth) * 100;
+      let delta = this.posX2 - this.posX1;
+      //this.calculateMovePercent();
+      // let movedPercent;
+      // if (this.currentSlide > 1) {
+      //   movedPercent = this.movePercent;
+      // } else {
+      //   movedPercent = 0;
+      // }
+      let sliderLeft = +sliderList.style.left.split('%')[0];
+      console.log(sliderLeft);
+      //sliderList.style.left = `${ ( delta + sliderOffsetPercent ).toString() }%`;
     },
     dragEnd() {
+      this.sliderPressed = false;
       const sliderList = this.$refs.sliderList;
       let sliderMoveDistance = this.posX2 - this.posX1;
-      this.calculateMovePercent();
+      //this.calculateMovePercent();
       // if (sliderMoveDistance > 20) {
       //   sliderList.style.left = "100%";
       // }
       //sliderList.style.left = this.movePercent.toString() + "%";
 
-    }
-    // dragAction(e) {
-    //   if (!this.sliderPressed) {
-    //     return;
-    //   }
-    //   e = e || window.event;
-    //   const sliderList = this.$refs.sliderList;
-    //   let sliderWidth = sliderList.clientWidth;
-    //   if (e.type === "touchmove") {
-    //     this.posX2 = this.posX1 - e.touches[0].clientX;
-    //     this.posX1 = e.touches[0].clientX;
-    //   } else {
-    //     this.posX2 = this.posX1 - e.clientX;
-    //     this.posX1 = e.clientX;
-    //   }
-    //   sliderList.style.left = (sliderList.offsetLeft - this.posX2) + "px";
-    //
-    // },
-    // dragEnd(e) {
-    //   this.sliderPressed = false;
-    //   const sliderList = this.$refs.sliderList;
-    //   this.posFinal = sliderList.offsetLeft;
-    //   if (this.posFinal - this.posInitial < -this.threshold) {
-    //     this.nextSlide();
-    //   } else if (this.posFinal - this.posInitial > this.threshold) {
-    //     this.previousSlide();
-    //   } else {
-    //     sliderList.style.left = (this.posInitial) + "px";
-    //   }
-    //
-    //   sliderList.addEventListener("mousemove", null);
-    //   sliderList.addEventListener("mouseup", null);
-    // },
+    },
+    updateWidth() {
+      const slider = this.$refs.sliderList;
+      const rect = slider.getBoundingClientRect();
+      this.containerWidth = rect.width;
+      this.slideWidth = this.containerWidth / this.itemsToShow;
+      console.log(this.slideWidth);
+    },
+    update() {
+      this.updateWidth();
+      //this.updateTrim();
+      this.$emit('updated', {
+        containerWidth: this.containerWidth,
+        containerHeight: this.containerHeight,
+        slideWidth: this.slideWidth,
+      });
+    },
+    setMovePercent() {
+      if (this.windowWidth > 1366) {
+        this.movePercent = 33.333;
+      } else {
+        this.movePercent = 50;
+      }
+    },
   },
   mounted() {
     window.addEventListener("resize", this.handleResize);
     this.handleResize();
+    this.setMovePercent();
     this.sliderItemsLength = this.sliderProductsData.length;
-    this.sliderSlidesLength = Math.ceil(this.sliderItemsLength / this.showedItemsPerSlide);
+    // this.sliderSlidesLength = Math.ceil(this.sliderItemsLength / this.showedItemsPerSlide);
+    this.sliderSlidesLength = this.sliderItemsLength - this.showedItemsPerSlide + 1;
     this.checkPrevButton();
     this.checkNextButton();
+    this.$nextTick(() => {
+      this.update();
+      setTimeout(() => {
+        this.$emit('loaded');
+        this.initialized = true;
+      }, this.transition);
+    });
   },
   watch: {
     windowWidth(val) {
@@ -304,7 +312,8 @@ export default {
       } else {
         this.showedItemsPerSlide = 2;
       }
-      this.sliderSlidesLength = Math.ceil(this.sliderItemsLength / this.showedItemsPerSlide);
+      // this.sliderSlidesLength = Math.ceil(this.sliderItemsLength / this.showedItemsPerSlide);
+      this.sliderSlidesLength = this.sliderItemsLength - this.showedItemsPerSlide + 1;
     },
     anotherSliderCounter() {
       switch (this.moveDirection) {
@@ -327,6 +336,7 @@ export default {
   @extend .modal-backdrop;
   background-color: $overlay--profile;
 }
+
 .compare-slider-container {
   display: grid;
   grid-template-columns: 1fr 3fr 1fr;
@@ -372,6 +382,7 @@ export default {
       width: 100%;
       left: 0;
       position: absolute;
+      transition: none;
 
       .item {
         @extend .align-center;
@@ -379,7 +390,7 @@ export default {
         padding: 0 toRem(8);
         border-left: toRem(1) solid $gray-6;
         flex-direction: column;
-        min-width: 33.333%;
+        min-width: 33.33%;
         height: toRem(264);
 
 

@@ -135,7 +135,7 @@
                 :check-required="false"
                 :check-typing-submit="false"
                 :use-timer="false"
-                :show-icon-star="true"
+                :show-icon-star="false"
                 :form-data="formData"
                 :disabled-input-default="true"
                 :remove-error="true"

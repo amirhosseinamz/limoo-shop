@@ -69,7 +69,7 @@ export default {
       sliderSlidesLength: 0,
       currentSlide: 1,
       previousMovePercent: 0,
-      movePercent: 0,
+      movePercent: 33.333,
       sliderUUID: "606d0ab0-b206-4dcb-8ef4-63965d867696",
     };
   },
@@ -85,7 +85,7 @@ export default {
       const sliderLists = document.querySelectorAll(".slider-" + this.sliderUUID);
       let previousLeftPercentNumber = +sliderLists[0].style.left.split("%")[0];
       this.currentSlide++;
-      this.calculateMovePercent();
+      //this.calculateMovePercent();
       for (let i = 0; i < sliderLists.length; i++) {
         sliderLists[i].style.left = (previousLeftPercentNumber + this.movePercent).toString() + "%";
       }
@@ -104,15 +104,15 @@ export default {
       let _movePercent;
       //in the last slide, if slider only slides one item, then user pressed previous button, it should go back
       // as much as previous value. and if there is no previous value, go back completely 3 Items.
-      if (this.previousMovePercent) {
-        _movePercent = this.previousMovePercent;
-      } else {
-        _movePercent = 100;
-      }
+      // if (this.previousMovePercent) {
+      //   _movePercent = this.previousMovePercent;
+      // } else {
+      //   _movePercent = 100;
+      // }
       let previousLeftPercentNumber = +sliderLists[0].style.left.split("%")[0];
       this.currentSlide--;
       for (let i = 0; i < sliderLists.length; i++) {
-        sliderLists[i].style.left = (previousLeftPercentNumber - _movePercent).toString() + "%";
+        sliderLists[i].style.left = (previousLeftPercentNumber - this.movePercent).toString() + "%";
       }
       this.previousMovePercent = 0;
       this.checkPrevButton();
@@ -123,48 +123,49 @@ export default {
         this.$emit("slider-changed", sliderData);
       }
     },
-    calculateMovePercent() {
-      if (this.windowWidth > 1366) {
-        let remainder = (this.sliderItemsLength % this.showedItemsPerSlide);
-        if (this.currentSlide === this.sliderSlidesLength) {
-          switch (remainder) {
-            case 0:
-              this.movePercent = 100;
-              break;
-            case 1:
-              this.movePercent = 33.333;
-              break;
-            case 2:
-              this.movePercent = 66.666;
-              break;
-          }
-        } else {
-          this.movePercent = 100;// It's not last slide
-        }
-
-      } else {
-        let remainder = (this.sliderItemsLength % this.showedItemsPerSlide);
-        if (this.currentSlide === this.sliderSlidesLength) {
-          switch (remainder) {
-            case 0:
-              this.movePercent = 100;
-              break;
-            case 1:
-              this.movePercent = 50;
-              break;
-          }
-        } else {
-          this.movePercent = 100; // It's not last slide
-        }
-      }
-    },
+    // calculateMovePercent() {
+    //   if (this.windowWidth > 1366) {
+    //     let remainder = (this.sliderItemsLength % this.showedItemsPerSlide);
+    //     if (this.currentSlide === this.sliderSlidesLength) {
+    //       switch (remainder) {
+    //         case 0:
+    //           this.movePercent = 100;
+    //           break;
+    //         case 1:
+    //           this.movePercent = 33.333;
+    //           break;
+    //         case 2:
+    //           this.movePercent = 66.666;
+    //           break;
+    //       }
+    //     } else {
+    //       this.movePercent = 100;// It's not last slide
+    //     }
+    //
+    //   } else {
+    //     let remainder = (this.sliderItemsLength % this.showedItemsPerSlide);
+    //     if (this.currentSlide === this.sliderSlidesLength) {
+    //       switch (remainder) {
+    //         case 0:
+    //           this.movePercent = 100;
+    //           break;
+    //         case 1:
+    //           this.movePercent = 50;
+    //           break;
+    //       }
+    //     } else {
+    //       this.movePercent = 100; // It's not last slide
+    //     }
+    //   }
+    // },
     checkPrevButton() {
       const sliderLists = document.querySelectorAll(".slider-" + this.sliderUUID);
-      if (!sliderLists[0].style.left || sliderLists[0].style.left === "0%") {
+      if (!sliderLists[0].style.left || sliderLists[0].style.left === "0%" || +sliderLists[0].style.left.split('%')[0] < 0) {
         this.showPrevButton = false;
       }
     },
     checkNextButton() {
+      console.log(this.currentSlide, this.sliderSlidesLength);
       if (this.currentSlide === this.sliderSlidesLength) {
         this.showNextButton = false;
       }
@@ -182,7 +183,8 @@ export default {
     window.addEventListener("resize", this.handleResize);
     this.handleResize();
     this.sliderItemsLength = this.sliderProductsData.length;
-    this.sliderSlidesLength = Math.ceil(this.sliderItemsLength / this.showedItemsPerSlide);
+    // this.sliderSlidesLength = Math.ceil(this.sliderItemsLength / this.showedItemsPerSlide);
+    this.sliderSlidesLength = this.sliderItemsLength - this.showedItemsPerSlide + 1;
     this.checkPrevButton();
     this.checkNextButton();
   },
@@ -193,7 +195,8 @@ export default {
       } else {
         this.showedItemsPerSlide = 2;
       }
-      this.sliderSlidesLength = Math.ceil(this.sliderItemsLength / this.showedItemsPerSlide);
+      // this.sliderSlidesLength = Math.ceil(this.sliderItemsLength / this.showedItemsPerSlide);
+      this.sliderSlidesLength = this.sliderItemsLength - this.showedItemsPerSlide + 1;
     },
     anotherSliderCounter() {
       switch (this.moveDirection) {
