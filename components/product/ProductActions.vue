@@ -15,7 +15,7 @@
       <span class="icon"></span>
       اطلاع از تخفیف
     </div>
-    <div class="action-item action compare">
+    <div class="action-item action compare" @click="goToCompare">
       <span class="icon"></span>
       مقایسه
     </div>
@@ -58,6 +58,9 @@ export default {
     },
     closeShareModal() {
       this.shareModalIsOpen = false;
+    },
+    goToCompare() {
+      this.$router.push('/product/comparison');
     },
     handleResize() {
       this.windowWidth = window.innerWidth;
@@ -163,7 +166,7 @@ export default {
               content: "\e80b";
             }
           }
-          @include xs {
+          @include lg {
             display: none;
           }
         }

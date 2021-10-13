@@ -4,52 +4,60 @@
   "response_value": [
     {
       "id": 1,
-      "title": "حافظه SSD وسترن دیجیتال مدل GREEN WDS480G2G0A ظرفیت 480 گیگابایت",
+      "title": "لپ تاپ 15 اینچی ایسوس مدل VivoBook R521JA-BQ083",
       "discount": "10000",
       "realPrice": "50000",
-      "image": "/img/phoneAndroid.svg"
+      "image": "https://dkstatics-public.digikala.com/digikala-products/0efd163d6cc33b53c111c6e39450e8a3b37eadf8_1600690414.jpg?x-oss-process=image/resize,m_lfit,h_350,w_350/quality,q_60"
     },
     {
       "id": 11,
-      "title": "حافظه SSD وسترن دیجیتال مدل GREEN WDS480G2G0A ظرفیت 480 گیگابایت",
+      "title": "لپ تاپ ۱۵.۶ اینچی ایسوس مدل VivoBook R565MA-BR218",
       "discount": "10000",
       "realPrice": "50000",
-      "image": "/img/phoneAndroid.svg"
+      "image": "https://dkstatics-public.digikala.com/digikala-products/730102f99c1574a2683f9632e422bcaeba64b925_1623644050.jpg?x-oss-process=image/resize,m_lfit,h_350,w_350/quality,q_60"
     },
     {
       "id": 2,
-      "title": "حافظه SSD وسترن دیجیتال مدل GREEN WDS480G2G0A ظرفیت 480 گیگابایت",
+      "title": "لپ تاپ 15.6 اینچی ایسوس مدل X543MA-GQ1013",
       "discount": "10000",
       "realPrice": "50000",
-      "image": "/img/phoneAndroid.svg"
+      "image": "https://dkstatics-public.digikala.com/digikala-products/bae4a15494947baf5540c64afee44073415e2b26_1618133347.jpg?x-oss-process=image/resize,m_lfit,h_350,w_350/quality,q_60"
     },
     {
       "id": 3,
-      "title": "حافظه SSD وسترن دیجیتال مدل GREEN WDS480G2G0A ظرفیت 480 گیگابایت",
+      "title": "لپ تاپ 14 اینچی هوآوی مدل Matebook D14",
       "discount": "10000",
       "realPrice": "50000",
-      "image": "/img/phoneAndroid.svg"
+      "image": "https://dkstatics-public.digikala.com/digikala-products/4e7983d9bd59ca7309ace03de0b1cf45e31ad42d_1618230895.jpg?x-oss-process=image/resize,m_lfit,h_350,w_350/quality,q_60"
     },
     {
       "id": 4,
-      "title": "حافظه SSD وسترن دیجیتال مدل GREEN WDS480G2G0A ظرفیت 480 گیگابایت",
+      "title": "لپ تاپ 15 اینچی مایکروسافت مدل Surface Book 3- F",
       "discount": "10000",
       "realPrice": "50000",
-      "image": "/img/phoneAndroid.svg"
+      "image": "https://dkstatics-public.digikala.com/digikala-products/80dc0f1c5078c2621d57f9e38722d09cbcde0ba5_1600244060.jpg?x-oss-process=image/resize,m_lfit,h_350,w_350/quality,q_60"
     },
+
     {
       "id": 5,
-      "title": "حافظه SSD وسترن دیجیتال مدل GREEN WDS480G2G0A ظرفیت 480 گیگابایت",
+      "title": "لپ تاپ ۱۵.۶ اینچی ایسوس مدل VivoBook R565MA-BR218",
       "discount": "10000",
       "realPrice": "50000",
-      "image": "/img/phoneAndroid.svg"
+      "image": "https://dkstatics-public.digikala.com/digikala-products/730102f99c1574a2683f9632e422bcaeba64b925_1623644050.jpg?x-oss-process=image/resize,m_lfit,h_350,w_350/quality,q_60"
     },
     {
-      "id": 6,
-      "title": "حافظه SSD وسترن دیجیتال مدل GREEN WDS480G2G0A ظرفیت 480 گیگابایت",
+      "id": 75,
+      "title": "لپ تاپ ۱۵.۶ اینچی ایسوس مدل VivoBook R565MA-BR218",
       "discount": "10000",
       "realPrice": "50000",
-      "image": "/img/phoneAndroid.svg"
+      "image": "https://dkstatics-public.digikala.com/digikala-products/730102f99c1574a2683f9632e422bcaeba64b925_1623644050.jpg?x-oss-process=image/resize,m_lfit,h_350,w_350/quality,q_60"
+    },
+    {
+      "id": 45,
+      "title": "لپ تاپ ۱۵.۶ اینچی ایسوس مدل VivoBook R565MA-BR218",
+      "discount": "10000",
+      "realPrice": "50000",
+      "image": "https://dkstatics-public.digikala.com/digikala-products/730102f99c1574a2683f9632e422bcaeba64b925_1623644050.jpg?x-oss-process=image/resize,m_lfit,h_350,w_350/quality,q_60"
     }
   ]
 }

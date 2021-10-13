@@ -1,25 +1,27 @@
 <template>
   <div class="w-100 content">
     <div class="content__main ">
-      <!-- <category-selected :category="category"></category-selected> -->
+      <base-breadcrumb class="breadcrumb" :breadcrumb-data="breadcrumbData"></base-breadcrumb>
       <div class=" w-100">
         <div class="w-100 content__wrapper">
-          <!-- <category-top
-              :category-suggestion="categorySuggestion"
-              :default-selected-suggestion="defaultSelectedSuggestion"
-              @active-cat-suggestion="activeCatSuggestion"
-              @show-box-filter="showBoxFilter"
-              @show-modal-sort="showModalSort"
-            ></category-top> -->
-
-          <div class="content__bg w-100">
-            <comparison-product :products="products"></comparison-product>
+          <div class="content__bg w-100 compare-slider">
+            <compare-slider
+              @slider-changed="compareSliderChanged"
+              :move-direction="specificationSliderData.direction"
+              :another-slider-counter="specificationSliderData.slideCounter"
+              :modal-products="products"
+            ></compare-slider>
           </div>
+<!--          <div class="content__bg w-100">-->
+<!--            <comparison-product :products="products"></comparison-product>-->
+<!--          </div>-->
 
-          <div class="content__bg w-100">
-            <detail-technical
-              :detail-technical="detailTechnical"
-            ></detail-technical>
+          <div class="content__bg w-100 specifications">
+            <product-specification
+                  @slider-changed="specificationSliderChanged"
+                  :move-direction="compareSliderData.direction"
+                  :another-slider-counter="compareSliderData.slideCounter"
+            ></product-specification>
           </div>
         </div>
       </div>
@@ -29,28 +31,65 @@
 
 <script>
 import comparisonProduct from "~/components/Comparison/comparisonProduct.vue";
-import detailTechnical from "~/components/Comparison/detailTechnical.vue";
+import CompareSlider from "./CompareSlider";
+import ProductSpecification from "../Comparison/ProductSpecification";
 
 export default {
   props: {
     products: { type: [Object, Array], default: [] },
-    detailTechnical: { type: [Object, Array], default: [] },
   },
 
   components: {
+    ProductSpecification,
+    CompareSlider,
     comparisonProduct,
-    detailTechnical,
   },
 
   data() {
     return {
       showModalFilter: false,
+      breadcrumbData: [
+        {
+          id: 1,
+          pathName: "لیمو"
+        },
+        {
+          id: 2,
+          pathName: "دسته کالاها",
+        },
+        {
+          id: 3,
+          pathName: "لوازم جانبی موبایل"
+        }
+      ],
+      compareSliderData: {
+        direction: null,
+        slideCounter: 0,
+      },
+      specificationSliderData: {
+        direction: null,
+        slideCounter: 0,
+      }
     };
   },
-
-  mounted() {},
-
-  methods: {},
+  methods: {
+    compareSliderChanged(sliderData) {
+      this.compareSliderData.direction = sliderData.direction;
+      if (sliderData.direction === "next") {
+        this.compareSliderData.slideCounter++;
+      } else {
+        this.compareSliderData.slideCounter--;
+      }
+    },
+    specificationSliderChanged(sliderData) {
+      this.specificationSliderData.direction = sliderData.direction;
+      if (sliderData.direction === "next") {
+        this.specificationSliderData.slideCounter++;
+      } else {
+        this.specificationSliderData.slideCounter--;
+      }
+    }
+  }
 };
 </script>
 
@@ -60,31 +99,40 @@ export default {
 }
 .content__bg {
   background: $white;
-  border-bottom-left-radius: 10px;
-  border-bottom-right-radius: 10px;
+  border-radius: toRem(10);
   @include display-flex();
   align-items: flex-start;
   flex-wrap: wrap;
-  margin-bottom: 24px;
+  margin-bottom: toRem(24);
+  padding-top: toRem(20);
+
+
+  &.compare-slider {
+    min-width: toRem(965);
+    padding: 0;
+  }
+  &.specifications {
+    padding: toRem(24) toRem(24) 0;
+    min-width: toRem(965);
+  }
 }
 .content__main {
   flex-wrap: wrap;
   flex-flow: column;
   @include display-flex();
+  .breadcrumb {
+    margin-top: toRem(16);
+    margin-bottom: toRem(16);
+  }
 }
 .content__wrapper {
+  min-width: toRem(960);
   flex-wrap: wrap;
   @include display-flex();
   align-items: flex-start;
 }
 
-@media (max-width: 1220px) {
-}
-
-@media (max-width: 1024px) {
-}
-
-@media (max-width: 960px) {
+@include md {
   .content {
     margin-top: 0px;
   }
@@ -93,20 +141,5 @@ export default {
   }
 }
 
-@media (max-width: 600px) {
-}
 
-@media (max-width: 485px) {
-  .content__bg {
-    padding-right: 8px;
-    padding-left: 8px;
-    padding-bottom: 0;
-  }
-  .productContent__sliderWrapper {
-    margin-top: 4px;
-  }
-  .content__main {
-    margin-top: 55px;
-  }
-}
 </style>
