@@ -109,10 +109,10 @@ export default {
 
   &.compare-slider {
     min-width: toRem(965);
-    padding: 0;
+    padding: 0 toRem(24);
   }
   &.specifications {
-    padding: toRem(24) toRem(24) 0;
+    padding: toRem(24) toRem(24);
     min-width: toRem(965);
   }
 }

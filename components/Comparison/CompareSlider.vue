@@ -5,7 +5,7 @@
         مقایسه محصولات
       </div>
       <div class="description">
-        محصولات مورد نظرتان را اضافه کنید و به مقایسه بپردازید.
+        محصولات مورد نظرتان را اضافه و مقایسه کنید.
       </div>
     </div>
     <div class="previous-btn" @click="previousSlide" v-if="showPrevButton">
@@ -437,6 +437,7 @@ export default {
     flex-direction: column;
     position: relative;
     z-index: 1;
+    right: 0.75rem;
 
     .add-icon {
       margin-bottom: toRem(16);
