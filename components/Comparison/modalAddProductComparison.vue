@@ -103,7 +103,6 @@ export default {
       },
     },
   },
-
   watch: {
     active(showModal) {
       if (showModal) {
@@ -133,30 +132,41 @@ export default {
 
     .search-section {
       &__items {
-        height: 49px;
-        line-height: 28px;
-        border: 1px solid $input-border;
-        border-radius: 10px;
+        height: toRem(49);
+        line-height: toRem(28);
+        border-radius: toRem(10);
+        border: toRem(1) solid $input-border;
         display: flex;
         justify-content: flex-end;
         flex-direction: row;
-        width: 492px;
+        width: toRem(492);
+        &:focus-within {
+          border: toRem(1) solid $gray-3;
+          .search-section__btn {
+            &::before {
+              color: $gray-3;
+            }
+          }
+        }
       }
       &__input {
         @extend .sass-input__default;
+        width: 100%;
+        height: 100%;
+        border-radius: toRem(10);
         font-family: inherit;
-        font-size: 14px;
+        font-size: toRem(14);
         font-weight: 300;
-        flex-grow: 2;
+
       }
 
       &__btn {
         @extend .sass-input__default;
-        margin: 14px 16px 15px 4px;
+        margin: toRem(14) toRem(14) toRem(14) toRem(4);
       }
       &__btn::before {
         @include font-icon__limoo();
-        font-size: 17px;
+        font-size: toRem(17);
         content: "\e869";
         cursor: pointer;
         color: $input-border;
@@ -179,7 +189,7 @@ export default {
       align-items: flex-start;
       @include display-flex();
       &-title {
-        font-size: 18px;
+        font-size: toRem(18);
         color: $black;
         font-weight: 400;
         flex-grow: 1;
@@ -192,7 +202,7 @@ export default {
         }
       }
       .product__modal-close::before {
-        font-size: 30px;
+        font-size: toRem(30);
         opacity: 0.5;
         content: "\e807";
         @include xs {
@@ -238,9 +248,9 @@ export default {
     }
 
     .carousel-cell {
-      border: solid 1px $light-gray;
-      margin-left: 7px;
-      border-radius: 10px;
+      border: solid toRem(1) $light-gray;
+      margin-left: toRem(16);
+      border-radius: toRem(22);
       cursor: pointer;
     }
     .carousel-pic {

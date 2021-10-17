@@ -3,8 +3,8 @@
     <div class="title">
       مشخصات کالا
     </div>
-    <div class="wrapper">
-      <div class="previous-btn" @click="previousSlide" v-if="showPrevButton">
+    <div class="wrapper" :class="'wrapper-'+ wrapperUUID">
+      <div class="previous-btn" @click="previousSlide" v-show="showPrevButton">
         <span class="icon"></span>
       </div>
       <div class="specification-line">
@@ -20,6 +20,23 @@
             <li class="item">32</li>
             <li class="item">64</li>
             <li class="item">32</li>
+          </ul>
+        </div>
+        <div class="specification-empty-space"></div>
+      </div>
+      <div class="specification-line">
+        <div class="specification-name">
+          هارد
+        </div>
+        <div class="specification-slider">
+          <ul class="slider-list" :class="'slider-'+sliderUUID" ref="sliderList_2">
+            <li class="item">1TB HDD</li>
+            <li class="item">2TB HDD</li>
+            <li class="item">512GB SSD</li>
+            <li class="item">1TB HDD+ 128GB SSD</li>
+            <li class="item">1TB HDD</li>
+            <li class="item">2TB HDD</li>
+            <li class="item">512GB SSD</li>
           </ul>
         </div>
       </div>
@@ -39,10 +56,72 @@
           </ul>
         </div>
       </div>
-      <div class="next-btn" v-if="showNextButton" @click="nextSlide">
+      <div class="next-btn" v-show="showNextButton" @click="nextSlide">
         <span class="icon"></span>
       </div>
     </div>
+    <div class="title">
+      مشخصات کالا
+    </div>
+    <div class="wrapper" :class="'wrapper-'+ wrapperUUID">
+      <div class="previous-btn" @click="previousSlide" v-show="showPrevButton">
+        <span class="icon"></span>
+      </div>
+      <div class="specification-line">
+        <div class="specification-name">
+          حافظه رم
+        </div>
+        <div class="specification-slider">
+          <ul class="slider-list" :class="'slider-'+sliderUUID" ref="sliderList_1">
+            <li class="item">8</li>
+            <li class="item">16</li>
+            <li class="item">16</li>
+            <li class="item">8</li>
+            <li class="item">32</li>
+            <li class="item">64</li>
+            <li class="item">32</li>
+          </ul>
+        </div>
+        <div class="specification-empty-space"></div>
+      </div>
+      <div class="specification-line">
+        <div class="specification-name">
+          هارد
+        </div>
+        <div class="specification-slider">
+          <ul class="slider-list" :class="'slider-'+sliderUUID" ref="sliderList_2">
+            <li class="item">1TB HDD</li>
+            <li class="item">2TB HDD</li>
+            <li class="item">512GB SSD</li>
+            <li class="item">1TB HDD+ 128GB SSD</li>
+            <li class="item">1TB HDD</li>
+            <li class="item">2TB HDD</li>
+            <li class="item">512GB SSD</li>
+          </ul>
+        </div>
+      </div>
+      <div class="specification-line">
+        <div class="specification-name">
+          هارد
+        </div>
+        <div class="specification-slider">
+          <ul class="slider-list" :class="'slider-'+sliderUUID" ref="sliderList_2">
+            <li class="item">1TB HDD</li>
+            <li class="item">2TB HDD</li>
+            <li class="item">512GB SSD</li>
+            <li class="item">1TB HDD+ 128GB SSD</li>
+            <li class="item">1TB HDD</li>
+            <li class="item">2TB HDD</li>
+            <li class="item">512GB SSD</li>
+          </ul>
+        </div>
+      </div>
+      <div class="next-btn" v-show="showNextButton" @click="nextSlide">
+        <span class="icon"></span>
+      </div>
+    </div>
+
+
   </div>
 </template>
 
@@ -56,8 +135,8 @@ export default {
     },
     anotherSliderCounter: {
       type: Number,
-      require: false
-    }
+      require: false,
+    },
   },
   data() {
     return {
@@ -71,6 +150,7 @@ export default {
       previousMovePercent: 0,
       movePercent: 33.333,
       sliderUUID: "606d0ab0-b206-4dcb-8ef4-63965d867696",
+      wrapperUUID: "bb70a447-c360-4154-bf55-41be259d3146",
     };
   },
   computed: {
@@ -160,7 +240,7 @@ export default {
     // },
     checkPrevButton() {
       const sliderLists = document.querySelectorAll(".slider-" + this.sliderUUID);
-      if (!sliderLists[0].style.left || sliderLists[0].style.left === "0%" || +sliderLists[0].style.left.split('%')[0] < 0) {
+      if (!sliderLists[0].style.left || sliderLists[0].style.left === "0%" || +sliderLists[0].style.left.split("%")[0] < 0) {
         this.showPrevButton = false;
       }
     },
@@ -168,6 +248,13 @@ export default {
       console.log(this.currentSlide, this.sliderSlidesLength);
       if (this.currentSlide === this.sliderSlidesLength) {
         this.showNextButton = false;
+      }
+    },
+    styleLastItemOfSlider() {
+      let wrappers = document.querySelectorAll('.wrapper-'+ this.wrapperUUID);
+      for (let i = 0; i < wrappers.length; i++) {
+        let lines = wrappers[i].querySelectorAll('.specification-line');
+        lines[lines.length - 1].classList.add('last-line');
       }
     },
     handleResize() {
@@ -187,6 +274,7 @@ export default {
     this.sliderSlidesLength = this.sliderItemsLength - this.showedItemsPerSlide + 1;
     this.checkPrevButton();
     this.checkNextButton();
+    this.styleLastItemOfSlider();
   },
   watch: {
     windowWidth(val) {
@@ -219,6 +307,14 @@ export default {
 
   .title {
     margin-bottom: toRem(16);
+    padding-top: toRem(38);
+    border-top: toRem(2) solid $gray-6;
+
+    &:first-child {
+      padding: 0;
+      border: none;
+    }
+
   }
 
   .wrapper {
@@ -231,8 +327,9 @@ export default {
       width: 100%;
       height: toRem(53);
       display: grid;
-      grid-template-columns: 1fr 4fr;
+      grid-template-columns: 1fr 3fr 1fr;
       color: $gray-2;
+
 
       &:nth-child(even) {
         background-color: rgba(242, 242, 242, 0.4);
@@ -249,6 +346,7 @@ export default {
           height: 100%;
           position: relative;
           z-index: 1;
+          border-left: toRem(1) solid $gray-6;
         }
 
         &-slider {
@@ -273,7 +371,7 @@ export default {
               height: 100%;
               transition: all 0.5s ease;
               -webkit-transition: all 0.5s ease;
-
+              border-left: toRem(1) solid $gray-6;
 
               @include xl {
                 min-width: 50%;
@@ -282,6 +380,33 @@ export default {
           }
 
         }
+
+        &-empty-space {
+          grid-column: 3/4;
+        }
+      }
+
+      &.last-line {
+        height: toRem(91);
+        align-items: flex-start;
+
+        .specification {
+          &-name {
+            align-items: flex-start;
+            padding-top: toRem(17);
+          }
+
+          &-slider {
+            height: 100%;
+
+            .slider-list {
+              .item {
+                align-items: flex-start;
+                padding-top: toRem(17);
+              }
+            }
+          }
+        }
       }
     }
 
@@ -289,13 +414,13 @@ export default {
       position: absolute;
       z-index: 2;
       cursor: pointer;
-      right: toRem(250);
+      right: toRem(200);
 
       .icon {
-        width: toRem(44);
-        height: toRem(44);
+        width: toRem(40);
+        height: toRem(40);
         border-radius: 50%;
-        background-color: $white;
+        background-color: $gray-3;
         @extend .centered;
 
         &::before {
@@ -305,8 +430,8 @@ export default {
           height: 100%;
           @extend .centered;
           padding-right: toRem(2);
-          font-size: toRem(22);
-          color: $black;
+          font-size: toRem(18);
+          color: $white;
           transform: rotate(180deg);
         }
       }
@@ -315,25 +440,25 @@ export default {
     .next-btn {
       position: absolute;
       z-index: 1;
-      left: toRem(30);
+      left: toRem(110);
       cursor: pointer;
 
       .icon {
-        width: toRem(44);
-        height: toRem(44);
+        width: toRem(40);
+        height: toRem(40);
         border-radius: 50%;
-        background-color: $white;
+        background-color: $gray-3;
         @extend .centered;
 
         &::before {
           content: "\e801";
           @include font-icon__limoo();
+          font-size: toRem(18);
           width: 100%;
           height: 100%;
           @extend .centered;
           padding-right: toRem(2);
-          font-size: toRem(22);
-          color: $black;
+          color: $white;
         }
       }
     }

@@ -5,6 +5,8 @@
         <div class="products__top-title w-100 products__top-desktop">
           <h3 class="products__top-text">موبایل اندرویدی</h3>
         </div>
+        <base-skeleton></base-skeleton>
+        <base-skeleton shape="circle"></base-skeleton>
         <div class="products__filter-btns w-100 ">
           <base-button no-box-shadow classes="products__filter-btn" @button-clicked="showBoxFilter">
             <span class="filter-search-icon"></span>
