@@ -112,7 +112,7 @@ export default {
     padding: 0 toRem(24);
   }
   &.specifications {
-    padding: toRem(24) toRem(24);
+    padding: toRem(24) toRem(24) toRem(48) toRem(24);
     min-width: toRem(965);
   }
 }
