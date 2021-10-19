@@ -1,12 +1,12 @@
 <template>
-  <div class="specification-container">
+  <div class="specification-container" ref="specificationContainer">
+    <div class="previous-btn" @click="previousSlide" v-show="showPrevButton">
+      <span class="icon"></span>
+    </div>
     <div class="title">
       مشخصات کالا
     </div>
     <div class="wrapper" :class="'wrapper-'+ wrapperUUID">
-      <div class="previous-btn" @click="previousSlide" v-show="showPrevButton">
-        <span class="icon"></span>
-      </div>
       <div class="specification-line">
         <div class="specification-name">
           حافظه رم
@@ -56,20 +56,14 @@
           </ul>
         </div>
       </div>
-      <div class="next-btn" v-show="showNextButton" @click="nextSlide">
-        <span class="icon"></span>
-      </div>
     </div>
     <div class="title">
       مشخصات کالا
     </div>
     <div class="wrapper" :class="'wrapper-'+ wrapperUUID">
-      <div class="previous-btn" @click="previousSlide" v-show="showPrevButton">
-        <span class="icon"></span>
-      </div>
       <div class="specification-line">
         <div class="specification-name">
-          حافظه رم
+          فرکانس پردازنده مرکزی
         </div>
         <div class="specification-slider">
           <ul class="slider-list" :class="'slider-'+sliderUUID" ref="sliderList_1">
@@ -116,12 +110,65 @@
           </ul>
         </div>
       </div>
-      <div class="next-btn" v-show="showNextButton" @click="nextSlide">
-        <span class="icon"></span>
+    </div>
+<div class="title">
+      مشخصات کالا
+    </div>
+    <div class="wrapper" :class="'wrapper-'+ wrapperUUID">
+      <div class="specification-line">
+        <div class="specification-name">
+          فرکانس پردازنده مرکزی
+        </div>
+        <div class="specification-slider">
+          <ul class="slider-list" :class="'slider-'+sliderUUID" ref="sliderList_1">
+            <li class="item">8</li>
+            <li class="item">16</li>
+            <li class="item">16</li>
+            <li class="item">8</li>
+            <li class="item">32</li>
+            <li class="item">64</li>
+            <li class="item">32</li>
+          </ul>
+        </div>
+        <div class="specification-empty-space"></div>
+      </div>
+      <div class="specification-line">
+        <div class="specification-name">
+          هارد
+        </div>
+        <div class="specification-slider">
+          <ul class="slider-list" :class="'slider-'+sliderUUID" ref="sliderList_2">
+            <li class="item">1TB HDD</li>
+            <li class="item">2TB HDD</li>
+            <li class="item">512GB SSD</li>
+            <li class="item">1TB HDD+ 128GB SSD</li>
+            <li class="item">1TB HDD</li>
+            <li class="item">2TB HDD</li>
+            <li class="item">512GB SSD</li>
+          </ul>
+        </div>
+      </div>
+      <div class="specification-line">
+        <div class="specification-name">
+          هارد
+        </div>
+        <div class="specification-slider">
+          <ul class="slider-list" :class="'slider-'+sliderUUID" ref="sliderList_2">
+            <li class="item">1TB HDD</li>
+            <li class="item">2TB HDD</li>
+            <li class="item">512GB SSD</li>
+            <li class="item">1TB HDD+ 128GB SSD</li>
+            <li class="item">1TB HDD</li>
+            <li class="item">2TB HDD</li>
+            <li class="item">512GB SSD</li>
+          </ul>
+        </div>
       </div>
     </div>
 
-
+    <div class="next-btn" v-show="showNextButton" @click="nextSlide">
+      <span class="icon"></span>
+    </div>
   </div>
 </template>
 
@@ -250,13 +297,6 @@ export default {
         this.showNextButton = false;
       }
     },
-    styleLastItemOfSlider() {
-      let wrappers = document.querySelectorAll('.wrapper-'+ this.wrapperUUID);
-      for (let i = 0; i < wrappers.length; i++) {
-        let lines = wrappers[i].querySelectorAll('.specification-line');
-        lines[lines.length - 1].classList.add('last-line');
-      }
-    },
     handleResize() {
       this.windowWidth = window.innerWidth;
       if (this.windowWidth > 1366) {
@@ -274,13 +314,17 @@ export default {
     this.sliderSlidesLength = this.sliderItemsLength - this.showedItemsPerSlide + 1;
     this.checkPrevButton();
     this.checkNextButton();
-    this.styleLastItemOfSlider();
+    let container = this.$refs.specificationContainer;
+    container.querySelectorAll('.title')[0].classList.add('first-title');
+
   },
   watch: {
     windowWidth(val) {
       if (val > 1366) {
+        this.movePercent = 33.333;
         this.showedItemsPerSlide = 3;
       } else {
+        this.movePercent = 50;
         this.showedItemsPerSlide = 2;
       }
       // this.sliderSlidesLength = Math.ceil(this.sliderItemsLength / this.showedItemsPerSlide);
@@ -303,14 +347,14 @@ export default {
 <style lang="scss" scoped>
 .specification-container {
   width: 100%;
-  overflow-x: hidden;
+  position: relative;
 
   .title {
     margin-bottom: toRem(16);
     padding-top: toRem(38);
     border-top: toRem(2) solid $gray-6;
 
-    &:first-child {
+    &.first-title {
       padding: 0;
       border: none;
     }
@@ -347,6 +391,8 @@ export default {
           position: relative;
           z-index: 1;
           border-left: toRem(1) solid $gray-6;
+          justify-content: flex-start;
+          padding-right: toRem(18);
         }
 
         &-slider {
@@ -385,81 +431,65 @@ export default {
           grid-column: 3/4;
         }
       }
-
-      &.last-line {
-        height: toRem(91);
-        align-items: flex-start;
-
-        .specification {
-          &-name {
-            align-items: flex-start;
-            padding-top: toRem(17);
-          }
-
-          &-slider {
-            height: 100%;
-
-            .slider-list {
-              .item {
-                align-items: flex-start;
-                padding-top: toRem(17);
-              }
-            }
-          }
-        }
-      }
     }
 
-    .previous-btn {
-      position: absolute;
-      z-index: 2;
-      cursor: pointer;
-      right: toRem(200);
 
-      .icon {
-        width: toRem(40);
-        height: toRem(40);
-        border-radius: 50%;
-        background-color: $gray-3;
+  }
+  .previous-btn {
+    position: sticky;
+    z-index: 4;
+    cursor: pointer;
+    width: 0;
+    height: 0;
+    right: 17rem;
+    top: 50%;
+
+    .icon {
+      width: toRem(40);
+      height: toRem(40);
+      border-radius: 50%;
+      background-color: $gray-3;
+      @extend .centered;
+
+      &::before {
+        content: "\e801";
+        @include font-icon__limoo();
+        width: 100%;
+        height: 100%;
         @extend .centered;
-
-        &::before {
-          content: "\e801";
-          @include font-icon__limoo();
-          width: 100%;
-          height: 100%;
-          @extend .centered;
-          padding-right: toRem(2);
-          font-size: toRem(18);
-          color: $white;
-          transform: rotate(180deg);
-        }
+        padding-right: toRem(2);
+        font-size: toRem(18);
+        color: $white;
+        transform: rotate(180deg);
       }
     }
+  }
 
-    .next-btn {
-      position: absolute;
-      z-index: 1;
-      left: toRem(110);
-      cursor: pointer;
+  .next-btn {
+    position: sticky;
+    z-index: 4;
+    cursor: pointer;
+    width: 0;
+    height: 0;
+    right: 79rem;
+    bottom: 50%;
 
-      .icon {
-        width: toRem(40);
-        height: toRem(40);
-        border-radius: 50%;
-        background-color: $gray-3;
+    .icon {
+      width: toRem(40);
+      height: toRem(40);
+      border-radius: 50%;
+      background-color: $gray-3;
+      @extend .centered;
+
+      &::before {
+        content: "\e801";
+        @include font-icon__limoo();
+        font-size: toRem(18);
+        width: 100%;
+        height: 100%;
         @extend .centered;
-
-        &::before {
-          content: "\e801";
-          @include font-icon__limoo();
-          font-size: toRem(18);
-          width: 100%;
-          height: 100%;
-          @extend .centered;
-          padding-right: toRem(2);
-          color: $white;
-        }
+        padding-right: toRem(2);
+        color: $white;
       }
     }
   }
