@@ -441,7 +441,7 @@ export default {
     cursor: pointer;
     width: 0;
     height: 0;
-    right: 17rem;
+    right: 16%;
     top: 50%;
 
     .icon {
@@ -471,7 +471,7 @@ export default {
     cursor: pointer;
     width: 0;
     height: 0;
-    right: 79rem;
+    right: 86%;
     bottom: 50%;
 
     .icon {
