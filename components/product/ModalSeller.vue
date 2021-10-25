@@ -85,14 +85,8 @@ export default {
 <style lang="scss" scoped>
 .modal-container::v-deep {
   .modal {
-    width: toRem(642);
-    padding: toRem(24);
     background-color: $white;
-    border-radius: toRem(15);
     overflow-y: scroll;
-    @include sm {
-      width: 90%;
-    }
     @include xs {
       padding: toRem(24) toRem(10);
     }

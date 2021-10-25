@@ -29,6 +29,7 @@
           <product-specification></product-specification>
           <product-seller class="mobile-product-seller"></product-seller>
           <product-actions class="product-actions mobile" :share-modal-mode="shareModalMode" v-if="shareModalMode === 'full-screen'"></product-actions>
+          <full-presentation class="mobile product-presentation"></full-presentation>
 
         </div>
       </div>
@@ -46,7 +47,7 @@
         tabs-class="tabs-navigator tabs__main"
       >
         <tab-content :name="tabsNames[0]" :isSelected="selected === tabsNames[0]">
-          <full-presentation class="show--tab"></full-presentation>
+          <full-presentation class="show--tab product-presentation desktop"></full-presentation>
         </tab-content>
 
         <tab-content :name="tabsNames[1]" :isSelected="selected === tabsNames[1]">
@@ -266,16 +267,29 @@ export default {
       margin-top: toRem(8);
     }
     @include xs {
-      //display: none;
+      display: none;
     }
   }
   &.mobile {
-    //display: none;
+    display: none;
     @include xs {
       @include display-flex();
     }
   }
 
+}
+.product-presentation {
+  &.desktop {
+    @include xs {
+      display: none;
+    }
+  }
+  &.mobile {
+    display: none;
+    @include xs {
+      @include display-flex();
+    }
+  }
 }
 .product-colors {
   margin-bottom: toRem(24);
@@ -349,7 +363,7 @@ export default {
     margin-bottom: toRem(2);
   }
   .tab--content {
-    padding: 0 toRem(8);
+    padding: 0 toRem(24);
     margin-bottom: toRem(8);
   }
   .tab--content:last-of-type {
