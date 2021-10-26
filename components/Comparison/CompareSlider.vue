@@ -5,26 +5,27 @@
         مقایسه محصولات
       </div>
       <div class="description">
-        محصولات مورد نظرتان را اضافه کنید و به مقایسه بپردازید.
+        محصولات مورد نظرتان را اضافه و مقایسه کنید.
       </div>
     </div>
     <div class="previous-btn" @click="previousSlide" v-if="showPrevButton">
       <span class="icon"></span>
     </div>
     <div class="slider-wrapper" ref="sliderWrapper">
-      <ul class="slider-list" ref="sliderList" @dragstart="dragStart" @touchstart="dragAction" draggable="true">
-          <li class="item" v-for="item in sliderProductsData" :key="item.id">
-            <div class="item-image-wrapper">
-              <img :src="item.image" alt="Image">
-            </div>
-            <div class="item-name">
-              {{ item.title }}
-            </div>
-            <div class="item-price">
-              {{ item.realPrice }}
-              تومان
-            </div>
-          </li>
+      <ul class="slider-list" ref="sliderList" @mousedown="dragStart"
+          draggable="true">
+        <li class="item"  v-for="item in sliderProductsData" :key="item.id">
+          <div class="item-image-wrapper">
+            <img :src="item.image" alt="Image">
+          </div>
+          <div class="item-name">
+            {{ item.title }}
+          </div>
+          <div class="item-price">
+            {{ item.realPrice }}
+            تومان
+          </div>
+        </li>
       </ul>
     </div>
 
@@ -32,42 +33,46 @@
       <span class="icon"></span>
     </div>
     <div class="left-content">
-      <span class="add-icon"></span>
+      <span class="add-icon" @click="openAddProductModal"></span>
       <span class="add-txt">
         افزودن محصول دیگر
       </span>
     </div>
+    <transition name="backdrop-delete">
+      <div class="backdrop" v-if="showModalAddProduct" @click="closeAddProductModal"></div>
+    </transition>
+    <transition name="delete">
+      <modal-add-product-comparison
+        v-if="showModalAddProduct"
+        @close-modal="closeAddProductModal"
+        modal-mode="delete"
+        :products="modalProducts"
+      ></modal-add-product-comparison>
+    </transition>
   </div>
 </template>
 
 <script>
+import ModalAddProductComparison from "./modalAddProductComparison";
+
 export default {
   name: "CompareSlider",
+  components: { ModalAddProductComparison },
   props: {
-    leftValue: {
-      type: String,
-      require: false
-    },
     moveDirection: {
       type: String,
       require: false,
     },
-    previousLeft: {
+    anotherSliderCounter: {
       type: Number,
       require: false,
     },
-    nextButtonShow: {
-      type: Boolean,
-      require: false
-    },
-    previousButtonShow: {
-      type: Boolean,
-      require: false,
-    },
+    modalProducts: { type: [Object, Array], default: [] },
   },
   data() {
     return {
       windowWidth: 0,
+      showModalAddProduct: false,
       showPrevButton: true,
       showNextButton: true,
       sliderItemsLength: 0,
@@ -76,9 +81,15 @@ export default {
       currentSlide: 1,
       movePercent: 0,
       previousMovePercent: 0,
-      posInitial: 0,
       posX1: 0,
       posX2: 0,
+      threshold: 100,
+      sliderPressed: false,
+      transition: 300,
+      initialized: false,
+      containerWidth: null,
+      slideWidth: null,
+      itemsToShow: 3,//prop
     };
   },
   computed: {
@@ -87,91 +98,88 @@ export default {
     },
   },
   methods: {
-    nextSlide() {
+    nextSlide(e, fromAnotherSlider) {
       this.showPrevButton = true;
       const sliderList = this.$refs.sliderList;
+      sliderList.style.transition = "all 0.5s ease";
+      console.log(this.$el);
       let previousLeftPercentNumber = +sliderList.style.left.split("%")[0];
       this.currentSlide++;
-      this.calculateMovePercent();
+      //this.calculateMovePercent();
       sliderList.style.left = (previousLeftPercentNumber + this.movePercent).toString() + "%";
       this.previousMovePercent = this.movePercent;
       this.checkNextButton();
       let sliderData = {
-        left: sliderList.style.left,
-        direction: 'next',
-        previousLeft: this.previousMovePercent,
-        nextButtonDisplay: this.showNextButton,
-        previousButtonDisplay: this.showPrevButton,
-        movePercent: this.movePercent
+        direction: "next",
+      };
+
+      if (!fromAnotherSlider) {
+        this.$emit("slider-changed", sliderData);
       }
-      this.$emit('slider-changed', sliderData);
     },
-    previousSlide() {
+    previousSlide(e, fromAnotherSlider) {
       this.showNextButton = true;
       const sliderList = this.$refs.sliderList;
+      sliderList.style.transition = "all 0.5s ease";
       //in the last slide, if slider only slides one item, then user pressed previous button, it should go back
       // as much as previous value. and if there is no previous value, go back completely 3 Items.
-      let _movePercent;
-      if (this.previousMovePercent) {
-        _movePercent = this.previousMovePercent;
-      } else {
-        _movePercent = 100;
-      }
+      // let _movePercent;
+      // if (this.previousMovePercent) {
+      //   _movePercent = this.previousMovePercent;
+      // } else {
+      //   _movePercent = 100;
+      // }
       let previousLeftPercentNumber = +sliderList.style.left.split("%")[0];
       this.currentSlide--;
-      sliderList.style.left = (previousLeftPercentNumber - _movePercent).toString() + "%";
+      sliderList.style.left = (previousLeftPercentNumber - this.movePercent).toString() + "%";
       this.previousMovePercent = 0;
       this.checkPrevButton();
       let sliderData = {
-        left: sliderList.style.left,
-        direction: 'previous',
-        previousLeft: null,
-        nextButtonDisplay: this.showNextButton,
-        previousButtonDisplay: this.showPrevButton,
-        movePercent: null
+        direction: "previous",
+      };
+      if (!fromAnotherSlider) {
+        this.$emit("slider-changed", sliderData);
       }
 
-      this.$emit('slider-changed', sliderData);
-
     },
-    calculateMovePercent() {
-      if (this.windowWidth > 1366) {
-        let remainder = (this.sliderItemsLength % this.showedItemsPerSlide);
-        if (this.currentSlide === this.sliderSlidesLength) {
-          switch (remainder) {
-            case 0:
-              this.movePercent = 100;
-              break;
-            case 1:
-              this.movePercent = 33.333;
-              break;
-            case 2:
-              this.movePercent = 66.666;
-              break;
-          }
-        } else {
-          this.movePercent = 100;// It's not last slide
-        }
-
-      } else {
-        let remainder = (this.sliderItemsLength % this.showedItemsPerSlide);
-        if (this.currentSlide === this.sliderSlidesLength) {
-          switch (remainder) {
-            case 0:
-              this.movePercent = 100;
-              break;
-            case 1:
-              this.movePercent = 50;
-              break;
-          }
-        } else {
-          this.movePercent = 100; // It's not last slide
-        }
-      }
-    },
+    // calculateMovePercent() {
+    //   if (this.windowWidth > 1366) {
+    //     let remainder = (this.sliderItemsLength % this.showedItemsPerSlide);
+    //     if (this.currentSlide === this.sliderSlidesLength) {
+    //       switch (remainder) {
+    //         case 0:
+    //           this.movePercent = 100;
+    //           break;
+    //         case 1:
+    //           this.movePercent = 33.333;
+    //           break;
+    //         case 2:
+    //           this.movePercent = 66.666;
+    //           break;
+    //       }
+    //     } else {
+    //       this.movePercent = 100;// It's not last slide
+    //     }
+    //
+    //   } else {
+    //     let remainder = (this.sliderItemsLength % this.showedItemsPerSlide);
+    //     if (this.currentSlide === this.sliderSlidesLength) {
+    //       switch (remainder) {
+    //         case 0:
+    //           this.movePercent = 100;
+    //           break;
+    //         case 1:
+    //           this.movePercent = 50;
+    //           break;
+    //       }
+    //     } else {
+    //       this.movePercent = 100; // It's not last slide
+    //     }
+    //   }
+    // },
     checkPrevButton() {
       const sliderList = this.$refs.sliderList;
-      if (!sliderList.style.left || sliderList.style.left === '0%') {
+      if (!sliderList.style.left || sliderList.style.left === "0%" || +sliderList.style.left.split("%")[0] < 0) {
         this.showPrevButton = false;
       }
     },
@@ -188,56 +196,114 @@ export default {
         this.showedItemsPerSlide = 2;
       }
     },
-    dragStart (e) {
-      console.log(e);
+    closeAddProductModal() {
+      this.showModalAddProduct = false;
+    },
+    openAddProductModal() {
+      this.showModalAddProduct = true;
+    },
+    dragStart(e) {
       e = e || window.event;
+      this.sliderPressed = true;
       const sliderList = this.$refs.sliderList;
+      const sliderWrapper = this.$refs.sliderWrapper;
+      let sliderWidth = sliderList.clientWidth;
+
       e.preventDefault();
-       this.posInitial = sliderList.offsetLeft;
-
-      if (e.type === 'touchstart') {
+      if (e.type === "touchstart") {
         this.posX1 = e.touches[0].clientX;
       } else {
-        this.posX1 = e.clientX;
-        // sliderList.onmouseup = dragEnd;
-        // document.onmousemove = dragAction;
+        let sliderLeftPosition = sliderWrapper.getBoundingClientRect().x;
+        let clickedPosition = e.clientX;
+        let clickedPositionOffsetLeft = clickedPosition - sliderLeftPosition;
+        let sliderOffset = sliderList.offsetLeft;
+        this.posX1 = ((clickedPositionOffsetLeft + sliderOffset) / sliderWidth) * 100;
+        //console.log(this.posX1);
+
+        document.addEventListener('mousemove', this.dragAction);
+        document.addEventListener("mouseup", this.dragEnd);
       }
     },
-    dragAction (e) {
-      e = e || window.event;
-      console.log(e);
+    dragAction(e) {
       const sliderList = this.$refs.sliderList;
-      if (e.type === 'touchmove') {
-        this.posX2 = this.posX1 - e.touches[0].clientX;
-        this.posX1 = e.touches[0].clientX;
-      } else {
-        this.posX2 = this.posX1 - e.clientX;
-        this.posX1 = e.clientX;
+      const sliderWrapper = this.$refs.sliderWrapper;
+      if (!this.sliderPressed) {
+        //sliderList.style.cursor = "pointer";
+        return;
       }
-      sliderList.style.left = (sliderList.offsetLeft - this.posX2) + "px";
+      //sliderList.style.transition = "none";
+      e.preventDefault();
+      let sliderWidth = sliderList.clientWidth;
+      //sliderList.style.cursor = "grabbing";
+      let sliderLeftPosition = sliderWrapper.getBoundingClientRect().x;
+      let movedPosition = e.clientX;
+      let movedPositionOffsetLeft = movedPosition - sliderLeftPosition;
+      let sliderOffset = sliderList.offsetLeft;
+      let sliderOffsetPercent = (sliderList.offsetLeft / sliderWidth) * 100;
+      this.posX2 = ((movedPositionOffsetLeft + sliderOffset) / sliderWidth) * 100;
+      let delta = this.posX2 - this.posX1;
+      //this.calculateMovePercent();
+      // let movedPercent;
+      // if (this.currentSlide > 1) {
+      //   movedPercent = this.movePercent;
+      // } else {
+      //   movedPercent = 0;
+      // }
+      let sliderLeft = +sliderList.style.left.split('%')[0];
+      console.log(sliderLeft);
+      //sliderList.style.left = `${ ( delta + sliderOffsetPercent ).toString() }%`;
     },
-    // dragEnd (e) {
-    //   posFinal = items.offsetLeft;
-    //   if (posFinal - posInitial < -threshold) {
-    //     shiftSlide(1, 'drag');
-    //   } else if (posFinal - posInitial > threshold) {
-    //     shiftSlide(-1, 'drag');
-    //   } else {
-    //     items.style.left = (posInitial) + "px";
-    //   }
-    //
-    //   document.onmouseup = null;
-    //   document.onmousemove = null;
-    // }
+    dragEnd() {
+      this.sliderPressed = false;
+      const sliderList = this.$refs.sliderList;
+      let sliderMoveDistance = this.posX2 - this.posX1;
+      //this.calculateMovePercent();
+      // if (sliderMoveDistance > 20) {
+      //   sliderList.style.left = "100%";
+      // }
+      //sliderList.style.left = this.movePercent.toString() + "%";
 
+    },
+    updateWidth() {
+      const slider = this.$refs.sliderList;
+      const rect = slider.getBoundingClientRect();
+      this.containerWidth = rect.width;
+      this.slideWidth = this.containerWidth / this.itemsToShow;
+      console.log(this.slideWidth);
+    },
+    update() {
+      this.updateWidth();
+      //this.updateTrim();
+      this.$emit('updated', {
+        containerWidth: this.containerWidth,
+        containerHeight: this.containerHeight,
+        slideWidth: this.slideWidth,
+      });
+    },
+    setMovePercent() {
+      if (this.windowWidth > 1366) {
+        this.movePercent = 33.333;
+      } else {
+        this.movePercent = 50;
+      }
+    },
   },
   mounted() {
     window.addEventListener("resize", this.handleResize);
     this.handleResize();
-    this.sliderItemsLength = this.sliderProductsData.length
-    this.sliderSlidesLength = Math.ceil(this.sliderItemsLength / this.showedItemsPerSlide);
+    this.setMovePercent();
+    this.sliderItemsLength = this.sliderProductsData.length;
+    // this.sliderSlidesLength = Math.ceil(this.sliderItemsLength / this.showedItemsPerSlide);
+    this.sliderSlidesLength = this.sliderItemsLength - this.showedItemsPerSlide + 1;
     this.checkPrevButton();
     this.checkNextButton();
+    this.$nextTick(() => {
+      this.update();
+      setTimeout(() => {
+        this.$emit('loaded');
+        this.initialized = true;
+      }, this.transition);
+    });
   },
   watch: {
     windowWidth(val) {
@@ -246,33 +312,31 @@ export default {
       } else {
         this.showedItemsPerSlide = 2;
       }
-      this.sliderSlidesLength = Math.ceil(this.sliderItemsLength / this.showedItemsPerSlide);
+      // this.sliderSlidesLength = Math.ceil(this.sliderItemsLength / this.showedItemsPerSlide);
+      this.sliderSlidesLength = this.sliderItemsLength - this.showedItemsPerSlide + 1;
     },
-    leftValue(val) {
-      let slider = this.$refs.sliderList;
-      slider.style.left = val;
-    },
-    moveDirection(val) {
-      if (val === 'next') {
-        this.currentSlide++;
-      } else if (val === 'previous') {
-        this.currentSlide--;
+    anotherSliderCounter() {
+      switch (this.moveDirection) {
+        case "next":
+          this.nextSlide(null, "fromAnotherSlider");
+          break;
+        case "previous":
+          this.previousSlide(null, "fromAnotherSlider");
+          break;
       }
     },
-    previousLeft(val) {
-      this.previousMovePercent = val;
-    },
-    nextButtonShow(val) {
-      this.showNextButton = val;
-    },
-    previousButtonShow(val) {
-      this.showPrevButton = val;
-    },
-  }
+  },
 };
 </script>
 
 <style lang="scss" scoped>
+@include backdrop-delete-modal-animation();
+@include delete-modal-animation();
+.backdrop {
+  @extend .modal-backdrop;
+  background-color: $overlay--profile;
+}
+
 .compare-slider-container {
   display: grid;
   grid-template-columns: 1fr 3fr 1fr;
@@ -317,9 +381,8 @@ export default {
       @extend .d-flex;
       width: 100%;
       left: 0;
-      position: relative;
-      transition: all 0.5s ease;
-      -webkit-transition: all 0.5s ease;
+      position: absolute;
+      transition: none;
 
       .item {
         @extend .align-center;
@@ -327,11 +390,8 @@ export default {
         padding: 0 toRem(8);
         border-left: toRem(1) solid $gray-6;
         flex-direction: column;
-        min-width: 33.333%;
+        min-width: 33.33%;
         height: toRem(264);
-        transition: all 0.5s ease;
-        -webkit-transition: all 0.5s ease;
-
 
 
         @include xl {
@@ -345,6 +405,11 @@ export default {
 
           img {
             max-height: toRem(164);
+            -webkit-user-select: none;
+            -khtml-user-select: none;
+            -moz-user-select: none;
+            -o-user-select: none;
+            user-select: none;
           }
         }
 
@@ -372,9 +437,11 @@ export default {
     flex-direction: column;
     position: relative;
     z-index: 1;
+    right: 0.75rem;
 
     .add-icon {
       margin-bottom: toRem(16);
+      cursor: pointer;
 
       &::before {
         content: "\e86b";
@@ -392,7 +459,7 @@ export default {
 
   .previous-btn {
     position: absolute;
-    margin: auto 0;
+    top: toRem(145);
     right: toRem(290);
     z-index: 1;
     cursor: pointer;
@@ -420,7 +487,7 @@ export default {
 
   .next-btn {
     position: absolute;
-    margin: auto 0;
+    top: toRem(145);
     left: toRem(290);
     z-index: 1;
     cursor: pointer;

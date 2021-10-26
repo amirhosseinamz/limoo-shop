@@ -1,26 +1,15 @@
 <template>
   <div class="w-100 content">
     <div class="content__main ">
-      <!-- <category-selected :category="category"></category-selected> -->
       <base-breadcrumb class="breadcrumb" :breadcrumb-data="breadcrumbData"></base-breadcrumb>
       <div class=" w-100">
         <div class="w-100 content__wrapper">
-          <!-- <category-top
-              :category-suggestion="categorySuggestion"
-              :default-selected-suggestion="defaultSelectedSuggestion"
-              @active-cat-suggestion="activeCatSuggestion"
-              @show-box-filter="showBoxFilter"
-              @show-modal-sort="showModalSort"
-            ></category-top> -->
-
           <div class="content__bg w-100 compare-slider">
             <compare-slider
-              :left-value="specificationSliderData.leftValue"
               @slider-changed="compareSliderChanged"
               :move-direction="specificationSliderData.direction"
-              :previous-left="specificationSliderData.previousLeftValue"
-              :next-button-show="specificationSliderData.nextButtonShow"
-              :previous-button-show="specificationSliderData.previousButtonShow"
+              :another-slider-counter="specificationSliderData.slideCounter"
+              :modal-products="products"
             ></compare-slider>
           </div>
 <!--          <div class="content__bg w-100">-->
@@ -29,18 +18,10 @@
 
           <div class="content__bg w-100 specifications">
             <product-specification
-                  :left-value="compareSliderData.leftValue"
                   @slider-changed="specificationSliderChanged"
                   :move-direction="compareSliderData.direction"
-                  :previous-left="compareSliderData.previousLeftValue"
-                  :next-button-show="compareSliderData.nextButtonShow"
-                  :previous-button-show="compareSliderData.previousButtonShow"
+                  :another-slider-counter="compareSliderData.slideCounter"
             ></product-specification>
-          </div>
-          <div class="content__bg w-100">
-            <detail-technical
-              :detail-technical="detailTechnical"
-            ></detail-technical>
           </div>
         </div>
       </div>
@@ -50,21 +31,18 @@
 
 <script>
 import comparisonProduct from "~/components/Comparison/comparisonProduct.vue";
-import detailTechnical from "~/components/Comparison/detailTechnical.vue";
 import CompareSlider from "./CompareSlider";
 import ProductSpecification from "../Comparison/ProductSpecification";
 
 export default {
   props: {
     products: { type: [Object, Array], default: [] },
-    detailTechnical: { type: [Object, Array], default: [] },
   },
 
   components: {
     ProductSpecification,
     CompareSlider,
     comparisonProduct,
-    detailTechnical,
   },
 
   data() {
@@ -85,53 +63,31 @@ export default {
         }
       ],
       compareSliderData: {
-        leftValue: null,
         direction: null,
-        previousLeftValue: null,
-        nextButtonShow: null,
-        previousButtonShow: null,
-        movePercent: null
+        slideCounter: 0,
       },
       specificationSliderData: {
-        leftValue: null,
         direction: null,
-        previousLeftValue: null,
-        nextButtonShow: null,
-        previousButtonShow: null,
-        movePercent: null,
+        slideCounter: 0,
       }
     };
   },
   methods: {
     compareSliderChanged(sliderData) {
-      this.compareSliderData.leftValue = sliderData.left;
       this.compareSliderData.direction = sliderData.direction;
-      if (sliderData.previousLeft) {
-        this.compareSliderData.previousLeftValue = sliderData.previousLeft;
+      if (sliderData.direction === "next") {
+        this.compareSliderData.slideCounter++;
+      } else {
+        this.compareSliderData.slideCounter--;
       }
-      this.compareSliderData.nextButtonShow = sliderData.nextButtonDisplay;
-      this.compareSliderData.previousButtonShow = sliderData.previousButtonDisplay;
-
     },
     specificationSliderChanged(sliderData) {
-      this.specificationSliderData.leftValue = sliderData.left;
       this.specificationSliderData.direction = sliderData.direction;
-      if (sliderData.previousLeft) {
-        this.specificationSliderData.previousLeftValue = sliderData.previousLeft;
+      if (sliderData.direction === "next") {
+        this.specificationSliderData.slideCounter++;
+      } else {
+        this.specificationSliderData.slideCounter--;
       }
-      this.specificationSliderData.nextButtonShow = sliderData.nextButtonDisplay;
-      this.specificationSliderData.previousButtonShow = sliderData.previousButtonDisplay;
-
-
-
-      this.compareSliderData.leftValue = sliderData.left;
-      this.compareSliderData.direction = sliderData.direction;
-      if (sliderData.previousLeft) {
-        this.compareSliderData.previousLeftValue = sliderData.previousLeft;
-      }
-      this.compareSliderData.nextButtonShow = sliderData.nextButtonDisplay;
-      this.compareSliderData.previousButtonShow = sliderData.previousButtonDisplay;
-
     }
   }
 };
@@ -153,10 +109,10 @@ export default {
 
   &.compare-slider {
     min-width: toRem(965);
-    padding: 0;
+    padding: 0 toRem(24);
   }
   &.specifications {
-    padding: toRem(24) toRem(24) 0;
+    padding: toRem(24) toRem(24) toRem(48) toRem(24);
     min-width: toRem(965);
   }
 }

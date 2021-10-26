@@ -19,6 +19,7 @@ const addCamaProduct = (products) => {
 };
 
 export default {
+  layout: "removeMegaMenu",
   async asyncData({ params }) {
     const getProducts = products.response_value;
     const dataProduct = productData.response_value[0].values;
@@ -38,7 +39,6 @@ export default {
       detailTechnical: detailTechnicalData(),
     };
   },
-
   components: {
     mainComparison,
   },
