@@ -271,7 +271,6 @@ export default {
     padding: 0 16px;
   }
   .user-profile {
-    height: 62px;
     border-bottom-left-radius: 0;
     border-bottom-right-radius: 0;
     &__topic {
