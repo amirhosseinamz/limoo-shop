@@ -103,7 +103,7 @@ export default {
     }
 
     const pageContent = Object.values(this.userOrderData).length;
-    if (pageContent == 0) {
+    if (pageContent === 0) {
       this.$router.push(`/profile/my-orders/${this.currentUrl}`);
     }
   },
@@ -205,29 +205,22 @@ export default {
 }
 .order-holder {
   width: 100%;
-  /* background: $white; */
   height: max-content;
-  /* padding-bottom: 70px; */
-  border-radius: 10px;
-  /* border: 1px solid blue; */
+  border-radius: toRem(10);
 }
 .order-counter {
   @include display-flex();
   justify-content: center;
   align-items: center;
-  width: 24px;
-  height: 24px;
+  width: toRem(24);
+  height: toRem(24);
   border-radius: 50%;
   color: $red-color;
   background-color: $bg-libht__red;
-  margin-right: 5px;
-  font-size: 16px;
+  margin-right: toRem(5);
+  font-size: toRem(16);
 }
-@media (max-width: 1450px) {
-}
-@media (max-width: 1220px) {
-}
-@media (max-width: 960px) {
+@include md {
   .desktop-screen {
     display: none;
   }

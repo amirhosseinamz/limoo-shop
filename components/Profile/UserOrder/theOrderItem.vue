@@ -52,7 +52,7 @@
           </div>
         </div>
       </div>
-      <div class="complete-list" v-if="data.orders.length > 5">
+      <div class="complete-list" v-if="data.orders.length > 5" @click="goToCompleteList">
         لیست کامل ({{ data.orders.length }} عدد)
         <span class="icon"></span>
       </div>
@@ -116,6 +116,9 @@ export default {
     sliceUserOrderData(data, length) {
       return data.slice(0, length);
     },
+    goToCompleteList() {
+      this.$router.push('/profile/my-orders/delivered/complete-list');
+    }
   },
 };
 </script>
@@ -355,6 +358,16 @@ export default {
       height: toRem(90);
       @extend .centered;
       cursor: pointer;
+
+      .icon {
+        margin-right: toRem(11);
+        &::before {
+          content: "\e801";
+          @include font-icon__limoo();
+          font-size: toRem(16);
+          color: $gray-3;
+        }
+      }
     }
   }
 
@@ -460,7 +473,8 @@ export default {
 
             &::before {
               content: "\e83a";
-              font-size: toRem(16);
+              @include font-icon__limoo();
+              font-size: toRem(9);
               color: $white;
             }
           }

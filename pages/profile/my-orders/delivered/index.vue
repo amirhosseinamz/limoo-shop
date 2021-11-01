@@ -42,31 +42,31 @@ export default {
               price: "3,839,000"
             },
             {
-              id: 2,
-              title: " اپل واچ سری 2 آلومینیوم آبی اپل واچ سری 2 آلومینیوم",
-              img: "https://dkstatics-public.digikala.com/digikala-products/112556303.jpg?x-oss-process=image/resize,m_lfit,h_600,w_600/quality,q_90",
-              price: "3,839,000"
-            },
-            {
-              id: 2,
-              title: " اپل واچ سری 2 آلومینیوم آبی اپل واچ سری 2 آلومینیوم",
-              img: "https://dkstatics-public.digikala.com/digikala-products/112556303.jpg?x-oss-process=image/resize,m_lfit,h_600,w_600/quality,q_90",
-              price: "3,839,000"
-            },
-            {
-              id: 2,
-              title: " اپل واچ سری 2 آلومینیوم آبی اپل واچ سری 2 آلومینیوم",
-              img: "https://dkstatics-public.digikala.com/digikala-products/112556303.jpg?x-oss-process=image/resize,m_lfit,h_600,w_600/quality,q_90",
-              price: "3,839,000"
-            },
-            {
               id: 3,
+              title: " اپل واچ سری 2 آلومینیوم آبی اپل واچ سری 2 آلومینیوم",
+              img: "https://dkstatics-public.digikala.com/digikala-products/2000587.jpg?x-oss-process=image/resize,m_lfit,h_600,w_600/quality,q_90",
+              price: "3,839,000"
+            },
+            {
+              id: 4,
+              title: " اپل واچ سری 2 آلومینیوم آبی اپل واچ سری 2 آلومینیوم",
+              img: "https://dkstatics-public.digikala.com/digikala-products/3ae838864ed3a2ec364f28e70bf2da22def4f1fd_1619901420.jpg?x-oss-process=image/resize,m_lfit,h_600,w_600/quality,q_90",
+              price: "3,839,000"
+            },
+            {
+              id: 5,
+              title: " اپل واچ سری 2 آلومینیوم آبی اپل واچ سری 2 آلومینیوم",
+              img: "https://dkstatics-public.digikala.com/digikala-products/112556303.jpg?x-oss-process=image/resize,m_lfit,h_600,w_600/quality,q_90",
+              price: "3,839,000"
+            },
+            {
+              id: 6,
               title: "مچ بند هوشمند شیائومی مدل Mi Band 6 Global Version",
               img: "https://dkstatics-public.digikala.com/digikala-products/3ae838864ed3a2ec364f28e70bf2da22def4f1fd_1619901420.jpg?x-oss-process=image/resize,m_lfit,h_600,w_600/quality,q_90",
               price: "5,200,000"
             },
             {
-              id: 4,
+              id: 7,
               title: "ساعت هوشمند اپل واچ 3 مدل 42mm Space Aluminum Case with Sport Band",
               img: "https://dkstatics-public.digikala.com/digikala-products/2000587.jpg?x-oss-process=image/resize,m_lfit,h_600,w_600/quality,q_90",
               price: "2,598,000"
