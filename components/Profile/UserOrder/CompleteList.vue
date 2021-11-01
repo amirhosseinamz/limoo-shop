@@ -295,14 +295,6 @@ export default {
 
 <style lang="scss" scoped>
 .complete-list-container {
-  padding: toRem(135) toRem(34);
-  @include md {
-    padding: toRem(60) toRem(34);
-  }
-  @include xs {
-    padding: toRem(53) toRem(5);
-  }
-
   .order-detail {
     &.desktop {
       background-color: $white;
@@ -395,9 +387,10 @@ export default {
         grid-gap: toRem(60);
         height: toRem(84);
         padding-right: toRem(24);
+        padding-left: toRem(16);
         border-bottom: toRem(1) solid $gray-5;
 
-        @include md {
+        @include xl {
           grid-gap: toRem(20);
         }
         @include sm {
@@ -418,18 +411,25 @@ export default {
             font-size: toRem(16);
             color: $black-topic;
             white-space: nowrap;
-            @include md {
+
+            @include xl {
               font-size: toRem(14);
             }
 
 
             .icon {
               margin-left: toRem(11);
+              @include xl {
+                margin-left: toRem(8);
+              }
 
               &::before {
                 @include font-icon__limoo();
                 font-size: toRem(22);
                 color: $gray-3;
+                @include xl {
+                  font-size: toRem(19);
+                }
                 @include md {
                   font-size: toRem(18);
                 }
