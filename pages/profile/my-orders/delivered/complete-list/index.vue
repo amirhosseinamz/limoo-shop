@@ -13,6 +13,7 @@ import { getTextByTextKey } from "~/modules/splitPartJsonResource";
 
 export default {
   name: "index",
+  layout: "removeFooterMobile",
   components: { CompleteList, TheProfileSideBar },
   methods: {
     getTextByTextKey,
@@ -27,6 +28,10 @@ export default {
 .complete-list-wrapper {
   display: flex;
   flex-direction: row-reverse;
+  margin-bottom: toRem(16);
+  @include md {
+    margin-bottom: toRem(70);
+  }
   .complete-list {
     margin-top: toRem(166);
     margin-left: toRem(17);

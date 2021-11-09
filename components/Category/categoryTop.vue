@@ -5,8 +5,7 @@
         <div class="products__top-title w-100 products__top-desktop">
           <h3 class="products__top-text">موبایل اندرویدی</h3>
         </div>
-        <base-skeleton></base-skeleton>
-        <base-skeleton shape="circle"></base-skeleton>
+        <base-carousel></base-carousel>
         <div class="products__filter-btns w-100 ">
           <base-button no-box-shadow classes="products__filter-btn" @button-clicked="showBoxFilter">
             <span class="filter-search-icon"></span>
@@ -68,12 +67,14 @@ import buttonFilter from "~/components/UI/buttonFilter";
 import Button from "~/components/UI/Button";
 import ModalFilter from "./modalFilter";
 import ModalSort from "./modalSort";
+import BaseCarousel from "../UI/BaseCarousel";
 
 export default {
   props: {
   },
 
   components: {
+    BaseCarousel,
     ModalSort,
     ModalFilter,
     buttonFilter,

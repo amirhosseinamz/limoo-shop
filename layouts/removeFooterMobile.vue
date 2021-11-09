@@ -55,11 +55,11 @@ body {
     background: $overlay;
 }
 .active--blur{
-  filter: blur(2px);
+  filter: blur(toRem(2));
   overflow: hidden;
 }
 
-@media (max-width: 960px) {
+@include md {
   .remove--footer{
     display: none;
   }
