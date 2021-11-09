@@ -13,7 +13,7 @@ import { getTextByTextKey } from "~/modules/splitPartJsonResource.js";
 
 export default {
   middleware: "authentication",
-
+  layout: "removeFooterMobile",
   components: {
     orderItems,
   },

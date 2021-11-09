@@ -10,7 +10,6 @@
           <div class="order-number">
             <span class="icon"></span>
             <div class="txt">
-
               سفارش
             </div>
             {{ data.orderCode }}
@@ -29,15 +28,15 @@
             {{ data.orderSituation }}
           </div>
           <div class="order-view-btn">
-            <div class="txt">
+            <div class="txt" @click="goToCompleteList">
               مشاهده سفارش
             </div>
-            <span class="icon"></span>
+            <span class="icon" @click="goToCompleteList"></span>
           </div>
         </div>
       </div>
       <div class="items">
-        <div class="item" v-for="item in sliceUserOrderData(data.orders, 5)" :key="item.id">
+        <nuxt-link :to="'/product/'+item.id" class="item" v-for="item in sliceUserOrderData(data.orders, 5)" :key="item.id">
           <div class="image">
             <img :src="item.img" :alt="item.title">
           </div>
@@ -50,7 +49,7 @@
               تومان
             </div>
           </div>
-        </div>
+        </nuxt-link>
       </div>
       <div class="complete-list" v-if="data.orders.length > 5" @click="goToCompleteList">
         لیست کامل ({{ data.orders.length }} عدد)
@@ -79,7 +78,7 @@
             <span class="icon"></span>
           </div>
         </div>
-        <div class="view-detail">
+        <div class="view-detail" @click="goToCompleteList">
           <div class="txt">
             مشاهده جزئیات
           </div>
@@ -194,6 +193,7 @@ export default {
               font-size: toRem(14);
             }
 
+
             .icon {
               margin-left: toRem(8);
 
@@ -206,6 +206,7 @@ export default {
 
           &-number {
             grid-column: 1/2;
+
 
             .txt {
               height: 100%;
@@ -242,7 +243,9 @@ export default {
 
           &-date {
             grid-column: 3/4;
-
+            @include sm {
+              display: none;
+            }
             .icon {
               &::before {
                 content: "\e804";
@@ -256,6 +259,9 @@ export default {
 
           &-situation {
             grid-column: 4/5;
+            @include sm {
+              grid-column: 3/4;
+            }
 
             .icon {
               &::before {
@@ -279,15 +285,14 @@ export default {
 
             .txt {
               height: 100%;
+              cursor: pointer;
               @extend .align-center;
-              @include sm {
-                display: none;
-              }
             }
 
             .icon {
               margin-right: toRem(10);
               padding-top: toRem(2);
+              cursor: pointer;
 
               &::before {
                 content: "\e801";
@@ -316,6 +321,7 @@ export default {
         align-items: flex-start;
         border-bottom: toRem(1) solid $gray-6;
         padding: toRem(24);
+        cursor: pointer;
 
         &:last-child {
           border: none;

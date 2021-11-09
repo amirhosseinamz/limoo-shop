@@ -1,42 +1,16 @@
 <template>
   <div class=" page__home-introduction-items">
-
-        <div class="w-100 page__home__introduction-item-slider-content home__item">
-          <img @load="complateLoadedImg()"  ref="imgCheckHieghtSlider" class="page__home__introduction__slider-pic img--display" :src="introductionProduct[0].image" alt="">
-
-              <div :style="heightSliderImg" class="page__home__introduction-slider-main main-carousel w-100">
-                      <div :style="heightSliderImg" @click="switchLink($event,data)" v-for="data in introductionProduct" :key="data.id" class="carousel-cell w-100">
-                                <div class="page__home__introduction__slider w-100">
-                                  <!-- برای دیدن لینک ها توسط کاربر گذاشته شده و در صورتی که کاربر نیاز به تغییر تب به واسطه آدرس آیتم باشد می تواند تب خود را تغییر دهد -->
-                                    <NuxtLink
-                                    class="w-100 pageHome__Slider-link"
-                                    :to=" '/' + title.sliderItemHref + '/' + data.id"
-                                    target="_blank"
-                                    >
-                                      <img  ref="imgCarouselCellSlider" class="page__home__introduction__slider-pic " :src="data.image" alt="">
-                                    </NuxtLink>
-                                </div>
-
-                                <!-- دلیل ساخت دوتا لینک فهم گوگل برای سئو  هستش -->
-
-                                <NuxtLink
-                                class="w-100 d-none"
-                                :to=" '/' + title.sliderItemHref + '/' + data.id"
-                                :id="'link--introduction' + data.id"
-                                >
-                                </NuxtLink>
-                      </div>
-              </div>
-        </div>
-
-        <NuxtLink class="w-100 h-100 introduction--link" to="/profile"  >
-          <img class="introduction__leftimg h-100" :src="leftSliderHeaderImg[0].image" alt="">
-        </NuxtLink>
-        <NuxtLink class="w-100 h-100 introduction--link" to="/profile"  >
-          <img class="introduction__leftimg h-100" :src="leftSliderHeaderImg[1].image" alt="">
-        </NuxtLink>
-
-
+    <base-carousel
+    :items-to-show="2"
+    :initial-slide="1.5"
+    :items-to-slide="2"
+    >
+      <template #slide>
+        <li class="introduction-carousel-item" v-for="item in introductionCarouselData" :key="item.id" style="width: 80%">
+          <img :src="item.img" alt="">
+        </li>
+      </template>
+    </base-carousel>
   </div>
 </template>
 
@@ -44,13 +18,6 @@
 
 
 export default {
-    components: {
-    },
-
-    props: {
-      title                  : { type: Object, default: {} },
-      leftSliderHeaderImg    : { type: [Object,Array], default: [] },
-    },
 
     data() {
       return {
@@ -94,32 +61,14 @@ export default {
     computed: {
       introductionProduct() {
         return this.$store.getters["home/home/introductionProduct"];
-      }
+      },
+      introductionCarouselData() {
+        return this.$store.getters["home/home/introductionCarouselData"];
+      },
     },
 
     mounted() {
       this.createSizeImg();
-      this.getOptionSLider();
-
-      this.slider.on( 'staticClick', ( event, pointer, cellElement, cellIndex ) =>{
-          this.introductionProduct.map((content,indexSlider)=>{
-              if (indexSlider === cellIndex) {
-                  const linkCurrentItem = document.getElementById(`link--introduction${content.id}`);
-                  linkCurrentItem.click();
-                  // دلیل تغییر این قسمت به خاطر فهم گوگل برای سئو هستش //
-              }
-          })
-      });
-
-      // this.detectedResizeBrowser();
-      // this.updateSliderImg();
-      // this.updateSliderLeftTopImg();
-      //
-      // if (this.introductionProduct.length != 0) {
-      //   setTimeout( () =>{
-      //     this.updateHightSlider();
-      //   }, 1000);
-      // }
     },
 
     methods: {
@@ -135,23 +84,6 @@ export default {
         });
 
       },
-
-      getOptionSLider(){
-        let Flickity       = require("flickity-fade")
-        let sliderOptions  = new Flickity( '.page__home__introduction-slider-main', {
-          accessibility   : true,
-          adaptiveHeight  : true,
-          autoPlay        : false,
-          // rightToLeft     : true,
-          cellAlign       : 'right',
-          prevNextButtons : false,
-          imagesLoaded    : true,
-          fade            : true,
-        });
-
-        this.slider       = sliderOptions;
-      },
-
       switchLink(event,data){
         event.preventDefault();
       },
@@ -397,167 +329,15 @@ export default {
   .page__home-introduction-items{
     @include display-flex();
     align-items: flex-start;
-    max-height: 457px;
-    display: grid;
-    grid-auto-rows: 1fr;
-    grid-template-columns: 1fr 1fr;
-    grid-gap: 16px;
-    grid-template-rows: repeat(1,1fr);
-    grid-template-columns: 1fr 1fr 1fr;
     position: relative;
     width: 100%;
-  }
-  .page__home__introduction__slider{
-    border-radius: 12px;
-    width: 100%;
-    cursor: pointer;
-    height: toRem(460);
-    //height: 100%;
-  }
-  .page__home__introduction__slider-pic{
-    height: 100%;
-    border-radius: 12px;
-    pointer-events: none;
-    object-position: 50% 50%;
-    object-fit: cover;
-  }
-  .page__home__introduction-item-slider-content {
-    // width: 61.7%;
-    height: 460px;
-    grid-column: 1/span 2;
-    grid-row: 1/span 2;
-    position: relative;
-  }
-  .introduction__left{
-    @include display-flex();
-    align-items: flex-start;
-    width: 514px;
-    flex-flow: column;
-    margin-right: 19px;
-  }
-  .introduction__leftitem2{
-    // height: 294px;
-  }
-  .introduction__leftitem{
-    // height: 150px;
-    // margin-bottom: 16px;
-  }
-  .introduction__leftimg{
-    border-radius: 12px;
-    height: 100%;
-    width: 100%;
-    // object-position: 50% 50%;
-    // object-fit: cover;
-  }
-  .carousel-cell {
-    width: 100%;
-  }
-  .pageHome__Slider-link{
-    height: 100%;
-    @include display-flex();
-    align-items: flex-start;
-  }
-  .introduction--link{
-    @include display-flex();
-    position: relative;
-    align-items: flex-start;
-  }
-  .img--display{
-    opacity: 0;
-    pointer-events: none;
-    position: absolute;
-    height: 100%;
-    right: 0;
-    left:0;
-    margin-right: auto;
-    margin-left: auto;
-    width: 100%;
-  }
 
-  @media (max-width: 1330px) {
-
-  }
-
-  @media (max-width: 1220px) {
-    .page__home-introduction-items{
-      height: 336px;
-    }
-    .page__home__introduction-item-slider-content{
-      height: 336px;
-    }
-    .page__home__introduction__slider{
-      height: 336px;
-    }
-    .page__home-introduction-items{
-      grid-template-columns: 1fr 1fr 1fr;
+    .introduction-carousel-item {
+      img {
+        border-radius: toRem(15);height: 300px;
+      }
     }
   }
-
-  @media (max-width: 960px) {
-    .page__home-introduction-items{
-      max-width: auto;
-      height: auto;
-    }
-    .page__home__introduction-item-slider-content{
-      max-width: auto;
-      height: auto;
-    }
-
-  }
-
-
-  @media (max-width: 960px) {
-    .introduction__left{
-      display: none;
-    }
-    .carousel-cell{
-      width: 100%;
-    }
-    .page__home__introduction__slider-pic{
-      height: 100%;
-      width: 100%;
-    }
-    .introduction--link{
-      display: none;
-    }
-    .page__home-introduction-items{
-      display: grid;
-      grid-auto-rows: 1fr;
-      grid-template-columns: 1fr 1fr;
-      grid-template-rows: repeat(1,1fr);
-    }
-    .page__home__introduction__slider{
-      height: auto;
-    }
-    .page__home__introduction-item-slider-content{
-      width: 100%;
-      height: auto;
-    }
-    .img--display{
-      height: auto;
-    }
-
-  }
-
-  @media (max-width: 600px) {
-
-  }
-
-  @media (max-width: 460px) {
-    .page__home__introduction__slider{
-      height: auto;
-    }
-  }
-
-  @media (max-width: 420px) {
-
-  }
-
-  @media (max-width: 280px) {
-
-  }
-
-
 
 
 
