@@ -17,6 +17,7 @@
 
 // Modal Animations
 
+
 @mixin phone-modal-animation() {
   .phone-enter-active {
     animation: modalOpen 0.6s linear;

@@ -184,45 +184,45 @@ export default {
   created() {
     let curentRoute = this.$route.path;
     // console.log(curentRoute);
-    if (curentRoute == "/profile" || curentRoute == "/profile/") {
+    if (curentRoute === "/profile" || curentRoute === "/profile/") {
       this.profileIsActive = true;
     } else if (
-      curentRoute == "/profile/personal-info" ||
-      curentRoute == "/profile/personal-info/"
+      curentRoute === "/profile/personal-info" ||
+      curentRoute === "/profile/personal-info/"
     ) {
       this.personalInfoIsActive = true;
     } else if (
-      curentRoute == "/profile/favorites" ||
-      curentRoute == "/profile/favorites/"
+      curentRoute === "/profile/favorites" ||
+      curentRoute === "/profile/favorites/"
     ) {
       this.favoriteActive = true;
     } else if (
-      curentRoute == "/profile/adresses" ||
-      curentRoute == "/profile/adresses/"
+      curentRoute === "/profile/adresses" ||
+      curentRoute === "/profile/adresses/"
     ) {
       this.adressActive = true;
     } else if (
-      curentRoute == "/profile/user-history" ||
-      curentRoute == "/profile/user-history/"
+      curentRoute === "/profile/user-history" ||
+      curentRoute === "/profile/user-history/"
     ) {
       this.userHistoryIsActive = true;
-    } else if (curentRoute.search("/profile/my-orders/") == 0) {
+    } else if (curentRoute.search("/profile/my-orders/") === 0) {
       this.OrdersIsActive = true;
     } else if (
-      curentRoute == "/profile/comments" ||
-      curentRoute == "/profile/comments/"
+      curentRoute === "/profile/comments" ||
+      curentRoute === "/profile/comments/"
     ) {
       this.commentsIsActive = true;
     } else if (
-      curentRoute == "/profile/support/ticket" ||
-      curentRoute == "/profile/support/ticket/" ||
-      curentRoute == "/profile/support/faq" ||
-      curentRoute == "/profile/support/faq/"
+      curentRoute === "/profile/support/ticket" ||
+      curentRoute === "/profile/support/ticket/" ||
+      curentRoute === "/profile/support/faq" ||
+      curentRoute === "/profile/support/faq/"
     ) {
       this.supportIsActive = true;
-    } else if (curentRoute == "/profile/favorites") {
+    } else if (curentRoute === "/profile/favorites") {
       this.favoriteActive = true;
-    } else if (curentRoute == "/profile/adresses") {
+    } else if (curentRoute === "/profile/adresses") {
       this.adressActive = true;
     }
   },
@@ -267,18 +267,14 @@ export default {
 </script>
 <style lang="scss" scoped>
 .container {
-  margin: 166px 16px 50px 30px;
+  margin: toRem(166) toRem(16) toRem(50) toRem(30);
   width: 100%;
-  max-width: 329px;
+  max-width: toRem(329);
   min-height: min-content;
   height: max-content;
   @include display-flex();
   flex-direction: column;
   justify-content: flex-start;
-  /* align-items: center;
-    /* align-items: flex-end; */
-  /* text-align: center; */
-  /* border: 3px solid red; */
 }
 .link-item__activated {
   color: $yellow !important;
