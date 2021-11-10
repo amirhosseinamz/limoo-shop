@@ -1,24 +1,40 @@
 <template>
   <div class=" page__home-introduction-items">
-    <base-carousel
-    :items-to-show="1.25"
-    :center-mode="true"
-    :infinite-scroll="true"
-    class="introduction-carousel"
-    >
-      <template #slide>
-        <li class="introduction-carousel-item" v-for="item in introductionCarouselData" :key="item.id" :style="{ backgroundImage: `url('${item.img}')` }">
+<!--    <base-carousel-->
+<!--    :items-to-show="1.25"-->
+<!--    :center-mode="true"-->
+<!--    :infinite-scroll="true"-->
+<!--    class="introduction-carousel"-->
+<!--    >-->
+<!--      <template #slide>-->
+<!--        <li class="introduction-carousel-item" v-for="item in introductionCarouselData" :key="item.id" :style="{ backgroundImage: `url('${item.img}')` }">-->
 
-        </li>
-      </template>
-    </base-carousel>
+<!--        </li>-->
+<!--      </template>-->
+<!--    </base-carousel>-->
+
+      <hooper ref="carousel" :infiniteScroll="true" :vertical="false" :itemsToShow="3" :center-mode="true" :rtl="true">
+        <slide v-for="item in introductionCarouselData" :key="item.id">
+          <img :src="item.img" alt="">
+<!--          <li class="introduction-carousel-item"  :style="{ backgroundImage: `url('${item.img}')` }">-->
+
+<!--          </li>-->
+        </slide>
+      </hooper>
   </div>
 </template>
 
 <script>
 
+import {Hooper, Slide} from "hooper";
+import 'hooper/dist/hooper.css';
 
 export default {
+
+  components: {
+    Hooper,
+    Slide,
+  },
 
     data() {
       return {
@@ -338,11 +354,20 @@ export default {
       width: 100%;
     }
     .introduction-carousel-item {
-      background-size: contain;
+      background-size: cover;
       background-repeat: no-repeat;
       width: toRem(600);
       height: toRem(300);
     }
+
+    img {
+      width: 100%;
+      height: 100%;
+    }
+  }
+
+  .hooper-slide {
+    padding: 10px;
   }
 
 

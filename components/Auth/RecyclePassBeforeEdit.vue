@@ -65,6 +65,7 @@
 
 <script>
 import { getTextByTextKey } from "~/modules/splitPartJsonResource.js";
+import textInput from "../UI/textInput";
 
 export default {
   data() {
