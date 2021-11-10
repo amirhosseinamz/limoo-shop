@@ -61,7 +61,15 @@ const state = () => ({
     {
       id: 4,
       img: "https://dkstatics-public.digikala.com/digikala-adservice-banners/53323e6f05e2d5d120991365e0c13d5faef880d9_1636182730.jpg?x-oss-process=image/quality,q_80"
-    }
+    },
+    {
+      id: 5,
+      img: "https://dkstatics-public.digikala.com/digikala-adservice-banners/32cc74ebc5343cdc4c45319e59b63b02ac046036_1636267114.jpg?x-oss-process=image/quality,q_80"
+    },
+    {
+      id: 6,
+      img: "https://dkstatics-public.digikala.com/digikala-adservice-banners/53323e6f05e2d5d120991365e0c13d5faef880d9_1636182730.jpg?x-oss-process=image/quality,q_80"
+    },
   ],
   allCategory: [
     {
