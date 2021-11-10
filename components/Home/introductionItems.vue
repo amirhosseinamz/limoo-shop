@@ -1,13 +1,14 @@
 <template>
   <div class=" page__home-introduction-items">
     <base-carousel
-    :items-to-show="2"
-    :initial-slide="1.5"
-    :items-to-slide="2"
+    :items-to-show="1.25"
+    :center-mode="true"
+    :infinite-scroll="true"
+    class="introduction-carousel"
     >
       <template #slide>
-        <li class="introduction-carousel-item" v-for="item in introductionCarouselData" :key="item.id" style="width: 80%">
-          <img :src="item.img" alt="">
+        <li class="introduction-carousel-item" v-for="item in introductionCarouselData" :key="item.id" :style="{ backgroundImage: `url('${item.img}')` }">
+
         </li>
       </template>
     </base-carousel>
@@ -332,10 +333,15 @@ export default {
     position: relative;
     width: 100%;
 
+    .introduction-carousel {
+      height: toRem(300);
+      width: 100%;
+    }
     .introduction-carousel-item {
-      img {
-        border-radius: toRem(15);height: 300px;
-      }
+      background-size: contain;
+      background-repeat: no-repeat;
+      width: toRem(600);
+      height: toRem(300);
     }
   }
 

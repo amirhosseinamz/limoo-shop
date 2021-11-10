@@ -55,9 +55,19 @@ export default {
       default: false,
       type: Boolean
     },
+    // control infinite scrolling mode
+    infiniteScroll: {
+      default: false,
+      type: Boolean
+    },
     // enable any move to commit a slide
     shortDrag: {
       default: true,
+      type: Boolean
+    },
+    // remove empty space around slides
+    trimWhiteSpace: {
+      default: false,
       type: Boolean
     },
     directionLtr: {
@@ -87,7 +97,6 @@ export default {
       trimStart: 0,
       trimEnd: 1,
       timer: null,
-      //infiniteScroll: false,
       showPrevButton: true,
       showNextButton: true,
     };
@@ -100,15 +109,17 @@ export default {
       return '';
     },
     trackTransform() {
+      const infiniteScroll = this.infiniteScroll;
       const centerMode = this.centerMode;
       const direction = this.directionLtr ? 1 : -1;
       const slideLength = this.slideWidth;
       const containerLength = this.containerWidth;
       const dragDelta = this.delta.x;
+      const clonesSpace = !infiniteScroll ? slideLength * this.slidesCount : 0;
       const centeringSpace = centerMode ? (containerLength - slideLength) / 2 : 0;
 
       // calculate track translate
-      const translate = dragDelta + direction * (centeringSpace - this.currentSlide * slideLength);
+      const translate = dragDelta + direction * (centeringSpace - clonesSpace - this.currentSlide * slideLength);
       return `transform: translate(${translate}px, 0);`;
     },
   },
@@ -146,15 +157,18 @@ export default {
       if (this.isSliding || slideIndex === this.currentSlide) {
         return;
       }
-      //const sliderSlidesLength = Math.ceil(this.slidesCount / this.itemsToShow);
 
       this.$emit('beforeSlide', {
         currentSlide: this.currentSlide,
         slideTo: index
       });
 
+
+      const infiniteScroll = this.infiniteScroll;
       const previousSlide = this.currentSlide;
-      const index = this.getInRange(slideIndex, this.trimStart, this.slidesCount - this.trimEnd);
+      const index = !infiniteScroll
+        ? slideIndex
+        : this.getInRange(slideIndex, this.trimStart, this.slidesCount - this.trimEnd);
 
       // Notify others if in a group and is the slide event initiator.
       // if (this.group && isSource) {
@@ -181,19 +195,22 @@ export default {
       this.slideTo(this.currentSlide - this.itemsToSlide);
     },
     updateWidth() {
-      const rect = this.$refs.sliderList.getBoundingClientRect();
+      const rect = this.$refs.sliderWrapper.getBoundingClientRect();
       this.containerWidth = rect.width;
       this.containerHeight = rect.height;
       this.slideWidth = this.containerWidth / this.itemsToShow;
+
     },
     updateTrim() {
       const itemsToShow = this.itemsToShow;
       const centerMode = this.centerMode;
-      // if (!trimWhiteSpace || infiniteScroll) {
-      //   this.trimStart = 0;
-      //   this.trimEnd = 1;
-      //   return;
-      // }
+      const infiniteScroll = this.infiniteScroll;
+      const trimWhiteSpace = this.trimWhiteSpace;
+      if (!trimWhiteSpace || infiniteScroll) {
+        this.trimStart = 0;
+        this.trimEnd = 1;
+        return;
+      }
       this.trimStart = centerMode ? Math.floor((itemsToShow - 1) / 2) : 0;
       this.trimEnd = centerMode ? Math.ceil(itemsToShow / 2) : itemsToShow;
     },
@@ -304,11 +321,16 @@ export default {
         slideWidth: this.slideWidth,
       });
     },
+    restart() {
+      this.$nextTick(() => {
+        this.update();
+      });
+    },
   },
   mounted() {
     window.addEventListener("resize", this.handleResize);
     this.handleResize();
-    this.initEvents()
+    this.initEvents();
     this.slidesCount = this.$refs.sliderList.querySelectorAll('.introduction-carousel-item').length;
     //this.addGroupListeners();
     this.$nextTick(() => {
@@ -326,10 +348,8 @@ export default {
 <style lang="scss" scoped>
 
 .compare-slider-container {
-  width: 100%;
-  height: toRem(340);
-  //min-width: toRem(965);
   position: relative;
+  width: 100%;
 
   .slider-wrapper {
     width: 100%;
@@ -342,10 +362,10 @@ export default {
 
     .slider-list {
       @extend .d-flex;
-      width: 100%;
       left: 0;
       position: absolute;
       list-style: none;
+      //width: 100%;
     }
   }
 
