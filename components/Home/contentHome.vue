@@ -2,11 +2,7 @@
   <div class="w-100 page__home-wrapper-main">
     <div class="page__home-introduction-main w-100">
 
-      <introduction-items
-        :title="{sliderItemHref:'category' }"
-        :left-slider-header-img="leftSliderHeaderImg"
-
-      ></introduction-items>
+      <introduction-items></introduction-items>
 
       <product-content
         :status-show-counter-down="true"
@@ -146,7 +142,6 @@ import { getTextByTextKey } from "~/modules/splitPartJsonResource.js";
 
 export default {
   props: {
-    leftSliderHeaderImg: { type: [Object, Array], default: [] },
     bannerCategory: { type: [Object, Array], default: [] },
     bannerVerticalProduct: { type: [Object, Array], default: [] },
     bannerBlog: { type: [Object, Array], default: [] },

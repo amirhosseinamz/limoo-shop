@@ -14,7 +14,6 @@
       </div>
       <content-home
         :key="updateProduct"
-        :left-slider-header-img="leftSliderHeaderImg"
         :banner-category="bannerCategory"
         :banner-vertical-product="bannerVerticalProduct"
         :banner-blog="bannerBlog"
@@ -37,16 +36,6 @@ export default {
     data() {
         return {
           updateProduct                  : 0,
-          leftSliderHeaderImg            : [
-              {
-                image : '',
-                id    : 1,
-              },
-              {
-                image : '',
-                id    : 2,
-              },
-          ],
           bannerCategory                 : [
               {
                 image : '',

@@ -353,13 +353,11 @@ export default {
   width: 100%;
   min-height: 100vh;
   height: max-content;
-  /* border: 5px solid #2f0404; */
 }
 
 .user-info__profile__imgholder-default {
   width: 140px;
   height: 140px;
-  /* border: 1px solid red; */
   border-radius: 50%;
   background-color: $gray-border;
 }
@@ -370,27 +368,24 @@ export default {
 }
 .user-profile {
   width: 100%;
-
+  padding: 0 toRem(24);
   height: max-content;
   @include display-flex();
   flex-direction: column;
-  /* justify-content: center; */
   align-items: center;
   text-align: center;
   background: $white;
   border-radius: 10px;
-  box-shadow: 0px 8px 16px $box__shadow;
-  /* border: 1px solid #f00808; */
+  box-shadow: 0 toRem(8) toRem(16) $box__shadow;
   &__topic {
-    font-size: 18px;
+    font-size: toRem(18);
     line-height: 140.62%;
     color: $black-topic;
     align-self: flex-end;
-    margin-top: 23px;
-    margin-right: 25px;
+    margin-top: toRem(23);
+    margin-right: toRem(25);
   }
   &__userpic {
-    /* border: 1px solid gray; */
     @include display-flex();
     flex-direction: column;
     align-items: center;
@@ -399,33 +394,58 @@ export default {
     width: 162px;
   }
   &__info {
-    @include display-flex();
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    /* border: 0.1px solid red; */
-    margin: 0 auto;
-    margin-top: 50px;
-    min-height: 395px;
-    height: max-content;
-    min-width: 700px;
-    max-width: 875px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+    grid-column-gap: toRem(90);
+    grid-row-gap: toRem(42);
+    margin-top: toRem(92);
+    width: 100%;
+    @include xl {
+      grid-column-gap: toRem(32);
+      width: 90%;
+    }
     &-name,
-    &-email,
     &-phone,
     &-birthday,
     &-nationalcode,
     &-pass {
-      width: 390px;
+      width: 100%;
       height: 100px;
-      /* background: rgb(220, 232, 228); */
-      /* border: 0.1px solid red; */
+      @include xl {
+        //max-width: 90%;
+      }
     }
     &-name {
+      grid-column: 1/2;
+      grid-row: 1/2;
       background: $white;
       @include display-flex();
       flex-direction: row;
       justify-content: space-between;
+      .name {
+        margin-left: toRem(24);
+        width: 45%;
+      }
+      .family {
+        width: 55%;
+      }
+    }
+    &-phone {
+      grid-column: 2/3;
+      grid-row: 1/2;
+    }
+    &-birthday {
+      grid-column: 1/2;
+      grid-row: 2/3;
+    }
+    &-nationalcode {
+      grid-column: 2/3;
+      grid-row: 2/3;
+    }
+    &-pass {
+      grid-column: 1/2;
+      grid-row: 3/4;
     }
   }
   &__alert {
@@ -501,7 +521,7 @@ export default {
   display: none;
 }
 
-@media (max-width: 1450px) {
+@include xxxs {
   .user-profile {
     &__info {
       &-name,
@@ -516,27 +536,21 @@ export default {
     &__container {
       padding: 0 50px;
     }
-    @mixin name {
+    #name {
       width: 137px;
     }
-    @mixin family {
+    #family {
       width: 178px;
     }
-    #name {
-      @include name;
-    }
-    #family {
-      @include family;
-    }
     .name::v-deep {
-      @include name;
+      width: 137px;
     }
     .family::v-deep {
-      @include family;
+      width: 178px;
     }
   }
 }
-@include xl {
+@include xxxs {
   .user-profile {
     &__info {
       @include display-flex();

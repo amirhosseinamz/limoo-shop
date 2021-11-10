@@ -14,7 +14,7 @@
           </span>
             دریافت فاکتور
           </div>
-          <div class="back-btn">
+          <div class="back-btn" @click="goBack()">
             <span class="icon"></span>
           </div>
         </div>
@@ -34,13 +34,14 @@
           <span class="icon"></span>
           <div class="title">مبلغ پرداخت شده:</div>
           850,000
+          تومان
         </div>
       </div>
       <div class="more-info">
         <div class="order-delivered-person">
           <span class="icon"></span>
           <div class="title">تحویل گیرنده:</div>
-          شروین پیکارجو
+          امیرحسین آموزگار
         </div>
         <div class="order-address">
           <span class="icon"></span>
@@ -72,6 +73,7 @@
           <span class="icon"></span>
           <div class="title">مبلغ کل واریز شده:</div>
           4,250,000
+          تومان
         </div>
         <div class="order-date">
           <span class="icon"></span>
@@ -128,7 +130,7 @@
             </div>
           </div>
           <div class="items">
-            <div class="item">
+            <nuxt-link to="/product/1" class="item">
               <div class="item-information">
                 <div class="image">
                   <img
@@ -167,9 +169,9 @@
                   <situation-badge situation="delivered"></situation-badge>
                 </div>
               </div>
-            </div>
+            </nuxt-link>
 
-            <div class="item">
+            <nuxt-link to="/product/2" class="item">
               <div class="item-information">
                 <div class="image">
                   <img
@@ -208,7 +210,7 @@
                   <situation-badge situation="delivered"></situation-badge>
                 </div>
               </div>
-            </div>
+            </nuxt-link>
           </div>
         </div>
       </div>
@@ -290,6 +292,11 @@ import SituationBadge from "./SituationBadge";
 export default {
   name: "CompleteList",
   components: { SituationBadge },
+  methods: {
+    goBack() {
+      this.$router.back();
+    }
+  }
 };
 </script>
 
@@ -309,11 +316,11 @@ export default {
       .header {
         height: toRem(96);
         width: 100%;
-        padding: toRem(16) toRem(24);
+        padding: toRem(16) toRem(24) toRem(16) 0;
         border-bottom: toRem(1) solid $gray-5;
         @extend .align-center;
         @include sm {
-          padding: toRem(16) toRem(16);
+          padding: toRem(16) toRem(16) toRem(16) 0;
         }
 
         &-content {
@@ -365,14 +372,16 @@ export default {
             margin-right: auto;
             height: 100%;
             @extend .align-center;
+            cursor: pointer;
 
             .icon {
-              padding-right: toRem(26);
+              padding-right: toRem(27);
+              padding-left: toRem(38);
 
               &::before {
                 content: "\e801";
                 @include font-icon__limoo();
-                font-size: toRem(20);
+                font-size: toRem(22);
                 color: $gray-3;
               }
             }
@@ -702,7 +711,7 @@ export default {
         box-shadow: 0 toRem(8) toRem(16) 0 $color-box-shadow;
         border-radius: toRem(10);
         width: 100%;
-        padding: toRem(24) toRem(16) toRem(24) toRem(16);
+        padding: toRem(24) toRem(20) toRem(24) toRem(35);
 
         .order-box {
           border: toRem(1) solid $gray-6;
@@ -964,9 +973,9 @@ export default {
                 .badge {
                   position: absolute;
                   left: 0;
-                  bottom: toRem(25);
-                  @include md {
-                    bottom: toRem(35);
+                  bottom: toRem(36);
+                  @include sm {
+                    bottom: toRem(55);
                   }
                 }
               }

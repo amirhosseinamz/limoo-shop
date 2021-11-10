@@ -19,7 +19,9 @@
     "core-js": "^3.6.5",
     "firebase": "^8.1.2",
     "flickity": "2.2.2",
+    "flickity-as-nav-for": "2.0.1",
     "flickity-fade": "1.0.0",
+    "hooper": "^0.3.4",
     "javascript-time-ago": "2.3.4",
     "js-cookie": "^2.2.1",
     "moment-jalaali": "0.9.2",
@@ -29,13 +31,12 @@
     "vue-flickity": "^1.2.1",
     "vue-form-wizard": "^0.8.4",
     "vue-infinite-loading": "2.4.5",
+    "vue-native-scroll": "^2.0.0-beta",
     "vue-slider-component": "3.2.11",
     "vue-star-rating": "^2.1.0",
     "vue-stickykit": "1.0.6",
     "vuejs-paginate": "2.1.0",
-    "vuex-persistedstate": "^4.0.0-beta.3",
-    "vue-native-scroll": "^2.0.0-beta",
-    "flickity-as-nav-for": "2.0.1"
+    "vuex-persistedstate": "^4.0.0-beta.3"
   },
   "devDependencies": {
     "@nuxtjs/style-resources": "^1.0.0",

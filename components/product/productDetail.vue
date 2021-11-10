@@ -35,7 +35,7 @@ export default {
 
     watch: {
       productData(data){
-        const detailProduct = data.response_value.[0].values.attribute_groups[0].group_attribute.top.data;
+        const detailProduct = data.response_value[0].values.attribute_groups[0].group_attribute.top.data;
         this.detailProduct  = detailProduct;
         this.productSeparateThree();
       }
