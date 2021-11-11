@@ -229,7 +229,7 @@ export default {
 .page-home{
   @include display-flex();
   align-items: flex-start;
-  width: 1381px;
+  width: 100%;
   margin-right: auto;
   margin-left: auto;
 }

@@ -13,7 +13,7 @@
     <!--      </template>-->
     <!--    </base-carousel>-->
 
-    <hooper ref="carousel" :infiniteScroll="true" :vertical="false" :itemsToShow="carouselItemsToShow" :center-mode="true" :rtl="true" :wheel-control="false">
+    <hooper ref="carousel" :auto-play="true" :play-speed="5000" :infiniteScroll="true" :vertical="false" :items-to-show="2" :center-mode="true" :rtl="true" :wheel-control="false">
       <slide class="introduction-carousel-item" v-for="item in introductionCarouselData" :key="item.id">
         <img :src="item.img" alt="" draggable="false">
       </slide>
@@ -47,28 +47,26 @@ export default {
     introductionCarouselData() {
       return this.$store.getters["home/home/introductionCarouselData"];
     },
-    carouselItemsToShow() {
+    itemsToShow() {
       if (this.windowWidth > 520) {
-        return 1.25;
+        return 2;
       } else {
-        return 1.1;
+        return 1.25;
       }
     }
   },
-
   mounted() {
     window.addEventListener('resize', this.handleResize);
     this.handleResize();
-    console.log(this.carouselItemsToShow);
   },
 
   methods: {
     slideCarousel(e) {
       e.preventDefault();
     },
-   handleResize() {
-      this.windowWidth = window.innerWidth;
-   }
+     handleResize() {
+        this.windowWidth = window.innerWidth;
+     }
   },
 
 };
@@ -80,8 +78,13 @@ export default {
   @include display-flex();
   align-items: flex-start;
   position: relative;
-  width: 100%;
+  margin-left: -5%;
+  margin-right: -5.2%;
   height: auto;
+  @include xs {
+    margin-left: -5.7%;
+    margin-right: -5.9%;
+  }
 
   .introduction-carousel {
     width: 100%;
@@ -93,8 +96,11 @@ export default {
       height: 100%;
       .hooper-slide {
         padding: toRem(10);
-        @include xs {
+        @include sm {
           padding: toRem(5);
+        }
+        @include xs {
+          padding: toRem(3);
         }
         @include xxs {
           padding: toRem(2);
@@ -107,6 +113,9 @@ export default {
     .hooper-pagination {
       position: absolute;
       bottom: toRem(15);
+      @include xs {
+        bottom: toRem(20);
+      }
       .hooper-indicators {
         .hooper-indicator {
           width: toRem(10);
