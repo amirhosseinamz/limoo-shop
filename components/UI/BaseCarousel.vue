@@ -1,13 +1,26 @@
 <template>
-  <div class="compare-slider-container">
+  <div class="base-carousel-container" :class="{ 'd-rtl': rtl }">
     <div class="previous-btn" @click="slidePrev" v-if="true">
       <span class="icon"></span>
     </div>
     <div class="slider-wrapper" ref="sliderWrapper">
       <ul class="slider-list" ref="sliderList"
           :style="trackTransform+' '+trackTransition"
+          :class="{ 'd-rtl': rtl }"
           draggable="true">
-        <slot name="slide"></slot>
+<!--        <slot name="slide" :class="{ 'is-active': isActive }" :aria-hidden="!isActive"></slot>-->
+        <li class="item"  v-for="item in sliderProductsData" :key="item.id" :style="{ width: slideWidth+'px' }">
+          <div class="item-image-wrapper">
+            <img :src="item.image" alt="Image">
+          </div>
+          <div class="item-name">
+            {{ item.title }}
+          </div>
+          <div class="item-price">
+            {{ item.realPrice }}
+            تومان
+          </div>
+        </li>
       </ul>
     </div>
 
@@ -21,10 +34,6 @@
 export default {
   name: "BaseCarousel",
   props: {
-    moveDirection: {
-      type: String,
-      require: false,
-    },
     // toggle mouse dragging
     mouseDrag: {
       default: true,
@@ -37,7 +46,7 @@ export default {
     },
     // index number of initial slide
     initialSlide: {
-      default: 1,
+      default: 0,
       type: Number
     },
     // count of items to slide when use navigation buttons
@@ -67,13 +76,13 @@ export default {
     },
     // remove empty space around slides
     trimWhiteSpace: {
-      default: false,
+      default: true,
       type: Boolean
     },
-    directionLtr: {
+    rtl: {
       type: Boolean,
       require: false,
-      default: false,
+      default: true,
     },
 
   },
@@ -102,6 +111,28 @@ export default {
     };
   },
   computed: {
+    sliderProductsData() {
+      return this.$store.getters["comparison/comparison/sliderProductsData"];
+    },
+    slideBounds() {
+      // Because the "isActive" depends on the slides shown, not the number of slidable ones.
+      // but upper and lower bounds for Next,Prev depend on whatever is smaller.
+      const siblings = this.itemsToShow;
+      const lower = this.centerMode ? Math.ceil(this.currentSlide - siblings / 2) : this.currentSlide;
+      const upper = this.centerMode
+        ? Math.floor(this.currentSlide + siblings / 2)
+        : Math.floor(this.currentSlide + siblings - 1);
+
+      return {
+        lower,
+        upper
+      };
+    },
+    isActive() {
+      const { upper, lower } = this.slideBounds;
+
+      return this.index >= lower && this.index <= upper;
+    },
     trackTransition() {
       if (this.initialized && this.isSliding) {
         return `transition: ${this.transition}ms`;
@@ -111,11 +142,11 @@ export default {
     trackTransform() {
       const infiniteScroll = this.infiniteScroll;
       const centerMode = this.centerMode;
-      const direction = this.directionLtr ? 1 : -1;
+      const direction = this.rtl ? -1 : 1;
       const slideLength = this.slideWidth;
       const containerLength = this.containerWidth;
       const dragDelta = this.delta.x;
-      const clonesSpace = !infiniteScroll ? slideLength * this.slidesCount : 0;
+      const clonesSpace = infiniteScroll ? slideLength * this.slidesCount : 0;
       const centeringSpace = centerMode ? (containerLength - slideLength) / 2 : 0;
 
       // calculate track translate
@@ -126,13 +157,13 @@ export default {
   methods: {
     initEvents() {
       // get the element direction if not explicitly set
-      // if (this.defaults.rtl === null) {
-      //   this.defaults.rtl = getComputedStyle(this.$el).direction === 'rtl';
-      // }
+      if (this.rtl === null) {
+        this.rtl = getComputedStyle(this.$el).direction === 'rtl';
+      }
 
-      // if (this.autoPlay) {
-      //   this.initAutoPlay();
-      // }
+      if (this.autoPlay) {
+        this.initAutoPlay();
+      }
       if (this.mouseDrag) {
         this.$refs.sliderList.addEventListener('mousedown', this.onDragStart);
       }
@@ -163,10 +194,9 @@ export default {
         slideTo: index
       });
 
-
       const infiniteScroll = this.infiniteScroll;
       const previousSlide = this.currentSlide;
-      const index = !infiniteScroll
+      const index = infiniteScroll
         ? slideIndex
         : this.getInRange(slideIndex, this.trimStart, this.slidesCount - this.trimEnd);
 
@@ -199,7 +229,6 @@ export default {
       this.containerWidth = rect.width;
       this.containerHeight = rect.height;
       this.slideWidth = this.containerWidth / this.itemsToShow;
-
     },
     updateTrim() {
       const itemsToShow = this.itemsToShow;
@@ -228,17 +257,6 @@ export default {
       }
 
       return realIndex;
-    },
-    checkPrevButton() {
-      const sliderList = this.$refs.sliderList;
-      if (!sliderList.style.left || sliderList.style.left === "0%" || +sliderList.style.left.split("%")[0] < 0) {
-        this.showPrevButton = false;
-      }
-    },
-    checkNextButton() {
-      if (this.currentSlide === this.sliderSlidesLength) {
-        this.showNextButton = false;
-      }
     },
     handleResize() {
       this.windowWidth = window.innerWidth;
@@ -287,7 +305,7 @@ export default {
       const tolerance = this.shortDrag ? 0.5 : 0.15;
       this.isDragging = false;
 
-      const direction = (this.directionLtr ? 1 : -1) * this.sign(this.delta.x);
+      const direction = (this.rtl ? -1 : 1) * this.sign(this.delta.x);
       const draggedSlides = Math.round(Math.abs(this.delta.x / this.slideWidth) + tolerance);
       this.slideTo(this.currentSlide - direction * draggedSlides);
 
@@ -295,7 +313,7 @@ export default {
       this.delta.y = 0;
       document.removeEventListener(this.isTouch ? 'touchmove' : 'mousemove', this.onDrag);
       document.removeEventListener(this.isTouch ? 'touchend' : 'mouseup', this.onDragEnd);
-      //this.restartTimer();
+      this.restartTimer();
     },
     sign(val) {
       return Math.sign(val) || this.signPoly(val);
@@ -331,8 +349,7 @@ export default {
     window.addEventListener("resize", this.handleResize);
     this.handleResize();
     this.initEvents();
-    this.slidesCount = this.$refs.sliderList.querySelectorAll('.introduction-carousel-item').length;
-    //this.addGroupListeners();
+    this.slidesCount = this.sliderProductsData.length;
     this.$nextTick(() => {
       this.update();
       this.slideTo(this.initialSlide || 0);
@@ -341,40 +358,88 @@ export default {
         this.initialized = true;
       }, this.transition);
     });
+    console.log(this.slidesCount);
   },
 };
 </script>
 
 <style lang="scss" scoped>
 
-.compare-slider-container {
+.base-carousel-container {
+  height: 300px;
+  //height: 100%;
   position: relative;
   width: 100%;
 
   .slider-wrapper {
     width: 100%;
+    height: 100%;
     @extend .align-center;
     position: relative;
     z-index: 0;
-    height: 100%;
     overflow-x: hidden;
 
 
     .slider-list {
       @extend .d-flex;
-      left: 0;
+      height: 100%;
       position: absolute;
       list-style: none;
       //width: 100%;
+
+      .item {
+        @extend .align-center;
+        justify-content: space-between;
+        padding: 0 toRem(8);
+        border-left: toRem(1) solid $gray-6;
+        flex-direction: column;
+        height: toRem(264);
+
+
+        &-image-wrapper {
+          width: 100%;
+          @extend .justify-center;
+          margin-bottom: toRem(8);
+
+          img {
+            max-height: toRem(164);
+            -webkit-user-select: none;
+            -khtml-user-select: none;
+            -moz-user-select: none;
+            -o-user-select: none;
+            user-select: none;
+            @include xs {
+              max-height: toRem(151);
+            }
+          }
+        }
+
+        &-name {
+          max-width: 70%;
+          font-size: toRem(14);
+          color: $black-topic;
+          margin: 0 auto toRem(16) auto;
+          text-align: center;
+        }
+
+        &-price {
+          font-size: toRem(16);
+          color: $gray-2;
+          text-align: center;
+        }
+      }
     }
   }
 
   .previous-btn {
     position: absolute;
     top: toRem(145);
-    right: toRem(290);
+    right: toRem(20);
     z-index: 1;
     cursor: pointer;
+    @include xs {
+      display: none;
+    }
 
     .icon {
       width: toRem(40);
@@ -400,9 +465,12 @@ export default {
   .next-btn {
     position: absolute;
     top: toRem(145);
-    left: toRem(290);
+    left: toRem(20);
     z-index: 1;
     cursor: pointer;
+    @include xs {
+      display: none;
+    }
 
     .icon {
       width: toRem(40);

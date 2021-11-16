@@ -938,8 +938,12 @@ export default {
     margin-left: toRem(16);
   }
   .theFooter-wrapper {
-    padding-right: toRem(11);
-    padding-left: toRem(11);
+    padding-right: 0;
+    padding-left: 0;
+  }
+  .theFooter {
+    padding-right: toRem(10);
+    padding-left: toRem(10);
   }
 }
 

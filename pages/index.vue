@@ -232,6 +232,8 @@ export default {
   width: 100%;
   margin-right: auto;
   margin-left: auto;
+  max-width: toRem(1380);
+
 }
 .icon-location::after {
     content: '\e817';
@@ -257,17 +259,14 @@ export default {
     width: 100%;
   }
   .page__home-wrapper-main{
-    padding-right: 26px;
-    padding-left: 26px;
+    padding-right: toRem(26);
+    padding-left: toRem(26);
   }
 
 }
 
-@media (max-width: 1220px) {
 
-}
-
-@media (max-width: 960px) {
+@include md {
     .desktop-screen {
         display: none;
     }

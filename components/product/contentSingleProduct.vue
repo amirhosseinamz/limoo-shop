@@ -37,6 +37,31 @@
     <div class="product-seller">
       <product-seller></product-seller>
     </div>
+    <div class="product-similar-carousel">
+      <div class="carousel-title">
+        <div class="name">
+          محصولات مشابه
+        </div>
+        <div class="complete-list">
+          لیست کامل محصولات
+          <span class="icon"></span>
+        </div>
+      </div>
+      <base-carousel :items-to-show="carouselItemsToShow" :items-to-slide="1" :wheel-control="false" ref="carousel">
+        <li class="similar-products-carousel-item" v-for="item in similarProductsCarouselData" :key="item.id">
+          <div class="similar-products-carousel-item-image-wrapper">
+            <img :src="item.image" alt="Image">
+          </div>
+          <div class="similar-products-carousel-item-name">
+            {{ item.title }}
+          </div>
+          <div class="similar-products-carousel-item-price">
+            {{ item.realPrice }}
+            تومان
+          </div>
+        </li>
+      </base-carousel>
+    </div>
     <div class="tab--content product__single-content w-100">
       <base-tabs
         :tabs="tabsNames"
@@ -86,7 +111,9 @@ import ProductWarranty from "./ProductWarranty";
 import ProductSpecification from "./ProductSpecification";
 import ProductActions from "./ProductActions";
 import ProductSeller from "./ProductSeller";
-
+import { Hooper, Slide, Navigation as HooperNavigation} from "hooper";
+import 'hooper/dist/hooper.css';
+import BaseCarousel from "../UI/BaseCarousel";
 
 export default {
   props: {
@@ -99,6 +126,7 @@ export default {
   },
 
   components: {
+    BaseCarousel,
     ProductSeller,
     ProductActions,
     ProductSpecification,
@@ -110,13 +138,27 @@ export default {
     productDetail,
     sliderSingleProduct,
     commentQuestionMain,
+    Hooper,
+    Slide,
+    HooperNavigation
   },
 
   data() {
     return {
       tabsNames: ["معرفی کامل محصول", "مشخصات فنی محصول"],
       selected: "معرفی کامل محصول",
-      windowWidth: 0
+      windowWidth: 0,
+      carouselSetting: {
+        vertical: false,
+        itemsToShow: 2,
+        rtl: true,
+        wheelControl: false,
+        breakpoints: {
+          960: {
+            itemsToShow: 5
+          },
+        }
+      }
     };
   },
   computed: {
@@ -125,6 +167,26 @@ export default {
         return "form";
       } else {
         return "full-screen";
+      }
+    },
+    similarProductsCarouselData() {
+      return this.$store.getters["comparison/comparison/sliderProductsData"];
+    },
+    carouselItemsToShow() {
+      if (this.windowWidth > 1366) {
+        return 5.5;
+      } else if (this.windowWidth > 1024) {
+        return 4.5;
+      } else if (this.windowWidth > 960) {
+        return 3.5;
+      } else if (this.windowWidth > 600) {
+        return 2.5;
+      } else if (this.windowWidth > 520) {
+        return 2.2;
+      } else if (this.windowWidth > 380) {
+        return 1.5;
+      } else if (this.windowWidth > 320) {
+        return 1.2;
       }
     }
   },
@@ -154,7 +216,6 @@ export default {
   mounted() {
     window.addEventListener('resize', this.handleResize);
     this.handleResize();
-    console.log(this.windowWidth);
   }
 };
 </script>
@@ -313,6 +374,82 @@ export default {
   display: none;
   @include xs {
     display: block;
+  }
+}
+.product-similar-carousel::v-deep {
+  height: toRem(419);
+  @extend .d-flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  border-radius: toRem(10);
+  background-color: $white;
+  margin: toRem(24) 0;
+  box-shadow: 0 toRem(8) toRem(16) 0 $color-box-shadow;
+
+  .carousel-title {
+    @extend .align-center;
+    justify-content: space-between;
+    height: toRem(87);
+    padding: 0 toRem(24);
+    .name {
+      font-size: toRem(18);
+      color: $black;
+    }
+    .complete-list {
+      font-size: toRem(16);
+      color: $gray-3;
+      @extend .align-center;
+      .icon {
+        margin-right: toRem(8);
+        &::before {
+          content: "\e801";
+          @include font-icon__limoo();
+          color: $gray-3;
+          font-size: toRem(13);
+        }
+      }
+    }
+  }
+
+  .hooper {
+    height: toRem(332);
+  }
+  .similar-products-carousel-item {
+    @extend .align-center;
+    justify-content: space-between;
+    padding: 0 toRem(8);
+    border-left: toRem(1) solid $gray-6;
+    flex-direction: column;
+    height: toRem(332);
+
+    &-image-wrapper {
+      width: 100%;
+      @extend .justify-center;
+      margin-bottom: toRem(8);
+
+      img {
+        max-height: toRem(164);
+        -webkit-user-select: none;
+        -khtml-user-select: none;
+        -moz-user-select: none;
+        -o-user-select: none;
+        user-select: none;
+      }
+    }
+
+    &-name {
+      max-width: 70%;
+      font-size: toRem(14);
+      color: $black-topic;
+      margin: 0 auto toRem(16) auto;
+      text-align: center;
+    }
+
+    &-price {
+      font-size: toRem(16);
+      color: $gray-2;
+      text-align: center;
+    }
   }
 }
 
