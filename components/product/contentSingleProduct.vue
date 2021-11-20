@@ -37,6 +37,54 @@
     <div class="product-seller">
       <product-seller></product-seller>
     </div>
+    <div class="product-similar-carousel-container">
+      <div class="carousel-title">
+        <div class="name desktop">
+          محصولات مشابه
+        </div>
+        <div class="name mobile">
+          محصولات پیشنهادی
+        </div>
+        <div class="complete-list desktop">
+          لیست کامل محصولات
+          <span class="icon"></span>
+        </div>
+      </div>
+      <div class="carousel-subtitle">
+        پیشنهاد به شما
+      </div>
+      <base-carousel
+        ondragstart="return false"
+        ondrag="return false"
+        class="product-similar-carousel"
+        :items-to-slide="1"
+        :items-to-show="carouselItemsToShow"
+        :wheel-control="false"
+        ref="carousel
+        ">
+        <template #default="slotProps">
+          <slide :slide-width="slotProps.slideWidth" class="similar-products-carousel-item" v-for="item in similarProductsCarouselData" :key="item.id">
+            <div class="similar-products-carousel-item-image-wrapper">
+              <img :src="item.image" alt="Image" draggable="false">
+            </div>
+            <div class="similar-products-carousel-item-name">
+              {{ item.title }}
+            </div>
+            <div class="similar-products-carousel-item-price">
+              {{ item.realPrice }}
+              تومان
+            </div>
+          </slide>
+        </template>
+      </base-carousel>
+      <div class="complete-list mobile">
+        لیست کامل محصولات
+        <span class="icon"></span>
+      </div>
+      <div class="shadow">
+
+      </div>
+    </div>
     <div class="tab--content product__single-content w-100">
       <base-tabs
         :tabs="tabsNames"
@@ -86,7 +134,8 @@ import ProductWarranty from "./ProductWarranty";
 import ProductSpecification from "./ProductSpecification";
 import ProductActions from "./ProductActions";
 import ProductSeller from "./ProductSeller";
-
+import BaseCarousel from "../UI/BaseCarousel/BaseCarousel";
+import Slide from "../UI/BaseCarousel/Slide"
 
 export default {
   props: {
@@ -99,6 +148,7 @@ export default {
   },
 
   components: {
+    BaseCarousel,
     ProductSeller,
     ProductActions,
     ProductSpecification,
@@ -110,13 +160,24 @@ export default {
     productDetail,
     sliderSingleProduct,
     commentQuestionMain,
+    Slide,
   },
 
   data() {
     return {
       tabsNames: ["معرفی کامل محصول", "مشخصات فنی محصول"],
       selected: "معرفی کامل محصول",
-      windowWidth: 0
+      windowWidth: 0,
+      carouselSetting: {
+        breakpoints: {
+          800: {
+            itemsToShow: 2,
+          },
+          1200: {
+            itemsToShow: 4,
+          }
+        }
+      },
     };
   },
   computed: {
@@ -126,11 +187,34 @@ export default {
       } else {
         return "full-screen";
       }
+    },
+    similarProductsCarouselData() {
+      return this.$store.getters["comparison/comparison/sliderProductsData"];
+    },
+    carouselItemsToShow() {
+      if (this.windowWidth > 1366) {
+        return 5.5;
+      } else if (this.windowWidth > 1024 && this.windowWidth <= 1366) {
+        return 4.5;
+      } else if (this.windowWidth > 960 && this.windowWidth <= 1024) {
+        return 3.5;
+      } else if (this.windowWidth > 600 && this.windowWidth <= 960) {
+        return 2.5;
+      } else if (this.windowWidth > 520 && this.windowWidth <= 600) {
+        return 2.2;
+      } else if (this.windowWidth > 380 && this.windowWidth <= 520) {
+        return 1.5;
+      } else if (this.windowWidth > 280 && this.windowWidth <= 380) {
+        return 1.2;
+      }
     }
   },
   methods: {
     tabChanged(val) {
       this.selected = val;
+    },
+    dragImage() {
+      return false;
     },
     activeItemSliderNav(data) {
       this.$emit("active-item-slider-nav", data);
@@ -154,7 +238,6 @@ export default {
   mounted() {
     window.addEventListener('resize', this.handleResize);
     this.handleResize();
-    console.log(this.windowWidth);
   }
 };
 </script>
@@ -313,6 +396,184 @@ export default {
   display: none;
   @include xs {
     display: block;
+  }
+}
+.product-similar-carousel-container::v-deep {
+  height: toRem(419);
+  @extend .d-flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  border-radius: toRem(10);
+  background-color: $white;
+  margin: toRem(24) 0;
+  box-shadow: 0 toRem(8) toRem(16) 0 $color-box-shadow;
+  position: relative;
+  @include xs {
+    height: auto;
+  }
+
+  .next-btn {
+    &.is-disabled {
+      display: none;
+    }
+  }
+  .previous-btn {
+    &.is-disabled {
+      display: none;
+    }
+  }
+
+  .carousel-title {
+    @extend .align-center;
+    justify-content: space-between;
+    height: toRem(87);
+    padding: 0 toRem(24);
+    @include xs {
+      height: toRem(60);
+    }
+    .name {
+      font-size: toRem(18);
+      color: $black;
+      @include sm {
+        font-size: toRem(16);
+      }
+      &.desktop {
+        @include xs {
+          display: none;
+        }
+      }
+      &.mobile {
+        display: none;
+        @include xs {
+          display: block;
+        }
+      }
+    }
+    .complete-list {
+      &.desktop {
+        @include xs {
+          display: none;
+        }
+        font-size: toRem(16);
+        color: $gray-3;
+        @extend .align-center;
+        @include sm {
+          font-size: toRem(14);
+          .icon {
+            &::before {
+              font-size: toRem(12);
+            }
+          }
+        }
+
+        .icon {
+          margin-right: toRem(8);
+          &::before {
+            content: "\e801";
+            @include font-icon__limoo();
+            color: $gray-3;
+            font-size: toRem(13);
+          }
+        }
+      }
+    }
+  }
+  .carousel-subtitle {
+    display: none;
+    @include xs {
+      display: block;
+      font-size: toRem(13);
+      color: $gray-3;
+      padding: 0 toRem(24);
+      margin-top: toRem(-10);
+      margin-bottom: toRem(8);
+    }
+  }
+
+  .product-similar-carousel {
+    height: toRem(303);
+    @include xs {
+      height: toRem(233);
+    }
+    .similar-products-carousel-item {
+      @extend .align-center;
+      justify-content: space-between;
+      padding: 0 toRem(8);
+      border-left: toRem(1) solid $gray-6;
+      flex-direction: column;
+      height: 100%;
+
+      &-image-wrapper {
+        width: 100%;
+        @extend .justify-center;
+        margin-bottom: toRem(8);
+
+        img {
+          max-height: toRem(164);
+          -webkit-user-select: none;
+          -khtml-user-select: none;
+          -moz-user-select: none;
+          -o-user-select: none;
+          user-select: none;
+          @include xs {
+            max-height: toRem(120);
+          }
+        }
+      }
+
+      &-name {
+        max-width: 70%;
+        font-size: toRem(14);
+        color: $black-topic;
+        margin: 0 auto toRem(16) auto;
+        text-align: center;
+      }
+
+      &-price {
+        font-size: toRem(16);
+        color: $gray-2;
+        text-align: center;
+      }
+    }
+  }
+
+  .complete-list {
+      &.mobile {
+        display: none;
+        @include xs {
+          display: block;
+          font-size: toRem(13);
+          color: $gray-3;
+          @include display-flex();
+          align-items: center;
+          margin-top: toRem(38);
+          margin-bottom: toRem(16);
+          padding-left: toRem(16);
+          justify-content: end;
+
+          .icon {
+            margin-right: toRem(8);
+            &::before {
+              content: "\e801";
+              @include font-icon__limoo();
+              color: $gray-3;
+              font-size: toRem(12);
+            }
+          }
+        }
+      }
+  }
+  .shadow {
+    position: absolute;
+    height: 100%;
+    width: toRem(54);
+    background: linear-gradient(
+        90deg, $white -11.48%, rgba(255, 255, 255, 0) 107.7%);
+    opacity: 0.8;
+    left: 0;
+    border-top-left-radius: toRem(10);
+    border-bottom-left-radius: toRem(10);
+
   }
 }
 

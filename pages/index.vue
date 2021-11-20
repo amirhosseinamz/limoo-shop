@@ -233,6 +233,12 @@ export default {
   margin-right: auto;
   margin-left: auto;
 }
+.page__home-wrapper-main {
+  padding: 0 toRem(30);
+  @include xs {
+    padding: 0 toRem(5);
+  }
+}
 .icon-location::after {
     content: '\e817';
     @include font-icon__limoo();
@@ -249,25 +255,7 @@ export default {
   height: 100%;
 }
 
-
-@media (max-width: 1450px) {
-  .page-home{
-    // padding-right: 26px;
-    // padding-left: 26px;
-    width: 100%;
-  }
-  .page__home-wrapper-main{
-    padding-right: 26px;
-    padding-left: 26px;
-  }
-
-}
-
-@media (max-width: 1220px) {
-
-}
-
-@media (max-width: 960px) {
+@include md {
     .desktop-screen {
         display: none;
     }
@@ -312,23 +300,5 @@ export default {
 
 }
 
-@media (max-width: 600px) {
-
-}
-
-@media (max-width: 485px) {
-  .page__home-wrapper-main{
-    padding-right: 10px;
-    padding-left: 10px;
-  }
-}
-
-@media (max-width: 350px) {
-
-}
-
-@media (max-width: 320px) {
-
-}
 
 </style>

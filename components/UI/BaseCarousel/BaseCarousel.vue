@@ -1,30 +1,31 @@
 <template>
-  <div class="compare-slider-container">
-    <div class="previous-btn" @click="slidePrev" v-if="true">
+  <div class="base-carousel-container" :class="{ 'd-rtl': rtl }">
+    <div class="previous-btn" @click="slidePrev" v-if="true" :class="{ 'is-disabled': isPrevDisabled }">
       <span class="icon"></span>
     </div>
     <div class="slider-wrapper" ref="sliderWrapper">
       <ul class="slider-list" ref="sliderList"
           :style="trackTransform+' '+trackTransition"
+          :class="{ 'd-rtl': rtl }"
           draggable="true">
-        <slot name="slide"></slot>
+<!--        <slot name="slide" :class="{ 'is-active': isActive }" :aria-hidden="!isActive"></slot>-->
+<!--        <slide :style="{ width: slideWidth+'px' }"></slide>-->
+        <slot :slideWidth="slideWidth"></slot>
       </ul>
     </div>
 
-    <div class="next-btn" @click="slideNext" v-if="showNextButton">
+    <div class="next-btn" @click="slideNext" :class="{ 'is-disabled': isNextDisabled }">
       <span class="icon"></span>
     </div>
   </div>
 </template>
 
 <script>
+import Slide from "./Slide";
 export default {
   name: "BaseCarousel",
+  components: { Slide },
   props: {
-    moveDirection: {
-      type: String,
-      require: false,
-    },
     // toggle mouse dragging
     mouseDrag: {
       default: true,
@@ -37,7 +38,7 @@ export default {
     },
     // index number of initial slide
     initialSlide: {
-      default: 1,
+      default: 0,
       type: Number
     },
     // count of items to slide when use navigation buttons
@@ -67,13 +68,20 @@ export default {
     },
     // remove empty space around slides
     trimWhiteSpace: {
-      default: false,
+      default: true,
       type: Boolean
     },
-    directionLtr: {
+    rtl: {
       type: Boolean,
       require: false,
-      default: false,
+      default: true,
+    },
+    // an object to set settings
+    settings: {
+      default() {
+        return {};
+      },
+      type: Object
     },
 
   },
@@ -97,11 +105,52 @@ export default {
       trimStart: 0,
       trimEnd: 1,
       timer: null,
+      breakpoints: {},
       showPrevButton: true,
       showNextButton: true,
     };
   },
   computed: {
+    sliderProductsData() {
+      return this.$store.getters["comparison/comparison/sliderProductsData"];
+    },
+    slideBounds() {
+      // Because the "isActive" depends on the slides shown, not the number of slidable ones.
+      // but upper and lower bounds for Next,Prev depend on whatever is smaller.
+      const siblings = this.itemsToShow;
+      const lower = this.centerMode ? Math.ceil(this.currentSlide - siblings / 2) : this.currentSlide;
+      const upper = this.centerMode
+        ? Math.floor(this.currentSlide + siblings / 2)
+        : Math.floor(this.currentSlide + siblings - 1);
+
+      return {
+        lower,
+        upper
+      };
+    },
+    isActive() {
+      const { upper, lower } = this.slideBounds;
+
+      return this.index >= lower && this.index <= upper;
+    },
+    isPrevDisabled() {
+      if (this.infiniteScroll) {
+        return false;
+      }
+      return this.currentSlide === 0;
+    },
+    isNextDisabled() {
+      if (this.infiniteScroll) {
+        return false;
+      }
+
+      if (this.trimWhiteSpace) {
+        return this.currentSlide
+          === (this.slidesCount - Math.min(this.itemsToShow, this.slidesCount));
+      }
+
+      return this.currentSlide === this.slidesCount - 1;
+    },
     trackTransition() {
       if (this.initialized && this.isSliding) {
         return `transition: ${this.transition}ms`;
@@ -111,11 +160,11 @@ export default {
     trackTransform() {
       const infiniteScroll = this.infiniteScroll;
       const centerMode = this.centerMode;
-      const direction = this.directionLtr ? 1 : -1;
+      const direction = this.rtl ? -1 : 1;
       const slideLength = this.slideWidth;
       const containerLength = this.containerWidth;
       const dragDelta = this.delta.x;
-      const clonesSpace = !infiniteScroll ? slideLength * this.slidesCount : 0;
+      const clonesSpace = infiniteScroll ? slideLength * this.slidesCount : 0;
       const centeringSpace = centerMode ? (containerLength - slideLength) / 2 : 0;
 
       // calculate track translate
@@ -126,13 +175,13 @@ export default {
   methods: {
     initEvents() {
       // get the element direction if not explicitly set
-      // if (this.defaults.rtl === null) {
-      //   this.defaults.rtl = getComputedStyle(this.$el).direction === 'rtl';
-      // }
+      if (this.rtl === null) {
+        this.rtl = getComputedStyle(this.$el).direction === 'rtl';
+      }
 
-      // if (this.autoPlay) {
-      //   this.initAutoPlay();
-      // }
+      if (this.autoPlay) {
+        this.initAutoPlay();
+      }
       if (this.mouseDrag) {
         this.$refs.sliderList.addEventListener('mousedown', this.onDragStart);
       }
@@ -150,6 +199,11 @@ export default {
       // }
       window.addEventListener('resize', this.update);
     },
+    initDefaults() {
+      this.breakpoints = this.settings.breakpoints;
+      // this.defaults = assign({}, this.$props, this.settings);
+      // this.config = assign({}, this.defaults);
+    },
     getInRange(value, min, max) {
       return Math.max(Math.min(value, max), min);
     },
@@ -163,17 +217,11 @@ export default {
         slideTo: index
       });
 
-
       const infiniteScroll = this.infiniteScroll;
       const previousSlide = this.currentSlide;
-      const index = !infiniteScroll
+      const index = infiniteScroll
         ? slideIndex
         : this.getInRange(slideIndex, this.trimStart, this.slidesCount - this.trimEnd);
-
-      // Notify others if in a group and is the slide event initiator.
-      // if (this.group && isSource) {
-      //   EMITTER.$emit(`slideGroup:${this.group}`, slideIndex);
-      // }
 
       this.currentSlide = index;
       this.isSliding = true;
@@ -199,7 +247,6 @@ export default {
       this.containerWidth = rect.width;
       this.containerHeight = rect.height;
       this.slideWidth = this.containerWidth / this.itemsToShow;
-
     },
     updateTrim() {
       const itemsToShow = this.itemsToShow;
@@ -229,17 +276,6 @@ export default {
 
       return realIndex;
     },
-    checkPrevButton() {
-      const sliderList = this.$refs.sliderList;
-      if (!sliderList.style.left || sliderList.style.left === "0%" || +sliderList.style.left.split("%")[0] < 0) {
-        this.showPrevButton = false;
-      }
-    },
-    checkNextButton() {
-      if (this.currentSlide === this.sliderSlidesLength) {
-        this.showNextButton = false;
-      }
-    },
     handleResize() {
       this.windowWidth = window.innerWidth;
     },
@@ -266,7 +302,6 @@ export default {
         return;
       }
 
-      event.preventDefault();
       this.endPosition.x = this.isTouch ? event.touches[0].clientX : event.clientX;
       this.endPosition.y = this.isTouch ? event.touches[0].clientY : event.clientY;
       const deltaX = this.endPosition.x - this.startPosition.x;
@@ -287,7 +322,7 @@ export default {
       const tolerance = this.shortDrag ? 0.5 : 0.15;
       this.isDragging = false;
 
-      const direction = (this.directionLtr ? 1 : -1) * this.sign(this.delta.x);
+      const direction = (this.rtl ? -1 : 1) * this.sign(this.delta.x);
       const draggedSlides = Math.round(Math.abs(this.delta.x / this.slideWidth) + tolerance);
       this.slideTo(this.currentSlide - direction * draggedSlides);
 
@@ -295,7 +330,6 @@ export default {
       this.delta.y = 0;
       document.removeEventListener(this.isTouch ? 'touchmove' : 'mousemove', this.onDrag);
       document.removeEventListener(this.isTouch ? 'touchend' : 'mouseup', this.onDragEnd);
-      //this.restartTimer();
     },
     sign(val) {
       return Math.sign(val) || this.signPoly(val);
@@ -313,6 +347,9 @@ export default {
       });
     },
     update() {
+      if (this.breakpoints) {
+        this.updateConfig();
+      }
       this.updateWidth();
       this.updateTrim();
       this.$emit('updated', {
@@ -320,6 +357,23 @@ export default {
         containerHeight: this.containerHeight,
         slideWidth: this.slideWidth,
       });
+    },
+    updateConfig() {
+      const breakpoints = Object.keys(this.breakpoints).sort((a, b) => b - a);
+      let matched;
+      breakpoints.some(breakpoint => {
+        matched = window.matchMedia(`(min-width: ${breakpoint}px)`).matches;
+        if (matched) {
+          console.log('true');
+          //this.config = assign({}, this.config, this.defaults, this.breakpoints[breakpoint]);
+          return true;
+        }
+      });
+      if (!matched) {
+        console.log('false');
+        //this.config = assign(this.config, this.defaults);
+        return false;
+      }
     },
     restart() {
       this.$nextTick(() => {
@@ -331,8 +385,7 @@ export default {
     window.addEventListener("resize", this.handleResize);
     this.handleResize();
     this.initEvents();
-    this.slidesCount = this.$refs.sliderList.querySelectorAll('.introduction-carousel-item').length;
-    //this.addGroupListeners();
+    this.slidesCount = this.sliderProductsData.length;
     this.$nextTick(() => {
       this.update();
       this.slideTo(this.initialSlide || 0);
@@ -341,28 +394,32 @@ export default {
         this.initialized = true;
       }, this.transition);
     });
+    console.log(this.slidesCount);
   },
+  created() {
+    this.initDefaults();
+  }
 };
 </script>
 
 <style lang="scss" scoped>
 
-.compare-slider-container {
+.base-carousel-container {
   position: relative;
   width: 100%;
 
   .slider-wrapper {
     width: 100%;
+    height: 100%;
     @extend .align-center;
     position: relative;
     z-index: 0;
-    height: 100%;
     overflow-x: hidden;
 
 
     .slider-list {
       @extend .d-flex;
-      left: 0;
+      height: 100%;
       position: absolute;
       list-style: none;
       //width: 100%;
@@ -372,9 +429,13 @@ export default {
   .previous-btn {
     position: absolute;
     top: toRem(145);
-    right: toRem(290);
+    right: toRem(20);
     z-index: 1;
     cursor: pointer;
+
+    @include xs {
+      display: none;
+    }
 
     .icon {
       width: toRem(40);
@@ -395,14 +456,25 @@ export default {
         transform: rotate(180deg);
       }
     }
+    &:hover {
+      .icon {
+        background-color: $gray-5;
+        &::before {
+          color: $gray-3;
+        }
+      }
+    }
   }
 
   .next-btn {
     position: absolute;
     top: toRem(145);
-    left: toRem(290);
+    left: toRem(20);
     z-index: 1;
     cursor: pointer;
+    @include xs {
+      display: none;
+    }
 
     .icon {
       width: toRem(40);
@@ -420,6 +492,14 @@ export default {
         @extend .centered;
         padding-right: toRem(2);
         color: $white;
+      }
+    }
+    &:hover {
+      .icon {
+        background-color: $gray-5;
+        &::before {
+          color: $gray-3;
+        }
       }
     }
   }

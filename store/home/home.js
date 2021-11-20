@@ -48,27 +48,27 @@ const state = () => ({
   introductionCarouselData: [
     {
       id: 1,
-      img: "https://dkstatics-public.digikala.com/digikala-adservice-banners/3292dc43aa6df1143292145c26dbf59282d21914_1622033545.jpg?x-oss-process=image/quality,q_80",
+      img: "https://dkstatics-public.digikala.com/digikala-adservice-banners/3292dc43aa6df1143292145c26dbf59282d21914_1622033545.jpg?x-oss-process=image/quality,q_50",
     },
     {
       id: 2,
-      img: "https://dkstatics-public.digikala.com/digikala-adservice-banners/32cc74ebc5343cdc4c45319e59b63b02ac046036_1636267114.jpg?x-oss-process=image/quality,q_80"
+      img: "https://dkstatics-public.digikala.com/digikala-adservice-banners/32cc74ebc5343cdc4c45319e59b63b02ac046036_1636267114.jpg?x-oss-process=image/quality,q_50"
     },
     {
       id: 3,
-      img: "https://dkstatics-public.digikala.com/digikala-adservice-banners/68b5db2e934e603899497531d3105c632b1499fb_1636274409.jpg?x-oss-process=image/quality,q_80"
+      img: "https://dkstatics-public.digikala.com/digikala-adservice-banners/68b5db2e934e603899497531d3105c632b1499fb_1636274409.jpg?x-oss-process=image/quality,q_50"
     },
     {
       id: 4,
-      img: "https://dkstatics-public.digikala.com/digikala-adservice-banners/53323e6f05e2d5d120991365e0c13d5faef880d9_1636182730.jpg?x-oss-process=image/quality,q_80"
+      img: "https://dkstatics-public.digikala.com/digikala-adservice-banners/53323e6f05e2d5d120991365e0c13d5faef880d9_1636182730.jpg?x-oss-process=image/quality,q_50"
     },
     {
       id: 5,
-      img: "https://dkstatics-public.digikala.com/digikala-adservice-banners/32cc74ebc5343cdc4c45319e59b63b02ac046036_1636267114.jpg?x-oss-process=image/quality,q_80"
+      img: "https://dkstatics-public.digikala.com/digikala-adservice-banners/32cc74ebc5343cdc4c45319e59b63b02ac046036_1636267114.jpg?x-oss-process=image/quality,q_50"
     },
     {
       id: 6,
-      img: "https://dkstatics-public.digikala.com/digikala-adservice-banners/53323e6f05e2d5d120991365e0c13d5faef880d9_1636182730.jpg?x-oss-process=image/quality,q_80"
+      img: "https://dkstatics-public.digikala.com/digikala-adservice-banners/53323e6f05e2d5d120991365e0c13d5faef880d9_1636182730.jpg?x-oss-process=image/quality,q_50"
     },
   ],
   allCategory: [

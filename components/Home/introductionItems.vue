@@ -1,5 +1,5 @@
 <template>
-  <div class=" page__home-introduction-items">
+  <div class="page__home-introduction-items" ref="sliderContainer">
     <!--    <base-carousel-->
     <!--    :items-to-show="1.25"-->
     <!--    :center-mode="true"-->
@@ -13,11 +13,11 @@
     <!--      </template>-->
     <!--    </base-carousel>-->
 
-    <hooper ref="carousel" :auto-play="true" :play-speed="5000" :infiniteScroll="true" :vertical="false" :items-to-show="2" :center-mode="true" :rtl="true" :wheel-control="false">
+    <hooper :settings="carouselSetting" ref="carousel">
       <slide class="introduction-carousel-item" v-for="item in introductionCarouselData" :key="item.id">
-        <img :src="item.img" alt="" draggable="false">
+        <img :src="item.img" alt="" draggable="false" ondragstart="return false" ondrag="return false">
       </slide>
-      <hooper-pagination v-if="windowWidth < 520" slot="hooper-addons"></hooper-pagination>
+      <hooper-pagination slot="hooper-addons"></hooper-pagination>
     </hooper>
   </div>
 </template>
@@ -38,6 +38,22 @@ export default {
   data() {
     return {
       windowWidth: 0,
+      carouselSetting: {
+        //autoPlay: true,
+        //playSpeed: 5000,
+        infiniteScroll: true,
+        vertical: false,
+        itemsToShow: 1.25,
+        centerMode: true,
+        rtl: true,
+        hoverPause: false,
+        wheelControl: false,
+        breakpoints: {
+          520: {
+            itemsToShow: 2
+          },
+        }
+      }
     }
   },
   computed: {
@@ -47,17 +63,24 @@ export default {
     introductionCarouselData() {
       return this.$store.getters["home/home/introductionCarouselData"];
     },
+
     itemsToShow() {
-      if (this.windowWidth > 520) {
+      let windowWidth;
+      if (this.windowWidth) {
+        windowWidth = this.windowWidth;
+      } else {
+        windowWidth = window.outerWidth;
+      }
+      if (windowWidth > 520) {
         return 2;
       } else {
-        return 1.25;
+        return 1.15;
       }
     }
   },
   mounted() {
-    window.addEventListener('resize', this.handleResize);
-    this.handleResize();
+      window.addEventListener('resize', this.handleResize);
+      this.handleResize();
   },
 
   methods: {
@@ -65,7 +88,7 @@ export default {
       e.preventDefault();
     },
      handleResize() {
-        this.windowWidth = window.innerWidth;
+        this.windowWidth = window.outerWidth;
      }
   },
 
@@ -78,13 +101,14 @@ export default {
   @include display-flex();
   align-items: flex-start;
   position: relative;
-  margin-left: -5%;
-  margin-right: -5.2%;
   height: auto;
+  margin-left: toRem(-30);
+  margin-right: toRem(-29);
   @include xs {
-    margin-left: -5.7%;
-    margin-right: -5.9%;
+    margin-left: toRem(-5);
+    margin-right: toRem(-4);
   }
+
 
   .introduction-carousel {
     width: 100%;
@@ -112,14 +136,17 @@ export default {
     }
     .hooper-pagination {
       position: absolute;
-      bottom: toRem(15);
+      bottom: toRem(-10);
+      @include sm {
+        bottom: toRem(-13);
+      }
       @include xs {
         bottom: toRem(20);
       }
       .hooper-indicators {
         .hooper-indicator {
-          width: toRem(10);
-          height: toRem(10);
+          width: toRem(16);
+          height: toRem(16);
           border-radius: 50%;
           background-color: $gray-6;
           border: toRem(1) solid $gray-4;
@@ -127,11 +154,21 @@ export default {
           &.is-active {
             &::before {
               content: " ";
+              width: toRem(12);
+              height: toRem(12);
               position: absolute;
-              width: toRem(6);
-              height: toRem(6);
               background-color: $gray-4;
-              border-radius: 50%;
+              border-radius: toRem(6);
+            }
+          }
+          @include xs {
+            width: toRem(10);
+            height: toRem(10);
+            &.is-active {
+              &::before {
+                width: toRem(6);
+                height: toRem(6);
+              }
             }
           }
         }
@@ -144,14 +181,13 @@ export default {
     width: 100%;
     height: 100%;
     border-radius: toRem(15);
-    user-drag: none;
-    -webkit-user-drag: none;
-    user-select: none;
-    -moz-user-select: none;
-    -webkit-user-select: none;
-    -ms-user-select: none;
+    user-drag: none!important;
+    -webkit-user-drag: none!important;
+    user-select: none!important;
+    -moz-user-select: none!important;
+    -webkit-user-select: none!important;
+    -ms-user-select: none!important;
   }
 }
-
 
 </style>

@@ -5,7 +5,8 @@
         <div class="products__top-title w-100 products__top-desktop">
           <h3 class="products__top-text">موبایل اندرویدی</h3>
         </div>
-        <base-carousel></base-carousel>
+<!--        <base-carousel :items-to-show="3"></base-carousel>-->
+
         <div class="products__filter-btns w-100 ">
           <base-button no-box-shadow classes="products__filter-btn" @button-clicked="showBoxFilter">
             <span class="filter-search-icon"></span>
@@ -67,7 +68,10 @@ import buttonFilter from "~/components/UI/buttonFilter";
 import Button from "~/components/UI/Button";
 import ModalFilter from "./modalFilter";
 import ModalSort from "./modalSort";
-import BaseCarousel from "../UI/BaseCarousel";
+import BaseCarousel from "../UI/BaseCarousel/BaseCarousel";
+
+
+
 
 export default {
   props: {
@@ -91,12 +95,14 @@ export default {
       showFilterModal: false,
       showSortModal: false,
       activeBlur: false,
+
     };
   },
   computed: {
     categorySuggestion() {
       return this.$store.getters["category/category/categorySuggestion"];
-    }
+    },
+
   },
 
   watch: {
@@ -170,6 +176,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+
 
 @include scale-modal-animation();
 @include backdrop-scale-animation();

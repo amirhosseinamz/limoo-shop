@@ -10,6 +10,7 @@
         remove-margin-top=""
         :more-text="getTextByTextKey('home_category_all')"
         :title="{title:'',href:'',titleVisit:'',sliderItemHref:'product'}"
+        class="productContent__mainSlider-1"
       ></product-content>
 
 
@@ -171,7 +172,7 @@ export default {
 
 <style lang="scss" scoped>
 .page__home-wrapper-main {
-  margin-top: toRem(175);
+  margin-top: toRem(127);
 }
 
 .product__vertical-main {
@@ -181,6 +182,12 @@ export default {
 
 .product__vertical-right {
   margin-left: toRem(30);
+}
+.productContent__mainSlider-1 {
+  margin-top: toRem(23);
+  @include xs {
+    margin-top: 0;
+  }
 }
 
 
@@ -192,20 +199,24 @@ export default {
 
 @include md {
   .page__home-wrapper-main {
-    margin-top: 8px;
+    margin-top: toRem(-9);
   }
   .product__vertical-main {
     flex-flow: column;
   }
   .product__vertical-right {
-    margin-left: 0px;
+    margin-left: 0;
   }
 
 }
-
-@media (max-width: 485px) {
+@include sm {
   .page__home-wrapper-main {
-    margin-top: 8px;
+    margin-top: toRem(-4);
+  }
+}
+@include xs {
+  .page__home-wrapper-main {
+    margin-top: toRem(-2);
   }
 }
 
