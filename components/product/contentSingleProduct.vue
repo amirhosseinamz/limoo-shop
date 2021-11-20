@@ -57,7 +57,8 @@
         ondragstart="return false"
         ondrag="return false"
         class="product-similar-carousel"
-        :items-to-slide="carouselItemsToShow"
+        :items-to-slide="1"
+        :items-to-show="carouselItemsToShow"
         :wheel-control="false"
         ref="carousel
         ">
@@ -192,25 +193,18 @@ export default {
     },
     carouselItemsToShow() {
       if (this.windowWidth > 1366) {
-        console.log(5.5);
         return 5.5;
       } else if (this.windowWidth > 1024 && this.windowWidth <= 1366) {
-        console.log(4.5);
         return 4.5;
       } else if (this.windowWidth > 960 && this.windowWidth <= 1024) {
-        console.log(3.5);
         return 3.5;
       } else if (this.windowWidth > 600 && this.windowWidth <= 960) {
-        console.log(2.5);
         return 2.5;
       } else if (this.windowWidth > 520 && this.windowWidth <= 600) {
-        console.log(2.2);
         return 2.2;
       } else if (this.windowWidth > 380 && this.windowWidth <= 520) {
-        console.log(1.5);
         return 1.5;
       } else if (this.windowWidth > 280 && this.windowWidth <= 380) {
-        console.log(1.2);
         return 1.2;
       }
     }
