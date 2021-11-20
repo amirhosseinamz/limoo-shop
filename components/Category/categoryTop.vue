@@ -68,7 +68,7 @@ import buttonFilter from "~/components/UI/buttonFilter";
 import Button from "~/components/UI/Button";
 import ModalFilter from "./modalFilter";
 import ModalSort from "./modalSort";
-import BaseCarousel from "../UI/BaseCarousel";
+import BaseCarousel from "../UI/BaseCarousel/BaseCarousel";
 
 
 

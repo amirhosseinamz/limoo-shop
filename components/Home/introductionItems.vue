@@ -39,8 +39,8 @@ export default {
     return {
       windowWidth: 0,
       carouselSetting: {
-        autoPlay: true,
-        playSpeed: 5000,
+        //autoPlay: true,
+        //playSpeed: 5000,
         infiniteScroll: true,
         vertical: false,
         itemsToShow: 1.25,
@@ -81,7 +81,6 @@ export default {
   mounted() {
       window.addEventListener('resize', this.handleResize);
       this.handleResize();
-      this.setSliderGap();
   },
 
   methods: {
@@ -90,19 +89,8 @@ export default {
     },
      handleResize() {
         this.windowWidth = window.outerWidth;
-     },
-    setSliderGap() {
-      const sliderContainer = this.$refs.sliderContainer;
-      let marginAmount = (this.windowWidth - sliderContainer.parentElement.clientWidth) / 2;
-      sliderContainer.style.marginLeft = -1 * marginAmount + 'px';
-      sliderContainer.style.marginRight = -1 * marginAmount + 'px';
-    }
+     }
   },
-  watch: {
-    windowWidth() {
-      this.setSliderGap();
-    }
-  }
 
 };
 </script>
@@ -114,6 +102,12 @@ export default {
   align-items: flex-start;
   position: relative;
   height: auto;
+  margin-left: toRem(-30);
+  margin-right: toRem(-29);
+  @include xs {
+    margin-left: toRem(-5);
+    margin-right: toRem(-4);
+  }
 
 
   .introduction-carousel {
@@ -142,9 +136,9 @@ export default {
     }
     .hooper-pagination {
       position: absolute;
-      bottom: toRem(-5);
+      bottom: toRem(-10);
       @include sm {
-        bottom: toRem(-10);
+        bottom: toRem(-13);
       }
       @include xs {
         bottom: toRem(20);
@@ -160,11 +154,11 @@ export default {
           &.is-active {
             &::before {
               content: " ";
-              width: toRem(10);
-              height: toRem(10);
+              width: toRem(12);
+              height: toRem(12);
               position: absolute;
               background-color: $gray-4;
-              border-radius: 50%;
+              border-radius: toRem(6);
             }
           }
           @include xs {

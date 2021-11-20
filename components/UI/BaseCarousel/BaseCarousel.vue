@@ -1,6 +1,6 @@
 <template>
   <div class="base-carousel-container" :class="{ 'd-rtl': rtl }">
-    <div class="previous-btn" @click="slidePrev" v-if="true">
+    <div class="previous-btn" @click="slidePrev" v-if="true" :class="{ 'is-disabled': isPrevDisabled }">
       <span class="icon"></span>
     </div>
     <div class="slider-wrapper" ref="sliderWrapper">
@@ -9,30 +9,22 @@
           :class="{ 'd-rtl': rtl }"
           draggable="true">
 <!--        <slot name="slide" :class="{ 'is-active': isActive }" :aria-hidden="!isActive"></slot>-->
-        <li class="item"  v-for="item in sliderProductsData" :key="item.id" :style="{ width: slideWidth+'px' }">
-          <div class="item-image-wrapper">
-            <img :src="item.image" alt="Image">
-          </div>
-          <div class="item-name">
-            {{ item.title }}
-          </div>
-          <div class="item-price">
-            {{ item.realPrice }}
-            تومان
-          </div>
-        </li>
+<!--        <slide :style="{ width: slideWidth+'px' }"></slide>-->
+        <slot :slideWidth="slideWidth"></slot>
       </ul>
     </div>
 
-    <div class="next-btn" @click="slideNext" v-if="showNextButton">
+    <div class="next-btn" @click="slideNext" :class="{ 'is-disabled': isNextDisabled }">
       <span class="icon"></span>
     </div>
   </div>
 </template>
 
 <script>
+import Slide from "./Slide";
 export default {
   name: "BaseCarousel",
+  components: { Slide },
   props: {
     // toggle mouse dragging
     mouseDrag: {
@@ -84,6 +76,13 @@ export default {
       require: false,
       default: true,
     },
+    // an object to set settings
+    settings: {
+      default() {
+        return {};
+      },
+      type: Object
+    },
 
   },
   data() {
@@ -106,6 +105,7 @@ export default {
       trimStart: 0,
       trimEnd: 1,
       timer: null,
+      breakpoints: {},
       showPrevButton: true,
       showNextButton: true,
     };
@@ -132,6 +132,24 @@ export default {
       const { upper, lower } = this.slideBounds;
 
       return this.index >= lower && this.index <= upper;
+    },
+    isPrevDisabled() {
+      if (this.infiniteScroll) {
+        return false;
+      }
+      return this.currentSlide === 0;
+    },
+    isNextDisabled() {
+      if (this.infiniteScroll) {
+        return false;
+      }
+
+      if (this.trimWhiteSpace) {
+        return this.currentSlide
+          === (this.slidesCount - Math.min(this.itemsToShow, this.slidesCount));
+      }
+
+      return this.currentSlide === this.slidesCount - 1;
     },
     trackTransition() {
       if (this.initialized && this.isSliding) {
@@ -181,6 +199,11 @@ export default {
       // }
       window.addEventListener('resize', this.update);
     },
+    initDefaults() {
+      this.breakpoints = this.settings.breakpoints;
+      // this.defaults = assign({}, this.$props, this.settings);
+      // this.config = assign({}, this.defaults);
+    },
     getInRange(value, min, max) {
       return Math.max(Math.min(value, max), min);
     },
@@ -199,11 +222,6 @@ export default {
       const index = infiniteScroll
         ? slideIndex
         : this.getInRange(slideIndex, this.trimStart, this.slidesCount - this.trimEnd);
-
-      // Notify others if in a group and is the slide event initiator.
-      // if (this.group && isSource) {
-      //   EMITTER.$emit(`slideGroup:${this.group}`, slideIndex);
-      // }
 
       this.currentSlide = index;
       this.isSliding = true;
@@ -284,7 +302,6 @@ export default {
         return;
       }
 
-      event.preventDefault();
       this.endPosition.x = this.isTouch ? event.touches[0].clientX : event.clientX;
       this.endPosition.y = this.isTouch ? event.touches[0].clientY : event.clientY;
       const deltaX = this.endPosition.x - this.startPosition.x;
@@ -313,7 +330,6 @@ export default {
       this.delta.y = 0;
       document.removeEventListener(this.isTouch ? 'touchmove' : 'mousemove', this.onDrag);
       document.removeEventListener(this.isTouch ? 'touchend' : 'mouseup', this.onDragEnd);
-      this.restartTimer();
     },
     sign(val) {
       return Math.sign(val) || this.signPoly(val);
@@ -331,6 +347,9 @@ export default {
       });
     },
     update() {
+      if (this.breakpoints) {
+        this.updateConfig();
+      }
       this.updateWidth();
       this.updateTrim();
       this.$emit('updated', {
@@ -338,6 +357,23 @@ export default {
         containerHeight: this.containerHeight,
         slideWidth: this.slideWidth,
       });
+    },
+    updateConfig() {
+      const breakpoints = Object.keys(this.breakpoints).sort((a, b) => b - a);
+      let matched;
+      breakpoints.some(breakpoint => {
+        matched = window.matchMedia(`(min-width: ${breakpoint}px)`).matches;
+        if (matched) {
+          console.log('true');
+          //this.config = assign({}, this.config, this.defaults, this.breakpoints[breakpoint]);
+          return true;
+        }
+      });
+      if (!matched) {
+        console.log('false');
+        //this.config = assign(this.config, this.defaults);
+        return false;
+      }
     },
     restart() {
       this.$nextTick(() => {
@@ -360,14 +396,15 @@ export default {
     });
     console.log(this.slidesCount);
   },
+  created() {
+    this.initDefaults();
+  }
 };
 </script>
 
 <style lang="scss" scoped>
 
 .base-carousel-container {
-  height: 300px;
-  //height: 100%;
   position: relative;
   width: 100%;
 
@@ -386,48 +423,6 @@ export default {
       position: absolute;
       list-style: none;
       //width: 100%;
-
-      .item {
-        @extend .align-center;
-        justify-content: space-between;
-        padding: 0 toRem(8);
-        border-left: toRem(1) solid $gray-6;
-        flex-direction: column;
-        height: toRem(264);
-
-
-        &-image-wrapper {
-          width: 100%;
-          @extend .justify-center;
-          margin-bottom: toRem(8);
-
-          img {
-            max-height: toRem(164);
-            -webkit-user-select: none;
-            -khtml-user-select: none;
-            -moz-user-select: none;
-            -o-user-select: none;
-            user-select: none;
-            @include xs {
-              max-height: toRem(151);
-            }
-          }
-        }
-
-        &-name {
-          max-width: 70%;
-          font-size: toRem(14);
-          color: $black-topic;
-          margin: 0 auto toRem(16) auto;
-          text-align: center;
-        }
-
-        &-price {
-          font-size: toRem(16);
-          color: $gray-2;
-          text-align: center;
-        }
-      }
     }
   }
 
@@ -437,6 +432,7 @@ export default {
     right: toRem(20);
     z-index: 1;
     cursor: pointer;
+
     @include xs {
       display: none;
     }
@@ -458,6 +454,14 @@ export default {
         font-size: toRem(18);
         color: $white;
         transform: rotate(180deg);
+      }
+    }
+    &:hover {
+      .icon {
+        background-color: $gray-5;
+        &::before {
+          color: $gray-3;
+        }
       }
     }
   }
@@ -488,6 +492,14 @@ export default {
         @extend .centered;
         padding-right: toRem(2);
         color: $white;
+      }
+    }
+    &:hover {
+      .icon {
+        background-color: $gray-5;
+        &::before {
+          color: $gray-3;
+        }
       }
     }
   }

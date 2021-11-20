@@ -37,30 +37,53 @@
     <div class="product-seller">
       <product-seller></product-seller>
     </div>
-    <div class="product-similar-carousel">
+    <div class="product-similar-carousel-container">
       <div class="carousel-title">
-        <div class="name">
+        <div class="name desktop">
           محصولات مشابه
         </div>
-        <div class="complete-list">
+        <div class="name mobile">
+          محصولات پیشنهادی
+        </div>
+        <div class="complete-list desktop">
           لیست کامل محصولات
           <span class="icon"></span>
         </div>
       </div>
-      <base-carousel :items-to-show="carouselItemsToShow" :items-to-slide="1" :wheel-control="false" ref="carousel">
-        <li class="similar-products-carousel-item" v-for="item in similarProductsCarouselData" :key="item.id">
-          <div class="similar-products-carousel-item-image-wrapper">
-            <img :src="item.image" alt="Image">
-          </div>
-          <div class="similar-products-carousel-item-name">
-            {{ item.title }}
-          </div>
-          <div class="similar-products-carousel-item-price">
-            {{ item.realPrice }}
-            تومان
-          </div>
-        </li>
+      <div class="carousel-subtitle">
+        پیشنهاد به شما
+      </div>
+      <base-carousel
+        ondragstart="return false"
+        ondrag="return false"
+        class="product-similar-carousel"
+        :settings="carouselSetting"
+        :items-to-slide="1"
+        :wheel-control="false"
+        ref="carousel
+        ">
+        <template #default="slotProps">
+          <slide :slide-width="slotProps.slideWidth" class="similar-products-carousel-item" v-for="item in similarProductsCarouselData" :key="item.id">
+            <div class="similar-products-carousel-item-image-wrapper">
+              <img :src="item.image" alt="Image" draggable="false">
+            </div>
+            <div class="similar-products-carousel-item-name">
+              {{ item.title }}
+            </div>
+            <div class="similar-products-carousel-item-price">
+              {{ item.realPrice }}
+              تومان
+            </div>
+          </slide>
+        </template>
       </base-carousel>
+      <div class="complete-list mobile">
+        لیست کامل محصولات
+        <span class="icon"></span>
+      </div>
+      <div class="shadow">
+
+      </div>
     </div>
     <div class="tab--content product__single-content w-100">
       <base-tabs
@@ -111,9 +134,8 @@ import ProductWarranty from "./ProductWarranty";
 import ProductSpecification from "./ProductSpecification";
 import ProductActions from "./ProductActions";
 import ProductSeller from "./ProductSeller";
-import { Hooper, Slide, Navigation as HooperNavigation} from "hooper";
-import 'hooper/dist/hooper.css';
-import BaseCarousel from "../UI/BaseCarousel";
+import BaseCarousel from "../UI/BaseCarousel/BaseCarousel";
+import Slide from "../UI/BaseCarousel/Slide"
 
 export default {
   props: {
@@ -138,9 +160,7 @@ export default {
     productDetail,
     sliderSingleProduct,
     commentQuestionMain,
-    Hooper,
     Slide,
-    HooperNavigation
   },
 
   data() {
@@ -149,16 +169,15 @@ export default {
       selected: "معرفی کامل محصول",
       windowWidth: 0,
       carouselSetting: {
-        vertical: false,
-        itemsToShow: 2,
-        rtl: true,
-        wheelControl: false,
         breakpoints: {
-          960: {
-            itemsToShow: 5
+          800: {
+            itemsToShow: 2,
           },
+          1200: {
+            itemsToShow: 4,
+          }
         }
-      }
+      },
     };
   },
   computed: {
@@ -174,18 +193,25 @@ export default {
     },
     carouselItemsToShow() {
       if (this.windowWidth > 1366) {
+        console.log(5.5);
         return 5.5;
-      } else if (this.windowWidth > 1024) {
+      } else if (this.windowWidth > 1024 && this.windowWidth <= 1366) {
+        console.log(4.5);
         return 4.5;
-      } else if (this.windowWidth > 960) {
+      } else if (this.windowWidth > 960 && this.windowWidth <= 1024) {
+        console.log(3.5);
         return 3.5;
-      } else if (this.windowWidth > 600) {
+      } else if (this.windowWidth > 600 && this.windowWidth <= 960) {
+        console.log(2.5);
         return 2.5;
-      } else if (this.windowWidth > 520) {
+      } else if (this.windowWidth > 520 && this.windowWidth <= 600) {
+        console.log(2.2);
         return 2.2;
-      } else if (this.windowWidth > 380) {
+      } else if (this.windowWidth > 380 && this.windowWidth <= 520) {
+        console.log(1.5);
         return 1.5;
-      } else if (this.windowWidth > 320) {
+      } else if (this.windowWidth > 280 && this.windowWidth <= 380) {
+        console.log(1.2);
         return 1.2;
       }
     }
@@ -193,6 +219,9 @@ export default {
   methods: {
     tabChanged(val) {
       this.selected = val;
+    },
+    dragImage() {
+      return false;
     },
     activeItemSliderNav(data) {
       this.$emit("active-item-slider-nav", data);
@@ -376,7 +405,7 @@ export default {
     display: block;
   }
 }
-.product-similar-carousel::v-deep {
+.product-similar-carousel-container::v-deep {
   height: toRem(419);
   @extend .d-flex;
   flex-direction: column;
@@ -385,71 +414,173 @@ export default {
   background-color: $white;
   margin: toRem(24) 0;
   box-shadow: 0 toRem(8) toRem(16) 0 $color-box-shadow;
+  position: relative;
+  @include xs {
+    height: auto;
+  }
+
+  .next-btn {
+    &.is-disabled {
+      display: none;
+    }
+  }
+  .previous-btn {
+    &.is-disabled {
+      display: none;
+    }
+  }
 
   .carousel-title {
     @extend .align-center;
     justify-content: space-between;
     height: toRem(87);
     padding: 0 toRem(24);
+    @include xs {
+      height: toRem(60);
+    }
     .name {
       font-size: toRem(18);
       color: $black;
+      @include sm {
+        font-size: toRem(16);
+      }
+      &.desktop {
+        @include xs {
+          display: none;
+        }
+      }
+      &.mobile {
+        display: none;
+        @include xs {
+          display: block;
+        }
+      }
     }
     .complete-list {
-      font-size: toRem(16);
-      color: $gray-3;
-      @extend .align-center;
-      .icon {
-        margin-right: toRem(8);
-        &::before {
-          content: "\e801";
-          @include font-icon__limoo();
-          color: $gray-3;
-          font-size: toRem(13);
+      &.desktop {
+        @include xs {
+          display: none;
+        }
+        font-size: toRem(16);
+        color: $gray-3;
+        @extend .align-center;
+        @include sm {
+          font-size: toRem(14);
+          .icon {
+            &::before {
+              font-size: toRem(12);
+            }
+          }
+        }
+
+        .icon {
+          margin-right: toRem(8);
+          &::before {
+            content: "\e801";
+            @include font-icon__limoo();
+            color: $gray-3;
+            font-size: toRem(13);
+          }
         }
       }
     }
   }
-
-  .hooper {
-    height: toRem(332);
-  }
-  .similar-products-carousel-item {
-    @extend .align-center;
-    justify-content: space-between;
-    padding: 0 toRem(8);
-    border-left: toRem(1) solid $gray-6;
-    flex-direction: column;
-    height: toRem(332);
-
-    &-image-wrapper {
-      width: 100%;
-      @extend .justify-center;
+  .carousel-subtitle {
+    display: none;
+    @include xs {
+      display: block;
+      font-size: toRem(13);
+      color: $gray-3;
+      padding: 0 toRem(24);
+      margin-top: toRem(-10);
       margin-bottom: toRem(8);
+    }
+  }
 
-      img {
-        max-height: toRem(164);
-        -webkit-user-select: none;
-        -khtml-user-select: none;
-        -moz-user-select: none;
-        -o-user-select: none;
-        user-select: none;
+  .product-similar-carousel {
+    height: toRem(303);
+    @include xs {
+      height: toRem(233);
+    }
+    .similar-products-carousel-item {
+      @extend .align-center;
+      justify-content: space-between;
+      padding: 0 toRem(8);
+      border-left: toRem(1) solid $gray-6;
+      flex-direction: column;
+      height: 100%;
+
+      &-image-wrapper {
+        width: 100%;
+        @extend .justify-center;
+        margin-bottom: toRem(8);
+
+        img {
+          max-height: toRem(164);
+          -webkit-user-select: none;
+          -khtml-user-select: none;
+          -moz-user-select: none;
+          -o-user-select: none;
+          user-select: none;
+          @include xs {
+            max-height: toRem(120);
+          }
+        }
+      }
+
+      &-name {
+        max-width: 70%;
+        font-size: toRem(14);
+        color: $black-topic;
+        margin: 0 auto toRem(16) auto;
+        text-align: center;
+      }
+
+      &-price {
+        font-size: toRem(16);
+        color: $gray-2;
+        text-align: center;
       }
     }
+  }
 
-    &-name {
-      max-width: 70%;
-      font-size: toRem(14);
-      color: $black-topic;
-      margin: 0 auto toRem(16) auto;
-      text-align: center;
-    }
+  .complete-list {
+      &.mobile {
+        display: none;
+        @include xs {
+          display: block;
+          font-size: toRem(13);
+          color: $gray-3;
+          @include display-flex();
+          align-items: center;
+          margin-top: toRem(38);
+          margin-bottom: toRem(16);
+          padding-left: toRem(16);
+          justify-content: end;
 
-    &-price {
-      font-size: toRem(16);
-      color: $gray-2;
-      text-align: center;
-    }
+          .icon {
+            margin-right: toRem(8);
+            &::before {
+              content: "\e801";
+              @include font-icon__limoo();
+              color: $gray-3;
+              font-size: toRem(12);
+            }
+          }
+        }
+      }
+  }
+  .shadow {
+    position: absolute;
+    height: 100%;
+    width: toRem(54);
+    background: linear-gradient(
+        90deg, $white -11.48%, rgba(255, 255, 255, 0) 107.7%);
+    opacity: 0.8;
+    left: 0;
+    border-top-left-radius: toRem(10);
+    border-bottom-left-radius: toRem(10);
+
   }
 }
 

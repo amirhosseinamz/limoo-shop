@@ -10,7 +10,7 @@
         remove-margin-top=""
         :more-text="getTextByTextKey('home_category_all')"
         :title="{title:'',href:'',titleVisit:'',sliderItemHref:'product'}"
-        style="margin-top: 23px"
+        class="productContent__mainSlider-1"
       ></product-content>
 
 
@@ -182,6 +182,12 @@ export default {
 
 .product__vertical-right {
   margin-left: toRem(30);
+}
+.productContent__mainSlider-1 {
+  margin-top: toRem(23);
+  @include xs {
+    margin-top: 0;
+  }
 }
 
 

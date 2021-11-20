@@ -232,8 +232,12 @@ export default {
   width: 100%;
   margin-right: auto;
   margin-left: auto;
-  max-width: toRem(1380);
-
+}
+.page__home-wrapper-main {
+  padding: 0 toRem(30);
+  @include xs {
+    padding: 0 toRem(5);
+  }
 }
 .icon-location::after {
     content: '\e817';
@@ -250,21 +254,6 @@ export default {
   align-items: center;
   height: 100%;
 }
-
-
-@media (max-width: 1450px) {
-  .page-home{
-    // padding-right: 26px;
-    // padding-left: 26px;
-    width: 100%;
-  }
-  .page__home-wrapper-main{
-    padding-right: toRem(26);
-    padding-left: toRem(26);
-  }
-
-}
-
 
 @include md {
     .desktop-screen {
@@ -311,23 +300,5 @@ export default {
 
 }
 
-@media (max-width: 600px) {
-
-}
-
-@media (max-width: 485px) {
-  .page__home-wrapper-main{
-    padding-right: 10px;
-    padding-left: 10px;
-  }
-}
-
-@media (max-width: 350px) {
-
-}
-
-@media (max-width: 320px) {
-
-}
 
 </style>
