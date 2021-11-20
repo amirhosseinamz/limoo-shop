@@ -57,8 +57,7 @@
         ondragstart="return false"
         ondrag="return false"
         class="product-similar-carousel"
-        :settings="carouselSetting"
-        :items-to-slide="1"
+        :items-to-slide="carouselItemsToShow"
         :wheel-control="false"
         ref="carousel
         ">

@@ -145,8 +145,8 @@ export default {
       }
       .hooper-indicators {
         .hooper-indicator {
-          width: toRem(15);
-          height: toRem(15);
+          width: toRem(16);
+          height: toRem(16);
           border-radius: 50%;
           background-color: $gray-6;
           border: toRem(1) solid $gray-4;
