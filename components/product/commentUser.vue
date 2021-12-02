@@ -1,10 +1,22 @@
 <template>
   <div
     ref="contentMain"
-    class="p-comments-content-main w-100 flex-column flex-wrap  d-rtl tabs__content"
+    class="
+      p-comments-content-main
+      w-100
+      flex-column flex-wrap
+      d-rtl
+      tabs__content
+    "
   >
     <div class="w-100">
-      <base-button no-box-shadow no-hover base-color="yellow" classes="comments-add__comment" @button-clicked="showModalAddComment">
+      <base-button
+        no-box-shadow
+        no-hover
+        base-color="yellow"
+        classes="comments-add__comment"
+        @button-clicked="showModalAddComment"
+      >
         {{ getTextByTextKey("product_submit_comment") }}
       </base-button>
     </div>
@@ -32,7 +44,7 @@
             class="flex-wrap w-100 p-comment-content-wrapper align-items-start"
           >
             <div class="w-100">
-              <div class="w-100 flex-wrap  p-comments-content-header ">
+              <div class="w-100 flex-wrap p-comments-content-header">
                 <div class="p-comments__header-holder">
                   <div class="p-comments__title">
                     {{ data.Title }}
@@ -59,34 +71,53 @@
                       }}
                     </span>
                     <div class="p-comments__state-mobile">
-                      <base-signs type="confirmed" v-if="typeof data.confirmLeave === 'undefined'" :title="data.dateConvert"></base-signs>
-                      <base-signs type="confirmed" v-if="data.confirmLeave === 1"></base-signs>
-                      <base-signs type="waiting" v-if="data.confirmLeave === 2"></base-signs>
+                      <base-signs
+                        type="confirmed"
+                        v-if="typeof data.confirmLeave === 'undefined'"
+                        :title="data.dateConvert"
+                      ></base-signs>
+                      <base-signs
+                        type="confirmed"
+                        v-if="data.confirmLeave === 1"
+                      ></base-signs>
+                      <base-signs
+                        type="waiting"
+                        v-if="data.confirmLeave === 2"
+                      ></base-signs>
                     </div>
                   </div>
                 </div>
 
                 <div class="p-comments__state-desktop">
-                  <base-signs type="confirmed" v-if="typeof data.confirmLeave === 'undefined'" :title="data.dateConvert"></base-signs>
-                  <base-signs type="confirmed" v-if="data.confirmLeave === 1"></base-signs>
-                  <base-signs type="waiting" v-if="data.confirmLeave === 2"></base-signs>
+                  <base-signs
+                    type="confirmed"
+                    v-if="typeof data.confirmLeave === 'undefined'"
+                    :title="data.dateConvert"
+                  ></base-signs>
+                  <base-signs
+                    type="confirmed"
+                    v-if="data.confirmLeave === 1"
+                  ></base-signs>
+                  <base-signs
+                    type="waiting"
+                    v-if="data.confirmLeave === 2"
+                  ></base-signs>
                 </div>
               </div>
               <!-- ==================================================================================== -->
               <div class="w-100 flex-column p-comment-content-data-main">
                 <div class="w-100 p-commentedproduct-main text-right">
                   <div class="p-commented-default-main">
-
                     <div
                       class="p-commented-default-pic p-commented-product-img"
                     ></div>
                   </div>
                   <div class="p-product-content-data">
-                    <span class="p-product-content-text-data ">
+                    <span class="p-product-content-text-data">
                       {{ data.Firstname }}
                       {{ data.Lastname }}
                     </span>
-                    <div class="p-product-content-rating-data ">
+                    <div class="p-product-content-rating-data">
                       <div class="stars-outer">
                         <div
                           class="stars-inner"
@@ -99,6 +130,9 @@
                       <span class="rate-count">
                         {{ getTextByTextKey("commnets_star_from_text") }} 5
                       </span>
+                      <span class="buyer-badge"
+                        ><span class="badge-text">خریدار</span></span
+                      >
                     </div>
                     <!-- ====================== -->
                   </div>
@@ -122,9 +156,33 @@
                 </div>
               </div>
             </div>
+            <!-- like and dislike -->
+            <div class="like-dislike-wrapper d-flex w-100">
+              <div class="dislike d-flex align-center" @click="dislike">
+                <span class="number">{{ dislikeCounter }}</span>
+                <sapn
+                  class="dislike-icon"
+                  :class="`${
+                    dislikeIconIsActive
+                      ? 'dislike-icon-clicked'
+                      : 'dislike-icon'
+                  }`"
+                ></sapn>
+              </div>
+              <div class="vertical-line"></div>
+              <div class="like d-flex align-center" @click="like">
+                <span class="number">{{ likeCounter }}</span>
+                <span
+                  class="like-icon"
+                  :class="`${
+                    likeIconIsActive ? 'like-icon-clicked' : 'like-icon'
+                  }`"
+                ></span>
+              </div>
+            </div>
           </div>
         </div>
-
+        <!-- like and dislike  -->
         <div @click="moreCommentMobile" class="comment_more" style="">
           <div class="comment_main">
             <h3 class="comment__more-title">
@@ -133,10 +191,13 @@
             <span class="comment-more__icon"></span>
           </div>
         </div>
-        <base-pagination class="comment-pagination" @pageChanged="pageChanged"></base-pagination>
+        <base-pagination
+          class="comment-pagination"
+          @pageChanged="pageChanged"
+        ></base-pagination>
       </div>
     </div>
-<!--    Add Comment Modal-->
+    <!--    Add Comment Modal-->
     <transition name="backdrop-scale">
       <div class="backdrop" v-if="showModal"></div>
     </transition>
@@ -150,7 +211,6 @@
         @close-modal="modalClose"
       ></modal-add-comment>
     </transition>
-
   </div>
 </template>
 
@@ -175,15 +235,19 @@ export default {
       userComments: -1,
       showModal: false,
       windowWidth: 0,
+      likeIconIsActive: false,
+      dislikeIconIsActive: false,
+      likeCounter: 0,
+      dislikeCounter: 0,
     };
   },
   computed: {
     closeModalAddComment() {
-      return this.$store.getters["product/single/single/closeModalAddComment"]
+      return this.$store.getters["product/single/single/closeModalAddComment"];
     },
     modalAnimation() {
       return "scale";
-    }
+    },
   },
   watch: {
     closeModalAddComment() {
@@ -196,7 +260,7 @@ export default {
   },
 
   mounted() {
-    window.addEventListener('resize', this.handleResize);
+    window.addEventListener("resize", this.handleResize);
     this.handleResize();
     setTimeout(() => {
       const el = document.querySelectorAll(".p-commentedproduct-description");
@@ -235,7 +299,7 @@ export default {
       this.dataEditAddress = {};
       this.passChangeIsActive = false;
     },
-    pageChanged () {
+    pageChanged() {
       this.$refs.contentMain.scrollIntoView({ behavior: "smooth" });
     },
 
@@ -253,6 +317,22 @@ export default {
 
     submitData(data) {
       this.$emit("submit-data", data);
+    },
+    like() {
+      this.likeIconIsActive = !this.likeIconIsActive;
+      if (this.likeIconIsActive) {
+        this.likeCounter++;
+      } else {
+        this.likeCounter--;
+      }
+    },
+    dislike() {
+      this.dislikeIconIsActive = !this.dislikeIconIsActive;
+      if (this.dislikeIconIsActive) {
+        this.dislikeCounter++;
+      } else {
+        this.dislikeCounter--;
+      }
     },
   },
 };
@@ -351,6 +431,31 @@ export default {
 }
 .rate-counter {
   margin-right: toRem(8);
+}
+.buyer-badge {
+  background-color: $orange-5;
+  @include display-flex();
+  justify-content: center;
+  align-items: center;
+  display: inline-flex;
+  width: toRem(70);
+  height: toRem(29);
+  margin-right: toRem(16);
+  border-radius: toRem(16.5);
+  @include sm{
+    align-items: center;
+    width: toRem(54);
+    height: toRem(24);
+  }
+  .badge-text {
+    font-style: normal;
+    font-weight: normal;
+    font-size: toRem(14);
+    // margin-top: toRem(3);
+    @include sm{
+    font-size: toRem(13);
+  }
+  }
 }
 /* ////////////////////////////// */
 
@@ -617,7 +722,71 @@ export default {
   font-family: inherit;
   margin-bottom: 1.5rem;
 }
-
+.like-dislike-wrapper {
+  justify-content: end;
+  margin-top: toRem(20);
+  margin-bottom: toRem(25.5);
+  height: toRem(29.6);
+  margin-left: toRem(24);
+  @include sm{
+    margin-left: toRem(14);
+  }
+  .dislike {
+    cursor: pointer;
+    .number {
+      color: $red-logout;
+      margin-left: toRem(8);
+    }
+    .dislike-icon {
+      transform: rotate(180deg);
+      &::before {
+        content: "\e843";
+        @include font-icon__limoo();
+        font-size: toRem(23);
+        color: $red-logout;
+      }
+    }
+    .dislike-icon-clicked {
+      &::before {
+        content: "\e844";
+        @include font-icon__limoo();
+        font-size: toRem(20);
+        color: $red-logout;
+      }
+    }
+  }
+  .vertical-line {
+    height: toRem(24);
+    width: 1px;
+    background-color: $light-gray;
+    margin-right: toRem(15);
+    margin-left: toRem(16);
+  }
+  .like {
+    width: toRem(45);
+    cursor: pointer;
+    .number {
+      color: $green__answer;
+      margin-left: toRem(8);
+    }
+    .like-icon {
+      &::before {
+        content: "\e843";
+        @include font-icon__limoo();
+        font-size: toRem(23);
+        color: $green__answer;
+      }
+    }
+    .like-icon-clicked {
+      &::before {
+        content: "\e844";
+        @include font-icon__limoo();
+        font-size: toRem(20);
+        color: $green__answer;
+      }
+    }
+  }
+}
 @include xl {
   .p-comments-content-header-item {
     margin-left: 10%;

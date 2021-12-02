@@ -288,7 +288,7 @@ export default {
   width: toRem(481);
   margin-right: auto;
   margin-left: auto;
-  padding-top: toRem(38);
+  padding-top: toRem(25);
 }
 .comment__form-title {
   font-size: toRem(16);
@@ -308,7 +308,7 @@ export default {
   font-weight: 400;
 }
 .comment__suggest-main {
-  margin-top: toRem(38);
+  // margin-top: toRem(38);
 }
 .comment__suggest-text {
   font-size: toRem(16);

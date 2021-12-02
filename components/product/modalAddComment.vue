@@ -1,20 +1,19 @@
 <template>
   <base-modal
-  class="modal-container d-rtl"
-  modal-class="modal"
-  :mode="modalMode"
-  @close-modal="modalClose"
+    class="modal-container d-rtl"
+    modal-class="modal"
+    :mode="modalMode"
+    @close-modal="modalClose"
   >
-    <div class="w-100  product__modal">
+    <div class="w-100 product__modal">
       <div class="w-100 product__modal-text comment--mobile">
         <div class="w-100 product__modal-top">
-          <h3 class="product__modal-title">
+          <!-- <h3 class="product__modal-title">
             >
             {{ getTextByTextKey("product_technical_specifications") }}
-          </h3>
+          </h3> -->
 
           <span @click="modalClose" class="product__modal-arrow"></span>
-
         </div>
         <span class="product__modal-line"></span>
       </div>
@@ -24,7 +23,8 @@
           @button-clicked="modalClose"
           classes="comment__close"
           base-color="white"
-          mode="close"></base-button>
+          mode="close"
+        ></base-button>
       </div>
 
       <div class="w-100 comment__modal-container">
@@ -77,7 +77,7 @@ import { getTextByTextKey } from "~/modules/splitPartJsonResource.js";
 export default {
   props: {
     commentsData: { type: [Object, Array], default: {} },
-    modalMode: { type: String, require: true }
+    modalMode: { type: String, require: true },
   },
 
   components: {
@@ -131,7 +131,7 @@ export default {
     getTextByTextKey,
 
     modalClose() {
-      this.$emit('close-modal');
+      this.$emit("close-modal");
     },
 
     activeStr(data) {
@@ -168,7 +168,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
 .modal-container::v-deep {
   .modal {
     width: toRem(642);
@@ -206,7 +205,7 @@ export default {
       content: "\e825";
       @include font-icon__limoo();
       font-weight: 400;
-      font-size: toRem(31);
+      font-size: toRem(25);
       color: $light-gray;
       letter-spacing: toRem(2);
     }
@@ -240,64 +239,80 @@ export default {
     }
     .comment--slider__main {
       width: 100%;
-      margin-top: toRem(27);
+      margin-top: toRem(20);
+      @include display-flex();
+      justify-content: center;
+      .range-slider {
+        width: 100%;
+        @include sm {
+        width: 40%;
+        }
+        @include xs {
+        width: 50%;
+        }
+        @include xs {
+        width: 65%;
+        }
+        @include xxs {
+        width: 70%;
+        }
+      }
     }
 
-    .renge-circle {
-      width: toRem(35);
-      height: toRem(35);
-      pointer-events: none;
-    }
-    .product__modal-close::after {
-      @include display-flex();
-      content: "\e801";
-      @include font-icon__limoo();
-      font-size: toRem(12);
-    }
-    .product__modal-close {
-      width: toRem(30);
-      height: toRem(30);
-      cursor: pointer;
-    }
-    .product__modal-title {
-      font-size: toRem(14);
-      color: $black;
-      font-weight: 400;
-      flex-grow: 1;
-      min-height: toRem(18);
-      color: $black-topic;
-    }
-    .product__modal-top {
-      @include display-flex();
-      align-items: flex-start;
-      padding: 0 toRem(16);
-    }
-    .product__modal-line {
-      margin-bottom: toRem(15);
-      margin-top: toRem(15);
-    }
-    .product__modal-line {
-      background: $gray-border;
-      width: 100%;
-      height: toRem(1);
-      @include display-flex();
-    }
-    .product__modal-text {
-      align-items: center;
-      flex-wrap: wrap;
-    }
-    .product__modal-arrow::after {
-      content: "\e801";
-      @include font-icon__limoo();
-      font-size: toRem(17);
-      cursor: pointer;
-      color: $gray;
-    }
+    // .renge-circle {
+    //   width: toRem(35);
+    //   height: toRem(35);
+    //   pointer-events: none;
+    // }
+    // .product__modal-close::after {
+    //   @include display-flex();
+    //   content: "\e801";
+    //   @include font-icon__limoo();
+    //   font-size: toRem(12);
+    // }
+    // .product__modal-close {
+    //   width: toRem(30);
+    //   height: toRem(30);
+    //   cursor: pointer;
+    // }
+    // .product__modal-title {
+    //   font-size: toRem(14);
+    //   color: $black;
+    //   font-weight: 400;
+    //   flex-grow: 1;
+    //   min-height: toRem(18);
+    //   color: $black-topic;
+    // }
+    // .product__modal-top {
+    //   @include display-flex();
+    //   align-items: flex-start;
+    //   padding: 0 toRem(16);
+    // }
+    // .product__modal-line {
+    //   margin-bottom: toRem(15);
+    //   margin-top: toRem(15);
+    // }
+    // .product__modal-line {
+    //   background: $gray-border;
+    //   width: 100%;
+    //   height: toRem(1);
+    //   @include display-flex();
+    // }
+    // .product__modal-text {
+    //   align-items: center;
+    //   flex-wrap: wrap;
+    // }
+    // .product__modal-arrow::after {
+    //   content: "\e801";
+    //   @include font-icon__limoo();
+    //   font-size: toRem(17);
+    //   cursor: pointer;
+    //   color: $gray;
+    // }
   }
 }
 
 // این قسمت به علت تکرار جدا شود  //
-
 
 @media (max-width: 1600px) {
   .modal-container::v-deep {
@@ -309,7 +324,7 @@ export default {
   }
 }
 
-@media (max-width: 760px) {
+@media (max-width: 768px) {
   .range-slider::v-deep {
     &.slider-wrapper {
       height: 0.4rem;
@@ -319,7 +334,6 @@ export default {
         height: 1rem;
       }
     }
-
   }
   .modal-container::v-deep {
     .modal {
@@ -331,8 +345,8 @@ export default {
       }
       .comment--slider__main::v-deep {
         .range-slider-dot {
-          width: 16px!important;
-          height: 16px!important;
+          width: 16px !important;
+          height: 16px !important;
         }
       }
       .comment--desktop {
@@ -370,7 +384,6 @@ export default {
             box-shadow: 0 0 0 toRem(4.8) rgba(255, 204, 64, 0.3);
           }
         }
-
       }
       .product__modal-line {
         margin-bottom: 0;
@@ -381,8 +394,5 @@ export default {
       }
     }
   }
-
-
-
 }
 </style>
