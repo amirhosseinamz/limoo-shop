@@ -313,6 +313,14 @@ export default {
 .stars-outer {
   position: relative;
   display: inline-block;
+  &::before {
+    content: "\e825 \e825 \e825 \e825 \e825";
+    @include font-icon__limoo();
+    font-weight: 400;
+    font-size: toRem(16);
+    color: $light-gray;
+    letter-spacing: toRem(2);
+  }
 }
 
 .stars-inner {
@@ -324,25 +332,16 @@ export default {
   width: 0;
   @include display-flex();
   flex-direction: row-reverse;
+  &::before {
+    content: "\e825 \e825 \e825 \e825 \e825";
+    @include font-icon__limoo();
+    font-weight: 400;
+    font-size: toRem(16);
+    color: $yellow;
+    letter-spacing: toRem(2);
+  }
 }
 
-.stars-outer::before {
-  content: "\e825 \e825 \e825 \e825 \e825";
-  @include font-icon__limoo();
-  font-weight: 400;
-  font-size: toRem(16);
-  color: $light-gray;
-  letter-spacing: toRem(2);
-}
-
-.stars-inner::before {
-  content: "\e825 \e825 \e825 \e825 \e825";
-  @include font-icon__limoo();
-  font-weight: 400;
-  font-size: toRem(16);
-  color: $yellow;
-  letter-spacing: toRem(2);
-}
 .rate-count,
 .rate-counter {
   color: $gray;

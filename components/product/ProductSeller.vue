@@ -38,7 +38,23 @@
           3 فروشنده دیگر
           <span class="icon"></span>
         </div>
+        <div class="sell-specification">
+          <div class="sending-info">
+            <span class="sending-info-icon"></span>
+            آماده ارسال
+          </div>
+          <div class="remaining">
+            <span class="remaining-icon"></span>
+            فقط سه عدد از این محصول موجود است
+          </div>
+          <div class="warranty">
+            <span class="warranty-icon"></span>
+            گارانتی: 18 ماه گارانتی شرکت مجاز مشترک
+          </div>
+          <chosen-seller-badge class="chosen"></chosen-seller-badge>
+        </div>
       </div>
+
     </div>
     <transition name="backdrop-form">
       <div class="backdrop" v-if="sellerModalIsOpen" @click="closeSellerModal"></div>
@@ -55,9 +71,10 @@
 <script>
 import DropdownAccordion from "./DropdownAccordion";
 import ModalSeller from "./ModalSeller";
+import ChosenSellerBadge from "./ChosenSellerBadge";
 export default {
   name: "ProductSeller",
-  components: { ModalSeller, DropdownAccordion },
+  components: { ChosenSellerBadge, ModalSeller, DropdownAccordion },
   data() {
     return {
       sellerModalIsOpen: false,
@@ -230,7 +247,87 @@ export default {
           }
         }
       }
+      .sell-specification {
+        flex-direction: column;
+        justify-content: flex-end;
+        position: relative;
+        padding-top: toRem(24);
+        border-top: toRem(2) solid $gray-6;
+        margin-top: toRem(8);
+        display: none;
+        @include xs {
+          @include display-flex();
+        }
+
+        .sending-info,
+        .remaining,
+        .warranty,
+        .chosen {
+          @extend .align-center;
+          font-size: toRem(14);
+          margin-bottom: toRem(24);
+
+          @include xxs {
+            font-size: toRem(13);
+          }
+        }
+        .sending-info {
+          color: $green__answer;
+          &-icon {
+            &::before {
+              content: "\e878";
+              font-size: toRem(16);
+              @include font-icon__limoo();
+              color: $green__answer;
+              margin-left: toRem(20);
+              @include xs {
+                margin-left: toRem(16);
+              }
+              @include xxs {
+                margin-left: toRem(10);
+              }
+            }
+          }
+        }
+        .remaining {
+          color: $gray-2;
+          &-icon {
+            &::before {
+              content: "\e828";
+              font-size: toRem(16);
+              @include font-icon__limoo();
+              color: $gray-3;
+              margin-left: toRem(20);
+              @include xs {
+                margin-left: toRem(16);
+              }
+              @include xxs {
+                margin-left: toRem(10);
+              }
+            }
+          }
+        }
+        .warranty {
+          color: $gray-2;
+          &-icon {
+            &::before {
+              content: "\e813";
+              font-size: toRem(18);
+              @include font-icon__limoo();
+              color: $gray-3;
+              margin-left: toRem(20);
+              @include xs {
+                margin-left: toRem(16);
+              }
+              @include xxs {
+                margin-left: toRem(10);
+              }
+            }
+          }
+        }
+      }
     }
+
   }
 }
 </style>

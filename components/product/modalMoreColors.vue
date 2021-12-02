@@ -30,8 +30,8 @@
       <color-item class="color-item"
         :class="'modal-items'+ modalItems"
         :index="index"
-        v-for="(item, index) in colorsExceptFirstThree" :key="item.id"
-        :background-color="item.color"
+        v-for="(item, index) in colorsExceptFirstFive" :key="item.id"
+        :preview-colors="[`${item.color}`]"
         @item-selected="colorSelected">
         {{ item.name }}
       </color-item>
@@ -64,9 +64,9 @@ export default {
     colorsData() {
       return this.$store.getters["product/single/single/colorsData"];
     },
-    colorsExceptFirstThree() {
-      return this.colorsData.slice(-(this.colorsData.length-3));
-    }
+    colorsExceptFirstFive() {
+      return this.colorsData.slice(-(this.colorsData.length-5));
+    },
   },
   methods: {
     closeModal() {
@@ -75,8 +75,8 @@ export default {
     handleResize() {
       this.windowWidth = window.innerWidth;
     },
-    colorSelected(backgroundColor, index) {
-      this.$emit('color-selected', backgroundColor, index+3);
+    colorSelected() {
+      this.$emit('color-selected');
     }
   },
   mounted() {

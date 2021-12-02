@@ -11,22 +11,34 @@
         @color-selected="colorSelected"
       ></modal-more-colors>
     </transition>
-    <span class="title">رنگ: </span>
+    <div class="product-colors-title">
+      <span class="title-name">رنگ: </span>
+      <span class="color-name">
+        {{ colorName }}
+      </span>
+    </div>
     <div class="desktop-display">
-      <div class="colors">
-        <color-item :class="'color-item-'+colorItemUUID" v-for="item in firstThreeOfColors" :key="item.id" :background-color="item.color">
-          {{ item.name }}
-        </color-item>
+      <div
+        class="img-box"
+        @click="selectColorItem($event, item.exist)"
+        @mouseover="hoverColorName(item.name, item.exist)"
+        @mouseout="unHoverColorName"
+        :data-color="item.name"
+        :class="['color-item-'+colorItemUUID, { 'disabled': !item.exist }]"
+        v-for="item in firstNthOfColors(5)"
+        :key="item.id"
+      >
+        <img :src="item.image" :alt="item.name">
       </div>
-      <color-item class="more-colors" :color-preview="false" :selectable="false" @item-clicked="showMoreColors">
+      <div class="more-colors" @click="showMoreColors">
         <span class="more-colors-icon"></span>
         <span class="more-icon-text">
         رنگ های بیشتر
       </span>
-      </color-item>
+      </div>
     </div>
     <div class="mobile-display">
-      <color-item class="more-colors" :background-color="moreColorsBackground" :selectable="false"
+      <color-item class="more-colors" :preview-colors="firstFourOfColorsNames" :selectable="false"
                   @item-clicked="showMoreColors">
         <span class="more-colors-icon"></span>
         <span class="more-icon-text">
@@ -50,6 +62,8 @@ export default {
       showModal: false,
       moreColorsBackground: "green",
       colorItemUUID: "98a46b71-02ce-4586-9c51-e2f41dd64323",
+      colorName: "",
+      hoverImageBox: false,
     };
   },
   computed: {
@@ -63,13 +77,40 @@ export default {
     colorsData() {
       return this.$store.getters["product/single/single/colorsData"];
     },
-    firstThreeOfColors() {
-      return this.colorsData.slice(0, 3);
+    firstFourOfColorsNames() {
+      let _colors = [];
+      for (let i = 0; i < 4; i++) {
+        _colors.push(this.colorsData[i].color);
+      }
+      return _colors;
     },
+
   },
   methods: {
     handleResize() {
-      this.windowWidth = window.innerWidth
+      this.windowWidth = window.innerWidth;
+    },
+    firstNthOfColors(length) {
+      return this.colorsData.slice(0, length);
+    },
+    selectColorItem(e, itemExist) {
+      if (itemExist) {
+        const active = document.querySelector(".color-item-" + this.colorItemUUID + ".selected");
+        if (active) {
+          active.classList.remove("selected");
+        }
+        e.target.classList.add("selected");
+      }
+    },
+    hoverColorName(colorName, itemExist) {
+      if (itemExist) {
+        this.colorName = colorName;
+      }
+    },
+    unHoverColorName() {
+      const active = document.querySelector(".color-item-" + this.colorItemUUID + ".selected");
+      this.colorName = active.getAttribute("data-color");
+
     },
     closeModal() {
       this.showModal = false;
@@ -77,21 +118,21 @@ export default {
     showMoreColors() {
       this.showModal = true;
     },
-    colorSelected(backgroundColor, index) {
-      this.moreColorsBackground = backgroundColor;
-      this.$store.dispatch('product/single/single/changeColorArrayElements', index);
+    colorSelected() {
+      //this.moreColorsBackground = backgroundColor;
+      //this.$store.dispatch("product/single/single/changeColorArrayElements");
       this.showModal = false;
       setTimeout(() => {
-        document.querySelector('.color-item-'+this.colorItemUUID).classList.add('selected');
+        document.querySelector(".color-item-" + this.colorItemUUID).classList.add("selected");
       }, 1);
     },
-
-
   },
   mounted() {
     window.addEventListener("resize", this.handleResize);
     this.handleResize();
-    document.querySelector('.color-item-'+this.colorItemUUID).classList.add('selected');
+    let firstColor = document.querySelector(".color-item-" + this.colorItemUUID);
+    firstColor.classList.add("selected");
+    this.colorName = firstColor.getAttribute("data-color");
   },
 };
 </script>
@@ -104,23 +145,64 @@ $colorItemUUID: "98a46b71-02ce-4586-9c51-e2f41dd64323";
 .product-colors-container {
   @extend .d-flex;
   flex-wrap: nowrap;
+  flex-direction: column;
+  border-bottom: toRem(2) solid $gray-6;
+  padding-bottom: toRem(16);
 
   .backdrop {
     @extend .modal-backdrop;
     background-color: $overlay--profile;
   }
 
-  .title {
-    font-size: toRem(16);
-    line-height: 190%;
-    margin-left: toRem(32);
-    color: $gray-2;
+  .product-colors-title {
+    @extend .align-center;
+    margin-bottom: toRem(8);
+
+    .title-name {
+      font-size: toRem(16);
+      line-height: 190%;
+      margin-left: toRem(5);
+      color: $gray-2;
+    }
+
+    .color-name {
+      font-size: toRem(16);
+      color: $black-topic;
+    }
   }
 
 
   .desktop-display {
     @extend .d-flex;
     flex-wrap: wrap;
+
+    .img-box {
+      width: toRem(51);
+      height: toRem(51);
+      border-radius: toRem(8);
+      padding: toRem(6);
+      margin-left: toRem(8);
+      border: toRem(1) solid $gray-6;
+      cursor: pointer;
+
+      &.selected {
+        border: toRem(1) solid $gray;
+      }
+
+      &.disabled {
+        border: toRem(1) dashed $gray-6;
+
+        img {
+          opacity: 0.5;
+        }
+      }
+
+      img {
+        max-width: toRem(39);
+        max-height: toRem(39);
+        pointer-events: none;
+      }
+    }
 
     .colors {
       @extend .d-flex;
@@ -138,8 +220,14 @@ $colorItemUUID: "98a46b71-02ce-4586-9c51-e2f41dd64323";
       height: toRem(40);
       padding: 0 toRem(6) 0 toRem(10);
       max-width: unset;
+      @extend .align-center;
+      margin-top: toRem(8);
+      cursor: pointer;
+      border: toRem(1) solid $gray-6;
+      border-radius: toRem(10);
 
       &-icon {
+        margin-left: toRem(5);
         &::before {
           content: "\e822";
           @include font-icon__limoo;
@@ -217,6 +305,7 @@ $colorItemUUID: "98a46b71-02ce-4586-9c51-e2f41dd64323";
     }
   }
 }
+
 @include xxs {
   .product-colors-container {
     .mobile-display {

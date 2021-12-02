@@ -1,7 +1,7 @@
 <template>
   <div class="color-item-container" @click="selectItem" :class="{ 'selected': selected }">
-    <span v-if="colorPreview" @click="selectItemFromChild" class="color-preview" :class="backgroundColor"></span>
-    <span @click="selectItemFromChild" class="color-name">
+    <span v-for="preview in previewColors" v-if="colorPreview" class="color-preview" :style="{ backgroundColor: preview }"></span>
+    <span class="color-name">
       <slot></slot>
     </span>
   </div>
@@ -11,10 +11,6 @@
 export default {
   name: "ColorItem",
   props: {
-    backgroundColor: {
-      type: String,
-      require: true,
-    },
     colorPreview: {
       type: Boolean,
       require: false,
@@ -33,26 +29,28 @@ export default {
       type: Boolean,
       require: false,
       default: false
+    },
+    previewColors: {
+      type: Array,
+      require: false,
     }
   },
+  data() {
+    return {
+      previewColor: null,
+    };
+  },
   methods: {
-    selectItem(e, targetFromChild) {
+    selectItem(e) {
       e.stopPropagation();
       let target;
-      if (targetFromChild) {
-        target = targetFromChild;
-      } else {
-        target = e.target;
-      }
+      target = e.target;
       if (this.selectable) {
         this.removeSelectedItem();
         target.classList.add('selected');
-        this.$emit('item-selected', this.backgroundColor, this.index);
+        this.$emit('item-selected');
       }
       this.$emit('item-clicked');
-    },
-    selectItemFromChild (e) {
-      this.selectItem(e, e.target.parentElement);
     },
     removeSelectedItem() {
       const activeItem = document.querySelector('.color-item-container.selected');
@@ -60,7 +58,7 @@ export default {
         activeItem.classList.remove('selected');
       }
     }
-  }
+  },
 };
 </script>
 
@@ -88,27 +86,15 @@ export default {
       height: toRem(16);
       min-width: toRem(16);
       border-radius: 50%;
-      margin-left: toRem(4);
-      &.red {
-        background-color: $product-red-color;
-      }
-      &.green {
-        background-color: $product-green-color;
-      }
-      &.purple {
-        background-color: $product-purple-color;
-      }
-      &.blue {
-        background-color: #1199ff;
-      }
-      &.yellow {
-        background-color: yellow;
-      }
+      margin-left: toRem(-7);
+      pointer-events: none;
     }
     .color-name {
       font-size: toRem(14);
       color: $gray-3;
       white-space: nowrap;
+      pointer-events: none;
+      margin-right: toRem(12);
       @include md {
         font-size: toRem(14);
       }
@@ -120,11 +106,5 @@ export default {
       }
     }
   }
-  @include xxs {
-    .color-item-container {
-      .color-preview {
-        margin-left: toRem(8);
-      }
-    }
-  }
+
 </style>

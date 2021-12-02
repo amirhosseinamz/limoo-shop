@@ -3,35 +3,47 @@
     <div class="product__single-category w-100">
 
     </div>
-
-    <div class="product__single-content w-100">
-
-      <div class="product__single-right">
+    <div class="product__single-content product_detail w-100">
+      <div class="product_detail-image">
         <div class="product--single__right-content">
-          <productPic @active-item-slider-nav="activeItemSliderNav" :product-slider="productSlider"></productPic>
+          <productPic class="product-pic desktop" :comment-data="commentData" @active-item-slider-nav="activeItemSliderNav" :product-slider="productSlider"></productPic>
         </div>
       </div>
 
-      <div class="product__single-left">
-
-        <div class="product__data-content w-100">
-          <div class="product__single-top w-100">
-            <h3 class="product__top-title">مک بوک پرو 16 اینچ با تاچ بار مدل 9102 مک بوک پرو 16 اینچ رتینا با تاچ بار
+      <div class="product_detail-info">
+        <div class="product_detail-info-content w-100">
+          <div class="product_detail-info-content-top w-100">
+            <h3 class="title">مک بوک پرو 16 اینچ با تاچ بار مدل 9102 مک بوک پرو 16 اینچ رتینا با تاچ بار
               مدل 2019 طرح جدید</h3>
             <h3 class="product__top-brand">Apple AirPods Max- Sliver - MGYJ3</h3>
+            <div class="product_detail-info-content-top-rating">
+              <div class="stars-outer">
+                <div class="stars-inner" :style="{ width: (4.5 * 100) / 5 + '%' }"
+                ></div>
+              </div>
+              <span class="rate-counter"> 4.5 </span>
+              <span class="rate-count">
+                        {{ getTextByTextKey("commnets_star_from_text") }} 5
+              </span>
+            </div>
+          </div>
+          <productPic class="product-pic mobile" :comment-data="commentData" @active-item-slider-nav="activeItemSliderNav" :product-slider="productSlider"></productPic>
+
+          <product-price class="product-price mobile"></product-price>
+          <product-colors class="product-colors w-100"></product-colors>
+<!--          <product-warranty class="product-warranty w-100"></product-warranty>-->
+          <div class="product-properties w-100">
+            <product-property v-for="property in propertyData" :key="property.id" :property-data="property"></product-property>
           </div>
           <product-actions v-if="shareModalMode === 'form'" :share-modal-mode="shareModalMode" class="product-actions desktop"></product-actions>
-
-<!--          <sliderSingleProduct :products="productSliderMobile"></sliderSingleProduct>-->
-          <productDetail :product-data="productData"></productDetail>
-          <product-colors class="product-colors w-100"></product-colors>
-          <product-warranty class="product-warranty w-100"></product-warranty>
-          <product-specification></product-specification>
           <product-seller class="mobile-product-seller"></product-seller>
           <product-actions class="product-actions mobile" :share-modal-mode="shareModalMode" v-if="shareModalMode === 'full-screen'"></product-actions>
           <full-presentation class="mobile product-presentation"></full-presentation>
 
         </div>
+      </div>
+      <div class="product_detail-seller">
+        <seller-box :share-modal-mode="shareModalMode"></seller-box>
       </div>
     </div>
     <div class="product-seller">
@@ -60,8 +72,10 @@
         :items-to-slide="1"
         :items-to-show="carouselItemsToShow"
         :wheel-control="false"
-        ref="carousel
-        ">
+        ref="carousel"
+        prev-button-class="prev-arrow"
+        next-button-class="next-arrow"
+      >
         <template #default="slotProps">
           <slide :slide-width="slotProps.slideWidth" class="similar-products-carousel-item" v-for="item in similarProductsCarouselData" :key="item.id">
             <div class="similar-products-carousel-item-image-wrapper">
@@ -75,6 +89,12 @@
               تومان
             </div>
           </slide>
+        </template>
+        <template #previousButton="{ slidePrev }">
+            <span class="icon"></span>
+        </template>
+        <template #nextButton>
+            <span class="icon"></span>
         </template>
       </base-carousel>
       <div class="complete-list mobile">
@@ -136,6 +156,12 @@ import ProductActions from "./ProductActions";
 import ProductSeller from "./ProductSeller";
 import BaseCarousel from "../UI/BaseCarousel/BaseCarousel";
 import Slide from "../UI/BaseCarousel/Slide"
+import { getTextByTextKey } from "~/modules/splitPartJsonResource";
+import ProductProperty from "./ProductProperty";
+import ChosenSellerBadge from "./ChosenSellerBadge";
+import ProductPrice from "./ProductPrice";
+import SellerBox from "./SellerBox";
+import ImageMagnifier from "./ImageMagnifier";
 
 export default {
   props: {
@@ -148,6 +174,10 @@ export default {
   },
 
   components: {
+    ImageMagnifier,
+    SellerBox,
+    ProductPrice,
+    ProductProperty,
     BaseCarousel,
     ProductSeller,
     ProductActions,
@@ -167,6 +197,18 @@ export default {
     return {
       tabsNames: ["معرفی کامل محصول", "مشخصات فنی محصول"],
       selected: "معرفی کامل محصول",
+      propertyData: [
+        {
+          id: 1,
+          propName: "سایز",
+          propValues: ["پرو معمولی", "پرو مکس"]
+        },
+        {
+          id: 2,
+          propName: "حافظه",
+          propValues: ["125 گیگ", "512 گیگ"]
+        }
+      ],
       windowWidth: 0,
       carouselSetting: {
         breakpoints: {
@@ -210,6 +252,7 @@ export default {
     }
   },
   methods: {
+    getTextByTextKey,
     tabChanged(val) {
       this.selected = val;
     },
@@ -255,16 +298,13 @@ export default {
 .tabs__item-title {
   font-size: toRem(18);
 }
-
 .product__single {
   margin-top: toRem(160);
 }
-
 .product__single-category {
   @include display-flex();
   align-items: flex-start;
 }
-
 .product__single-content {
   @include display-flex();
   align-items: flex-start;
@@ -277,27 +317,143 @@ export default {
   border-radius: toRem(10);
   box-shadow: 0 toRem(8) toRem(16) rgba(17, 17, 17, 0.03);
 }
+.product_detail {
+  padding: toRem(24) toRem(16) toRem(24) toRem(24);
+  display: grid;
+  grid-template-columns: 25% 42% 33%;
+  @include md {
+    grid-template-columns: 35% 65%;
+    grid-template-rows: auto auto;
+  }
+  @include sm {
+    grid-template-columns: 100%;
+    grid-template-rows: auto auto auto;
+  }
 
-.product__single-right {
-  width: 39.6%;
-  @include display-flex();
-  align-items: flex-start;
+  &-image {
+    grid-column: 1/2;
+    @include display-flex();
+    align-items: flex-start;
+    position: relative;
+    height: 100%;
+    @include md {
+      grid-row: 1/3;
+    }
+    @include sm {
+      grid-column: 1/2;
+      grid-row: 1/2;
+    }
+  }
+  &-info {
+    grid-column: 2/3;
+    @include display-flex();
+    align-items: flex-start;
+    @include md {
+      grid-column: 2/4;
+      grid-row: 1/2;
+    }
+    @include sm {
+      grid-column: 1/2;
+      grid-row: 2/3;
+    }
+    &-content {
+      @include display-flex();
+      align-items: flex-start;
+      flex-wrap: wrap;
+      margin-bottom: toRem(30);
+      padding-right: toRem(24);
+      padding-left: toRem(24);
+      @include md {
+        margin-bottom: toRem(0);
+      }
+      @include xs {
+        margin: 0;
+        padding-right: toRem(8);
+        padding-left: toRem(8);
+      }
+      @include sm {
+        padding: 0;
+      }
+        &-top {
+          .title {
+            margin-bottom: toRem(8);
+            font-size: toRem(20);
+            line-height: toRem(42.75);
+            color: $black;
+            font-weight: 400;
+            width: 95%;
+            @include lg {
+              font-size: toRem(17);
+            }
+            @include md {
+              font-size: toRem(14);
+              width: 85%;
+            }
+          }
+          &-rating {
+            margin-top: toRem(8);
+            .stars-outer {
+              position: relative;
+              display: inline-block;
+              margin-left: toRem(8);
+              &::before {
+                content: "\e825 \e825 \e825 \e825 \e825";
+                @include font-icon__limoo();
+                font-weight: 400;
+                font-size: toRem(16);
+                color: $light-gray;
+                letter-spacing: toRem(2);
+              }
+              .stars-inner {
+                position: absolute;
+                bottom: toRem(4.7);
+                left: 0;
+                white-space: nowrap;
+                overflow: hidden;
+                width: 0;
+                @include display-flex();
+                flex-direction: row-reverse;
+                &::before {
+                  content: "\e825 \e825 \e825 \e825 \e825";
+                  @include font-icon__limoo();
+                  font-weight: 400;
+                  font-size: toRem(16);
+                  color: $yellow;
+                  letter-spacing: toRem(2);
+                }
+              }
+            }
+            .rate-count,
+            .rate-counter {
+              color: $gray;
+              font-size: toRem(14);
+            }
+          }
+        }
+      .product-properties {
+        @extend .d-flex;
+        flex-direction: column;
+      }
+    }
+  }
+  &-seller {
+    grid-column: 3/4;
+    @include md {
+      grid-column: 2/4;
+      grid-row: 2/3;
+      max-width: 75%;
+    }
+    @include sm {
+      max-width: 100%;
+      grid-column: 1/2;
+      grid-row: 3/4;
+    }
+    @include xs {
+      display: none;
+    }
+  }
 }
 
-.product__single-left {
-  width: 60%;
-  @include display-flex();
-  align-items: flex-start;
-}
-
-.product__top-title {
-  margin-bottom: toRem(8);
-  font-size: toRem(24);
-  line-height: toRem(42.75);
-  color: $black;
-  font-weight: 400;
-  width: 95%;
-}
 
 .product__top-brand {
   color: $gray;
@@ -305,26 +461,18 @@ export default {
   font-size: toRem(13);
 }
 
-.product__data-content {
-  @include display-flex();
-  align-items: flex-start;
-  flex-wrap: wrap;
-  margin-bottom: toRem(30);
-  padding-right: toRem(24);
-  padding-left: toRem(24);
-  @include xs {
-    margin: 0;
-  }
-}
-
-.product__single-top {
-  width: 100%;
-}
-
 .product--single__right-content {
   width: 100%;
   border: solid toRem(1) $gray-border;
   border-radius: toRem(10);
+  position: sticky;
+  top: toRem(140);
+  @include md {
+    top: toRem(48);
+  }
+  @include sm {
+    display: none;
+  }
 }
 .tab--content::v-deep {
   padding: 0 toRem(24);
@@ -344,10 +492,19 @@ export default {
 }
 .product-actions {
   &.desktop {
-    margin-top: toRem(38);
-    margin-bottom: toRem(45);
+    margin-top: toRem(16);
     @include md {
-      margin-top: toRem(8);
+      display: none;
+    }
+  }
+  &.tablet {
+    display: none;
+    @include md {
+      display: flex;
+      width: 130%;
+    }
+    @include sm {
+      width: 100%;
     }
     @include xs {
       display: none;
@@ -375,7 +532,37 @@ export default {
   }
 }
 .product-colors {
-  margin-bottom: toRem(24);
+  margin-top: toRem(24);
+  @include xs {
+    margin-top: toRem(18);
+  }
+}
+.product-pic {
+  &.desktop {
+    @include sm {
+      display: none;
+    }
+  }
+  &.mobile {
+    display: none;
+    @include sm {
+      display: block;
+      margin-bottom: toRem(47);
+      margin-top: toRem(8);
+    }
+  }
+}
+.product-price {
+  &.mobile {
+    display: none;
+    @include xs {
+      display: block;
+      margin-top: toRem(24);
+      padding-bottom: toRem(18);
+      border-bottom: toRem(2) solid $gray-6;
+      width: 100%;
+    }
+  }
 }
 .product-warranty {
   margin-bottom: toRem(40);
@@ -411,13 +598,90 @@ export default {
   @include xs {
     height: auto;
   }
+  .prev-arrow {
+    position: absolute;
+    top: toRem(145);
+    right: toRem(20);
+    z-index: 1;
+    cursor: pointer;
 
-  .next-btn {
+    @include xs {
+      display: none;
+    }
+
+    .icon {
+      width: toRem(40);
+      height: toRem(40);
+      border-radius: 50%;
+      background-color: $gray-3;
+      @extend .centered;
+
+      &::before {
+        content: "\e801";
+        @include font-icon__limoo();
+        width: 100%;
+        height: 100%;
+        @extend .centered;
+        padding-right: toRem(2);
+        font-size: toRem(18);
+        color: $white;
+        transform: rotate(180deg);
+      }
+    }
+    &:hover {
+      .icon {
+        background-color: $gray-5;
+        &::before {
+          color: $gray-3;
+        }
+      }
+    }
+  }
+
+  .next-arrow {
+    position: absolute;
+    top: toRem(145);
+    left: toRem(20);
+    z-index: 1;
+    cursor: pointer;
+    @include xs {
+      display: none;
+    }
+
+    .icon {
+      width: toRem(40);
+      height: toRem(40);
+      border-radius: 50%;
+      background-color: $gray-3;
+      @extend .centered;
+
+      &::before {
+        content: "\e801";
+        @include font-icon__limoo();
+        font-size: toRem(18);
+        width: 100%;
+        height: 100%;
+        @extend .centered;
+        padding-right: toRem(2);
+        color: $white;
+      }
+    }
+    &:hover {
+      .icon {
+        background-color: $gray-5;
+        &::before {
+          color: $gray-3;
+        }
+      }
+    }
+  }
+
+  .next-arrow {
     &.is-disabled {
       display: none;
     }
   }
-  .previous-btn {
+  .prev-arrow {
     &.is-disabled {
       display: none;
     }
@@ -578,9 +842,6 @@ export default {
 }
 
 @include lg {
-  .product__top-title {
-    font-size: toRem(17);
-  }
   .product__single-right {
     width: 30%;
   }
@@ -592,9 +853,6 @@ export default {
 @include md {
   .product__single {
     margin-top: toRem(8);
-  }
-  .product__top-title {
-    font-size: toRem(14);
   }
 }
 
@@ -610,13 +868,8 @@ export default {
   .product__single-left {
     width: 100%;
   }
-  .product__data-content {
-    padding-right: 0;
-    padding-left: 0;
-    display: inline;
-  }
   .product__single-content {
-    padding: toRem(8) toRem(11);
+    padding: toRem(8) toRem(8);
     margin-bottom: 0;
   }
   .product__top-title {

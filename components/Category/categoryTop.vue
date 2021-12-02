@@ -5,8 +5,10 @@
         <div class="products__top-title w-100 products__top-desktop">
           <h3 class="products__top-text">موبایل اندرویدی</h3>
         </div>
-<!--        <base-carousel :items-to-show="3"></base-carousel>-->
-
+       <image-magnifier
+         src="https://picsum.photos/500/500?image=1071"
+         src-large="https://picsum.photos/1000/1000?image=1071"
+       ></image-magnifier>
         <div class="products__filter-btns w-100 ">
           <base-button no-box-shadow classes="products__filter-btn" @button-clicked="showBoxFilter">
             <span class="filter-search-icon"></span>
@@ -69,6 +71,7 @@ import Button from "~/components/UI/Button";
 import ModalFilter from "./modalFilter";
 import ModalSort from "./modalSort";
 import BaseCarousel from "../UI/BaseCarousel/BaseCarousel";
+import ImageMagnifier from "../product/ImageMagnifier";
 
 
 
@@ -78,6 +81,7 @@ export default {
   },
 
   components: {
+    ImageMagnifier,
     BaseCarousel,
     ModalSort,
     ModalFilter,
