@@ -499,6 +499,7 @@ export default {
     margin-bottom: toRem(35);
   }
 }
+
 @include xxs {
   .modal-animation__open {
     animation: modalOpen 600ms linear;
