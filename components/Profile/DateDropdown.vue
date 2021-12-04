@@ -1,6 +1,6 @@
 <template>
     <div class="birthday">
-        <span class="birthday-title">تاریخ تولد:</span>
+        <span class="birthday-title">تاریخ تولد :</span>
         <div class="birthday-container">
             <!-- Day -->
             <div class="birthday-item__days">

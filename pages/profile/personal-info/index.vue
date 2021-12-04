@@ -24,10 +24,10 @@
             class="user-info__profile__imgholder-default"
             src="/icons/profile-holder.svg"
           />
-          <span class="user-profile__changepic-btn">
+        </div>
+        <span class="user-profile__changepic-btn">
             {{ getTextByTextKey("personal_info_change_avatar") }}
           </span>
-        </div>
         <hr class="splicer-line" />
         <!-- =============== -->
         <form class="w-100">
@@ -67,10 +67,9 @@
                   timer-start=""
                   type-input="text"
                   name-input="name"
-                  label-text="نام"
+                  label-text="نام :"
                 >
                 </text-input>
-
                 <text-input
                   class="family"
                   labelNameClass=""
@@ -104,13 +103,13 @@
                   timer-start=""
                   type-input="text"
                   name-input="family"
-                  label-text="نام خانوادگی"
+                  label-text="نام خانوادگی :"
                 >
                 </text-input>
               </div>
               <!--/// email section is ignored in version alpha ///-->
               <text-input
-                class="user-profile__info-phone "
+                class="user-profile__info-email "
                 labelNameClass=""
                 inputNameClass="w-100"
                 idInput="name"
@@ -137,7 +136,45 @@
                 :use-timer="false"
                 :show-icon-star="false"
                 :form-data="formData"
-                :disabled-input-default="true"
+                :disabled-input-default="false"
+                :remove-error="true"
+                accessStyleParentInToChildNameId="address__form--data"
+                tag-html="input"
+                timer-start=""
+                type-input="text"
+                name-input="email"
+                label-text="آدرس ایمیل :"
+              >
+              </text-input>
+            <text-input
+                class="user-profile__info-phone "
+                labelNameClass=""
+                inputNameClass="w-100"
+                idInput="name"
+                state="authInput"
+                maxlength="10"
+                function-max-len="greaterThan"
+                placeholderText=""
+                :msgError="{
+                  notValidMsg: 'مجاز نیست',
+                  notValidNumber: 'بیش از حد مجاز',
+                }"
+                :check-email="false"
+                :check-number="true"
+                :active-check-phone-number="true"
+                :check-code="false"
+                :only-use-string="false"
+                :show-icon-clear-input="false"
+                :show-icon-eye-input="false"
+                :status-add-space-number="false"
+                :check-initial-validation="checkInitialValidation"
+                :check-empty-submit="false"
+                :check-required="false"
+                :check-typing-submit="false"
+                :use-timer="false"
+                :show-icon-star="true"
+                :form-data="formData"
+                :disabled-input-default="false"
                 :remove-error="true"
                 accessStyleParentInToChildNameId="address__form--data"
                 tag-html="input"
@@ -147,7 +184,6 @@
                 label-text="شماره همراه :"
               >
               </text-input>
-
               <div class="user-profile__info-birthday">
                 <client-only>
                   <the-date-dropdown
@@ -159,7 +195,6 @@
                 </client-only>
                 <!-- <the-birthday /> -->
               </div>
-
               <text-input
                 class="user--item user-profile__info-nationalcode"
                 labelNameClass=""
@@ -190,11 +225,10 @@
                 tag-html="input"
                 timer-start=""
                 type-input="text"
-                name-input="codePoste"
-                label-text="کد ملی:"
+                name-input="nationalcode"
+                label-text="کد ملی :"
               >
               </text-input>
-
               <text-input
                 class="user--item user-profile__info-pass"
                 labelNameClass=""
@@ -227,7 +261,7 @@
                 timer-start=""
                 type-input="text"
                 name-input="passwordShowModal"
-                label-text="رمز عبور:"
+                label-text="رمز عبور :"
                 @click-input="passChange"
               >
               </text-input>
@@ -247,14 +281,12 @@
     </div>
   </div>
 </template>
-
 <script>
 import TheProfileSideBar from "~/components/Profile/TheProfileSideBar.vue";
 import TheProfilePassModal from "~/components/Profile/PersonalInfo/TheProfilePassModal.vue";
 import TheDateDropdown from "~/components/Profile/PersonalInfo/TheDateDropdown.vue";
 import { getTextByTextKey } from "~/modules/splitPartJsonResource.js";
 import textInput from "~/components/UI/textInput";
-
 export default {
   middleware: "authentication",
   layout: "removeFooterMobile",
@@ -272,7 +304,6 @@ export default {
       // later we get it from store (in talk with back-end)
       selectedDate: "",
       checkInitialValidation: 0,
-
     };
   },
   computed: {
@@ -289,20 +320,17 @@ export default {
     goToProfile() {
       this.$router.push("/profile");
     },
-
     passChange() {
       this.passChangeIsActive = !this.passChangeIsActive;
     },
   },
 };
 </script>
-
 <style lang="scss" scoped>
 .search-section__items::v-deep {
   background: red !important;
   color: red;
 }
-
 #overlay {
   position: fixed; /* Sit on top of the page content */
   @include display-flex();
@@ -343,43 +371,49 @@ export default {
 .profile-container {
   margin: 0 auto;
   width: 100%;
-  max-width: 1920px;
+  max-width: toRem(1920);
   min-height: 100vh;
   display: flex;
   flex-direction: row-reverse;
 }
 .user-profile__holder {
-  margin: 166px 0 50px 17px;
+  margin: toRem(166) 0 toRem(50) toRem(16);
   width: 100%;
-  min-height: 100vh;
-  height: max-content;
+  height: auto;
 }
-
 .user-info__profile__imgholder-default {
-  width: 140px;
-  height: 140px;
-  border-radius: 50%;
-  background-color: $gray-border;
+  width: toRem(90);
+  height: toRem(90);
 }
 .user-profile__changepic-btn {
   color: $code-request;
-  font-size: 18px;
-  line-height: 140.62%;
+  font-size: toRem(18);
+  line-height: toRem(25.31);
+  margin-top: toRem(9);
 }
 .user-profile {
   width: 100%;
-  padding: 0 toRem(24);
-  height: max-content;
+  position: relative;
+  height: auto;
   @include display-flex();
   flex-direction: column;
   align-items: center;
   text-align: center;
   background: $white;
-  border-radius: 10px;
-  box-shadow: 0 toRem(8) toRem(16) $box__shadow;
+  border-radius: toRem(10);
+  box-shadow: 0 toRem(8) toRem(16) 0 $box__shadow;
+  &::before{
+    content: "\e86a";
+    @include font-icon__limoo();
+    position: absolute;
+    top: 23%;
+    left: 54.5%;
+    color: $gray-3;
+    font-size: toRem(30);
+  }
   &__topic {
     font-size: toRem(18);
-    line-height: 140.62%;
+    line-height: toRem(25.31);
     color: $black-topic;
     align-self: flex-end;
     margin-top: toRem(23);
@@ -389,32 +423,33 @@ export default {
     @include display-flex();
     flex-direction: column;
     align-items: center;
-    margin-top: 23px;
-    height: 162px;
-    width: 162px;
+    justify-content: center;
+    margin-top: toRem(23);
+    height: toRem(162);
+    width: toRem(162);
+    border-radius: 50%;
+    background-color: $gray-5;
   }
   &__info {
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-template-rows: 1fr 1fr 1fr;
-    grid-column-gap: toRem(90);
-    grid-row-gap: toRem(42);
-    margin-top: toRem(92);
-    width: 100%;
-    @include xl {
-      grid-column-gap: toRem(32);
-      width: 90%;
-    }
+    grid-column-gap: toRem(50);
+    grid-row-gap: toRem(22);
+    margin-top: toRem(40);
+
+    // @include lg {
+    //   grid-column-gap: toRem(0);
+    //   width: 100%;
+    // }
     &-name,
+    &-email,
     &-phone,
     &-birthday,
     &-nationalcode,
     &-pass {
-      width: 100%;
-      height: 100px;
-      @include xl {
-        //max-width: 90%;
-      }
+      width: 95%;
+      height: toRem(107);
     }
     &-name {
       grid-column: 1/2;
@@ -425,53 +460,59 @@ export default {
       justify-content: space-between;
       .name {
         margin-left: toRem(24);
-        width: 45%;
+        width: toRem(157);
       }
       .family {
-        width: 55%;
+        width: toRem(208);
       }
     }
-    &-phone {
+    &-email{
       grid-column: 2/3;
       grid-row: 1/2;
     }
-    &-birthday {
+    &-phone {
       grid-column: 1/2;
       grid-row: 2/3;
     }
-    &-nationalcode {
+    &-birthday {
       grid-column: 2/3;
       grid-row: 2/3;
     }
-    &-pass {
+    &-nationalcode {
       grid-column: 1/2;
+      grid-row: 3/4;
+    }
+    &-pass {
+      grid-column: 2/3;
       grid-row: 3/4;
     }
   }
   &__alert {
-    margin-top: 4px;
+    margin-top: toRem(4);
     color: $alert-red;
     text-align: right;
-    font-size: 14px;
+    font-size: toRem(14);
     line-height: 140.62%;
   }
   &__btn {
-    margin: toRem(48) auto 48px auto;
-    height: 57px;
-    width: 270px;
-    font-size: 18px;
+    margin: toRem(42) auto toRem(48);
+    height: toRem(57);
+    width: toRem(270);
+    font-size: toRem(18);
     font-family: inherit;
+    border-radius: toRem(10);
+    background-color: $btn__green;
   }
 }
-#name {
-  width: 157px;
-}
-#family {
-  width: 208px;
-}
-.user--item {
-  width: 390px;
-}
+// #name {
+//   width: 157px;
+// }
+// #family {
+//   width: 208px;
+// }
+// .user--item {
+//   width: toRem(390);
+// }
 .user-profile__container {
   @extend .align-center;
   -webkit-flex-flow: column;
@@ -479,27 +520,30 @@ export default {
 }
 .user-profile__container::v-deep {
   .txt-content {
-    margin-bottom: 16px;
-    line-height: 140.62%;
+    margin-bottom: toRem(16);
+    line-height: toRem(22.5);
+    color: $black-topic;
+    font-size: toRem(16);
   }
   .input-holder {
-    box-shadow: 0px 4px 4px $flash_white;
-    height: 52px;
+    box-shadow: 0 toRem(4) toRem(4) $flash_white;
+    height: toRem(52);
     background: $white;
-    border-radius: 15px;
-    margin-bottom: 4px;
+    border-radius: toRem(15);
+    border: toRem(1) solid $gray-4;
   }
   .form__item--error {
     margin-bottom: 0;
-    font-size: 14px;
+    font-size: toRem(14);
   }
   .signup-input {
     color: $gray;
-    font-size: 16px;
-    padding: 16px;
+    font-size: toRem(16);
+    padding: toRem(16);
+    color: $gray-3;
   }
   .form__item--error {
-    display: none;
+    display: block;
     width: 100%;
     justify-content: flex-end;
   }
@@ -510,79 +554,244 @@ export default {
     height: 100%;
   }
 }
-
-.name::v-deep {
-  width: 157px;
-}
-.family::v-deep {
-  width: 208px;
-}
+// .name::v-deep {
+//   width: 157px;
+// }
+// .family::v-deep {
+//   width: 208px;
+// }
 .splicer-line {
   display: none;
 }
+// @include lg {
+//   .user-profile__holder {
+//       margin: 10.375rem -14px 86.125rem 18rem;
+//     width: 70%;
+//     height: auto;
+// }
+// .user-profile{
+//   &__info {
+//     grid-column-gap: toRem(2);
+//     grid-row-gap: toRem(22);
+//     margin-top: toRem(40);
+//     &-name,
+//     &-email,
+//     &-phone,
+//     &-birthday,
+//     &-nationalcode,
+//     &-pass {
+//       width: 80%;
+//       height: toRem(107);
+//       border: 1px solid red;
+// }
+// &__container {
+//       padding: 0 toRem(10) 0 toRem(10);
+//     }
+// }
+// }
+// }
+// @include xxxs {
+//   .user-profile {
+//     &__info {
+//       &-name,
+//       &-email,
+//       &-phone,
+//       &-birthday,
+//       &-nationalcode,
+//       &-pass {
+//         width: 360px;
+//       }
+//     }
+//     &__container {
+//       padding: 0 50px;
+//     }
+//     #name {
+//       width: 137px;
+//     }
+//     #family {
+//       width: 178px;
+//     }
+//     .name::v-deep {
+//       width: 137px;
+//     }
+//     .family::v-deep {
+//       width: 178px;
+//     }
+//   }
+// }
+// @include xxxs {
+//   .user-profile {
+//     &__info {
+//       @include display-flex();
+//       min-width: toRem(570);
+//       &-name,
+//       &-email,
+//       &-phone,
+//       &-birthday,
+//       &-nationalcode,
+//       &-pass {
+//         width: 100%;
+//       }
+//     }
+//     &__container {
+//       padding: 0 toRem(20);
+//     }
+//   }
+//   .user-profile {
+//     #name {
+//       width: toRem(250);
+//     }
+//     #family {
+//       width: toRem(290);
+//     }
+//     .name::v-deep {
+//       width: toRem(250);
+//     }
+//     .family::v-deep {
+//       width: toRem(290);
+//     }
+//   }
+// }
 
-@include xxxs {
-  .user-profile {
-    &__info {
-      &-name,
-      &-email,
-      &-phone,
-      &-birthday,
-      &-nationalcode,
-      &-pass {
-        width: 360px;
-      }
-    }
-    &__container {
-      padding: 0 50px;
-    }
-    #name {
-      width: 137px;
-    }
-    #family {
-      width: 178px;
-    }
-    .name::v-deep {
-      width: 137px;
-    }
-    .family::v-deep {
-      width: 178px;
-    }
-  }
+
+
+
+
+@include lg {
+  .profile-container{
+  display: flex;
+  flex-direction: row-reverse !important;
 }
-@include xxxs {
+  .user-info__profile__imgholder-default {
+    width: toRem(60);
+    height: toRem(60);
+  }
+  .user-profile__changepic-btn {
+    font-size: toRem(16);
+    margin-top: toRem(16);
+  }
+  .profile-container {
+    @include display-flex();
+    flex-direction: column;
+    margin-bottom: toRem(58);
+  }
+  .user-profile__holder {
+    margin: toRem(169) toRem(-30);
+    padding: 0 toRem(16);
+  }
   .user-profile {
+    margin-left: toRem(25);
+    width: 97%;
+    &__topic {
+      display: none;
+    }
+    &::before{
+    top: 9%;
+    left: 53%;
+    font-size: toRem(25);
+  }
+    &__userpic {
+    margin-top: toRem(38);
+    height: toRem(108);
+    width: toRem(108);
+  }
     &__info {
       @include display-flex();
-      min-width: toRem(570);
+      flex-direction: row-reverse;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      margin-top: toRem(38);
+      min-width: 100%;
       &-name,
       &-email,
       &-phone,
       &-birthday,
       &-nationalcode,
       &-pass {
+        width: 90%;
+        height: toRem(100);
+        margin: 0 0 toRem(24) 0;
+      }
+      &-phone {
+        order: 1;
+      }
+      &-email {
+        order: 3;
+      }
+      &-nationalcode {
+        order: 2;
+      }
+      &-birthday {
+        order: 4;
+      }
+      &-pass {
+        order: 5;
+      }
+      // &-name > section > label,
+      // &-nationalcode > label,
+      // &-pass > label,
+      // &-phone > label {
+      //   font-size: 40px;
+      // }
+      // #name,
+      // #family,
+      // &-nationalcode > input,
+      // &-pass > input,
+      // &-phone > input {
+      //   font-size: 13px;
+      //   height: 46px;
+      //   width: 302px;
+      //   padding: 14px 16px;
+      // }
+    }
+    &__container {
+      padding: 0 toRem(10) 0 toRem(70);
+    }
+    &__btn {
+      font-size: toRem(16);
+      margin: toRem(38) auto toRem(72);
+      width: toRem(395);
+      margin-bottom: toRem(72);
+      &-holder {
+        padding: 0;
         width: 100%;
       }
     }
-    &__container {
-      padding: 0 toRem(20);
+    &__alert {
+      font-size: toRem(13);
     }
   }
-  .user-profile {
-    #name {
-      width: toRem(250);
+  .splicer-line {
+    display: none;
+  }
+  .user-profile__container::v-deep {
+    .txt-content {
+      font-size: toRem(16);
     }
-    #family {
-      width: toRem(290);
+    .input-holder {
+      height: toRem(52);
     }
-    .name::v-deep {
-      width: toRem(250);
+    .name {
+      margin-left: toRem(99);
+      width: toRem(208);
     }
-    .family::v-deep {
-      width: toRem(290);
+    .family {
+      width: toRem(277);
+    }
+    .signup-input {
+      font-size: toRem(16);
+    }
+    .signin__close-eye::before {
+      font-size: toRem(16);
+    }
+    .form__item--error {
+      font-size: toRem(13);
     }
   }
-}
+      }
+
+
+
 @include md {
   #overlay {
     background: $overlay__profile-mobile;
@@ -597,54 +806,67 @@ export default {
       flex-direction: row-reverse;
       justify-content: space-between;
       align-items: center;
-      height: 56px;
+      height: toRem(56);
       background: $white;
-      margin-top: 47px;
+      margin-top: toRem(47);
       &-txt {
-        font-size: 14px;
+        font-size: toRem(14);
         line-height: 140.62%;
-        margin-right: 16px;
+        margin-right: toRem(16);
         color: $black-topic;
       }
       &-arrow {
-        margin-left: 16px;
+        margin-left: toRem(16);
       }
       &-arrow::before {
         content: "\e801";
         @include font-icon__limoo();
-        font-size: 14px;
+        font-size: toRem(14);
         color: $input-border;
-        margin-right: 4px;
-        margin-left: 8px;
+        margin-right: toRem(4);
+        margin-left: toRem(8);
       }
     }
   }
   .user-info__profile__imgholder-default {
-    width: 100px;
-    height: 100px;
+    width: toRem(60);
+    height: toRem(60);
   }
   .user-profile__changepic-btn {
-    font-size: 14px;
+    font-size: toRem(16);
+    margin-top: toRem(16);
   }
   .profile-container {
     @include display-flex();
-    flex-direction: column;
-    margin-bottom: 58px;
+    flex-direction: column !important;
+    margin-bottom: toRem(58);
   }
   .user-profile__holder {
-    margin: 8px 0;
-    padding: 0 16px;
+    margin: toRem(8) 0;
+    padding: 0 toRem(16);
   }
   .user-profile {
+    margin-left: 0;
+    width:100%;
     &__topic {
       display: none;
     }
+    &::before{
+    top: 9%;
+    left: 53%;
+    font-size: toRem(25);
+  }
+    &__userpic {
+    margin-top: toRem(38);
+    height: toRem(108);
+    width: toRem(108);
+  }
     &__info {
       @include display-flex();
       flex-direction: row-reverse;
       flex-wrap: wrap;
       justify-content: space-between;
-      margin-top: 50px;
+      margin-top: toRem(38);
       min-width: 100%;
       &-name,
       &-email,
@@ -653,8 +875,110 @@ export default {
       &-nationalcode,
       &-pass {
         width: 100%;
-        height: 90px;
-        margin: 0 0 24px 0;
+        height: toRem(100);
+        margin: 0 0 toRem(24) 0;
+      }
+      &-phone {
+        order: 1;
+      }
+      &-email {
+        order: 3;
+      }
+      &-nationalcode {
+        order: 2;
+      }
+      &-birthday {
+        order: 4;
+      }
+      &-pass {
+        order: 5;
+      }
+      // &-name > section > label,
+      // &-nationalcode > label,
+      // &-pass > label,
+      // &-phone > label {
+      //   font-size: 40px;
+      // }
+      // #name,
+      // #family,
+      // &-nationalcode > input,
+      // &-pass > input,
+      // &-phone > input {
+      //   font-size: 13px;
+      //   height: 46px;
+      //   width: 302px;
+      //   padding: 14px 16px;
+      // }
+    }
+    &__container {
+      padding: 0 toRem(107) 0 toRem(107);
+    }
+    &__btn {
+      font-size: toRem(16);
+      margin: toRem(38) auto toRem(72);
+      width: toRem(395);
+      margin-bottom: toRem(72);
+      &-holder {
+        padding: 0;
+        width: 100%;
+      }
+    }
+    &__alert {
+      font-size: toRem(13);
+    }
+  }
+  .splicer-line {
+    display: none;
+  }
+  .user-profile__container::v-deep {
+    .txt-content {
+      font-size: toRem(16);
+    }
+    .input-holder {
+      height: toRem(52);
+    }
+    .name {
+      margin-left: toRem(99);
+      width: toRem(208);
+    }
+    .family {
+      width: toRem(277);
+    }
+    .signup-input {
+      font-size: toRem(16);
+    }
+    .signin__close-eye::before {
+      font-size: toRem(16);
+    }
+    .form__item--error {
+      font-size: toRem(13);
+    }
+  }
+}
+@include sm{
+  .user-profile__holder {
+    padding: 0 toRem(5);
+  }
+  .user-profile {
+    margin-left: 0;
+    width:100%;
+    &::before{
+    top: 10.5%;
+    left: 53%;
+    font-size: toRem(20);
+  }
+    &__info {
+      margin-top: toRem(38);
+      min-width: 100%;
+      &-name,
+      &-email,
+      &-phone,
+      &-birthday,
+      &-nationalcode,
+      &-pass {
+        width: 100%;
+        height: toRem(80);
+        margin: auto;
       }
       &-phone {
         order: 1;
@@ -671,85 +995,75 @@ export default {
       &-pass {
         order: 5;
       }
-      &-name > section > label,
-      &-nationalcode > label,
-      &-pass > label,
-      &-phone > label {
-        font-size: 14px;
-      }
-      #name,
-      #family,
-      &-nationalcode > input,
-      &-pass > input,
-      &-phone > input {
-        font-size: 13px;
-        height: 46px;
-        padding: 14px 16px;
-      }
     }
     &__container {
-      padding: toRem(20);
+      padding: 0 toRem(20) 0 toRem(20);
     }
-    &__btn {
-      font-size: 16px;
-      margin: 0 0 47px 0;
-      align-self: center;
-      font-weight: 500;
-      width: 100%;
-      &-holder {
-        padding: 0;
-        width: 100%;
+    &__userpic {
+    margin-top: toRem(43);
+    height: toRem(84);
+    width: toRem(84);
       }
-    }
-    &__alert {
-      font-size: 13px;
-    }
-    #name {
-      width: 208px;
-    }
-    #family {
-      width: 277px;
-    }
-  }
-
-  .splicer-line {
-    display: block;
+    &__btn {
+    margin: toRem(39) auto toRem(47);
     width: 100%;
-    border: none;
-    border-top: 1px solid $gray-border;
+    font-size: toRem(16);
+    background-color: $btn__green;
   }
-
+    .user-info__profile__imgholder-default {
+    width: toRem(46);
+    height: toRem(46);
+}
+.user-profile__changepic-btn {
+  font-size: toRem(14);
+  line-height: toRem(17.66);
+  margin-top: toRem(16);
+}
+.splicer-line {
+  display: block;
+  width: 99%;
+  border: none;
+  margin-top: toRem(16);
+  border-top: toRem(1) solid $gray-border;
+}
+    // #name {
+    //   width: 170px;
+    // }
+    // #family {
+    //   width: 220px;
+    // }
+  }
   .user-profile__container::v-deep {
-    .txt-content {
-      font-size: 14px;
-    }
-    .input-holder {
-      height: 46px;
-    }
     .name {
-      width: 208px;
+      margin-left: 0;
+      width: toRem(120);
     }
     .family {
-      width: 277px;
+      width: toRem(142);
+    }
+    .txt-content {
+      font-size: toRem(14);
+    }
+    .input-holder {
+      height: toRem(46);
     }
     .signup-input {
-      padding: 14px 16px;
-      font-size: 13px;
-    }
-    .signin__close-eye::before {
-      font-size: 16px;
-    }
-    .form__item--error {
-      font-size: 13px;
+      font-size: toRem(13);
     }
   }
 }
-@include sm{
-  .user-profile__holder {
-    padding: 0 5px;
-  }
+@include xs {
   .user-profile {
+    margin-left: 0;
+    width:100%;
+    &::before{
+      top: 11%;
+      left: 54%;
+      font-size: toRem(20);
+  }
     &__info {
+      margin-top: toRem(38);
+      min-width: 100%;
       &-name,
       &-email,
       &-phone,
@@ -757,88 +1071,119 @@ export default {
       &-nationalcode,
       &-pass {
         width: 100%;
-        height: 90px;
-        margin: 0 0 24px 0;
+        height: toRem(80);
+        margin: auto;
       }
     }
-
-    #name {
-      width: 170px;
-    }
-    #family {
-      width: 220px;
-    }
-  }
-
-  .user-profile__container::v-deep {
-    .name {
-      width: 170px;
-    }
-    .family {
-      width: 220px;
-    }
-  }
-}
-@include xs {
-  .user-profile {
-    #name {
-      width: 120px;
-    }
-    #family {
-      width: 142px;
-    }
+    // #name {
+    //   width: toRem(120);
+    // }
+    // #family {
+    //   width: toRem(142);
+    // }
   }
   .user-profile__container::v-deep {
     .name {
-      width: 120px;
+      width: toRem(120);
     }
     .family {
-      width: 142px;
+      width: toRem(142);
+    }
+     &__container {
+      padding: 0 toRem(20) 0 toRem(20);
     }
   }
 }
 @include xxs {
   .user-profile {
-    #name {
-      width: 110px;
-      padding: 13px;
-    }
-    #family {
-      width: 135px;
-      padding: 13px;
-    }
+    margin-left: 0;
+    width:100%;
+    &::before{
+      top: 10.5%;
+      left: 57%;
+      font-size: toRem(20);
   }
-
+    &__info {
+      padding: 0;
+      margin-top: toRem(38);
+      min-width: 100%;
+      &-name,
+      &-email,
+      &-phone,
+      &-birthday,
+      &-nationalcode,
+      &-pass {
+        width: 100%;
+        height: toRem(80);
+        margin: auto;
+      }
+    }
+    // .name {
+    //   width: 110px;
+    //   padding: 13px;
+    // }
+    // .family {
+    //   width: 135px;
+    //   padding: 13px;
+    // }
+  }
   .user-profile__container::v-deep {
     .name {
-      width: 110px;
+      width: toRem(100);
     }
     .family {
-      width: 135px;
+      width: toRem(142);
     }
     .signup-input {
-      padding: 13px;
+      padding: toRem(13);
     }
-  }
+   &__container {
+      padding: 0 toRem(20) 0 toRem(20);
+    }
+   }
 }
 @include xxxs {
   .user-profile {
-    #name {
-      width: 105px;
-      padding: 10px;
+    margin-left: 0;
+    width:100%;
+    &::before{
+      top: 11%;
+      left: 57%;
+      font-size: toRem(20);
+  }
+    &__info {
+      margin-top: toRem(38);
+      min-width: 100%;
+      &-name,
+      &-email,
+      &-phone,
+      &-birthday,
+      &-nationalcode,
+      &-pass {
+        width: 100%;
+        height:toRem(80);
+        margin: auto;
+      }
     }
-    #family {
-      width: 110px;
-      padding: 10px;
-    }
+    // .name {
+    //   width: 110px;
+    //   padding: 13px;
+    // }
+    // .family {
+    //   width: 135px;
+    //   padding: 13px;
+    // }
   }
   .user-profile__container::v-deep {
     .name {
-      width: 105px;
+      width: toRem(90);
     }
     .family {
-      width: 110px;
+      width: toRem(120);
     }
-  }
+    .signup-input {
+      padding: toRem(13);
+    }
+   }
 }
 </style>
