@@ -325,7 +325,7 @@ export default {
 .comment__suggest-btns {
   justify-content: center;
   @include display-flex();
-  margin-top: toRem(42);
+  margin-top: 5%;
   margin-bottom: toRem(24);
 }
 .p-product-btn {
