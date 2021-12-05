@@ -2,6 +2,7 @@
   <sliding-drop-down title="انتخاب برند" class="modal-filter__box margin--top" :open="false">
     <div class="modal-filter__box-content w-100">
       <div class="modal-filter__box-items w-100">
+      <div>
         <base-checkbox
           class="brand-checkbox"
           name="name"
@@ -10,6 +11,8 @@
           v-model="checkboxValues"
           title="دنیس تریکو"
         ></base-checkbox>
+      </div>
+      <div>
         <base-checkbox
           class="brand-checkbox"
           name="name"
@@ -18,6 +21,7 @@
           v-model="checkboxValues"
           title="دنیس تریکو"
         ></base-checkbox>
+      </div>
         <base-checkbox
           class="brand-checkbox"
           name="name"
