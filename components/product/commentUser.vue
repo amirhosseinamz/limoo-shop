@@ -28,7 +28,7 @@
           class="text-tag"
           >
           {{ checkboxValues[0] }}
-            <span class="icon-close"></span>
+            <span class="icon-close" @click="closeIcon(0)"></span>
           </div>
         </div>
         <div class="multiselect__tag">
@@ -36,7 +36,7 @@
           class="text-tag"
           >
           {{ checkboxValues[1] }}
-            <span class="icon-close"></span>
+            <span class="icon-close" @click="closeIcon(1)"></span>
           </div>
         </div>
         <div class="multiselect__tag">
@@ -44,7 +44,7 @@
           class="text-tag"
           >
           + {{checkboxValues.length - 2}} ...
-            <span class="icon-close" @click="closeIcon(index)"></span>
+            <span class="icon-close" @click="closeIcon(2)"></span>
           </div>
         </div>
         </div>
@@ -113,7 +113,7 @@
       class="text-tag"
       >
       {{ checkboxValues[0] }}
-      <span class="icon-close"></span>
+      <span class="icon-close" @click="closeIcon(0)"></span>
     </div>
   </div>
   <div class="multiselect__tag tag-mobile">
@@ -121,7 +121,7 @@
     class="text-tag"
     >
     {{ checkboxValues[1] }}
-    <span class="icon-close"></span>
+    <span class="icon-close" @click="closeIcon(0)"></span>
     </div>
   </div>
   <div class="multiselect__tag tag-mobile">
@@ -129,7 +129,7 @@
     class="text-tag"
     >
     + {{checkboxValues.length - 2}} ...
-    <span class="icon-close" @click="closeIcon(index)"></span>
+    <span class="icon-close" @click="closeIcon(2)"></span>
     </div>
   </div>
 </div>
@@ -279,6 +279,10 @@
 </transition>
 
 <!-- Modal Sort Mobile -->
+<transition name="backdrop-scale">
+  <div class="backdrop-phone"  v-if="selectedComponent === 'sort-modal'" @click="setComponent('')"></div>
+</transition>
+<transition name="phone">
 <base-modal
   class="modal-container modal modal-animation__open"
   @close-modal="modalClose"
@@ -314,6 +318,7 @@
     </div>
     <div class="w-100 modal-filter__btn">
       <base-button
+        @button-clicked="closeComponent()"
         classes="p-product-btn"
         base-color="yellow"
         no-box-shadow
@@ -331,9 +336,13 @@
     </div>
   </div>
 </base-modal>
+</transition>
 
 <!-- Modal Filter Mobile -->
-
+<transition name="backdrop-scale">
+  <div class="backdrop-phone" v-if="selectedComponent === 'filter-modal'" @click="setComponent('')"></div>
+</transition>
+<transition name="phone">
 <base-modal
 class="modal-container modal modal-animation__open"
 @close-modal="modalClose"
@@ -368,6 +377,7 @@ v-if="selectedComponent === 'filter-modal'"
   </div>
   <div class="w-100 modal-filter__btn">
     <base-button
+      @button-clicked="closeComponent()"
       classes="p-product-btn"
       base-color="yellow"
       no-box-shadow
@@ -385,57 +395,8 @@ v-if="selectedComponent === 'filter-modal'"
   </div>
 </div>
 </base-modal>
+</transition>
 
-    <!-- <transition name="backdrop-scale">
-      <div class="backdrop" :class="{ 'active--blur': activeBlur }" v-if="selectedComponent ==='filter'" @click="closeComponent()"></div>
-    </transition>
-    <transition name="scale">
-      <modal-sort
-      v-if="selectedComponent ==='filter'"
-      @close-modal="modalSortClose"
-      >
-      <template v-slot:title>
-        <span class="title-icon-filter"> </span>
-        <h3 class="modal-filter__item-title">
-        فیلتر بر اساس:
-        </h3>
-      </template>
-      <template v-slot:content>
-        <div class="w-100 modal-sort__content">
-          <div class="sub-items" v-for="option in options" :key="option.code">
-            <base-checkbox
-              class="brand-checkbox"
-              name="name"
-              :val="option.name"
-              mode="square"
-              v-model="checkboxValues"
-              :title="option.name"
-            ></base-checkbox>
-          </div>
-        </div>
-      </template>
-      <template v-slot:action>
-        <div class="w-100 modal-filter__btn">
-          <base-button
-            @button-clicked="submitModal"
-            classes="p-product-btn"
-            base-color="yellow"
-            no-box-shadow
-          >
-          اعمال
-          </base-button>
-          <base-button
-            @button-clicked="closeComponent()"
-            classes="modal-cancel"
-            no-box-shadow
-            base-color="light-gray"
-          >
-            انصراف
-          </base-button>
-        </div>
-      </template>
-    </modal-sort>
-    </transition> -->
   </div>
 </template>
 
@@ -449,7 +410,7 @@ import { getTextByTextKey } from "~/modules/splitPartJsonResource.js";
 
 export default {
   props: {
-    commentsData: { type: [Object, Array], default: {} },
+    commentsData: { type: [Object, Array], default: {} }
   },
 
   components: {
@@ -650,6 +611,16 @@ export default {
 <style lang="scss" scoped>
 @include scale-modal-animation();
 @include backdrop-scale-animation();
+@include phone-modal-animation();
+
+.backdrop {
+  @extend .modal-backdrop;
+  background-color: $overlay--profile;
+}
+.backdrop-phone{
+  @extend .modal-backdrop;
+  background-color: $overlay--profile;
+}
 
 // ............... Desktop Style..................... //
 @include xl{
@@ -805,10 +776,7 @@ export default {
 }
 
 
-.backdrop {
-  //@extend .modal-backdrop;
-  background-color: $overlay--profile;
-}
+
 .user-comments__empty-container {
   @include display-flex();
   flex-direction: column;
@@ -1397,7 +1365,7 @@ export default {
   .comments-add__comment {
     width: 72%;
   }
-
+//////////////////////////////////////////////
   .modal-container::v-deep {
     dialog {
       @include display-flex();
@@ -1439,14 +1407,16 @@ export default {
     font-weight: 400;
     margin: toRem(48) toRem(6.75) toRem(16) toRem(60);
   }
-
+  .p-modal-header-top{
+    margin-top: toRem(24);
+  }
   .p-modal-header {
     padding-right: toRem(41);
     padding-left: toRem(41);
   }
   .title-icon {
     &::before {
-      margin: toRem(51.75) toRem(25.75)  toRem(18.75) toRem(6.75);
+      margin: toRem(51.75) toRem(25.75)  toRem(18.75) 0;
       content: "\e83f";
       @include font-icon__limoo();
       font-size: toRem(20);
@@ -1505,28 +1475,28 @@ export default {
             }
           }
 
-  .modal-animation__open {
-      animation: modalOpen 600ms linear;
-  }
-  @keyframes modalOpen {
-      0% {
-          transform: translate(0, 470px);
-      }
-      100% {
-          transform: translate(0, 0);
-      }
-  }
-  .modal-animation__close {
-      animation: modalClose 600ms linear;
-  }
-  @keyframes modalClose {
-      0% {
-          transform: translate(0, 0);
-      }
-      100% {
-          transform: translate(0, 470px);
-      }
-  }
+  // .modal-animation__open {
+  //     animation: modalOpen 600ms linear;
+  // }
+  // @keyframes modalOpen {
+  //     0% {
+  //         transform: translate(0, 470px);
+  //     }
+  //     100% {
+  //         transform: translate(0, 0);
+  //     }
+  // }
+  // .modal-animation__close {
+  //     animation: modalClose 600ms linear;
+  // }
+  // @keyframes modalClose {
+  //     0% {
+  //         transform: translate(0, 0);
+  //     }
+  //     100% {
+  //         transform: translate(0, 470px);
+  //     }
+  // }
   .p-modal-header-mobile {
     display: flex;
     flex-flow: column;
