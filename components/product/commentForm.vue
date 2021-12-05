@@ -415,7 +415,7 @@ export default {
     margin-bottom: 0;
   }
   .comment__suggest-btns {
-    margin-top: toRem(32);
+    margin-top: 6%;
     margin-bottom: toRem(19);
   }
   .p-product-btn {

@@ -85,7 +85,7 @@
 
       </div>
     </div>
-    <div class="tab--content product__single-content w-100">
+    <div class="tab--content product--tab-wrapper product__single-content w-100">
       <base-tabs
         :tabs="tabsNames"
         :selected="selected"
@@ -105,11 +105,10 @@
         </tab-content>
       </base-tabs>
 
-
     </div>
 
 
-    <div class="tab--content product__single-content w-100 tab--comment">
+    <div class="tab--content comment--tab-wrapper product__single-content w-100 tab--comment">
       <comment-question-main
         :comment-data="commentData"
         :product-data="productData"
@@ -165,7 +164,7 @@ export default {
 
   data() {
     return {
-      tabsNames: ["معرفی کامل محصول", "مشخصات فنی محصول"],
+      tabsNames: ["معرفی کامل محصول", "مشخصات فنی محصول",],
       selected: "معرفی کامل محصول",
       windowWidth: 0,
       carouselSetting: {
@@ -248,12 +247,14 @@ export default {
   @include display-flex();
   align-items: flex-start;
   border-bottom: solid toRem(1) $gray-border;
+  background-color: red;
 }
 .tabs__item {
   margin-left: toRem(70);
 }
 .tabs__item-title {
   font-size: toRem(18);
+  white-space: nowrap;
 }
 
 .product__single {
@@ -329,7 +330,7 @@ export default {
 .tab--content::v-deep {
   padding: 0 toRem(24);
   .tabs-navigator {
-    height: toRem(70);
+    height: toRem(75);
   }
   .tabs__content {
     position: static;
@@ -599,9 +600,20 @@ export default {
 }
 
 @include sm {
-  .tab--content::v-deep {
+  .product--tab-wrapper::v-deep {
     .tabs__main {
       display: none;
+    }
+  }
+  .comment--tab-wrapper::v-deep {
+    .tabs__main {
+      @include display-flex();
+      height: toRem(60);
+      // justify-content: space-around;
+    }
+    .tabs__item{
+
+      font-size: toRem(14);
     }
   }
   .product__single-right {
@@ -636,6 +648,20 @@ export default {
   }
 }
 @include xs {
+  .comment--tab-wrapper::v-deep {
+    .tabs__main {
+      display: flex;
+      justify-content: space-around;
+    }
+    .tabs__item-title{
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      white-space: nowrap;
+    }
+  }
   .product-warranty {
     margin-bottom: toRem(16);
   }

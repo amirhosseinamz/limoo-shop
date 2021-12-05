@@ -237,8 +237,8 @@ export default {
       windowWidth: 0,
       likeIconIsActive: false,
       dislikeIconIsActive: false,
-      likeCounter: 0,
-      dislikeCounter: 0,
+      likeCounter: 10,
+      dislikeCounter: 10,
     };
   },
   computed: {
@@ -322,16 +322,24 @@ export default {
       this.likeIconIsActive = !this.likeIconIsActive;
       if (this.likeIconIsActive) {
         this.likeCounter++;
+        this.dislikeIconIsActive = false;
+        this.dislikeCounter--;
       } else {
         this.likeCounter--;
+        this.dislikeIconIsActive = true;
+        this.dislikeCounter++;
       }
     },
     dislike() {
       this.dislikeIconIsActive = !this.dislikeIconIsActive;
       if (this.dislikeIconIsActive) {
+        this.likeIconIsActive = false;
         this.dislikeCounter++;
+        this.likeCounter--;
       } else {
         this.dislikeCounter--;
+        this.likeIconIsActive = true;
+        this.likeCounter++;
       }
     },
   },
@@ -341,7 +349,6 @@ export default {
 <style lang="scss" scoped>
 @include scale-modal-animation();
 @include backdrop-scale-animation();
-
 .backdrop {
   @extend .modal-backdrop;
   background-color: $overlay--profile;
@@ -428,6 +435,9 @@ export default {
   color: $gray;
   font-size: toRem(14);
   line-height: 140.62%;
+  @include xxs {
+    display: none;
+  }
 }
 .rate-counter {
   margin-right: toRem(8);
@@ -442,7 +452,7 @@ export default {
   height: toRem(29);
   margin-right: toRem(16);
   border-radius: toRem(16.5);
-  @include sm{
+  @include sm {
     align-items: center;
     width: toRem(54);
     height: toRem(24);
@@ -452,9 +462,9 @@ export default {
     font-weight: normal;
     font-size: toRem(14);
     // margin-top: toRem(3);
-    @include sm{
-    font-size: toRem(13);
-  }
+    @include sm {
+      font-size: toRem(13);
+    }
   }
 }
 /* ////////////////////////////// */
@@ -492,6 +502,12 @@ export default {
   font-size: toRem(16);
   font-family: inherit;
   line-height: 140.62%;
+  @include xs {
+    font-size: toRem(12);
+  }
+  @include xxs {
+    font-size: toRem(10);
+  }
 }
 .idea-good {
   color: $btn__green;
@@ -728,7 +744,7 @@ export default {
   margin-bottom: toRem(25.5);
   height: toRem(29.6);
   margin-left: toRem(24);
-  @include sm{
+  @include sm {
     margin-left: toRem(14);
   }
   .dislike {
@@ -874,10 +890,6 @@ export default {
   .p-comments__state-mobile {
     display: block;
   }
-  .p-comments__title,
-  .ideas-title {
-    font-size: toRem(13);
-  }
   .stars-outer::before,
   .stars-inner::before {
     font-size: toRem(10);
@@ -994,11 +1006,6 @@ export default {
 }
 
 @include xxxs {
-  .p-comments__title,
-  .ideas-title {
-    font-size: toRem(12);
-    text-align: right;
-  }
   .p-product-content-data {
     margin-top: toRem(3);
     margin-right: toRem(10);
