@@ -271,6 +271,7 @@ const state = () => ({
       remaining: 5
     },
   ],
+
 })
 const getters = {
   productSlider(state) {
@@ -293,7 +294,8 @@ const getters = {
   },
   sellersData(state) {
     return state.sellersData;
-  }
+  },
+
 }
 const mutations = {
   increaseCloseModalAddComment (state) {
@@ -309,6 +311,7 @@ const mutations = {
       state.colorsData.splice(selectedItemIndex, 1, state.colorsData[0]);
       state.colorsData.splice(0, 1, selectedItem);
   },
+
 }
 const actions = {
   increaseCloseModalAddComment (context) {
