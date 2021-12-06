@@ -9,478 +9,431 @@
       tabs__content
     "
   >
-    <p class="filter__title">
-      <span class="icon"></span>
-      فیلتر بر اساس:
-    </p>
-    <div class="filter">
-      <div class="dropdown" :class="`${open ? 'changedropdown' : ''}`">
-        <div
-          class="text"
-          @click="changearrow()"
-          :class="`${open ? 'changeicon' : 'icon'}`"
-        >
-          انتخاب کنید...
-          <div class="multiselect__tags-wrap" v-if="checkboxValues.length < 3">
+  <p class="filter__title"><span class="icon"></span>
+    فیلتر بر اساس:
+  </p>
+  <div class="filter">
+  <div class="dropdown"  :class="`${open ? 'changedropdown' : '' }`">
+      <div class="text"  @click="changearrow()" :class="`${open ? 'changeicon' : 'icon' }`" >انتخاب کنید...
+        <div class="multiselect__tags-wrap" v-if="checkboxValues.length < 3">
+          <div class="multiselect__tag" v-for="(item,index) in checkboxValues" :key="item">
             <div
-              class="multiselect__tag"
-              v-for="(item, index) in checkboxValues"
-              :key="item"
+            class="text-tag"
             >
-              <div class="text-tag">
-                {{ item }}
-                <span class="icon-close" @click="closeIcon(index)"></span>
-              </div>
-            </div>
-          </div>
-          <div v-else class="multiselect__tags-wrap">
-            <div class="multiselect__tag">
-              <div class="text-tag">
-                {{ checkboxValues[0] }}
-                <span class="icon-close" @click="closeIcon(0)"></span>
-              </div>
-            </div>
-            <div class="multiselect__tag">
-              <div class="text-tag">
-                {{ checkboxValues[1] }}
-                <span class="icon-close" @click="closeIcon(1)"></span>
-              </div>
-            </div>
-            <div class="multiselect__tag">
-              <div class="text-tag">
-                + {{ checkboxValues.length - 2 }} ...
-                <span class="icon-close" @click="closeIcon(2)"></span>
-              </div>
+            {{item}}
+              <span class="icon-close" @click="closeIcon(index)"></span>
             </div>
           </div>
         </div>
-        <ul class="items" v-if="show">
-          <li class="sub-items" v-for="option in options" :key="option.code">
-            <base-checkbox
-              class="brand-checkbox"
-              name="name"
-              :val="option.name"
-              mode="square"
-              v-model="checkboxValues"
-              :title="option.name"
-            ></base-checkbox>
-          </li>
-        </ul>
+        <div
+        v-else
+        class="multiselect__tags-wrap"
+        >
+        <div class="multiselect__tag">
+          <div
+          class="text-tag"
+          >
+          {{ checkboxValues[0] }}
+            <span class="icon-close" @click="closeIcon(0)"></span>
+          </div>
+        </div>
+        <div class="multiselect__tag">
+          <div
+          class="text-tag"
+          >
+          {{ checkboxValues[1] }}
+            <span class="icon-close" @click="closeIcon(1)"></span>
+          </div>
+        </div>
+        <div class="multiselect__tag">
+          <div
+          class="text-tag"
+          >
+          + {{checkboxValues.length - 2}} ...
+            <span class="icon-close" @click="closeIcon(2)"></span>
+          </div>
+        </div>
+        </div>
       </div>
-      <base-button
-        base-color="white"
-        @button-clicked="buttonIsactiveAll()"
-        :class="`${selectedAll ? 'active-button' : 'filter-button'}`"
-      >
-        همه نظرات
-      </base-button>
-      <base-button
-        base-color="white"
-        @button-clicked="buttonIsactiveNeg()"
-        :class="`${selectedNeg ? 'active-button' : 'filter-button '}`"
-      >
-        نظرات منفی
-      </base-button>
-      <base-button
-        base-color="white"
-        @button-clicked="buttonIsactivePos()"
-        :class="`${selectedPos ? 'active-button' : 'filter-button'}`"
-      >
-        نظرات مثبت
-      </base-button>
-    </div>
+      <ul class="items" v-if="show" >
+      <li class="sub-items" v-for="option in options" :key="option.code"  >
+        <base-checkbox
 
-    <div class="w-100">
-      <base-button
-        no-box-shadow
-        no-hover
-        base-color="white"
-        class="button-add"
-        classes="comments-add__comment"
-        @button-clicked="showModalAddComment"
-      >
-        {{ getTextByTextKey("product_submit_comment") }}
-      </base-button>
-    </div>
+          class="brand-checkbox"
+          name="name"
+          :val="option.name"
+          mode="square"
+          v-model="checkboxValues"
+          :title="option.name"
+        ></base-checkbox>
+      </li>
+  </ul>
+</div>
+  <base-button  base-color="white" @button-clicked="buttonIsactiveAll()" :class="`${selectedAll ? 'active-button' : 'filter-button' }`">
+    همه نظرات
+  </base-button>
+  <base-button  base-color="white" @button-clicked="buttonIsactiveNeg()"  :class="`${selectedNeg ? 'active-button' : 'filter-button '}`" >
+    نظرات منفی
+  </base-button>
+  <base-button  base-color="white"  @button-clicked="buttonIsactivePos()" :class="`${selectedPos ? 'active-button' : 'filter-button' }`" >
+    نظرات مثبت
+  </base-button>
+</div>
+
+<div class="w-100">
+  <base-button no-box-shadow no-hover base-color="white" class="button-add"  classes="comments-add__comment" @button-clicked="showModalAddComment">
+     {{ getTextByTextKey("product_submit_comment") }}
+  </base-button>
+</div>
 
     <!-- mobile -->
-    <div class="products__filter-btns w-100" style="display: none">
-      <base-button
-        no-box-shadow
-        classes="products__filter-btn"
-        @button-clicked="setComponent('filter-modal')"
-      >
-        <span class="filter-search-icon"></span>
-        {{ getTextByTextKey("category_filter_text") }}
-      </base-button>
+<div class="products__filter-btns w-100 " style="display:none">
+  <base-button no-box-shadow classes="products__filter-btn" @button-clicked="setComponent('filter-modal')">
+    <span class="filter-search-icon"></span>
+    {{ getTextByTextKey('category_filter_text') }}
+  </base-button>
 
-      <base-button
-        no-box-shadow
-        classes="products__filter-btn"
-        base-color="dark"
-        @button-clicked="setComponent('sort-modal')"
-      >
-        <span class="arrow-down-icon"></span>
-        مرتب سازی
-      </base-button>
-    </div>
+  <base-button no-box-shadow classes="products__filter-btn" base-color="dark" @button-clicked="setComponent('sort-modal')">
+    <span class="arrow-down-icon"></span>
+    مرتب سازی
+  </base-button>
+</div>
 
+<div class="multiselect__tags-wrap  responsive" v-if="checkboxValues.length < 3" style="display:none">
+        <div class="multiselect__tag tag-mobile responsive" v-for="(item,index) in checkboxValues" :key="item">
+          <div
+          class="text-tag"
+          >
+          {{item}}
+            <span class="icon-close" @click="closeIcon(index)"></span>
+          </div>
+        </div>
+      </div>
+  <div
+  v-else
+  class="multiselect__tags-wrap  responsive"
+  style="display:none"
+  >
+  <div class="multiselect__tag tag-mobile">
     <div
-      class="multiselect__tags-wrap responsive"
-      v-if="checkboxValues.length < 3"
-      style="display: none"
+      class="text-tag"
+      >
+      {{ checkboxValues[0] }}
+      <span class="icon-close" @click="closeIcon(0)"></span>
+    </div>
+  </div>
+  <div class="multiselect__tag tag-mobile">
+    <div
+    class="text-tag"
+    >
+    {{ checkboxValues[1] }}
+    <span class="icon-close" @click="closeIcon(0)"></span>
+    </div>
+  </div>
+  <div class="multiselect__tag tag-mobile">
+    <div
+    class="text-tag"
+    >
+    + {{checkboxValues.length - 2}} ...
+    <span class="icon-close" @click="closeIcon(2)"></span>
+    </div>
+  </div>
+</div>
+
+<div class="w-100">
+  <div class="user-comments__empty-container" v-show="userComments === 0">
+    <img
+      src="/empty-pages/empty-comment-list.svg"
+      :alt="getTextByTextKey('product_comment_empty')"
+    />
+    <span class="user-comments__empty">
+      {{ getTextByTextKey("product_comment_empty") }}
+    </span>
+  </div>
+  <div
+    class="w-100 flex-wrap p-comment-content-items"
+    :key="updateSelected"
+  >
+    <div
+      v-for="(data, index) in commentsData"
+      :key="data.id"
+      class="w-100 flex-wrap p-comment-content-item"
     >
       <div
-        class="multiselect__tag tag-mobile responsive"
-        v-for="(item, index) in checkboxValues"
-        :key="item"
+        class="flex-wrap w-100 p-comment-content-wrapper align-items-start"
       >
-        <div class="text-tag">
-          {{ item }}
-          <span class="icon-close" @click="closeIcon(index)"></span>
-        </div>
-      </div>
-    </div>
-    <div v-else class="multiselect__tags-wrap responsive" style="display: none">
-      <div class="multiselect__tag tag-mobile">
-        <div class="text-tag">
-          {{ checkboxValues[0] }}
-          <span class="icon-close" @click="closeIcon(0)"></span>
-        </div>
-      </div>
-      <div class="multiselect__tag tag-mobile">
-        <div class="text-tag">
-          {{ checkboxValues[1] }}
-          <span class="icon-close" @click="closeIcon(0)"></span>
-        </div>
-      </div>
-      <div class="multiselect__tag tag-mobile">
-        <div class="text-tag">
-          + {{ checkboxValues.length - 2 }} ...
-          <span class="icon-close" @click="closeIcon(2)"></span>
-        </div>
-      </div>
-    </div>
-
-    <div class="w-100">
-      <div class="user-comments__empty-container" v-show="userComments === 0">
-        <img
-          src="/empty-pages/empty-comment-list.svg"
-          :alt="getTextByTextKey('product_comment_empty')"
-        />
-        <span class="user-comments__empty">
-          {{ getTextByTextKey("product_comment_empty") }}
-        </span>
-      </div>
-      <div
-        class="w-100 flex-wrap p-comment-content-items"
-        :key="updateSelected"
-      >
-        <div
-          v-for="(data, index) in commentsData"
-          :key="data.id"
-          class="w-100 flex-wrap p-comment-content-item"
-        >
-          <div
-            class="flex-wrap w-100 p-comment-content-wrapper align-items-start"
-          >
-            <div class="w-100">
-              <div class="w-100 flex-wrap p-comments-content-header">
-                <div class="p-comments__header-holder">
-                  <div class="p-comments__title">
-                    {{ data.Title }}
-                  </div>
-                  <div class="p-comments-idea__title">
-                    <span
-                      v-show="data.Suggest === 1"
-                      class="ideas-title idea-good"
-                    >
-                      {{ getTextByTextKey("commnets_suggestion_buy") }}
-                    </span>
-                    <span
-                      v-show="data.Suggest === 2"
-                      class="ideas-title idea-bad"
-                    >
-                      {{ getTextByTextKey("comments_not_enough_experience") }}
-                    </span>
-                    <span
-                      v-show="data.Suggest === 3"
-                      class="ideas-title idea-mid"
-                    >
-                      {{
-                        getTextByTextKey("comments_enough_experience_moment")
-                      }}
-                    </span>
-                    <div class="p-comments__state-mobile">
-                      <base-signs
-                        type="confirmed"
-                        v-if="typeof data.confirmLeave === 'undefined'"
-                        :title="data.dateConvert"
-                      ></base-signs>
-                      <base-signs
-                        type="confirmed"
-                        v-if="data.confirmLeave === 1"
-                      ></base-signs>
-                      <base-signs
-                        type="waiting"
-                        v-if="data.confirmLeave === 2"
-                      ></base-signs>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="p-comments__state-desktop">
-                  <base-signs
-                    type="confirmed"
-                    v-if="typeof data.confirmLeave === 'undefined'"
-                    :title="data.dateConvert"
-                  ></base-signs>
-                  <base-signs
-                    type="confirmed"
-                    v-if="data.confirmLeave === 1"
-                  ></base-signs>
-                  <base-signs
-                    type="waiting"
-                    v-if="data.confirmLeave === 2"
-                  ></base-signs>
-                </div>
+        <div class="w-100">
+          <div class="w-100 flex-wrap  p-comments-content-header ">
+            <div class="p-comments__header-holder">
+              <div class="p-comments__title">
+                {{ data.Title }}
               </div>
-              <!-- ==================================================================================== -->
-              <div class="w-100 flex-column p-comment-content-data-main">
-                <div class="w-100 p-commentedproduct-main text-right">
-                  <div class="p-commented-default-main">
-                    <div
-                      class="p-commented-default-pic p-commented-product-img"
-                    ></div>
-                  </div>
-                  <div class="p-product-content-data">
-                    <span class="p-product-content-text-data">
-                      {{ data.Firstname }}
-                      {{ data.Lastname }}
-                    </span>
-                    <div class="p-product-content-rating-data">
-                      <div class="stars-outer">
-                        <div
-                          class="stars-inner"
-                          :style="{
-                            width: (data.Rate * 100) / 5 + '%',
-                          }"
-                        ></div>
-                      </div>
-                      <span class="rate-counter"> {{ data.Rate }}</span>
-                      <span class="rate-count">
-                        {{ getTextByTextKey("commnets_star_from_text") }} 5
-                      </span>
-                      <span class="buyer-badge"
-                        ><span class="badge-text">خریدار</span></span
-                      >
-                    </div>
-                    <!-- ==================================================================================== -->
-                  </div>
-                </div>
-                <div
-                  :class="{
-                    'full-description__active': data.selected,
-                  }"
-                >
-                  <div ref="test" class="p-commentedproduct-description">
-                    {{ data.Body }}
-                  </div>
-
-                  <span
-                    v-if="data.showCircle"
-                    @click="showMoreDescription(data)"
-                    alt=""
-                    class="more__arrow-icon"
-                  >
-                  </span>
-                </div>
-              </div>
-            </div>
-            <!-- like and dislike -->
-            <div class="like-dislike-wrapper d-flex w-100">
-              <div class="dislike d-flex align-center" @click="dislike">
-                <span class="number">{{ dislikeCounter }}</span>
-                <sapn
-                  class="dislike-icon"
-                  :class="`${
-                    dislikeIconIsActive
-                      ? 'dislike-icon-clicked'
-                      : 'dislike-icon'
-                  }`"
-                ></sapn>
-              </div>
-              <div class="vertical-line"></div>
-              <div class="like d-flex align-center" @click="like">
-                <span class="number">{{ likeCounter }}</span>
+              <div class="p-comments-idea__title">
                 <span
-                  class="like-icon"
-                  :class="`${
-                    likeIconIsActive ? 'like-icon-clicked' : 'like-icon'
-                  }`"
-                ></span>
+                  v-show="data.Suggest === 1"
+                  class="ideas-title idea-good"
+                >
+                  {{ getTextByTextKey("commnets_suggestion_buy") }}
+                </span>
+                <span
+                  v-show="data.Suggest === 2"
+                  class="ideas-title idea-bad"
+                >
+                  {{ getTextByTextKey("comments_not_enough_experience") }}
+                </span>
+                <span
+                  v-show="data.Suggest === 3"
+                  class="ideas-title idea-mid"
+                >
+                  {{
+                    getTextByTextKey("comments_enough_experience_moment")
+                  }}
+                </span>
+                <div class="p-comments__state-mobile">
+                  <base-signs type="confirmed" v-if="typeof data.confirmLeave === 'undefined'" :title="data.dateConvert"></base-signs>
+                  <base-signs type="confirmed" v-if="data.confirmLeave === 1"></base-signs>
+                  <base-signs type="waiting" v-if="data.confirmLeave === 2"></base-signs>
+                </div>
               </div>
             </div>
-            <!--end of like and dislike -->
-          </div>
-        </div>
 
-        <div @click="moreCommentMobile" class="comment_more" style="">
-          <div class="comment_main">
-            <h3 class="comment__more-title">
-              {{ getTextByTextKey("product_more") }} 5
-            </h3>
-            <span class="comment-more__icon"></span>
+            <div class="p-comments__state-desktop">
+              <base-signs type="confirmed" v-if="typeof data.confirmLeave === 'undefined'" :title="data.dateConvert"></base-signs>
+              <base-signs type="confirmed" v-if="data.confirmLeave === 1"></base-signs>
+              <base-signs type="waiting" v-if="data.confirmLeave === 2"></base-signs>
+            </div>
+          </div>
+<!-- ==================================================================================== -->
+          <div class="w-100 flex-column p-comment-content-data-main">
+          <div class="w-100 p-commentedproduct-main text-right">
+          <div class="p-commented-default-main">
+
+          <div
+            class="p-commented-default-pic p-commented-product-img"
+          ></div>
+          </div>
+          <div class="p-product-content-data">
+          <span class="p-product-content-text-data ">
+            {{ data.Firstname }}
+            {{ data.Lastname }}
+          </span>
+          <div class="p-product-content-rating-data ">
+            <div class="stars-outer">
+              <div
+                class="stars-inner"
+                :style="{
+                  width: (data.Rate * 100) / 5 + '%',
+                }"
+              ></div>
+            </div>
+            <span class="rate-counter"> {{ data.Rate }}</span>
+            <span class="rate-count">
+              {{ getTextByTextKey("commnets_star_from_text") }} 5
+            </span>
+            <span class="buyer-badge"
+                    ><span class="badge-text">خریدار</span></span
+                  >
+          </div>
+<!-- ==================================================================================== -->
           </div>
         </div>
-        <base-pagination
-          class="comment-pagination"
-          @pageChanged="pageChanged"
-        ></base-pagination>
+        <div
+          :class="{
+            'full-description__active': data.selected,
+          }"
+        >
+          <div ref="test" class="p-commentedproduct-description">
+            {{ data.Body }}
+          </div>
+
+          <span
+            v-if="data.showCircle"
+            @click="showMoreDescription(data)"
+            alt=""
+            class="more__arrow-icon"
+          >
+          </span>
+        </div>
       </div>
     </div>
+    <!-- like and dislike -->
+        <div class="like-dislike-wrapper d-flex w-100">
+          <div class="dislike d-flex align-center" @click="dislike">
+            <span class="number">{{ dislikeCounter }}</span>
+            <sapn
+              class="dislike-icon"
+              :class="`${
+                dislikeIconIsActive
+                  ? 'dislike-icon-clicked'
+                  : 'dislike-icon'
+              }`"
+            ></sapn>
+          </div>
+          <div class="vertical-line"></div>
+          <div class="like d-flex align-center" @click="like">
+            <span class="number">{{ likeCounter }}</span>
+            <span
+              class="like-icon"
+              :class="`${
+                likeIconIsActive ? 'like-icon-clicked' : 'like-icon'
+              }`"
+            ></span>
+          </div>
+        </div>
+    <!--end of like and dislike -->
+  </div>
+</div>
+ 
+ <div @click="moreCommentMobile" class="comment_more" style="">
+<div class="comment_main">
+  <h3 class="comment__more-title">
+    {{ getTextByTextKey("product_more") }} 5
+  </h3>
+  <span class="comment-more__icon"></span>
+</div>
+</div>
+<base-pagination class="comment-pagination" @pageChanged="pageChanged"></base-pagination>
+</div>
+</div>
 
-    <!--    Add Comment Modal-->
-    <transition name="backdrop-scale">
-      <div class="backdrop" v-if="showModal"></div>
-    </transition>
-    <transition :name="modalAnimation">
-      <modal-add-comment
-        v-if="showModal"
-        :modal-mode="modalAnimation"
-        class="comment__modal--data"
-        @submit-data="submitData"
-        :comments-data="commentsData"
-        @close-modal="modalClose"
-      ></modal-add-comment>
-    </transition>
+<!--    Add Comment Modal-->
+<transition name="backdrop-scale">
+  <div class="backdrop" v-if="showModal"></div>
+</transition>
+<transition :name="modalAnimation">
+  <modal-add-comment
+    v-if="showModal"
+    :modal-mode="modalAnimation"
+    class="comment__modal--data"
+    @submit-data="submitData"
+    :comments-data="commentsData"
+    @close-modal="modalClose"
+  ></modal-add-comment>
+</transition>
 
-    <!-- Modal Sort Mobile -->
-    <transition name="backdrop-scale">
+<!-- Modal Sort Mobile -->
+<transition name="backdrop-scale">
+  <div class="backdrop-phone"  v-if="selectedComponent === 'sort-modal'" @click="setComponent('')"></div>
+</transition>
+<transition name="phone">
+<base-modal
+  class="modal-container modal modal-animation__open"
+  @close-modal="modalClose"
+  v-if="selectedComponent === 'sort-modal'"
+>
+  <div class="w-100 p-modal-header-mobile">
+      <span  class="modal__close-line"></span>
+    <div class="p-modal-header-top align-items-center">
+        <span @click="modalClose" class="title-icon"> </span>
+      <span class="p-modal-header-top-title">
+      چینش بر اساس:
+      </span>
+    </div>
+    <hr class="splicer-line" />
+  </div>
+
+  <div class="p-modal-header-desktop w-100 flex-column">
+    <div class="w-100 modal-sort__content">
       <div
-        class="backdrop-phone"
-        v-if="selectedComponent === 'sort-modal'"
-        @click="setComponent('')"
-      ></div>
-    </transition>
-    <transition name="phone">
-      <base-modal
-        class="modal-container modal modal-animation__open"
-        @close-modal="modalClose"
-        v-if="selectedComponent === 'sort-modal'"
+      @click="selectRadioButton()"
+      class="sub-items"
+      v-for="sort in sortData" :key="sort.id"
       >
-        <div class="w-100 p-modal-header-mobile">
-          <span class="modal__close-line"></span>
-          <div class="p-modal-header-top align-items-center">
-            <span @click="modalClose" class="title-icon"> </span>
-            <span class="p-modal-header-top-title"> چینش بر اساس: </span>
-          </div>
-          <hr class="splicer-line" />
-        </div>
-
-        <div class="p-modal-header-desktop w-100 flex-column">
-          <div class="w-100 modal-sort__content">
-            <div
-              @click="selectRadioButton()"
-              class="sub-items"
-              v-for="sort in sortData"
-              :key="sort.id"
-            >
-              <base-radioButton
-                @active-radio="activeRadio"
-                :class="`${selectRadio ? 'active-radio' : 'sort-radio'}`"
-                name="name"
-                mode="circle"
-                v-model="radiobuttonsValues"
-                :title="sort.title"
-              ></base-radioButton>
-            </div>
-          </div>
-          <div class="w-100 modal-filter__btn">
-            <base-button
-              @button-clicked="closeComponent()"
-              classes="p-product-btn"
-              base-color="yellow"
-              no-box-shadow
-            >
-              اعمال
-            </base-button>
-            <base-button
-              @button-clicked="closeComponent()"
-              classes="modal-cancel"
-              no-box-shadow
-              base-color="light-gray"
-            >
-              انصراف
-            </base-button>
-          </div>
-        </div>
-      </base-modal>
-    </transition>
-
-    <!-- Modal Filter Mobile -->
-    <transition name="backdrop-scale">
-      <div
-        class="backdrop-phone"
-        v-if="selectedComponent === 'filter-modal'"
-        @click="setComponent('')"
-      ></div>
-    </transition>
-    <transition name="phone">
-      <base-modal
-        class="modal-container modal modal-animation__open"
-        @close-modal="modalClose"
-        v-if="selectedComponent === 'filter-modal'"
+        <base-radioButton
+          @active-radio="activeRadio"
+          :class="`${selectRadio ? 'active-radio' : 'sort-radio' }`"
+          name="name"
+          mode="circle"
+          v-model="radiobuttonsValues"
+          :title="sort.title"
+        ></base-radioButton>
+      </div>
+    </div>
+    <div class="w-100 modal-filter__btn">
+      <base-button
+        @button-clicked="closeComponent()"
+        classes="p-product-btn"
+        base-color="yellow"
+        no-box-shadow
       >
-        <div class="w-100 p-modal-header-mobile">
-          <span class="modal__close-line"></span>
-          <div class="p-modal-header-top align-items-center">
-            <span class="title-icon-filter"> </span>
-            <span class="p-modal-header-top-title"> فیلتر بر اساس: </span>
-          </div>
-          <hr class="splicer-line" />
-        </div>
+      اعمال
+      </base-button>
+      <base-button
+        @button-clicked="closeComponent()"
+        classes="modal-cancel"
+        no-box-shadow
+        base-color="light-gray"
+      >
+        انصراف
+      </base-button>
+    </div>
+  </div>
+</base-modal>
+</transition>
 
-        <div class="p-modal-header-desktop w-100 flex-column">
-          <div class="w-100 modal-sort__content">
-            <div class="sub-items" v-for="option in options" :key="option.code">
-              <base-checkbox
-                class="brand-checkbox"
-                name="name"
-                :val="option.name"
-                mode="square"
-                v-model="checkboxValues"
-                :title="option.name"
-              ></base-checkbox>
-            </div>
-          </div>
-          <div class="w-100 modal-filter__btn">
-            <base-button
-              @button-clicked="closeComponent()"
-              classes="p-product-btn"
-              base-color="yellow"
-              no-box-shadow
-            >
-              انتخاب
-            </base-button>
-            <base-button
-              @button-clicked="closeComponent()"
-              classes="modal-cancel"
-              no-box-shadow
-              base-color="light-gray"
-            >
-              انصراف
-            </base-button>
-          </div>
-        </div>
-      </base-modal>
-    </transition>
+<!-- Modal Filter Mobile -->
+<transition name="backdrop-scale">
+  <div class="backdrop-phone" v-if="selectedComponent === 'filter-modal'" @click="setComponent('')"></div>
+</transition>
+<transition name="phone">
+<base-modal
+class="modal-container modal modal-animation__open"
+@close-modal="modalClose"
+v-if="selectedComponent === 'filter-modal'"
+>
+<div class="w-100 p-modal-header-mobile">
+  <span  class="modal__close-line"></span>
+  <div class="p-modal-header-top align-items-center">
+    <span class="title-icon-filter"> </span>
+    <span class="p-modal-header-top-title">
+    فیلتر بر اساس:
+    </span>
+  </div>
+  <hr class="splicer-line" />
+</div>
+
+<div class="p-modal-header-desktop w-100 flex-column">
+  <div class="w-100 modal-sort__content">
+    <div
+    class="sub-items"
+    v-for="option in options" :key="option.code"
+    >
+      <base-checkbox
+        class="brand-checkbox"
+        name="name"
+        :val="option.name"
+        mode="square"
+        v-model="checkboxValues"
+        :title="option.name"
+      ></base-checkbox>
+    </div>
+  </div>
+  <div class="w-100 modal-filter__btn">
+    <base-button
+      @button-clicked="closeComponent()"
+      classes="p-product-btn"
+      base-color="yellow"
+      no-box-shadow
+    >
+    انتخاب
+    </base-button>
+    <base-button
+      @button-clicked="closeComponent()"
+      classes="modal-cancel"
+      no-box-shadow
+      base-color="light-gray"
+    >
+      انصراف
+    </base-button>
+  </div>
+</div>
+</base-modal>
+</transition>
+
   </div>
 </template>
 
 <script>
-//Varun Dewan 2019
-
 import modalAddComment from "./modalAddComment";
 import sortBox from "../Category/sortBox";
 // import ModalSort from "./modalSort";
@@ -506,11 +459,11 @@ export default {
       showModal: false,
       showSortModal: false,
       windowWidth: 0,
-      selectedComponent: "",
+      selectedComponent: '',
       checkboxValues: [],
       radiobuttonsValues: [],
       selectedRadioBtnData: {},
-      subitems: [],
+      subitems:[],
       open: false,
       selectRadio: false,
       selectedAll: false,
@@ -519,28 +472,28 @@ export default {
       show: false,
       tag: false,
       options: [
-        { name: "جدیدترین نظرات", code: "1", tag: "first" },
-        { name: "بالاترین امتیاز", code: "2", tag: "sec" },
-        { name: "نظر خریداران", code: "3", tag: "third" },
-        { name: "مهمترین نظرات", code: "4", tag: "four" },
-        { name: "باحالترین نظرات", code: "5", tag: "five" },
+        { name: 'جدیدترین نظرات', code: '1',   tag: 'first'},
+        { name: 'بالاترین امتیاز', code: '2',   tag: 'sec'},
+        { name: 'نظر خریداران', code: '3',   tag: 'third' },
+        { name: 'مهمترین نظرات', code: '4',   tag: 'four' },
+        { name: 'باحالترین نظرات', code: '5',   tag: 'five' },
       ],
       sortData: [
         {
           id: 1,
-          title: "همه نظرات",
-          value: "new",
+          title: 'همه نظرات',
+          value: 'new'
         },
         {
           id: 2,
-          title: "نظرات منفی",
-          new: "negative",
+          title: 'نظرات منفی',
+          new: 'negative'
         },
         {
           id: 3,
-          title: "نظرات مثبت",
-          new: "positive",
-        },
+          title: 'نظرات مثبت',
+          new: 'positive'
+        }
       ],
       likeIconIsActive: false,
       dislikeIconIsActive: false,
@@ -570,7 +523,7 @@ export default {
     },
     showSortModal(val) {
       this.activeBlur = !!val;
-    },
+    }
   },
 
   created() {
@@ -595,9 +548,9 @@ export default {
 
   methods: {
     getTextByTextKey,
-    changearrow() {
-      this.show = !this.show;
-      this.open = !this.open;
+    changearrow () {
+      this.show = !this.show
+      this.open = !this.open
     },
     buttonIsactiveAll() {
       this.selectedAll = !this.selectedAll;
@@ -611,8 +564,8 @@ export default {
     },
     buttonIsactivePos() {
       this.selectedPos = !this.selectedPos;
-      this.selectedAll = false;
-      this.selectedNeg = false;
+      this.selectedAll= false;
+      this.selectedNeg= false;
     },
 
     showMoreDescription(data) {
@@ -674,17 +627,17 @@ export default {
       this.showSortModal = true;
       this.$emit("show-modal-sort");
     },
-    setComponent(component) {
+    setComponent(component){
       this.selectedComponent = component;
     },
-    closeComponent() {
-      this.selectedComponent = "";
+    closeComponent(){
+      this.selectedComponent ='';
     },
-    closeIcon(index) {
-      this.$delete(this.checkboxValues, index);
+    closeIcon(index){
+        this.$delete(this.checkboxValues, index);
     },
-    selectRadioButton() {
-      this.selectRadio = !this.selectRadio;
+    selectRadioButton () {
+      this.selectRadio = !this.selectRadio
     },
     like() {
       this.likeIconIsActive = !this.likeIconIsActive;
@@ -723,32 +676,32 @@ export default {
   @extend .modal-backdrop;
   background-color: $overlay--profile;
 }
-.backdrop-phone {
+.backdrop-phone{
   @extend .modal-backdrop;
   background-color: $overlay--profile;
 }
 
 // ............... Desktop Style..................... //
-.filter {
+.filter{
   @include display-flex();
 }
-.filter__title {
+.filter__title{
   margin-top: toRem(43);
   font-size: toRem(16);
 
-  &::before {
+  &::before{
     content: "\e840";
     margin-left: toRem(5);
     @include font-icon__limoo();
     font-size: toRem(20);
-    color: $black-topic;
+    color:$black-topic;
   }
 }
-.multiselect__tags-wrap {
+.multiselect__tags-wrap{
   @include display-flex();
 }
 
-.multiselect__tag {
+.multiselect__tag{
   margin-top: toRem(-25);
   margin-bottom: toRem(10);
   margin-left: toRem(4);
@@ -758,30 +711,30 @@ export default {
   color: $gray-2;
   background: $orange-6;
   overflow: hidden;
-  max-width: 100%;
+  max-width:100%;
   text-overflow: ellipsis;
-  white-space: nowrap;
+  white-space:nowrap;
 
-  .text-tag {
+  .text-tag{
     @include display-flex();
-    padding: toRem(4) toRem(8);
+    padding: toRem(4) toRem(8) ;
     font-size: toRem(12);
   }
 
-  .icon-close {
+  .icon-close{
     &::before {
-      margin: toRem(10.5) toRem(8);
-      padding: 0 !important;
-      cursor: pointer;
+      margin:toRem(10.5) toRem(8);
+      padding:0!important;
+      cursor:pointer;
       content: "\e808";
       @include font-icon__limoo();
       font-size: toRem(6);
-      color: $gray-4;
+      color:$gray-4;
     }
   }
 }
-.multiselect__tag:last-child {
-  margin-left: toRem(29) !important;
+.multiselect__tag:last-child{
+  margin-left: toRem(29)!important;
 }
 .dropdown {
   width: toRem(334);
@@ -794,64 +747,64 @@ export default {
   border-radius: toRem(10);
   cursor: pointer;
 
-  .text {
-    padding: toRem(13) toRem(15) toRem(14) 0;
-    font-size: toRem(14);
-    color: $gray-2;
-  }
-  .items {
-    @include display-flex();
-    flex-direction: column;
-    align-items: flex-start;
-    position: absolute;
-    top: toRem(43.2);
-    margin-right: toRem(-1);
-    width: 100.7%;
-    height: toRem(152);
-    overflow-y: scroll;
-    list-style: none;
-    border: toRem(1) solid $gray-5;
-    background: $white;
-    box-shadow: 0px 20px 24px rgba(17, 17, 17, 0.06);
-    border-bottom-left-radius: toRem(10);
-    border-bottom-right-radius: toRem(10);
+.text{
+  padding: toRem(13) toRem(15) toRem(14) 0;
+  font-size: toRem(14);
+  color: $gray-2;
+}
+.items{
+  @include display-flex();
+  flex-direction: column;
+  align-items: flex-start;
+  position: absolute;
+  top: toRem(43.2);
+  margin-right: toRem(-1);
+  width: 100.7%;
+  height: toRem(152);
+  overflow-y: scroll;
+  list-style: none;
+  border: toRem(1) solid $gray-5;
+  background: $white;
+  box-shadow: 0px 20px 24px rgba(17, 17, 17, 0.06);
+  border-bottom-left-radius: toRem(10);
+  border-bottom-right-radius: toRem(10);
 
-    .sub-items {
-      @include display-flex();
-      width: 100%;
-      border-bottom: 1px solid $gray-5;
-      padding: toRem(15) toRem(15) toRem(15) 0 !important;
-    }
+.sub-items{
+  @include display-flex();
+  width: 100%;
+  border-bottom:1px solid $gray-5;
+  padding: toRem(15) toRem(15) toRem(15) 0!important;
   }
-  .icon {
-    &::before {
-      position: absolute;
-      cursor: pointer;
-      top: toRem(18);
-      left: toRem(11);
-      content: "\e841";
-      margin-left: toRem(1);
-      @include font-icon__limoo();
-      font-size: toRem(7);
-      color: $gray-4;
-    }
+}
+.icon{
+  &::before {
+    position: absolute;
+    cursor:pointer;
+    top: toRem(18);
+    left: toRem(11);
+    content: "\e841";
+    margin-left: toRem(1);
+    @include font-icon__limoo();
+    font-size: toRem(7);
+    color:$gray-4;
   }
-  .changeicon {
-    &::before {
-      transform: rotate(-180deg);
-      position: absolute;
-      cursor: pointer;
-      top: toRem(18);
-      left: toRem(11);
-      content: "\e841";
-      margin-left: toRem(1);
-      @include font-icon__limoo();
-      font-size: toRem(7);
-      color: $gray-4;
+}
+.changeicon{
+  &::before {
+    transform: rotate(-180deg);
+    position: absolute;
+    cursor:pointer;
+    top: toRem(18);
+    left: toRem(11);
+    content: "\e841";
+    margin-left: toRem(1);
+    @include font-icon__limoo();
+    font-size: toRem(7);
+    color:$gray-4;
     }
   }
 }
-.changedropdown {
+.changedropdown{
   border-bottom-left-radius: 0px !important;
   border-bottom-right-radius: 0px !important;
 }
@@ -861,8 +814,8 @@ export default {
   font-family: inherit;
   font-size: toRem(13);
   margin: toRem(18) toRem(24) 0 0;
-  border: 1px solid $gray-4 !important;
-  color: $gray !important;
+  border: 1px solid $gray-4!important;
+  color: $gray!important;
 }
 .active-button {
   width: toRem(94);
@@ -870,10 +823,12 @@ export default {
   font-family: inherit;
   font-size: toRem(13);
   margin: toRem(18) toRem(24) 0 0;
-  border: none !important;
-  color: $gray-2 !important;
-  background-color: $orange-2 !important;
+  border: none!important;
+  color:$gray-2!important;
+  background-color:$orange-2!important;
 }
+
+
 
 .user-comments__empty-container {
   @include display-flex();
@@ -905,6 +860,7 @@ export default {
   margin-bottom: toRem(38);
   font-size: toRem(16);
 }
+
 .p-comment-content-item {
   @include display-flex();
   flex-direction: column;
@@ -1260,8 +1216,8 @@ export default {
   font-family: inherit;
   margin-bottom: 1.5rem;
   margin-top: toRem(52);
-  border: 2px solid $orange !important;
-  color: $orange !important;
+  border: 2px solid $orange!important;
+  color: $orange!important;
 }
 .like-dislike-wrapper {
   justify-content: end;
@@ -1380,9 +1336,8 @@ export default {
     @include display-flex();
     align-items: center;
     justify-content: center;
-    margin: toRem(24) auto;
+    margin: 1.5rem auto;
     height: toRem(47);
-    margin-top: toRem(77);
   }
   .tabs__content {
     padding-top: 0 !important;
@@ -1405,14 +1360,14 @@ export default {
     border: toRem(1) solid $gray-5;
     border-radius: toRem(10);
     cursor: pointer;
-  }
-  .text-tag {
+}
+  .text-tag{
     @include display-flex();
-    padding: toRem(4) toRem(4);
+    padding: toRem(4) toRem(4) ;
     font-size: toRem(11.5);
   }
-  .comments-add__comment {
-    margin-top: toRem(54);
+.comments-add__comment{
+  margin-top:toRem(54);
   }
 }
 
@@ -1564,7 +1519,7 @@ export default {
       flex-direction: column;
       align-items: center;
       width: 100%;
-      height: toRem(344);
+      height:toRem(344);
       background: $white;
       box-shadow: 0 toRem(20) toRem(24) rgba(17, 17, 17, 0.06);
       border-top-left-radius: toRem(50);
@@ -1575,9 +1530,9 @@ export default {
 
     dialog {
       &.delete {
-        min-width: 100%;
-        bottom: 0;
-        margin: 0;
+      min-width: 100%;
+        bottom:0;
+        margin:0;
       }
     }
   }
@@ -1599,7 +1554,7 @@ export default {
     font-weight: 400;
     margin: toRem(48) toRem(6.75) toRem(16) toRem(60);
   }
-  .p-modal-header-top {
+  .p-modal-header-top{
     margin-top: toRem(24);
   }
   .p-modal-header {
@@ -1608,7 +1563,7 @@ export default {
   }
   .title-icon {
     &::before {
-      margin: toRem(51.75) toRem(25.75) toRem(18.75) 0;
+      margin: toRem(51.75) toRem(25.75)  toRem(18.75) 0;
       content: "\e83f";
       @include font-icon__limoo();
       font-size: toRem(20);
@@ -1628,44 +1583,44 @@ export default {
   .sub-items {
     @include display-flex();
     width: 100%;
-    padding-bottom: toRem(24) !important;
-    padding-right: toRem(26) !important;
+    padding-bottom:toRem(24)!important;
+    padding-right:toRem(26)!important;
   }
   .sub-items:last-child {
-    padding-bottom: 0 !important;
+    padding-bottom: 0!important;
   }
   .modal-filter__btn {
-    @include display-flex();
-    justify-content: center;
-    margin-top: toRem(50);
-    margin-bottom: toRem(35);
-  }
+      @include display-flex();
+      justify-content:center;
+       margin-top:toRem(50);
+       margin-bottom: toRem(35);
+     }
 
-  .p-product-btn {
-    width: toRem(149);
-    height: toRem(47);
-    font-size: toRem(14);
-    color: $gray-2;
-    margin-left: toRem(24);
-    border-radius: toRem(10);
-  }
-  .modal-cancel {
-    width: toRem(149);
-    height: toRem(47);
-    font-size: toRem(14);
-    color: $gray-3;
-    border-radius: toRem(10);
-  }
+     .p-product-btn {
+        width: toRem(149);
+        height: toRem(47);
+        font-size: toRem(14);
+        color: $gray-2;
+        margin-left: toRem(24);
+        border-radius: toRem(10);
+        }
+        .modal-cancel {
+          width: toRem(149);
+          height: toRem(47);
+          font-size: toRem(14);
+          color:$gray-3;
+          border-radius: toRem(10);
+        }
 
-  .title-icon-filter {
-    padding: toRem(57.71) toRem(27.71) toRem(21.71) 0;
-    &::before {
-      content: "\e840";
-      @include font-icon__limoo();
-      font-size: toRem(18);
-      color: $gray-2;
-    }
-  }
+          .title-icon-filter {
+            padding: toRem(57.71) toRem(27.71)  toRem(21.71) 0;
+            &::before {
+              content: "\e840";
+              @include font-icon__limoo();
+              font-size: toRem(18);
+              color: $gray-2;
+            }
+          }
 
   // .modal-animation__open {
   //     animation: modalOpen 600ms linear;
@@ -1693,67 +1648,67 @@ export default {
     display: flex;
     flex-flow: column;
   }
-  .responsive {
-    display: flex !important;
+  .responsive{
+  display:flex!important;
   }
-  .filter {
-    display: none !important;
+  .filter{
+    display:none!important;
   }
-  .filter__title {
-    display: none;
+  .filter__title{
+    display:none;
   }
   .products__filter-btns {
-    display: flex !important;
-    justify-content: center;
+    display:flex!important;
+    justify-content:center;
     margin-bottom: toRem(40);
   }
-  .products__filter-btn {
-    justify-content: center !important;
-    margin-left: 1.3125rem;
-    font-family: inherit;
-    width: toRem(207);
-    height: toRem(47);
-    .filter-search-icon {
-      margin: 0 1rem 0 0.6rem;
-      &::before {
-        content: "\e840";
-        @include font-icon__limoo();
-        font-size: toRem(20);
-        color: white;
-      }
-    }
-    .arrow-down-icon {
-      margin: 0 1rem 0 0.6rem;
-      &::before {
-        content: "\e83f";
-        @include font-icon__limoo();
-        font-size: toRem(20);
-        color: white;
-      }
+.products__filter-btn {
+  justify-content: center!important;
+  margin-left: 1.3125rem;
+  font-family: inherit;
+  width: toRem(207);
+  height: toRem(47);
+  .filter-search-icon {
+    margin: 0 1rem 0 0.6rem;
+    &::before {
+      content: "\e840";
+      @include font-icon__limoo();
+      font-size: toRem(20);
+      color: white;
     }
   }
-  .products__filter-btn:last-of-type {
-    margin-left: 0;
+  .arrow-down-icon {
+    margin: 0 1rem 0 0.6rem;
+    &::before {
+      content: "\e83f";
+      @include font-icon__limoo();
+      font-size: toRem(20);
+      color: white;
+    }
   }
-  .active--blur {
-    filter: blur(toRem(2));
-    overflow: hidden;
-  }
+}
+.products__filter-btn:last-of-type {
+  margin-left: 0;
+}
+.active--blur {
+  filter: blur(toRem(2));
+  overflow: hidden;
+}
 
   .checkbox-wrapper .container.square {
-    margin-right: 26px !important;
+    margin-right:26px!important;
   }
 
   .radio-btn:first-child {
-    padding-top: 0 !important;
+    padding-top:0!important;
   }
-  .radio-btn {
-    border: 0 !important;
-  }
-  .modal-sort__items {
-    padding-right: toRem(23) !important;
-    margin-bottom: 0 !important;
-  }
+ .radio-btn {
+  border:0!important;
+ }
+ .modal-sort__items {
+   padding-right: toRem(23)!important;
+   margin-bottom:0!important;
+ }
 
   .sort-radio {
     color: $gray-3;
@@ -1765,15 +1720,16 @@ export default {
   }
 
   .tag-mobile {
-    margin-left: toRem(4);
+    margin-left:toRem(4);
   }
-  .tag-mobile:first-child {
-    margin-right: toRem(35);
+  .tag-mobile:first-child{
+      margin-right:toRem(35);
   }
-  .p-modal-header-desktop .modal-sort__content {
-    height: toRem(120);
-    overflow-y: scroll;
+  .p-modal-header-desktop .modal-sort__content{
+    height:toRem(120);
+    overflow-y:scroll;
   }
+
 }
 
 @include xxxs {
@@ -1802,4 +1758,5 @@ export default {
     margin: toRem(14) toRem(11) toRem(10) toRem(27);
   }
 }
+
 </style>
