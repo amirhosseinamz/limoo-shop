@@ -81,7 +81,7 @@
 </div>
 
 <div class="w-100">
-  <base-button no-box-shadow no-hover base-color="white" class="button-add"  classes="comments-add__comment" @button-clicked="showModalAddComment">
+  <base-button no-box-shadow no-hover base-color="white" classes="comments-add__comment" @button-clicked="showModalAddComment">
      {{ getTextByTextKey("product_submit_comment") }}
   </base-button>
 </div>
@@ -686,7 +686,7 @@ export default {
   @include display-flex();
 }
 .filter__title{
-  margin-top: toRem(43);
+  margin-top: toRem(5);
   font-size: toRem(16);
 
   &::before{
@@ -702,6 +702,7 @@ export default {
 }
 
 .multiselect__tag{
+  @include display-flex();
   margin-top: toRem(-25);
   margin-bottom: toRem(10);
   margin-left: toRem(4);
@@ -714,11 +715,21 @@ export default {
   max-width:100%;
   text-overflow: ellipsis;
   white-space:nowrap;
-
+  // @include sm{
+    // overflow: auto
+  // }
   .text-tag{
     @include display-flex();
     padding: toRem(4) toRem(8) ;
     font-size: toRem(12);
+    @include sm{
+    font-size: toRem(9);
+    margin-top: toRem(3);
+  }
+    @include xs{
+      font-size: toRem(12);
+      margin-top: toRem(1);
+  }
   }
 
   .icon-close{
@@ -730,6 +741,12 @@ export default {
       @include font-icon__limoo();
       font-size: toRem(6);
       color:$gray-4;
+      @include sm{
+        margin: 0 toRem(3);
+      }
+      @include sm{
+        margin: 0 toRem(8);
+      }
     }
   }
 }
@@ -1210,6 +1227,7 @@ export default {
 .full-description__active .p-comment__limit {
   display: none;
 }
+
 .comments-add__comment {
   width: toRem(270);
   height: toRem(57);
@@ -1333,14 +1351,15 @@ export default {
   }
   .comments-add__comment {
     width: toRem(259);
-    @include display-flex();
-    align-items: center;
-    justify-content: center;
-    margin: 1.5rem auto;
+    margin: 1.5rem 0;
+    margin-top:toRem(40);
     height: toRem(47);
   }
   .tabs__content {
     padding-top: 0 !important;
+  }
+  .filter__title{
+    margin-top: toRem(30);
   }
   .filter-button {
     font-size: toRem(11);
@@ -1365,9 +1384,6 @@ export default {
     @include display-flex();
     padding: toRem(4) toRem(4) ;
     font-size: toRem(11.5);
-  }
-.comments-add__comment{
-  margin-top:toRem(54);
   }
 }
 
@@ -1510,7 +1526,8 @@ export default {
     font-size: toRem(22);
   }
   .comments-add__comment {
-    width: 72%;
+    margin: toRem(24) auto;
+    width: 70%;
   }
   //////////////////////////////////////////////
   .modal-container::v-deep {
@@ -1519,7 +1536,6 @@ export default {
       flex-direction: column;
       align-items: center;
       width: 100%;
-      height:toRem(344);
       background: $white;
       box-shadow: 0 toRem(20) toRem(24) rgba(17, 17, 17, 0.06);
       border-top-left-radius: toRem(50);
@@ -1591,7 +1607,7 @@ export default {
   }
   .modal-filter__btn {
       @include display-flex();
-      justify-content:center;
+      justify-content:space-around;
        margin-top:toRem(50);
        margin-bottom: toRem(35);
      }
@@ -1601,8 +1617,11 @@ export default {
         height: toRem(47);
         font-size: toRem(14);
         color: $gray-2;
-        margin-left: toRem(24);
         border-radius: toRem(10);
+        // margin-left: toRem(-40);
+        @include xxs{
+           width: toRem(125);
+        }
         }
         .modal-cancel {
           width: toRem(149);
@@ -1610,6 +1629,9 @@ export default {
           font-size: toRem(14);
           color:$gray-3;
           border-radius: toRem(10);
+          @include xxs{
+            width: toRem(125);
+          }
         }
 
           .title-icon-filter {
@@ -1659,31 +1681,44 @@ export default {
   }
   .products__filter-btns {
     display:flex!important;
-    justify-content:center;
+    justify-content:space-around;
     margin-bottom: toRem(40);
+    @include xxs{
+      margin-bottom: toRem(30)
+    }
   }
 .products__filter-btn {
-  justify-content: center!important;
+  @include display-flex();
+  justify-content: center;
   margin-left: 1.3125rem;
   font-family: inherit;
   width: toRem(207);
   height: toRem(47);
+  @include xxs{
+    font-size: toRem(14);
+  }
   .filter-search-icon {
-    margin: 0 1rem 0 0.6rem;
+    margin-left:toRem(9.6);
     &::before {
       content: "\e840";
       @include font-icon__limoo();
       font-size: toRem(20);
       color: white;
+      @include xxs{
+        font-size: toRem(14);
+      }
     }
   }
   .arrow-down-icon {
-    margin: 0 1rem 0 0.6rem;
+    margin: 0 0 0 0.6rem;
     &::before {
       content: "\e83f";
       @include font-icon__limoo();
       font-size: toRem(20);
       color: white;
+      @include xxs{
+        font-size: toRem(14);
+      }
     }
   }
 }
@@ -1725,11 +1760,6 @@ export default {
   .tag-mobile:first-child{
       margin-right:toRem(35);
   }
-  .p-modal-header-desktop .modal-sort__content{
-    height:toRem(120);
-    overflow-y:scroll;
-  }
-
 }
 
 @include xxxs {
