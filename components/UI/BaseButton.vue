@@ -198,9 +198,17 @@ a {
   background-color: $green;
   color: white;
   border: none;
+  //transition: all 0.2s ease-out;
 
   &.disabled {
     background: $color-gray;
+  }
+  &:hover {
+    box-shadow: toRem(3) toRem(7) toRem(11) toRem(-2) rgba(0, 0, 0, 0.25);
+  }
+  &:focus {
+    box-shadow: 0 0 0 toRem(5) $green-6;
+
   }
 }
 

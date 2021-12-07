@@ -18,7 +18,7 @@
     <div class="has-not-discount" v-else>
       256,000 تومان
     </div>
-    <base-button class="add-to-cart-btn" no-box-shadow>
+    <base-button class="add-to-cart-btn">
       افزودن به سبد خرید
     </base-button>
   </div>
@@ -41,6 +41,10 @@ export default {
 
 <style lang="scss" scoped>
   .product-price-container {
+    margin-top: toRem(40);
+    @include md {
+      margin-top: toRem(6);
+    }
     .has-discount {
       @extend .d-flex;
       margin-bottom: toRem(24);
@@ -85,7 +89,7 @@ export default {
       }
     }
     .add-to-cart-btn {
-      width: 89%;
+      width: 100%;
       height: toRem(57);
       font-family: inherit;
       @include md {

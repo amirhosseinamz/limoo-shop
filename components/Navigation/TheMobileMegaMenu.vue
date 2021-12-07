@@ -135,7 +135,7 @@ export default {
 <style lang="scss" scoped>
 .mobile-mega-menu {
   display: none;
-  z-index: 5;
+  z-index: 3000;
 }
 @include md {
   #overlay {
@@ -163,7 +163,7 @@ export default {
     height: toRem(58);
     position: fixed;
     bottom: 0;
-    z-index: 5;
+    z-index: 3000;
     /* we have issue --> the main page content stay behind nav */
     &__items {
       width: toRem(73);

@@ -62,7 +62,6 @@ const getComments = (dataProduct) => {
             content.dateConvert = convertTimeJalali;
           }
           break;
-
         case "day":
           content.dateConvert = `دیروز`;
           break;
@@ -77,7 +76,6 @@ const getComments = (dataProduct) => {
       );
       content.dateConvert = convertTimeJalali;
     }
-
     // پس از اتصال به سرور این قسمت پاک شود //
     if (index < 3) {
       limitedCommentData = [...limitedCommentData, content];
@@ -118,8 +116,7 @@ export default {
       productSlider: [
         {
           id: 1,
-          image:
-            "https://dkstatics-public.digikala.com/digikala-products/cbd437b5ba4a0c942ae8967fa3954da2fd30c54c_1626014199.jpg?x-oss-process=image/resize,m_lfit,h_600,w_600/quality,q_80",
+          image: "https://dkstatics-public.digikala.com/digikala-products/cbd437b5ba4a0c942ae8967fa3954da2fd30c54c_1626014199.jpg?x-oss-process=image/resize,m_lfit,h_600,w_600/quality,q_80",
         },
         {
           id: 2,

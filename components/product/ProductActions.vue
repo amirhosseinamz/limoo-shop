@@ -1,8 +1,8 @@
 <template>
   <div class="actions-container">
-    <div class="action-item category">
-      دسته: موبایل
-    </div>
+<!--    <div class="action-item category">-->
+<!--      دسته: موبایل-->
+<!--    </div>-->
     <div class="action-item action share" @click="showShareModal">
       <span class="icon"></span>
       اشتراک گذاری
@@ -80,6 +80,7 @@ export default {
 .backdrop {
   @extend .modal-backdrop;
   background-color: $overlay--profile;
+
 }
   .actions-container {
     @extend .align-center;
@@ -165,9 +166,6 @@ export default {
             &::before {
               content: "\e80b";
             }
-          }
-          @include lg {
-            display: none;
           }
         }
       }

@@ -239,7 +239,7 @@ export default {
   width: 100%;
   height: toRem(135);
   background-color: $white;
-  z-index: 5;
+  z-index: 1500;
 }
 #overlay {
   position: fixed; /* Sit on top of the page content */
@@ -248,7 +248,7 @@ export default {
   align-items: center;
   width: 100%; /* Full width (cover the whole page) */
   height: 100%; /* Full height (cover the whole page) */
-  z-index: 7;
+  z-index: 2007;
   background: $overlay__profile;
 }
 .the-header {

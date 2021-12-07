@@ -1,22 +1,29 @@
 <template>
   <div class="base-carousel-container" :class="{ 'd-rtl': rtl }">
-    <div class="previous-btn" @click="slidePrev" v-if="true" :class="{ 'is-disabled': isPrevDisabled }">
-      <span class="icon"></span>
+
+    <div class="previous-btn" @click="slidePrev" :class="[{ 'is-disabled': isPrevDisabled }, prevButtonClass]">
+      <slot name="previousButton"></slot>
     </div>
     <div class="slider-wrapper" ref="sliderWrapper">
       <ul class="slider-list" ref="sliderList"
           :style="trackTransform+' '+trackTransition"
           :class="{ 'd-rtl': rtl }"
           draggable="true">
-<!--        <slot name="slide" :class="{ 'is-active': isActive }" :aria-hidden="!isActive"></slot>-->
-<!--        <slide :style="{ width: slideWidth+'px' }"></slide>-->
         <slot :slideWidth="slideWidth"></slot>
       </ul>
     </div>
 
-    <div class="next-btn" @click="slideNext" :class="{ 'is-disabled': isNextDisabled }">
-      <span class="icon"></span>
+    <div class="next-btn" @click="slideNext" :class="[{ 'is-disabled': isNextDisabled }, nextButtonClass]">
+      <slot name="nextButton"></slot>
     </div>
+    <div class="carousel-pagination" :class="paginationClass" v-if="pagination">
+      <ol class="carousel-indicators">
+        <li v-for="(item, index) in slidesCount">
+          <button class="carousel-indicator" type="button" :class="[{ 'is-active': index === currentSlide }, indicatorClass]" @click="slideTo(index)"></button>
+        </li>
+      </ol>
+    </div>
+
   </div>
 </template>
 
@@ -82,6 +89,32 @@ export default {
         return {};
       },
       type: Object
+    },
+    // class for previous button
+    prevButtonClass: {
+      type: String,
+      require: false
+    },
+    // class for next button
+    nextButtonClass: {
+      type: String,
+      require: false,
+    },
+    // toggle pagination option
+    pagination: {
+      type: Boolean,
+      require: false,
+      default: false,
+    },
+    //class for pagination
+    paginationClass: {
+      type: String,
+      require: false,
+    },
+    // class for indicator
+    indicatorClass: {
+      type: String,
+      require: false,
     },
 
   },
@@ -425,82 +458,16 @@ export default {
       //width: 100%;
     }
   }
-
-  .previous-btn {
+  .carousel-pagination {
+    @extend .d-flex;
     position: absolute;
-    top: toRem(145);
-    right: toRem(20);
-    z-index: 1;
-    cursor: pointer;
-
-    @include xs {
-      display: none;
-    }
-
-    .icon {
-      width: toRem(40);
-      height: toRem(40);
-      border-radius: 50%;
-      background-color: $gray-3;
-      @extend .centered;
-
-      &::before {
-        content: "\e801";
-        @include font-icon__limoo();
-        width: 100%;
-        height: 100%;
-        @extend .centered;
-        padding-right: toRem(2);
-        font-size: toRem(18);
-        color: $white;
-        transform: rotate(180deg);
-      }
-    }
-    &:hover {
-      .icon {
-        background-color: $gray-5;
-        &::before {
-          color: $gray-3;
-        }
-      }
-    }
-  }
-
-  .next-btn {
-    position: absolute;
-    top: toRem(145);
-    left: toRem(20);
-    z-index: 1;
-    cursor: pointer;
-    @include xs {
-      display: none;
-    }
-
-    .icon {
-      width: toRem(40);
-      height: toRem(40);
-      border-radius: 50%;
-      background-color: $gray-3;
-      @extend .centered;
-
-      &::before {
-        content: "\e801";
-        @include font-icon__limoo();
-        font-size: toRem(18);
-        width: 100%;
-        height: 100%;
-        @extend .centered;
-        padding-right: toRem(2);
-        color: $white;
-      }
-    }
-    &:hover {
-      .icon {
-        background-color: $gray-5;
-        &::before {
-          color: $gray-3;
-        }
-      }
+    .carousel-indicators {
+      width: 100%;
+      @extend .d-flex;
+      justify-content: center;
+      margin: 0;
+      padding: 0;
+      list-style: none;
     }
   }
 }

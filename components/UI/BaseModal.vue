@@ -73,7 +73,7 @@ export default {
   position: fixed;
   top: 0;
   left: 0;
-  z-index: 2001;
+  z-index: 2500;
   pointer-events: none;
 
   &.right-side {

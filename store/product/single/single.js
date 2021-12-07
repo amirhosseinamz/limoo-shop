@@ -153,83 +153,117 @@ const state = () => ({
       id: 1,
       color: "red",
       name: "قرمز",
+      image: "https://dkstatics-public.digikala.com/digikala-products/cbd437b5ba4a0c942ae8967fa3954da2fd30c54c_1626014199.jpg?x-oss-process=image/resize,m_lfit,h_600,w_600/quality,q_80",
+      exist: true
     },
     {
       id: 2,
-      color: "green",
+      color: "yellow",
       name: "سبز",
+      image: "https://dkstatics-public.digikala.com/digikala-products/be7a0e9bf7866759fa3cea7648b149f589a01040_1609660142.jpg?x-oss-process=image/resize,m_lfit,h_600,w_600/quality,q_80",
+      exist: true
     },
     {
       id: 3,
-      color: "purple",
+      color: "orange",
       name: "بنفش",
+      image: "https://dkstatics-public.digikala.com/digikala-products/9f5d8f6583a7289a096a9180ac88708856f4bd8f_1607433653.jpg?x-oss-process=image/resize,m_lfit,h_600,w_600/quality,q_80",
+      exist: true
     },
     {
       id: 4,
       color: "blue",
       name: "آبی",
+      image: "https://dkstatics-public.digikala.com/digikala-products/d48f70d64f989092aa9493a40ab90ae47e0667c4_1626014826.jpg?x-oss-process=image/resize,m_lfit,h_600,w_600/quality,q_80",
+      exist: false
     },
     {
       id: 5,
       color: "green",
       name: "سبز",
+      image: "https://dkstatics-public.digikala.com/digikala-products/3049dd8c073305e494f86d2959ac679febba7467_1624253960.jpg?x-oss-process=image/resize,m_lfit,h_600,w_600/quality,q_80",
+      exist: false
     },
     {
       id: 6,
       color: "purple",
       name: "بنفش",
+      image: "https://dkstatics-public.digikala.com/digikala-products/cbd437b5ba4a0c942ae8967fa3954da2fd30c54c_1626014199.jpg?x-oss-process=image/resize,m_lfit,h_600,w_600/quality,q_80",
+      exist: true
     },
     {
       id: 7,
       color: "yellow",
       name: "زرد",
-    },
-    {
-      id: 12,
-      color: "green",
-      name: "سبز لیمویی پسته ای",
+      image: "https://dkstatics-public.digikala.com/digikala-products/cbd437b5ba4a0c942ae8967fa3954da2fd30c54c_1626014199.jpg?x-oss-process=image/resize,m_lfit,h_600,w_600/quality,q_80",
+      exist: true
+
     },
     {
       id: 8,
       color: "green",
-      name: "سبز",
+      name: "سبز لیمویی پسته ای",
+      image: "https://dkstatics-public.digikala.com/digikala-products/cbd437b5ba4a0c942ae8967fa3954da2fd30c54c_1626014199.jpg?x-oss-process=image/resize,m_lfit,h_600,w_600/quality,q_80",
+      exist: true
+
     },
     {
       id: 9,
+      color: "green",
+      name: "سبز",
+      image: "https://dkstatics-public.digikala.com/digikala-products/cbd437b5ba4a0c942ae8967fa3954da2fd30c54c_1626014199.jpg?x-oss-process=image/resize,m_lfit,h_600,w_600/quality,q_80",
+      exist: true
+
+    },
+    {
+      id: 10,
       color: "red",
       name: "قرمز",
+      image: "https://dkstatics-public.digikala.com/digikala-products/cbd437b5ba4a0c942ae8967fa3954da2fd30c54c_1626014199.jpg?x-oss-process=image/resize,m_lfit,h_600,w_600/quality,q_80",
+      exist: true
+
     },
 
     {
-      id: 10,
+      id: 11,
       color: "blue",
       name: "آبی دریایی",
+      image: "https://dkstatics-public.digikala.com/digikala-products/be7a0e9bf7866759fa3cea7648b149f589a01040_1609660142.jpg?x-oss-process=image/resize,m_lfit,h_600,w_600/quality,q_80",
+      exist: true
+
     },
     {
-      id: 11,
+      id: 12,
       color: "purple",
       name: "بنفش بادمجونی",
+      image: "https://dkstatics-public.digikala.com/digikala-products/be7a0e9bf7866759fa3cea7648b149f589a01040_1609660142.jpg?x-oss-process=image/resize,m_lfit,h_600,w_600/quality,q_80",
+      exist: true
+
     },
 
     {
       id: 13,
       color: "red",
       name: "قرمز آلبالویی",
+      image: "https://dkstatics-public.digikala.com/digikala-products/be7a0e9bf7866759fa3cea7648b149f589a01040_1609660142.jpg?x-oss-process=image/resize,m_lfit,h_600,w_600/quality,q_80",
+      exist: true
+
     },
     {
       id: 14,
       color: "yellow",
       name: "زرد پررنگ",
+      image: "https://dkstatics-public.digikala.com/digikala-products/be7a0e9bf7866759fa3cea7648b149f589a01040_1609660142.jpg?x-oss-process=image/resize,m_lfit,h_600,w_600/quality,q_80",
+      exist: true
+
     },
     {
       id: 15,
       color: "green",
       name: "سبز لیمویی پسته ای",
-    },
-    {
-      id: 16,
-      color: "red",
-      name: "قرمز آلبالویی",
+      image: "https://dkstatics-public.digikala.com/digikala-products/be7a0e9bf7866759fa3cea7648b149f589a01040_1609660142.jpg?x-oss-process=image/resize,m_lfit,h_600,w_600/quality,q_80",
+      exist: true
+
     },
   ],
   warrantyData: [
@@ -250,7 +284,8 @@ const state = () => ({
       warranty: "گارانتی 18 ماهه",
       price: "478,000,000",
       discountedPrice: "123,000,000",
-      remaining: 3
+      remaining: 3,
+      rate: 3.5
     },
     {
       id: 2,
@@ -259,7 +294,8 @@ const state = () => ({
       warranty: "گارانتی 9 ماهه",
       price: "359,000,000",
       discountedPrice: "123,000,000",
-      remaining: 2
+      remaining: 2,
+      rate: 4.5
     },
     {
       id: 3,
@@ -268,7 +304,8 @@ const state = () => ({
       warranty: "گارانتی 9 ماهه",
       price: "415,000,000",
       discountedPrice: "123,000,000",
-      remaining: 5
+      remaining: 5,
+      rate: 2.2
     },
   ],
 
@@ -306,10 +343,11 @@ const mutations = {
     theItem.checked = !!theItem;
   },
   changeColorArrayElements(state, payload) {
-      let selectedItemIndex = payload;
+      let selectedItemIndex = payload.index + payload.firstPartLength;
       let selectedItem = state.colorsData[selectedItemIndex];
       state.colorsData.splice(selectedItemIndex, 1, state.colorsData[0]);
       state.colorsData.splice(0, 1, selectedItem);
+      //debugger;
   },
 
 }
