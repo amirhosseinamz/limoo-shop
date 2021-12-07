@@ -1,12 +1,9 @@
 <template>
   <div class="product__single w-100">
-    <div class="product__single-category w-100">
-
-    </div>
     <div class="product__single-content product_detail w-100">
       <div class="product_detail-image">
-        <div class="product--single__right-content">
-          <productPic class="product-pic desktop" :comment-data="commentData" @active-item-slider-nav="activeItemSliderNav" :product-slider="productSlider"></productPic>
+        <div class="product--single__right-content" ref="picSection">
+          <productPic class="product-pic desktop" @toggle-modal="picModalToggle" :comment-data="commentData" @active-item-slider-nav="activeItemSliderNav" :product-slider="productSlider"></productPic>
         </div>
       </div>
 
@@ -262,6 +259,15 @@ export default {
     activeItemSliderNav(data) {
       this.$emit("active-item-slider-nav", data);
     },
+    picModalToggle(modalIsOpen) {
+      let picSectionZIndex;
+      if (modalIsOpen) {
+        picSectionZIndex = "2000";
+      } else {
+        picSectionZIndex = "1";
+      }
+      this.$refs.picSection.style.zIndex = picSectionZIndex;
+    },
 
     moreComment(page) {
       this.$emit("more-comment", page);
@@ -336,7 +342,7 @@ export default {
     align-items: flex-start;
     position: relative;
     height: 100%;
-    @include md {
+    @include lg {
       grid-row: 1/3;
     }
     @include sm {
@@ -348,7 +354,7 @@ export default {
     grid-column: 2/3;
     @include display-flex();
     align-items: flex-start;
-    @include md {
+    @include lg {
       grid-column: 2/4;
       grid-row: 1/2;
     }
@@ -438,7 +444,7 @@ export default {
   }
   &-seller {
     grid-column: 3/4;
-    @include md {
+    @include lg {
       grid-column: 2/4;
       grid-row: 2/3;
       max-width: 75%;
@@ -467,6 +473,7 @@ export default {
   border-radius: toRem(10);
   position: sticky;
   top: toRem(140);
+  z-index: 1;
   @include md {
     top: toRem(48);
   }

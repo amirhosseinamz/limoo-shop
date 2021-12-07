@@ -29,10 +29,9 @@
     <div class="modal-body">
       <color-item class="color-item"
         :class="'modal-items'+ modalItems"
-        :index="index"
-        v-for="(item, index) in colorsExceptFirstFive" :key="item.id"
+        v-for="(item, index) in remainingColorsData" :key="item.id"
         :preview-colors="[`${item.color}`]"
-        @item-selected="colorSelected">
+        @item-selected="colorSelected(index)">
         {{ item.name }}
       </color-item>
     </div>
@@ -46,6 +45,7 @@ export default {
   components: { ColorItem },
   props: {
     modalMode: { type: String, require: true },
+    remainingColorsData: { type: Array, require: true }
   },
   data() {
     return {
@@ -64,9 +64,6 @@ export default {
     colorsData() {
       return this.$store.getters["product/single/single/colorsData"];
     },
-    colorsExceptFirstFive() {
-      return this.colorsData.slice(-(this.colorsData.length-5));
-    },
   },
   methods: {
     closeModal() {
@@ -75,8 +72,8 @@ export default {
     handleResize() {
       this.windowWidth = window.innerWidth;
     },
-    colorSelected() {
-      this.$emit('color-selected');
+    colorSelected(index) {
+      this.$emit('color-selected', index);
     }
   },
   mounted() {

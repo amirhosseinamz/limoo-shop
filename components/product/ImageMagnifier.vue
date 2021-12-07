@@ -1,15 +1,13 @@
 <template>
-  <div>
-    <div class="vue-magnifier-container">
-      <slot></slot>
-      <span ref="magnificationElement" class="preview" :style="{backgroundImage:'url(' + src + ')'}">
-            <span
-              ref="glass"
-              class="magnifying-glass"
-              :style="glassStyle"
-            />
-      </span>
-    </div>
+  <div class="img-zoom-container" @mouseover="imageZoom">
+    <div class="img-zoom-lens" ref="theLens"></div>
+    <img ref="theImage"
+         style="width: 100%;height: fit-content"
+         :src="src"
+         :image-class="imageClass"
+         @click="imageClicked"
+    >
+    <div ref="theResult" class="img-zoom-result"></div>
   </div>
 </template>
 
@@ -17,199 +15,133 @@
 export default {
   props: {
     src: String,
-    srcLarge: String,
-  },
-  computed: {
-    glassStyle() {
-      return {
-        backgroundImage: `url(${this.srcLarge})`,
-        backgroundPosition: this.backgroundPos,
-        left: `${this.cursorX}px`,
-        top: this.cursorY + 'px',
-      };
+    imageClass: {
+      type: String,
+      require: false,
     }
-  },
-  methods: {
-    getCursorPos(e) {
-      let x = window.Event
-        ? e.pageX
-        : e.clientX;
-      x -= (document.documentElement.scrollLeft) ?
-        document.documentElement.scrollLeft
-        : document.body.scrollLeft;
-      let y = window.Event
-        ? e.pageY
-        : e.clientY;
-      y -= (document.documentElement.scrollTop) ?
-        document.documentElement.scrollTop
-        : document.body.scrollTop;
 
-      this.cursorX = x - this.thumbPos.x;
-      this.cursorY = y - this.thumbPos.y;
-    },
-    getBounds() {
-      let el = this.$refs.magnificationElement;
-
-      this.bounds = el.getBoundingClientRect();
-
-      let xPos = 0;
-      let yPos = 0;
-      while (el) {
-        const transform = this.getTransform(el);
-        if (el.tagName === 'BODY') {
-          // deal with browser quirks with body/window/document and page scroll
-          const xScroll = el.scrollLeft || document.documentElement.scrollLeft;
-          const yScroll = el.scrollTop || document.documentElement.scrollTop;
-
-          xPos += el.offsetLeft - xScroll + el.clientLeft + parseInt(transform[0]);
-          yPos += el.offsetTop - yScroll + el.clientTop + parseInt(transform[1]);
-        } else {
-          // for all other non-BODY elements
-          xPos += el.offsetLeft - el.scrollLeft + el.clientLeft + parseInt(transform[0]);
-          yPos += el.offsetTop - el.scrollTop + el.clientTop + parseInt(transform[1]);
-        }
-
-        el = el.offsetParent;
-      }
-      this.thumbPos = {
-        x: xPos,
-        y: yPos,
-      };
-    },
-    moveMagnifier(e) {
-      e.preventDefault();
-
-      this.getBounds();
-      this.getCursorPos(e);
-
-      this.backgroundPos = `${(this.cursorX * 100) / this.bounds.width}% ${(this.cursorY * 100) / this.bounds.height}%`;
-    },
-    getTransform(el) {
-      const transform = window
-        .getComputedStyle(el, null)
-        .getPropertyValue('-webkit-transform');
-
-      function rotateDegree(matrix) {
-        let angle;
-        if (matrix !== 'none') {
-          const values = matrix
-            .split('(')[1]
-            .split(')')[0]
-            .split(',');
-          const a = values[0];
-          const b = values[1];
-          angle = Math.round(Math.atan2(b, a) * (180 / Math.PI));
-        } else {
-          angle = 0;
-        }
-        // eslint-disable-next-line no-return-assign
-        return angle < 0 ? (angle += 360) : angle;
-      }
-
-      const results = transform.match(
-        /matrix(?:(3d)\(-{0,1}\d+\.?\d*(?:, -{0,1}\d+\.?\d*)*(?:, (-{0,1}\d+\.?\d*))(?:, (-{0,1}\d+\.?\d*))(?:, (-{0,1}\d+\.?\d*)), -{0,1}\d+\.?\d*\)|\(-{0,1}\d+\.?\d*(?:, -{0,1}\d+\.?\d*)*(?:, (-{0,1}\d+\.?\d*))(?:, (-{0,1}\d+\.?\d*))\))/,
-      );
-
-      let output = [0, 0, 0];
-      if (results) {
-        if (results[1] === '3d') {
-          output = results.slice(2, 5);
-        } else {
-          results.push(0);
-          output = results.slice(5, 9); // returns the [X,Y,Z,1] value;
-        }
-
-        output.push(rotateDegree(transform));
-      }
-      return output;
-    },
-  },
-  mounted() {
-    this.$nextTick(function () {
-      this.$refs.magnificationElement.addEventListener(
-        'mousemove',
-        this.moveMagnifier,
-      );
-    });
   },
   data() {
     return {
-      img: null,
-      width: null,
-      height: null,
-      bounds: null,
-      cursorX: 0,
-      cursorY: 0,
-      thumbPos: {x: 0, y: 0},
-      backgroundPos: '0 0',
+      cx: null,
+      cy: null,
     };
+  },
+  computed: {},
+  methods: {
+    imageZoom() {
+      let _theImage = this.$refs.theImage;
+      let _theResult = this.$refs.theResult;
+      let lens = this.$refs.theLens;
+      /*calculate the ratio between result DIV and lens:*/
+      this.cx = _theResult.offsetWidth / lens.offsetWidth;
+      this.cy = _theResult.offsetHeight / lens.offsetHeight;
+
+      /*set background properties for the result DIV:*/
+      _theResult.style.backgroundImage = "url('" + _theImage.src + "')";
+      _theResult.style.backgroundSize = (_theImage.width * this.cx) + "px " + (_theImage.height * this.cy) + "px";
+      /*execute a function when someone moves the cursor over the image, or the lens:*/
+      lens.addEventListener("mousemove", this.moveLens);
+      _theImage.addEventListener("mousemove", this.moveLens);
+      /*and also for touch screens:*/
+      lens.addEventListener("touchmove", this.moveLens);
+      _theImage.addEventListener("touchmove", this.moveLens);
+    },
+    moveLens(e) {
+      let _theImage = this.$refs.theImage;
+      let _theResult = this.$refs.theResult;
+      let lens = this.$refs.theLens;
+
+      let pos, x, y;
+      /*prevent any other actions that may occur when moving over the image:*/
+      e.preventDefault();
+      /*get the cursor's x and y positions:*/
+      pos = this.getCursorPos(e);
+      /*calculate the position of the lens:*/
+      x = pos.x - (lens.offsetWidth / 2);
+      y = pos.y - (lens.offsetHeight / 2);
+      /*prevent the lens from being positioned outside the image:*/
+      if (x > _theImage.width - lens.offsetWidth) {
+        x = _theImage.width - lens.offsetWidth;
+      }
+      if (x < 0) {
+        x = 0;
+      }
+      if (y > _theImage.height - lens.offsetHeight) {
+        y = _theImage.height - lens.offsetHeight;
+      }
+      if (y < 0) {
+        y = 0;
+      }
+      /*set the position of the lens:*/
+      lens.style.left = x + "px";
+      lens.style.top = y + "px";
+      /*display what the lens "sees":*/
+      _theResult.style.backgroundPosition = "-" + (x * this.cx) + "px -" + (y * this.cy) + "px";
+    },
+    getCursorPos(e) {
+      let _theImage = this.$refs.theImage;
+      let a, x = 0, y = 0;
+      e = e || window.event;
+      /*get the x and y positions of the image:*/
+      a = _theImage.getBoundingClientRect();
+      /*calculate the cursor's x and y coordinates, relative to the image:*/
+      x = e.pageX - a.left;
+      y = e.pageY - a.top;
+      /*consider any page scrolling:*/
+      x = x - window.pageXOffset;
+      y = y - window.pageYOffset;
+      return {x : x, y : y};
+    },
+    imageClicked() {
+      this.$emit('image-clicked');
+    }
+  },
+  mounted() {
+    //this.imageZoom();
   },
 };
 </script>
 
-<style lang="scss">
-// Magnifying glass options
-$border-size: 5px; // Modify the border width of the magnifying glass component
-$border-color: #666666; // Modify the border color of the magnifying glass component
-$magnifier-width: 150px; // Modify the width of the magnifying glass component
-$magnifier-height: 150px; // Modify the height of the magnifying glass component
+<style lang="scss" scoped>
 
-// Define your responsive sizes of
-$sizes: (
-  "(max-width: 320px)" 250px 250px,
-  "(max-width: 520px)" 350px 350px,
-  "(min-width: 768px)" 450px 450px,
-  "(min-width: 1024px)" 550px 550px,
-  "(min-width: 1366px)" 600px 600px
-);
-
-.vue-magnifier-container {
+.img-zoom-container {
   position: relative;
+  .img-zoom-lens {
+    display: none;
+    position: absolute;
+    /*set the size of the lens:*/
+    width: toRem(200);
+    height: toRem(200);
+    background-image: url('https://images-na.ssl-images-amazon.com/images/G/01/apparel/rcxgs/tile._CB483369110_.gif');
+    cursor: pointer;
+  }
+  .img-zoom-result {
+    display: none;
+    width: toRem(500);
+    height: toRem(500);
+    position: absolute;
+    top: toRem(-16);
+    left: toRem(-510);
+    box-shadow: 0 0 toRem(12) toRem(1) $gray-4;
 
-  .preview {
-    position: relative;
-    background: {
-      repeat: no-repeat;
-      size: contain;
-      position: 50% 50%;
+    @include md {
+      width: toRem(450);
+      height: toRem(450);
+      left: toRem(-460);
     }
-    display: block;
-    clear: both;
-    margin: 0 auto;
-    cursor: none;
-
-    .magnifying-glass {
-      position: absolute;
-      border: $border-size solid $border-color;
-      border-radius: 50%;
-      cursor: none;
-      width: $magnifier-width;
-      height: $magnifier-height;
-      transform: translate(
-            (-1 * $magnifier-width/2),
-            (-1 * $magnifier-width/2)
-      );
-      background: #fff no-repeat;
-      display: none;
-      pointer-events: none;
+  }
+  &:hover {
+    .img-zoom-lens {
+      display: block;
     }
-
-    &:hover {
-      .magnifying-glass {
-        display: block;
-      }
-    }
-
-    @each $breakpoint in $sizes {
-      $query: nth($breakpoint, 1);
-      $bpWidth: nth($breakpoint, 2);
-      $bpHeight: nth($breakpoint, 3);
-
-      @media only screen and #{$query} {
-        width: $bpWidth;
-        height: $bpHeight;
-      }
+    .img-zoom-result {
+      display: block;
     }
   }
 }
+
+
+
+
 </style>

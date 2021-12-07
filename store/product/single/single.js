@@ -188,58 +188,82 @@ const state = () => ({
       id: 6,
       color: "purple",
       name: "بنفش",
+      image: "https://dkstatics-public.digikala.com/digikala-products/cbd437b5ba4a0c942ae8967fa3954da2fd30c54c_1626014199.jpg?x-oss-process=image/resize,m_lfit,h_600,w_600/quality,q_80",
+      exist: true
     },
     {
       id: 7,
       color: "yellow",
       name: "زرد",
+      image: "https://dkstatics-public.digikala.com/digikala-products/cbd437b5ba4a0c942ae8967fa3954da2fd30c54c_1626014199.jpg?x-oss-process=image/resize,m_lfit,h_600,w_600/quality,q_80",
+      exist: true
+
     },
     {
       id: 8,
       color: "green",
       name: "سبز لیمویی پسته ای",
+      image: "https://dkstatics-public.digikala.com/digikala-products/cbd437b5ba4a0c942ae8967fa3954da2fd30c54c_1626014199.jpg?x-oss-process=image/resize,m_lfit,h_600,w_600/quality,q_80",
+      exist: true
+
     },
     {
       id: 9,
       color: "green",
       name: "سبز",
+      image: "https://dkstatics-public.digikala.com/digikala-products/cbd437b5ba4a0c942ae8967fa3954da2fd30c54c_1626014199.jpg?x-oss-process=image/resize,m_lfit,h_600,w_600/quality,q_80",
+      exist: true
+
     },
     {
       id: 10,
       color: "red",
       name: "قرمز",
+      image: "https://dkstatics-public.digikala.com/digikala-products/cbd437b5ba4a0c942ae8967fa3954da2fd30c54c_1626014199.jpg?x-oss-process=image/resize,m_lfit,h_600,w_600/quality,q_80",
+      exist: true
+
     },
 
     {
       id: 11,
       color: "blue",
       name: "آبی دریایی",
+      image: "https://dkstatics-public.digikala.com/digikala-products/be7a0e9bf7866759fa3cea7648b149f589a01040_1609660142.jpg?x-oss-process=image/resize,m_lfit,h_600,w_600/quality,q_80",
+      exist: true
+
     },
     {
       id: 12,
       color: "purple",
       name: "بنفش بادمجونی",
+      image: "https://dkstatics-public.digikala.com/digikala-products/be7a0e9bf7866759fa3cea7648b149f589a01040_1609660142.jpg?x-oss-process=image/resize,m_lfit,h_600,w_600/quality,q_80",
+      exist: true
+
     },
 
     {
       id: 13,
       color: "red",
       name: "قرمز آلبالویی",
+      image: "https://dkstatics-public.digikala.com/digikala-products/be7a0e9bf7866759fa3cea7648b149f589a01040_1609660142.jpg?x-oss-process=image/resize,m_lfit,h_600,w_600/quality,q_80",
+      exist: true
+
     },
     {
       id: 14,
       color: "yellow",
       name: "زرد پررنگ",
+      image: "https://dkstatics-public.digikala.com/digikala-products/be7a0e9bf7866759fa3cea7648b149f589a01040_1609660142.jpg?x-oss-process=image/resize,m_lfit,h_600,w_600/quality,q_80",
+      exist: true
+
     },
     {
       id: 15,
       color: "green",
       name: "سبز لیمویی پسته ای",
-    },
-    {
-      id: 16,
-      color: "red",
-      name: "قرمز آلبالویی",
+      image: "https://dkstatics-public.digikala.com/digikala-products/be7a0e9bf7866759fa3cea7648b149f589a01040_1609660142.jpg?x-oss-process=image/resize,m_lfit,h_600,w_600/quality,q_80",
+      exist: true
+
     },
   ],
   warrantyData: [
@@ -317,10 +341,11 @@ const mutations = {
     theItem.checked = !!theItem;
   },
   changeColorArrayElements(state, payload) {
-      let selectedItemIndex = payload;
+      let selectedItemIndex = payload.index + payload.firstPartLength;
       let selectedItem = state.colorsData[selectedItemIndex];
       state.colorsData.splice(selectedItemIndex, 1, state.colorsData[0]);
       state.colorsData.splice(0, 1, selectedItem);
+      //debugger;
   },
 }
 const actions = {

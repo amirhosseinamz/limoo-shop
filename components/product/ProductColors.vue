@@ -4,12 +4,13 @@
       <div class="backdrop" v-if="showModal" @click="closeModal"></div>
     </transition>
     <transition :name="modalAnimation">
-      <modal-more-colors
-        v-if="showModal"
-        :modal-mode="modalAnimation"
-        @close-modal="closeModal"
-        @color-selected="colorSelected"
-      ></modal-more-colors>
+        <modal-more-colors
+          v-if="showModal"
+          :modal-mode="modalAnimation"
+          @close-modal="closeModal"
+          @color-selected="colorSelected"
+          :remaining-colors-data="colorsDataSecondPart"
+        ></modal-more-colors>
     </transition>
     <div class="product-colors-title">
       <span class="title-name">رنگ: </span>
@@ -24,8 +25,9 @@
         @mouseover="hoverColorName(item.name, item.exist)"
         @mouseout="unHoverColorName"
         :data-color="item.name"
+        ref="colorItem"
         :class="['color-item-'+colorItemUUID, { 'disabled': !item.exist }]"
-        v-for="item in firstNthOfColors(5)"
+        v-for="item in colorsDataFirstPart"
         :key="item.id"
       >
         <img :src="item.image" :alt="item.name">
@@ -38,8 +40,8 @@
       </div>
     </div>
     <div class="mobile-display">
-      <color-item class="more-colors" :preview-colors="firstFourOfColorsNames" :selectable="false"
-                  @item-clicked="showMoreColors">
+      <color-item class="more-colors" :selectable="false"
+                  @item-clicked="showMoreColors" :preview-colors="firstFourOfColorsNames">
         <span class="more-colors-icon"></span>
         <span class="more-icon-text">
         7 رنگ موجود است
@@ -77,6 +79,13 @@ export default {
     colorsData() {
       return this.$store.getters["product/single/single/colorsData"];
     },
+    colorsDataFirstPart() {
+      console.log(this.arrayDividedToTwo(this.colorsData, 5).firstPart);
+      return this.arrayDividedToTwo(this.colorsData, 5).firstPart;
+    },
+    colorsDataSecondPart() {
+      return this.arrayDividedToTwo(this.colorsData, 5).secondPart;
+    },
     firstFourOfColorsNames() {
       let _colors = [];
       for (let i = 0; i < 4; i++) {
@@ -85,22 +94,42 @@ export default {
       return _colors;
     },
 
+
   },
   methods: {
+    activeColor() {
+      let active;
+      let _colorItems = this.$refs.colorItem;
+      for (let i = 0; i < _colorItems.length; i++) {
+        if (_colorItems[i].classList.contains('selected')) {
+          active = _colorItems[i];
+        }
+      } //finding selected item
+      return active;
+    },
     handleResize() {
       this.windowWidth = window.innerWidth;
     },
     firstNthOfColors(length) {
       return this.colorsData.slice(0, length);
     },
+    arrayDividedToTwo(array ,splitterNumber) {
+      const firstPart = array.slice(0, splitterNumber);
+      const secondPart = array.slice(splitterNumber, array.length);
+      return { firstPart: firstPart, secondPart: secondPart };
+    },
     selectColorItem(e, itemExist) {
       if (itemExist) {
-        const active = document.querySelector(".color-item-" + this.colorItemUUID + ".selected");
-        if (active) {
-          active.classList.remove("selected");
-        }
-        e.target.classList.add("selected");
+        this.selectColor(e.target);
       }
+    },
+    selectColor(colorElement) {
+      let activeColor = this.activeColor();
+      if (activeColor) {
+        activeColor.classList.remove('selected');
+      }
+      colorElement.classList.add('selected');
+      this.colorName = colorElement.getAttribute('data-color');
     },
     hoverColorName(colorName, itemExist) {
       if (itemExist) {
@@ -108,9 +137,8 @@ export default {
       }
     },
     unHoverColorName() {
-      const active = document.querySelector(".color-item-" + this.colorItemUUID + ".selected");
+      const active = this.activeColor();
       this.colorName = active.getAttribute("data-color");
-
     },
     closeModal() {
       this.showModal = false;
@@ -118,21 +146,27 @@ export default {
     showMoreColors() {
       this.showModal = true;
     },
-    colorSelected() {
-      //this.moreColorsBackground = backgroundColor;
-      //this.$store.dispatch("product/single/single/changeColorArrayElements");
+    colorSelected(index) {
+      const payload = {
+        index: index,
+        firstPartLength: this.arrayDividedToTwo(this.colorsData, 5).firstPart.length,
+      }
+      this.$store.dispatch("product/single/single/changeColorArrayElements", payload);
+      //this.selectColor(this.$refs.colorItem[0]);
       this.showModal = false;
       setTimeout(() => {
-        document.querySelector(".color-item-" + this.colorItemUUID).classList.add("selected");
-      }, 1);
+        let selected = document.querySelector('.color-item-'+this.colorItemUUID);
+        this.selectColor(selected);
+      }, 100);
     },
+
   },
   mounted() {
     window.addEventListener("resize", this.handleResize);
     this.handleResize();
-    let firstColor = document.querySelector(".color-item-" + this.colorItemUUID);
-    firstColor.classList.add("selected");
+    let firstColor = this.$refs.colorItem[0];
     this.colorName = firstColor.getAttribute("data-color");
+    this.selectColor(firstColor);
   },
 };
 </script>
@@ -228,6 +262,7 @@ $colorItemUUID: "98a46b71-02ce-4586-9c51-e2f41dd64323";
 
       &-icon {
         margin-left: toRem(5);
+
         &::before {
           content: "\e822";
           @include font-icon__limoo;

@@ -1,5 +1,5 @@
 <template>
-  <div class="more-sellers-modal">
+  <div class="more-sellers-modal" @mouseover="hover" @mouseout="unHover">
     <div class="header">
       <div class="title">
         فروشندگان دیگر این محصول
@@ -62,6 +62,12 @@ export default {
     getTextByTextKey,
     closeModal() {
       this.$emit('close-modal');
+    },
+    hover() {
+      this.$emit('modal-hover');
+    },
+    unHover() {
+      this.$emit('modal-un-hover');
     }
   }
 

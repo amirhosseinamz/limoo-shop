@@ -1,5 +1,8 @@
 <template>
   <div class="seller-box">
+    <transition name="modal">
+      <div class="backdrop" @click="closeModal" v-show="modalIsOpen"></div>
+    </transition>
     <div class="header">
       <div class="seller-name">
         <div class="seller-icon"></div>
@@ -7,13 +10,27 @@
           فروشنده: اپلنیک
         </div>
       </div>
-      <div class="backdrop" v-if="showMoreSellersModal" @click="closeMoreSellersModal"></div>
-      <div class="more-sellers" @click="openMoreSellersModal">
+
+      <div class="more-sellers h-100"
+           @mouseover="showModal"
+           @mouseout="unShowModal"
+           @click="openModal"
+      >
         <div class="title">
           فروشندگان دیگر
         </div>
         <span class="icon"></span>
-        <more-sellers-modal class="more-sellers_modal" v-if="showMoreSellersModal" @close-modal="closeMoreSellersModal"></more-sellers-modal>
+
+        <transition name="modal">
+          <more-sellers-modal
+            class="more-sellers_modal"
+            @close-modal="closeModal"
+            v-show="showMoreSellersModal"
+            @modal-hover="hoverModal"
+            @modal-un-hover="unHoverModal"
+          ></more-sellers-modal>
+        </transition>
+
       </div>
     </div>
     <div class="sell-specification">
@@ -31,7 +48,8 @@
       </div>
       <chosen-seller-badge class="chosen"></chosen-seller-badge>
       <product-price></product-price>
-      <product-actions class="product-actions tablet" :share-modal-mode="shareModalMode" v-if="shareModalMode === 'form'"></product-actions>
+      <product-actions class="product-actions tablet" :share-modal-mode="shareModalMode"
+                       v-if="shareModalMode === 'form'"></product-actions>
     </div>
   </div>
 </template>
@@ -41,6 +59,7 @@ import ChosenSellerBadge from "./ChosenSellerBadge";
 import ProductPrice from "./ProductPrice";
 import ProductActions from "./ProductActions";
 import MoreSellersModal from "./MoreSellersModal";
+
 export default {
   name: "SellerBox",
   components: { MoreSellersModal, ProductActions, ProductPrice, ChosenSellerBadge },
@@ -48,21 +67,47 @@ export default {
     shareModalMode: {
       type: String,
       require: true,
-    }
+    },
   },
   data() {
     return {
       showMoreSellersModal: false,
+      hoverMoreSellersModal: false,
+      modalIsHover: false,
+      modalIsOpen: false,
     };
   },
   methods: {
-    openMoreSellersModal() {
+    showModal() {
       this.showMoreSellersModal = true;
     },
-    closeMoreSellersModal() {
+    unShowModal() {
+        setTimeout(() => {
+          if (!this.modalIsHover && !this.modalIsOpen) {
+            this.showMoreSellersModal = false;
+          }
+        },300);
+    },
+    openModal() {
+      this.modalIsOpen = true;
+      this.showModal();
+    },
+    closeModal() {
       this.showMoreSellersModal = false;
+      this.modalIsOpen = false;
+    },
+    hoverModal() {
+      this.modalIsHover = true;
+    },
+    unHoverModal() {
+      this.modalIsHover = false;
     }
   },
+  watch: {
+    modalIsOpen(val) {
+      console.log(val);
+    }
+  }
 };
 </script>
 
@@ -78,22 +123,22 @@ export default {
   border-radius: toRem(10);
   position: relative;
   @include lg {
-    padding-right: toRem(10);
-  }
-  @include md {
     border: none;
     padding-right: toRem(24);
   }
   @include sm {
     padding-right: toRem(16);
   }
+
   .header {
     @extend .align-center;
     height: toRem(58);
     border-bottom: toRem(2) solid $gray-6-light;
     justify-content: space-between;
+
     .seller-name {
       @extend .align-center;
+
       .seller-icon {
         width: toRem(34);
         height: toRem(34);
@@ -106,6 +151,7 @@ export default {
           height: toRem(30);
         }
       }
+
       &-text {
         font-size: toRem(16);
         color: $black-topic;
@@ -114,17 +160,21 @@ export default {
         }
       }
     }
+
     .more-sellers {
       @extend .align-center;
       cursor: pointer;
+
       .title {
         font-size: toRem(14);
         color: $color-blue;
         margin-left: toRem(5);
+        pointer-events: none;
         @include lg {
           font-size: toRem(13);
         }
       }
+
       .icon {
         &::before {
           content: "\e841";
@@ -136,15 +186,31 @@ export default {
           }
         }
       }
+
       &_modal {
         position: absolute;
         width: auto;
-        top: toRem(90);
+        top: toRem(70);
         left: 0;
+        height: auto;
       }
 
+      .modal-leave-to,
+      .modal-enter {
+        opacity: 0;
+      }
+      .modal-enter-to,
+      .modal-leave-from {
+        opacity: 1;
+      }
+
+      .modal-enter-active,
+      .modal-leave-active {
+        transition: all 0.4s ease-out;
+      }
     }
   }
+
   .sell-specification {
     @extend .d-flex;
     flex-direction: column;
@@ -160,8 +226,10 @@ export default {
       font-size: toRem(14);
       margin-bottom: toRem(24);
     }
+
     .sending-info {
       color: $green__answer;
+
       &-icon {
         &::before {
           content: "\e878";
@@ -172,8 +240,10 @@ export default {
         }
       }
     }
+
     .remaining {
       color: $gray-2;
+
       &-icon {
         &::before {
           content: "\e828";
@@ -184,8 +254,10 @@ export default {
         }
       }
     }
+
     .warranty {
       color: $gray-2;
+
       &-icon {
         &::before {
           content: "\e813";
@@ -197,6 +269,7 @@ export default {
       }
     }
   }
+
   .product-actions {
     &.tablet {
       display: none;

@@ -21,10 +21,6 @@ export default {
       require: false,
       default: true
     },
-    index: {
-      type: Number,
-      require: false
-    },
     selected: {
       type: Boolean,
       require: false,
@@ -43,21 +39,11 @@ export default {
   methods: {
     selectItem(e) {
       e.stopPropagation();
-      let target;
-      target = e.target;
       if (this.selectable) {
-        this.removeSelectedItem();
-        target.classList.add('selected');
         this.$emit('item-selected');
       }
       this.$emit('item-clicked');
     },
-    removeSelectedItem() {
-      const activeItem = document.querySelector('.color-item-container.selected');
-      if (activeItem) {
-        activeItem.classList.remove('selected');
-      }
-    }
   },
 };
 </script>

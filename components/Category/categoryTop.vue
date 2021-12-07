@@ -6,8 +6,7 @@
           <h3 class="products__top-text">موبایل اندرویدی</h3>
         </div>
        <image-magnifier
-         src="https://picsum.photos/500/500?image=1071"
-         src-large="https://picsum.photos/1000/1000?image=1071"
+         src="https://dkstatics-public.digikala.com/digikala-adservice-banners/c65eb3dec10e33f5356f1674cc01fa212102a51f_1634568953.jpg?x-oss-process=image/quality,q_80"
        ></image-magnifier>
         <div class="products__filter-btns w-100 ">
           <base-button no-box-shadow classes="products__filter-btn" @button-clicked="showBoxFilter">

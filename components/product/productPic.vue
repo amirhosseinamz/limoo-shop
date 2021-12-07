@@ -1,13 +1,32 @@
 <template>
   <div class="product__pic-container w-100">
+    <transition name="backdrop-scale">
+      <div class="backdrop" v-if="showModalPic" @click="modalClose"></div>
+    </transition>
+    <transition :name="modalAnimation">
+        <modal-pic-product
+          v-if="showModalPic"
+          :show-modal="showModalPic"
+          :product-slider="productSlider"
+          :image-selected="imageSelected"
+          @active-item-slider-nav="activeItemSliderNav"
+          @close-modal="modalClose"
+        ></modal-pic-product>
+    </transition>
     <div class="w-100 product__pic desktop">
       <div class="w-100 product__pic-main">
-        <img
-          @click="showModal(productSlider[0])"
-          class="product__pic-item"
+<!--        <img-->
+<!--          @click="showModal(productSlider[0])"-->
+<!--          class="product__pic-item"-->
+<!--          :src="productSlider[0].image"-->
+<!--          alt=""-->
+<!--        />-->
+        <image-magnifier
           :src="productSlider[0].image"
-          alt=""
-        />
+          @clicked="showModal(productSlider[0])"
+          image-class="product__pic-item"
+        >
+        </image-magnifier>
       </div>
 
       <span class="product__line"></span>
@@ -35,19 +54,7 @@
       </div>
 
       <!--    Pics Modal-->
-      <transition name="backdrop-scale">
-        <div class="backdrop" v-if="showModalPic" @click="modalClose"></div>
-      </transition>
-      <transition :name="modalAnimation">
-        <modal-pic-product
-          v-if="showModalPic"
-          :show-modal="showModalPic"
-          :product-slider="productSlider"
-          :image-selected="imageSelected"
-          @active-item-slider-nav="activeItemSliderNav"
-          @close-modal="modalClose"
-        ></modal-pic-product>
-      </transition>
+
     </div>
     <div class="w-100 product__pic mobile">
       <base-carousel
@@ -76,6 +83,7 @@
 </template>
 <script>
 import modalPicProduct from "./modalPicProduct";
+import ImageMagnifier from "./ImageMagnifier";
 
 export default {
   props: {
@@ -83,6 +91,7 @@ export default {
     commentData: { type: [Object, Array], default: {} },
   },
   components: {
+    ImageMagnifier,
     modalPicProduct,
   },
   computed: {
@@ -99,15 +108,15 @@ export default {
       windowWidth: 0
     };
   },
-
-  watch: {},
-
-  created() {},
-
   mounted() {
     window.addEventListener('resize', this.handleResize);
     this.handleResize();
     this.limitedProduct();
+  },
+  watch: {
+    showModalPic(val) {
+      this.$emit('toggle-modal', val);
+    }
   },
 
   methods: {
@@ -176,12 +185,15 @@ export default {
         margin-right: 8px;
         margin-left: 8px;
       }
-      .product__pic-item {
-        width: 100%;
-        border-radius: 15px;
-        @include display-flex();
-        cursor: pointer;
+      .product__pic-main::v-deep {
+        .product__pic-item {
+          width: 100%;
+          border-radius: 15px;
+          @include display-flex();
+          cursor: pointer;
+        }
       }
+
       .product__pic-content {
         @include display-flex();
         align-items: flex-start;
