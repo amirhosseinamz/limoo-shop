@@ -715,9 +715,6 @@ export default {
   max-width:100%;
   text-overflow: ellipsis;
   white-space:nowrap;
-  // @include sm{
-    // overflow: auto
-  // }
   .text-tag{
     @include display-flex();
     padding: toRem(4) toRem(8) ;
@@ -744,7 +741,7 @@ export default {
       @include sm{
         margin: 0 toRem(3);
       }
-      @include sm{
+      @include xs{
         margin: 0 toRem(8);
       }
     }
@@ -1607,31 +1604,25 @@ export default {
   }
   .modal-filter__btn {
       @include display-flex();
-      justify-content:space-around;
+      justify-content: center;
        margin-top:toRem(50);
        margin-bottom: toRem(35);
      }
 
      .p-product-btn {
-        width: toRem(149);
+        width: 40%;
         height: toRem(47);
         font-size: toRem(14);
         color: $gray-2;
         border-radius: toRem(10);
-        // margin-left: toRem(-40);
-        @include xxs{
-           width: toRem(125);
-        }
+        margin-left: toRem(24);
         }
         .modal-cancel {
-          width: toRem(149);
+          width: 40%;
           height: toRem(47);
           font-size: toRem(14);
           color:$gray-3;
           border-radius: toRem(10);
-          @include xxs{
-            width: toRem(125);
-          }
         }
 
           .title-icon-filter {
