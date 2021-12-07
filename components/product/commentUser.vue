@@ -1,12 +1,18 @@
 <template>
   <div
     ref="contentMain"
-    class="p-comments-content-main w-100 flex-column flex-wrap  d-rtl "
+    class="
+      p-comments-content-main
+      w-100
+      flex-column flex-wrap
+      d-rtl
+      tabs__content
+    "
   >
   <p class="filter__title"><span class="icon"></span>
     فیلتر بر اساس:
   </p>
-<div class="filter">
+  <div class="filter">
   <div class="dropdown"  :class="`${open ? 'changedropdown' : '' }`">
       <div class="text"  @click="changearrow()" :class="`${open ? 'changeicon' : 'icon' }`" >انتخاب کنید...
         <div class="multiselect__tags-wrap" v-if="checkboxValues.length < 3">
@@ -75,12 +81,12 @@
 </div>
 
 <div class="w-100">
-  <base-button no-box-shadow no-hover base-color="white" class="button-add"  classes="comments-add__comment" @button-clicked="showModalAddComment">
-    {{ getTextByTextKey("product_submit_comment") }}
+  <base-button no-box-shadow no-hover base-color="white" classes="comments-add__comment" @button-clicked="showModalAddComment">
+     {{ getTextByTextKey("product_submit_comment") }}
   </base-button>
 </div>
 
-<!-- mobile -->
+    <!-- mobile -->
 <div class="products__filter-btns w-100 " style="display:none">
   <base-button no-box-shadow classes="products__filter-btn" @button-clicked="setComponent('filter-modal')">
     <span class="filter-search-icon"></span>
@@ -224,6 +230,9 @@
             <span class="rate-count">
               {{ getTextByTextKey("commnets_star_from_text") }} 5
             </span>
+            <span class="buyer-badge"
+                    ><span class="badge-text">خریدار</span></span
+                  >
           </div>
 <!-- ==================================================================================== -->
           </div>
@@ -247,10 +256,35 @@
         </div>
       </div>
     </div>
+    <!-- like and dislike -->
+        <div class="like-dislike-wrapper d-flex w-100">
+          <div class="dislike d-flex align-center" @click="dislike">
+            <span class="number">{{ dislikeCounter }}</span>
+            <sapn
+              class="dislike-icon"
+              :class="`${
+                dislikeIconIsActive
+                  ? 'dislike-icon-clicked'
+                  : 'dislike-icon'
+              }`"
+            ></sapn>
+          </div>
+          <div class="vertical-line"></div>
+          <div class="like d-flex align-center" @click="like">
+            <span class="number">{{ likeCounter }}</span>
+            <span
+              class="like-icon"
+              :class="`${
+                likeIconIsActive ? 'like-icon-clicked' : 'like-icon'
+              }`"
+            ></span>
+          </div>
+        </div>
+    <!--end of like and dislike -->
   </div>
 </div>
-
-<div @click="moreCommentMobile" class="comment_more" style="">
+ 
+ <div @click="moreCommentMobile" class="comment_more" style="">
 <div class="comment_main">
   <h3 class="comment__more-title">
     {{ getTextByTextKey("product_more") }} 5
@@ -262,8 +296,7 @@
 </div>
 </div>
 
-
-<!-- Add Comment Modal-->
+<!--    Add Comment Modal-->
 <transition name="backdrop-scale">
   <div class="backdrop" v-if="showModal"></div>
 </transition>
@@ -401,22 +434,20 @@ v-if="selectedComponent === 'filter-modal'"
 </template>
 
 <script>
-//Varun Dewan 2019
-
 import modalAddComment from "./modalAddComment";
 import sortBox from "../Category/sortBox";
-import ModalSort from "./modalSort";
+// import ModalSort from "./modalSort";
 import { getTextByTextKey } from "~/modules/splitPartJsonResource.js";
 
 export default {
   props: {
-    commentsData: { type: [Object, Array], default: {} }
+    commentsData: { type: [Object, Array], default: {} },
   },
 
   components: {
     modalAddComment,
     sortBox,
-    ModalSort,
+    // ModalSort,
   },
 
   data() {
@@ -464,11 +495,15 @@ export default {
           new: 'positive'
         }
       ],
+      likeIconIsActive: false,
+      dislikeIconIsActive: false,
+      likeCounter: 10,
+      dislikeCounter: 10,
     };
   },
   computed: {
     closeModalAddComment() {
-      return this.$store.getters["product/single/single/closeModalAddComment"]
+      return this.$store.getters["product/single/single/closeModalAddComment"];
     },
     modalAnimation() {
       return "scale";
@@ -496,7 +531,7 @@ export default {
   },
 
   mounted() {
-    window.addEventListener('resize', this.handleResize);
+    window.addEventListener("resize", this.handleResize);
     this.handleResize();
     setTimeout(() => {
       const el = document.querySelectorAll(".p-commentedproduct-description");
@@ -555,7 +590,7 @@ export default {
       this.dataEditAddress = {};
       this.passChangeIsActive = false;
     },
-    pageChanged () {
+    pageChanged() {
       this.$refs.contentMain.scrollIntoView({ behavior: "smooth" });
     },
 
@@ -604,6 +639,30 @@ export default {
     selectRadioButton () {
       this.selectRadio = !this.selectRadio
     },
+    like() {
+      this.likeIconIsActive = !this.likeIconIsActive;
+      if (this.likeIconIsActive) {
+        this.likeCounter++;
+        this.dislikeIconIsActive = false;
+        this.dislikeCounter--;
+      } else {
+        this.likeCounter--;
+        this.dislikeIconIsActive = true;
+        this.dislikeCounter++;
+      }
+    },
+    dislike() {
+      this.dislikeIconIsActive = !this.dislikeIconIsActive;
+      if (this.dislikeIconIsActive) {
+        this.likeIconIsActive = false;
+        this.dislikeCounter++;
+        this.likeCounter--;
+      } else {
+        this.dislikeCounter--;
+        this.likeIconIsActive = true;
+        this.likeCounter++;
+      }
+    },
   },
 };
 </script>
@@ -623,17 +682,11 @@ export default {
 }
 
 // ............... Desktop Style..................... //
-@include xl{
- .modal-container::v-deep {
-    dialog {
-      display:none;
-    }
-}
 .filter{
   @include display-flex();
 }
 .filter__title{
-  margin-top: toRem(43);
+  margin-top: toRem(5);
   font-size: toRem(16);
 
   &::before{
@@ -649,6 +702,7 @@ export default {
 }
 
 .multiselect__tag{
+  @include display-flex();
   margin-top: toRem(-25);
   margin-bottom: toRem(10);
   margin-left: toRem(4);
@@ -661,11 +715,18 @@ export default {
   max-width:100%;
   text-overflow: ellipsis;
   white-space:nowrap;
-
   .text-tag{
     @include display-flex();
     padding: toRem(4) toRem(8) ;
     font-size: toRem(12);
+    @include sm{
+    font-size: toRem(9);
+    margin-top: toRem(3);
+  }
+    @include xs{
+      font-size: toRem(12);
+      margin-top: toRem(1);
+  }
   }
 
   .icon-close{
@@ -677,6 +738,12 @@ export default {
       @include font-icon__limoo();
       font-size: toRem(6);
       color:$gray-4;
+      @include sm{
+        margin: 0 toRem(3);
+      }
+      @include xs{
+        margin: 0 toRem(8);
+      }
     }
   }
 }
@@ -807,6 +874,7 @@ export default {
   margin-bottom: toRem(38);
   font-size: toRem(16);
 }
+
 .p-comment-content-item {
   @include display-flex();
   flex-direction: column;
@@ -819,7 +887,7 @@ export default {
   width: toRem(50);
   height: toRem(50);
 }
-}
+
 /* ============================== */
 .stars-outer {
   position: relative;
@@ -859,9 +927,37 @@ export default {
   color: $gray;
   font-size: toRem(14);
   line-height: 140.62%;
+  @include xxs {
+    display: none;
+  }
 }
 .rate-counter {
   margin-right: toRem(8);
+}
+.buyer-badge {
+  background-color: $orange-5;
+  @include display-flex();
+  justify-content: center;
+  align-items: center;
+  display: inline-flex;
+  width: toRem(70);
+  height: toRem(29);
+  margin-right: toRem(16);
+  border-radius: toRem(16.5);
+  @include sm {
+    align-items: center;
+    width: toRem(54);
+    height: toRem(24);
+  }
+  .badge-text {
+    font-style: normal;
+    font-weight: normal;
+    font-size: toRem(14);
+    // margin-top: toRem(3);
+    @include sm {
+      font-size: toRem(13);
+    }
+  }
 }
 /* ////////////////////////////// */
 
@@ -898,6 +994,12 @@ export default {
   font-size: toRem(16);
   font-family: inherit;
   line-height: 140.62%;
+  @include xs {
+    font-size: toRem(12);
+  }
+  @include xxs {
+    font-size: toRem(10);
+  }
 }
 .idea-good {
   color: $btn__green;
@@ -1122,14 +1224,80 @@ export default {
 .full-description__active .p-comment__limit {
   display: none;
 }
+
 .comments-add__comment {
   width: toRem(270);
   height: toRem(57);
   font-family: inherit;
-  margin-bottom: toRem(48);
+  margin-bottom: 1.5rem;
   margin-top: toRem(52);
   border: 2px solid $orange!important;
   color: $orange!important;
+}
+.like-dislike-wrapper {
+  justify-content: end;
+  margin-top: toRem(20);
+  margin-bottom: toRem(25.5);
+  height: toRem(29.6);
+  margin-left: toRem(24);
+  @include sm {
+    margin-left: toRem(14);
+  }
+  .dislike {
+    cursor: pointer;
+    .number {
+      color: $red-logout;
+      margin-left: toRem(8);
+    }
+    .dislike-icon {
+      transform: rotate(180deg);
+      &::before {
+        content: "\e843";
+        @include font-icon__limoo();
+        font-size: toRem(23);
+        color: $red-logout;
+      }
+    }
+    .dislike-icon-clicked {
+      &::before {
+        content: "\e844";
+        @include font-icon__limoo();
+        font-size: toRem(20);
+        color: $red-logout;
+      }
+    }
+  }
+  .vertical-line {
+    height: toRem(24);
+    width: 1px;
+    background-color: $light-gray;
+    margin-right: toRem(15);
+    margin-left: toRem(16);
+  }
+  .like {
+    width: toRem(45);
+    cursor: pointer;
+    .number {
+      color: $green__answer;
+      margin-left: toRem(8);
+    }
+    .like-icon {
+      &::before {
+        content: "\e843";
+        @include font-icon__limoo();
+        font-size: toRem(23);
+        color: $green__answer;
+      }
+    }
+    .like-icon-clicked {
+      &::before {
+        content: "\e844";
+        @include font-icon__limoo();
+        font-size: toRem(20);
+        color: $green__answer;
+      }
+    }
+  }
 }
 
 @include xl {
@@ -1173,7 +1341,6 @@ export default {
   }
 }
 
-
 @include sm {
   .p-comments-content-main {
     padding-right: toRem(11);
@@ -1181,15 +1348,15 @@ export default {
   }
   .comments-add__comment {
     width: toRem(259);
-    @include display-flex();
-    align-items: center;
-    justify-content: center;
-    margin: toRem(24) auto;
+    margin: 1.5rem 0;
+    margin-top:toRem(40);
     height: toRem(47);
-    margin-top: toRem(77);
   }
   .tabs__content {
     padding-top: 0 !important;
+  }
+  .filter__title{
+    margin-top: toRem(30);
   }
   .filter-button {
     font-size: toRem(11);
@@ -1214,9 +1381,6 @@ export default {
     @include display-flex();
     padding: toRem(4) toRem(4) ;
     font-size: toRem(11.5);
-  }
-.comments-add__comment{
-  margin-top:toRem(54);
   }
 }
 
@@ -1247,10 +1411,6 @@ export default {
   }
   .p-comments__state-mobile {
     display: block;
-  }
-  .p-comments__title,
-  .ideas-title {
-    font-size: toRem(13);
   }
   .stars-outer::before,
   .stars-inner::before {
@@ -1363,16 +1523,16 @@ export default {
     font-size: toRem(22);
   }
   .comments-add__comment {
-    width: 72%;
+    margin: toRem(24) auto;
+    width: 70%;
   }
-//////////////////////////////////////////////
+  //////////////////////////////////////////////
   .modal-container::v-deep {
     dialog {
       @include display-flex();
       flex-direction: column;
       align-items: center;
       width: 100%;
-      height:toRem(344);
       background: $white;
       box-shadow: 0 toRem(20) toRem(24) rgba(17, 17, 17, 0.06);
       border-top-left-radius: toRem(50);
@@ -1444,21 +1604,21 @@ export default {
   }
   .modal-filter__btn {
       @include display-flex();
-      justify-content:center;
+      justify-content: center;
        margin-top:toRem(50);
        margin-bottom: toRem(35);
      }
 
      .p-product-btn {
-        width: toRem(149);
+        width: 40%;
         height: toRem(47);
         font-size: toRem(14);
         color: $gray-2;
-        margin-left: toRem(24);
         border-radius: toRem(10);
+        margin-left: toRem(24);
         }
         .modal-cancel {
-          width: toRem(149);
+          width: 40%;
           height: toRem(47);
           font-size: toRem(14);
           color:$gray-3;
@@ -1512,31 +1672,44 @@ export default {
   }
   .products__filter-btns {
     display:flex!important;
-    justify-content:center;
+    justify-content:space-around;
     margin-bottom: toRem(40);
+    @include xxs{
+      margin-bottom: toRem(30)
+    }
   }
 .products__filter-btn {
-  justify-content: center!important;
+  @include display-flex();
+  justify-content: center;
   margin-left: 1.3125rem;
   font-family: inherit;
   width: toRem(207);
   height: toRem(47);
+  @include xxs{
+    font-size: toRem(14);
+  }
   .filter-search-icon {
-    margin: 0 1rem 0 0.6rem;
+    margin-left:toRem(9.6);
     &::before {
       content: "\e840";
       @include font-icon__limoo();
       font-size: toRem(20);
       color: white;
+      @include xxs{
+        font-size: toRem(14);
+      }
     }
   }
   .arrow-down-icon {
-    margin: 0 1rem 0 0.6rem;
+    margin: 0 0 0 0.6rem;
     &::before {
       content: "\e83f";
       @include font-icon__limoo();
       font-size: toRem(20);
       color: white;
+      @include xxs{
+        font-size: toRem(14);
+      }
     }
   }
 }
@@ -1578,14 +1751,7 @@ export default {
   .tag-mobile:first-child{
       margin-right:toRem(35);
   }
-  .p-modal-header-desktop .modal-sort__content{
-    height:toRem(120);
-    overflow-y:scroll;
-  }
-
 }
-
-
 
 @include xxxs {
   .p-comments__title,

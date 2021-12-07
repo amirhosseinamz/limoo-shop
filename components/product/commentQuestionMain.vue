@@ -3,7 +3,7 @@
       :tabs="tabsNames"
       :selected="selected"
       @change-tab="tabChanged"
-      class="w-100"
+      class="w-100 dd"
       tabs-item-class="tabs__item tabs__item-title"
       tabs-class="tabs-navigator tabs__main"
     >
@@ -73,7 +73,6 @@ export default {
   width: 100%;
   @include display-flex();
   align-items: flex-start;
-  // border-bottom:solid 1px $gray-border;
   box-shadow: 0 toRem(8) toRem(16) rgba(17, 17, 17, 0.03);
   border: none;
 }
