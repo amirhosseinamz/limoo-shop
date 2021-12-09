@@ -578,7 +578,7 @@ export default {
             border: 1px solid $input-border;
             box-shadow: 0px 4px 4px $gray-border;
             height: 52px;
-            width: 91px;
+            width: 100%;
 
             border-radius: 15px;
             color: $gray;
@@ -586,7 +586,7 @@ export default {
             /* */
         }
         &__years {
-            width: 150px;
+            // width: 150px;
         }
     }
 }
@@ -698,12 +698,12 @@ export default {
 }
 
 .birthday-item-content {
-    width: toRem(91);
+    width: toRem(80);
 }
 
 
 .item-year .birthday-item-content {
-    width: 150px;
+    width: toRem(110);
 }
 .item-year .birthday-item__days {
     width: 100%;

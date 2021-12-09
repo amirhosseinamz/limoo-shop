@@ -230,7 +230,7 @@
             <span class="rate-count">
               {{ getTextByTextKey("commnets_star_from_text") }} 5
             </span>
-            <span class="buyer-badge"
+            <span v-if="data.buyerBadge" class="buyer-badge"
                     ><span class="badge-text">خریدار</span></span
                   >
           </div>
@@ -256,31 +256,7 @@
         </div>
       </div>
     </div>
-    <!-- like and dislike -->
-        <div class="like-dislike-wrapper d-flex w-100">
-          <div class="dislike d-flex align-center" @click="dislike">
-            <span class="number">{{ dislikeCounter }}</span>
-            <sapn
-              class="dislike-icon"
-              :class="`${
-                dislikeIconIsActive
-                  ? 'dislike-icon-clicked'
-                  : 'dislike-icon'
-              }`"
-            ></sapn>
-          </div>
-          <div class="vertical-line"></div>
-          <div class="like d-flex align-center" @click="like">
-            <span class="number">{{ likeCounter }}</span>
-            <span
-              class="like-icon"
-              :class="`${
-                likeIconIsActive ? 'like-icon-clicked' : 'like-icon'
-              }`"
-            ></span>
-          </div>
-        </div>
-    <!--end of like and dislike -->
+    <comment-like-and-dislike></comment-like-and-dislike>
   </div>
 </div>
  
@@ -429,24 +405,25 @@ v-if="selectedComponent === 'filter-modal'"
 </div>
 </base-modal>
 </transition>
-
   </div>
 </template>
 
 <script>
 import modalAddComment from "./modalAddComment";
 import sortBox from "../Category/sortBox";
+import CommentLikeAndDislike from "../product/CommentLikeAndDislike.vue";
 // import ModalSort from "./modalSort";
 import { getTextByTextKey } from "~/modules/splitPartJsonResource.js";
 
 export default {
-  props: {
-    commentsData: { type: [Object, Array], default: {} },
-  },
+  // props: {
+  //   commentsData: { type: [Object, Array], default: {} },
+  // },
 
   components: {
     modalAddComment,
     sortBox,
+    CommentLikeAndDislike,
     // ModalSort,
   },
 
@@ -495,15 +472,15 @@ export default {
           new: 'positive'
         }
       ],
-      likeIconIsActive: false,
-      dislikeIconIsActive: false,
-      likeCounter: 10,
-      dislikeCounter: 10,
+      
     };
   },
   computed: {
     closeModalAddComment() {
       return this.$store.getters["product/single/single/closeModalAddComment"];
+    },
+    commentsData(){
+      return this.$store.getters["product/single/single/commentsData"];
     },
     modalAnimation() {
       return "scale";
@@ -639,30 +616,7 @@ export default {
     selectRadioButton () {
       this.selectRadio = !this.selectRadio
     },
-    like() {
-      this.likeIconIsActive = !this.likeIconIsActive;
-      if (this.likeIconIsActive) {
-        this.likeCounter++;
-        this.dislikeIconIsActive = false;
-        this.dislikeCounter--;
-      } else {
-        this.likeCounter--;
-        this.dislikeIconIsActive = true;
-        this.dislikeCounter++;
-      }
-    },
-    dislike() {
-      this.dislikeIconIsActive = !this.dislikeIconIsActive;
-      if (this.dislikeIconIsActive) {
-        this.likeIconIsActive = false;
-        this.dislikeCounter++;
-        this.likeCounter--;
-      } else {
-        this.dislikeCounter--;
-        this.likeIconIsActive = true;
-        this.likeCounter++;
-      }
-    },
+    
   },
 };
 </script>
@@ -1233,71 +1187,7 @@ export default {
   border: 2px solid $orange!important;
   color: $orange!important;
 }
-.like-dislike-wrapper {
-  justify-content: end;
-  margin-top: toRem(20);
-  margin-bottom: toRem(25.5);
-  height: toRem(29.6);
-  margin-left: toRem(24);
-  @include sm {
-    margin-left: toRem(14);
-  }
-  .dislike {
-    cursor: pointer;
-    .number {
-      color: $red-logout;
-      margin-left: toRem(8);
-    }
-    .dislike-icon {
-      transform: rotate(180deg);
-      &::before {
-        content: "\e843";
-        @include font-icon__limoo();
-        font-size: toRem(23);
-        color: $red-logout;
-      }
-    }
-    .dislike-icon-clicked {
-      &::before {
-        content: "\e844";
-        @include font-icon__limoo();
-        font-size: toRem(20);
-        color: $red-logout;
-      }
-    }
-  }
-  .vertical-line {
-    height: toRem(24);
-    width: 1px;
-    background-color: $light-gray;
-    margin-right: toRem(15);
-    margin-left: toRem(16);
-  }
-  .like {
-    width: toRem(45);
-    cursor: pointer;
-    .number {
-      color: $green__answer;
-      margin-left: toRem(8);
-    }
-    .like-icon {
-      &::before {
-        content: "\e843";
-        @include font-icon__limoo();
-        font-size: toRem(23);
-        color: $green__answer;
-      }
-    }
-    .like-icon-clicked {
-      &::before {
-        content: "\e844";
-        @include font-icon__limoo();
-        font-size: toRem(20);
-        color: $green__answer;
-      }
-    }
-  }
-}
+
 
 @include xl {
   .p-comments-content-header-item {

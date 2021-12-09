@@ -5,7 +5,7 @@
         <The-profile-pass-modal />
       </div>
     </transition>
-    <the-profile-side-bar class="desktop-screen" />
+    <the-profile-side-bar class="profile-slide-bar" />
     <div class="mobile-screen">
       <div class="mobile-screen__holder">
         <span class="mobile-screen__holder-txt">{{
@@ -346,15 +346,6 @@ export default {
   z-index: 10;
   background: $overlay__profile;
 }
-/* .v-enter-from {
-    opacity: 0;
-}
-.v-enter-active {
-    transition: all 200ms ease-out;
-}
-.v-enter-to {
-    opacity: 0.5;
-} */
 .v-leave-from {
   opacity: 0.5;
 }
@@ -369,6 +360,7 @@ export default {
   display: none;
 }
 .profile-container {
+  background: red !important;
   margin: 0 auto;
   width: 100%;
   max-width: toRem(1920);
@@ -378,8 +370,9 @@ export default {
 }
 .user-profile__holder {
   margin: toRem(166) 0 toRem(50) toRem(16);
-  width: 100%;
+  width: 80%;
   height: auto;
+  border: 5px solid rgb(177, 197, 0);
 }
 .user-info__profile__imgholder-default {
   width: toRem(90);
@@ -392,9 +385,9 @@ export default {
   margin-top: toRem(9);
 }
 .user-profile {
+  background: green !important;
   width: 100%;
   position: relative;
-  height: auto;
   @include display-flex();
   flex-direction: column;
   align-items: center;
@@ -403,12 +396,13 @@ export default {
   border-radius: toRem(10);
   box-shadow: 0 toRem(8) toRem(16) 0 $box__shadow;
   &::before{
+    //setting icon
     content: "\e86a";
     @include font-icon__limoo();
     position: absolute;
     top: 23%;
     left: 54.5%;
-    color: $gray-3;
+    color: $gray;
     font-size: toRem(30);
   }
   &__topic {
@@ -437,33 +431,39 @@ export default {
     grid-column-gap: toRem(50);
     grid-row-gap: toRem(22);
     margin-top: toRem(40);
+    background: rgb(55, 30, 195);
+    padding: 0 toRem(90);
+    @media only screen and (max-width: 1280px) {
+      padding: 0 toRem(20);
+    grid-column-gap: toRem(30);
+    }
 
-    // @include lg {
-    //   grid-column-gap: toRem(0);
-    //   width: 100%;
-    // }
+    
     &-name,
     &-email,
     &-phone,
     &-birthday,
     &-nationalcode,
     &-pass {
-      width: 95%;
-      height: toRem(107);
+      width: 100%;
+      // height: toRem(107);
     }
     &-name {
       grid-column: 1/2;
       grid-row: 1/2;
-      background: $white;
       @include display-flex();
-      flex-direction: row;
       justify-content: space-between;
       .name {
-        margin-left: toRem(24);
-        width: toRem(157);
+        width:37%;
+        @media only screen and (max-width: 1280px) {
+          width: 42%;
+          }
       }
       .family {
-        width: toRem(208);
+        width: 48%;
+        @media only screen and (max-width: 1280px) {
+          width: 52%;
+          }
       }
     }
     &-email{
@@ -475,9 +475,20 @@ export default {
       grid-row: 2/3;
     }
     &-birthday {
+      background: red;
       grid-column: 2/3;
       grid-row: 2/3;
     }
+    // &-birthday::v-deep{
+    //   .item-year{
+    //     .birthday-item-content{
+    //           width: toRem(100)
+    //     }
+    //     .birthday-item__days{
+    //       width:100%
+    //     }
+    //   }
+    // }
     &-nationalcode {
       grid-column: 1/2;
       grid-row: 3/4;
@@ -503,20 +514,6 @@ export default {
     border-radius: toRem(10);
     background-color: $btn__green;
   }
-}
-// #name {
-//   width: 157px;
-// }
-// #family {
-//   width: 208px;
-// }
-// .user--item {
-//   width: toRem(390);
-// }
-.user-profile__container {
-  @extend .align-center;
-  -webkit-flex-flow: column;
-  flex-flow: column;
 }
 .user-profile__container::v-deep {
   .txt-content {
@@ -563,101 +560,15 @@ export default {
 .splicer-line {
   display: none;
 }
-// @include lg {
-//   .user-profile__holder {
-//       margin: 10.375rem -14px 86.125rem 18rem;
-//     width: 70%;
-//     height: auto;
-// }
-// .user-profile{
-//   &__info {
-//     grid-column-gap: toRem(2);
-//     grid-row-gap: toRem(22);
-//     margin-top: toRem(40);
-//     &-name,
-//     &-email,
-//     &-phone,
-//     &-birthday,
-//     &-nationalcode,
-//     &-pass {
-//       width: 80%;
-//       height: toRem(107);
-//       border: 1px solid red;
-// }
-// &__container {
-//       padding: 0 toRem(10) 0 toRem(10);
-//     }
-// }
-// }
-// }
-// @include xxxs {
-//   .user-profile {
-//     &__info {
-//       &-name,
-//       &-email,
-//       &-phone,
-//       &-birthday,
-//       &-nationalcode,
-//       &-pass {
-//         width: 360px;
-//       }
-//     }
-//     &__container {
-//       padding: 0 50px;
-//     }
-//     #name {
-//       width: 137px;
-//     }
-//     #family {
-//       width: 178px;
-//     }
-//     .name::v-deep {
-//       width: 137px;
-//     }
-//     .family::v-deep {
-//       width: 178px;
-//     }
-//   }
-// }
-// @include xxxs {
-//   .user-profile {
-//     &__info {
-//       @include display-flex();
-//       min-width: toRem(570);
-//       &-name,
-//       &-email,
-//       &-phone,
-//       &-birthday,
-//       &-nationalcode,
-//       &-pass {
-//         width: 100%;
-//       }
-//     }
-//     &__container {
-//       padding: 0 toRem(20);
-//     }
-//   }
-//   .user-profile {
-//     #name {
-//       width: toRem(250);
-//     }
-//     #family {
-//       width: toRem(290);
-//     }
-//     .name::v-deep {
-//       width: toRem(250);
-//     }
-//     .family::v-deep {
-//       width: toRem(290);
-//     }
-//   }
-// }
 
 
 
 
 
 @include lg {
+  .profile-slide-bar{
+    // width:280px;
+  }
   .profile-container{
   display: flex;
   flex-direction: row-reverse !important;
@@ -676,12 +587,15 @@ export default {
     margin-bottom: toRem(58);
   }
   .user-profile__holder {
-    margin: toRem(169) toRem(-30);
-    padding: 0 toRem(16);
+    @include display-flex();
+    justify-content: end;
+    width: 60%;
+    border: 5px solid rgb(209, 224, 0);
   }
   .user-profile {
-    margin-left: toRem(25);
-    width: 97%;
+    // margin-left: toRem(40);
+    border: 5px solid black;
+    width: 100%;
     &__topic {
       display: none;
     }
@@ -700,7 +614,7 @@ export default {
       flex-direction: row-reverse;
       flex-wrap: wrap;
       justify-content: space-between;
-      margin-top: toRem(38);
+      padding: 0 toRem(60);
       min-width: 100%;
       &-name,
       &-email,
@@ -708,7 +622,7 @@ export default {
       &-birthday,
       &-nationalcode,
       &-pass {
-        width: 90%;
+        width: 100%;
         height: toRem(100);
         margin: 0 0 toRem(24) 0;
       }
@@ -721,31 +635,13 @@ export default {
       &-nationalcode {
         order: 2;
       }
-      &-birthday {
+      &-birthday{
         order: 4;
       }
       &-pass {
         order: 5;
       }
-      // &-name > section > label,
-      // &-nationalcode > label,
-      // &-pass > label,
-      // &-phone > label {
-      //   font-size: 40px;
-      // }
-      // #name,
-      // #family,
-      // &-nationalcode > input,
-      // &-pass > input,
-      // &-phone > input {
-      //   font-size: 13px;
-      //   height: 46px;
-      //   width: 302px;
-      //   padding: 14px 16px;
-      // }
-    }
-    &__container {
-      padding: 0 toRem(10) 0 toRem(70);
+     
     }
     &__btn {
       font-size: toRem(16);
@@ -772,11 +668,11 @@ export default {
       height: toRem(52);
     }
     .name {
-      margin-left: toRem(99);
-      width: toRem(208);
+      // margin-left: toRem(99);
+      width: 35%;
     }
     .family {
-      width: toRem(277);
+      width: 50%;
     }
     .signup-input {
       font-size: toRem(16);
@@ -796,7 +692,7 @@ export default {
   #overlay {
     background: $overlay__profile-mobile;
   }
-  .desktop-screen {
+  .profile-slide-bar {
     display: none;
   }
   .mobile-screen {
@@ -842,8 +738,8 @@ export default {
     margin-bottom: toRem(58);
   }
   .user-profile__holder {
-    margin: toRem(8) 0;
-    padding: 0 toRem(16);
+    margin: toRem(0) 0;
+    width: 100%;
   }
   .user-profile {
     margin-left: 0;
@@ -866,8 +762,8 @@ export default {
       flex-direction: row-reverse;
       flex-wrap: wrap;
       justify-content: space-between;
-      margin-top: toRem(38);
       min-width: 100%;
+      padding:0 toRem(109);
       &-name,
       &-email,
       &-phone,
@@ -893,25 +789,10 @@ export default {
       &-pass {
         order: 5;
       }
-      // &-name > section > label,
-      // &-nationalcode > label,
-      // &-pass > label,
-      // &-phone > label {
-      //   font-size: 40px;
-      // }
-      // #name,
-      // #family,
-      // &-nationalcode > input,
-      // &-pass > input,
-      // &-phone > input {
-      //   font-size: 13px;
-      //   height: 46px;
-      //   width: 302px;
-      //   padding: 14px 16px;
-      // }
+    
     }
     &__container {
-      padding: 0 toRem(107) 0 toRem(107);
+      // padding: 0 toRem(107) 0 toRem(107);
     }
     &__btn {
       font-size: toRem(16);
@@ -942,7 +823,7 @@ export default {
       width: toRem(208);
     }
     .family {
-      width: toRem(277);
+      width: 20%;
     }
     .signup-input {
       font-size: toRem(16);
@@ -957,7 +838,7 @@ export default {
 }
 @include sm{
   .user-profile__holder {
-    padding: 0 toRem(5);
+    // padding: 0 toRem(5);
   }
   .user-profile {
     margin-left: 0;
@@ -970,6 +851,7 @@ export default {
     &__info {
       margin-top: toRem(38);
       min-width: 100%;
+      padding: 0 toRem(60);
       &-name,
       &-email,
       &-phone,
@@ -1064,6 +946,7 @@ export default {
     &__info {
       margin-top: toRem(38);
       min-width: 100%;
+      padding: 0 toRem(15);
       &-name,
       &-email,
       &-phone,
@@ -1165,14 +1048,7 @@ export default {
         margin: auto;
       }
     }
-    // .name {
-    //   width: 110px;
-    //   padding: 13px;
-    // }
-    // .family {
-    //   width: 135px;
-    //   padding: 13px;
-    // }
+   
   }
   .user-profile__container::v-deep {
     .name {
