@@ -266,7 +266,7 @@
               >
               </text-input>
             </div>
-            <div class="user-profile__btn-holder">
+            <div class="user-profile__btn-holder d-flex justify-center">
               <base-button
               button-type="submit"
               classes="user-profile__btn"
@@ -360,7 +360,6 @@ export default {
   display: none;
 }
 .profile-container {
-  background: red !important;
   margin: 0 auto;
   width: 100%;
   max-width: toRem(1920);
@@ -372,7 +371,6 @@ export default {
   margin: toRem(166) 0 toRem(50) toRem(16);
   width: 80%;
   height: auto;
-  border: 5px solid rgb(177, 197, 0);
 }
 .user-info__profile__imgholder-default {
   width: toRem(90);
@@ -385,7 +383,6 @@ export default {
   margin-top: toRem(9);
 }
 .user-profile {
-  background: green !important;
   width: 100%;
   position: relative;
   @include display-flex();
@@ -395,16 +392,7 @@ export default {
   background: $white;
   border-radius: toRem(10);
   box-shadow: 0 toRem(8) toRem(16) 0 $box__shadow;
-  &::before{
-    //setting icon
-    content: "\e86a";
-    @include font-icon__limoo();
-    position: absolute;
-    top: 23%;
-    left: 54.5%;
-    color: $gray;
-    font-size: toRem(30);
-  }
+  
   &__topic {
     font-size: toRem(18);
     line-height: toRem(25.31);
@@ -423,6 +411,17 @@ export default {
     width: toRem(162);
     border-radius: 50%;
     background-color: $gray-5;
+    position: relative;
+      &::after{
+      //setting icon
+      content: "\e86a";
+      @include font-icon__limoo();
+      position: absolute;
+      bottom: 3%;
+      right: 1%;
+      color: $gray;
+      font-size: toRem(40);
+    }
   }
   &__info {
     display: grid;
@@ -431,11 +430,10 @@ export default {
     grid-column-gap: toRem(50);
     grid-row-gap: toRem(22);
     margin-top: toRem(40);
-    background: rgb(55, 30, 195);
     padding: 0 toRem(90);
     @media only screen and (max-width: 1280px) {
       padding: 0 toRem(20);
-    grid-column-gap: toRem(30);
+      grid-column-gap: toRem(30);
     }
 
     
@@ -454,13 +452,13 @@ export default {
       @include display-flex();
       justify-content: space-between;
       .name {
-        width:37%;
+        width:42%;
         @media only screen and (max-width: 1280px) {
           width: 42%;
           }
       }
       .family {
-        width: 48%;
+        width: 51%;
         @media only screen and (max-width: 1280px) {
           width: 52%;
           }
@@ -475,7 +473,6 @@ export default {
       grid-row: 2/3;
     }
     &-birthday {
-      background: red;
       grid-column: 2/3;
       grid-row: 2/3;
     }
@@ -506,9 +503,10 @@ export default {
     line-height: 140.62%;
   }
   &__btn {
-    margin: toRem(42) auto toRem(48);
+    margin-top: toRem(42) ;
+    margin-bottom: toRem(48);
     height: toRem(57);
-    width: toRem(270);
+    width: 33%;
     font-size: toRem(18);
     font-family: inherit;
     border-radius: toRem(10);
@@ -590,11 +588,9 @@ export default {
     @include display-flex();
     justify-content: end;
     width: 60%;
-    border: 5px solid rgb(209, 224, 0);
   }
   .user-profile {
     // margin-left: toRem(40);
-    border: 5px solid black;
     width: 100%;
     &__topic {
       display: none;
@@ -608,6 +604,11 @@ export default {
     margin-top: toRem(38);
     height: toRem(108);
     width: toRem(108);
+    &::after{
+        bottom: 4%;
+        right: 1%;
+      font-size: toRem(25);
+    }
   }
     &__info {
       @include display-flex();
@@ -645,13 +646,11 @@ export default {
     }
     &__btn {
       font-size: toRem(16);
-      margin: toRem(38) auto toRem(72);
-      width: toRem(395);
+      margin-top: toRem(42);
+      margin-bottom: toRem(72); 
+      width: 70%;
       margin-bottom: toRem(72);
-      &-holder {
-        padding: 0;
-        width: 100%;
-      }
+      
     }
     &__alert {
       font-size: toRem(13);
@@ -705,6 +704,7 @@ export default {
       height: toRem(56);
       background: $white;
       margin-top: toRem(47);
+      margin-bottom: toRem(8);
       &-txt {
         font-size: toRem(14);
         line-height: 140.62%;
@@ -747,15 +747,20 @@ export default {
     &__topic {
       display: none;
     }
-    &::before{
-    top: 9%;
-    left: 53%;
-    font-size: toRem(25);
-  }
+  //   &::before{
+  //   top: 9%;
+  //   left: 53%;
+  //   font-size: toRem(25);
+  // }
     &__userpic {
     margin-top: toRem(38);
     height: toRem(108);
     width: toRem(108);
+      &::after{
+        bottom: 4%;
+        right: 1%;
+      font-size: toRem(25);
+    }
   }
     &__info {
       @include display-flex();
@@ -763,7 +768,7 @@ export default {
       flex-wrap: wrap;
       justify-content: space-between;
       min-width: 100%;
-      padding:0 toRem(109);
+      padding:0 toRem(150);
       &-name,
       &-email,
       &-phone,
@@ -796,13 +801,10 @@ export default {
     }
     &__btn {
       font-size: toRem(16);
-      margin: toRem(38) auto toRem(72);
-      width: toRem(395);
+      margin-top: toRem(42);
+      width: 50%;
       margin-bottom: toRem(72);
-      &-holder {
-        padding: 0;
-        width: 100%;
-      }
+      
     }
     &__alert {
       font-size: toRem(13);
@@ -819,11 +821,10 @@ export default {
       height: toRem(52);
     }
     .name {
-      margin-left: toRem(99);
-      width: toRem(208);
+      width:40%
     }
     .family {
-      width: 20%;
+      width: 50%;
     }
     .signup-input {
       font-size: toRem(16);
@@ -885,10 +886,15 @@ export default {
     margin-top: toRem(43);
     height: toRem(84);
     width: toRem(84);
+      &::after{
+          bottom: 0;
+          right: 0;
+        font-size: toRem(25);
+      }
       }
     &__btn {
-    margin: toRem(39) auto toRem(47);
-    width: 100%;
+    margin-top: toRem(39);
+    width: 50%;
     font-size: toRem(16);
     background-color: $btn__green;
   }
@@ -917,11 +923,10 @@ export default {
   }
   .user-profile__container::v-deep {
     .name {
-      margin-left: 0;
-      width: toRem(120);
+      width: 40%;
     }
     .family {
-      width: toRem(142);
+      width: 50%;
     }
     .txt-content {
       font-size: toRem(14);
@@ -947,6 +952,9 @@ export default {
       margin-top: toRem(38);
       min-width: 100%;
       padding: 0 toRem(15);
+      @media only screen and(max-width: 350px){
+        padding: 0;
+      }
       &-name,
       &-email,
       &-phone,
@@ -958,19 +966,20 @@ export default {
         margin: auto;
       }
     }
-    // #name {
-    //   width: toRem(120);
-    // }
-    // #family {
-    //   width: toRem(142);
-    // }
+    &__btn {
+      margin-top: toRem(39);
+      margin-bottom: toRem(47);
+      width: 110%;
+      font-size: toRem(16);
+      background-color: red;
+    }
   }
   .user-profile__container::v-deep {
     .name {
-      width: toRem(120);
+      width: 40%;
     }
     .family {
-      width: toRem(142);
+      width: 50%;
     }
      &__container {
       padding: 0 toRem(20) 0 toRem(20);
@@ -987,7 +996,6 @@ export default {
       font-size: toRem(20);
   }
     &__info {
-      padding: 0;
       margin-top: toRem(38);
       min-width: 100%;
       &-name,
@@ -1012,10 +1020,10 @@ export default {
   }
   .user-profile__container::v-deep {
     .name {
-      width: toRem(100);
+      width: 40%;
     }
     .family {
-      width: toRem(142);
+      width: 50%;
     }
     .signup-input {
       padding: toRem(13);
