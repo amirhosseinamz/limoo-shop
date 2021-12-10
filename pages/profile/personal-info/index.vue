@@ -417,10 +417,10 @@ export default {
       content: "\e86a";
       @include font-icon__limoo();
       position: absolute;
-      bottom: 3%;
-      right: 1%;
+      bottom: 5%;
+      right: 4%;
       color: $gray;
-      font-size: toRem(40);
+      font-size: toRem(32);
     }
   }
   &__info {
