@@ -1,7 +1,7 @@
 <template>
   <!-- like and dislike -->
-  <div class="like-dislike-wrapper d-flex w-100">
-    <div class="dislike d-flex align-center" @click="dislike">
+  <div class="like-dislike-wrapper">
+    <div class="dislike" @click="dislike">
       <span class="number">{{ dislikeCounter }}</span>
       <sapn
         class="dislike-icon"
@@ -11,7 +11,7 @@
       ></sapn>
     </div>
     <div class="vertical-line"></div>
-    <div class="like d-flex align-center" @click="like()">
+    <div class="like" @click="like()">
       <span class="number">{{ likeCounter }}</span>
       <span
         class="like-icon"
@@ -69,6 +69,8 @@ export default {
 
 <style lang="scss" scoped>
 .like-dislike-wrapper {
+  @include display-flex();
+  width: 100%;
   justify-content: end;
   margin-top: toRem(20);
   margin-bottom: toRem(25.5);
@@ -78,6 +80,8 @@ export default {
     margin-left: toRem(14);
   }
   .dislike {
+    @include display-flex();
+    align-items: center;
     cursor: pointer;
     .number {
       color: $red-logout;
@@ -109,6 +113,8 @@ export default {
     margin-left: toRem(16);
   }
   .like {
+    @include display-flex();
+    align-items: center;
     width: toRem(45);
     cursor: pointer;
     .number {

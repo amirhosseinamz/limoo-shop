@@ -1274,11 +1274,7 @@ export default {
   margin-top: toRem(52);
   border: 2px solid $orange !important;
   color: $orange !important;
-}
-.modal-container::v-deep {
-  dialog {
-    display: none;
-  }
+
 }
 
 @include xl {

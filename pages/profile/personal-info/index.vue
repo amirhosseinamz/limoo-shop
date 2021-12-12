@@ -1,10 +1,10 @@
 <template>
   <div id="test" class="profile-container">
-    <transition mode="in-out">
+    <!-- <transition class="change-pass-modal" name="scale"> -->
       <div id="overlay" v-if="passChangeIsActive">
         <The-profile-pass-modal />
       </div>
-    </transition>
+    <!-- </transition> -->
     <the-profile-side-bar class="profile-slide-bar" />
     <div class="mobile-screen">
       <div class="mobile-screen__holder">
@@ -61,7 +61,7 @@
                   :check-typing-submit="false"
                   :use-timer="false"
                   :show-icon-star="false"
-                  :form-data="formData"
+                  form-data=""
                   accessStyleParentInToChildNameId="address__form--data"
                   tag-html="input"
                   timer-start=""
@@ -97,7 +97,7 @@
                   :check-typing-submit="false"
                   :use-timer="false"
                   :show-icon-star="false"
-                  :form-data="formData"
+                  form-data=""
                   accessStyleParentInToChildNameId="address__form--data"
                   tag-html="input"
                   timer-start=""
@@ -107,8 +107,8 @@
                 >
                 </text-input>
               </div>
-              <!--/// email section is ignored in version alpha ///-->
-              <text-input
+              <!-- /// email section is ignored in version alpha ///-->
+              <!-- <text-input
                 class="user-profile__info-email "
                 labelNameClass=""
                 inputNameClass="w-100"
@@ -145,8 +145,9 @@
                 name-input="email"
                 label-text="آدرس ایمیل :"
               >
-              </text-input>
+              </text-input> -->
             <text-input
+                disabledInputDefault
                 class="user-profile__info-phone "
                 labelNameClass=""
                 inputNameClass="w-100"
@@ -172,7 +173,7 @@
                 :check-required="false"
                 :check-typing-submit="false"
                 :use-timer="false"
-                :show-icon-star="true"
+                :show-icon-star="false"
                 :form-data="formData"
                 :disabled-input-default="false"
                 :remove-error="true"
@@ -202,7 +203,7 @@
                 state="authInput"
                 maxlength="10"
                 function-max-len="greaterThan"
-                placeholderText=""
+                :placeholderText="formData.nationalcode"
                 :msgError="{
                   notValidMsg: 'کد ملی نمی تواند شامل حروف باشد!',
                 }"
@@ -220,7 +221,7 @@
                 :check-typing-submit="false"
                 :use-timer="false"
                 :show-icon-star="true"
-                :form-data="formData"
+                form-data=""
                 accessStyleParentInToChildNameId="address__form--data"
                 tag-html="input"
                 timer-start=""
@@ -317,6 +318,7 @@ export default {
   },
   methods: {
     getTextByTextKey,
+    
     goToProfile() {
       this.$router.push("/profile");
     },
@@ -327,10 +329,13 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
+@include scale-modal-animation();
+@include phone-modal-animation();
 .search-section__items::v-deep {
   background: red !important;
   color: red;
 }
+
 #overlay {
   position: fixed; /* Sit on top of the page content */
   @include display-flex();
@@ -338,12 +343,7 @@ export default {
   align-items: center;
   width: 100%; /* Full width (cover the whole page) */
   height: 100%; /* Full height (cover the whole page) */
-  /* transition: opacity 200ms ease-out; */
-  /* top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0; */
-  z-index: 10;
+  z-index: 1501;
   background: $overlay__profile;
 }
 .v-leave-from {
@@ -438,7 +438,7 @@ export default {
 
     
     &-name,
-    &-email,
+    // &-email,
     &-phone,
     &-birthday,
     &-nationalcode,
@@ -464,34 +464,24 @@ export default {
           }
       }
     }
-    &-email{
+    // &-email{
+    //   grid-column: 2/3;
+    //   grid-row: 1/2;
+    // }
+    &-phone {
       grid-column: 2/3;
       grid-row: 1/2;
     }
-    &-phone {
+    &-birthday {
       grid-column: 1/2;
       grid-row: 2/3;
     }
-    &-birthday {
+    &-nationalcode {
       grid-column: 2/3;
       grid-row: 2/3;
-    }
-    // &-birthday::v-deep{
-    //   .item-year{
-    //     .birthday-item-content{
-    //           width: toRem(100)
-    //     }
-    //     .birthday-item__days{
-    //       width:100%
-    //     }
-    //   }
-    // }
-    &-nationalcode {
-      grid-column: 1/2;
-      grid-row: 3/4;
     }
     &-pass {
-      grid-column: 2/3;
+      grid-column: 1/2;
       grid-row: 3/4;
     }
   }
@@ -611,6 +601,7 @@ export default {
     }
   }
     &__info {
+      
       @include display-flex();
       flex-direction: row-reverse;
       flex-wrap: wrap;
@@ -629,6 +620,7 @@ export default {
       }
       &-phone {
         order: 1;
+        
       }
       &-email {
         order: 3;
