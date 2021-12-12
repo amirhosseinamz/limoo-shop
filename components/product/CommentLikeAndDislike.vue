@@ -6,7 +6,7 @@
       <sapn
         class="dislike-icon"
         :class="`${
-          dislikeIconIsActive ? 'dislike-icon-clicked' : 'dislike-icon'
+          isDisliked ? 'dislike-icon-clicked' : 'dislike-icon'
         }`"
       ></sapn>
     </div>
@@ -15,7 +15,7 @@
       <span class="number">{{ likeCounter }}</span>
       <span
         class="like-icon"
-        :class="`${likeIconIsActive ? 'like-icon-clicked' : 'like-icon'}`"
+        :class="`${isLiked ? 'like-icon-clicked' : 'like-icon'}`"
       ></span>
     </div>
   </div>
@@ -26,41 +26,42 @@
 export default {
   data() {
     return {
-      likeIconIsActive: false,
-      dislikeIconIsActive: false,
+      isLiked: false,
+      isDisliked: false,
       likeCounter: 10,
       dislikeCounter: 10,
     };
   },
   methods:{
       like() {
-      //  this.$store.dispatch("product/single/single/like", id);
-      //   console.log(this.$store.dispatch("product/single/single/like"))
-        // console.log(this.commentsData[id-1].likeCounter)
-
-      
-      this.likeIconIsActive = !this.likeIconIsActive;
-      if (this.likeIconIsActive) {
-        this.likeCounter++;
-        this.dislikeIconIsActive = false;
-        this.dislikeCounter--;
-      } else {
-        this.likeCounter--;
-        this.dislikeIconIsActive = true;
-        this.dislikeCounter++;
-      }
+        if(!this.isLiked && !this.isDisliked){
+          this.isLiked = !this.isLiked
+          this.likeCounter++;
+        }else if(this.isLiked && !this.isDisliked){
+          this.isLiked = !this.isLiked;
+          this.likeCounter--;
+        }
+        else if(!this.isLiked && this.isDisliked){
+          this.isLiked = !this.isLiked;
+          this.likeCounter++;
+          this.dislikeCounter--;
+          this.isDisliked = false;
+        }
     },
     dislike() {
-      this.dislikeIconIsActive = !this.dislikeIconIsActive;
-      if (this.dislikeIconIsActive) {
-        this.likeIconIsActive = false;
-        this.dislikeCounter++;
-        this.likeCounter--;
-      } else {
-        this.dislikeCounter--;
-        this.likeIconIsActive = true;
-        this.likeCounter++;
-      }
+      if(!this.isLiked && !this.isDisliked){
+          this.isDisliked = !this.isDisliked
+          this.dislikeCounter++;
+        }else if(this.isDisliked && !this.isLiked){
+          this.isDisliked = !this.isDisliked;
+          this.dislikeCounter--;
+        }
+        else if(this.isLiked && !this.isDisliked){
+          this.isDisliked = !this.isDisliked;
+          this.dislikeCounter++;
+          this.likeCounter--;
+          this.isLiked = false;
+        }
     },
   }
 };

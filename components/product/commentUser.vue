@@ -9,402 +9,415 @@
       tabs__content
     "
   >
-  <p class="filter__title"><span class="icon"></span>
-    فیلتر بر اساس:
-  </p>
-  <div class="filter">
-  <div class="dropdown"  :class="`${open ? 'changedropdown' : '' }`">
-      <div class="text"  @click="changearrow()" :class="`${open ? 'changeicon' : 'icon' }`" >انتخاب کنید...
-        <div class="multiselect__tags-wrap" v-if="checkboxValues.length < 3">
-          <div class="multiselect__tag" v-for="(item,index) in checkboxValues" :key="item">
+    <p class="filter__title">
+      <span class="icon"></span>
+      فیلتر بر اساس:
+    </p>
+    <div class="filter">
+      <div class="dropdown" :class="`${open ? 'changedropdown' : ''}`">
+        <div
+          class="text"
+          @click="changearrow()"
+          :class="`${open ? 'changeicon' : 'icon'}`"
+        >
+          انتخاب کنید...
+          <div class="multiselect__tags-wrap" v-if="checkboxValues.length < 3">
             <div
-            class="text-tag"
+              class="multiselect__tag"
+              v-for="(item, index) in checkboxValues"
+              :key="item"
             >
-            {{item}}
-              <span class="icon-close" @click="closeIcon(index)"></span>
+              <div class="text-tag">
+                {{ item }}
+                <span class="icon-close" @click="closeIcon(index)"></span>
+              </div>
+            </div>
+          </div>
+          <div v-else class="multiselect__tags-wrap">
+            <div class="multiselect__tag">
+              <div class="text-tag">
+                {{ checkboxValues[0] }}
+                <span class="icon-close" @click="closeIcon(0)"></span>
+              </div>
+            </div>
+            <div class="multiselect__tag">
+              <div class="text-tag">
+                {{ checkboxValues[1] }}
+                <span class="icon-close" @click="closeIcon(1)"></span>
+              </div>
+            </div>
+            <div class="multiselect__tag">
+              <div class="text-tag">
+                + {{ checkboxValues.length - 2 }} ...
+                <span class="icon-close" @click="closeIcon(2)"></span>
+              </div>
             </div>
           </div>
         </div>
-        <div
-        v-else
-        class="multiselect__tags-wrap"
-        >
-        <div class="multiselect__tag">
-          <div
-          class="text-tag"
-          >
-          {{ checkboxValues[0] }}
-            <span class="icon-close" @click="closeIcon(0)"></span>
-          </div>
-        </div>
-        <div class="multiselect__tag">
-          <div
-          class="text-tag"
-          >
-          {{ checkboxValues[1] }}
-            <span class="icon-close" @click="closeIcon(1)"></span>
-          </div>
-        </div>
-        <div class="multiselect__tag">
-          <div
-          class="text-tag"
-          >
-          + {{checkboxValues.length - 2}} ...
-            <span class="icon-close" @click="closeIcon(2)"></span>
-          </div>
-        </div>
-        </div>
+        <ul class="items" v-if="show">
+          <li class="sub-items" v-for="option in options" :key="option.code">
+            <base-checkbox
+              class="brand-checkbox"
+              name="name"
+              :val="option.name"
+              mode="square"
+              v-model="checkboxValues"
+              :title="option.name"
+            ></base-checkbox>
+          </li>
+        </ul>
       </div>
-      <ul class="items" v-if="show" >
-      <li class="sub-items" v-for="option in options" :key="option.code"  >
-        <base-checkbox
+      <base-button
+        base-color="white"
+        @button-clicked="buttonIsactiveAll()"
+        :class="`${selectedAll ? 'active-button' : 'filter-button'}`"
+      >
+        همه نظرات
+      </base-button>
+      <base-button
+        base-color="white"
+        @button-clicked="buttonIsactiveNeg()"
+        :class="`${selectedNeg ? 'active-button' : 'filter-button '}`"
+      >
+        نظرات منفی
+      </base-button>
+      <base-button
+        base-color="white"
+        @button-clicked="buttonIsactivePos()"
+        :class="`${selectedPos ? 'active-button' : 'filter-button'}`"
+      >
+        نظرات مثبت
+      </base-button>
+    </div>
 
-          class="brand-checkbox"
-          name="name"
-          :val="option.name"
-          mode="square"
-          v-model="checkboxValues"
-          :title="option.name"
-        ></base-checkbox>
-      </li>
-  </ul>
-</div>
-  <base-button  base-color="white" @button-clicked="buttonIsactiveAll()" :class="`${selectedAll ? 'active-button' : 'filter-button' }`">
-    همه نظرات
-  </base-button>
-  <base-button  base-color="white" @button-clicked="buttonIsactiveNeg()"  :class="`${selectedNeg ? 'active-button' : 'filter-button '}`" >
-    نظرات منفی
-  </base-button>
-  <base-button  base-color="white"  @button-clicked="buttonIsactivePos()" :class="`${selectedPos ? 'active-button' : 'filter-button' }`" >
-    نظرات مثبت
-  </base-button>
-</div>
-
-<div class="w-100">
-  <base-button no-box-shadow no-hover base-color="white" classes="comments-add__comment" @button-clicked="showModalAddComment">
-     {{ getTextByTextKey("product_submit_comment") }}
-  </base-button>
-</div>
+    <div class="w-100">
+      <base-button
+        no-box-shadow
+        no-hover
+        base-color="white"
+        classes="comments-add__comment"
+        @button-clicked="showModalAddComment"
+      >
+        {{ getTextByTextKey("product_submit_comment") }}
+      </base-button>
+    </div>
 
     <!-- mobile -->
-<div class="products__filter-btns w-100 " style="display:none">
-  <base-button no-box-shadow classes="products__filter-btn" @button-clicked="setComponent('filter-modal')">
-    <span class="filter-search-icon"></span>
-    {{ getTextByTextKey('category_filter_text') }}
-  </base-button>
-
-  <base-button no-box-shadow classes="products__filter-btn" base-color="dark" @button-clicked="setComponent('sort-modal')">
-    <span class="arrow-down-icon"></span>
-    مرتب سازی
-  </base-button>
-</div>
-
-<div class="multiselect__tags-wrap  responsive" v-if="checkboxValues.length < 3" style="display:none">
-        <div class="multiselect__tag tag-mobile responsive" v-for="(item,index) in checkboxValues" :key="item">
-          <div
-          class="text-tag"
-          >
-          {{item}}
-            <span class="icon-close" @click="closeIcon(index)"></span>
-          </div>
-        </div>
-      </div>
-  <div
-  v-else
-  class="multiselect__tags-wrap  responsive"
-  style="display:none"
-  >
-  <div class="multiselect__tag tag-mobile">
-    <div
-      class="text-tag"
+    <div class="products__filter-btns w-100" style="display: none">
+      <base-button
+        no-box-shadow
+        classes="products__filter-btn"
+        @button-clicked="setComponent('filter-modal')"
       >
-      {{ checkboxValues[0] }}
-      <span class="icon-close" @click="closeIcon(0)"></span>
-    </div>
-  </div>
-  <div class="multiselect__tag tag-mobile">
-    <div
-    class="text-tag"
-    >
-    {{ checkboxValues[1] }}
-    <span class="icon-close" @click="closeIcon(0)"></span>
-    </div>
-  </div>
-  <div class="multiselect__tag tag-mobile">
-    <div
-    class="text-tag"
-    >
-    + {{checkboxValues.length - 2}} ...
-    <span class="icon-close" @click="closeIcon(2)"></span>
-    </div>
-  </div>
-</div>
+        <span class="filter-search-icon"></span>
+        {{ getTextByTextKey("category_filter_text") }}
+      </base-button>
 
-<div class="w-100">
-  <div class="user-comments__empty-container" v-show="userComments === 0">
-    <img
-      src="/empty-pages/empty-comment-list.svg"
-      :alt="getTextByTextKey('product_comment_empty')"
-    />
-    <span class="user-comments__empty">
-      {{ getTextByTextKey("product_comment_empty") }}
-    </span>
-  </div>
-  <div
-    class="w-100 flex-wrap p-comment-content-items"
-    :key="updateSelected"
-  >
+      <base-button
+        no-box-shadow
+        classes="products__filter-btn"
+        base-color="dark"
+        @button-clicked="setComponent('sort-modal')"
+      >
+        <span class="arrow-down-icon"></span>
+        مرتب سازی
+      </base-button>
+    </div>
+
     <div
-      v-for="(data, index) in commentsData"
-      :key="data.id"
-      class="w-100 flex-wrap p-comment-content-item"
+      class="multiselect__tags-wrap responsive"
+      v-if="checkboxValues.length < 3"
+      style="display: none"
     >
       <div
-        class="flex-wrap w-100 p-comment-content-wrapper align-items-start"
+        class="multiselect__tag tag-mobile responsive"
+        v-for="(item, index) in checkboxValues"
+        :key="item"
       >
-        <div class="w-100">
-          <div class="w-100 flex-wrap  p-comments-content-header ">
-            <div class="p-comments__header-holder">
-              <div class="p-comments__title">
-                {{ data.Title }}
+        <div class="text-tag">
+          {{ item }}
+          <span class="icon-close" @click="closeIcon(index)"></span>
+        </div>
+      </div>
+    </div>
+    <div v-else class="multiselect__tags-wrap responsive" style="display: none">
+      <div class="multiselect__tag tag-mobile">
+        <div class="text-tag">
+          {{ checkboxValues[0] }}
+          <span class="icon-close" @click="closeIcon(0)"></span>
+        </div>
+      </div>
+      <div class="multiselect__tag tag-mobile">
+        <div class="text-tag">
+          {{ checkboxValues[1] }}
+          <span class="icon-close" @click="closeIcon(0)"></span>
+        </div>
+      </div>
+      <div class="multiselect__tag tag-mobile">
+        <div class="text-tag">
+          + {{ checkboxValues.length - 2 }} ...
+          <span class="icon-close" @click="closeIcon(2)"></span>
+        </div>
+      </div>
+    </div>
+
+    <div class="w-100">
+      <div class="user-comments__empty-container" v-show="userComments === 0">
+        <img
+          src="/empty-pages/empty-comment-list.svg"
+          :alt="getTextByTextKey('product_comment_empty')"
+        />
+        <span class="user-comments__empty">
+          {{ getTextByTextKey("product_comment_empty") }}
+        </span>
+      </div>
+      <div
+        class="w-100 flex-wrap p-comment-content-items"
+        :key="updateSelected"
+      >
+        <div
+          v-for="(data, index) in commentsData"
+          :key="data.id"
+          class="w-100 flex-wrap p-comment-content-item"
+        >
+          <div
+            class="flex-wrap w-100 p-comment-content-wrapper align-items-start"
+          >
+            <div class="w-100">
+              <div class="w-100 flex-wrap p-comments-content-header">
+                <div class="p-comments__header-holder">
+                  <div class="p-comments__title">
+                    {{ data.Title }}
+                  </div>
+                  <div class="p-comments-idea__title">
+                    <span
+                      v-show="data.Suggest === 1"
+                      class="ideas-title idea-good"
+                    >
+                      {{ getTextByTextKey("commnets_suggestion_buy") }}
+                    </span>
+                    <span
+                      v-show="data.Suggest === 2"
+                      class="ideas-title idea-bad"
+                    >
+                      {{ getTextByTextKey("comments_not_enough_experience") }}
+                    </span>
+                    <span
+                      v-show="data.Suggest === 3"
+                      class="ideas-title idea-mid"
+                    >
+                      {{
+                        getTextByTextKey("comments_enough_experience_moment")
+                      }}
+                    </span>
+                  </div>
+                </div>
+
+                <div class="comments-time">
+                  <div class="comments-time-content d-flex align-center">
+                    <div class="time-icon"></div>
+                    <div class="time">{{ data.commentTime }}</div>
+                  </div>
+                </div>
               </div>
-              <div class="p-comments-idea__title">
-                <span
-                  v-show="data.Suggest === 1"
-                  class="ideas-title idea-good"
-                >
-                  {{ getTextByTextKey("commnets_suggestion_buy") }}
-                </span>
-                <span
-                  v-show="data.Suggest === 2"
-                  class="ideas-title idea-bad"
-                >
-                  {{ getTextByTextKey("comments_not_enough_experience") }}
-                </span>
-                <span
-                  v-show="data.Suggest === 3"
-                  class="ideas-title idea-mid"
-                >
-                  {{
-                    getTextByTextKey("comments_enough_experience_moment")
-                  }}
-                </span>
-                <div class="p-comments__state-mobile">
-                  <base-signs type="confirmed" v-if="typeof data.confirmLeave === 'undefined'" :title="data.dateConvert"></base-signs>
-                  <base-signs type="confirmed" v-if="data.confirmLeave === 1"></base-signs>
-                  <base-signs type="waiting" v-if="data.confirmLeave === 2"></base-signs>
+              <!-- ==================================================================================== -->
+              <div class="w-100 flex-column p-comment-content-data-main">
+                <div class="w-100 p-commentedproduct-main text-right">
+                  <div class="p-commented-default-main">
+                    <div
+                      class="p-commented-default-pic p-commented-product-img"
+                    ></div>
+                  </div>
+                  <div class="p-product-content-data">
+                    <span class="p-product-content-text-data">
+                      {{ data.Firstname }}
+                      {{ data.Lastname }}
+                    </span>
+                    <div class="p-product-content-rating-data">
+                      <div class="stars-outer">
+                        <div
+                          class="stars-inner"
+                          :style="{
+                            width: (data.Rate * 100) / 5 + '%',
+                          }"
+                        ></div>
+                      </div>
+                      <span class="rate-counter"> {{ data.Rate }}</span>
+                      <span class="rate-count">
+                        {{ getTextByTextKey("commnets_star_from_text") }} 5
+                      </span>
+                      <span v-if="data.buyerBadge" class="buyer-badge"
+                        ><span class="badge-text">خریدار</span></span
+                      >
+                    </div>
+                    <!-- ==================================================================================== -->
+                  </div>
+                </div>
+                <div class="description-wrapper">
+                  <div ref="test" class="p-commentedproduct-description">
+                    {{ data.Body }}
+                  </div>
+                  <div
+                    @click="showMoreDescription(index)"
+                    class="show-more-button"
+                  >ادامه</div>
                 </div>
               </div>
             </div>
-
-            <div class="p-comments__state-desktop">
-              <base-signs type="confirmed" v-if="typeof data.confirmLeave === 'undefined'" :title="data.dateConvert"></base-signs>
-              <base-signs type="confirmed" v-if="data.confirmLeave === 1"></base-signs>
-              <base-signs type="waiting" v-if="data.confirmLeave === 2"></base-signs>
-            </div>
-          </div>
-<!-- ==================================================================================== -->
-          <div class="w-100 flex-column p-comment-content-data-main">
-          <div class="w-100 p-commentedproduct-main text-right">
-          <div class="p-commented-default-main">
-
-          <div
-            class="p-commented-default-pic p-commented-product-img"
-          ></div>
-          </div>
-          <div class="p-product-content-data">
-          <span class="p-product-content-text-data ">
-            {{ data.Firstname }}
-            {{ data.Lastname }}
-          </span>
-          <div class="p-product-content-rating-data ">
-            <div class="stars-outer">
-              <div
-                class="stars-inner"
-                :style="{
-                  width: (data.Rate * 100) / 5 + '%',
-                }"
-              ></div>
-            </div>
-            <span class="rate-counter"> {{ data.Rate }}</span>
-            <span class="rate-count">
-              {{ getTextByTextKey("commnets_star_from_text") }} 5
-            </span>
-            <span v-if="data.buyerBadge" class="buyer-badge"
-                    ><span class="badge-text">خریدار</span></span
-                  >
-          </div>
-<!-- ==================================================================================== -->
+            <comment-like-and-dislike></comment-like-and-dislike>
           </div>
         </div>
-        <div
-          :class="{
-            'full-description__active': data.selected,
-          }"
-        >
-          <div ref="test" class="p-commentedproduct-description">
-            {{ data.Body }}
-          </div>
 
-          <span
-            v-if="data.showCircle"
-            @click="showMoreDescription(data)"
-            alt=""
-            class="more__arrow-icon"
-          >
-          </span>
+        <div @click="moreCommentMobile" class="comment_more" style="">
+          <div class="comment_main">
+            <h3 class="comment__more-title">
+              {{ getTextByTextKey("product_more") }} 5
+            </h3>
+            <span class="comment-more__icon"></span>
+          </div>
         </div>
+        <base-pagination
+          class="comment-pagination"
+          @pageChanged="pageChanged"
+        ></base-pagination>
       </div>
     </div>
-    <comment-like-and-dislike></comment-like-and-dislike>
-  </div>
-</div>
- 
- <div @click="moreCommentMobile" class="comment_more" style="">
-<div class="comment_main">
-  <h3 class="comment__more-title">
-    {{ getTextByTextKey("product_more") }} 5
-  </h3>
-  <span class="comment-more__icon"></span>
-</div>
-</div>
-<base-pagination class="comment-pagination" @pageChanged="pageChanged"></base-pagination>
-</div>
-</div>
 
-<!--    Add Comment Modal-->
-<transition name="backdrop-scale">
-  <div class="backdrop" v-if="showModal"></div>
-</transition>
-<transition :name="modalAnimation">
-  <modal-add-comment
-    v-if="showModal"
-    :modal-mode="modalAnimation"
-    class="comment__modal--data"
-    @submit-data="submitData"
-    :comments-data="commentsData"
-    @close-modal="modalClose"
-  ></modal-add-comment>
-</transition>
+    <!--    Add Comment Modal-->
+    <transition name="backdrop-scale">
+      <div class="backdrop" v-if="showModal"></div>
+    </transition>
+    <transition :name="modalAnimation">
+      <modal-add-comment
+        v-if="showModal"
+        :modal-mode="modalAnimation"
+        class="comment__modal--data"
+        @submit-data="submitData"
+        :comments-data="commentsData"
+        @close-modal="modalClose"
+      ></modal-add-comment>
+    </transition>
 
-<!-- Modal Sort Mobile -->
-<transition name="backdrop-scale">
-  <div class="backdrop-phone"  v-if="selectedComponent === 'sort-modal'" @click="setComponent('')"></div>
-</transition>
-<transition name="phone">
-<base-modal
-  class="modal-container modal modal-animation__open"
-  @close-modal="modalClose"
-  v-if="selectedComponent === 'sort-modal'"
->
-  <div class="w-100 p-modal-header-mobile">
-      <span  class="modal__close-line"></span>
-    <div class="p-modal-header-top align-items-center">
-        <span @click="modalClose" class="title-icon"> </span>
-      <span class="p-modal-header-top-title">
-      چینش بر اساس:
-      </span>
-    </div>
-    <hr class="splicer-line" />
-  </div>
-
-  <div class="p-modal-header-desktop w-100 flex-column">
-    <div class="w-100 modal-sort__content">
+    <!-- Modal Sort Mobile -->
+    <transition name="backdrop-scale">
       <div
-      @click="selectRadioButton()"
-      class="sub-items"
-      v-for="sort in sortData" :key="sort.id"
+        class="backdrop-phone"
+        v-if="selectedComponent === 'sort-modal'"
+        @click="setComponent('')"
+      ></div>
+    </transition>
+    <transition name="phone">
+      <base-modal
+        class="modal-container modal modal-animation__open"
+        @close-modal="modalClose"
+        v-if="selectedComponent === 'sort-modal'"
       >
-        <base-radioButton
-          @active-radio="activeRadio"
-          :class="`${selectRadio ? 'active-radio' : 'sort-radio' }`"
-          name="name"
-          mode="circle"
-          v-model="radiobuttonsValues"
-          :title="sort.title"
-        ></base-radioButton>
-      </div>
-    </div>
-    <div class="w-100 modal-filter__btn">
-      <base-button
-        @button-clicked="closeComponent()"
-        classes="p-product-btn"
-        base-color="yellow"
-        no-box-shadow
-      >
-      اعمال
-      </base-button>
-      <base-button
-        @button-clicked="closeComponent()"
-        classes="modal-cancel"
-        no-box-shadow
-        base-color="light-gray"
-      >
-        انصراف
-      </base-button>
-    </div>
-  </div>
-</base-modal>
-</transition>
+        <div class="w-100 p-modal-header-mobile">
+          <span class="modal__close-line"></span>
+          <div class="p-modal-header-top align-items-center">
+            <span @click="modalClose" class="title-icon"> </span>
+            <span class="p-modal-header-top-title"> چینش بر اساس: </span>
+          </div>
+          <hr class="splicer-line" />
+        </div>
 
-<!-- Modal Filter Mobile -->
-<transition name="backdrop-scale">
-  <div class="backdrop-phone" v-if="selectedComponent === 'filter-modal'" @click="setComponent('')"></div>
-</transition>
-<transition name="phone">
-<base-modal
-class="modal-container modal modal-animation__open"
-@close-modal="modalClose"
-v-if="selectedComponent === 'filter-modal'"
->
-<div class="w-100 p-modal-header-mobile">
-  <span  class="modal__close-line"></span>
-  <div class="p-modal-header-top align-items-center">
-    <span class="title-icon-filter"> </span>
-    <span class="p-modal-header-top-title">
-    فیلتر بر اساس:
-    </span>
-  </div>
-  <hr class="splicer-line" />
-</div>
+        <div class="p-modal-header-desktop w-100 flex-column">
+          <div class="w-100 modal-sort__content">
+            <div
+              @click="selectRadioButton()"
+              class="sub-items"
+              v-for="sort in sortData"
+              :key="sort.id"
+            >
+              <base-radioButton
+                @active-radio="activeRadio"
+                :class="`${selectRadio ? 'active-radio' : 'sort-radio'}`"
+                name="name"
+                mode="circle"
+                v-model="radiobuttonsValues"
+                :title="sort.title"
+              ></base-radioButton>
+            </div>
+          </div>
+          <div class="w-100 modal-filter__btn">
+            <base-button
+              @button-clicked="closeComponent()"
+              classes="p-product-btn"
+              base-color="yellow"
+              no-box-shadow
+            >
+              اعمال
+            </base-button>
+            <base-button
+              @button-clicked="closeComponent()"
+              classes="modal-cancel"
+              no-box-shadow
+              base-color="light-gray"
+            >
+              انصراف
+            </base-button>
+          </div>
+        </div>
+      </base-modal>
+    </transition>
 
-<div class="p-modal-header-desktop w-100 flex-column">
-  <div class="w-100 modal-sort__content">
-    <div
-    class="sub-items"
-    v-for="option in options" :key="option.code"
-    >
-      <base-checkbox
-        class="brand-checkbox"
-        name="name"
-        :val="option.name"
-        mode="square"
-        v-model="checkboxValues"
-        :title="option.name"
-      ></base-checkbox>
-    </div>
-  </div>
-  <div class="w-100 modal-filter__btn">
-    <base-button
-      @button-clicked="closeComponent()"
-      classes="p-product-btn"
-      base-color="yellow"
-      no-box-shadow
-    >
-    انتخاب
-    </base-button>
-    <base-button
-      @button-clicked="closeComponent()"
-      classes="modal-cancel"
-      no-box-shadow
-      base-color="light-gray"
-    >
-      انصراف
-    </base-button>
-  </div>
-</div>
-</base-modal>
-</transition>
+    <!-- Modal Filter Mobile -->
+    <transition name="backdrop-scale">
+      <div
+        class="backdrop-phone"
+        v-if="selectedComponent === 'filter-modal'"
+        @click="setComponent('')"
+      ></div>
+    </transition>
+    <transition name="phone">
+      <base-modal
+        class="modal-container modal modal-animation__open"
+        @close-modal="modalClose"
+        v-if="selectedComponent === 'filter-modal'"
+      >
+        <div class="w-100 p-modal-header-mobile">
+          <span class="modal__close-line"></span>
+          <div class="p-modal-header-top align-items-center">
+            <span class="title-icon-filter"> </span>
+            <span class="p-modal-header-top-title"> فیلتر بر اساس: </span>
+          </div>
+          <hr class="splicer-line" />
+        </div>
+
+        <div class="p-modal-header-desktop w-100 flex-column">
+          <div class="w-100 modal-sort__content">
+            <div class="sub-items" v-for="option in options" :key="option.code">
+              <base-checkbox
+                class="brand-checkbox"
+                name="name"
+                :val="option.name"
+                mode="square"
+                v-model="checkboxValues"
+                :title="option.name"
+              ></base-checkbox>
+            </div>
+          </div>
+          <div class="w-100 modal-filter__btn">
+            <base-button
+              @button-clicked="closeComponent()"
+              classes="p-product-btn"
+              base-color="yellow"
+              no-box-shadow
+            >
+              انتخاب
+            </base-button>
+            <base-button
+              @button-clicked="closeComponent()"
+              classes="modal-cancel"
+              no-box-shadow
+              base-color="light-gray"
+            >
+              انصراف
+            </base-button>
+          </div>
+        </div>
+      </base-modal>
+    </transition>
   </div>
 </template>
 
@@ -435,12 +448,12 @@ export default {
       userComments: -1,
       showModal: false,
       showSortModal: false,
-      windowWidth: 0,
-      selectedComponent: '',
+      // windowWidth: 0,
+      selectedComponent: "",
       checkboxValues: [],
       radiobuttonsValues: [],
       selectedRadioBtnData: {},
-      subitems:[],
+      subitems: [],
       open: false,
       selectRadio: false,
       selectedAll: false,
@@ -449,37 +462,36 @@ export default {
       show: false,
       tag: false,
       options: [
-        { name: 'جدیدترین نظرات', code: '1',   tag: 'first'},
-        { name: 'بالاترین امتیاز', code: '2',   tag: 'sec'},
-        { name: 'نظر خریداران', code: '3',   tag: 'third' },
-        { name: 'مهمترین نظرات', code: '4',   tag: 'four' },
-        { name: 'باحالترین نظرات', code: '5',   tag: 'five' },
+        { name: "جدیدترین نظرات", code: "1", tag: "first" },
+        { name: "بالاترین امتیاز", code: "2", tag: "sec" },
+        { name: "نظر خریداران", code: "3", tag: "third" },
+        { name: "مهمترین نظرات", code: "4", tag: "four" },
+        { name: "باحالترین نظرات", code: "5", tag: "five" },
       ],
       sortData: [
         {
           id: 1,
-          title: 'همه نظرات',
-          value: 'new'
+          title: "همه نظرات",
+          value: "new",
         },
         {
           id: 2,
-          title: 'نظرات منفی',
-          new: 'negative'
+          title: "نظرات منفی",
+          new: "negative",
         },
         {
           id: 3,
-          title: 'نظرات مثبت',
-          new: 'positive'
-        }
+          title: "نظرات مثبت",
+          new: "positive",
+        },
       ],
-      
     };
   },
   computed: {
     closeModalAddComment() {
       return this.$store.getters["product/single/single/closeModalAddComment"];
     },
-    commentsData(){
+    commentsData() {
       return this.$store.getters["product/single/single/commentsData"];
     },
     modalAnimation() {
@@ -500,7 +512,7 @@ export default {
     },
     showSortModal(val) {
       this.activeBlur = !!val;
-    }
+    },
   },
 
   created() {
@@ -508,26 +520,37 @@ export default {
   },
 
   mounted() {
-    window.addEventListener("resize", this.handleResize);
-    this.handleResize();
-    setTimeout(() => {
-      const el = document.querySelectorAll(".p-commentedproduct-description");
-      var elementList = el;
-      for (var idx = 0; idx < elementList.length; idx++) {
-        if (this.isEllipsisActive(elementList.item(idx))) {
-          elementList.item(idx).className =
-            elementList.item(idx).className + " ellipsis-active";
-          elementList.item(idx).title = elementList.item(idx).innerHTML;
-        }
-      }
-    }, 100);
+    this.showMoreButton();
+    window.addEventListener('resize',()=>{this.showMoreButton()})
   },
 
   methods: {
     getTextByTextKey,
-    changearrow () {
-      this.show = !this.show
-      this.open = !this.open
+    showMoreButton(){
+    const commentsBody = document.getElementsByClassName("description-wrapper");
+    for (const commentBody of commentsBody) {
+      if (commentBody.children[0].scrollHeight > 80) {
+        commentBody.classList.add("hidden");
+      } else {
+        commentBody.classList.remove("hidden");
+      }
+    }
+    },
+    showMoreDescription(index) {
+      const commentsBody = document.getElementsByClassName(
+        "description-wrapper"
+      )[index];
+      commentsBody.classList.toggle("show");
+      if(commentsBody.classList.contains('show')){
+        commentsBody.children[0].style.height = commentsBody.children[0].scrollHeight + 'px';
+      }
+      else{
+        commentsBody.children[0].style.height ='80px'
+      }
+    },
+    changearrow() {
+      this.show = !this.show;
+      this.open = !this.open;
     },
     buttonIsactiveAll() {
       this.selectedAll = !this.selectedAll;
@@ -541,21 +564,21 @@ export default {
     },
     buttonIsactivePos() {
       this.selectedPos = !this.selectedPos;
-      this.selectedAll= false;
-      this.selectedNeg= false;
+      this.selectedAll = false;
+      this.selectedNeg = false;
     },
 
-    showMoreDescription(data) {
-      this.commentsData.map((content) => {
-        if (content.id == data.id) {
-          content.selected = !content.selected;
-        }
-      });
-      // this.updateSelected++;
-    },
-    handleResize() {
-      this.windowWidth = window.innerWidth;
-    },
+    // showMoreDescription(data) {
+    //   this.commentsData.map((content) => {
+    //     if (content.id == data.id) {
+    //       content.selected = !content.selected;
+    //     }
+    //   });
+    //   // this.updateSelected++;
+    // },
+    // handleResize() {
+    //   this.windowWidth = window.innerWidth;
+    // },
     modalClose() {
       this.showModal = false;
     },
@@ -575,9 +598,9 @@ export default {
       this.$emit("more-comment-mobile", 1);
     },
 
-    isEllipsisActive(e) {
-      return e.offsetWidth < e.scrollWidth;
-    },
+    // isEllipsisActive(e) {
+    //   return e.offsetWidth < e.scrollWidth;
+    // },
 
     showModalAddComment() {
       this.showModal = true;
@@ -586,17 +609,6 @@ export default {
     submitData(data) {
       this.$emit("submit-data", data);
     },
-    // modal sort
-    // submitModal() {
-    //   this.sortData.map((content, index) => {
-    //     content.checked = content.id === this.selectedRadioBtnData.id;
-    //   });
-    //
-    //   // this.$store.state.category.submitSortModal     = true;
-    //   this.$store.commit("category/updateStateModals", {
-    //     submitSortModal: true,
-    //   });
-    // },
     activeRadio(data) {
       this.selectedRadioBtnData = data;
     },
@@ -604,19 +616,18 @@ export default {
       this.showSortModal = true;
       this.$emit("show-modal-sort");
     },
-    setComponent(component){
+    setComponent(component) {
       this.selectedComponent = component;
     },
-    closeComponent(){
-      this.selectedComponent ='';
+    closeComponent() {
+      this.selectedComponent = "";
     },
-    closeIcon(index){
-        this.$delete(this.checkboxValues, index);
+    closeIcon(index) {
+      this.$delete(this.checkboxValues, index);
     },
-    selectRadioButton () {
-      this.selectRadio = !this.selectRadio
+    selectRadioButton() {
+      this.selectRadio = !this.selectRadio;
     },
-    
   },
 };
 </script>
@@ -630,32 +641,36 @@ export default {
   @extend .modal-backdrop;
   background-color: $overlay--profile;
 }
-.backdrop-phone{
+.backdrop-phone {
   @extend .modal-backdrop;
   background-color: $overlay--profile;
+  display: none;
+  @include xs {
+    display: block;
+  }
 }
 
 // ............... Desktop Style..................... //
-.filter{
+.filter {
   @include display-flex();
 }
-.filter__title{
+.filter__title {
   margin-top: toRem(5);
   font-size: toRem(16);
 
-  &::before{
+  &::before {
     content: "\e840";
     margin-left: toRem(5);
     @include font-icon__limoo();
     font-size: toRem(20);
-    color:$black-topic;
+    color: $black-topic;
   }
 }
-.multiselect__tags-wrap{
+.multiselect__tags-wrap {
   @include display-flex();
 }
 
-.multiselect__tag{
+.multiselect__tag {
   @include display-flex();
   margin-top: toRem(-25);
   margin-bottom: toRem(10);
@@ -666,43 +681,43 @@ export default {
   color: $gray-2;
   background: $orange-6;
   overflow: hidden;
-  max-width:100%;
+  max-width: 100%;
   text-overflow: ellipsis;
-  white-space:nowrap;
-  .text-tag{
+  white-space: nowrap;
+  .text-tag {
     @include display-flex();
-    padding: toRem(4) toRem(8) ;
+    padding: toRem(4) toRem(8);
     font-size: toRem(12);
-    @include sm{
-    font-size: toRem(9);
-    margin-top: toRem(3);
-  }
-    @include xs{
+    @include sm {
+      font-size: toRem(9);
+      margin-top: toRem(3);
+    }
+    @include xs {
       font-size: toRem(12);
       margin-top: toRem(1);
-  }
+    }
   }
 
-  .icon-close{
+  .icon-close {
     &::before {
-      margin:toRem(10.5) toRem(8);
-      padding:0!important;
-      cursor:pointer;
+      margin: toRem(10.5) toRem(8);
+      padding: 0 !important;
+      cursor: pointer;
       content: "\e808";
       @include font-icon__limoo();
       font-size: toRem(6);
-      color:$gray-4;
-      @include sm{
+      color: $gray-4;
+      @include sm {
         margin: 0 toRem(3);
       }
-      @include xs{
+      @include xs {
         margin: 0 toRem(8);
       }
     }
   }
 }
-.multiselect__tag:last-child{
-  margin-left: toRem(29)!important;
+.multiselect__tag:last-child {
+  margin-left: toRem(29) !important;
 }
 .dropdown {
   width: toRem(334);
@@ -715,64 +730,64 @@ export default {
   border-radius: toRem(10);
   cursor: pointer;
 
-.text{
-  padding: toRem(13) toRem(15) toRem(14) 0;
-  font-size: toRem(14);
-  color: $gray-2;
-}
-.items{
-  @include display-flex();
-  flex-direction: column;
-  align-items: flex-start;
-  position: absolute;
-  top: toRem(43.2);
-  margin-right: toRem(-1);
-  width: 100.7%;
-  height: toRem(152);
-  overflow-y: scroll;
-  list-style: none;
-  border: toRem(1) solid $gray-5;
-  background: $white;
-  box-shadow: 0px 20px 24px rgba(17, 17, 17, 0.06);
-  border-bottom-left-radius: toRem(10);
-  border-bottom-right-radius: toRem(10);
+  .text {
+    padding: toRem(13) toRem(15) toRem(14) 0;
+    font-size: toRem(14);
+    color: $gray-2;
+  }
+  .items {
+    @include display-flex();
+    flex-direction: column;
+    align-items: flex-start;
+    position: absolute;
+    top: toRem(43.2);
+    margin-right: toRem(-1);
+    width: 100.7%;
+    height: toRem(152);
+    overflow-y: scroll;
+    list-style: none;
+    border: toRem(1) solid $gray-5;
+    background: $white;
+    box-shadow: 0px 20px 24px rgba(17, 17, 17, 0.06);
+    border-bottom-left-radius: toRem(10);
+    border-bottom-right-radius: toRem(10);
 
-.sub-items{
-  @include display-flex();
-  width: 100%;
-  border-bottom:1px solid $gray-5;
-  padding: toRem(15) toRem(15) toRem(15) 0!important;
+    .sub-items {
+      @include display-flex();
+      width: 100%;
+      border-bottom: 1px solid $gray-5;
+      padding: toRem(15) toRem(15) toRem(15) 0 !important;
+    }
   }
-}
-.icon{
-  &::before {
-    position: absolute;
-    cursor:pointer;
-    top: toRem(18);
-    left: toRem(11);
-    content: "\e841";
-    margin-left: toRem(1);
-    @include font-icon__limoo();
-    font-size: toRem(7);
-    color:$gray-4;
+  .icon {
+    &::before {
+      position: absolute;
+      cursor: pointer;
+      top: toRem(18);
+      left: toRem(11);
+      content: "\e841";
+      margin-left: toRem(1);
+      @include font-icon__limoo();
+      font-size: toRem(7);
+      color: $gray-4;
+    }
   }
-}
-.changeicon{
-  &::before {
-    transform: rotate(-180deg);
-    position: absolute;
-    cursor:pointer;
-    top: toRem(18);
-    left: toRem(11);
-    content: "\e841";
-    margin-left: toRem(1);
-    @include font-icon__limoo();
-    font-size: toRem(7);
-    color:$gray-4;
+  .changeicon {
+    &::before {
+      transform: rotate(-180deg);
+      position: absolute;
+      cursor: pointer;
+      top: toRem(18);
+      left: toRem(11);
+      content: "\e841";
+      margin-left: toRem(1);
+      @include font-icon__limoo();
+      font-size: toRem(7);
+      color: $gray-4;
     }
   }
 }
-.changedropdown{
+.changedropdown {
   border-bottom-left-radius: 0px !important;
   border-bottom-right-radius: 0px !important;
 }
@@ -782,8 +797,8 @@ export default {
   font-family: inherit;
   font-size: toRem(13);
   margin: toRem(18) toRem(24) 0 0;
-  border: 1px solid $gray-4!important;
-  color: $gray!important;
+  border: 1px solid $gray-4 !important;
+  color: $gray !important;
 }
 .active-button {
   width: toRem(94);
@@ -791,12 +806,10 @@ export default {
   font-family: inherit;
   font-size: toRem(13);
   margin: toRem(18) toRem(24) 0 0;
-  border: none!important;
-  color:$gray-2!important;
-  background-color:$orange-2!important;
+  border: none !important;
+  color: $gray-2 !important;
+  background-color: $orange-2 !important;
 }
-
-
 
 .user-comments__empty-container {
   @include display-flex();
@@ -925,6 +938,7 @@ export default {
 .p-comments__header-holder {
   @include display-flex();
   flex-direction: column;
+  justify-content: center;
 }
 .p-comments__title {
   @include display-flex();
@@ -935,6 +949,9 @@ export default {
   color: $black-topic;
   margin-top: toRem(16);
   text-decoration: none;
+  @include xxs {
+    display: none;
+  }
 }
 .p-comments-idea__title {
   @include display-flex();
@@ -949,9 +966,10 @@ export default {
   line-height: 140.62%;
   @include xs {
     font-size: toRem(12);
+    margin-top: toRem(4);
   }
   @include xxs {
-    font-size: toRem(10);
+    font-size: toRem(11);
   }
 }
 .idea-good {
@@ -963,11 +981,27 @@ export default {
 .idea-mid {
   color: $code-request;
 }
-.p-comments__state-desktop {
+.comments-time {
   margin: auto 0;
-}
-.p-comments__state-mobile {
-  display: none;
+  &-content {
+    color: $gray;
+    .time {
+      font-size: toRem(14);
+      line-height: 140.62%;
+      @include xs {
+        font-size: toRem(12.5);
+      }
+    }
+    .time-icon::before {
+      content: "\e82c";
+      @include font-icon__limoo();
+      font-size: toRem(14);
+      margin-left: toRem(9);
+      @include xs {
+        display: none;
+      }
+    }
+  }
 }
 /* =========================== */
 .p-favorite-product-item-icon-delete::before {
@@ -1019,20 +1053,79 @@ export default {
 .p-product-content-rating-data {
   margin-top: toRem(16);
 }
-.p-commentedproduct-description {
-  color: $dark_gray;
-  font-family: inherit;
-  text-align: right;
-  font-size: toRem(16);
-  margin: toRem(24) toRem(24) toRem(24) toRem(96);
-  line-height: 2.3em;
-  max-width: 880px;
-  min-height: toRem(80);
-  display: -webkit-box;
-  -webkit-line-clamp: 5;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
+
+.lorm-text {
+  height: toRem(100);
 }
+
+.description-wrapper {
+  .p-commentedproduct-description {
+    transition: all .3s ease;
+    color: $dark_gray;
+    font-family: inherit;
+    text-align: right;
+    font-size: toRem(16);
+    margin: toRem(24) toRem(24) toRem(24) toRem(96);
+    line-height: toRem(38);
+    height: toRem(80);
+    // overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    text-overflow: ellipsis;
+    @include md {
+      margin: toRem(12);
+      font-size: toRem(15);
+    }
+    @include xs{
+      font-size: toRem(14);
+      line-height: toRem(35);
+    }
+    @include xxs {
+      line-height: toRem(28);
+      -webkit-line-clamp: 3;
+    }
+  }
+  .show-more-button {
+    display: none;
+    position: relative;
+    width: max-content;
+    margin: 0 auto;
+    color: $gray;
+    cursor: pointer;
+    &::after {
+      left: toRem(-20);
+      top:toRem(6);
+      transition: all 0.3s ease;
+      position: absolute;
+      content: "\e841";
+      font-size: toRem(8);
+      @include font-icon__limoo();
+      color: $gray;
+    }
+  }
+  &.hidden {
+    .p-commentedproduct-description {
+      overflow: hidden;
+    }
+    .show-more-button {
+        display: block;
+    }
+  }
+  &.show {
+    .p-commentedproduct-description {
+      transition: all .3s ease;
+      display: block;
+    }
+    .show-more-button {
+      &::after {
+        transition: all 0.3s ease;
+        transform: rotate(180deg);
+      }
+    }
+  }
+}
+
 .p-commentedproduct-main {
   @include display-flex();
   margin-top: toRem(20);
@@ -1133,11 +1226,6 @@ export default {
   @include font-icon__arrow();
   color: $input-border;
 }
-.full-description__active .p-commentedproduct-description {
-  height: auto;
-  -webkit-line-clamp: inherit;
-  max-height: inherit;
-}
 .comment-more__icon::after {
   content: "\e801";
   @include font-icon__limoo();
@@ -1184,10 +1272,14 @@ export default {
   font-family: inherit;
   margin-bottom: 1.5rem;
   margin-top: toRem(52);
-  border: 2px solid $orange!important;
-  color: $orange!important;
+  border: 2px solid $orange !important;
+  color: $orange !important;
 }
-
+.modal-container::v-deep {
+  dialog {
+    display: none;
+  }
+}
 
 @include xl {
   .p-comments-content-header-item {
@@ -1195,9 +1287,6 @@ export default {
   }
   .p-comments-content-header-item:last-of-type {
     margin-left: 0;
-  }
-  .p-commentedproduct-description {
-    -webkit-line-clamp: 4;
   }
 }
 
@@ -1217,9 +1306,6 @@ export default {
   }
   .p-comments-content-main {
   }
-  .p-commentedproduct-description {
-    font-size: toRem(14);
-  }
   .comment-pagination::v-deep {
     .right-arrow,
     .left-arrow,
@@ -1238,13 +1324,13 @@ export default {
   .comments-add__comment {
     width: toRem(259);
     margin: 1.5rem 0;
-    margin-top:toRem(40);
+    margin-top: toRem(40);
     height: toRem(47);
   }
   .tabs__content {
     padding-top: 0 !important;
   }
-  .filter__title{
+  .filter__title {
     margin-top: toRem(30);
   }
   .filter-button {
@@ -1265,10 +1351,10 @@ export default {
     border: toRem(1) solid $gray-5;
     border-radius: toRem(10);
     cursor: pointer;
-}
-  .text-tag{
+  }
+  .text-tag {
     @include display-flex();
-    padding: toRem(4) toRem(4) ;
+    padding: toRem(4) toRem(4);
     font-size: toRem(11.5);
   }
 }
@@ -1295,12 +1381,6 @@ export default {
     font-size: toRem(14);
     margin-top: toRem(24);
   }
-  .p-comments__state-desktop {
-    display: none;
-  }
-  .p-comments__state-mobile {
-    display: block;
-  }
   .stars-outer::before,
   .stars-inner::before {
     font-size: toRem(10);
@@ -1311,7 +1391,6 @@ export default {
     font-size: toRem(13);
   }
   .p-comments-content-header {
-    flex-flow: column;
     height: auto;
     background: $white;
     padding-right: toRem(11);
@@ -1322,14 +1401,7 @@ export default {
     margin-bottom: toRem(8);
   }
   /* 00000000000000000000000000 */
-  .p-commentedproduct-description {
-    font-size: toRem(13);
-    margin: toRem(16) toRem(11) 0 toRem(37);
-    overflow: hidden;
-    text-overflow: ellipsis;
-    text-justify: inter-word;
-    -webkit-line-clamp: 3;
-  }
+
   .show-more-description {
     @include display-flex();
     justify-content: flex-end;
@@ -1432,9 +1504,9 @@ export default {
 
     dialog {
       &.delete {
-      min-width: 100%;
-        bottom:0;
-        margin:0;
+        min-width: 100%;
+        bottom: 0;
+        margin: 0;
       }
     }
   }
@@ -1456,7 +1528,7 @@ export default {
     font-weight: 400;
     margin: toRem(48) toRem(6.75) toRem(16) toRem(60);
   }
-  .p-modal-header-top{
+  .p-modal-header-top {
     margin-top: toRem(24);
   }
   .p-modal-header {
@@ -1465,7 +1537,7 @@ export default {
   }
   .title-icon {
     &::before {
-      margin: toRem(51.75) toRem(25.75)  toRem(18.75) 0;
+      margin: toRem(51.75) toRem(25.75) toRem(18.75) 0;
       content: "\e83f";
       @include font-icon__limoo();
       font-size: toRem(20);
@@ -1485,44 +1557,44 @@ export default {
   .sub-items {
     @include display-flex();
     width: 100%;
-    padding-bottom:toRem(24)!important;
-    padding-right:toRem(26)!important;
+    padding-bottom: toRem(24) !important;
+    padding-right: toRem(26) !important;
   }
   .sub-items:last-child {
-    padding-bottom: 0!important;
+    padding-bottom: 0 !important;
   }
   .modal-filter__btn {
-      @include display-flex();
-      justify-content: center;
-       margin-top:toRem(50);
-       margin-bottom: toRem(35);
-     }
+    @include display-flex();
+    justify-content: center;
+    margin-top: toRem(50);
+    margin-bottom: 25%;
+  }
 
-     .p-product-btn {
-        width: 40%;
-        height: toRem(47);
-        font-size: toRem(14);
-        color: $gray-2;
-        border-radius: toRem(10);
-        margin-left: toRem(24);
-        }
-        .modal-cancel {
-          width: 40%;
-          height: toRem(47);
-          font-size: toRem(14);
-          color:$gray-3;
-          border-radius: toRem(10);
-        }
+  .p-product-btn {
+    width: 40%;
+    height: toRem(47);
+    font-size: toRem(14);
+    color: $gray-2;
+    border-radius: toRem(10);
+    margin-left: toRem(24);
+  }
+  .modal-cancel {
+    width: 40%;
+    height: toRem(47);
+    font-size: toRem(14);
+    color: $gray-3;
+    border-radius: toRem(10);
+  }
 
-          .title-icon-filter {
-            padding: toRem(57.71) toRem(27.71)  toRem(21.71) 0;
-            &::before {
-              content: "\e840";
-              @include font-icon__limoo();
-              font-size: toRem(18);
-              color: $gray-2;
-            }
-          }
+  .title-icon-filter {
+    padding: toRem(57.71) toRem(27.71) toRem(21.71) 0;
+    &::before {
+      content: "\e840";
+      @include font-icon__limoo();
+      font-size: toRem(18);
+      color: $gray-2;
+    }
+  }
 
   // .modal-animation__open {
   //     animation: modalOpen 600ms linear;
@@ -1550,80 +1622,82 @@ export default {
     display: flex;
     flex-flow: column;
   }
-  .responsive{
-  display:flex!important;
+  .responsive {
+    display: flex !important;
   }
-  .filter{
-    display:none!important;
+  .filter {
+    display: none !important;
   }
-  .filter__title{
-    display:none;
+  .filter__title {
+    display: none;
   }
   .products__filter-btns {
-    display:flex!important;
-    justify-content:space-around;
+    display: flex !important;
+    justify-content: space-around;
     margin-bottom: toRem(40);
-    @include xxs{
-      margin-bottom: toRem(30)
+    @include xxs {
+      margin-bottom: toRem(30);
     }
   }
-.products__filter-btn {
-  @include display-flex();
-  justify-content: center;
-  margin-left: 1.3125rem;
-  font-family: inherit;
-  width: toRem(207);
-  height: toRem(47);
-  @include xxs{
+  .products__filter-btn {
+    @include display-flex();
+    justify-content: center;
+    align-items: center;
+    margin-left: 1.3125rem;
+    font-family: inherit;
+    width: toRem(207);
+    height: toRem(36);
     font-size: toRem(14);
-  }
-  .filter-search-icon {
-    margin-left:toRem(9.6);
-    &::before {
-      content: "\e840";
-      @include font-icon__limoo();
-      font-size: toRem(20);
-      color: white;
-      @include xxs{
+    .filter-search-icon {
+      margin-left: toRem(9.6);
+      margin-top: toRem(2);
+      &::before {
+        content: "\e840";
+        @include font-icon__limoo();
         font-size: toRem(14);
+        color: white;
+        @include xxs {
+          font-size: toRem(14);
+        }
+      }
+    }
+    .arrow-down-icon {
+      margin-left: toRem(9.6);
+      margin-top: toRem(2);
+
+      &::before {
+        content: "\e83f";
+        @include font-icon__limoo();
+        font-size: toRem(14);
+        color: white;
+        @include xxs {
+          font-size: toRem(14);
+        }
       }
     }
   }
-  .arrow-down-icon {
-    margin: 0 0 0 0.6rem;
-    &::before {
-      content: "\e83f";
-      @include font-icon__limoo();
-      font-size: toRem(20);
-      color: white;
-      @include xxs{
-        font-size: toRem(14);
-      }
-    }
+  .products__filter-btn:last-of-type {
+    margin-left: 0;
   }
-}
-.products__filter-btn:last-of-type {
-  margin-left: 0;
-}
-.active--blur {
-  filter: blur(toRem(2));
-  overflow: hidden;
-}
+  .active--blur {
+    filter: blur(toRem(2));
+    overflow: hidden;
+  }
 
   .checkbox-wrapper .container.square {
-    margin-right:26px!important;
+    margin-right: 26px !important;
   }
 
   .radio-btn:first-child {
-    padding-top:0!important;
+    padding-top: 0 !important;
   }
- .radio-btn {
-  border:0!important;
- }
- .modal-sort__items {
-   padding-right: toRem(23)!important;
-   margin-bottom:0!important;
- }
+  .radio-btn {
+    border: 0 !important;
+  }
+  .modal-sort__items {
+    padding-right: toRem(23) !important;
+    margin-bottom: 0 !important;
+  }
 
   .sort-radio {
     color: $gray-3;
@@ -1635,19 +1709,14 @@ export default {
   }
 
   .tag-mobile {
-    margin-left:toRem(4);
+    margin-left: toRem(4);
   }
-  .tag-mobile:first-child{
-      margin-right:toRem(35);
+  .tag-mobile:first-child {
+    margin-right: toRem(35);
   }
 }
 
 @include xxxs {
-  .p-comments__title,
-  .ideas-title {
-    font-size: toRem(12);
-    text-align: right;
-  }
   .p-product-content-data {
     margin-top: toRem(3);
     margin-right: toRem(10);
@@ -1664,9 +1733,5 @@ export default {
   .p-comments-idea__title {
     margin-bottom: toRem(10);
   }
-  .p-commentedproduct-description {
-    margin: toRem(14) toRem(11) toRem(10) toRem(27);
-  }
 }
-
 </style>
