@@ -276,7 +276,6 @@ export default {
     border-radius: 6px;
     position: absolute;
 }
-
 .birthday {
     @include display-flex();
     flex-direction: column;
@@ -369,6 +368,7 @@ export default {
     border: none;
     align-self: center;
 }
+
 @media (max-width: 1220px) {
     .birthday {
         &-item {

@@ -1,11 +1,11 @@
 <template>
   <div id="test" class="profile-container">
-    <transition mode="in-out">
+    <!-- <transition class="change-pass-modal" name="scale"> -->
       <div id="overlay" v-if="passChangeIsActive">
         <The-profile-pass-modal />
       </div>
-    </transition>
-    <the-profile-side-bar class="desktop-screen" />
+    <!-- </transition> -->
+    <the-profile-side-bar class="profile-slide-bar" />
     <div class="mobile-screen">
       <div class="mobile-screen__holder">
         <span class="mobile-screen__holder-txt">{{
@@ -61,7 +61,7 @@
                   :check-typing-submit="false"
                   :use-timer="false"
                   :show-icon-star="false"
-                  :form-data="formData"
+                  form-data=""
                   accessStyleParentInToChildNameId="address__form--data"
                   tag-html="input"
                   timer-start=""
@@ -97,7 +97,7 @@
                   :check-typing-submit="false"
                   :use-timer="false"
                   :show-icon-star="false"
-                  :form-data="formData"
+                  form-data=""
                   accessStyleParentInToChildNameId="address__form--data"
                   tag-html="input"
                   timer-start=""
@@ -107,8 +107,8 @@
                 >
                 </text-input>
               </div>
-              <!--/// email section is ignored in version alpha ///-->
-              <text-input
+              <!-- /// email section is ignored in version alpha ///-->
+              <!-- <text-input
                 class="user-profile__info-email "
                 labelNameClass=""
                 inputNameClass="w-100"
@@ -145,8 +145,9 @@
                 name-input="email"
                 label-text="آدرس ایمیل :"
               >
-              </text-input>
+              </text-input> -->
             <text-input
+                disabledInputDefault
                 class="user-profile__info-phone "
                 labelNameClass=""
                 inputNameClass="w-100"
@@ -172,7 +173,7 @@
                 :check-required="false"
                 :check-typing-submit="false"
                 :use-timer="false"
-                :show-icon-star="true"
+                :show-icon-star="false"
                 :form-data="formData"
                 :disabled-input-default="false"
                 :remove-error="true"
@@ -202,7 +203,7 @@
                 state="authInput"
                 maxlength="10"
                 function-max-len="greaterThan"
-                placeholderText=""
+                :placeholderText="formData.nationalcode"
                 :msgError="{
                   notValidMsg: 'کد ملی نمی تواند شامل حروف باشد!',
                 }"
@@ -220,7 +221,7 @@
                 :check-typing-submit="false"
                 :use-timer="false"
                 :show-icon-star="true"
-                :form-data="formData"
+                form-data=""
                 accessStyleParentInToChildNameId="address__form--data"
                 tag-html="input"
                 timer-start=""
@@ -266,7 +267,7 @@
               >
               </text-input>
             </div>
-            <div class="user-profile__btn-holder">
+            <div class="user-profile__btn-holder d-flex justify-center">
               <base-button
               button-type="submit"
               classes="user-profile__btn"
@@ -317,6 +318,7 @@ export default {
   },
   methods: {
     getTextByTextKey,
+    
     goToProfile() {
       this.$router.push("/profile");
     },
@@ -327,10 +329,13 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
+@include scale-modal-animation();
+@include phone-modal-animation();
 .search-section__items::v-deep {
   background: red !important;
   color: red;
 }
+
 #overlay {
   position: fixed; /* Sit on top of the page content */
   @include display-flex();
@@ -338,23 +343,9 @@ export default {
   align-items: center;
   width: 100%; /* Full width (cover the whole page) */
   height: 100%; /* Full height (cover the whole page) */
-  /* transition: opacity 200ms ease-out; */
-  /* top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0; */
-  z-index: 10;
+  z-index: 1501;
   background: $overlay__profile;
 }
-/* .v-enter-from {
-    opacity: 0;
-}
-.v-enter-active {
-    transition: all 200ms ease-out;
-}
-.v-enter-to {
-    opacity: 0.5;
-} */
 .v-leave-from {
   opacity: 0.5;
 }
@@ -378,7 +369,7 @@ export default {
 }
 .user-profile__holder {
   margin: toRem(166) 0 toRem(50) toRem(16);
-  width: 100%;
+  width: 80%;
   height: auto;
 }
 .user-info__profile__imgholder-default {
@@ -394,7 +385,6 @@ export default {
 .user-profile {
   width: 100%;
   position: relative;
-  height: auto;
   @include display-flex();
   flex-direction: column;
   align-items: center;
@@ -402,15 +392,7 @@ export default {
   background: $white;
   border-radius: toRem(10);
   box-shadow: 0 toRem(8) toRem(16) 0 $box__shadow;
-  &::before{
-    content: "\e86a";
-    @include font-icon__limoo();
-    position: absolute;
-    top: 23%;
-    left: 54.5%;
-    color: $gray-3;
-    font-size: toRem(30);
-  }
+  
   &__topic {
     font-size: toRem(18);
     line-height: toRem(25.31);
@@ -429,6 +411,17 @@ export default {
     width: toRem(162);
     border-radius: 50%;
     background-color: $gray-5;
+    position: relative;
+      &::after{
+      //setting icon
+      content: "\e86a";
+      @include font-icon__limoo();
+      position: absolute;
+      bottom: 5%;
+      right: 4%;
+      color: $gray;
+      font-size: toRem(32);
+    }
   }
   &__info {
     display: grid;
@@ -437,53 +430,58 @@ export default {
     grid-column-gap: toRem(50);
     grid-row-gap: toRem(22);
     margin-top: toRem(40);
+    padding: 0 toRem(90);
+    @media only screen and (max-width: 1280px) {
+      padding: 0 toRem(20);
+      grid-column-gap: toRem(30);
+    }
 
-    // @include lg {
-    //   grid-column-gap: toRem(0);
-    //   width: 100%;
-    // }
+    
     &-name,
-    &-email,
+    // &-email,
     &-phone,
     &-birthday,
     &-nationalcode,
     &-pass {
-      width: 95%;
-      height: toRem(107);
+      width: 100%;
+      // height: toRem(107);
     }
     &-name {
       grid-column: 1/2;
       grid-row: 1/2;
-      background: $white;
       @include display-flex();
-      flex-direction: row;
       justify-content: space-between;
       .name {
-        margin-left: toRem(24);
-        width: toRem(157);
+        width:42%;
+        @media only screen and (max-width: 1280px) {
+          width: 42%;
+          }
       }
       .family {
-        width: toRem(208);
+        width: 51%;
+        @media only screen and (max-width: 1280px) {
+          width: 52%;
+          }
       }
     }
-    &-email{
+    // &-email{
+    //   grid-column: 2/3;
+    //   grid-row: 1/2;
+    // }
+    &-phone {
       grid-column: 2/3;
       grid-row: 1/2;
     }
-    &-phone {
-      grid-column: 1/2;
-      grid-row: 2/3;
-    }
     &-birthday {
-      grid-column: 2/3;
+      grid-column: 1/2;
       grid-row: 2/3;
     }
     &-nationalcode {
-      grid-column: 1/2;
-      grid-row: 3/4;
+      grid-column: 2/3;
+      grid-row: 2/3;
     }
     &-pass {
-      grid-column: 2/3;
+      grid-column: 1/2;
       grid-row: 3/4;
     }
   }
@@ -495,28 +493,15 @@ export default {
     line-height: 140.62%;
   }
   &__btn {
-    margin: toRem(42) auto toRem(48);
+    margin-top: toRem(42) ;
+    margin-bottom: toRem(48);
     height: toRem(57);
-    width: toRem(270);
+    width: 33%;
     font-size: toRem(18);
     font-family: inherit;
     border-radius: toRem(10);
     background-color: $btn__green;
   }
-}
-// #name {
-//   width: 157px;
-// }
-// #family {
-//   width: 208px;
-// }
-// .user--item {
-//   width: toRem(390);
-// }
-.user-profile__container {
-  @extend .align-center;
-  -webkit-flex-flow: column;
-  flex-flow: column;
 }
 .user-profile__container::v-deep {
   .txt-content {
@@ -563,101 +548,15 @@ export default {
 .splicer-line {
   display: none;
 }
-// @include lg {
-//   .user-profile__holder {
-//       margin: 10.375rem -14px 86.125rem 18rem;
-//     width: 70%;
-//     height: auto;
-// }
-// .user-profile{
-//   &__info {
-//     grid-column-gap: toRem(2);
-//     grid-row-gap: toRem(22);
-//     margin-top: toRem(40);
-//     &-name,
-//     &-email,
-//     &-phone,
-//     &-birthday,
-//     &-nationalcode,
-//     &-pass {
-//       width: 80%;
-//       height: toRem(107);
-//       border: 1px solid red;
-// }
-// &__container {
-//       padding: 0 toRem(10) 0 toRem(10);
-//     }
-// }
-// }
-// }
-// @include xxxs {
-//   .user-profile {
-//     &__info {
-//       &-name,
-//       &-email,
-//       &-phone,
-//       &-birthday,
-//       &-nationalcode,
-//       &-pass {
-//         width: 360px;
-//       }
-//     }
-//     &__container {
-//       padding: 0 50px;
-//     }
-//     #name {
-//       width: 137px;
-//     }
-//     #family {
-//       width: 178px;
-//     }
-//     .name::v-deep {
-//       width: 137px;
-//     }
-//     .family::v-deep {
-//       width: 178px;
-//     }
-//   }
-// }
-// @include xxxs {
-//   .user-profile {
-//     &__info {
-//       @include display-flex();
-//       min-width: toRem(570);
-//       &-name,
-//       &-email,
-//       &-phone,
-//       &-birthday,
-//       &-nationalcode,
-//       &-pass {
-//         width: 100%;
-//       }
-//     }
-//     &__container {
-//       padding: 0 toRem(20);
-//     }
-//   }
-//   .user-profile {
-//     #name {
-//       width: toRem(250);
-//     }
-//     #family {
-//       width: toRem(290);
-//     }
-//     .name::v-deep {
-//       width: toRem(250);
-//     }
-//     .family::v-deep {
-//       width: toRem(290);
-//     }
-//   }
-// }
 
 
 
 
 
 @include lg {
+  .profile-slide-bar{
+    // width:280px;
+  }
   .profile-container{
   display: flex;
   flex-direction: row-reverse !important;
@@ -676,12 +575,13 @@ export default {
     margin-bottom: toRem(58);
   }
   .user-profile__holder {
-    margin: toRem(169) toRem(-30);
-    padding: 0 toRem(16);
+    @include display-flex();
+    justify-content: end;
+    width: 60%;
   }
   .user-profile {
-    margin-left: toRem(25);
-    width: 97%;
+    // margin-left: toRem(40);
+    width: 100%;
     &__topic {
       display: none;
     }
@@ -694,13 +594,19 @@ export default {
     margin-top: toRem(38);
     height: toRem(108);
     width: toRem(108);
+    &::after{
+        bottom: 4%;
+        right: 1%;
+      font-size: toRem(25);
+    }
   }
     &__info {
+      
       @include display-flex();
       flex-direction: row-reverse;
       flex-wrap: wrap;
       justify-content: space-between;
-      margin-top: toRem(38);
+      padding: 0 toRem(60);
       min-width: 100%;
       &-name,
       &-email,
@@ -708,12 +614,13 @@ export default {
       &-birthday,
       &-nationalcode,
       &-pass {
-        width: 90%;
+        width: 100%;
         height: toRem(100);
         margin: 0 0 toRem(24) 0;
       }
       &-phone {
         order: 1;
+        
       }
       &-email {
         order: 3;
@@ -721,41 +628,21 @@ export default {
       &-nationalcode {
         order: 2;
       }
-      &-birthday {
+      &-birthday{
         order: 4;
       }
       &-pass {
         order: 5;
       }
-      // &-name > section > label,
-      // &-nationalcode > label,
-      // &-pass > label,
-      // &-phone > label {
-      //   font-size: 40px;
-      // }
-      // #name,
-      // #family,
-      // &-nationalcode > input,
-      // &-pass > input,
-      // &-phone > input {
-      //   font-size: 13px;
-      //   height: 46px;
-      //   width: 302px;
-      //   padding: 14px 16px;
-      // }
-    }
-    &__container {
-      padding: 0 toRem(10) 0 toRem(70);
+     
     }
     &__btn {
       font-size: toRem(16);
-      margin: toRem(38) auto toRem(72);
-      width: toRem(395);
+      margin-top: toRem(42);
+      margin-bottom: toRem(72); 
+      width: 70%;
       margin-bottom: toRem(72);
-      &-holder {
-        padding: 0;
-        width: 100%;
-      }
+      
     }
     &__alert {
       font-size: toRem(13);
@@ -772,11 +659,11 @@ export default {
       height: toRem(52);
     }
     .name {
-      margin-left: toRem(99);
-      width: toRem(208);
+      // margin-left: toRem(99);
+      width: 35%;
     }
     .family {
-      width: toRem(277);
+      width: 50%;
     }
     .signup-input {
       font-size: toRem(16);
@@ -796,7 +683,7 @@ export default {
   #overlay {
     background: $overlay__profile-mobile;
   }
-  .desktop-screen {
+  .profile-slide-bar {
     display: none;
   }
   .mobile-screen {
@@ -809,6 +696,7 @@ export default {
       height: toRem(56);
       background: $white;
       margin-top: toRem(47);
+      margin-bottom: toRem(8);
       &-txt {
         font-size: toRem(14);
         line-height: 140.62%;
@@ -842,8 +730,8 @@ export default {
     margin-bottom: toRem(58);
   }
   .user-profile__holder {
-    margin: toRem(8) 0;
-    padding: 0 toRem(16);
+    margin: toRem(0) 0;
+    width: 100%;
   }
   .user-profile {
     margin-left: 0;
@@ -851,23 +739,28 @@ export default {
     &__topic {
       display: none;
     }
-    &::before{
-    top: 9%;
-    left: 53%;
-    font-size: toRem(25);
-  }
+  //   &::before{
+  //   top: 9%;
+  //   left: 53%;
+  //   font-size: toRem(25);
+  // }
     &__userpic {
     margin-top: toRem(38);
     height: toRem(108);
     width: toRem(108);
+      &::after{
+        bottom: 4%;
+        right: 1%;
+      font-size: toRem(25);
+    }
   }
     &__info {
       @include display-flex();
       flex-direction: row-reverse;
       flex-wrap: wrap;
       justify-content: space-between;
-      margin-top: toRem(38);
       min-width: 100%;
+      padding:0 toRem(150);
       &-name,
       &-email,
       &-phone,
@@ -893,35 +786,17 @@ export default {
       &-pass {
         order: 5;
       }
-      // &-name > section > label,
-      // &-nationalcode > label,
-      // &-pass > label,
-      // &-phone > label {
-      //   font-size: 40px;
-      // }
-      // #name,
-      // #family,
-      // &-nationalcode > input,
-      // &-pass > input,
-      // &-phone > input {
-      //   font-size: 13px;
-      //   height: 46px;
-      //   width: 302px;
-      //   padding: 14px 16px;
-      // }
+    
     }
     &__container {
-      padding: 0 toRem(107) 0 toRem(107);
+      // padding: 0 toRem(107) 0 toRem(107);
     }
     &__btn {
       font-size: toRem(16);
-      margin: toRem(38) auto toRem(72);
-      width: toRem(395);
+      margin-top: toRem(42);
+      width: 50%;
       margin-bottom: toRem(72);
-      &-holder {
-        padding: 0;
-        width: 100%;
-      }
+      
     }
     &__alert {
       font-size: toRem(13);
@@ -938,11 +813,10 @@ export default {
       height: toRem(52);
     }
     .name {
-      margin-left: toRem(99);
-      width: toRem(208);
+      width:40%
     }
     .family {
-      width: toRem(277);
+      width: 50%;
     }
     .signup-input {
       font-size: toRem(16);
@@ -957,7 +831,7 @@ export default {
 }
 @include sm{
   .user-profile__holder {
-    padding: 0 toRem(5);
+    // padding: 0 toRem(5);
   }
   .user-profile {
     margin-left: 0;
@@ -970,6 +844,7 @@ export default {
     &__info {
       margin-top: toRem(38);
       min-width: 100%;
+      padding: 0 toRem(60);
       &-name,
       &-email,
       &-phone,
@@ -1003,10 +878,15 @@ export default {
     margin-top: toRem(43);
     height: toRem(84);
     width: toRem(84);
+      &::after{
+          bottom: 0;
+          right: 0;
+        font-size: toRem(25);
+      }
       }
     &__btn {
-    margin: toRem(39) auto toRem(47);
-    width: 100%;
+    margin-top: toRem(39);
+    width: 50%;
     font-size: toRem(16);
     background-color: $btn__green;
   }
@@ -1035,11 +915,10 @@ export default {
   }
   .user-profile__container::v-deep {
     .name {
-      margin-left: 0;
-      width: toRem(120);
+      width: 40%;
     }
     .family {
-      width: toRem(142);
+      width: 50%;
     }
     .txt-content {
       font-size: toRem(14);
@@ -1064,6 +943,10 @@ export default {
     &__info {
       margin-top: toRem(38);
       min-width: 100%;
+      padding: 0 toRem(15);
+      @media only screen and(max-width: 350px){
+        padding: 0;
+      }
       &-name,
       &-email,
       &-phone,
@@ -1075,19 +958,20 @@ export default {
         margin: auto;
       }
     }
-    // #name {
-    //   width: toRem(120);
-    // }
-    // #family {
-    //   width: toRem(142);
-    // }
+    &__btn {
+      margin-top: toRem(39);
+      margin-bottom: toRem(47);
+      width: 110%;
+      font-size: toRem(16);
+      background-color: red;
+    }
   }
   .user-profile__container::v-deep {
     .name {
-      width: toRem(120);
+      width: 40%;
     }
     .family {
-      width: toRem(142);
+      width: 50%;
     }
      &__container {
       padding: 0 toRem(20) 0 toRem(20);
@@ -1104,7 +988,6 @@ export default {
       font-size: toRem(20);
   }
     &__info {
-      padding: 0;
       margin-top: toRem(38);
       min-width: 100%;
       &-name,
@@ -1129,10 +1012,10 @@ export default {
   }
   .user-profile__container::v-deep {
     .name {
-      width: toRem(100);
+      width: 40%;
     }
     .family {
-      width: toRem(142);
+      width: 50%;
     }
     .signup-input {
       padding: toRem(13);
@@ -1165,14 +1048,7 @@ export default {
         margin: auto;
       }
     }
-    // .name {
-    //   width: 110px;
-    //   padding: 13px;
-    // }
-    // .family {
-    //   width: 135px;
-    //   padding: 13px;
-    // }
+   
   }
   .user-profile__container::v-deep {
     .name {

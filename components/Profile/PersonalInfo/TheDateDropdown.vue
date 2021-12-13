@@ -277,8 +277,8 @@ export default {
 
 <style lang="scss" scoped>
 .curve-line {
-  height: 24px;
-  margin-top: 15px;
+  height: toRem(24);
+  margin-top: toRem(22);
 }
 .birthday {
   @include display-flex();
@@ -315,7 +315,6 @@ export default {
 @media (max-width: 350px) {
   .curve-line {
     height: 15px;
-    margin: auto 0;
   }
 }
 </style>

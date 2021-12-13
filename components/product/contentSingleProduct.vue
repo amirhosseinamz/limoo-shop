@@ -915,11 +915,14 @@ export default {
     }
     .tabs__item-title{
       margin: 0;
-      padding: 0;
+      padding: 0 toRem(16);
       display: flex;
       justify-content: center;
       align-items: center;
       white-space: nowrap;
+      @include xxs{
+        padding: 0 toRem(10);
+      }
     }
   }
   .product-warranty {

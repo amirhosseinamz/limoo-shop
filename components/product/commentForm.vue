@@ -379,6 +379,9 @@ export default {
     outline: none;
     padding-right: toRem(10);
     padding-left: toRem(10);
+    @include sm{
+      height: toRem(42);
+    }
   }
   .p-modal-address-input {
     width: 100%;
@@ -425,9 +428,11 @@ export default {
   .comment__form-main::v-deep {
     .comment__form-title {
       font-size: toRem(14);
+      margin-bottom: 1%;
     }
     .comment__textara-item {
-      height: toRem(68);
+      height: toRem(58);
+      margin-bottom: 0;
     }
     .p-modal-address-input {
       height: toRem(46);
