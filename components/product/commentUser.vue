@@ -20,7 +20,7 @@
           @click="changearrow()"
           :class="`${open ? 'changeicon' : 'icon'}`"
         >
-          انتخاب کنید...
+          <span v-if="checkboxValues.length === 0">انتخاب کنید...</span>
           <div class="multiselect__tags-wrap" v-if="checkboxValues.length < 3">
             <div
               class="multiselect__tag"
@@ -34,29 +34,22 @@
             </div>
           </div>
           <div v-else class="multiselect__tags-wrap">
-            <div class="multiselect__tag">
-              <div class="text-tag">
-                {{ checkboxValues[0] }}
-                <span class="icon-close" @click="closeIcon(0)"></span>
+            <div class="multiselect__tag" v-for="(checkbox,index) in checkboxValues" :key="index">
+              <div class="text-tag" v-if="index < showIndex">
+                {{ checkbox }}
+                <span class="icon-close" @click="closeIcon(index)"></span>
               </div>
-            </div>
-            <div class="multiselect__tag">
-              <div class="text-tag">
-                {{ checkboxValues[1] }}
-                <span class="icon-close" @click="closeIcon(1)"></span>
-              </div>
-            </div>
-            <div class="multiselect__tag">
-              <div class="text-tag">
-                + {{ checkboxValues.length - 2 }} ...
-                <span class="icon-close" @click="closeIcon(2)"></span>
+              <div class="text-tag" v-else-if="index===showIndex">
+                + {{ checkboxValues.length - showIndex }} ...
+                <span class="icon-close" @click="closeIcon(index)"></span>
               </div>
             </div>
           </div>
         </div>
         <ul class="items" v-if="show">
-          <li class="sub-items" v-for="option in options" :key="option.code">
-            <base-checkbox
+          <li class="sub-items" v-for="option in options" :key="option.code" @click="changed(option.name , $event)">
+            <base-checkbox 
+              :active="option.active"
               class="brand-checkbox"
               name="name"
               :val="option.name"
@@ -313,7 +306,9 @@
         v-if="selectedComponent === 'sort-modal'"
       >
         <div class="w-100 p-modal-header-mobile">
+          <div class="modal__close-line-wrapper" @click="setComponent('')">
           <span class="modal__close-line"></span>
+          </div>
           <div class="p-modal-header-top align-items-center">
             <span @click="modalClose" class="title-icon"> </span>
             <span class="p-modal-header-top-title"> چینش بر اساس: </span>
@@ -324,18 +319,18 @@
         <div class="p-modal-header-desktop w-100 flex-column">
           <div class="w-100 modal-sort__content">
             <div
-              @click="selectRadioButton()"
+              @click="selectRadioButton(sort.value)"
               class="sub-items"
               v-for="sort in sortData"
               :key="sort.id"
             >
               <base-radioButton
-                @active-radio="activeRadio"
                 :class="`${selectRadio ? 'active-radio' : 'sort-radio'}`"
                 name="name"
                 mode="circle"
-                v-model="radiobuttonsValues"
+                :value="sort.value"
                 :title="sort.title"
+                :selected="selectedRadio"
               ></base-radioButton>
             </div>
           </div>
@@ -376,7 +371,9 @@
         v-if="selectedComponent === 'filter-modal'"
       >
         <div class="w-100 p-modal-header-mobile">
+          <div class="modal__close-line-wrapper" @click="setComponent('')">
           <span class="modal__close-line"></span>
+          </div>
           <div class="p-modal-header-top align-items-center">
             <span class="title-icon-filter"> </span>
             <span class="p-modal-header-top-title"> فیلتر بر اساس: </span>
@@ -385,9 +382,10 @@
         </div>
 
         <div class="p-modal-header-desktop w-100 flex-column">
-          <div class="w-100 modal-sort__content">
-            <div class="sub-items" v-for="option in options" :key="option.code">
+          <ul class="w-100 modal-sort__content">
+            <li class="sub-items" v-for="option in options" :key="option.code" @click="changed(option.name , $event)">
               <base-checkbox
+                :active="option.active"
                 class="brand-checkbox"
                 name="name"
                 :val="option.name"
@@ -395,8 +393,8 @@
                 v-model="checkboxValues"
                 :title="option.name"
               ></base-checkbox>
-            </div>
-          </div>
+            </li>
+          </ul>
           <div class="w-100 modal-filter__btn">
             <base-button
               @button-clicked="closeComponent()"
@@ -427,6 +425,7 @@ import sortBox from "../Category/sortBox";
 import CommentLikeAndDislike from "../product/CommentLikeAndDislike.vue";
 // import ModalSort from "./modalSort";
 import { getTextByTextKey } from "~/modules/splitPartJsonResource.js";
+import BaseCheckbox from '../UI/BaseCheckbox.vue';
 
 export default {
   // props: {
@@ -437,6 +436,7 @@ export default {
     modalAddComment,
     sortBox,
     CommentLikeAndDislike,
+    BaseCheckbox,
     // ModalSort,
   },
 
@@ -448,11 +448,10 @@ export default {
       userComments: -1,
       showModal: false,
       showSortModal: false,
-      // windowWidth: 0,
+      windowWidth: 0,
       selectedComponent: "",
       checkboxValues: [],
-      radiobuttonsValues: [],
-      selectedRadioBtnData: {},
+      selectedRadio: 'new',
       subitems: [],
       open: false,
       selectRadio: false,
@@ -462,29 +461,30 @@ export default {
       show: false,
       tag: false,
       options: [
-        { name: "جدیدترین نظرات", code: "1", tag: "first" },
-        { name: "بالاترین امتیاز", code: "2", tag: "sec" },
-        { name: "نظر خریداران", code: "3", tag: "third" },
-        { name: "مهمترین نظرات", code: "4", tag: "four" },
-        { name: "باحالترین نظرات", code: "5", tag: "five" },
+        { name: "جدیدترین نظرات", code: "1", tag: "first",active:false },
+        { name: "بالاترین امتیاز", code: "2", tag: "sec",active:false },
+        { name: "نظر خریداران", code: "3", tag: "third",active:false },
+        { name: "مهمترین نظرات", code: "4", tag: "four",active:false },
+        { name: "باحالترین نظرات", code: "5", tag: "five",active:false },
       ],
       sortData: [
         {
           id: 1,
           title: "همه نظرات",
-          value: "new",
+          value: "new"
         },
         {
           id: 2,
           title: "نظرات منفی",
-          new: "negative",
+          value: "negative"
         },
         {
           id: 3,
           title: "نظرات مثبت",
-          new: "positive",
+          value: "positive"
         },
       ],
+      showIndex : 2 
     };
   },
   computed: {
@@ -521,11 +521,45 @@ export default {
 
   mounted() {
     this.showMoreButton();
-    window.addEventListener('resize',()=>{this.showMoreButton()})
+    this.handleResize();
+    window.addEventListener('resize',()=>{this.showMoreButton(); this.handleResize();})
   },
 
   methods: {
     getTextByTextKey,
+    changed(name,e){
+      let doIt = false;
+      if(e.target.classList.contains('sub-items') || e.target.classList.contains('title'))
+        doIt = true;
+        let index = -1;
+        for (let i=0; i < this.checkboxValues.length ; i++) {
+          if(this.checkboxValues[i] === name){
+            index = i;
+            i = this.checkboxValues.length;
+          }
+        }
+        if(index == -1) {
+          if(doIt)
+          this.checkboxValues.push(name);
+          this.options.forEach(element => {
+            if(element.name === name) {
+              element.active = true
+            }
+          });
+        }else{
+          if(doIt)
+          this.checkboxValues.splice(index,1);
+          this.options.forEach(element => {
+            if(element.name === name) {
+              element.active = false;
+            }
+          });
+          // console.log(items[index]);
+          // items[index].firstElementChild.classList.remove('active')
+        }
+        // this.checkboxValues.push(option)
+      
+    },
     showMoreButton(){
     const commentsBody = document.getElementsByClassName("description-wrapper");
     for (const commentBody of commentsBody) {
@@ -576,9 +610,14 @@ export default {
     //   });
     //   // this.updateSelected++;
     // },
-    // handleResize() {
-    //   this.windowWidth = window.innerWidth;
-    // },
+    handleResize() {
+      this.windowWidth = window.innerWidth;
+      if(this.windowWidth > 768){
+        this.showIndex = 2
+      }else{
+        this.showIndex = 1
+      }
+    },
     modalClose() {
       this.showModal = false;
     },
@@ -625,8 +664,9 @@ export default {
     closeIcon(index) {
       this.$delete(this.checkboxValues, index);
     },
-    selectRadioButton() {
-      this.selectRadio = !this.selectRadio;
+    selectRadioButton(data) {
+      this.selectedRadio = data;
+      console.log(this.selectedRadio);
     },
   },
 };
@@ -672,7 +712,7 @@ export default {
 
 .multiselect__tag {
   @include display-flex();
-  margin-top: toRem(-25);
+  margin-top: toRem(-7);
   margin-bottom: toRem(10);
   margin-left: toRem(4);
   height: toRem(29);
@@ -753,6 +793,7 @@ export default {
     border-bottom-right-radius: toRem(10);
 
     .sub-items {
+      user-select: none;
       @include display-flex();
       width: 100%;
       border-bottom: 1px solid $gray-5;
@@ -1492,8 +1533,8 @@ export default {
       width: 100%;
       background: $white;
       box-shadow: 0 toRem(20) toRem(24) rgba(17, 17, 17, 0.06);
-      border-top-left-radius: toRem(50);
-      border-top-right-radius: toRem(50);
+      border-top-left-radius: toRem(24);
+      border-top-right-radius: toRem(24);
       border-bottom-left-radius: 0;
       border-bottom-right-radius: 0;
     }
@@ -1506,11 +1547,16 @@ export default {
       }
     }
   }
-  .modal__close-line {
-    display: flex;
-    justify-content: center;
-    margin-top: toRem(24);
-    line-height: 0;
+  .modal__close-line-wrapper{
+    width: 100%;
+    cursor: pointer;
+    .modal__close-line {
+      display: flex;
+      justify-content: center;
+      margin-top: toRem(24);
+      line-height: 0;
+      cursor: pointer;
+    }
   }
   .modal__close-line::before {
     content: "\e81b";
@@ -1553,11 +1599,9 @@ export default {
   .sub-items {
     @include display-flex();
     width: 100%;
-    padding-bottom: toRem(24) !important;
-    padding-right: toRem(26) !important;
-  }
-  .sub-items:last-child {
-    padding-bottom: 0 !important;
+    padding:.75rem 1.625rem;
+    user-select: none;
+    cursor: pointer;
   }
   .modal-filter__btn {
     @include display-flex();
