@@ -1,7 +1,7 @@
 <template>
   <div class="radio-button-wrapper" :class="{ 'button': button }" @click.self="buttonClicked($event, 'button')">
     <label class="container">
-      <input ref="radioInput" class="base-radio-inputs" @change="valueChanged" type="radio" :name="name" v-model="values" :value="value" :checked="checked">
+      <input ref="radioInput" class="base-radio-inputs" @change="valueChanged" type="radio" :name="name" v-model="selected" :value="value" :checked="checked">
       <span class="mark" :class="{ 'scale': scale }"></span>
     </label>
     <span v-if="title" class="title" :class="titleClass" @click.self="buttonClicked($event, 'span')">
@@ -60,12 +60,6 @@ export default {
     return {
       values: ''
     };
-  },
-  mounted() {
-    if (this.selected) {
-      this.values = this.selected
-      this.valueChanged()
-    }
   },
   methods: {
     valueChanged() {

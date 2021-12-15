@@ -61,7 +61,7 @@
                   :check-typing-submit="false"
                   :use-timer="false"
                   :show-icon-star="false"
-                  form-data=""
+                  :form-data="formData"
                   accessStyleParentInToChildNameId="address__form--data"
                   tag-html="input"
                   timer-start=""
@@ -97,7 +97,7 @@
                   :check-typing-submit="false"
                   :use-timer="false"
                   :show-icon-star="false"
-                  form-data=""
+                  :form-data="formData"
                   accessStyleParentInToChildNameId="address__form--data"
                   tag-html="input"
                   timer-start=""
@@ -221,7 +221,7 @@
                 :check-typing-submit="false"
                 :use-timer="false"
                 :show-icon-star="true"
-                form-data=""
+                :form-data="formData"
                 accessStyleParentInToChildNameId="address__form--data"
                 tag-html="input"
                 timer-start=""
@@ -279,6 +279,11 @@
           </div>
         </form>
       </div>
+
+
+
+                <button @click="show = !show">Save</button>
+                <h1 v-if="show">{{formData.name}}<h1>name.value :{{formData.name.value}}</h1> </h1>
     </div>
   </div>
 </template>
@@ -291,12 +296,6 @@ import textInput from "~/components/UI/textInput";
 export default {
   middleware: "authentication",
   layout: "removeFooterMobile",
-  components: {
-    TheProfileSideBar,
-    TheProfilePassModal,
-    TheDateDropdown,
-    textInput,
-  },
   data() {
     return {
       passwordFieldType: "password",
@@ -305,10 +304,30 @@ export default {
       // later we get it from store (in talk with back-end)
       selectedDate: "",
       checkInitialValidation: 0,
+
+      formData:{
+        phoneNumber: "",
+        passwordShowModal: "",
+        email: "" ,
+        nationalcode: "" ,
+        name: "",
+        family: "",
+      },
+
+        show : false,
     };
   },
+  components: {
+    TheProfileSideBar,
+    TheProfilePassModal,
+    TheDateDropdown,
+    textInput,
+  },
+  created(){
+    this.formData =  Object.assign({}, this.getFormData);
+  },
   computed: {
-    formData() {
+    getFormData() {
       return this.$store.getters["profile/personal-info/personal-info/formData"];
     }
   },

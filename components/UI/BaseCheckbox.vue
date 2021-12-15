@@ -1,5 +1,5 @@
 <template>
-  <div class="checkbox-wrapper" :class="[{'active': isActive}, mode]">
+  <div class="checkbox-wrapper" :class="`${mode} ${active ? 'active' : ''}`">
     <label class="container" :class="mode">
       <input @change="valueChanged" type="checkbox" :name="name" v-model="checked" :value="val">
       <span class="checkmark"></span>
@@ -36,6 +36,11 @@ export default {
       type: [String, Array],
       require: false,
       default: ""
+    },
+    active:{
+      type: Boolean,
+      require: false,
+      default:false
     }
   },
   data() {
@@ -51,11 +56,6 @@ export default {
     },
     getActiveInput(e) {
         this.isActive = e.target.checked;
-    }
-  },
-  watch: {
-    isActive(val) {
-      console.log(val);
     }
   },
   computed: {
@@ -91,7 +91,6 @@ export default {
       top: 0;
       right: 0;
       opacity: 0;
-
       &:checked {
         & ~ .checkmark {
           box-shadow: inset 0 0 0 toRem(8) $orange;
