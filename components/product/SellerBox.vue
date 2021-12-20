@@ -206,7 +206,7 @@ export default {
 
       .modal-enter-active,
       .modal-leave-active {
-        transition: all 0.4s ease-out;
+        transition: all 0.2s ease-out;
       }
     }
   }

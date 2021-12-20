@@ -3,36 +3,28 @@
     <div class="card">
       <div>
         <button @click="nextPage" class="app-signin-next-btn"></button>
-        <div
-          class="success-message"
-          :class="{ 'success-message-animation': newCodeSent }"
-        >
-          <img class="success-icon" src="/icons/success.svg" />
-          <p dir="rtl" class="success-txt">
-            {{ getTextByTextKey("auth_aignup_code_new") }}
-          </p>
-        </div>
-        <div
-          class="alert-message "
-          :class="{ 'alert-message-animation': timerPassed }"
-        >
-          <img class="alert-icon " src="/icons/alarm.svg" />
-          <p dir="rtl" class="alert-txt">
-            {{ getTextByTextKey("auth_aignup_code_agin") }}
-          </p>
-        </div>
-        <div
-          class="alert-message "
-          :class="{ 'alert-message-animation': confirmCode }"
-        >
-          <img class="alert-icon " src="/icons/alarm.svg" />
-          <p dir="rtl" class="alert-txt">
+          <base-snackbar mode="alert" class="alert-message" :show="false">
             {{ getTextByTextKey("auth_aignup_code_incorrect") }}
-          </p>
-        </div>
+          </base-snackbar>
+<!--        Timer Passed-->
+        <base-snackbar mode="alert" :show="false">
+          {{ getTextByTextKey("auth_aignup_code_agin") }}
+        </base-snackbar>
+<!--        New Code Sent-->
+        <base-snackbar mode="success" :show="false">
+          {{ getTextByTextKey("auth_aignup_code_new") }}
+        </base-snackbar>
       </div>
       <div class="card-body">
-        <form @submit.prevent="pressed">
+        <base-snackbar mode="success" class="success-message" :show="newCodeSent">
+          {{ getTextByTextKey("auth_aignup_code_new") }}
+
+          {{ activationCode }}
+        </base-snackbar>
+        <base-snackbar mode="alert" class="alert-message" :show="errorMessage !== ''">
+          {{ errorMessage }}
+        </base-snackbar>
+        <form @submit.prevent="submitForm">
           <div class="form-group">
             <p class="txt-header">
               {{ getTextByTextKey("auth_aignup_enter_code_please") }}
@@ -64,7 +56,7 @@
               :form-data="formData"
               :attribute-required="true"
               :active-border-click="true"
-              timer-start="2:60"
+              timer-start="01:60"
               accessStyleParentInToChildNameId="address__form--data"
               tag-html="input"
               type-input="text"
@@ -100,6 +92,10 @@ import textInput from "~/components/UI/textInput";
 export default {
   props: {
     confirmCode: Boolean,
+    error: {
+      type: String,
+      require: true,
+    }
   },
   components: {
     textInput,
@@ -120,23 +116,55 @@ export default {
       },
       checkInitialValidation: 0,
       startAgainTimer: 0,
+      showSnack: false,
+      showError: false,
+      errorMessage: "",
     };
   },
-  watch: {},
+  watch: {
+    newCodeSent(val) {
+      if (val) {
+        setTimeout(() => {
+          this.newCodeSent = false;
+        },5000)
+      }
+    },
+    error: {
+      handler(val) {
+        this.errorMessage = val;
+      },
+      immediate: true,
+    },
+    errorMessage(val) {
+      if (val) {
+        setTimeout(() => {
+          this.errorMessage = "";
+        },5000)
+      }
+    }
+  },
   mounted() {
-    this.userPhoneNumber = this.$store.getters.PhoneNumberPicker;
+    this.userPhoneNumber = this.$store.getters["authentication/authentication/userPhoneNumber"];
+    this.newCodeSent = true;
+  },
+  computed: {
+    activationCodeIsValid() {
+      return this.$store.getters["authentication/authentication/activationCodeIsValid"];
+    },
+    activationCode() {
+      return this.$store.getters["authentication/authentication/activationCode"];
+    },
   },
   methods: {
     getTextByTextKey,
 
     animateTimerPassed() {
-      // console.log(this.verifyCode);
       this.timerPassed = true;
       setTimeout(() => {
         this.timerPassed = false;
       }, 5000);
     },
-    pressed() {
+    submitForm() {
       // talk to server
       // this.$store.commit("PhoneNumber", { value: "" });
       this.checkInitialValidation++;
@@ -159,7 +187,7 @@ export default {
         }
 
         if (checkSubmitForm === "success") {
-          this.$emit("onConfirm", parseInt(this.formData.verifyCode));
+          this.$emit("confirmed", this.formData.verifyCode);
         }
       });
     },
@@ -169,92 +197,66 @@ export default {
       this.$router.push("/users/signin-up");
     },
     sendNewRequest() {
-      const headers = {
-        "Content-Type": "application/json",
-        "Client-Key": process.env.CLIENT_KEY,
-      };
-      this.$axios
-        .$post(
-          process.env.SIGN_UP_API,
-          { phone: this.userPhoneNumber },
-          {
-            headers: headers,
-          }
-        )
-        .then((result) => {
-          console.log(result.response_code);
+      this.$store.dispatch('authentication/authentication/signIn', {
+        phone: this.userPhoneNumber,
+      })
+      .then((res) => {
+            if (res.response_code === 2208) {
+              this.startAgainTimer++;
+              this.newCodeSent = true;
+              setTimeout(() => {
+                this.newCodeSent = false;
+              }, 5000);
+            }
+      })
 
-          if (result.response_code == 2208) {
-            this.startAgainTimer++;
-            this.newCodeSent = true;
-            setTimeout(() => {
-              this.newCodeSent = false;
-            }, 5000);
-          }
-        })
-        .catch((e) => {
-          console.log(e);
-        });
+      // const headers = {
+      //   "Content-Type": "application/json",
+      //   "Client-Key": process.env.CLIENT_KEY,
+      // };
+      // this.$axios
+      //   .$post(
+      //     process.env.SIGN_UP_API,
+      //     { phone: this.userPhoneNumber },
+      //     {
+      //       headers: headers,
+      //     }
+      //   )
+      //   .then((result) => {
+      //     console.log(result.response_code);
+      //
+      //     if (result.response_code == 2208) {
+      //       this.startAgainTimer++;
+      //       this.newCodeSent = true;
+      //       setTimeout(() => {
+      //         this.newCodeSent = false;
+      //       }, 5000);
+      //     }
+      //   })
+      //   .catch((e) => {
+      //     console.log(e);
+      //   });
     },
   },
+
 };
 </script>
 
 <style lang="scss" scoped>
 .success-message {
-  @include display-flex();
-  flex-direction: row-reverse;
-  width: 463px;
-  height: 58px;
-  background-color: $alert-massage__green;
-  margin: 8px 90px 0px 89px;
-  border-radius: 10px;
+  width: toRem(463);
+  height: toRem(58);
+  margin: toRem(-24) toRem(90) 0 toRem(89);
   position: absolute;
-  opacity: 0;
-  /* add .message-animation when we want to show it */
+  top: toRem(-40);
 }
 
 .alert-message {
-  @include display-flex();
-  flex-direction: row-reverse;
-  width: 463px;
-  height: 58px;
-  background-color: $alert-red;
-  margin: 44px 90px 0px 89px;
-  border-radius: 10px;
+  width: toRem(463);
+  height: toRem(58);
+  margin: toRem(-24) toRem(90) 0 toRem(89);
   position: absolute;
-  opacity: 0;
-  /* add .message-animation when we want to show it */
-}
-/* add this animation to messages when we want to show them */
-.success-message-animation {
-  animation: cssAnimation 1000ms 2 alternate;
-}
-.alert-message-animation {
-  animation: cssAnimation 2000ms 2 alternate;
-}
-
-@keyframes cssAnimation {
-  0% {
-    opacity: 0;
-    transform: translate(0%, -170%);
-  }
-  70% {
-    opacity: 1;
-    transform: translate(0%, -60%);
-  }
-  80% {
-    opacity: 1;
-    transform: translate(0%, -60%);
-  }
-  90% {
-    opacity: 1;
-    transform: translate(0%, -60%);
-  }
-  100% {
-    opacity: 1;
-    transform: translate(0%, -60%);
-  }
+  top: toRem(-40);
 }
 
 .signup-container {
@@ -273,20 +275,11 @@ export default {
   width: 642px;
   height: 524px;
   background-color: $white;
-  box-shadow: 0px 8px 16px $box__shadow;
+  box-shadow: 0 8px 16px $box__shadow;
   border-radius: 15px;
-}
-.success-icon {
-  width: 24px;
-  height: 24px;
-  margin-right: 18px;
-  margin-top: 17px;
-}
-.alert-icon {
-  width: 24px;
-  height: 24px;
-  margin-right: 18px;
-  margin-top: 17px;
+  &-body {
+    position: relative;
+  }
 }
 .app-signin-next-btn {
   @include display-flex();
@@ -306,24 +299,6 @@ export default {
   font-size: 18px;
   height: 58px;
   width: 463px;
-}
-.success-txt {
-  font-weight: 500;
-  font-size: 16px;
-  line-height: 140.62%;
-  margin-right: 8px;
-  text-align: right;
-  margin-top: 17px;
-  color: $white;
-}
-.alert-txt {
-  font-weight: 500;
-  font-size: 16px;
-  line-height: 140.62%;
-  margin-right: 8px;
-  text-align: right;
-  margin-top: 17px;
-  color: $white;
 }
 .form-control {
   direction: rtl;
@@ -438,24 +413,6 @@ export default {
       transform: translate(0%, -80%);
     }
   }
-  .success-message {
-    width: 328px;
-    height: 56px;
-    margin: 16px 16px 0px 16px;
-  }
-  .alert-message {
-    width: 328px;
-    height: 72px;
-    margin: 16px 16px 0px 16px;
-  }
-  .alert-txt {
-    font-size: 14px;
-    padding-left: 50px;
-  }
-  .success-txt {
-    font-size: 14px;
-    margin-top: 20px;
-  }
   .card {
     width: 380px;
     height: 100vh;
@@ -534,12 +491,6 @@ export default {
   }
 }
 @media screen and (max-width: 350px) {
-  .success-message {
-    width: 280px;
-  }
-  .alert-message {
-    width: 280px;
-  }
   @mixin signup-input {
     margin-right: 10px;
     margin-left: 10px;
@@ -586,14 +537,6 @@ export default {
   }
 }
 @media screen and (max-width: 280px) {
-  .success-message {
-    width: 270px;
-  }
-  .alert-message {
-    width: 270px;
-    height: 60px;
-    margin-right: 5px;
-  }
   .alert-txt {
     padding-left: 30px;
   }

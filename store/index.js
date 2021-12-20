@@ -11,6 +11,7 @@ export const state = () => ({
   userAuth: true,
   showModalWellcome: false,
   language: "",
+  isShowSnackbar: false,
 });
 
 export const getters = {
@@ -32,6 +33,12 @@ export const getters = {
   userIsAuth(state) {
     return state.userAuth;
   },
+  snackbarData(state) {
+    return state.snackbarData;
+  },
+  isShowSnackbar(state) {
+    return state.isShowSnackbar;
+  }
 
 };
 
@@ -55,7 +62,6 @@ export const mutations = {
     state.showModalWellcome = payload.value;
     // console.log("showModalWellcome in store is", payload.value);
   },
-
   currentLanguage(state, payload) {
     state.language = payload;
   },
@@ -68,5 +74,6 @@ export const actions = {
   stateShowModalWellcome(context, payload) {
     context.commit("stateShowModalWellcome", payload);
   },
+
 
 };

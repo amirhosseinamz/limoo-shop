@@ -250,17 +250,18 @@ export default {
       this.$router.push("/profile/my-orders/in-progress");
     },
     logOutUser() {
-      const userToken = this.$store.getters["authUser/getToken"];
-      this.$store
-        .dispatch("authUser/signOutUser", { token: userToken })
-        .then(() => {
-          this.$store.dispatch({
-            type: "userIsAuth",
-            value: false,
-          });
-          this.$router.replace("/");
-          this.$store.commit("PhoneNumber", { value: "" });
-        });
+      this.$store.dispatch('authentication/authentication/signOut');
+      // const userToken = this.$store.getters["authUser/getToken"];
+      // this.$store
+      //   .dispatch("authUser/signOutUser", { token: userToken })
+      //   .then(() => {
+      //     this.$store.dispatch({
+      //       type: "userIsAuth",
+      //       value: false,
+      //     });
+      //     this.$router.replace("/");
+      //     this.$store.commit("PhoneNumber", { value: "" });
+      //   });
     },
   },
 };

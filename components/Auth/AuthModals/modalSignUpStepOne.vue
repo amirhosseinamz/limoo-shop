@@ -112,8 +112,8 @@ export default {
     },6000)
   },
   created() {
-    this.storePhone = this.$store.getters.PhoneNumberPicker;
-    this.formData.phone = this.$store.getters.PhoneNumberPicker;
+    // this.storePhone = this.$store.getters.PhoneNumberPicker;
+    // this.formData.phone = this.$store.getters.PhoneNumberPicker;
   },
   // computed: {
   //     PhoneNumberPicker() {

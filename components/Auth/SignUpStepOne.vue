@@ -62,10 +62,6 @@
                 {{ getTextByTextKey("auth_login") }}
               </span>
             </base-button>
-
-            <base-button base-color="light" button-type="submit" classes="google-signup-btn">
-              {{ getTextByTextKey("auth_login_google") }}
-            </base-button>
           </div>
         </form>
       </template>
@@ -97,8 +93,8 @@ export default {
   },
   watch: {},
   created() {
-    this.storePhone = this.$store.getters.PhoneNumberPicker;
-    this.formData.phone = this.$store.getters.PhoneNumberPicker;
+    // this.storePhone = this.$store.getters.PhoneNumberPicker;
+    // this.formData.phone = this.$store.getters.PhoneNumberPicker;
   },
   // computed: {
   //     PhoneNumberPicker() {
@@ -156,7 +152,7 @@ export default {
 .card {
   width: 45%;
   height: fit-content;
-  padding: 0 4%;
+  padding: toRem(20) 4%;
 }
 
 .app-signup-close-btn::before {
@@ -223,27 +219,27 @@ export default {
 @include xl {
   .card {
     width: 55%;
-    padding: 0 5%;
+    padding: toRem(20) 5%;
   }
 }
 @include md {
   .card {
     width: 70%;
-    padding: 0 6%;
+    padding: toRem(20) 6%;
   }
 }
 
 @include sm {
   .card {
     width: 85%;
-    padding: 0 7%;
+    padding: toRem(20) 7%;
   }
 }
 
 @include xs {
   .card {
     width: 100%;
-    padding: 0 10%;
+    padding: toRem(20) 10%;
     height: 100%;
   }
   .app-signup-close-btn {

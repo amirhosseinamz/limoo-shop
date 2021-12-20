@@ -12,12 +12,21 @@ export default {
   components: {
     SignUpStepOne,
   },
+  data() {
+    return {
+      isLoading: false
+    };
+  },
   methods: {
     onSubmit(phone) {
-      // console.log(phone);
-      this.$store.dispatch("authUser/signInUpUser", {
-        phone: phone,
+      this.isLoading = true;
+        this.$store.dispatch("authentication/authentication/signIn", {
+          phone: phone,
+        })
+      .then( () => {
+        this.$router.push("/users/register/confirm");
       });
+      this.isLoading = false;
     },
   },
 };

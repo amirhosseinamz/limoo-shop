@@ -284,6 +284,7 @@ export default {
         this.currentValue = "";
       }
     },
+    
 
     currentValue(value) {
       if (this.statusAddSpaceNumber) {

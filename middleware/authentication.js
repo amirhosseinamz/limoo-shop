@@ -1,6 +1,5 @@
-export default function({ store, redirect }) {
-    // If the user is not authenticated
-    // if (!store.state.userAuth) {
-    //     return redirect("/users/signin-up");
-    // }
+export default function({ redirect }) {
+  if (!localStorage.getItem('token')) {
+    return redirect("/users/signin-up");
+  }
 }

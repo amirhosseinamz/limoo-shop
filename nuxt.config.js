@@ -1,3 +1,4 @@
+import config from './config';
 export default {
   // Global page headers (https://go.nuxtjs.dev/config-head)
   ssr: false,
@@ -51,12 +52,7 @@ export default {
   build: {
     extend(config, ctx) {},
   },
-  env: {
-    CLIENT_KEY: "4FDD6981-C063-46E1-BBE9-D88D2B889EB3",
-    SIGN_UP_API: "https://unison-dev.parsdata.net/auth/signin",
-    SIGN_UP_OTP_API: "https://unison-dev.parsdata.net/auth/signin/otp",
-    SIGN_OUT_API: "https://unison-dev.parsdata.net/auth/signout",
-  },
+  env: config,
   server: {
     host: "0.0.0.0"
   },

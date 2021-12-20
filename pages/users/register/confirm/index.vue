@@ -1,11 +1,9 @@
 <template>
   <div>
-    <!-- <div id="overlay" v-if="showModalWellcome">
-            <wellcome-sign-up></wellcome-sign-up>
-        </div> -->
     <sign-up-step-two
       :confirm-code="confirmCodeIsWrong"
-      @onConfirm="onConfirm"
+      @confirmed="onConfirm"
+      :error="errorMessage"
     ></sign-up-step-two>
   </div>
 </template>
@@ -23,42 +21,47 @@ export default {
   data() {
     return {
       showModalWellcome: false,
-      userPhoneNumber: "",
       confirmCodeIsWrong: false,
+      errorMessage: "",
     };
-  },
-  mounted() {
-    this.userPhoneNumber = this.$store.getters.PhoneNumberPicker;
   },
   methods: {
     onConfirm(verifyCode) {
-      // console.log(phone);
-      this.$store
-        .dispatch("authUser/confirmAuthUser", {
-          userPhoneNumber: this.userPhoneNumber,
-          verifyCode: verifyCode,
-        })
-        .then(() => {
-          const token = this.$store.getters["authUser/getToken"];
-          // console.log(token);
-          if (Boolean(token)) {
-            this.$store.dispatch({
-              type: "stateShowModalWellcome",
-              value: true,
-            });
-            this.$store.dispatch({
-              type: "userIsAuth",
-              value: true,
-            });
-            this.$router.replace("/");
-            this.$store.commit("PhoneNumber", { value: "" });
-          } else if (!Boolean(token)) {
-            this.confirmCodeIsWrong = true;
-            setTimeout(() => {
-              this.confirmCodeIsWrong = false;
-            }, 5000);
-          }
-        });
+      this.$store.dispatch('authentication/authentication/confirmCode', {
+        activationCode: verifyCode,
+      }).then((res) => {
+        if (res) {
+          this.errorMessage = res;
+        }
+        this.$router.push("/");
+      });
+      this.errorMessage = "";
+
+      // this.$store
+      //   .dispatch("authUser/confirmAuthUser", {
+      //     userPhoneNumber: this.userPhoneNumber,
+      //     verifyCode: verifyCode,
+      //   })
+      //   .then(() => {
+      //     const token = this.$store.getters["authUser/getToken"];
+      //     if (Boolean(token)) {
+      //       this.$store.dispatch({
+      //         type: "stateShowModalWellcome",
+      //         value: true,
+      //       });
+      //       this.$store.dispatch({
+      //         type: "userIsAuth",
+      //         value: true,
+      //       });
+      //       this.$router.replace("/");
+      //       this.$store.commit("PhoneNumber", { value: "" });
+      //     } else if (!Boolean(token)) {
+      //       this.confirmCodeIsWrong = true;
+      //       setTimeout(() => {
+      //         this.confirmCodeIsWrong = false;
+      //       }, 5000);
+      //     }
+      //   });
     },
   },
 };

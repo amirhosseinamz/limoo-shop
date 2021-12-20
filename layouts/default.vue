@@ -1,5 +1,6 @@
 <template>
   <div>
+<!--    <base-snackbar></base-snackbar>-->
     <div class="page__content w-100">
       <the-header />
       <Nuxt />
