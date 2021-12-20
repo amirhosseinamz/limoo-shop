@@ -1,12 +1,157 @@
 <template>
   <div
     ref="contentMain"
-    class="p-comments-content-main w-100 flex-column flex-wrap  d-rtl tabs__content"
+    class="
+      p-comments-content-main
+      w-100
+      flex-column flex-wrap
+      d-rtl
+      tabs__content
+    "
   >
+    <p class="filter__title">
+      <span class="icon"></span>
+      فیلتر بر اساس:
+    </p>
+    <div class="filter">
+      <div class="dropdown" :class="`${open ? 'changedropdown' : ''}`">
+        <div
+          class="text"
+          @click="changearrow()"
+          :class="`${open ? 'changeicon' : 'icon'}`"
+        >
+          <span v-if="checkboxValues.length === 0">انتخاب کنید...</span>
+          <div class="multiselect__tags-wrap" v-if="checkboxValues.length < 3">
+            <div
+              class="multiselect__tag"
+              v-for="(item, index) in checkboxValues"
+              :key="item"
+            >
+              <div class="text-tag">
+                {{ item }}
+                <span class="icon-close" @click="closeIcon(index)"></span>
+              </div>
+            </div>
+          </div>
+          <div v-else class="multiselect__tags-wrap">
+            <div class="multiselect__tag" v-for="(checkbox,index) in checkboxValues" :key="index">
+              <div class="text-tag" v-if="index < showIndex">
+                {{ checkbox }}
+                <span class="icon-close" @click="closeIcon(index)"></span>
+              </div>
+              <div class="text-tag" v-else-if="index===showIndex">
+                + {{ checkboxValues.length - showIndex }} ...
+                <span class="icon-close" @click="closeIcon(index)"></span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <ul class="items" v-if="show">
+          <li class="sub-items" v-for="option in options" :key="option.code" @click="changed(option.name , $event)">
+            <base-checkbox 
+              :active="option.active"
+              class="brand-checkbox"
+              name="name"
+              :val="option.name"
+              mode="square"
+              v-model="checkboxValues"
+              :title="option.name"
+            ></base-checkbox>
+          </li>
+        </ul>
+      </div>
+      <base-button
+        base-color="white"
+        @button-clicked="buttonIsactiveAll()"
+        :class="`${selectedAll ? 'active-button' : 'filter-button'}`"
+      >
+        همه نظرات
+      </base-button>
+      <base-button
+        base-color="white"
+        @button-clicked="buttonIsactiveNeg()"
+        :class="`${selectedNeg ? 'active-button' : 'filter-button '}`"
+      >
+        نظرات منفی
+      </base-button>
+      <base-button
+        base-color="white"
+        @button-clicked="buttonIsactivePos()"
+        :class="`${selectedPos ? 'active-button' : 'filter-button'}`"
+      >
+        نظرات مثبت
+      </base-button>
+    </div>
+
     <div class="w-100">
-      <base-button no-box-shadow no-hover base-color="yellow" classes="comments-add__comment" @button-clicked="showModalAddComment">
+      <base-button
+        no-box-shadow
+        no-hover
+        base-color="white"
+        classes="comments-add__comment"
+        @button-clicked="showModalAddComment"
+      >
         {{ getTextByTextKey("product_submit_comment") }}
       </base-button>
+    </div>
+
+    <!-- mobile -->
+    <div class="products__filter-btns w-100" style="display: none">
+      <base-button
+        no-box-shadow
+        classes="products__filter-btn"
+        @button-clicked="setComponent('filter-modal')"
+      >
+        <span class="filter-search-icon"></span>
+        {{ getTextByTextKey("category_filter_text") }}
+      </base-button>
+
+      <base-button
+        no-box-shadow
+        classes="products__filter-btn"
+        base-color="dark"
+        @button-clicked="setComponent('sort-modal')"
+      >
+        <span class="arrow-down-icon"></span>
+        مرتب سازی
+      </base-button>
+    </div>
+
+    <div
+      class="multiselect__tags-wrap responsive"
+      v-if="checkboxValues.length < 3"
+      style="display: none"
+    >
+      <div
+        class="multiselect__tag tag-mobile responsive"
+        v-for="(item, index) in checkboxValues"
+        :key="item"
+      >
+        <div class="text-tag">
+          {{ item }}
+          <span class="icon-close" @click="closeIcon(index)"></span>
+        </div>
+      </div>
+    </div>
+    <div v-else class="multiselect__tags-wrap responsive" style="display: none">
+      <div class="multiselect__tag tag-mobile">
+        <div class="text-tag">
+          {{ checkboxValues[0] }}
+          <span class="icon-close" @click="closeIcon(0)"></span>
+        </div>
+      </div>
+      <div class="multiselect__tag tag-mobile">
+        <div class="text-tag">
+          {{ checkboxValues[1] }}
+          <span class="icon-close" @click="closeIcon(0)"></span>
+        </div>
+      </div>
+      <div class="multiselect__tag tag-mobile">
+        <div class="text-tag">
+          + {{ checkboxValues.length - 2 }} ...
+          <span class="icon-close" @click="closeIcon(2)"></span>
+        </div>
+      </div>
     </div>
 
     <div class="w-100">
@@ -32,7 +177,7 @@
             class="flex-wrap w-100 p-comment-content-wrapper align-items-start"
           >
             <div class="w-100">
-              <div class="w-100 flex-wrap  p-comments-content-header ">
+              <div class="w-100 flex-wrap p-comments-content-header">
                 <div class="p-comments__header-holder">
                   <div class="p-comments__title">
                     {{ data.Title }}
@@ -58,35 +203,30 @@
                         getTextByTextKey("comments_enough_experience_moment")
                       }}
                     </span>
-                    <div class="p-comments__state-mobile">
-                      <base-signs type="confirmed" v-if="typeof data.confirmLeave === 'undefined'" :title="data.dateConvert"></base-signs>
-                      <base-signs type="confirmed" v-if="data.confirmLeave === 1"></base-signs>
-                      <base-signs type="waiting" v-if="data.confirmLeave === 2"></base-signs>
-                    </div>
                   </div>
                 </div>
 
-                <div class="p-comments__state-desktop">
-                  <base-signs type="confirmed" v-if="typeof data.confirmLeave === 'undefined'" :title="data.dateConvert"></base-signs>
-                  <base-signs type="confirmed" v-if="data.confirmLeave === 1"></base-signs>
-                  <base-signs type="waiting" v-if="data.confirmLeave === 2"></base-signs>
+                <div class="comments-time">
+                  <div class="comments-time-content d-flex align-center">
+                    <div class="time-icon"></div>
+                    <div class="time">{{ data.commentTime }}</div>
+                  </div>
                 </div>
               </div>
               <!-- ==================================================================================== -->
               <div class="w-100 flex-column p-comment-content-data-main">
                 <div class="w-100 p-commentedproduct-main text-right">
                   <div class="p-commented-default-main">
-
                     <div
                       class="p-commented-default-pic p-commented-product-img"
                     ></div>
                   </div>
                   <div class="p-product-content-data">
-                    <span class="p-product-content-text-data ">
+                    <span class="p-product-content-text-data">
                       {{ data.Firstname }}
                       {{ data.Lastname }}
                     </span>
-                    <div class="p-product-content-rating-data ">
+                    <div class="p-product-content-rating-data">
                       <div class="stars-outer">
                         <div
                           class="stars-inner"
@@ -99,29 +239,25 @@
                       <span class="rate-count">
                         {{ getTextByTextKey("commnets_star_from_text") }} 5
                       </span>
+                      <span v-if="data.buyerBadge" class="buyer-badge"
+                        ><span class="badge-text">خریدار</span></span
+                      >
                     </div>
-                    <!-- ====================== -->
+                    <!-- ==================================================================================== -->
                   </div>
                 </div>
-                <div
-                  :class="{
-                    'full-description__active': data.selected,
-                  }"
-                >
+                <div class="description-wrapper">
                   <div ref="test" class="p-commentedproduct-description">
                     {{ data.Body }}
                   </div>
-
-                  <span
-                    v-if="data.showCircle"
-                    @click="showMoreDescription(data)"
-                    alt=""
-                    class="more__arrow-icon"
-                  >
-                  </span>
+                  <div
+                    @click="showMoreDescription(index)"
+                    class="show-more-button"
+                  >ادامه</div>
                 </div>
               </div>
             </div>
+            <comment-like-and-dislike></comment-like-and-dislike>
           </div>
         </div>
 
@@ -133,10 +269,14 @@
             <span class="comment-more__icon"></span>
           </div>
         </div>
-        <base-pagination class="comment-pagination" @pageChanged="pageChanged"></base-pagination>
+        <base-pagination
+          class="comment-pagination"
+          @pageChanged="pageChanged"
+        ></base-pagination>
       </div>
     </div>
-<!--    Add Comment Modal-->
+
+    <!--    Add Comment Modal-->
     <transition name="backdrop-scale">
       <div class="backdrop" v-if="showModal"></div>
     </transition>
@@ -151,20 +291,153 @@
       ></modal-add-comment>
     </transition>
 
+    <!-- Modal Sort Mobile -->
+    <transition name="backdrop-scale">
+      <div
+        class="backdrop-phone"
+        v-if="selectedComponent === 'sort-modal'"
+        @click="setComponent('')"
+      ></div>
+    </transition>
+    <transition name="phone">
+      <base-modal
+        class="modal-container modal modal-animation__open"
+        @close-modal="modalClose"
+        v-if="selectedComponent === 'sort-modal'"
+      >
+        <div class="w-100 p-modal-header-mobile">
+          <div class="modal__close-line-wrapper" @click="setComponent('')">
+          <span class="modal__close-line"></span>
+          </div>
+          <div class="p-modal-header-top align-items-center">
+            <span @click="modalClose" class="title-icon"> </span>
+            <span class="p-modal-header-top-title"> چینش بر اساس: </span>
+          </div>
+          <hr class="splicer-line" />
+        </div>
+
+        <div class="p-modal-header-desktop w-100 flex-column">
+          <div class="w-100 modal-sort__content">
+            <div
+              @click="selectRadioButton(sort.value)"
+              class="sub-items"
+              v-for="sort in sortData"
+              :key="sort.id"
+            >
+              <base-radioButton
+                :class="`${selectRadio ? 'active-radio' : 'sort-radio'}`"
+                name="name"
+                mode="circle"
+                :value="sort.value"
+                :title="sort.title"
+                :selected="selectedRadio"
+              ></base-radioButton>
+            </div>
+          </div>
+          <div class="w-100 modal-filter__btn">
+            <base-button
+              @button-clicked="closeComponent()"
+              classes="p-product-btn"
+              base-color="yellow"
+              no-box-shadow
+            >
+              اعمال
+            </base-button>
+            <base-button
+              @button-clicked="closeComponent()"
+              classes="modal-cancel"
+              no-box-shadow
+              base-color="light-gray"
+            >
+              انصراف
+            </base-button>
+          </div>
+        </div>
+      </base-modal>
+    </transition>
+
+    <!-- Modal Filter Mobile -->
+    <transition name="backdrop-scale">
+      <div
+        class="backdrop-phone"
+        v-if="selectedComponent === 'filter-modal'"
+        @click="setComponent('')"
+      ></div>
+    </transition>
+    <transition name="phone">
+      <base-modal
+        class="modal-container modal modal-animation__open"
+        @close-modal="modalClose"
+        v-if="selectedComponent === 'filter-modal'"
+      >
+        <div class="w-100 p-modal-header-mobile">
+          <div class="modal__close-line-wrapper" @click="setComponent('')">
+          <span class="modal__close-line"></span>
+          </div>
+          <div class="p-modal-header-top align-items-center">
+            <span class="title-icon-filter"> </span>
+            <span class="p-modal-header-top-title"> فیلتر بر اساس: </span>
+          </div>
+          <hr class="splicer-line" />
+        </div>
+
+        <div class="p-modal-header-desktop w-100 flex-column">
+          <ul class="w-100 modal-sort__content">
+            <li class="sub-items" v-for="option in options" :key="option.code" @click="changed(option.name , $event)">
+              <base-checkbox
+                :active="option.active"
+                class="brand-checkbox"
+                name="name"
+                :val="option.name"
+                mode="square"
+                v-model="checkboxValues"
+                :title="option.name"
+              ></base-checkbox>
+            </li>
+          </ul>
+          <div class="w-100 modal-filter__btn">
+            <base-button
+              @button-clicked="closeComponent()"
+              classes="p-product-btn"
+              base-color="yellow"
+              no-box-shadow
+            >
+              انتخاب
+            </base-button>
+            <base-button
+              @button-clicked="closeComponent()"
+              classes="modal-cancel"
+              no-box-shadow
+              base-color="light-gray"
+            >
+              انصراف
+            </base-button>
+          </div>
+        </div>
+      </base-modal>
+    </transition>
   </div>
 </template>
 
 <script>
 import modalAddComment from "./modalAddComment";
+import sortBox from "../Category/sortBox";
+import CommentLikeAndDislike from "../product/CommentLikeAndDislike.vue";
+// import ModalSort from "./modalSort";
 import { getTextByTextKey } from "~/modules/splitPartJsonResource.js";
+import BaseCheckbox from '../UI/BaseCheckbox.vue';
 
 export default {
-  props: {
-    commentsData: { type: [Object, Array], default: {} },
-  },
+  // props: {
+  //   commentsData: { type: [Object, Array], default: {} },
+  // },
 
   components: {
     modalAddComment,
+    sortBox,
+    CommentLikeAndDislike,
+    BaseCheckbox,
+    // ModalSort,
   },
 
   data() {
@@ -174,20 +447,71 @@ export default {
       updateSelected: 0,
       userComments: -1,
       showModal: false,
+      showSortModal: false,
       windowWidth: 0,
+      selectedComponent: "",
+      checkboxValues: [],
+      selectedRadio: 'new',
+      subitems: [],
+      open: false,
+      selectRadio: false,
+      selectedAll: false,
+      selectedNeg: false,
+      selectedPos: false,
+      show: false,
+      tag: false,
+      options: [
+        { name: "جدیدترین نظرات", code: "1", tag: "first",active:false },
+        { name: "بالاترین امتیاز", code: "2", tag: "sec",active:false },
+        { name: "نظر خریداران", code: "3", tag: "third",active:false },
+        { name: "مهمترین نظرات", code: "4", tag: "four",active:false },
+        { name: "باحالترین نظرات", code: "5", tag: "five",active:false },
+      ],
+      sortData: [
+        {
+          id: 1,
+          title: "همه نظرات",
+          value: "new"
+        },
+        {
+          id: 2,
+          title: "نظرات منفی",
+          value: "negative"
+        },
+        {
+          id: 3,
+          title: "نظرات مثبت",
+          value: "positive"
+        },
+      ],
+      showIndex : 2 
     };
   },
   computed: {
     closeModalAddComment() {
-      return this.$store.getters["product/single/single/closeModalAddComment"]
+      return this.$store.getters["product/single/single/closeModalAddComment"];
+    },
+    commentsData() {
+      return this.$store.getters["product/single/single/commentsData"];
     },
     modalAnimation() {
       return "scale";
-    }
+    },
   },
   watch: {
     closeModalAddComment() {
       this.showModal = false;
+    },
+
+    active(data) {
+      this.$emit("status-show-modal", data);
+    },
+
+    "$store.state.category.lastUpdateSortModal"(data) {
+      this.sortData = data;
+    },
+    showSortModal(val) {
+      this.activeBlur = !!val;
     },
   },
 
@@ -196,33 +520,103 @@ export default {
   },
 
   mounted() {
-    window.addEventListener('resize', this.handleResize);
+    this.showMoreButton();
     this.handleResize();
-    setTimeout(() => {
-      const el = document.querySelectorAll(".p-commentedproduct-description");
-      var elementList = el;
-      for (var idx = 0; idx < elementList.length; idx++) {
-        if (this.isEllipsisActive(elementList.item(idx))) {
-          elementList.item(idx).className =
-            elementList.item(idx).className + " ellipsis-active";
-          elementList.item(idx).title = elementList.item(idx).innerHTML;
-        }
-      }
-    }, 100);
+    window.addEventListener('resize',()=>{this.showMoreButton(); this.handleResize();})
   },
 
   methods: {
     getTextByTextKey,
-    showMoreDescription(data) {
-      this.commentsData.map((content) => {
-        if (content.id == data.id) {
-          content.selected = !content.selected;
+    changed(name,e){
+      let doIt = false;
+      if(e.target.classList.contains('sub-items') || e.target.classList.contains('title'))
+        doIt = true;
+        let index = -1;
+        for (let i=0; i < this.checkboxValues.length ; i++) {
+          if(this.checkboxValues[i] === name){
+            index = i;
+            i = this.checkboxValues.length;
+          }
         }
-      });
-      // this.updateSelected++;
+        if(index == -1) {
+          if(doIt)
+          this.checkboxValues.push(name);
+          this.options.forEach(element => {
+            if(element.name === name) {
+              element.active = true
+            }
+          });
+        }else{
+          if(doIt)
+          this.checkboxValues.splice(index,1);
+          this.options.forEach(element => {
+            if(element.name === name) {
+              element.active = false;
+            }
+          });
+          // console.log(items[index]);
+          // items[index].firstElementChild.classList.remove('active')
+        }
+        // this.checkboxValues.push(option)
+      
     },
+    showMoreButton(){
+    const commentsBody = document.getElementsByClassName("description-wrapper");
+    for (const commentBody of commentsBody) {
+      if (commentBody.children[0].scrollHeight > 80) {
+        commentBody.classList.add("hidden");
+      } else {
+        commentBody.classList.remove("hidden");
+      }
+    }
+    },
+    showMoreDescription(index) {
+      const commentsBody = document.getElementsByClassName(
+        "description-wrapper"
+      )[index];
+      commentsBody.classList.toggle("show");
+      if(commentsBody.classList.contains('show')){
+        commentsBody.children[0].style.height = commentsBody.children[0].scrollHeight + 'px';
+      }
+      else{
+        commentsBody.children[0].style.height ='80px'
+      }
+    },
+    changearrow() {
+      this.show = !this.show;
+      this.open = !this.open;
+    },
+    buttonIsactiveAll() {
+      this.selectedAll = !this.selectedAll;
+      this.selectedNeg = false;
+      this.selectedPos = false;
+    },
+    buttonIsactiveNeg() {
+      this.selectedNeg = !this.selectedNeg;
+      this.selectedAll = false;
+      this.selectedPos = false;
+    },
+    buttonIsactivePos() {
+      this.selectedPos = !this.selectedPos;
+      this.selectedAll = false;
+      this.selectedNeg = false;
+    },
+
+    // showMoreDescription(data) {
+    //   this.commentsData.map((content) => {
+    //     if (content.id == data.id) {
+    //       content.selected = !content.selected;
+    //     }
+    //   });
+    //   // this.updateSelected++;
+    // },
     handleResize() {
       this.windowWidth = window.innerWidth;
+      if(this.windowWidth > 768){
+        this.showIndex = 2
+      }else{
+        this.showIndex = 1
+      }
     },
     modalClose() {
       this.showModal = false;
@@ -235,7 +629,7 @@ export default {
       this.dataEditAddress = {};
       this.passChangeIsActive = false;
     },
-    pageChanged () {
+    pageChanged() {
       this.$refs.contentMain.scrollIntoView({ behavior: "smooth" });
     },
 
@@ -243,9 +637,9 @@ export default {
       this.$emit("more-comment-mobile", 1);
     },
 
-    isEllipsisActive(e) {
-      return e.offsetWidth < e.scrollWidth;
-    },
+    // isEllipsisActive(e) {
+    //   return e.offsetWidth < e.scrollWidth;
+    // },
 
     showModalAddComment() {
       this.showModal = true;
@@ -254,6 +648,26 @@ export default {
     submitData(data) {
       this.$emit("submit-data", data);
     },
+    activeRadio(data) {
+      this.selectedRadioBtnData = data;
+    },
+    showModalSort() {
+      this.showSortModal = true;
+      this.$emit("show-modal-sort");
+    },
+    setComponent(component) {
+      this.selectedComponent = component;
+    },
+    closeComponent() {
+      this.selectedComponent = "";
+    },
+    closeIcon(index) {
+      this.$delete(this.checkboxValues, index);
+    },
+    selectRadioButton(data) {
+      this.selectedRadio = data;
+      console.log(this.selectedRadio);
+    },
   },
 };
 </script>
@@ -261,11 +675,183 @@ export default {
 <style lang="scss" scoped>
 @include scale-modal-animation();
 @include backdrop-scale-animation();
+@include phone-modal-animation();
 
 .backdrop {
   @extend .modal-backdrop;
   background-color: $overlay--profile;
 }
+.backdrop-phone {
+  @extend .modal-backdrop;
+  background-color: $overlay--profile;
+  display: none;
+  @include xs {
+    display: block;
+  }
+}
+
+// ............... Desktop Style..................... //
+.filter {
+  @include display-flex();
+}
+.filter__title {
+  margin-top: toRem(5);
+  font-size: toRem(16);
+
+  &::before {
+    content: "\e840";
+    margin-left: toRem(5);
+    @include font-icon__limoo();
+    font-size: toRem(20);
+    color: $black-topic;
+  }
+}
+.multiselect__tags-wrap {
+  @include display-flex();
+}
+
+.multiselect__tag {
+  @include display-flex();
+  margin-top: toRem(-7);
+  margin-bottom: toRem(10);
+  margin-left: toRem(4);
+  height: toRem(29);
+  border-radius: toRem(16.5);
+  display: inline-block;
+  color: $gray-2;
+  background: $orange-6;
+  overflow: hidden;
+  max-width: 100%;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  .text-tag {
+    @include display-flex();
+    padding: toRem(4) toRem(8);
+    font-size: toRem(12);
+    @include sm {
+      font-size: toRem(9);
+      margin-top: toRem(3);
+    }
+    @include xs {
+      font-size: toRem(12);
+      margin-top: toRem(1);
+    }
+  }
+
+  .icon-close {
+    &::before {
+      margin: toRem(10.5) toRem(8);
+      padding: 0 !important;
+      cursor: pointer;
+      content: "\e808";
+      @include font-icon__limoo();
+      font-size: toRem(6);
+      color: $gray-4;
+      @include sm {
+        margin: 0 toRem(3);
+      }
+      @include xs {
+        margin: 0 toRem(8);
+      }
+    }
+  }
+}
+.multiselect__tag:last-child {
+  margin-left: toRem(29) !important;
+}
+.dropdown {
+  width: toRem(334);
+  height: toRem(45);
+  bottom: toRem(52);
+  top: toRem(18);
+  position: relative;
+  background-color: $white;
+  border: toRem(1) solid $gray-5;
+  border-radius: toRem(10);
+  cursor: pointer;
+
+  .text {
+    padding: toRem(13) toRem(15) toRem(14) 0;
+    font-size: toRem(14);
+    color: $gray-2;
+  }
+  .items {
+    @include display-flex();
+    flex-direction: column;
+    align-items: flex-start;
+    position: absolute;
+    top: toRem(43.2);
+    margin-right: toRem(-1);
+    width: 100.7%;
+    height: toRem(152);
+    overflow-y: scroll;
+    list-style: none;
+    border: toRem(1) solid $gray-5;
+    background: $white;
+    box-shadow: 0px 20px 24px rgba(17, 17, 17, 0.06);
+    border-bottom-left-radius: toRem(10);
+    border-bottom-right-radius: toRem(10);
+
+    .sub-items {
+      user-select: none;
+      @include display-flex();
+      width: 100%;
+      border-bottom: 1px solid $gray-5;
+      padding: toRem(15) toRem(15) toRem(15) 0 !important;
+    }
+  }
+  .icon {
+    &::before {
+      position: absolute;
+      cursor: pointer;
+      top: toRem(18);
+      left: toRem(11);
+      content: "\e841";
+      margin-left: toRem(1);
+      @include font-icon__limoo();
+      font-size: toRem(7);
+      color: $gray-4;
+    }
+  }
+  .changeicon {
+    &::before {
+      transform: rotate(-180deg);
+      position: absolute;
+      cursor: pointer;
+      top: toRem(18);
+      left: toRem(11);
+      content: "\e841";
+      margin-left: toRem(1);
+      @include font-icon__limoo();
+      font-size: toRem(7);
+      color: $gray-4;
+    }
+  }
+}
+.changedropdown {
+  border-bottom-left-radius: 0px !important;
+  border-bottom-right-radius: 0px !important;
+}
+.filter-button {
+  width: toRem(94);
+  height: toRem(45);
+  font-family: inherit;
+  font-size: toRem(13);
+  margin: toRem(18) toRem(24) 0 0;
+  border: 1px solid $gray-4 !important;
+  color: $gray !important;
+}
+.active-button {
+  width: toRem(94);
+  height: toRem(45);
+  font-family: inherit;
+  font-size: toRem(13);
+  margin: toRem(18) toRem(24) 0 0;
+  border: none !important;
+  color: $gray-2 !important;
+  background-color: $orange-2 !important;
+}
+
 .user-comments__empty-container {
   @include display-flex();
   flex-direction: column;
@@ -309,6 +895,7 @@ export default {
   width: toRem(50);
   height: toRem(50);
 }
+
 /* ============================== */
 .stars-outer {
   position: relative;
@@ -347,9 +934,37 @@ export default {
   color: $gray;
   font-size: toRem(14);
   line-height: 140.62%;
+  @include xxs {
+    display: none;
+  }
 }
 .rate-counter {
   margin-right: toRem(8);
+}
+.buyer-badge {
+  background-color: $orange-5;
+  @include display-flex();
+  justify-content: center;
+  align-items: center;
+  display: inline-flex;
+  width: toRem(70);
+  height: toRem(29);
+  margin-right: toRem(16);
+  border-radius: toRem(16.5);
+  @include sm {
+    align-items: center;
+    width: toRem(54);
+    height: toRem(24);
+  }
+  .badge-text {
+    font-style: normal;
+    font-weight: normal;
+    font-size: toRem(14);
+    // margin-top: toRem(3);
+    @include sm {
+      font-size: toRem(13);
+    }
+  }
 }
 /* ////////////////////////////// */
 
@@ -364,6 +979,7 @@ export default {
 .p-comments__header-holder {
   @include display-flex();
   flex-direction: column;
+  justify-content: center;
 }
 .p-comments__title {
   @include display-flex();
@@ -374,6 +990,9 @@ export default {
   color: $black-topic;
   margin-top: toRem(16);
   text-decoration: none;
+  @include xxs {
+    display: none;
+  }
 }
 .p-comments-idea__title {
   @include display-flex();
@@ -386,6 +1005,13 @@ export default {
   font-size: toRem(16);
   font-family: inherit;
   line-height: 140.62%;
+  @include xs {
+    font-size: toRem(12);
+    margin-top: toRem(4);
+  }
+  @include xxs {
+    font-size: toRem(11);
+  }
 }
 .idea-good {
   color: $btn__green;
@@ -396,11 +1022,27 @@ export default {
 .idea-mid {
   color: $code-request;
 }
-.p-comments__state-desktop {
+.comments-time {
   margin: auto 0;
-}
-.p-comments__state-mobile {
-  display: none;
+  &-content {
+    color: $gray;
+    .time {
+      font-size: toRem(14);
+      line-height: 140.62%;
+      @include xs {
+        font-size: toRem(12.5);
+      }
+    }
+    .time-icon::before {
+      content: "\e82c";
+      @include font-icon__limoo();
+      font-size: toRem(14);
+      margin-left: toRem(9);
+      @include xs {
+        display: none;
+      }
+    }
+  }
 }
 /* =========================== */
 .p-favorite-product-item-icon-delete::before {
@@ -452,20 +1094,79 @@ export default {
 .p-product-content-rating-data {
   margin-top: toRem(16);
 }
-.p-commentedproduct-description {
-  color: $dark_gray;
-  font-family: inherit;
-  text-align: right;
-  font-size: toRem(16);
-  margin: toRem(24) toRem(24) toRem(24) toRem(96);
-  line-height: 2.3em;
-  max-width: 880px;
-  min-height: toRem(80);
-  display: -webkit-box;
-  -webkit-line-clamp: 5;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
+
+.lorm-text {
+  height: toRem(100);
 }
+
+.description-wrapper {
+  .p-commentedproduct-description {
+    transition: all .3s ease;
+    color: $dark_gray;
+    font-family: inherit;
+    text-align: right;
+    font-size: toRem(16);
+    margin: toRem(24) toRem(24) toRem(24) toRem(96);
+    line-height: toRem(38);
+    height: toRem(80);
+    // overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    text-overflow: ellipsis;
+    @include md {
+      margin: toRem(12);
+      font-size: toRem(15);
+    }
+    @include xs{
+      font-size: toRem(14);
+      line-height: toRem(35);
+    }
+    @include xxs {
+      line-height: toRem(28);
+      -webkit-line-clamp: 3;
+    }
+  }
+  .show-more-button {
+    display: none;
+    position: relative;
+    width: max-content;
+    margin: 0 auto;
+    color: $gray;
+    cursor: pointer;
+    &::after {
+      left: toRem(-20);
+      top:toRem(6);
+      transition: all 0.3s ease;
+      position: absolute;
+      content: "\e841";
+      font-size: toRem(8);
+      @include font-icon__limoo();
+      color: $gray;
+    }
+  }
+  &.hidden {
+    .p-commentedproduct-description {
+      overflow: hidden;
+    }
+    .show-more-button {
+        display: block;
+    }
+  }
+  &.show {
+    .p-commentedproduct-description {
+      transition: all .3s ease;
+      display: block;
+    }
+    .show-more-button {
+      &::after {
+        transition: all 0.3s ease;
+        transform: rotate(180deg);
+      }
+    }
+  }
+}
+
 .p-commentedproduct-main {
   @include display-flex();
   margin-top: toRem(20);
@@ -566,11 +1267,6 @@ export default {
   @include font-icon__arrow();
   color: $input-border;
 }
-.full-description__active .p-commentedproduct-description {
-  height: auto;
-  -webkit-line-clamp: inherit;
-  max-height: inherit;
-}
 .comment-more__icon::after {
   content: "\e801";
   @include font-icon__limoo();
@@ -610,11 +1306,16 @@ export default {
 .full-description__active .p-comment__limit {
   display: none;
 }
+
 .comments-add__comment {
   width: toRem(270);
   height: toRem(57);
   font-family: inherit;
   margin-bottom: 1.5rem;
+  margin-top: toRem(52);
+  border: 2px solid $orange !important;
+  color: $orange !important;
+
 }
 
 @include xl {
@@ -623,9 +1324,6 @@ export default {
   }
   .p-comments-content-header-item:last-of-type {
     margin-left: 0;
-  }
-  .p-commentedproduct-description {
-    -webkit-line-clamp: 4;
   }
 }
 
@@ -645,9 +1343,6 @@ export default {
   }
   .p-comments-content-main {
   }
-  .p-commentedproduct-description {
-    font-size: toRem(14);
-  }
   .comment-pagination::v-deep {
     .right-arrow,
     .left-arrow,
@@ -665,14 +1360,39 @@ export default {
   }
   .comments-add__comment {
     width: toRem(259);
-    @include display-flex();
-    align-items: center;
-    justify-content: center;
-    margin: 1.5rem auto;
+    margin: 1.5rem 0;
+    margin-top: toRem(40);
     height: toRem(47);
   }
   .tabs__content {
     padding-top: 0 !important;
+  }
+  .filter__title {
+    margin-top: toRem(30);
+  }
+  .filter-button {
+    font-size: toRem(11);
+    margin: toRem(18) toRem(10) 0 0;
+  }
+  .active-button {
+    font-size: toRem(11);
+    margin: toRem(18) toRem(15) 0 0;
+  }
+  .dropdown {
+    width: toRem(255);
+    height: toRem(45);
+    bottom: toRem(52);
+    top: toRem(18);
+    position: relative;
+    background-color: $white;
+    border: toRem(1) solid $gray-5;
+    border-radius: toRem(10);
+    cursor: pointer;
+  }
+  .text-tag {
+    @include display-flex();
+    padding: toRem(4) toRem(4);
+    font-size: toRem(11.5);
   }
 }
 
@@ -698,16 +1418,6 @@ export default {
     font-size: toRem(14);
     margin-top: toRem(24);
   }
-  .p-comments__state-desktop {
-    display: none;
-  }
-  .p-comments__state-mobile {
-    display: block;
-  }
-  .p-comments__title,
-  .ideas-title {
-    font-size: toRem(13);
-  }
   .stars-outer::before,
   .stars-inner::before {
     font-size: toRem(10);
@@ -718,7 +1428,6 @@ export default {
     font-size: toRem(13);
   }
   .p-comments-content-header {
-    flex-flow: column;
     height: auto;
     background: $white;
     padding-right: toRem(11);
@@ -729,14 +1438,7 @@ export default {
     margin-bottom: toRem(8);
   }
   /* 00000000000000000000000000 */
-  .p-commentedproduct-description {
-    font-size: toRem(13);
-    margin: toRem(16) toRem(11) 0 toRem(37);
-    overflow: hidden;
-    text-overflow: ellipsis;
-    text-justify: inter-word;
-    -webkit-line-clamp: 3;
-  }
+
   .show-more-description {
     @include display-flex();
     justify-content: flex-end;
@@ -819,16 +1521,242 @@ export default {
     font-size: toRem(22);
   }
   .comments-add__comment {
-    width: 72%;
+    margin: toRem(24) auto;
+    width: 70%;
+  }
+  //////////////////////////////////////////////
+  .modal-container::v-deep {
+    dialog {
+      @include display-flex();
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+      background: $white;
+      box-shadow: 0 toRem(20) toRem(24) rgba(17, 17, 17, 0.06);
+      border-top-left-radius: toRem(24);
+      border-top-right-radius: toRem(24);
+      border-bottom-left-radius: 0;
+      border-bottom-right-radius: 0;
+    }
+
+    dialog {
+      &.delete {
+        min-width: 100%;
+        bottom: 0;
+        margin: 0;
+      }
+    }
+  }
+  .modal__close-line-wrapper{
+    width: 100%;
+    cursor: pointer;
+    .modal__close-line {
+      display: flex;
+      justify-content: center;
+      margin-top: toRem(24);
+      line-height: 0;
+      cursor: pointer;
+    }
+  }
+  .modal__close-line::before {
+    content: "\e81b";
+    @include font-icon__limoo();
+    font-size: toRem(28);
+    color: $gray;
+  }
+  .p-modal-header-top-title {
+    color: $black-topic;
+    font-size: 14px;
+    font-weight: 400;
+    margin: toRem(48) toRem(6.75) toRem(16) toRem(60);
+  }
+  .p-modal-header-top {
+    margin-top: toRem(24);
+  }
+  .p-modal-header {
+    padding-right: toRem(41);
+    padding-left: toRem(41);
+  }
+  .title-icon {
+    &::before {
+      margin: toRem(51.75) toRem(25.75) toRem(18.75) 0;
+      content: "\e83f";
+      @include font-icon__limoo();
+      font-size: toRem(20);
+      color: $gray-2;
+    }
+  }
+  .splicer-line {
+    display: block;
+    width: 90%;
+    border: none;
+    margin: toRem(16) toRem(24) toRem(16) toRem(24);
+    border-top: toRem(1) solid $gray-border;
+  }
+  .radio-button-wrapper .title {
+    margin-right: toRem(11);
+  }
+  .sub-items {
+    @include display-flex();
+    width: 100%;
+    padding:.75rem 1.625rem;
+    user-select: none;
+    cursor: pointer;
+  }
+  .modal-filter__btn {
+    @include display-flex();
+    justify-content: center;
+    margin-top: toRem(50);
+    margin-bottom: 25%;
+  }
+
+  .p-product-btn {
+    width: 40%;
+    height: toRem(47);
+    font-size: toRem(14);
+    color: $gray-2;
+    border-radius: toRem(10);
+    margin-left: toRem(24);
+  }
+  .modal-cancel {
+    width: 40%;
+    height: toRem(47);
+    font-size: toRem(14);
+    color: $gray-3;
+    border-radius: toRem(10);
+  }
+
+  .title-icon-filter {
+    padding: toRem(57.71) toRem(27.71) toRem(21.71) 0;
+    &::before {
+      content: "\e840";
+      @include font-icon__limoo();
+      font-size: toRem(18);
+      color: $gray-2;
+    }
+  }
+
+  // .modal-animation__open {
+  //     animation: modalOpen 600ms linear;
+  // }
+  // @keyframes modalOpen {
+  //     0% {
+  //         transform: translate(0, 470px);
+  //     }
+  //     100% {
+  //         transform: translate(0, 0);
+  //     }
+  // }
+  // .modal-animation__close {
+  //     animation: modalClose 600ms linear;
+  // }
+  // @keyframes modalClose {
+  //     0% {
+  //         transform: translate(0, 0);
+  //     }
+  //     100% {
+  //         transform: translate(0, 470px);
+  //     }
+  // }
+  .p-modal-header-mobile {
+    display: flex;
+    flex-flow: column;
+  }
+  .responsive {
+    display: flex !important;
+  }
+  .filter {
+    display: none !important;
+  }
+  .filter__title {
+    display: none;
+  }
+  .products__filter-btns {
+    display: flex !important;
+    justify-content: space-around;
+    margin-bottom: toRem(40);
+    @include xxs {
+      margin-bottom: toRem(30);
+    }
+  }
+  .products__filter-btn {
+    @include display-flex();
+    justify-content: center;
+    align-items: center;
+    margin-left: 1.3125rem;
+    font-family: inherit;
+    width: toRem(207);
+    height: toRem(36);
+    font-size: toRem(14);
+    .filter-search-icon {
+      margin-left: toRem(9.6);
+      margin-top: toRem(2);
+      &::before {
+        content: "\e840";
+        @include font-icon__limoo();
+        font-size: toRem(14);
+        color: white;
+        @include xxs {
+          font-size: toRem(14);
+        }
+      }
+    }
+    .arrow-down-icon {
+      margin-left: toRem(9.6);
+      margin-top: toRem(2);
+
+      &::before {
+        content: "\e83f";
+        @include font-icon__limoo();
+        font-size: toRem(14);
+        color: white;
+        @include xxs {
+          font-size: toRem(14);
+        }
+      }
+    }
+  }
+  .products__filter-btn:last-of-type {
+    margin-left: 0;
+  }
+  .active--blur {
+    filter: blur(toRem(2));
+    overflow: hidden;
+  }
+
+  .checkbox-wrapper .container.square {
+    margin-right: 26px !important;
+  }
+
+  .radio-btn:first-child {
+    padding-top: 0 !important;
+  }
+  .radio-btn {
+    border: 0 !important;
+  }
+  .modal-sort__items {
+    padding-right: toRem(23) !important;
+    margin-bottom: 0 !important;
+  }
+
+  .sort-radio {
+    color: $gray-3;
+    font-size: toRem(14);
+  }
+  .active-radio {
+    color: $gray;
+    font-size: toRem(14);
+  }
+
+  .tag-mobile {
+    margin-left: toRem(4);
+  }
+  .tag-mobile:first-child {
+    margin-right: toRem(35);
   }
 }
 
 @include xxxs {
-  .p-comments__title,
-  .ideas-title {
-    font-size: toRem(12);
-    text-align: right;
-  }
   .p-product-content-data {
     margin-top: toRem(3);
     margin-right: toRem(10);
@@ -844,9 +1772,6 @@ export default {
   }
   .p-comments-idea__title {
     margin-bottom: toRem(10);
-  }
-  .p-commentedproduct-description {
-    margin: toRem(14) toRem(11) toRem(10) toRem(27);
   }
 }
 </style>

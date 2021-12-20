@@ -1,7 +1,7 @@
 <template>
   <base-modal
     class="modal-container"
-    :mode="modalMode"
+    :mode="phone"
     modal-class="modal"
     @close-modal="modalClose"
   >

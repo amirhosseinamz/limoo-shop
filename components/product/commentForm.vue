@@ -288,7 +288,7 @@ export default {
   width: toRem(481);
   margin-right: auto;
   margin-left: auto;
-  padding-top: toRem(38);
+  padding-top: toRem(25);
 }
 .comment__form-title {
   font-size: toRem(16);
@@ -308,7 +308,7 @@ export default {
   font-weight: 400;
 }
 .comment__suggest-main {
-  margin-top: toRem(38);
+  // margin-top: toRem(38);
 }
 .comment__suggest-text {
   font-size: toRem(16);
@@ -325,7 +325,7 @@ export default {
 .comment__suggest-btns {
   justify-content: center;
   @include display-flex();
-  margin-top: toRem(42);
+  margin-top: 5%;
   margin-bottom: toRem(24);
 }
 .p-product-btn {
@@ -379,6 +379,9 @@ export default {
     outline: none;
     padding-right: toRem(10);
     padding-left: toRem(10);
+    @include sm{
+      height: toRem(42);
+    }
   }
   .p-modal-address-input {
     width: 100%;
@@ -415,7 +418,7 @@ export default {
     margin-bottom: 0;
   }
   .comment__suggest-btns {
-    margin-top: toRem(32);
+    margin-top: 6%;
     margin-bottom: toRem(19);
   }
   .p-product-btn {
@@ -425,9 +428,11 @@ export default {
   .comment__form-main::v-deep {
     .comment__form-title {
       font-size: toRem(14);
+      margin-bottom: 1%;
     }
     .comment__textara-item {
-      height: toRem(68);
+      height: toRem(58);
+      margin-bottom: 0;
     }
     .p-modal-address-input {
       height: toRem(46);

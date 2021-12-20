@@ -17,6 +17,7 @@
             :border-active="false"
             button
           ></base-radio-button>
+
         </div>
 
   </div>
@@ -29,6 +30,7 @@ export default {
   props: {
     title : { type: String, default: '' },
     sortData : { type: [Object,Array], default: [] },
+    filterData : { type: [Object,Array], default: [] },
   },
   mounted() {
     console.log(this.sortData);

@@ -39,4 +39,4 @@ deploy-to-develop:
   only:
     - stage
   tags:
-    - dev-ship-runner
+    - dev-front-limoo

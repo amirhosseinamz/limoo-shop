@@ -1,6 +1,6 @@
 <template>
     <div class="birthday">
-        <span class="birthday-title">تاریخ تولد:</span>
+        <span class="birthday-title">تاریخ تولد :</span>
         <div class="birthday-container">
             <!-- Day -->
             <div class="birthday-item__days">
@@ -276,7 +276,6 @@ export default {
     border-radius: 6px;
     position: absolute;
 }
-
 .birthday {
     @include display-flex();
     flex-direction: column;
@@ -369,6 +368,7 @@ export default {
     border: none;
     align-self: center;
 }
+
 @media (max-width: 1220px) {
     .birthday {
         &-item {
