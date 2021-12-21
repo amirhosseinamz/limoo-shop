@@ -75,7 +75,7 @@
           </div>
 
           <div class="btn-control">
-            <base-button no-box-shadow base-color="yellow" classes="signup-btn" button-type="submit" :disabled="btnIsDisabled">
+            <base-button no-box-shadow base-color="yellow" classes="signup-btn" button-type="submit" :disabled="btnIsDisabled" >
               {{ getTextByTextKey("public_confirm") }}
             </base-button>
           </div>
@@ -157,7 +157,6 @@ export default {
   },
   methods: {
     getTextByTextKey,
-
     animateTimerPassed() {
       this.timerPassed = true;
       setTimeout(() => {

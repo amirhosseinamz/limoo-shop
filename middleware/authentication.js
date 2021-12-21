@@ -1,5 +1,6 @@
-export default function({ redirect }) {
+export default function(context) {
   if (!localStorage.getItem('token')) {
-    return redirect("/users/signin-up");
+    sessionStorage.setItem('previousRoute', context.route.fullPath);
+    return context.redirect("/users/signin-up");
   }
 }

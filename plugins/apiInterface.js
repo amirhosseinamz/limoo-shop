@@ -76,6 +76,7 @@ function ApiInterface(apiOptions = {}) {
       handleResult(error);
       if (error.response.status === 401) {
         storageHelper.clearLocalStorage();
+        sessionStorage.setItem('previousRoute', window.location.pathname);
         window.location && (window.location.pathname = "");
       }
     }).catch((error) => {

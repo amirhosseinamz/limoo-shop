@@ -113,7 +113,6 @@ export default {
       showNavbar: true,
       lastScrollPosition: 0,
       showModal: false,
-      showModalWellcome: false,
       userIsAuth: false,
       authUpdated: 0,
     };
@@ -148,12 +147,12 @@ export default {
     // );
   },
   computed: {
-    stateShowModalWellcome() {
-      return (this.showModalWellcome = this.$store.getters.stateShowModalWellcome); // return the state value in `stateShowModalWellcome`
-    },
     userIsAuthChanged() {
       return (this.userIsAuth = this.$store.getters.userIsAuth);
     },
+    showModalWellcome() {
+      return this.$store.getters["authentication/authentication/showWellcomeModal"]
+    }
   },
   watch: {
     stateShowModalWellcome() {
@@ -178,27 +177,13 @@ export default {
     },
     showWellcomeModal() {
       this.showModal = false;
-      this.$store.dispatch({
-        type: "stateShowModalWellcome",
-        value: true,
-      });
-      // setTimeout(() => {
-      //     this.showModalWellcome = this.$store.getters.stateShowModalWellcome;
-      // }, 200);
+      this.$store.dispatch('authentication/authentication/toggleWellcomeModal', true);
     },
     closeWellcomeModal() {
-      this.showModalWellcome = false;
-      this.$store.dispatch({
-        type: "stateShowModalWellcome",
-        value: false,
-      });
+      this.$store.dispatch('authentication/authentication/toggleWellcomeModal', false);
     },
     closeWellcomeModalandGoToProfile() {
-      this.showModalWellcome = false;
-      this.$store.dispatch({
-        type: "stateShowModalWellcome",
-        value: false,
-      });
+      this.$store.dispatch('authentication/authentication/toggleWellcomeModal', false);
       this.$router.push("/profile/personal-info");
     },
     onScroll() {
