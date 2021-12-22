@@ -7,7 +7,8 @@
 <script>
 import SignInStepOne from "~/components/Auth/SignInStepOne";
 export default {
-    layout: "signinup",
+  middleware: "isAuthenticated",
+  layout: "signinup",
     components: {
         SignInStepOne
     }

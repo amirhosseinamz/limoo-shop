@@ -8,6 +8,7 @@
 import PassChange from "~/components/Auth/PassChange";
 export default {
   layout: "signinup",
+  middleware: "isAuthenticated",
   components: {
     PassChange,
   },

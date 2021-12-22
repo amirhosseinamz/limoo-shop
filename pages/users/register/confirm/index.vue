@@ -3,7 +3,6 @@
     <sign-up-step-two
       :confirm-code="confirmCodeIsWrong"
       @confirmed="onConfirm"
-      :error="errorMessage"
     ></sign-up-step-two>
   </div>
 </template>
@@ -14,6 +13,7 @@ import WellcomeSignUp from "~/components/Auth/WellcomeSignUp.vue";
 export default {
   layout: "signinup",
   // middleware: "confirmPageGuard",
+  middleware: "isAuthenticated",
   components: {
     SignUpStepTwo,
     WellcomeSignUp,
@@ -22,20 +22,13 @@ export default {
     return {
       showModalWellcome: false,
       confirmCodeIsWrong: false,
-      errorMessage: "",
     };
   },
   methods: {
     onConfirm(verifyCode) {
       this.$store.dispatch('authentication/authentication/confirmCode', {
         activationCode: verifyCode,
-      }).then((res) => {
-        if (res) {
-          this.errorMessage = res;
-        }
-        this.$router.push("/");
-      });
-      this.errorMessage = "";
+    });
 
       // this.$store
       //   .dispatch("authUser/confirmAuthUser", {

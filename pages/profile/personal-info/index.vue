@@ -279,11 +279,6 @@
           </div>
         </form>
       </div>
-
-
-
-                <button @click="show = !show">Save</button>
-                <h1 v-if="show">{{formData.name}}<h1>name.value :{{formData.name.value}}</h1> </h1>
     </div>
   </div>
 </template>
@@ -337,7 +332,7 @@ export default {
   },
   methods: {
     getTextByTextKey,
-    
+
     goToProfile() {
       this.$router.push("/profile");
     },
@@ -411,7 +406,7 @@ export default {
   background: $white;
   border-radius: toRem(10);
   box-shadow: 0 toRem(8) toRem(16) 0 $box__shadow;
-  
+
   &__topic {
     font-size: toRem(18);
     line-height: toRem(25.31);
@@ -455,7 +450,7 @@ export default {
       grid-column-gap: toRem(30);
     }
 
-    
+
     &-name,
     // &-email,
     &-phone,
@@ -620,7 +615,7 @@ export default {
     }
   }
     &__info {
-      
+
       @include display-flex();
       flex-direction: row-reverse;
       flex-wrap: wrap;
@@ -639,7 +634,7 @@ export default {
       }
       &-phone {
         order: 1;
-        
+
       }
       &-email {
         order: 3;
@@ -653,15 +648,15 @@ export default {
       &-pass {
         order: 5;
       }
-     
+
     }
     &__btn {
       font-size: toRem(16);
       margin-top: toRem(42);
-      margin-bottom: toRem(72); 
+      margin-bottom: toRem(72);
       width: 70%;
       margin-bottom: toRem(72);
-      
+
     }
     &__alert {
       font-size: toRem(13);
@@ -805,7 +800,7 @@ export default {
       &-pass {
         order: 5;
       }
-    
+
     }
     &__container {
       // padding: 0 toRem(107) 0 toRem(107);
@@ -815,7 +810,7 @@ export default {
       margin-top: toRem(42);
       width: 50%;
       margin-bottom: toRem(72);
-      
+
     }
     &__alert {
       font-size: toRem(13);
@@ -1067,7 +1062,7 @@ export default {
         margin: auto;
       }
     }
-   
+
   }
   .user-profile__container::v-deep {
     .name {

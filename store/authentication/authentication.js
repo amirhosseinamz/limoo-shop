@@ -11,6 +11,7 @@ const state = () => ({
   userPhoneNumber: "",
   activationCodeIsValid: null,
   showWellcomeModal: false,
+  errorMessage: "",
 });
 const getters = {
   activationCode(state) {
@@ -25,6 +26,9 @@ const getters = {
   showWellcomeModal(state) {
     return state.showWellcomeModal;
   },
+  errorMessage(state) {
+    return state.errorMessage;
+  }
 };
 const mutations = {
   signIn(state, payload) {
@@ -40,6 +44,12 @@ const mutations = {
   toggleWellcomeModal(state, payload) {
     state.showWellcomeModal = payload;
   },
+  setError(state, payload) {
+    state.errorMessage = payload.error;
+  },
+  clearError(state) {
+    state.errorMessage = "";
+  }
 };
 const actions = {
   async signIn(context, payload) {
@@ -63,14 +73,17 @@ const actions = {
           userPhoneNumber: payload.phone,
         };
         context.commit("signIn", mutationPayload);
+        if (payload.from !== "modal") {
+          await this.$router.push("/users/register/confirm");
+        }
         return response.data;
+
       } else {
         return response.data.response_message;
       }
     }
   },
   async confirmCode(context, payload) {
-    const correctActivationCode = context.getters.activationCode;
     const enteredActivationCode = payload.activationCode;
     const response = await api.apiCall.post(
       process.env.BASE_URL + "unison/auth/signin/otp",
@@ -90,18 +103,24 @@ const actions = {
       console.log(response.data);
       if (response.data.response_code === 1) {
         localStorage.setItem("token", response.data.token);
-        let _temp = sessionStorage.getItem("previousRoute");
-        if (_temp) {
-          //await this.$router.push(_temp);
-          await this.$router.push('/profile');
+        if (payload.from !== "modal") {
+          let _temp = sessionStorage.getItem("previousRoute");
+          if (_temp) {
+            await this.$router.replace(_temp);
+          } else {
+            await this.$router.replace("/");
+            context.commit("toggleWellcomeModal", true);
+          }
+        } else {
+          await this.$router.replace('/profile');
         }
-        // } else {
-        //   console.log('main page');
-        //   await this.$router.replace("/");
-        // }
-        //context.commit("toggleWellcomeModal", true);
+
+        sessionStorage.removeItem("previousRoute");
+
       } else {
-        return response.data.response_message;
+        context.commit('setError', {
+          error: response.data.response_message,
+        })
       }
     }
 

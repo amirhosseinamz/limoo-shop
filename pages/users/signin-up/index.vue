@@ -8,7 +8,7 @@
 import SignUpStepOne from "~/components/Auth/SignUpStepOne";
 export default {
   layout: "signinup",
-  // middleware: "signUpPageGuard",
+  middleware: "isAuthenticated",
   components: {
     SignUpStepOne,
   },
@@ -23,9 +23,7 @@ export default {
         this.$store.dispatch("authentication/authentication/signIn", {
           phone: phone,
         })
-      .then( () => {
-        this.$router.push("/users/register/confirm");
-      });
+
       this.isLoading = false;
     },
   },

@@ -90,26 +90,17 @@ export default {
       isActive: false,
       btnIsDisabled: false,
       checkInitialValidation: 0,
+      newCodeSent: false,
+      startAgainTimer: 0,
+      userPhoneNumber: null,
       formData: {
         phone: "",
       },
-      showSnackbar: false
+      errorMessage: "",
     };
   },
   components: {
     textInput,
-  },
-  watch: {},
-  mounted() {
-    setTimeout(() => {
-      this.showSnackbar = true;
-      console.log(this.showSnackbar);
-    },3000)
-    setTimeout(() => {
-      this.showSnackbar = false;
-      console.log(this.showSnackbar);
-
-    },6000)
   },
   created() {
     // this.storePhone = this.$store.getters.PhoneNumberPicker;
@@ -144,27 +135,15 @@ export default {
         }
 
         if (checkSubmitForm === "success") {
-          const headers = {
-            "Content-Type": "application/json",
-            "Client-Key": process.env.CLIENT_KEY,
-          };
-          this.$axios
-            .$post(
-              process.env.SIGN_UP_API,
-              { phone: this.formData.phone },
-              {
-                headers: headers,
-              }
-            )
-            .then((result) => {
-              // console.log(result.response_code);
-              if (result.response_code === 2208) {
-                this.$emit("btn-go-to-signup-step-two");
-              }
-            })
-            .catch((e) => console.log(e));
-        } else {
-          this.$store.commit("PhoneNumber", { value: this.formData.phone });
+          this.$store.dispatch("authentication/authentication/signIn", {
+            phone: this.formData.phone,
+            from: "modal"
+          })
+          .then(res => {
+            if (res.response_code === 2208) {
+              this.$emit("btn-go-to-signup-step-two");
+            }
+          });
         }
       });
     },
@@ -173,6 +152,7 @@ export default {
       this.$store.commit("PhoneNumber", { value: "" });
     },
   },
+
 };
 </script>
 
@@ -182,9 +162,12 @@ export default {
   text-align: center;
   @extend .centered;
 }
-.card {
+.card::v-deep {
   width: toRem(642);
   padding: 0 toRem(89.5);
+  &-body {
+    position: relative;
+  }
 }
 
 .signup-close-btn {

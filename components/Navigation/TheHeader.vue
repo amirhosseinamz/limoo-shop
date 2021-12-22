@@ -100,6 +100,7 @@ import TheMegaMenu from "~/components/Navigation/TheMegaMenu.vue";
 import WellcomeSignUp from "~/components/Auth/WellcomeSignUp.vue";
 import modalAuth from "~/components/Auth/AuthModals/modalAuth.vue";
 import { getTextByTextKey } from "~/modules/splitPartJsonResource.js";
+import { getToken } from "~/utils/storageHelper";
 
 export default {
   name: "TheHeader",
@@ -170,7 +171,11 @@ export default {
   },
   methods: {
     showAuthModal() {
-      this.showModal = true;
+      if (localStorage.getItem('token')) {
+        this.$router.push('/profile');
+      } else {
+        this.showModal = true;
+      }
     },
     modalClose() {
       this.showModal = false;

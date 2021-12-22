@@ -3,17 +3,11 @@
     <div class="card">
       <div>
         <button @click="nextPage" class="app-signin-next-btn"></button>
-          <base-snackbar mode="alert" class="alert-message" :show="false">
-            {{ getTextByTextKey("auth_aignup_code_incorrect") }}
-          </base-snackbar>
 <!--        Timer Passed-->
         <base-snackbar mode="alert" :show="false">
           {{ getTextByTextKey("auth_aignup_code_agin") }}
         </base-snackbar>
-<!--        New Code Sent-->
-        <base-snackbar mode="success" :show="false">
-          {{ getTextByTextKey("auth_aignup_code_new") }}
-        </base-snackbar>
+
       </div>
       <div class="card-body">
         <base-snackbar mode="success" class="success-message" :show="newCodeSent">
@@ -21,8 +15,8 @@
 
           {{ activationCode }}
         </base-snackbar>
-        <base-snackbar mode="alert" class="alert-message" :show="errorMessage !== ''">
-          {{ errorMessage }}
+        <base-snackbar mode="alert" class="alert-message" :show="error !== ''">
+          {{ error }}
         </base-snackbar>
         <form @submit.prevent="submitForm">
           <div class="form-group">
@@ -92,10 +86,6 @@ import textInput from "~/components/UI/textInput";
 export default {
   props: {
     confirmCode: Boolean,
-    error: {
-      type: String,
-      require: true,
-    }
   },
   components: {
     textInput,
@@ -118,7 +108,6 @@ export default {
       startAgainTimer: 0,
       showSnack: false,
       showError: false,
-      errorMessage: "",
     };
   },
   watch: {
@@ -129,16 +118,10 @@ export default {
         },5000)
       }
     },
-    error: {
-      handler(val) {
-        this.errorMessage = val;
-      },
-      immediate: true,
-    },
-    errorMessage(val) {
+    error(val) {
       if (val) {
         setTimeout(() => {
-          this.errorMessage = "";
+          this.$store.commit('authentication/authentication/clearError');
         },5000)
       }
     }
@@ -148,12 +131,12 @@ export default {
     this.newCodeSent = true;
   },
   computed: {
-    activationCodeIsValid() {
-      return this.$store.getters["authentication/authentication/activationCodeIsValid"];
-    },
     activationCode() {
       return this.$store.getters["authentication/authentication/activationCode"];
     },
+    error() {
+      return this.$store.getters["authentication/authentication/errorMessage"];
+    }
   },
   methods: {
     getTextByTextKey,
@@ -208,33 +191,6 @@ export default {
               }, 5000);
             }
       })
-
-      // const headers = {
-      //   "Content-Type": "application/json",
-      //   "Client-Key": process.env.CLIENT_KEY,
-      // };
-      // this.$axios
-      //   .$post(
-      //     process.env.SIGN_UP_API,
-      //     { phone: this.userPhoneNumber },
-      //     {
-      //       headers: headers,
-      //     }
-      //   )
-      //   .then((result) => {
-      //     console.log(result.response_code);
-      //
-      //     if (result.response_code == 2208) {
-      //       this.startAgainTimer++;
-      //       this.newCodeSent = true;
-      //       setTimeout(() => {
-      //         this.newCodeSent = false;
-      //       }, 5000);
-      //     }
-      //   })
-      //   .catch((e) => {
-      //     console.log(e);
-      //   });
     },
   },
 
@@ -248,6 +204,10 @@ export default {
   margin: toRem(-24) toRem(90) 0 toRem(89);
   position: absolute;
   top: toRem(-40);
+  @include xs {
+    width: toRem(330);
+    top: toRem(40);
+  }
 }
 
 .alert-message {
@@ -256,6 +216,10 @@ export default {
   margin: toRem(-24) toRem(90) 0 toRem(89);
   position: absolute;
   top: toRem(-40);
+  @include xs {
+    width: toRem(330);
+    top: toRem(40);
+  }
 }
 
 .signup-container {
@@ -271,13 +235,14 @@ export default {
   @include display-flex();
   flex-direction: column;
   justify-content: space-around;
-  width: 642px;
-  height: 524px;
+  width: toRem(642);
+  height: toRem(524);
   background-color: $white;
   box-shadow: 0 8px 16px $box__shadow;
   border-radius: 15px;
   &-body {
     position: relative;
+    @extend .justify-center;
   }
 }
 .app-signin-next-btn {
@@ -286,6 +251,9 @@ export default {
   width: 13.5px;
   height: 24px;
   cursor: pointer;
+  @include xs {
+    margin-top: 0;
+  }
 }
 .app-signin-next-btn::before {
   content: "\e801";
@@ -347,6 +315,9 @@ export default {
   font-weight: 400;
   text-align: right;
   margin: 77px 90px 33px 0;
+  @include sm {
+    margin-right: toRem(26);
+  }
 }
 .txt-content {
   font-size: 16px;
@@ -355,6 +326,9 @@ export default {
   text-align: right;
   margin-bottom: 25px;
   margin-right: 90px;
+  @include sm {
+    margin-right: toRem(26);
+  }
 }
 .signup-input {
   color: $code;
@@ -388,43 +362,20 @@ export default {
     margin-bottom: 0;
   }
 }
-
-@media screen and (max-width: 540px) {
-  @keyframes cssAnimation {
-    0% {
-      opacity: 0;
-      transform: translate(0%, -170%);
-    }
-    70% {
-      opacity: 1;
-      transform: translate(0%, -80%);
-    }
-    80% {
-      opacity: 1;
-      transform: translate(0%, -80%);
-    }
-    90% {
-      opacity: 1;
-      transform: translate(0%, -80%);
-    }
-    100% {
-      opacity: 1;
-      transform: translate(0%, -80%);
-    }
+@include sm {
+  .card {
+    width: toRem(512);
   }
+}
+
+@include xs{
+
   .card {
     width: 380px;
     height: 100vh;
     border-radius: 0;
   }
-  @mixin signup-input {
-    margin-right: 16px;
-    margin-left: 16px;
-    width: 328px;
-    height: 60px;
-    margin-bottom: 8px;
-  }
-  @mixin input-holder {
+  .input-holder {
     margin-right: 16px;
     margin-left: 16px;
     padding: 0;
@@ -432,41 +383,38 @@ export default {
     height: 60px;
     margin-bottom: 8px;
   }
-  .input-holder {
-    @include input-holder();
-  }
   .signup-btn {
     width: 328px;
     margin-top: 38px;
-    margin-bottom: 11.5rem;
+    margin-bottom: 8rem;
   }
   .txt-header {
     font-size: 20px;
     line-height: 140.62%;
-    width: 328px;
-    margin: 128px 16px 24px 16px;
-  }
-
-  @mixin txt-content {
-    width: 328px;
-    font-size: 14px;
-    margin-right: 16px;
-    margin-left: 16px;
+    margin: 128px toRem(28) 24px 16px;
   }
 
   .signup-container::v-deep {
     .txt-content {
-      @include txt-content();
+      font-size: 14px;
+      margin-right: toRem(28);
+      margin-left: 16px;
     }
     .input-holder {
-      @include signup-input();
+      margin-right: 16px;
+      margin-left: 16px;
+      width: 328px;
+      height: 60px;
+      margin-bottom: 8px;
     }
     .form__main--item {
       justify-content: center;
       width: auto;
     }
     .signup-input {
-      @include signup-input();
+      width: 328px;
+      height: 60px;
+      margin-bottom: 8px;
       margin-right: 0;
       margin-left: 0;
     }
@@ -482,60 +430,12 @@ export default {
     }
   }
 }
-@media screen and (max-width: 321px) and (min-width: 299px) {
+@include xxs {
   .card {
-    @include display-flex();
-    flex-direction: column;
-    justify-content: space-between;
+    width: toRem(270);
   }
 }
-@media screen and (max-width: 350px) {
-  @mixin signup-input {
-    margin-right: 10px;
-    margin-left: 10px;
-    width: 280px;
-  }
-  @mixin input-holder {
-    width: 280px;
-  }
-  .signup-btn {
-    width: 280px;
-  }
-  .txt-header {
-    font-size: 20px;
-    line-height: 140.62%;
-    width: 280px;
-    margin-right: auto;
-    margin-left: auto;
-  }
-  .signup-limoo-logo {
-    margin-top: 0;
-  }
-  @mixin txt-content {
-    width: 280px;
-    margin-right: 10px;
-    margin-left: 0;
-  }
-  .signup-container::v-deep {
-    .txt-content {
-      @include txt-content();
-    }
-    .input-holder {
-      @include signup-input();
-    }
-    .form__main--item {
-      justify-content: center;
-      width: auto;
-    }
-    .signup-input {
-      @include signup-input();
-    }
-  }
-  .card {
-    width: auto;
-  }
-}
-@media screen and (max-width: 280px) {
+@include xxxs{
   .alert-txt {
     padding-left: 30px;
   }

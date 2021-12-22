@@ -1,10 +1,5 @@
 <template>
   <div class="signup-container">
-    <transition name="snackbar" mode="out-in">
-      <base-snackbar :mode="snackbarMode" :class="snackbarMode+'-message'" v-if="showSnackbar">
-        {{ snackbarText }}
-      </base-snackbar>
-    </transition>
     <authentication-card class="card">
       <template #top-icon>
         <button @click="nextPage" class="app-signin-next-btn"></button>
@@ -14,6 +9,14 @@
         {{ getTextByTextKey("auth_aignup_enter_code_please") }}
       </template>
       <template #card-body>
+        <base-snackbar mode="success" class="success-message" :show="newCodeSent">
+          {{ getTextByTextKey("auth_aignup_code_new") }}
+
+          {{ activationCode }}
+        </base-snackbar>
+        <base-snackbar mode="alert" class="alert-message" :show="error !== ''">
+          {{ error }}
+        </base-snackbar>
         <form @submit.prevent="pressed">
           <div class="form-group">
             <text-input
@@ -43,7 +46,7 @@
               :form-data="formData"
               :attribute-required="true"
               :active-border-click="true"
-              timer-start="2:60"
+              timer-start="1:60"
               accessStyleParentInToChildNameId="address__form--data"
               tag-html="input"
               type-input="text"
@@ -105,37 +108,36 @@ export default {
       },
       checkInitialValidation: 0,
       startAgainTimer: 0,
-      showSnackbar: false,
     };
   },
-  watch: {},
   computed: {
-    snackbarMode() {
-      return "success";
+    error() {
+      return this.$store.getters["authentication/authentication/errorMessage"];
     },
-    snackbarText() {
-      if (this.snackbarMode === "success") {
-        return this.getTextByTextKey("auth_aignup_code_new");
-      } else if (this.snackbarMode === "alert") {
-        return this.getTextByTextKey("auth_aignup_code_agin");
+    activationCode() {
+      return this.$store.getters["authentication/authentication/activationCode"];
+    },
+  },
+  watch: {
+    newCodeSent(val) {
+      if (val) {
+        setTimeout(() => {
+          this.newCodeSent = false;
+        },5000)
+      }
+    },
+    error(val) {
+      if (val) {
+        setTimeout(() => {
+          this.$store.commit('authentication/authentication/clearError');
+        },5000)
       }
     }
   },
+
   mounted() {
-    let timeout;
-    if (this.snackbarMode === "success") {
-      timeout = 5000;
-    } else if (this.snackbarMode === "alert") {
-      timeout = 7000;
-    }
-    console.log(timeout);
-    setTimeout(() => {
-      this.showSnackbar = true;
-    },3000)
-    setTimeout(() => {
-      this.showSnackbar = false;
-    }, timeout)
-    this.userPhoneNumber = this.$store.getters.PhoneNumberPicker;
+    this.userPhoneNumber = this.$store.getters["authentication/authentication/userPhoneNumber"];
+    this.newCodeSent = true;
   },
   methods: {
     getTextByTextKey,
@@ -171,40 +173,10 @@ export default {
 
         if (checkSubmitForm === "success") {
           const verifyCode = parseInt(this.formData.verifyCode);
-          const headers = {
-            "Content-Type": "application/json",
-            "Client-Key": process.env.CLIENT_KEY,
-          };
-          this.$axios
-            .$post(
-              process.env.SIGN_UP_OTP_API,
-              {
-                phone: this.userPhoneNumber,
-                activation_code: verifyCode,
-              },
-              {
-                headers: headers,
-              }
-            )
-            .then((result) => {
-              // console.log(result);
-              if (result.response_code === 1) {
-                this.$store.dispatch({
-                  type: "userIsAuth",
-                  value: true,
-                });
-                this.$store.commit("authUser/setToken", result.token);
-                this.$store.commit("PhoneNumber", { value: "" });
-                this.$emit("event-show-modal-wellcome");
-                // console.log(result.token);
-              } else if (result.response_code === 2222) {
-                this.confirmCodeIsWrong = true;
-                setTimeout(() => {
-                  this.confirmCodeIsWrong = false;
-                }, 5000);
-              }
-            })
-            .catch((e) => console.log(e));
+          this.$store.dispatch('authentication/authentication/confirmCode', {
+            activationCode: verifyCode,
+            from: "modal"
+          });
         }
       });
     },
@@ -214,35 +186,18 @@ export default {
       this.$emit("btn-go-back-signup-step-one");
     },
     sendNewRequest() {
-      const headers = {
-        "Content-Type": "application/json",
-        "Client-Key": process.env.CLIENT_KEY,
-      };
-      this.$axios
-        .$post(
-          process.env.SIGN_UP_API,
-          { phone: this.userPhoneNumber },
-          {
-            headers: headers,
-          }
-        )
-        .then((result) => {
-          // console.log(result.response_code);
-          if (result.response_code === 2208) {
+      this.$store.dispatch('authentication/authentication/signIn', {
+        phone: this.userPhoneNumber,
+      })
+        .then((res) => {
+          if (res.response_code === 2208) {
             this.startAgainTimer++;
-
-            this.countdownTimer(2, 60);
-            this.Tcounter = 178;
-            setTimeout(() => {
-              this.timerZero = false;
-            }, 1000);
             this.newCodeSent = true;
             setTimeout(() => {
               this.newCodeSent = false;
             }, 5000);
           }
         })
-        .catch((e) => console.log(e));
     },
   },
 };
@@ -252,33 +207,15 @@ export default {
 .success-message {
   width: toRem(463);
   height: toRem(58);
-  margin: toRem(-24) toRem(90) 0 toRem(89);
   position: absolute;
-  top: toRem(40);
+  top: toRem(10);
 }
 
 .alert-message {
   width: toRem(463);
   height: toRem(58);
-  margin: toRem(-24) toRem(90) 0 toRem(89);
   position: absolute;
-  top: toRem(40);
-}
-.snackbar-enter-active {
-  animation: snackbarAnimation 0.8s ease-out;
-}
-.snackbar-leave-active {
-  animation: snackbarAnimation 0.8s ease-out reverse;
-}
-@keyframes snackbarAnimation {
-  0% {
-    opacity: 0;
-    transform: translate(0, -200%);
-  }
-  100% {
-    opacity: 1;
-    transform: translate(0, 0);
-  }
+  top: toRem(10);
 }
 .signup-container {
   @extend .centered;
@@ -286,9 +223,12 @@ export default {
   text-align: center;
 }
 
-.card {
+.card::v-deep {
   width: toRem(642);
   padding: 0 toRem(89.5);
+  &-body {
+    position: relative;
+  }
 }
 .app-signin-next-btn {
   @include display-flex();

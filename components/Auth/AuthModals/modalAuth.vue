@@ -9,18 +9,18 @@
       @btn-close-modal="modalClose"
       @btn-go-to-signup-step-two="gotoSignUpStepTwo"
       @btn-go-to-signin-step-one="gotoSignInStepone"
-      v-if="false"
+      v-if="SignUpStepOne"
     />
     <modalSignUpStepTwo
       @btn-go-back-signup-step-one="gotoSignUpStepOne"
       @event-show-modal-wellcome="showWellcomeModal"
-      v-else-if="false"
+      v-else-if="SignUpStepTwo"
     />
     <modalSignInStepOne
       @btn-go-back-signup-step-one="gotoSignUpStepOne"
       @btn-go-to-signin-step-two="gotoSignInSteptwo"
       @btn-go-to-recycle-pass="goToRecyclePass"
-      v-else-if="true"
+      v-else-if="SignInStepone"
     />
     <modalSignInStepTwo
       @btn-go-back-signin-step-one="gotoSignInStepone"
