@@ -1,11 +1,5 @@
-import { ApiPrototype, createApiInterface } from "~/plugins/apiInterface";
-import { getToken } from "~/utils/storageHelper";
 import axios from "axios";
 
-const api = createApiInterface({
-  token: () => getToken(),
-  // onSessionExpire: () => userContext?.onSessionExpire(),
-});
 const state = () => ({
   activationCode: "",
   userPhoneNumber: "",
@@ -53,7 +47,7 @@ const mutations = {
 };
 const actions = {
   async signIn(context, payload) {
-    const response = await api.apiCall.post(
+    const response = await this.$api.apiCall.post(
       process.env.BASE_URL + "unison/auth/signin",
       {
         engine: (url, option) =>
@@ -85,7 +79,7 @@ const actions = {
   },
   async confirmCode(context, payload) {
     const enteredActivationCode = payload.activationCode;
-    const response = await api.apiCall.post(
+    const response = await this.$api.apiCall.post(
       process.env.BASE_URL + "unison/auth/signin/otp",
       {
         engine: (url, option) =>
@@ -126,7 +120,7 @@ const actions = {
 
   },
   async signOut(context) {
-    await api.apiCall.delete(process.env.BASE_URL + "unison/auth/signout", {
+    await this.$api.apiCall.delete(process.env.BASE_URL + "unison/auth/signout", {
       engine: (url, option) => axios.delete(url, { headers: option.headers }),
       method: "DELETE",
       disableToken: false,

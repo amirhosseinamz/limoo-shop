@@ -28,33 +28,7 @@ export default {
     onConfirm(verifyCode) {
       this.$store.dispatch('authentication/authentication/confirmCode', {
         activationCode: verifyCode,
-    });
-
-      // this.$store
-      //   .dispatch("authUser/confirmAuthUser", {
-      //     userPhoneNumber: this.userPhoneNumber,
-      //     verifyCode: verifyCode,
-      //   })
-      //   .then(() => {
-      //     const token = this.$store.getters["authUser/getToken"];
-      //     if (Boolean(token)) {
-      //       this.$store.dispatch({
-      //         type: "stateShowModalWellcome",
-      //         value: true,
-      //       });
-      //       this.$store.dispatch({
-      //         type: "userIsAuth",
-      //         value: true,
-      //       });
-      //       this.$router.replace("/");
-      //       this.$store.commit("PhoneNumber", { value: "" });
-      //     } else if (!Boolean(token)) {
-      //       this.confirmCodeIsWrong = true;
-      //       setTimeout(() => {
-      //         this.confirmCodeIsWrong = false;
-      //       }, 5000);
-      //     }
-      //   });
+      });
     },
   },
 };

@@ -31,6 +31,7 @@ export default {
     { src: "~plugins/modal/index.js" },
     { src: "~/plugins/persistedState.js" },
     { src: "~/plugins/client-only.js", mode: "client" },
+    { src: "~/plugins/apiCall.js" }
 
     // { src: "~/plugins/vuejs-paginate/index.js" }
   ],

@@ -14,7 +14,7 @@ export const isProdMode = Object.is(NODE_ENV, 'production');
     production : {
       CLIENT_KEY: "E10461AE-AC50-4821-915C-4FA852483ECC",
       CLIENT_VALUE: "e30=",
-      BASE_URL: "https://service-develop.parsdat.net/",
+      BASE_URL: "https://service-develop.parsdata.net/",
       NODE_ENV: `production`,
     }
 }
