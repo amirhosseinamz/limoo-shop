@@ -1,10 +1,5 @@
 <template>
   <div class="birthday">
-    <base-backdrop class="dropdown-backdrop"
-                   v-if="showBackdrop"
-                   @on-click="closeAllDropdowns"
-    ></base-backdrop>
-
     <span class="birthday-title">{{
       getTextByTextKey("personal_info_birth")
     }}</span>
@@ -27,8 +22,6 @@
         :options="dropdownDays"
         :disabled="false"
         placeholder="روز"
-        @toggle-list="toggleDropdown"
-        :is-open="dayDropdownIsOpen"
       >
       </the-dropdown>
       <img class="curve-line" src="/icons/curve-line.svg" />
@@ -49,8 +42,6 @@
         :options="dropdownMonths"
         :disabled="false"
         placeholder="ماه"
-        :is-open="monthDropdownIsOpen"
-        @toggle-list="toggleDropdown"
       >
       </the-dropdown>
       <img class="curve-line" src="/icons/curve-line.svg" />
@@ -72,8 +63,6 @@
         :default-value="(currentYear - 30).toString()"
         :disabled="false"
         placeholder="سال"
-        @toggle-list="toggleDropdown"
-        :is-open="yearDropdownIsOpen"
       >
       </the-dropdown>
     </div>
@@ -130,10 +119,6 @@ export default {
       selectedYear: "",
       defaultMonths: defaultMonths,
       currentYear: 1400,
-      dayDropdownIsOpen: false,
-      monthDropdownIsOpen: false,
-      yearDropdownIsOpen: false,
-      showBackdrop: false,
     };
   },
 
@@ -248,16 +233,7 @@ export default {
     LastUpdateYears(data) {
       console.log(data, "LastUpdateYears");
     },
-    toggleDropdown(isOpen) {
-      this.showBackdrop = isOpen;
-      console.log(this.showBackdrop);
-    },
-    closeAllDropdowns() {
-      this.dayDropdownIsOpen = false;
-      this.yearDropdownIsOpen = false;
-      this.monthDropdownIsOpen = false;
-      this.showBackdrop = false;
-    },
+
 
     searchFilter(data) {
       let filteredArray = this.days.filter((content, index) => {

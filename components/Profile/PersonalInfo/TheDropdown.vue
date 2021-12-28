@@ -79,11 +79,6 @@ export default {
       type: String,
       required: false
     },
-    isOpen: {
-      type: Boolean,
-      required: false,
-      default: false,
-    }
   },
   data() {
     return {
@@ -142,6 +137,13 @@ export default {
       if (event.key === "Enter" && this.filteredOptions[0])
         this.selectOption(this.filteredOptions[0]);
     },
+    clickOutside(e) {
+      let ignoreClickOnMeElement = this.$refs.dropdown;
+      let isClickInsideElement = ignoreClickOnMeElement.contains(e.target);
+      if (!isClickInsideElement) {
+        this.optionsShown = false;
+      }
+    }
   },
   watch: {
     searchFilter() {
@@ -154,20 +156,12 @@ export default {
       }
       this.$emit("filter", this.searchFilter);
     },
-    isOpen: {
-      handler(val) {
-        //this.optionsShown = !!val;
-      },
-      //immediate: true,
-    },
-    optionsShown(val) {
-      //this.$emit('toggle-list', val);
-    }
   },
   mounted() {
     if (this.defaultValue && this.options.includes(this.defaultValue)) {
       this.selected = this.defaultValue;
     }
+    document.addEventListener('click', this.clickOutside)
   }
 };
 </script>
@@ -186,6 +180,9 @@ export default {
     border-bottom-left-radius: 0;
     border-bottom-right-radius: 0;
     border-bottom: none;
+    .arrow {
+      transform: rotate(180deg);
+    }
   }
   &-backdrop {
     background-color: transparent;
