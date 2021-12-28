@@ -1,48 +1,81 @@
 <template>
   <div class="birthday">
+    <base-backdrop class="dropdown-backdrop"
+                   v-if="showBackdrop"
+                   @on-click="closeAllDropdowns"
+    ></base-backdrop>
+
     <span class="birthday-title">{{
       getTextByTextKey("personal_info_birth")
     }}</span>
 
     <div class="birthday-container">
       <!-- Day -->
-      <the-date-dropdown-items
-        className="item-day"
-        @last-update-birth="LastUpdateDays"
-        :first-selected-date="getTextByTextKey('personal_info_date_day')"
-        :days-data="days"
-        :default-months-data="defaultMonths"
-        :default-years-data="years"
-        default-check-data-state="days"
-        :min="null"
-        :max="null"
-      ></the-date-dropdown-items>
+<!--      <the-date-dropdown-items-->
+<!--        className="item-day"-->
+<!--        @last-update-birth="LastUpdateDays"-->
+<!--        :first-selected-date="getTextByTextKey('personal_info_date_day')"-->
+<!--        :days-data="days"-->
+<!--        :default-months-data="defaultMonths"-->
+<!--        :default-years-data="years"-->
+<!--        default-check-data-state="days"-->
+<!--        :min="null"-->
+<!--        :max="null"-->
+<!--      ></the-date-dropdown-items>-->
+      <the-dropdown
+        class="day-dropdown"
+        :options="dropdownDays"
+        :disabled="false"
+        placeholder="روز"
+        @toggle-list="toggleDropdown"
+        :is-open="dayDropdownIsOpen"
+      >
+      </the-dropdown>
       <img class="curve-line" src="/icons/curve-line.svg" />
       <!-- Month -->
-      <the-date-dropdown-items
-        className="item-month"
-        @last-update-birth="LastUpdateMonth"
-        :first-selected-date="getTextByTextKey('personal_info_date_month')"
-        :days-data="days"
-        :default-months-data="defaultMonths"
-        :default-years-data="years"
-        default-check-data-state="months"
-        :min="null"
-        :max="null"
-      ></the-date-dropdown-items>
+<!--      <the-date-dropdown-items-->
+<!--        className="item-month"-->
+<!--        @last-update-birth="LastUpdateMonth"-->
+<!--        :first-selected-date="getTextByTextKey('personal_info_date_month')"-->
+<!--        :days-data="days"-->
+<!--        :default-months-data="defaultMonths"-->
+<!--        :default-years-data="years"-->
+<!--        default-check-data-state="months"-->
+<!--        :min="null"-->
+<!--        :max="null"-->
+<!--      ></the-date-dropdown-items>-->
+      <the-dropdown
+        class="month-dropdown"
+        :options="dropdownMonths"
+        :disabled="false"
+        placeholder="ماه"
+        :is-open="monthDropdownIsOpen"
+        @toggle-list="toggleDropdown"
+      >
+      </the-dropdown>
       <img class="curve-line" src="/icons/curve-line.svg" />
       <!-- Year -->
-      <the-date-dropdown-items
-        className="item-year"
-        @last-update-birth="LastUpdateYears"
-        :first-selected-date="getTextByTextKey('personal_info_date_year')"
-        :days-data="days"
-        :default-months-data="defaultMonths"
-        :default-years-data="years"
-        default-check-data-state="years"
-        :min="min"
-        :max="max"
-      ></the-date-dropdown-items>
+<!--      <the-date-dropdown-items-->
+<!--        className="item-year"-->
+<!--        @last-update-birth="LastUpdateYears"-->
+<!--        :first-selected-date="getTextByTextKey('personal_info_date_year')"-->
+<!--        :days-data="days"-->
+<!--        :default-months-data="defaultMonths"-->
+<!--        :default-years-data="years"-->
+<!--        default-check-data-state="years"-->
+<!--        :min="min"-->
+<!--        :max="max"-->
+<!--      ></the-date-dropdown-items>-->
+      <the-dropdown
+        class="year-dropdown"
+        :options="dropdownYears"
+        :default-value="(currentYear - 30).toString()"
+        :disabled="false"
+        placeholder="سال"
+        @toggle-list="toggleDropdown"
+        :is-open="yearDropdownIsOpen"
+      >
+      </the-dropdown>
     </div>
   </div>
 </template>
@@ -50,6 +83,8 @@
 <script>
 import TheDateDropdownItems from "./TheDateDropdownItems";
 import { getTextByTextKey } from "~/modules/splitPartJsonResource.js";
+import TheDropdown from "~/components/Profile/PersonalInfo/TheDropdown"
+
 
 const defaultMonths = {
   0: "1",
@@ -70,6 +105,7 @@ export default {
   name: "TheDateDropdown",
   components: {
     TheDateDropdownItems,
+    TheDropdown,
   },
   props: {
     default: {
@@ -93,6 +129,11 @@ export default {
       selectedMonth: "",
       selectedYear: "",
       defaultMonths: defaultMonths,
+      currentYear: 1400,
+      dayDropdownIsOpen: false,
+      monthDropdownIsOpen: false,
+      yearDropdownIsOpen: false,
+      showBackdrop: false,
     };
   },
 
@@ -110,7 +151,6 @@ export default {
     // The minimum date the will allow user to select.
     minDate() {
       if (this.min) return new Date(this.min);
-
       return;
     },
 
@@ -171,6 +211,28 @@ export default {
         return { year, selected: year === this.selectedYear };
       });
     },
+    dropdownDays() {
+      let _days=[];
+      for (let i = 1; i <= 31; i++) {
+        _days.push(i.toString());
+      }
+      console.log(_days);
+      return _days;
+    },
+    dropdownMonths() {
+      let _months=[];
+      for (let i = 1; i <= 12; i++) {
+        _months.push(i.toString());
+      }
+      return _months;
+    },
+    dropdownYears() {
+      let _years=[];
+      for (let i = this.currentYear - 120; i <= this.currentYear - 16; i++) {
+        _years.push(i.toString());
+      }
+      return _years;
+    }
   },
 
   methods: {
@@ -185,6 +247,16 @@ export default {
 
     LastUpdateYears(data) {
       console.log(data, "LastUpdateYears");
+    },
+    toggleDropdown(isOpen) {
+      this.showBackdrop = isOpen;
+      console.log(this.showBackdrop);
+    },
+    closeAllDropdowns() {
+      this.dayDropdownIsOpen = false;
+      this.yearDropdownIsOpen = false;
+      this.monthDropdownIsOpen = false;
+      this.showBackdrop = false;
     },
 
     searchFilter(data) {
@@ -280,12 +352,72 @@ export default {
   height: toRem(24);
   margin-top: toRem(22);
 }
+.dropdown-backdrop {
+    background-color: transparent;
+    z-index: 1400;
+}
 .birthday {
   @include display-flex();
   flex-direction: column;
   width: 100%;
   height: 100%;
-  /* border: 1px red solid; */
+  &-container {
+    @extend .align-center;
+    justify-content: space-between;
+    width: 100%;
+    height: max-content;
+    .day-dropdown {
+      width: toRem(80);
+      @include md {
+        width: toRem(136);
+        height: toRem(46);
+      }
+      @include sm {
+        width: toRem(110);
+      }
+      @include xs {
+        width: toRem(74);
+        height: toRem(44);
+      }
+      @include xxs {
+        width: toRem(65);
+      }
+    }
+    .month-dropdown {
+      width: toRem(80);
+      @include md {
+        width: toRem(136);
+        height: toRem(46);
+      }
+      @include sm {
+        width: toRem(110);
+      }
+      @include xs {
+        width: toRem(74);
+        height: toRem(44);
+      }
+      @include xxs {
+        width: toRem(65);
+      }
+    }
+    .year-dropdown {
+      width: toRem(120);
+      @include md {
+        width: toRem(166);
+        height: toRem(46);
+      }
+      @include sm {
+        width: toRem(136);
+      }
+      @include xs {
+        width: toRem(100);
+        height: toRem(44);
+      }
+      @include xxs {
+        width: toRem(85);
+      }
+    }
+  }
   &-title {
     font-size: 16px;
     font-family: inherit;
@@ -295,14 +427,9 @@ export default {
     color: $black-topic;
     margin-bottom: 16px;
   }
-  &-container {
-    @include display-flex();
-    flex-direction: row;
-    justify-content: space-between;
-    /* border: 1px blue solid; */
-  }
+
 }
-@media (max-width: 960px) {
+@include md {
   .curve-line {
     height: 15px;
   }

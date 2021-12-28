@@ -5,9 +5,12 @@
         <div class="products__top-title w-100 products__top-desktop">
           <h3 class="products__top-text">موبایل اندرویدی</h3>
         </div>
-       <image-magnifier
-         src="https://dkstatics-public.digikala.com/digikala-adservice-banners/c65eb3dec10e33f5356f1674cc01fa212102a51f_1634568953.jpg?x-oss-process=image/quality,q_80"
-       ></image-magnifier>
+        <the-dropdown
+          :options="['1','2','3','4','5']"
+          :disabled="false"
+          name="zipcode"
+          placeholder="روز">
+        </the-dropdown>
         <div class="products__filter-btns w-100 ">
           <base-button no-box-shadow classes="products__filter-btn" @button-clicked="showBoxFilter">
             <span class="filter-search-icon"></span>
@@ -71,6 +74,7 @@ import ModalFilter from "./modalFilter";
 import ModalSort from "./modalSort";
 import BaseCarousel from "../UI/BaseCarousel/BaseCarousel";
 import ImageMagnifier from "../product/ImageMagnifier";
+import TheDropdown from "~/components/Profile/PersonalInfo/TheDropdown"
 
 
 
@@ -80,6 +84,7 @@ export default {
   },
 
   components: {
+    TheDropdown,
     ImageMagnifier,
     BaseCarousel,
     ModalSort,

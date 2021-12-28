@@ -1,7 +1,7 @@
 <template>
     <div :class="className" class=" d-flex flex-wrap birthday-item-wrapper">
         <div
-            v-if="defaultCheckDataState == 'days'"
+            v-if="defaultCheckDataState === 'days'"
             class="flex-wrap d-flex birthday-item-main align-items-start cursor-pointer"
             :class="{ 'birthday-active': birthdayShow }"
         >
@@ -63,9 +63,8 @@
                 </div>
             </div>
         </div>
-
         <div
-            v-if="defaultCheckDataState == 'months'"
+            v-if="defaultCheckDataState === 'months'"
             class="flex-wrap d-flex birthday-item-main align-items-start cursor-pointer"
             :class="{ 'birthday-active': birthdayShow }"
         >
@@ -128,7 +127,6 @@
                 </div>
             </div>
         </div>
-
         <div
             v-if="defaultCheckDataState == 'years'"
             class="flex-wrap d-flex birthday-item-main align-items-start cursor-pointer"
@@ -357,10 +355,10 @@ export default {
         updateScrollClick() {
             let indexShowSelectOption = -1;
             if (this.birthdayShow) {
-                if (this.lastItemSelectedBirthDayOption != "") {
+                if (this.lastItemSelectedBirthDayOption !== "") {
                     this.days.map((content, index) => {
                         if (
-                            content.day == this.lastItemSelectedBirthDayOption
+                            content.day === this.lastItemSelectedBirthDayOption
                         ) {
                             indexShowSelectOption = index;
                             content.selected = true;
@@ -511,10 +509,10 @@ export default {
     mounted() {
         this.lastItemSelectedBirthDayOption = this.firstSelectedDate;
 
-        if (this.defaultCheckDataState == "months") {
+        if (this.defaultCheckDataState === "months") {
             this.days = this.months;
         }
-        if (this.defaultCheckDataState == "years") {
+        if (this.defaultCheckDataState === "years") {
             this.days = this.years;
         }
     }
@@ -756,7 +754,7 @@ export default {
                     padding-right: 20%;
                 }
             }
-            
+
             &__spliter {
                 height: 15px;
             }
@@ -811,14 +809,14 @@ export default {
     .birthday-item-content{
         width: toRem(85);
         @media only screen and(max-width: 420px){
-        width: toRem(65);   
+        width: toRem(65);
         }
     }
     .item-year .birthday-item-content,
     .item-year .p-birthday-select-box {
         width: toRem(115);
         @media only screen and(max-width: 420px){
-        width: toRem(95);   
+        width: toRem(95);
         }
     }
     .birthday {

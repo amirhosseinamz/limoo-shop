@@ -858,7 +858,7 @@ export default {
     &__info {
       margin-top: toRem(38);
       min-width: 100%;
-      padding: 0 toRem(60);
+      padding: 0 toRem(28);
       &-name,
       &-email,
       &-phone,
@@ -957,10 +957,7 @@ export default {
     &__info {
       margin-top: toRem(38);
       min-width: 100%;
-      padding: 0 toRem(15);
-      @media only screen and(max-width: 350px){
-        padding: 0;
-      }
+      padding: 0 0;
       &-name,
       &-email,
       &-phone,
