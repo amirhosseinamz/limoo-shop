@@ -1,4 +1,5 @@
 import { getTextByTextKey } from "../../../modules/splitPartJsonResource";
+import axios from "axios";
 
 const state = () => ({
   productSlider: [
@@ -332,6 +333,10 @@ const state = () => ({
       rate: 2.2
     },
   ],
+  productData: null,
+  productTitle: "",
+  productBreadcrumb: null,
+  productColors: null,
 
 })
 const getters = {
@@ -356,6 +361,18 @@ const getters = {
   sellersData(state) {
     return state.sellersData;
   },
+  productData(state) {
+    return state.productData;
+  },
+  productTitle(state) {
+    return state.productTitle;
+  },
+  productBreadcrumb(state) {
+    return state.productBreadcrumb;
+  },
+  productColors(state) {
+    return state.productColors ;
+  }
 
 }
 const mutations = {
@@ -373,6 +390,12 @@ const mutations = {
       state.colorsData.splice(0, 1, selectedItem);
       //debugger;
   },
+  getProductData(state, payload) {
+    state.productData = payload;
+    state.productTitle = payload.product_title;
+    state.productBreadcrumb = payload.product_group_path;
+    //state.productColors = payload.variants_attributes[0];
+  }
  }
 const actions = {
   increaseCloseModalAddComment (context) {
@@ -395,6 +418,21 @@ const actions = {
   changeColorArrayElements(context, payload) {
     context.commit('changeColorArrayElements', payload);
   },
+  async getProductData(context) {
+    const response = await this.$api.apiCall.get(
+         process.env.BASE_URL + "limoo/product/0eb89018-9560-430e-a60a-9d78d272eba5",
+        {
+          engine: (url, option) => axios.get(url, { headers: option.headers }),
+          disableToken: true,
+          method: "GET",
+        }
+      );
+    if (response) {
+      if (response.data.response_code === 1) {
+        context.commit('getProductData', response.data.product);
+      }
+    }
+  }
 }
 
 export default {

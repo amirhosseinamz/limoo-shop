@@ -56,13 +56,13 @@
         >
           <span class="navigation-item__profile-person"></span>
           <button class="navigation-item__profile-btn">
-            <span v-show="!userIsAuth">
+            <span v-if="!isAuthenticated">
               {{ getTextByTextKey("header_login") }}
               <span style="color: #e0e0e0">|</span>
               {{ getTextByTextKey("header_membership") }}
             </span>
-            <span v-show="userIsAuth">
-              {{ getTextByTextKey("header_account") }}
+            <span v-else>
+               {{ getTextByTextKey("header_account") }}
             </span>
           </button>
         </div>
@@ -100,7 +100,7 @@ import TheMegaMenu from "~/components/Navigation/TheMegaMenu.vue";
 import WellcomeSignUp from "~/components/Auth/WellcomeSignUp.vue";
 import modalAuth from "~/components/Auth/AuthModals/modalAuth.vue";
 import { getTextByTextKey } from "~/modules/splitPartJsonResource.js";
-import { getToken } from "~/utils/storageHelper";
+import storageHelper from "~/utils/storageHelper";
 
 export default {
   name: "TheHeader",
@@ -114,13 +114,9 @@ export default {
       showNavbar: true,
       lastScrollPosition: 0,
       showModal: false,
-      userIsAuth: false,
       authUpdated: 0,
     };
   },
-
-  created() {},
-
   mounted() {
     // this.userIsAuth = this.$store.getters.userIsAuth;
     // if (this.userIsAuth) {
@@ -153,7 +149,11 @@ export default {
     },
     showModalWellcome() {
       return this.$store.getters["authentication/authentication/showWellcomeModal"]
+    },
+    isAuthenticated() {
+      return !!storageHelper.getToken();
     }
+
   },
   watch: {
     stateShowModalWellcome() {
@@ -171,7 +171,7 @@ export default {
   },
   methods: {
     showAuthModal() {
-      if (localStorage.getItem('token')) {
+      if (storageHelper.getToken()) {
         this.$router.push('/profile');
       } else {
         this.showModal = true;

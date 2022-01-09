@@ -6,13 +6,15 @@
     <div class="main-icon" v-if="hasMainIcon">
       <slot name="main-icon"></slot>
     </div>
-    <p class="card-title" :class="{ 'lower-margin': hasMainIcon }">
-      <slot name="card-title"></slot>
-    </p>
-    <div class="card-body">
-      <slot name="card-body">
+    <div>
+      <p class="card-title" :class="{ 'lower-margin': hasMainIcon }">
+        <slot name="card-title"></slot>
+      </p>
+      <div class="card-body">
+        <slot name="card-body">
 
-      </slot>
+        </slot>
+      </div>
     </div>
   </div>
 </template>
@@ -44,13 +46,22 @@ export default {
     left: toRem(24);
   }
   .card-title {
-    width: 100%;
     font-size: toRem(24);
+    line-height: toRem(33.75);
     font-weight: 400;
     text-align: right;
-    margin-top: toRem(85);
-    margin-bottom: toRem(30);
-
+    margin: toRem(77) toRem(90) toRem(33) 0;
+    @include sm {
+      margin-right: toRem(26);
+    }
+    @include xs {
+      font-size: toRem(20);
+      line-height: 140.62%;
+      margin: toRem(128) toRem(28) toRem(24) toRem(16);
+    }
+    @include xxs {
+      margin-right: 0;
+    }
     &.lower-margin {
       margin-top: toRem(35);
     }

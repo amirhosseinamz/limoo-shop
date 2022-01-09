@@ -93,7 +93,9 @@ export default {
       }
       return _colors;
     },
-
+    // ColorTitle() {
+    //   return this.
+    // }
 
   },
   methods: {

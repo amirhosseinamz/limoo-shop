@@ -86,7 +86,8 @@ const getComments = (dataProduct) => {
 };
 
 export default {
-  async asyncData({ params }) {
+  async asyncData(context) {
+    await context.store.dispatch('product/single/single/getProductData');
     const dataProduct = productData.response_value[0].values;
 
     const detailTechnicalData = () => {
@@ -223,11 +224,12 @@ export default {
       return this.$store.getters["product/single/single/radioBtnData"]
     }
   },
-  mounted() {
+  async mounted() {
     this.productData = productData;
     this.checkAddCircleComment();
     this.detectedResizeBrowser();
   },
+
 
   methods: {
     getTextByTextKey,

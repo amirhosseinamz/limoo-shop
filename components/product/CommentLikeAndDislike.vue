@@ -3,12 +3,12 @@
   <div class="like-dislike-wrapper">
     <div class="dislike" @click="dislike">
       <span class="number">{{ dislikeCounter }}</span>
-      <sapn
+      <span
         class="dislike-icon"
         :class="`${
           isDisliked ? 'dislike-icon-clicked' : 'dislike-icon'
         }`"
-      ></sapn>
+      ></span>
     </div>
     <div class="vertical-line"></div>
     <div class="like" @click="like()">

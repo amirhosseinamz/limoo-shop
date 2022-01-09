@@ -150,9 +150,21 @@ export default {
   text-align: center;
 }
 .card {
-  width: 45%;
-  height: fit-content;
-  padding: toRem(20) 4%;
+  @include display-flex();
+  flex-direction: column;
+  justify-content: space-around;
+  width: toRem(642);
+  height: toRem(524);
+  background-color: $white;
+  box-shadow: 0 8px 16px $box__shadow;
+  border-radius: 15px;
+  @include xs {
+    justify-content: unset;
+  }
+  &-body {
+    position: relative;
+    @extend .justify-center;
+  }
 }
 
 .app-signup-close-btn::before {
@@ -165,11 +177,41 @@ export default {
   font-family: inherit;
   font-size: toRem(18);
   height: toRem(58);
-  width: 100%;
+  width: toRem(463);
+  @include xs {
+    width: toRem(328);
+  }
+  @include xxs {
+    width: toRem(275);
+  }
 }
 .form-control {
   direction: rtl;
   font-family: inherit;
+}
+.txt-header {
+  font-size: toRem(24);
+  line-height: toRem(33.75);
+  font-weight: 400;
+  text-align: right;
+  margin: toRem(77) toRem(90) toRem(33) 0;
+  @include sm {
+    margin-right: toRem(26);
+  }
+}
+.txt-content {
+  font-size: toRem(16);
+  line-height: toRem(22.5);
+  font-weight: 318;
+  text-align: right;
+  margin-bottom: toRem(25);
+  margin-right: toRem(90);
+  @include sm {
+    margin-right: toRem(26);
+  }
+  @include xxs {
+    margin-right: 0;
+  }
 }
 .signup-btn {
   margin-bottom: 2.5rem;
@@ -211,36 +253,27 @@ export default {
   }
   .form__main--item {
     justify-content: center;
-  }
-  .signup-input {
-    @extend .signup-input;
-  }
-}
-@include xl {
-  .card {
-    width: 55%;
-    padding: toRem(20) 5%;
-  }
-}
-@include md {
-  .card {
-    width: 70%;
-    padding: toRem(20) 6%;
+    width: toRem(463);
+    @include xs {
+      width: toRem(328);
+    }
+    @include xxs {
+      width: toRem(275);
+    }
   }
 }
 
 @include sm {
   .card {
-    width: 85%;
-    padding: toRem(20) 7%;
+    width: toRem(512);
   }
 }
 
 @include xs {
   .card {
-    width: 100%;
-    padding: toRem(20) 10%;
-    height: 100%;
+    width: toRem(380);
+    height: 100vh;
+    border-radius: 0;
   }
   .app-signup-close-btn {
     display: none;
@@ -251,20 +284,17 @@ export default {
   .desk-display {
     display: none;
   }
-  .signup-input {
-    margin-bottom: 8px;
-    &-wrong {
-      padding: 0;
-      height: 60px;
-      margin-bottom: 8px;
-    }
-  }
+
 
   .err-text {
     margin-right: 16px;
   }
   .signup-limoo-logo {
     margin-top: 0.5rem;
+    @include xs {
+      margin-top: toRem(78);
+      margin-bottom: toRem(48);
+    }
   }
   .signup-container::v-deep {
     .input-holder {
@@ -281,14 +311,16 @@ export default {
     .form__main--item {
       justify-content: center;
     }
-    .signup-input {
-      height: 60px;
-      margin-bottom: 8px;
-      &-wrong {
-        height: 60px;
-        margin-bottom: 8px;
-      }
-    }
+  }
+}
+@include xxs {
+  .card {
+    width: toRem(270);
+  }
+}
+@include xxxs {
+  .signup-input {
+    width: toRem(270);
   }
 }
 </style>

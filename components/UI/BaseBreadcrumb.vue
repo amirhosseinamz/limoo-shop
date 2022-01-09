@@ -1,6 +1,6 @@
 <template>
   <div class="breadcrumb-container">
-    <div class="breadcrumb-item" v-for="item in breadcrumbData" :key="item.id">
+    <div class="breadcrumb-item" v-for="(item, index) in breadcrumbData" :key="index">
       {{ item.pathName }}
     </div>
   </div>

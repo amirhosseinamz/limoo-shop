@@ -205,8 +205,11 @@ export default {
   position: absolute;
   top: toRem(-40);
   @include xs {
-    width: toRem(330);
+    width: toRem(328);
     top: toRem(40);
+  }
+  @include xxs {
+    width: toRem(275);
   }
 }
 
@@ -217,8 +220,11 @@ export default {
   position: absolute;
   top: toRem(-40);
   @include xs {
-    width: toRem(330);
+    width: toRem(328);
     top: toRem(40);
+  }
+  @include xxs {
+    width: toRem(275);
   }
 }
 
@@ -240,6 +246,15 @@ export default {
   background-color: $white;
   box-shadow: 0 8px 16px $box__shadow;
   border-radius: 15px;
+  @include xs {
+    justify-content: unset;
+    width: toRem(380);
+    height: 100vh;
+    border-radius: 0;
+  }
+  @include xxs {
+    width: toRem(270);
+  }
   &-body {
     position: relative;
     @extend .justify-center;
@@ -247,12 +262,12 @@ export default {
 }
 .app-signin-next-btn {
   @include display-flex();
-  margin: 24px 11.5px 0 24px;
+  margin: toRem(24) toRem(11.5) 0 toRem(24);
   width: 13.5px;
   height: 24px;
   cursor: pointer;
   @include xs {
-    margin-top: 0;
+    margin-top: toRem(32);
   }
 }
 .app-signin-next-btn::before {
@@ -263,9 +278,19 @@ export default {
 }
 .signup-btn {
   font-family: inherit;
-  font-size: 18px;
-  height: 58px;
-  width: 463px;
+  font-size: toRem(18);
+  height: toRem(58);
+  width: toRem(463);
+  margin-top: 0.875rem;
+  margin-bottom: 5rem;
+  @include xs {
+    width: toRem(328);
+    margin-top: toRem(62);
+    margin-bottom: 8rem;
+  }
+  @include xxs {
+    width: toRem(275);
+  }
 }
 .form-control {
   direction: rtl;
@@ -310,26 +335,24 @@ export default {
   display: none;
 }
 .txt-header {
-  font-size: 24px;
-  line-height: 33.75px;
+  font-size: toRem(24);
+  line-height: toRem(33.75);
   font-weight: 400;
   text-align: right;
-  margin: 77px 90px 33px 0;
+  margin: toRem(77) toRem(90) toRem(33) 0;
   @include sm {
     margin-right: toRem(26);
   }
-}
-.txt-content {
-  font-size: 16px;
-  line-height: 22.5px;
-  font-weight: 318;
-  text-align: right;
-  margin-bottom: 25px;
-  margin-right: 90px;
-  @include sm {
-    margin-right: toRem(26);
+  @include xs {
+    font-size: toRem(20);
+    line-height: 140.62%;
+    margin: toRem(128) toRem(28) toRem(24) toRem(16);
+  }
+  @include xxs {
+    margin-right: toRem(16);
   }
 }
+
 .signup-input {
   color: $code;
   text-align: center;
@@ -338,17 +361,40 @@ export default {
   max-width: 461px;
   letter-spacing: 0.7em;
 }
-.signup-btn {
-  margin-top: 0.875rem;
-  margin-bottom: 5rem;
-}
 
 .signup-container::v-deep {
   .txt-content {
-    @extend .txt-content;
+    font-size: toRem(16);
+    line-height: toRem(22.5);
+    font-weight: 318;
+    text-align: right;
+    margin-bottom: toRem(25);
+    margin-right: toRem(90);
+    @include sm {
+      margin-right: toRem(26);
+    }
+    @include xs {
+      font-size: toRem(14);
+      margin-right: toRem(28);
+      margin-left: toRem(16);
+    }
+    @include xxs {
+      margin-right: toRem(16);
+    }
   }
   .input-holder {
     @extend .input-holder;
+    @include xs {
+      margin-right: toRem(16);
+      margin-left: toRem(16);
+      padding: 0;
+      width: toRem(328);
+      height: toRem(60);
+      margin-bottom: toRem(8);
+    }
+    @include xxs {
+      width: toRem(275);
+    }
   }
   .form__main--item {
     justify-content: center;
@@ -357,67 +403,25 @@ export default {
   .signup-input {
     @extend .signup-input;
     padding-right: 0;
+    @include xs {
+      width: toRem(328);
+      height: toRem(60);
+      margin-bottom: toRem(8);
+      margin-right: 0;
+      margin-left: 0;
+    }
+    @include xxs {
+      width: toRem(275);
+    }
   }
   .timer-holder {
     margin-bottom: 0;
   }
 }
-@include sm {
-  .card {
-    width: toRem(512);
-  }
-}
-
 @include xs{
 
-  .card {
-    width: 380px;
-    height: 100vh;
-    border-radius: 0;
-  }
-  .input-holder {
-    margin-right: 16px;
-    margin-left: 16px;
-    padding: 0;
-    width: 328px;
-    height: 60px;
-    margin-bottom: 8px;
-  }
-  .signup-btn {
-    width: 328px;
-    margin-top: 38px;
-    margin-bottom: 8rem;
-  }
-  .txt-header {
-    font-size: 20px;
-    line-height: 140.62%;
-    margin: 128px toRem(28) 24px 16px;
-  }
-
   .signup-container::v-deep {
-    .txt-content {
-      font-size: 14px;
-      margin-right: toRem(28);
-      margin-left: 16px;
-    }
-    .input-holder {
-      margin-right: 16px;
-      margin-left: 16px;
-      width: 328px;
-      height: 60px;
-      margin-bottom: 8px;
-    }
-    .form__main--item {
-      justify-content: center;
-      width: auto;
-    }
-    .signup-input {
-      width: 328px;
-      height: 60px;
-      margin-bottom: 8px;
-      margin-right: 0;
-      margin-left: 0;
-    }
+
     .timer {
       margin-right: 16px;
       font-size: 13px;
@@ -430,11 +434,7 @@ export default {
     }
   }
 }
-@include xxs {
-  .card {
-    width: toRem(270);
-  }
-}
+
 @include xxxs{
   .alert-txt {
     padding-left: 30px;
