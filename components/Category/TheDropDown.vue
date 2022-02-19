@@ -8,9 +8,9 @@
                 <hr class="seperator" />
                 <input type="checkbox" id="nested-menu" />
                 <img src="/icons/arrow-down.svg" class="nested-arrow" /><label
-                    for="nested-menu"
-                    >موبایل و تبلت</label
-                >
+                    for="nested-menu">
+              موبایل و تبلت
+            </label>
                 <ul>
                     <hr class="seperator" />
                     <li><a href="#">اندرویدی</a></li>

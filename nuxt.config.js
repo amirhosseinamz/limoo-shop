@@ -32,7 +32,6 @@ export default {
     { src: "~/plugins/persistedState.js" },
     { src: "~/plugins/client-only.js", mode: "client" },
     { src: "~/plugins/apiCall.js" }
-
     // { src: "~/plugins/vuejs-paginate/index.js" }
   ],
 
@@ -51,7 +50,14 @@ export default {
   },
   // Build Configuration (https://go.nuxtjs.dev/config-build)
   build: {
-    extend(config, ctx) {},
+    loaders: {
+      sass: {
+        implementation: require("sass"),
+      },
+      scss: {
+        implementation: require("sass"),
+      },
+    },
   },
   env: config,
   server: {

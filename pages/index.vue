@@ -1,5 +1,6 @@
 <template>
     <div class="page-home w-100 d-rtl flex-column">
+
       <div class="mobile-screen w-100">
           <div class="mobile-screen__holder">
               <div class="w-100 screen__holder-data">

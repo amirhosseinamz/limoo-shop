@@ -8,17 +8,17 @@
         </div>
       </div>
     </div>
-    <contentSingleProduct
-      :product-data="productData"
-      :product-slider="productSlider"
-      :product-detail-technical="detailTechnical"
-      :product-slider-mobile="productSliderMobile"
-      :comment-data="getComments"
-      @active-item-slider-nav="activeItemSliderNav"
-      @more-comment="moreComment"
-      @more-comment-mobile="moreCommentMobile"
-      @submit-data="submitData"
-    ></contentSingleProduct>
+<!--    <contentSingleProduct-->
+<!--      :product-data="productData"-->
+<!--      :product-slider="productSlider"-->
+<!--      :product-detail-technical="detailTechnical"-->
+<!--      :product-slider-mobile="productSliderMobile"-->
+<!--      :comment-data="getComments"-->
+<!--      @active-item-slider-nav="activeItemSliderNav"-->
+<!--      @more-comment="moreComment"-->
+<!--      @more-comment-mobile="moreCommentMobile"-->
+<!--      @submit-data="submitData"-->
+<!--    ></contentSingleProduct>-->
   </div>
 </template>
 <script>
@@ -29,6 +29,7 @@ const moment = require("moment-jalaali");
 moment.loadPersian({ usePersianDigits: true });
 import timeSince from "~/plugins/calcTimeAgo.js";
 import { getTextByTextKey } from "~/modules/splitPartJsonResource.js";
+import axios from "axios";
 
 const getComments = (dataProduct) => {
   const comments = dataProduct.Comments;
@@ -87,22 +88,31 @@ const getComments = (dataProduct) => {
 
 export default {
   async asyncData(context) {
-    await context.store.dispatch('product/single/single/getProductData');
-    const dataProduct = productData.response_value[0].values;
-
-    const detailTechnicalData = () => {
-      const detailTechnical =
-        dataProduct.attribute_groups[0].group_attribute.detailTechnical;
-      return detailTechnical.map((content) => {
-        for (const key in content) {
-          return content[key];
-        }
-      });
-    };
+    //await context.store.dispatch('product/single/single/getProductData');
+    const response = await this.$api.apiCall.get(
+      process.env.BASE_URL + "limoo/product/0eb89018-9560-430e-a60a-9d78d272eba5",
+      {
+        engine: (url, option) => axios.get(url, { headers: option.headers }),
+        disableToken: true,
+        method: "GET",
+      }
+    );
+    // const dataProduct = productData.response_value[0].values;
+    //
+    // const detailTechnicalData = () => {
+    //   const detailTechnical =
+    //     dataProduct.attribute_groups[0].group_attribute.detailTechnical;
+    //   return detailTechnical.map((content) => {
+    //     for (const key in content) {
+    //       return content[key];
+    //     }
+    //   });
+    // };
 
     return {
-      detailTechnical: detailTechnicalData(),
-      getComments: getComments(dataProduct),
+      // detailTechnical: detailTechnicalData(),
+      // getComments: getComments(dataProduct),
+      response
     };
   },
 

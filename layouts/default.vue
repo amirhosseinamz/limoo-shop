@@ -1,6 +1,13 @@
 <template>
   <div>
 <!--    <base-snackbar></base-snackbar>-->
+    <div class="w-100">
+      <div class="w-100">
+        <div style="font-size: 14px">صورت بار اعلامی</div>
+        <div style="font-size: 14px">صورت بار درخواستی</div>
+        <div style="font-size: 14px">اعلام نیاز</div>
+      </div>
+    </div>
     <div class="page__content w-100">
       <the-header />
       <Nuxt />

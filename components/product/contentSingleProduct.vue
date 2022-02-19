@@ -1,6 +1,6 @@
 <template>
   <div class="product__single w-100">
-    <base-breadcrumb class="breadcrumb" :breadcrumb-data="productBreadcrumb"></base-breadcrumb>
+<!--    <base-breadcrumb class="breadcrumb" :breadcrumb-data="productBreadcrumb"></base-breadcrumb>-->
     <div class="product__single-content product_detail w-100">
       <div class="product_detail-image">
         <div class="product--single__right-content" ref="picSection">
@@ -12,7 +12,8 @@
         <div class="product_detail-info-content w-100">
           <div class="product_detail-info-content-top w-100">
             <h3 class="title">
-              {{ productTitle }}
+<!--              {{ productTitle }}-->
+              گوشی اپل
             </h3>
             <h3 class="product__top-brand">Apple AirPods Max- Sliver - MGYJ3</h3>
             <div class="product_detail-info-content-top-rating">
@@ -221,9 +222,9 @@ export default {
     };
   },
   computed: {
-    productTitle() {
-      return this.$store.getters["product/single/single/productTitle"];
-    },
+    // productTitle() {
+    //   return this.$store.getters["product/single/single/productTitle"];
+    // },
     shareModalMode() {
       if (this.windowWidth > 520) {
         return "form";
@@ -251,19 +252,19 @@ export default {
         return 1.2;
       }
     },
-    breadcrumbData() {
-      return this.$store.getters["product/single/single/productBreadcrumb"];
-    },
-    productBreadcrumb() {
-      let _data = [];
-      for (let i = this.breadcrumbData.length - 1; i >= 0; i--) {
-        let _obj = {};
-        _obj.id = this.breadcrumbData[i].product_group_uuid;
-        _obj.pathName = this.breadcrumbData[i].product_group_title;
-        _data.push(_obj);
-      }
-      return _data;
-    }
+    // breadcrumbData() {
+    //   return this.$store.getters["product/single/single/productBreadcrumb"];
+    // },
+    // productBreadcrumb() {
+    //   let _data = [];
+    //   for (let i = this.breadcrumbData.length - 1; i >= 0; i--) {
+    //     let _obj = {};
+    //     _obj.id = this.breadcrumbData[i].product_group_uuid;
+    //     _obj.pathName = this.breadcrumbData[i].product_group_title;
+    //     _data.push(_obj);
+    //   }
+    //   return _data;
+    // }
   },
   methods: {
     getTextByTextKey,
